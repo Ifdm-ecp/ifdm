@@ -1,0 +1,1 @@
+ALTER TABLE `pvt` CHANGE `pressure` `pressure` TEXT NOT NULL, CHANGE `uo` `uo` TEXT NOT NULL, CHANGE `ug` `ug` TEXT NOT NULL, CHANGE `uw` `uw` TEXT NOT NULL, CHANGE `bo` `bo` TEXT NOT NULL, CHANGE `bg` `bg` TEXT NOT NULL, CHANGE `bw` `bw` TEXT NOT NULL, CHANGE `rs` `rs` TEXT NOT NULL, CHANGE `rv` `rv` TEXT NOT NULL;

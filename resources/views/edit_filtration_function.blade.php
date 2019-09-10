@@ -1,0 +1,276 @@
+@extends('layouts.editData')
+@section('title', 'IFDM Database')
+@section('content')
+@include('layouts/modal_error')
+<div class="col-md-12">
+	<div class="row">
+		<h3>Edit Filtration Function</h3>
+	</div>
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4>Filtration Function Data</h4></div>
+			<div class="panel-body">
+				{!!Form::model($filtration_function, array('route' => array('filtration_function.update', $filtration_function->id), 'method' => 'PATCH', 'id'=>'form'), array('role' => 'form'))!!}
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
+						   {!! Form::label('basin', 'Basin') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+						   {!! Form::select('basin', $basins->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control', 'id'=>'basin')) !!}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
+						   {!! Form::label('field', 'Field') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+						   {!! Form::select('field', array(), null, array('placeholder' => '','class'=>'form-control', 'id'=>'field')) !!}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
+							{!! Form::label('formation', 'Formation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							{!! Form::select('formation', array(), null, array('placeholder' => '','class'=>'form-control', 'id'=>'formation')) !!}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="row">{!! Form::hidden('filtration_function_factors_option', $filtration_function->method, array('id' => 'filtration_function_factors_option')) !!}</div>
+					<div class="row">{!! Form::hidden('lab_test_counter', 3, array('id' => 'lab_test_counter')) !!}</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
+							   {!! Form::label('ff_name', 'Filtration Function Name') !!}
+							   <div class="input-group" id="filtration_function_name_input">
+							      {!! Form::text('filtration_function_name',$filtration_function->name, ['placeholder' => '', 'class' =>'form-control','id'=>'filtration_function_name']) !!}
+							      <span class="input-group-addon" id="ff_addon"></span>
+							   </div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<legend>
+						   {!! Form::radio('check_set_function_factors', 'check_set_function_factors', true, ["id" => "check_set_function_factors"]) !!}
+						   <font size=3><b>Set Filtration Function Factors</b></font>
+						</legend>
+					</div>
+					<div class="row" id="function_factors">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+									   {!! Form::label('a_factor_l', 'a') !!}
+									   <div class="input-group" id="a_factor_input">
+									      {!! Form::text('a_factor',$filtration_function->a_factor, ['placeholder' => '-', 'class' =>'form-control','id'=>'a_factor']) !!}
+									      <span class="input-group-addon" id="a_factor_addon">-</span>
+									   </div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('b_factor') ? 'has-error' : ''}}">
+									   {!! Form::label('b_factor_l', 'b') !!}
+									   <div class="input-group" id="b_factor_input">
+									      {!! Form::text('b_factor',$filtration_function->b_factor, ['placeholder' => '-', 'class' =>'form-control','id'=>'b_factor']) !!}
+									      <span class="input-group-addon" id="b_factor_addon">-</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('mud_density_factors') ? 'has-error' : ''}}">
+									   {!! Form::label('mud_density_l', 'Mud Density') !!}
+									   <div class="input-group" id="mud_density_factors_input">
+									      {!! Form::text('mud_density_factors',$filtration_function->mud_density, ['placeholder' => 'lb/gal', 'class' =>'form-control','id'=>'mud_density_factors']) !!}
+									      <span class="input-group-addon" id="mud_density_factors_addon">lb/gal</span>
+									   </div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('kdki_cement_slurry_factors') ? 'has-error' : ''}}">
+									   {!! Form::label('kdki_cement_slurry_factors_l', 'Kd/Ki Cement Slurry') !!}
+									   <div class="input-group" id="kdki_cement_slurry_factors_input">
+									      {!! Form::text('kdki_cement_slurry_factors',$filtration_function->kdki_cement_slurry, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors']) !!}
+									      <span class="input-group-addon" id="kdki_cement_slurry_factors_addon">-</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('kdki_mud_factors') ? 'has-error' : ''}}">
+									   {!! Form::label('kdki_mud_factors_l', 'Kd/Ki Mud') !!}
+									   <div class="input-group" id="kdki_mud_factors_input">
+									      {!! Form::text('kdki_mud_factors',$filtration_function->kdki_mud, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_mud_factors']) !!}
+									      <span class="input-group-addon" id="kdki_mud_factors_addon">-</span>
+									   </div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group {{$errors->has('core_diameter_factors') ? 'has-error' : ''}}">
+									   {!! Form::label('core_diameter_factors_l', 'Core Diameter') !!}
+									   <div class="input-group" id="core_diameter_factors_input">
+									      {!! Form::text('core_diameter_factors',$filtration_function->core_diameter, ['placeholder' => '-', 'class' =>'form-control','id'=>'core_diameter_factors']) !!}
+									      <span class="input-group-addon" id="core_diameter_factors_addon">-</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div calss="row">
+								<div id="a_b_chart"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<legend>
+						   {!! Form::radio('check_manual_assigment', 'check_manual_assigment', false, ["id" => "check_manual_assigment"]) !!}
+						   <font size=3><b>Create Filtration Function</b></font>
+						</legend>
+					</div>
+					<div class="row" id="manual_assigment" style="display:none;">
+						<div class="col-md-12">
+							<div class="row" id="general_data">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group {{$errors->has('mud_density') ? 'has-error' : ''}}">
+											   {!! Form::label('mud_density_l', 'Mud Density') !!}
+											   <div class="input-group" id="mud_density_input">
+											      {!! Form::text('mud_density',$filtration_function->mud_density, ['placeholder' => 'lb/gal', 'class' =>'form-control','id'=>'mud_density']) !!}
+											      <span class="input-group-addon" id="mud_density_addon">lb/gal</span>
+											   </div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group {{$errors->has('kdki_cement_slurry') ? 'has-error' : ''}}">
+											   {!! Form::label('kdki_cement_slurry_l', 'Kd/Ki Cement Slurry') !!}
+											   <div class="input-group" id="kdki_cement_slurry_input">
+											      {!! Form::text('kdki_cement_slurry',$filtration_function->kdki_cement_slurry, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry']) !!}
+											      <span class="input-group-addon" id="kdki_cement_slurry_addon">-</span>
+											   </div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group {{$errors->has('kdki_mud') ? 'has-error' : ''}}">
+											   {!! Form::label('kdki_mud_l', 'Kd/Ki Mud') !!}
+											   <div class="input-group" id="kdki_mud_input">
+											      {!! Form::text('kdki_mud',$filtration_function->kdki_mud, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_mud']) !!}
+											      <span class="input-group-addon" id="kdki_mud_addon">-</span>
+											   </div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group {{$errors->has('core_diameter') ? 'has-error' : ''}}">
+											   {!! Form::label('core_diameter_l', 'Core Diameter') !!}
+											   <div class="input-group" id="core_diameter_input">
+											      {!! Form::text('core_diameter',$filtration_function->core_diameter, ['placeholder' => '-', 'class' =>'form-control','id'=>'core_diameter']) !!}
+											      <span class="input-group-addon" id="core_diameter_addon">-</span>
+											   </div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<h4>Laboratory Test #1</h4>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group {{$errors->has('k_lab_test_1') ? 'has-error' : ''}}">
+													   {!! Form::label('k_lab_test_l', 'Permeability') !!}
+													   <div class="input-group" id="k_lab_test_1_input">
+													      {!! Form::text('k_lab_test_1',null, ['placeholder' => 'mD', 'class' =>'form-control k_value','id'=>'k_lab_test_1']) !!}
+													      <span class="input-group-addon" id="k_lab_test_1_a">mD</span>
+													   </div>
+													</div>
+												</div>
+												<input type="hidden" class="k_hidden" id="k_lab_test_1_hidden" value="false">
+												<div class="col-md-6">
+													<div class="form-group {{$errors->has('p_lab_test_1') ? 'has-error' : ''}}">
+													   {!! Form::label('p_lab_test_l', 'Pob') !!}
+													   <div class="input-group" id="p_lab_test_1_input">
+													      {!! Form::text('p_lab_test_1',null, ['placeholder' => 'psi', 'class' =>'form-control pob_value','id'=>'p_lab_test_1']) !!}
+													      <span class="input-group-addon" id="p_lab_test_1_a">psi</span>
+													   </div>
+													</div>
+												</div>
+												<input type="hidden" class="p_hidden" id="p_lab_test_1_hidden" value="false">
+											</div>
+											<div id="lab_test_1_table" class="lab_test"></div>
+											{!! Form::button('Plot' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'plot_lab_test(1);', 'name' => 'accion', 'id'=>'plot_1')) !!}
+											<input type="hidden" class="lab_test_hidden" id="lab_test_1_hidden" value="false">
+										</div>
+										<div class="col-md-6">
+											<h4>Laboratory Test #2</h4>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group {{$errors->has('k_lab_test_2') ? 'has-error' : ''}}">
+													   {!! Form::label('k_lab_test_l', 'Permeability') !!}
+													   <div class="input-group" id="k_lab_test_2_input">
+													      {!! Form::text('k_lab_test_2',null, ['placeholder' => 'mD', 'class' =>'form-control k_value','id'=>'k_lab_test_2']) !!}
+													      <span class="input-group-addon" id="k_lab_test_2_a">mD</span>
+													   </div>
+													</div>
+												</div>
+												<input type="hidden" class="k_hidden" id="k_lab_test_2_hidden" value="false">
+												<div class="col-md-6">
+													<div class="form-group {{$errors->has('p_lab_test_2') ? 'has-error' : ''}}">
+													   {!! Form::label('p_lab_test_l', 'Pob') !!}
+													   <div class="input-group" id="p_lab_test_2_input">
+													      {!! Form::text('p_lab_test_2',null, ['placeholder' => 'psi', 'class' =>'form-control pob_value','id'=>'p_lab_test_2']) !!}
+													      <span class="input-group-addon" id="p_lab_test_2_a">psi</span>
+													   </div>
+													</div>
+												</div>
+												<input type="hidden" class="p_hidden" id="p_lab_test_2_hidden" value="false">
+											</div>
+											<div id="lab_test_2_table" class="lab_test"></div>
+											{!! Form::button('Plot' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'plot_lab_test(2);', 'name' => 'accion', 'id'=>'plot_2')) !!}
+											<input type="hidden" class="lab_test_hidden" id="lab_test_2_hidden" value="false">
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-md-6">
+											<div id="lab_test_1_chart"></div>
+										</div>
+										<div class="col-md-6">
+											<div id="lab_test_2_chart"></div>
+										</div>
+									</div>
+									<hr>
+									<div id="extra_lab_test"></div>
+									{!! Form::hidden('lab_test_data', '', array('id' => 'lab_test_data')) !!}
+									{!! Form::hidden('k_data', '', array('id' => 'k_data')) !!}
+									{!! Form::hidden('p_data', '', array('id' => 'p_data')) !!}
+									<div class="row">
+										<div class="col-md-8">
+											{!! Form::button('Add Extra Laboratory Test' , array('class' => 'btn btn-warning btn-sm', 'onclick' => 'add_extra_lab_test();', 'name' => 'accion', 'id'=>'plot_1')) !!}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					<br>
+					<div class="row" id="save_ff_div">
+						<div class="col-md-6"></div>
+						<div class="col-md-6" align="right">
+							{!! Form::submit('Edit Filtration Function' , array('class' => 'btn btn-warning', 'onclick' => 'save_filtration_function();', 'name' => 'accion')) !!}
+							<a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
+						</div>
+					</div>
+				</div>
+
+				{!! Form::Close() !!}
+			</div>
+		</div>
+	</div>
+</div>
+
+@endsection
+@section('Scripts')
+  <script src="http://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.min.css">
+  @include('js/regresion')
+  @include('js/edit_filtration_function')
+  @include('js/modal_error')
+@endsection

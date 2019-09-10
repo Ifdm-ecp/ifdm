@@ -1,0 +1,42 @@
+Pasos para utilizar función de advisor:
+
+1. Poner en el JS principal de la vista:
+    $(document).ready(function () {
+        import_tree("Asphaltene precipitation", "asphaltene_stability_analysis");
+    });
+    Primero poner el nombre del módulo y luego poner el nombre de la columna de la tabla "advisor" que se encuentra en la BD, donde se ponen las consultas para el importar.
+
+2. Crear un layout con la información de cada dato de entrada de la vista. (*****)
+    * El "text_general_advisor" es para el texto que aparece en la parte superior de la vista.
+    * Para la información de los input poner "advisor_idinput" donde se cambia idinput por el nombre correspondiente.
+    * Para las referencias de cada input poner: "advisor_ref_idinput" donde se cambia idinput por el nombre correspondiente.
+    * Para la información de las tablas poner "advisor_idbotontabla" donde se cambia idbotontabla por el id que se tiene en el boton del advisor de la tabla.
+
+3. Crear una columna en la tabla "advisor" de la BD y poner las consultas para el importar cada dato de la vista.
+    ** Las consultas para los input:
+        * "saturated":"select saturated from asphaltenes_d_stability_analysis where scenario_id = put_scenario_id order by asphaltenes_d_stability_analysis.id limit 1"
+        La clave debe ser exactamente el mismo nombre del id del input.
+        Para todos los input la consulta es la misma, solo se cambia la tabla de donde se saca el dato. Siempre se consulta teniendo en cuenta el id del escenario
+    ** Las consultas para las tablas:
+        * "components_table":"select component, mole_fraction from asphaltenes_d_stability_analysis_components JOIN asphaltenes_d_stability_analysis AS asphaltenes_d_stability_analysis where asphaltenes_d_stability_analysis_components.asphaltenes_d_stability_analysis_id = asphaltenes_d_stability_analysis.id and asphaltenes_d_stability_analysis.scenario_id = put_scenario_id and asphaltenes_d_stability_analysis.id in (SELECT MIN(id) from asphaltenes_d_stability_analysis where scenario_id = put_scenario_id) ORDER BY asphaltenes_d_stability_analysis_components.id ASC"
+        La clave debe ser exactamente el mismo nombre del id de la tabla cuando se arma en el html.
+        Siempre se consulta teniendo en cuenta el id del escenario
+4. En la vista poner:
+    * @include('layouts/general_advisor') para el desplegable con la información general del módulo.
+    * @include('layouts/modal_advisor')
+    * @include('js/advisor')
+    * @include('layouts/(*****)')
+    * A cada dato de la vista que necesite botón de advisor, poner:
+        @if($advisor === "true")
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+            </span>
+        @endif
+    *A cada tabla de la vista que necesite boton de advisor poner:
+        @if($advisor === "true")
+            <span>
+                <i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_components_table" style="color:black;font-size:15pt;"></i>
+            </span>
+        @endif
+        NOTA: Cambiar el id segun el nombre de la tabla.
+    * Mandar variable advisor desde el controlador: $advisor = $scenary->enable_advisor;

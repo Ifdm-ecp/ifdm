@@ -1,0 +1,11 @@
+#Log Base de datos - Mientras se hacen las migraciones... 
+# "+": se agregó
+# "-": se eliminó
+# "*": se editó
+
+Nov-27
++drilling: d_equivalent_circulating_density; c_equivalent_circulating_density
+*drilling: d_hydrostatic_correction_factor x d_correction_factor; c_hydrostatic_correction_factor x c_correction_factor; 
++d_filtration_function: mud_density; kdki_cement_slurry; kdki_mud; core_diameter
+-d_filtration_test_data
+-d_laboratory_test: test_name

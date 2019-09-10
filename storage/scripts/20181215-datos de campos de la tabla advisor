@@ -1,0 +1,72 @@
+
+//dtos del campo fines_remediation
+{"initial_porosity":"SELECT initial_porosity FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"initial_permeability":"SELECT initial_permeability FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"temperature":"SELECT temperature FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"well_radius":"SELECT well_radius FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"damage_radius":"SELECT damage_radius FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"net_pay":"SELECT net_pay FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"rock_compressibility":"SELECT rock_compressibility FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"pressure":"SELECT pressure FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"excel_damage_diagnosis_input":"SELECT excel_damage_diagnosis_input FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"acid_concentration":"SELECT acid_concentration FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"injection_rate":"SELECT injection_rate FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"invasion_radius":"SELECT invasion_radius FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"excel_rock_composition_input":"SELECT excel_rock_composition_input FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"check_minerals_input":"SELECT check_minerals_input FROM fines_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1"}
+
+
+
+
+///datos campo asphaltene_remediation
+{"type_asphaltene":"SELECT type_asphaltene FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"initial_porosity":"SELECT initial_porosity FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"net_pay":"SELECT net_pay FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"water_saturation":"SELECT water_saturation FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"initial_permeability":"SELECT initial_permeability FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"current_permeability":"SELECT current_permeability FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_scale":"SELECT skin_characterization_scale FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_induced":"SELECT skin_characterization_induced FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_asphaltene":"SELECT skin_characterization_asphaltene FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_fines":"SELECT skin_characterization_fines FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_non_darcy":"SELECT skin_characterization_non_darcy FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"skin_characterization_geomechanical":"SELECT skin_characterization_geomechanical FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"option_treatment":"SELECT option_treatment FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"asphaltene_apparent_density":"SELECT asphaltene_apparent_density FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"stimate_ior":"SELECT stimate_ior FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"monthly_decline_rate":"SELECT monthly_decline_rate FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"current_oil_production":"SELECT current_oil_production FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"data_input":"SELECT data_input FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"chemical_treatment_impl":"SELECT chemical_treatment_impl FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"excel_changes_along_the_radius":"SELECT excel_changes_along_the_radius FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"asphaltene_dilution_capacity":"SELECT asphaltene_dilution_capacity FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"treatment_radius":"SELECT treatment_radius FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"wellbore_radius":"SELECT wellbore_radius FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1",
+"asphaltene_remotion_efficiency_range_a":"SELECT asphaltene_remotion_efficiency_range_a, asphaltene_remotion_efficiency_range_b FROM asphaltene_remediation WHERE id_scenary = put_scenario_id ORDER BY id limit 1"}
+
+
+//datos del campo multiparametrico_analytical
+
+{"netpay": "SELECT netpay FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"absolute_permeability": "SELECT absolute_permeability FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"fluid_type": "SELECT fluid_type FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"viscosity": "SELECT viscosity FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"porosity": "SELECT porosity FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"bhp": "SELECT bhp FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"volumetric_factor": "SELECT volumetric_factor FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"well_radius": "SELECT well_radius FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"drainage_radius": "SELECT drainage_radius FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"reservoir_pressure": "SELECT reservoir_pressure FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"fluid_rate": "SELECT fluid_rate FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"critical_radius": "SELECT critical_radius FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"total_volumen": "SELECT total_volumen FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"saturation_presure": "SELECT saturation_presure FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"mineral_scale_cp": "SELECT mineral_scale_cp FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"organic_scale_cp": "SELECT organic_scale_cp FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"geomechanical_damage_cp": "SELECT geomechanical_damage_cp FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"mineral_scale_kd": "SELECT mineral_scale_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"organic_scale_kd": "SELECT organic_scale_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"geomechanical_damage_kd": "SELECT geomechanical_damage_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"fines_blockage_kd": "SELECT fines_blockage_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"relative_permeability_kd": "SELECT relative_permeability_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1",
+"induced_damage_kd": "SELECT induced_damage_kd FROM multiparametric_analysis_analytical WHERE escenario_id = put_scenario_id ORDER BY id limit 1"}

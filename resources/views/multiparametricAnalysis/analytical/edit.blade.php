@@ -1,0 +1,384 @@
+@extends('layouts.ProjectGeneral')
+@section('title', 'IFDM Project')
+
+@section('content')
+<?php  
+   if(!isset($_SESSION)) {
+   session_start();
+   }
+?>
+
+
+<div id="sticky-anchor"  class="col-md-6"></div>
+<div id="sticky" style="position: relative;">
+   <center><b>Scenario: </b>{!! $analytical->escenario->nombre !!} </br> Basin: {!! $analytical->escenario->cuenca->nombre !!} - Field: {!! $analytical->escenario->campo->nombre !!} - Producing interval: {!! $analytical->escenario->formacionxpozo->nombre !!} - Well: {!!  $analytical->escenario->pozo->nombre !!} - User: {!! $analytical->escenario->user->name !!}</center>
+</div>
+
+</br>
+@include('layouts/general_advisor')
+   <div class="nav">
+      <div class="tab">
+         <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+            <li class="active"><a data-toggle="tab" href="#RP">Rock Properties</a></li>
+            <li><a data-toggle="tab" href="#FI">Fluid Information</a></li>
+            <li><a data-toggle="tab" href="#PD">Production Data</a></li>
+            <li><a data-toggle="tab" href="#MA">Multiárametric Analysis</a></li>
+         </ul>
+      </div>
+   </div>
+{!!Form::model($analytical, ['route' => [$complete == true ? 'completeAnalytical.update' : 'analytical.update_', $analytical->id], 'method' => 'POST'])!!}
+<input type="hidden" name="escenario_id" id="escenario_id" value="{{ !empty($duplicateFrom) ? $duplicateFrom : $analytical->escenario->id }}">
+    <div class="tab-content">
+      <br>
+        {{--bloque rp--}}
+        <div class="tab-pane active" id="RP">
+          <div class="col-md-6">
+            <div class="form-group">
+               <label for="netpay">netpay</label><label class="red">*</label>
+               <div class="input-group ">
+                  {!! Form::text('netpay',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
+                  <span class="input-group-addon" id="basic-addon2">ft</span>
+               </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="absolute_permeability">Absolute Permeability</label><label class="red">*</label>
+              <div class="input-group ">
+                {!! Form::text('absolute_permeability',null, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
+                <span class="input-group-addon" id="basic-addon2">mD</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="porosity">Porosity</label><label class="red">*</label>
+              <div class="input-group ">
+                {!! Form::text('porosity',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                <span class="input-group-addon" id="basic-addon2">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{--bloque fi--}}
+        <div class="tab-pane" id="FI">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Fluid Type</label><label class="text-danger">*</label>
+              {!! Form::select('fluid_type',['Oil' => 'Oil', 'Gas' => 'Gas'], null, ['class'=>'form-control', 'id' => 'fluid_type']) !!}
+            </div>
+          </div>
+          <hr>
+          <div class="panel panel-default" id="div_oil">
+                <div class="panel-heading">
+                  <h4 id="ms-title">Oil Properties </h4>
+                </div>
+
+                <div class="panel-body">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="viscosity">Viscosity</label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('viscosity',null, ['class' =>'form-control', 'placeholder' => 'cP']) !!}
+                          <span class="input-group-addon" id="basic-addon2">cP</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="volumetric_factor">Volumetric Factor</label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('volumetric_factor',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                          <span class="input-group-addon" id="basic-addon2">-</span>
+                      </div>
+                  </div>
+              </div>
+                </div>
+            </div>
+            <div class="panel panel-default" id="div_gas">
+                <div class="panel-heading">
+                  <h4 id="ms-title">Gas Properties </h4>
+                </div>
+
+                <div class="panel-body">
+                  <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="viscosity">Viscosity</label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('viscosity',null, ['class' =>'form-control', 'placeholder' => 'cP']) !!}
+                          <span class="input-group-addon" id="basic-addon2">cP</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="volumetric_factor">Volumetric Factor</label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('volumetric_factor',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                          <span class="input-group-addon" id="basic-addon2">-</span>
+                      </div>
+                  </div>
+              </div>
+                </div>
+            </div>
+        </div>
+        {{--bloque pd--}}
+        <div class="tab-pane" id="PD">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                   <label for="well_radius">Well Radius</label><label class="red">*</label>
+                   <div class="input-group ">
+                      {!! Form::text('well_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
+                      <span class="input-group-addon" id="basic-addon2">ft</span>
+                   </div>
+                </div>
+             </div>
+             <div class="col-md-6">
+                <div class="form-group">
+                   <label for="drainage_radius">Drainage Radius</label><label class="red">*</label>
+                   <div class="input-group ">
+                      {!! Form::text('drainage_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
+                      <span class="input-group-addon" id="basic-addon2">ft</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                 <label for="reservoir_pressure">Reservoir Pressure</label><label class="red">*</label>
+                 <div class="input-group ">
+                    {!! Form::text('reservoir_pressure',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                    <span class="input-group-addon" id="basic-addon2">psia</span>
+                 </div>
+              </div>
+            </div>
+             <div class="col-md-6" id="input_oil">
+              <div class="form-group">
+                 <label for="oil_rate">Oil Rate</label><label class="red">*</label>
+                 <div class="input-group ">
+                    {!! Form::text('fluid_rate',null, ['class' =>'form-control', 'placeholder' => 'SBT/D']) !!}
+                    <span class="input-group-addon" id="basic-addon2">SBT/D</span>
+                 </div>
+              </div>
+            </div>
+            <div class="col-md-6" id="input_gas">
+              <div class="form-group">
+                 <label for="gas_rate">Gas Rate</label><label class="red">*</label>
+                 <div class="input-group ">
+                    {!! Form::text('fluid_rate',null, ['class' =>'form-control', 'placeholder' => 'MMSCF/D']) !!}
+                    <span class="input-group-addon" id="basic-addon2">MMSCF/D</span>
+                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                 <label for="bhp">Bhp</label><label class="red">*</label>
+                 <div class="input-group ">
+                    {!! Form::text('bhp',null, ['class' =>'form-control', 'placeholder' => 'bhp']) !!}
+                    <span class="input-group-addon" id="basic-addon2">bhp</span>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{--bloque ma--}}
+        <div class="tab-pane" id="MA">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4> Damage Variables </h4>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="critical_radius" ><small>Critical Radius Derived From Maximum Critical Velocity ,  Vc</small></label><label class="red">*</label>
+                      <div class="input-group ">
+                         {!! Form::text('critical_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
+                          <span class="input-group-addon" id="basic-addon2">ft</span>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="total_volumen"><small>Total Volumen Of Water Based Fluids Pumped Into The Well</small></label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('total_volumen',null, ['class' =>'form-control', 'placeholder' => 'bbl']) !!}
+                          <span class="input-group-addon" id="basic-addon2">bbl</span>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="total_volumen">Saturation Pressure</label><label class="red">*</label>
+                      <div class="input-group ">
+                        {!! Form::text('saturation_presure',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                          <span class="input-group-addon" id="basic-addon2">psia</span>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row" style="margin: 10px;">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h4><a data-parent="#accordion" data-toggle="collapse" href="#CP" class="collapsed"><span class="chevron_toggleable glyphicon pull-right glyphicon-chevron-down"></span></a> Critical Pressure By Damage Parameters</h4>
+                  </div>
+                  <div class="panel-body">
+                    <div id="CP" class="panel-collapse collapse" aria-expanded="false">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="mineral_scale_cp">Mineral Scales</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('mineral_scale_cp',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">psia</span>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="organic_scale_cp">Organic Scales</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('organic_scale_cp',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">psia</span>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="geomechanical_damage_cp">Geomechanical Damage - Drawdown</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('geomechanical_damage_cp',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">psia</span>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary pull-right" id="plot">Plot</button>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12"><div id="chart"></div></div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12"><div id="chart_2"></div></div>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row" style="margin: 10px;">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h4><a data-parent="#accordion" data-toggle="collapse" href="#KD" class="collapsed"><span class="chevron_toggleable glyphicon pull-right glyphicon-chevron-down"></span></a>K Damaged And K Base Ratio (Kd/Kb) By Damage Parameter</h4>
+                  </div>
+                  <div class="panel-body">
+                    <div id="KD" class="panel-collapse collapse" aria-expanded="false">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="mineral_scale_kd">Mineral Scales</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('mineral_scale_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="organic_scale_kd">Organic Scales</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('organic_scale_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="geomechanical_damage_kd">Geomechanical Damage</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('geomechanical_damage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="fines_blockage">Fines Blockage</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('fines_blockage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="relative_permeability">Relative Permeability</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('relative_permeability_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                  <label for="induced_damage">Induced Damage</label><label for="*" class="red">*</label>
+                                  <div class="input-group">
+                                    {!! Form::text('induced_damage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                                      <span class="input-group-addon" id="basic-addon2">-</span>
+                                   </div>
+                                </div>
+                            </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+   </div>
+   <br>
+   <br>
+   <div class="row">
+      <div class="col-xs-12">
+         <p class="pull-right">
+            <button class="btn validate_wr btn-success" id="button_wr" name="button_wr">Save</button>
+            {!! Form::submit('Run' , array('class' => 'btn btn-primary', 'id' => 'save')) !!}
+            <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
+         </p>
+      </div>
+   </div>
+{!! Form::Close() !!}
+
+
+  @include('layouts/modal_advisor')
+  @include('layouts/template/modal_import_external')
+
+@endsection
+
+{{--/////////////////////////////////////////////////////////////////////////////////////////////////--}}
+
+@section('Scripts')
+    @include('css/add_multiparametric')
+    @include('multiparametricAnalysis.analytical.cuerpo.createJs')
+    @include('js/modal_error')
+    @include('js/advisor')
+@endsection

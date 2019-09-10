@@ -1,0 +1,190 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Http\Requests\Request;
+
+class FinesTreatmentSelectionRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+
+                'quartz' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',       
+                'microcline' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',   
+                'orthoclase' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'albite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'plagioClase' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'biotite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'muscovite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'chloritem' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'kaolinite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'illite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'emectite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'chloritec' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'brucite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'gibbsite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'calcite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'dolomite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'ankeritec' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'sideritec' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'cast' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'anhydrite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'baryte' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'celestine' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'halite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'hematite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'magnetite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'pyrrhotite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'pyrite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'chloriteim' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'sideriteim' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'ankeriteim' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'glauconite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'chamosite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'troilite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',  
+                'stilbite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'heulandite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'chabazite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'natrolite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'analcime' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'melanterite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'bentonite' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'finesna' => 'required_if:'.isset($_POST["button_swr"]).',==,true|numeric', 
+                'tc' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'ty' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'h2s' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'iic' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'k' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'em' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'wet' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'tvd' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'isl' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+                'sal' =>  'required_if:'.isset($_POST["button_swr"]).',==,true|numeric',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'quartz.required'=> 'quartz required.',
+            'microcline.required'=> 'microline required.',
+            'orthoclase.required'=> 'orthoclase required.',
+            'albite.required'=> 'albite required.',
+            'plagioClase.required'=> 'plagioclase required.',
+            'biotite.required'=> 'biotite required.',
+            'muscovite.required'=> 'muscovite required.',
+            'chloritem.required'=> 'chloriteM required.',
+            'kaolinite.required'=> 'kaolinite required.',
+            'illite.required'=> 'illite required.',
+            'emectite.required'=> 'emectite required.',
+            'chloritec.required'=> 'chloriteC required.',
+            'brucite.required'=> 'brucite required.',
+            'gibbsite.required'=> 'gibbsite required.',
+            'calcite.required'=> 'calcite required.',
+            'dolomite.required'=> 'dolomite required.',
+            'ankeritec.required'=> 'ankeriteC required.',
+            'sideritec.required'=> 'sideriteC required.',
+            'cast.required'=> 'cast required.',
+            'anhydrite.required'=> 'anhydrite required.',
+            'baryte.required'=> 'baryte required.',
+            'celestine.required'=> 'celestine required.',
+            'halite.required'=> 'halite required.',
+            'hematite.required'=> 'hematite required.',
+            'magnetite.required'=> 'magnetite required.',
+            'pyrrhotite.required'=> 'pyrrhotite required.',
+            'pyrite.required'=> 'pyrite required.',
+            'chloriteim.required'=> 'chloriteIM required.',
+            'sideriteim.required'=> 'sideriteIM required.',
+            'ankeriteim.required'=> 'ankeriteIM required.',
+            'glauconite.required'=> 'glauconite required.',
+            'chamosite.required'=> 'chamosite required.',
+            'troilite.required'=> 'troilite required.',
+            'stilbite.required'=> 'stilbite required.',
+            'heulandite.required'=> 'heulandite required.',
+            'chabazite.required'=> 'chabazite required.',
+            'natrolite.required'=> 'natrolite required.',
+            'analcime.required'=> 'analcime required.',
+            'melanterite.required'=> 'melanterite required.',
+            'bentonite.required'=> 'bentonite required.',
+            'finesna.required'=> 'finesna required.',
+            'tc.required'=> 'Paraffin Crystallization Temperature required.',
+            'ty.required'=> 'Reservoir Temperature required.',
+            'h2s.required'=> 'Sulficric Acid Confent required.',
+            'iic.required'=> 'Colloidal Instability Index required.',
+            'k.required'=> 'Permeability required.',
+            'em.required'=> 'Emulsions required.',
+            'wet.required'=> 'Wettability required.',
+            'tvd.required'=> 'Tvd required.',
+            'isl.required'=> 'Langelier Saturation Index required.',
+            'sal.required'=> 'Formation Water Salinity required.',
+
+            'quartz.numeric'=> 'quartz enter only numbers.',
+            'microline.numeric'=> 'microline enter only numbers.',
+            'orthoclase.numeric'=> 'orthoclase enter only numbers.',
+            'albite.numeric'=> 'albite enter only numbers.',
+            'plagioClase.numeric'=> 'plagioclase enter only numbers.',
+            'biotite.numeric'=> 'biotite enter only numbers.',
+            'muscovite.numeric'=> 'muscovite enter only numbers.',
+            'chloritem.numeric'=> 'chloriteM enter only numbers.',
+            'kaolinite.numeric'=> 'kaolinite enter only numbers.',
+            'illite.numeric'=> 'illite enter only numbers.',
+            'emectite.numeric'=> 'emectite enter only numbers.',
+            'chloritec.numeric'=> 'chloriteC enter only numbers.',
+            'brucite.numeric'=> 'brucite enter only numbers.',
+            'gibbsite.numeric'=> 'gibbsite enter only numbers.',
+            'calcite.numeric'=> 'calcite enter only numbers.',
+            'dolomite.numeric'=> 'dolomite enter only numbers.',
+            'ankeritec.numeric'=> 'ankeriteC enter only numbers.',
+            'sideritec.numeric'=> 'sideriteC enter only numbers.',
+            'cast.numeric'=> 'cast enter only numbers.',
+            'anhydrite.numeric'=> 'anhydrite enter only numbers.',
+            'baryte.numeric'=> 'baryte enter only numbers.',
+            'celestine.numeric'=> 'celestine enter only numbers.',
+            'halite.numeric'=> 'halite enter only numbers.',
+            'hematite.numeric'=> 'hematite enter only numbers.',
+            'magnetite.numeric'=> 'magnetite enter only numbers.',
+            'pyrrhotite.numeric'=> 'pyrrhotite enter only numbers.',
+            'pyrite.numeric'=> 'pyrite enter only numbers.',
+            'chloriteim.numeric'=> 'chloriteIM enter only numbers.',
+            'sideriteim.numeric'=> 'sideriteIM enter only numbers.',
+            'ankeriteim.numeric'=> 'ankeriteIM enter only numbers.',
+            'glauconite.numeric'=> 'glauconite enter only numbers.',
+            'chamosite.numeric'=> 'chamosite enter only numbers.',
+            'troilite.numeric'=> 'troilite enter only numbers.',
+            'stilbite.numeric'=> 'stilbite enter only numbers.',
+            'heulandite.numeric'=> 'heulandite enter only numbers.',
+            'chabazite.numeric'=> 'chabazite enter only numbers.',
+            'natrolite.numeric'=> 'natrolite enter only numbers.',
+            'analcime.numeric'=> 'analcime enter only numbers.',
+            'melanterite.numeric'=> 'melanterite enter only numbers.',
+            'bentonite.numeric'=> 'bentonite enter only numbers.',
+            'finesna.numeric'=> 'finesna enter only numbers.',
+            'tc.numeric'=> 'Paraffin Crystallization Temperature enter only numbers.',
+            'ty.numeric'=> 'Reservoir Temperature enter only numbers.',
+            'h2s.numeric'=> 'Sulficric Acid Confent enter only numbers.',
+            'iic.numeric'=> 'Colloidal Instability Index enter only numbers.',
+            'k.numeric'=> 'Permeability enter only numbers.',
+            'em.numeric'=> 'Emulsions enter only numbers.',
+            'wet.numeric'=> 'Wettability enter only numbers.',
+            'tvd.numeric'=> 'Tvd enter only numbers.',
+            'isl.numeric'=> 'Langelier Saturation Index enter only numbers.',
+            'sal.numeric'=> 'Formation Water Salinity enter only numbers.',
+        ];
+    }
+}

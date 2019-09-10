@@ -1,0 +1,20 @@
+.categoria{
+	margin-left: 15px;
+}
+
+.linea{
+	margin-left: 30px;
+}
+
+.subLinea{
+	margin-left: 45px;
+}
+
+.title{
+	font-weight: bold;
+}
+
+.panel-body p{
+	padding: 3%;
+	border: 1px solid #ccc;
+}

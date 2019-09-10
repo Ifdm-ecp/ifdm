@@ -1,0 +1,279 @@
+@extends('layouts.ProjectGeneral')
+@section('title', 'IFDM Drilling')
+@section('content')
+@include('layouts/modal_error')
+<div id="sticky-anchor"  class="col-md-6"></div>
+<div class="jumbotron" id="sticky">
+   <center>
+      Scenario: {!! $scenario->nombre !!} </br> 
+      Basin: {!! $scenario->cuenca->nombre !!} - 
+      Field: {!! $scenario->campo->nombre !!} - 
+      Producing interval: {!!  $scenario->formacionxpozo->nombre !!} - 
+      Well: {!!  $scenario->pozo->nombre !!}</br> 
+      User: {!! $scenario->user->fullName !!}
+   </center>
+</div>
+<p></p>
+</br>
+<div class="nav">
+   <div class="tabbable">
+      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+         <li class="active"><a data-toggle="tab" href="#general_data_c" id="general_data">General Data</a></li>
+         <li><a data-toggle="tab" href="#drilling_data_c" id="drilling_data">Drilling Data</a></li>
+         <li><a data-toggle="tab" href="#cementing_data">Cementing Data</a></li>
+         <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions">Filtration Functions</a></li>
+      </ul>
+      <div class="tab-content">
+         <div id="general_data_c" class="tab-pane active">
+            <br>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#GD"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> General Data</h4>
+               </div>
+               <div class="panel-body">
+                  <div id="GD" class="panel-collapse collapse in">
+                     {!! Form::open(array('url'=>'DrillingStore', 'method' => 'post')) !!}
+                     <input type="hidden" name="scenary_id" id="scenary_id" value="{{ $scenario->id }}">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('intervalSelect') ? 'has-error' : ''}}">
+                              {!! Form::label('interval', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::select('intervalSelect', $scenario->formacionxpozo->pozo->formacionesxpozo->pluck('nombre', 'id'),null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-8">
+                           <div id="intervalsGeneral_t" class="handsontable"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#InputData"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Input Data</h4>
+               </div>
+               <div class="panel-body">
+                  <div id="InputData" class="panel-collapse collpase in">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('inputDataMethodSelect') ? 'has-error' : ''}}">
+                              {!! Form::label('inputDataMethod', 'Input Data Method') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::select('inputDataMethodSelect', ['1'=>'Profile'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}
+                              {{--{!! Form::select('inputDataMethodSelect', ['1'=>'Profile','2'=>'By Intervals'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}--}}
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <p></p>
+                           <div class="col-md-4"></div>
+                           <div class="col-md-3"></div>
+                           <div class="col-md-4">{!! Form::button('Plot' , array('class' => 'btn btn-primary', 'onclick' => 'plotProfileData();', 'name' => 'accion', 'id'=>'plotProfile', 'style'=>'display:none;')) !!}</div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div id="profile_g"></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-8">
+                           <div id="byIntervalsInput_t" class="handsontable" style="display:none"></div>
+                           <div id="profileInput_t" class="handsontable" style="display:none"></div>
+                        </div>
+                     </div>
+                  </div>
+                  {!! Form::hidden('generaldata_table', '', array('id' => 'generaldata_table')) !!}
+                  {!! Form::hidden('inputdata_intervals_table', '', array('id' => 'inputdata_intervals_table')) !!}
+                  {!! Form::hidden('inputdata_profile_table', '', array('id' => 'inputdata_profile_table')) !!}
+                  {!! Form::hidden('MDtop', '', array('id' => 'MDtop')) !!}
+                  {!! Form::hidden('MDbottom', '', array('id' => 'MDbottom')) !!}
+
+                  {!! Form::hidden('select_interval_general_data', '', array('id' => 'select_interval_general_data')) !!}
+                  {!! Form::hidden('select_input_data', '', array('id' => 'select_input_data')) !!}
+                  {!! Form::hidden('select_filtration_function', '', array('id' => 'select_filtration_function')) !!}
+               </div>
+            </div>
+         </div>
+         <div id="drilling_data_c" class="tab-pane" >
+            <br>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#DD"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Drilling Data</h4>
+               </div>
+               <div class="panel-body">
+                  <div id="DD" class="panel-collapse collapse in">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('d_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('d_total_exposure_time_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('d_total_exposure_time_t',null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'd_total_exposure_time_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">d</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('d_pump_rate_l', 'Pump Rate') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('d_pump_rate_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('d_pump_rate_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_pump_rate_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">gpm</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('d_mud_density_l', 'Mud Density') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('d_mud_density_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('d_mud_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'd_mud_density_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">lb/gal</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('d_rop_l', 'ROP') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('d_rop_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('d_rop_t',null, ['placeholder' => 'ft/h', 'class' =>'form-control', 'id' => 'd_rop_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">ft/ho</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('d_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('d_equivalent_circulating_density_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('d_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_equivalent_circulating_density_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">gpm</span>
+                              </div>
+                              <br>
+                              <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate." onclick="calculate_ecd(0)">Calculate ECD</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="cementing_data" class="tab-pane" >
+            <br>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4>
+                     Cementing Data
+                     <div class="pull-right">
+                     {!! Form::checkbox('cementingAvailable',null,true, array('id' => 'check_available')) !!}
+                     {!! Form::label('available', 'Available') !!}
+                     </div>
+                  </h4>
+               </div>
+               <div class="panel-body" id="div_cemeneting_data">
+                  <div id="CD" class="panel-collapse collapse in">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('c_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('c_total_exposure_time_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('c_total_exposure_time_t',null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'c_total_exposure_time_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">d</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('c_pump_rate_l', 'Pump Rate') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('c_pump_rate_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('c_pump_rate_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_pump_rate_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">gpm</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('c_cement_slurry_density_l', 'Cement Slurry Density') !!} <span style='color:red;'>*</span>
+                                 <div class="input-group {{$errors->has('c_cement_slurry_density_t') ? 'has-error' : ''}}">
+                                    {!! Form::text('c_cement_slurry_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">lb/gal</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('c_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
+                                 <div class="input-group {{$errors->has('c_equivalent_circulating_density_t') ? 'has-error' : ''}}">
+                                    {!! Form::text('c_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">gpm</span>
+                                 </div>
+                                 <br>
+                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Cement Slurry Density, and Pump Rate." onclick="calculate_ecd(1)">Calculate ECD</button>
+                              </div>
+                           </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="filtration_functions_c" class="tab-pane" >
+            <br>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#filtration_function"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a>Filtration Function</h4>
+               </div>
+               <div class="panel-body">
+                  <div id="filtration_function" class="panel-collapse collapse in">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('filtration_function_select') ? 'has-error' : ''}}">
+                              {!! Form::label('filtration_function_l', 'Filtration Function') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('a_factor_l', 'a') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                                 {!! Form::text('a_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'a_factor_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('b_factor_l', 'b') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                                 {!! Form::text('b_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           {!! Form::submit('Run' , array('class' => 'btn btn-primary', 'onclick' => 'verifyDrilling(false);', 'name' => 'accion', 'id'=>'run')) !!}
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<button type="submit" class="btn btn-success pull-right" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
+{!! Form::Close() !!}
+@endsection
+@section('Scripts')
+@include('js/regresion')
+@include('js/drilling')
+@include('css/drilling')
+@include('js/modal_error')
+@endsection

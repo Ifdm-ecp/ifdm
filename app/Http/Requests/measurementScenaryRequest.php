@@ -1,0 +1,406 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Http\Requests\Request;
+
+class measurementScenaryRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+
+            'MS1' => 'numeric|required_if:weight_1_hidden,false',
+            'MS2' => 'numeric|required_if:weight_2_hidden,false',
+            'MS3' => 'numeric|required_if:weight_3_hidden,false',
+            'MS4' => 'numeric|required_if:weight_4_hidden,false',
+            'MS5' => 'numeric|required_if:weight_5_hidden,false',
+            'FB1' => 'numeric|required_if:weight_6_hidden,false',
+            'FB2' => 'numeric|required_if:weight_7_hidden,false',
+            'FB3' => 'numeric|required_if:weight_8_hidden,false',
+            'FB4' => 'numeric|required_if:weight_9_hidden,false',
+            'FB5' => 'numeric|required_if:weight_10_hidden,false',
+            'OS1' => 'numeric|required_if:weight_11_hidden,false',
+            'OS2' => 'numeric|required_if:weight_12_hidden,false',
+            'OS3' => 'numeric|required_if:weight_13_hidden,false',
+            'OS4' => 'numeric|required_if:weight_14_hidden,false',
+            'RP1' => 'numeric|required_if:weight_15_hidden,false',
+            'RP2' => 'numeric|required_if:weight_16_hidden,false',
+            'RP3' => 'numeric|required_if:weight_17_hidden,false',
+            'RP4' => 'numeric|required_if:weight_18_hidden,false',
+            'ID1' => 'numeric|required_if:weight_19_hidden,false',
+            'ID2' => 'numeric|required_if:weight_20_hidden,false',
+            'ID3' => 'numeric|required_if:weight_21_hidden,false',
+            'ID4' => 'numeric|required_if:weight_22_hidden,false',
+            'GD1' => 'numeric|required_if:weight_23_hidden,false',
+            'GD2' => 'numeric|required_if:weight_24_hidden,false',
+            'GD3' => 'numeric|required_if:weight_25_hidden,false',
+            'GD4' => 'numeric|required_if:weight_26_hidden,false',
+            'p10_ms1' => 'numeric|required_if:weight_1_hidden,false',
+            'p10_ms2' => 'numeric|required_if:weight_2_hidden,false',
+            'p10_ms3' => 'numeric|required_if:weight_3_hidden,false',
+            'p10_ms4' => 'numeric|required_if:weight_4_hidden,false',
+            'p10_ms5' => 'numeric|required_if:weight_5_hidden,false',
+            'p10_fb1' => 'numeric|required_if:weight_6_hidden,false',
+            'p10_fb2' => 'numeric|required_if:weight_7_hidden,false',
+            'p10_fb3' => 'numeric|required_if:weight_8_hidden,false',
+            'p10_fb4' => 'numeric|required_if:weight_9_hidden,false',
+            'p10_fb5' => 'numeric|required_if:weight_10_hidden,false',
+            'p10_os1' => 'numeric|required_if:weight_11_hidden,false',
+            'p10_os2' => 'numeric|required_if:weight_12_hidden,false',
+            'p10_os3' => 'numeric|required_if:weight_13_hidden,false',
+            'p10_os4' => 'numeric|required_if:weight_14_hidden,false',
+            'p10_rp1' => 'numeric|required_if:weight_15_hidden,false',
+            'p10_rp2' => 'numeric|required_if:weight_16_hidden,false',
+            'p10_rp3' => 'numeric|required_if:weight_17_hidden,false',
+            'p10_rp4' => 'numeric|required_if:weight_18_hidden,false',
+            'p10_id1' => 'numeric|required_if:weight_19_hidden,false',
+            'p10_id2' => 'numeric|required_if:weight_20_hidden,false',
+            'p10_id3' => 'numeric|required_if:weight_21_hidden,false',
+            'p10_id4' => 'numeric|required_if:weight_22_hidden,false',
+            'p10_gd1' => 'numeric|required_if:weight_23_hidden,false',
+            'p10_gd2' => 'numeric|required_if:weight_24_hidden,false',
+            'p10_gd3' => 'numeric|required_if:weight_25_hidden,false',
+            'p10_gd4' => 'numeric|required_if:weight_26_hidden,false',
+            'p90_ms1' => 'numeric|required_if:weight_1_hidden,false',
+            'p90_ms2' => 'numeric|required_if:weight_2_hidden,false',
+            'p90_ms3' => 'numeric|required_if:weight_3_hidden,false',
+            'p90_ms4' => 'numeric|required_if:weight_4_hidden,false',
+            'p90_ms5' => 'numeric|required_if:weight_5_hidden,false',
+            'p90_fb1' => 'numeric|required_if:weight_6_hidden,false',
+            'p90_fb2' => 'numeric|required_if:weight_7_hidden,false',
+            'p90_fb3' => 'numeric|required_if:weight_8_hidden,false',
+            'p90_fb4' => 'numeric|required_if:weight_9_hidden,false',
+            'p90_fb5' => 'numeric|required_if:weight_10_hidden,false',
+            'p90_os1' => 'numeric|required_if:weight_11_hidden,false',
+            'p90_os2' => 'numeric|required_if:weight_12_hidden,false',
+            'p90_os3' => 'numeric|required_if:weight_13_hidden,false',
+            'p90_os4' => 'numeric|required_if:weight_14_hidden,false',
+            'p90_rp1' => 'numeric|required_if:weight_15_hidden,false',
+            'p90_rp2' => 'numeric|required_if:weight_16_hidden,false',
+            'p90_rp3' => 'numeric|required_if:weight_17_hidden,false',
+            'p90_rp4' => 'numeric|required_if:weight_18_hidden,false',
+            'p90_id1' => 'numeric|required_if:weight_19_hidden,false',
+            'p90_id2' => 'numeric|required_if:weight_20_hidden,false',
+            'p90_id3' => 'numeric|required_if:weight_21_hidden,false',
+            'p90_id4' => 'numeric|required_if:weight_22_hidden,false',
+            'p90_gd1' => 'numeric|required_if:weight_23_hidden,false',
+            'p90_gd2' => 'numeric|required_if:weight_24_hidden,false',
+            'p90_gd3' => 'numeric|required_if:weight_25_hidden,false',
+            'p90_gd4' => 'numeric|required_if:weight_26_hidden,false',
+            'ms_scale_index_caco3' => 'numeric|between:0,1',
+            'ms_scale_index_baso4' => 'numeric|between:0,1',
+            'ms_scale_index_iron_scales' => 'numeric|between:0,1',
+            'ms_calcium_concentration' => 'numeric|between:0,1',
+            'ms_barium_concentration' => 'numeric|between:0,1',
+            'fb_aluminum_concentration' => 'numeric|between:0,1',
+            'fb_silicon_concentration' => 'numeric|between:0,1',
+            'fb_critical_radius_factor' => 'numeric|between:0,1',
+            'fb_mineralogic_factor' => 'numeric|between:0,1',
+            'fb_crushed_proppant_factor' => 'numeric|between:0,1',
+            'os_cll_factor' => 'numeric|between:0,1',
+            'os_compositional_factor' => 'numeric|between:0,1',
+            'os_pressure_factor' => 'numeric|between:0,1',
+            'os_high_impact_factor' => 'numeric|between:0,1',
+            'rp_days_below_saturation_pressure' => 'numeric|between:0,1',
+            'rp_delta_pressure_saturation' => 'numeric|between:0,1',
+            'rp_water_intrusion' => 'numeric|between:0,1',
+            'rp_high_impact_factor' => 'numeric|between:0,1',
+            'id_gross_pay' => 'numeric|between:0,1',
+            'id_polymer_damage_factor' => 'numeric|between:0,1',
+            'id_total_volume_water' => 'numeric|between:0,1',
+            'id_mud_damage_factor' => 'numeric|between:0,1',
+            'gd_fraction_netpay' => 'numeric|between:0,1',
+            'gd_drawdown' => 'numeric|between:0,1',
+            'gd_ratio_kh_fracture' => 'numeric|between:0,1',
+            'gd_geomechanical_damage_fraction' => 'numeric|between:0,1',
+
+
+
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+        'MS1.numeric' => 'Scale index of CaCO3 must be numeric.',
+        'MS2.numeric' => 'Scale index of BaSO4 must be numeric.',
+        'MS3.numeric' => 'Scale index of iron scales must be numeric.',
+        'MS4.numeric' => '[Ca] must be numeric.',
+        'MS5.numeric' => '[Ba] must be numeric.',
+
+        'FB1.numeric' => '[Al] must be numeric.',
+        'FB2.numeric' => '[Si] must be numeric.',
+        'FB3.numeric' => 'Critical Radius factor Rc must be numeric.',
+        'FB4.numeric' => 'Mineralogic factor must be numeric.',
+        'FB5.numeric' => 'Crushed proppant factor must be numeric.',
+
+        'OS1.numeric' => 'Cll factor Index must be numeric.',
+        'OS2.numeric' => 'Compositional factor must be numeric.',
+        'OS3.numeric' => 'Pressure factor must be numeric.',
+        'OS4.numeric' => 'High Impact Factor must be numeric.',
+
+        'RP1.numeric' => 'Number of days below Saturation Pressure must be numeric.',
+        'RP2.numeric' => 'Delta pressure from saturation pressure must be numeric.',
+        'RP3.numeric' => 'Water Intrusion must be numeric.',
+        'RP4.numeric' => 'High impact factor and Thompson correlation must be numeric.',
+
+        'ID1.numeric' => 'Gross Pay must be numeric.',
+        'ID2.numeric' => 'Polymer damage factor must be numeric.',
+        'ID3.numeric' => 'Total volumen of water must be numeric.',
+        'ID4.numeric' => 'Mud damage factor must be numeric.',
+
+        'GD1.numeric' => 'Fraction Of NetPay must be numeric.',
+        'GD2.numeric' => 'Drawdown must be numeric.',
+        'GD3.numeric' => 'Ratio of KH + fracture / KH must be numeric.',
+        'GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP must be numeric.',
+
+
+
+        'ms_scale_index_caco3.between' => 'Weight of scale index of CaCO3 must be between 0 and 1.',
+        'ms_scale_index_baso4.between' => 'Weight of scale index of BaSO4 must be between 0 and 1.',
+        'ms_scale_index_iron_scales.between' => 'Weight of scale index of iron scales must be between 0 and 1.',
+        'ms_calcium_concentration.between' => 'Weight of [Ca] must be between 0 and 1.',
+        'ms_barium_concentration.between' => 'Weight of [Ba] must be between 0 and 1.',
+
+        'fb_aluminum_concentration.between' => 'Weight of [Al] must be between 0 and 1.',
+        'fb_silicon_concentration.between' => 'Weight of [Si] must be between 0 and 1.',
+        'fb_critical_radius_factor.between' => 'Weight of critical Radius factor Rc must be between 0 and 1.',
+        'fb_mineralogic_factor.between' => 'Weight of mineralogic factor must be between 0 and 1.',
+        'fb_crushed_proppant_factor.between' => 'Weight of crushed proppant factor must be between 0 and 1.',
+
+        'os_cll_factor.between' => 'Weight of cll factor index must be between 0 and 1.',
+        'os_compositional_factor.between' => 'Weight of compositional factor must be between 0 and 1.',
+        'os_pressure_factor.between' => 'Weight of pressure factor must be between 0 and 1.',
+        'os_high_impact_factor.between' => 'Weight of high impact factor must be between 0 and 1.',
+
+        'rp_days_below_saturation_pressure.between' => 'Weight of number of days below saturation pressure must be between 0 and 1.',
+        'rp_delta_pressure_saturation.between' => 'Weight of delta pressure from saturation pressure must be between 0 and 1.',
+        'rp_water_intrusion.between' => 'Weight of water intrusion must be between 0 and 1.',
+        'rp_high_impact_factor.between' => 'Weight of high impact factor and Thompson correlation must be between 0 and 1.',
+
+        'id_gross_pay.between' => 'Weight of invasion radius must be between 0 and 1.',
+        'id_polymer_damage_factor.between' => 'Weight of polymer damage factor must be between 0 and 1.',
+        'id_total_volume_water.between' => 'Weight of total volumen of water must be between 0 and 1.',
+        'id_mud_damage_factor.between' => 'Weight of mud damage factor must be between 0 and 1.',
+
+        'gd_fraction_netpay.between' => 'Weight of fraction Of NetPay must be between 0 and 1.',
+        'gd_drawdown.between' => 'Weight of drawdown must be between 0 and 1.',
+        'gd_ratio_kh_fracture.between' => 'Weight of ratio of KH + fracture / KH must be between 0 and 1.',
+        'gd_geomechanical_damage_fraction.between' => 'Weight of geomechanical damage expressed as fraction of base permeability at BHFP must be between 0 and 1.',
+
+
+        'ms_scale_index_caco3.numeric' => 'Weight of scale index of CaCO3 must be numeric.',
+        'ms_scale_index_baso4.numeric' => 'Weight of scale index of BaSO4 must be numeric.',
+        'ms_scale_index_iron_scales.numeric' => 'Weight of scale index of iron scales must be numeric.',
+        'ms_calcium_concentration.numeric' => 'Weight of [Ca] must be numeric.',
+        'ms_barium_concentration.numeric' => 'Weight of [Ba] must be numeric.',
+
+        'fb_aluminum_concentration.numeric' => 'Weight of [Al] must be numeric.',
+        'fb_silicon_concentration.numeric' => 'Weight of [Si] must be numeric.',
+        'fb_critical_radius_factor.numeric' => 'Weight of critical Radius factor Rc must be numeric.',
+        'fb_mineralogic_factor.numeric' => 'Weight of mineralogic factor must be numeric.',
+        'fb_crushed_proppant_factor.numeric' => 'Weight of crushed proppant factor must be numeric.',
+
+        'os_cll_factor.numeric' => 'Weight of cll factor index must be numeric.',
+        'os_compositional_factor.numeric' => 'Weight of compositional factor must be numeric.',
+        'os_pressure_factor.numeric' => 'Weight of pressure factor must be numeric.',
+        'os_high_impact_factor.numeric' => 'Weight of high impact factor must be numeric.',
+
+        'rp_days_below_saturation_pressure.numeric' => 'Weight of number of days below saturation pressure must be numeric.',
+        'rp_delta_pressure_saturation.numeric' => 'Weight of delta pressure from saturation pressure must be numeric.',
+        'rp_water_intrusion.numeric' => 'Weight of water intrusion must be numeric.',
+        'rp_high_impact_factor.numeric' => 'Weight of high impact factor and Thompson correlation must be numeric.',
+
+        'id_gross_pay.numeric' => 'Weight of invasion radius must be numeric.',
+        'id_polymer_damage_factor.numeric' => 'Weight of polymer damage factor must be numeric.',
+        'id_total_volume_water.numeric' => 'Weight of total volumen of water must be numeric.',
+        'id_mud_damage_factor.numeric' => 'Weight of mud damage factor must be numeric.',
+
+        'gd_fraction_netpay.numeric' => 'Weight of fraction Of NetPay must be numeric.',
+        'gd_drawdown.numeric' => 'Weight of drawdown must be numeric.',
+        'gd_ratio_kh_fracture.numeric' => 'Weight of ratio of KH + fracture / KH must be numeric.',
+        'gd_geomechanical_damage_fraction.numeric' => 'Weight of geomechanical damage expressed as fraction of base permeability at BHFP must be numeric.',
+
+
+
+        'MS1.required_if' => 'Scale index of CaCO3 is required.',
+        'MS2.required_if' => 'Scale index of BaSO4 is required.',
+        'MS3.required_if' => 'Scale index of iron scales is required.',
+        'MS4.required_if' => '[Ca] is required.',
+        'MS5.required_if' => '[Ba] is required.',
+
+        'FB1.required_if' => '[Al] is required.',
+        'FB2.required_if' => '[Si] is required.',
+        'FB3.required_if' => 'Critical radius factor Rc is required.',
+        'FB4.required_if' => 'Mineralogic factor is required.',
+        'FB5.required_if' => 'Crushed proppant factor is required.',
+
+        'OS1.required_if' => 'Cll factor index is required.',
+        'OS2.required_if' => 'Compositional factor is required.',
+        'OS3.required_if' => 'Pressure factor is required.',
+        'OS4.required_if' => 'High impact factor is required.',
+
+        'RP1.required_if' => 'Number of days below saturation pressure is required.',
+        'RP2.required_if' => 'Delta pressure from saturation pressure is required.',
+        'RP3.required_if' => 'Water Intrusion is required.',
+        'RP4.required_if' => 'High impact factor and Thompson correlation is required.',
+
+        'ID1.required_if' => 'Gross Pay is required.',
+        'ID2.required_if' => 'Polymer damage factor is required.',
+        'ID3.required_if' => 'Total volumen of water is required.',
+        'ID4.required_if' => 'Mud damage factor is required.',
+
+        'GD1.required_if' => 'Fraction Of NetPay index is required.',
+        'GD2.required_if' => 'Drawdown is required.',
+        'GD3.required_if' => 'Ratio of KH + fracture / KH is required.',
+        'GD4.required_if' => 'Geomechanical damage expressed as fraction of base permeability at BHFP is required.',
+
+
+
+        'FB1.between' => '[Al] must be between 0 and 8.55.',
+        'FB2.between' => '[Si] must be between 4 and 102.',
+        'FB3.between' => 'Critical Radius factor Rc must be between 0.8 and 26.',
+        'FB4.between' => 'Mineralogic factor must be between 0.3 and 1.',
+        'FB5.between' => 'Crushed proppant factor must be between 0.74 and 3.',
+
+        'OS1.between' => 'Cll factor Index must be between 0.592 and 13.557.',
+
+        'ID1.between' => 'Gross Pay must be between 0.774 and 24.95.',
+        'ID2.between' => 'Polymer damage factor must be between 0 and 9453.',
+        'ID3.between' => 'Total volumen of water must be between 100 and 5217.',
+        'ID4.between' => 'Mud damage factor must be between 4 and 14228.',
+
+        'GD1.between' => 'Fraction Of NetPay must be between 0 and 1.',
+        'GD2.between' => 'Drawdown must be between 1 and 6000.',
+        'GD3.between' => 'Ratio of KH + fracture / KH must be between 0 and 100.',
+        'GD4.between' => 'Geomechanical damage expressed as fraction of base permeability at BHFP must be between 0 and 1.',
+        
+        'p10_ms1.numeric' => 'p10 scale index of CaCO3 must be numeric.',
+        'p10_ms2.numeric' => 'p10 scale index of BaSO4 must be numeric.',
+        'p10_ms3.numeric' => 'p10 scale index of iron scales must be numeric.',
+        'p10_ms4.numeric' => 'p10 [Ca] must be numeric.',
+        'p10_ms5.numeric' => 'p10 [Ba] must be numeric.',
+        'p10_fb1.numeric' => 'p10 [Al] must be numeric.',
+        'p10_fb2.numeric' => 'p10 [Si] must be numeric.',
+        'p10_fb3.numeric' => 'p10 critical radius factor Rc must be numeric.',
+        'p10_fb4.numeric' => 'p10 mineralogic factor must be numeric.',
+        'p10_fb5.numeric' => 'p10 crushed proppant factor must be numeric.',
+        'p10_os1.numeric' => 'p10 Cll factor index must be numeric.',
+        'p10_os2.numeric' => 'p10 compositional factor must be numeric.',
+        'p10_os3.numeric' => 'p10 pressure factor must be numeric.',
+        'p10_os4.numeric' => 'p10 high impact factor must be numeric.',
+        'p10_rp1.numeric' => 'p10 number of days below saturation pressure must be numeric.',
+        'p10_rp2.numeric' => 'p10 delta pressure from saturation pressure must be numeric.',
+        'p10_rp3.numeric' => 'p10 water intrusion must be numeric.',
+        'p10_rp4.numeric' => 'p10 high impact factor and Thompson correlation must be numeric.',
+        'p10_id1.numeric' => 'p10 invasion radius must be numeric.',
+        'p10_id2.numeric' => 'p10 polymer damage factor must be numeric.',
+        'p10_id3.numeric' => 'p10 induced skin must be numeric.',
+        'p10_id4.numeric' => 'p10 mud damage factor must be numeric.',
+        'p10_gd1.numeric' => 'p10 natural fractures index must be numeric.',
+        'p10_gd2.numeric' => 'p10 drawdown must be numeric.',
+        'p10_gd3.numeric' => 'p10 ratio of KH + fracture / KH must be numeric.',
+        'p10_gd4.numeric' => 'p10 geomechanical damage expressed as fraction of base permeability at BHFPmust be numeric.',
+
+        'p90_ms1.numeric' => 'p90 scale index of CaCO3 must be numeric.',
+        'p90_ms2.numeric' => 'p90 scale index of BaSO4 must be numeric.',
+        'p90_ms3.numeric' => 'p90 scale index of iron scales must be numeric.',
+        'p90_ms4.numeric' => 'p90 [Ca] must be numeric.',
+        'p90_ms5.numeric' => 'p90 [Ba] must be numeric.',
+        'p90_fb1.numeric' => 'p90 [Al] must be numeric.',
+        'p90_fb2.numeric' => 'p90 [Si] must be numeric.',
+        'p90_fb3.numeric' => 'p90 critical radius factor Rc must be numeric.',
+        'p90_fb4.numeric' => 'p90 mineralogic factor must be numeric.',
+        'p90_fb5.numeric' => 'p90 crushed proppant factor must be numeric.',
+        'p90_os1.numeric' => 'p90 Cll factor index must be numeric.',
+        'p90_os2.numeric' => 'p90 compositional factor must be numeric.',
+        'p90_os3.numeric' => 'p90 pressure factor must be numeric.',
+        'p90_os4.numeric' => 'p90 high impact factor must be numeric.',
+        'p90_rp1.numeric' => 'p90 number of days below saturation pressure must be numeric.',
+        'p90_rp2.numeric' => 'p90 delta pressure from saturation pressure must be numeric.',
+        'p90_rp3.numeric' => 'p90 water intrusion must be numeric.',
+        'p90_rp4.numeric' => 'p90 high impact factor and Thompson correlation must be numeric.',
+        'p90_id1.numeric' => 'p90 invasion radius must be numeric.',
+        'p90_id2.numeric' => 'p90 polymer damage factor must be numeric.',
+        'p90_id3.numeric' => 'p90 induced skin must be numeric.',
+        'p90_id4.numeric' => 'p90 mud damage factor must be numeric.',
+        'p90_gd1.numeric' => 'p90 natural fractures index must be numeric.',
+        'p90_gd2.numeric' => 'p90 drawdown must be numeric.',
+        'p90_gd3.numeric' => 'p90 ratio of KH + fracture / KH must be numeric.',
+        'p90_gd4.numeric' => 'p90 geomechanical damage expressed as fraction of base permeability at BHFPmust be numeric.',
+
+        'p10_ms1.required_if' => 'p10 scale index of CaCO3 is required.',
+        'p10_ms2.required_if' => 'p10 scale index of BaSO4 is required.',
+        'p10_ms3.required_if' => 'p10 scale index of iron scales is required.',
+        'p10_ms4.required_if' => 'p10 [Ca] is required.',
+        'p10_ms5.required_if' => 'p10 [Ba] is required.',
+        'p10_fb1.required_if' => 'p10 [Al] is required.',
+        'p10_fb2.required_if' => 'p10 [Si] is required.',
+        'p10_fb3.required_if' => 'p10 critical radius factor Rc is required.',
+        'p10_fb4.required_if' => 'p10 mineralogic factor is required.',
+        'p10_fb5.required_if' => 'p10 crushed proppant factor is required.',
+        'p10_os1.required_if' => 'p10 Cll factor index is required.',
+        'p10_os2.required_if' => 'p10 compositional factor is required.',
+        'p10_os3.required_if' => 'p10 pressure factor is required.',
+        'p10_os4.required_if' => 'p10 high impact factor is required.',
+        'p10_rp1.required_if' => 'p10 number of days below saturation pressure is required.',
+        'p10_rp2.required_if' => 'p10 delta pressure from saturation pressure is required.',
+        'p10_rp3.required_if' => 'p10 water intrusion is required.',
+        'p10_rp4.required_if' => 'p10 high impact factor and Thompson correlation is required.',
+        'p10_id1.required_if' => 'p10 invasion radius is required.',
+        'p10_id2.required_if' => 'p10 polymer damage factor is required.',
+        'p10_id3.required_if' => 'p10 induced skin is required.',
+        'p10_id4.required_if' => 'p10 mud damage factor is required.',
+        'p10_gd1.required_if' => 'p10 natural fractures index is required.',
+        'p10_gd2.required_if' => 'p10 drawdown is required.',
+        'p10_gd3.required_if' => 'p10 atio of KH + fracture / KH is required.',
+        'p10_gd4.required_if' => 'p10 geomechanical damage expressed as fraction of base permeability at BHFPis required.',
+
+        'p90_ms1.required_if' => 'p90 scale index of CaCO3 is required.',
+        'p90_ms2.required_if' => 'p90 scale index of BaSO4 is required.',
+        'p90_ms3.required_if' => 'p90 scale index of iron scales is required.',
+        'p90_ms4.required_if' => 'p90 [Ca] is required.',
+        'p90_ms5.required_if' => 'p90 [Ba] is required.',
+        'p90_fb1.required_if' => 'p90 [Al] is required.',
+        'p90_fb2.required_if' => 'p90 [Si] is required.',
+        'p90_fb3.required_if' => 'p90 critical radius factor Rc is required.',
+        'p90_fb4.required_if' => 'p90 mineralogic factor is required.',
+        'p90_fb5.required_if' => 'p90 crushed proppant factor is required.',
+        'p90_os1.required_if' => 'p90 Cll factor index is required.',
+        'p90_os2.required_if' => 'p90 compositional factor is required.',
+        'p90_os3.required_if' => 'p90 pressure factor is required.',
+        'p90_os4.required_if' => 'p90 high impact factor is required.',
+        'p90_rp1.required_if' => 'p90 number of days below saturation pressure is required.',
+        'p90_rp2.required_if' => 'p90 delta pressure from saturation pressure is required.',
+        'p90_rp3.required_if' => 'p90 water intrusion is required.',
+        'p90_rp4.required_if' => 'p90 high impact factor and Thompson correlation is required.',
+        'p90_id1.required_if' => 'p90 invasion radius is required.',
+        'p90_id2.required_if' => 'p90 polymer damage factor is required.',
+        'p90_id3.required_if' => 'p90 induced skin is required.',
+        'p90_id4.required_if' => 'p90 mud damage factor is required.',
+        'p90_gd1.required_if' => 'p90 natural fractures index is required.',
+        'p90_gd2.required_if' => 'p90 drawdown is required.',
+        'p90_gd3.required_if' => 'p90 ratio of KH + fracture / KH is required.',
+        'p90_gd4.required_if' => 'p90 geomechanical damage expressed as fraction of base permeability at BHFPis required.',
+        ];
+    }
+}
+
+

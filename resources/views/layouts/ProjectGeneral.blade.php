@@ -348,6 +348,18 @@ $.get("{!! url('arbol') !!}",
 
                     if (value.completo == 1) {
 
+                        var as = "{{ url('Desagregacion/show', array('id' => "xx")) }}";
+                        var color = "#000000";
+
+                        as = as.replace("xx", value.id);
+                        esc.push({
+                            text: "[SDA] <span title='"+nnombre+"'>" + nnombre_subs + "</span>",
+                            href: as,
+                            color: color,
+                            tags: ['0']
+                        });
+
+                        /*
                         var as = "{{ url('Desagregacion/xx/edit') }}";
                         var color = "#000000";
 
@@ -358,6 +370,7 @@ $.get("{!! url('arbol') !!}",
                             color: color,
                             tags: ['0']
                         });
+                        */
 
                     } else {
 

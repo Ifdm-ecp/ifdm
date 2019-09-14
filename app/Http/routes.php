@@ -2856,7 +2856,15 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('finesremediation/duplicate/{id}/{dup}', 'fines_remediationController@duplicate');
 
+    // Rutas de desagregación que ya están funcionando
     Route::post('Desagregacion/store', 'DesagregacionController@store');
+    Route::get('Desagregacion/show/{id_escenario}', 'DesagregacionController@show');
+    Route::resource('DesagregacionEdit', 'DesagregacionController@back');
+    Route::resource('Desagregacion', 'DesagregacionController');
+
+
+
+    // Rutas de desagregación que aún no están funcionando
     Route::get('Desagregacion/sensibility', 'DesagregacionController@sensibility');
     Route::post('Desagregacion/sensibility', 'DesagregacionController@sensibility');
     Route::get('Desagregacion/get_file', 'DesagregacionController@get_file');
@@ -2865,8 +2873,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Route::post('IPR/Desagregacion', 'DesagregacionController@skins');
     Route::post('IPR/storeIPR', 'DesagregacionController@iprstore');
-    Route::resource('Desagregacion', 'DesagregacionController');
-    Route::get('Desagregacion/show/{id_escenario}', 'DesagregacionController@show_results');
     Route::resource('DesagregacionEdit', 'DesagregacionController@back');
     Route::resource('DesagregacionUpdate', 'DesagregacionController@update');
     Route::get('/DamageAnalysis/{scenario_id}/show_results', ['as' => 'desagregacion.show_results', 'uses' => 'DesagregacionController@show_results']);

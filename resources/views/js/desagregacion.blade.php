@@ -13,6 +13,14 @@
     create_hydraulic_units_data_table();
   });
 
+  /** Maneja los botones de next y previous para cambiar de pestañas */
+  $('.btnNext').click(function(){
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+  });
+  $('.btnPrevious').click(function(){
+    $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+  });
+
   function enviar() {
     /* Loading */
     $("#loading_icon").show();
@@ -145,7 +153,7 @@ function clean_table_data(table_div_id)
  {
   $hidraulic_units_data_table = $("#hidraulic_units_data");
   $hidraulic_units_data_table.handsontable({
-    data: [[161.3,1.44,5.7,0.6],[51,2.29,5.8,1.5],[48.7,3.79,6.9,6.3]],
+    data: [[],[],[],[]],
     height: 200,
     colHeaders: true,
     minSpareRows: 1,

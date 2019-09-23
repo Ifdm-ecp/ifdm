@@ -859,6 +859,34 @@ public function update(Request $request, $id)
     }
 }
 
+
+
+/**
+* COSAS PARA SOLUCIONAR
+*
+* - Validaciones en vista y controlador
+* - 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 * Show the form for editing the specified resource.
 *
@@ -993,34 +1021,6 @@ public function save_temporary(Request $request)
         return view('loginfirst');
     }
 }
-
-/**
-* COSAS PARA SOLUCIONAR
-*
-* - Validaciones en vista y controlador
-* - 
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
 * Guarda los datos del escenario de desagregación con base en la información almacenada en el formluario e inserta en la base de datos.

@@ -13,8 +13,8 @@ $(document).ready(function()
   $("#myModal_val").modal('show');
 
   /** Banner dinámico */
-  $(window).scroll(sticky_relocate);
-  sticky_relocate();
+  //$(window).scroll(sticky_relocate);
+  //sticky_relocate();
 
   /** Crear la tabla de unidades hidráulicas*/
   create_hydraulic_units_data();
@@ -28,6 +28,14 @@ $(document).ready(function()
     //validate_form_data();
   });
 });
+
+/** Maneja los botones de next y previous para cambiar de pestañas */
+  $('.btnNext').click(function(){
+    $('.nav-tabs > .active').next('li').find('a').trigger('click');
+  });
+  $('.btnPrevious').click(function(){
+    $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+  });
 
 
 /** Banner info escenario */
@@ -140,7 +148,14 @@ function enviar()
 {
   hidraulic_units_data = clean_table_data("hidraulic_units_data");
   $("#unidades_table").val(JSON.stringify(hidraulic_units_data));
-  validate_table([hidraulic_units_data], ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
+
+  var thickness = parseFloat($("#production_formation_thickness").val());
+  var average_porosity = parseFloat($("#porosity").val())/100;
+  var average_permeability = parseFloat($("#permeability").val());
+
+  if(thickness && average_porosity && average_permeability) {
+    validate_table([hidraulic_units_data], ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
+  }
 }
 
 //Llamarla antes de guardar todos los datos de tablas - elmina nulos
@@ -168,7 +183,7 @@ function create_hydraulic_units_data()
       data: hidraulic_units_data,
       height: 200,
       colHeaders: true,
-      minSpareRows: 1,
+      minSpareRows: 4,
       viewportColumnRenderingOffset: 10,
       rowHeaders: true,
       contextMenu: true,
@@ -210,9 +225,9 @@ function goBack()
 
 function calculate_hydraulic_units_data()
 {
-  var thickness = parseFloat($("#espesor_formacion_productora").val());
+  var thickness = parseFloat($("#production_formation_thickness").val());
   var average_porosity = parseFloat($("#porosity").val());
-  var average_permeability = parseFloat($("#permeabilidad_abs_ini").val());
+  var average_permeability = parseFloat($("#permeability").val());
 
   if(thickness && average_porosity && average_permeability)
   {
@@ -234,10 +249,22 @@ function calculate_hydraulic_units_data()
   }
   else
   {
-    alert("For calculating hydraulic_units_data you'll need Producing Formation Thickness, Average Permeability, and Average Porosity Data.");
+    $('#hydraulic_modal').modal("show");
   }
 }
 
-   
+document.getElementById('well_completitions').addEventListener('change', function () {
+    var style = this.value == 3 ? 'block' : 'none';
+    document.getElementById('hidden_div_perforated_liner').style.display = style;
+});
+
+document.getElementById('fluid_of_interest').addEventListener('change', function () {
+    var style = this.value == 1 ? 'block' : 'none';
+    document.getElementById('hidden_oil').style.display = style;
+    var style = this.value == 2 ? 'block' : 'none';
+    document.getElementById('hidden_gas').style.display = style;
+    var style = this.value == 3 ? 'block' : 'none';
+    document.getElementById('hidden_water').style.display = style;
+});  
    
 </script>

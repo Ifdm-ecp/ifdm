@@ -85,7 +85,7 @@
         {!! Form::hidden('id', $desagregacion->id, array('id' => 'id')) !!}
         {!! Form::hidden('id_escenario', $desagregacion->id_escenario, array('id' => 'id_escenario')) !!}
 
-        <a href="{{ URL::to('Desagregacion/' . $desagregacion->id_escenario . '/edit') }}" class="btn btn-warning" role="button">Edit</a>
+        <a href="{{ url('Desagregacion/edit',array('id' => $desagregacion->id_escenario)) }}" class="btn btn-warning" role="button">Edit</a>
     </div>
 </div>
 

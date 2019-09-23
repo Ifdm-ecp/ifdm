@@ -73,6 +73,24 @@
    </div>
 </div>
 @endif
+<div id="hydraulic_modal" class="modal fade">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Error</h4>
+         </div>
+         <div class="modal-body">
+            <p>
+               For calculating Hydraulic Units Data you'll need Producing Formation Thickness, Permeability, and Porosity data.
+            </p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+         </div>
+      </div>
+   </div>
+</div>
 <div onload="multiparametrico();">
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky">
@@ -91,7 +109,7 @@
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
           <li class="active"><a data-toggle="tab" href="#well_data_c" id="well_data">Well Data</a></li>
           <li><a data-toggle="tab" href="#rock_properties_c" id="rock_properties">Reservoir Data</a></li>
-          <li><a data-toggle="tab" href="#stress_gradients_c" id="stress_gradients">Stress Gradients Data</a></li>
+          <li><a data-toggle="tab" href="#stress_gradients_c" id="stress_gradients">Hydraulic Units Data</a></li>
       </ul>
       <div class="tab-content">
          <div class="tab-pane active" id="well_data_c">
@@ -107,217 +125,239 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('well Radius', 'Well Radius ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('radio_pozo') ? 'has-error' : ''}}">
-                                 {!! Form::number('radio_pozo', null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'radio_pozo', 'min' => '0', 'step' => '0.01']) !!}
+                              <div class="input-group {{$errors->has('well_radius') ? 'has-error' : ''}}">
+                                 {!! Form::number('well_radius', null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'well_radius', 'min' => '0', 'step' => '0.01', 'max' => '5']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
-                              {!! $errors->first('radio_pozo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('well_radius', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('drainage radius', 'Reservoir Drainage Radius ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('radio_drenaje_yac') ? 'has-error' : ''}}">
-                                 {!! Form::number('radio_drenaje_yac', null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'radio_drenaje_yac']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">ft</span>
-                              </div>
-                              {!! $errors->first('radio_drenaje_yac', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('presion_yacimiento') ? 'has-error' : ''}}">
-                              {!! Form::label('presion de yacimiento', 'Reservoir Pressure ', array('class' => 'required')) !!}
+                           <div class="form-group {{$errors->has('reservoir_pressure') ? 'has-error' : ''}}">
+                              {!! Form::label('reservoir pressure', 'Reservoir Pressure ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('presion_yacimiento', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'presion_yacimiento']) !!}
+                                 {!! Form::number('reservoir_pressure', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'reservoir_pressure', 'min' => '0', 'max' => '10000']) !!}
                                  <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
-                              {!! $errors->first('presion_yacimiento', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('profundidad_medida_pozo') ? 'has-error' : ''}}">
-                              {!! Form::label('profundidad medida del pozo', 'Measured Well Depth ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('profundidad_medida_pozo',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'profundidad_medida_pozo']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">ft</span>
-                              </div>
-                              {!! $errors->first('profundidad_medida_pozo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
                      <div class="row">
                         <div class="col-md-6">
-                           <div class="form-group {{$errors->has('espesor_canoneado') ? 'has-error' : ''}}">
-                              {!! Form::label('espesor canoneado', 'Perforated Thickness', array('class' => 'required')) !!}
+                           <div class="form-group {{$errors->has('measured_well_depth') ? 'has-error' : ''}}">
+                              {!! Form::label('measured well depth', 'Measured Well Depth ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('espesor_canoneado',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'espesor_canoneado']) !!}
+                                 {!! Form::number('measured_well_depth',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'measured_well_depth', 'min' => '0', 'max' => '30000']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
-                              {!! $errors->first('espesor_canoneado', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('measured_well_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('profundidad_penetracion_canones') ? 'has-error' : ''}}">
-                              {!! Form::label('profundidad penetracion canones', 'Perforation Penetration Depth ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('profundidad_penetracion_canones',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'profundidad_penetracion_canones', 'min' => '0', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">ft</span>
-                              </div>
-                              {!! $errors->first('profundidad_penetracion_canones', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('fase') ? 'has-error' : ''}}">
-                              {!! Form::label('perforated cannoned phase angle', 'Perforating Phase Angle ', array('class' => 'required')) !!}
-                              {!! Form::select('fase', array(0.0 => '0°', 45.0 => '45°', 60.0 => '60°', 90.0 => '90°', 120.0 => '120°', 360.0 => '360°'), 'S', ['class' => 'form-control', 'id'=>'fase']) !!}
-                              <!--</div>-->
-                           </div>
-                           {!! $errors->first('fase', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('radio_perforado') ? 'has-error' : ''}}">
-                              {!! Form::label('perforated radius', 'Perforating Radius ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('radio_perforado',null, ['placeholder' => 'in', 'class' =>'form-control', 'id' => 'radio_perforado', 'min' => '0', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">in</span>
-                              </div>
-                              {!! $errors->first('radio_perforado', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('real formation depth', 'True Vertical Depth ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('profundidad_real_formacion') ? 'has-error' : ''}}">
-                                 {!! Form::number('profundidad_real_formacion',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'profundidad_real_formacion']) !!}
+                              <div class="input-group {{$errors->has('true_vertical_depth') ? 'has-error' : ''}}">
+                                 {!! Form::number('true_vertical_depth',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'true_vertical_depth', 'min' => '0', 'max' => '30000']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
-                              {!! $errors->first('profundidad_real_formacion', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('production formation thickness', 'Production Formation Thickness ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('espesor_formacion_productora') ? 'has-error' : ''}}">
-                                 {!! Form::number('espesor_formacion_productora',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'espesor_formacion_productora'], ) !!}
-                                 <span class="input-group-addon" id="basic-addon2">ft</span>
-                              </div>
-                              {!! $errors->first('espesor_formacion_productora', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('true_vertical_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
                      <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('formation_thickness') ? 'has-error' : ''}}">
+                              {!! Form::label('espesor formation', 'Formation Thickness', array('class' => 'required')) !!}
+                              <div class="input-group">
+                                 {!! Form::number('formation_thickness',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'formation_thickness', 'min' => '0', 'max' => '1000']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">ft</span>
+                              </div>
+                              {!! $errors->first('formation_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('perforated_thickness') ? 'has-error' : ''}}">
+                              {!! Form::label('espesor canoneado', 'Perforated Thickness', array('class' => 'required')) !!}
+                              <div class="input-group">
+                                 {!! Form::number('perforated_thickness',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforated_thickness', 'min' => '0', 'max' => '1000']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">ft</span>
+                              </div>
+                              {!! $errors->first('perforated_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                           </div>
+                        </div> 
+                     </div>
+                     <div class="row">
                         <div class="col-md-12">
-                           <!-- Ingreso forma de área de drenaje -->
-                           <div class="form-group">
-                              {!! Form::label('drainage area Shape', 'Drainage Area Shape ', array('class' => 'required')) !!}
-                              <br>
-                              <div class="col-sm-12">
-                                 <div style="height: 150px; overflow-y: scroll; overflow-x: hidden; border: 2px solid rgb(225,225,225);">
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '1', true) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma1.png') !!}" />
-                                       </p>
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '2', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma2.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '3', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma3.png') !!}" />
-                                       </p>
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '4', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma4.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '5', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma5.png') !!}" />
-                                       </p>
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '6', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma6.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />  
-                                    <div class="row">
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '7', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma7.png') !!}" />
-                                       </p>
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '8', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma8.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '9', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma9.png') !!}" />
-                                       </p>
-                                       <p class="col-sm-6" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '10', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma10.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '11', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma11.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '12', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma12.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '13', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma13.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '14', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma14.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '15', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma15.png') !!}" />
-                                       </p>
-                                    </div>
-                                    <br />
-                                    <div class="row">
-                                       <p class="col-sm-12" style="text-align: center;">
-                                          {!! Form::radio('forma_area_drenaje', '16', false) !!}
-                                          <img src="{!! asset('images/drainage-shapes/desagregacion-forma16.png') !!}" />
-                                       </p>
-                                    </div>
+                           <div class="form-group {{$errors->has('well_completitions') ? 'has-error' : ''}}">
+                              {!! Form::label('well completitions', 'Well Completitions', array('class' => 'required')) !!}
+                              {!! Form::select('well_completitions', array(1 => 'Open Hole', 2 => 'Slotted Liners', 3 => 'Perforated Liner'), 'S', ['class' => 'form-control', 'id'=>'well_completitions', 'placeholder' => 'Select a well completition']) !!}
+                           </div>
+                           {!! $errors->first('well_completitions', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                        </div>
+                     </div>
+                     <div id="hidden_div_perforated_liner" style="display: none;">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('perforation_penetration_depth') ? 'has-error' : ''}}">
+                                 {!! Form::label('profundidad penetracion canones', 'Perforation Penetration Depth ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('perforation_penetration_depth',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforation_penetration_depth', 'min' => '0', 'step' => '0.01', 'max' => '50']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">ft</span>
                                  </div>
-                                 {!! $errors->first('forma_area_drenaje', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 {!! $errors->first('perforation_penetration_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('perforating_phase_angle') ? 'has-error' : ''}}">
+                                 {!! Form::label('perforated cannoned phase angle', 'Perforating Phase Angle ') !!}
+                                 {!! Form::select('perforating_phase_angle', array(0.0 => '0°', 45.0 => '45°', 60.0 => '60°', 90.0 => '90°', 120.0 => '120°', 180.0 => '180°', 360.0 => '360°'), 'S', ['class' => 'form-control', 'id'=>'perforating_phase_angle', 'min' => '0', 'placeholder' => 'Select an angle']) !!}
+                                 {!! $errors->first('perforating_phase_angle', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('perforating_radius') ? 'has-error' : ''}}">
+                                 {!! Form::label('perforated radius', 'Perforating Radius ' )!!}
+                                 <div class="input-group">
+                                    {!! Form::number('perforating_radius',null, ['placeholder' => 'in', 'class' =>'form-control', 'id' => 'perforating_radius', 'min' => '0', 'step' => '0.01', 'max' => '10']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">in</span>
+                                 </div>
+                                 {!! $errors->first('perforating_radius', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('production formation thickness', 'Production Formation Thickness ') !!}
+                                 <div class="input-group {{$errors->has('production_formation_thickness') ? 'has-error' : ''}}">
+                                    {!! Form::number('production_formation_thickness',null, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'production_formation_thickness', 'min' => '0', 'max' => '1000'], ) !!}
+                                    <span class="input-group-addon" id="basic-addon2">ft</span>
+                                 </div>
+                                 {!! $errors->first('production_formation_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('horizontal_vertical_permeability_ratio') ? 'has-error' : ''}}">
+                                 {!! Form::label('relacion permeabilidad vertical horizontal', 'Horizontal - Vertical Permeability Ratio ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('horizontal_vertical_permeability_ratio',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'horizontal_vertical_permeability_ratio', 'min' => '0', 'max' => '100']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('horizontal_vertical_permeability_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <!-- Ingreso forma de área de drenaje -->
+                              <div class="form-group">
+                                 {!! Form::label('drainage area Shape', 'Drainage Area Shape ') !!}
+                                 <br>
+                                 <div>
+                                    <div style="height: 150px; overflow-y: scroll; overflow-x: hidden; border: 2px solid rgb(225,225,225);">
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '1', true) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma1.png') !!}" />
+                                          </p>
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '2', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma2.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '3', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma3.png') !!}" />
+                                          </p>
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '4', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma4.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '5', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma5.png') !!}" />
+                                          </p>
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '6', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma6.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />  
+                                       <div class="row">
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '7', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma7.png') !!}" />
+                                          </p>
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '8', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma8.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '9', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma9.png') !!}" />
+                                          </p>
+                                          <p class="col-sm-6" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '10', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma10.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '11', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma11.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '12', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma12.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '13', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma13.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '14', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma14.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '15', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma15.png') !!}" />
+                                          </p>
+                                       </div>
+                                       <br />
+                                       <div class="row">
+                                          <p class="col-sm-12" style="text-align: center;">
+                                             {!! Form::radio('drainage_area_shape', '16', false) !!}
+                                             <img src="{!! asset('images/drainage-shapes/desagregacion-forma16.png') !!}" />
+                                          </p>
+                                       </div>
+                                    </div>
+                                    {!! $errors->first('drainage_area_shape', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -332,36 +372,149 @@
                <div class="panel-body">
                   <div id="Product" class="panel-collapse collapse in">
                      <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('oil rate', 'Oil Rate ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('tasa_flujo') ? 'has-error' : ''}}">
-                                 {!! Form::number('tasa_flujo',null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'tasa_flujo']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                        <div class="col-md-12">
+                           <div class="form-group {{$errors->has('fluid_of_interest') ? 'has-error' : ''}}">
+                              {!! Form::label('fluid of interest', 'Fluid of Interest', array('class' => 'required')) !!}
+                              {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water'), 'select', ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
+                           </div>
+                           {!! $errors->first('fluid_of_interest', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                        </div>
+                     </div>
+                     <div id="hidden_oil" style="display: none;">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('oil rate', 'Oil Rate ') !!}
+                                 <div class="input-group {{$errors->has('oil_rate') ? 'has-error' : ''}}">
+                                    {!! Form::number('oil_rate',null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'oil_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                                 </div>
+                                 {!! $errors->first('oil_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
-                              {!! $errors->first('tasa_flujo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 <div class="input-group {{$errors->has('oil_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
+                                    {!! Form::number('oil_bottomhole_flowing_pressure', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'oil_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">psi</span>
+                                 </div>
+                                 {!! $errors->first('oil_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
                            </div>
                         </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('presion_fondo') ? 'has-error' : ''}}">
-                                 {!! Form::number('presion_fondo', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'presion_fondo']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi</span>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('oil_viscosity') ? 'has-error' : ''}}">
+                                 {!! Form::label('viscosidad del aceite', 'Oil Viscosity ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('oil_viscosity',null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'oil_viscosity', 'min' => '0', 'max' => '100000', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">cp</span>
+                                 </div>
+                                 {!! $errors->first('oil_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
-                              {!! $errors->first('presion_fondo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('oil_volumetric_factor') ? 'has-error' : ''}}">
+                                 {!! Form::label('volumetric oil factor', 'Oil Volumetric Factor ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('oil_volumetric_factor',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'oil_volumetric_factor',  'min' => '0', 'max' => '10', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('oil_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
                            </div>
                         </div>
                      </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('gas rate', 'Gas Rate ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('caudal_produccion_gas') ? 'has-error' : ''}}">
-                                 {!! Form::number('caudal_produccion_gas',null, ['placeholder' => 'MMscf/d', 'class' =>'form-control', 'id' => 'caudal_produccion_gas']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">MMscf/d</span>
+                     <div id="hidden_gas" style="display: none;">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('gas rate', 'Gas Rate ') !!}
+                                 <div class="input-group {{$errors->has('gas_rate') ? 'has-error' : ''}}">
+                                    {!! Form::number('gas_rate',null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'gas_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                                 </div>
+                                 {!! $errors->first('gas_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
-                              {!! $errors->first('caudal_produccion_gas', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 <div class="input-group {{$errors->has('gas_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
+                                    {!! Form::number('gas_bottomhole_flowing_pressure', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'gas_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">psi</span>
+                                 </div>
+                                 {!! $errors->first('gas_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('gas_viscosity') ? 'has-error' : ''}}">
+                                 {!! Form::label('viscosidad del gas', 'Gas Viscosity ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('gas_viscosity',null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'gas_viscosity', 'min' => '0', 'max' => '100000', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">cp</span>
+                                 </div>
+                                 {!! $errors->first('gas_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('gas_volumetric_factor') ? 'has-error' : ''}}">
+                                 {!! Form::label('factor volumetrico del gas', 'Gas Volumetric Factor ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('gas_volumetric_factor',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gas_volumetric_factor', 'min' => '0', 'max' => '10', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('gas_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="hidden_water" style="display: none;">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('water rate', 'Water Rate ') !!}
+                                 <div class="input-group {{$errors->has('water_rate') ? 'has-error' : ''}}">
+                                    {!! Form::number('water_rate',null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'water_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                                 </div>
+                                 {!! $errors->first('water_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 <div class="input-group {{$errors->has('water_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
+                                    {!! Form::number('water_bottomhole_flowing_pressure', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'water_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">psi</span>
+                                 </div>
+                                 {!! $errors->first('water_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('water_viscosity') ? 'has-error' : ''}}">
+                                 {!! Form::label('viscosidad del agua', 'Water Viscosity ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('water_viscosity',null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'water_viscosity', 'min' => '0', 'max' => '100000', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">cp</span>
+                                 </div>
+                                 {!! $errors->first('water_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('water_volumetric_factor') ? 'has-error' : ''}}">
+                                 {!! Form::label('volumetric water factor', 'Water Volumetric Factor ') !!}
+                                 <div class="input-group">
+                                    {!! Form::number('water_volumetric_factor',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'water_volumetric_factor',  'min' => '0', 'max' => '10', 'step' => '0.00001']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('water_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -376,13 +529,13 @@
                   <div id="Dam" class="panel-collapse collapse in">
                      <fieldset>
                         <div class="col-md-6 input_skin">
-                           <div class="form-group {{$errors->has('Skin') ? 'has-error' : ''}}">
-                              {!! Form::label('well total damage', 'Skin', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('dano_total_pozo') ? 'has-error' : ''}}">
-                                 {!! Form::number('dano_total_pozo',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'dano_total_pozo']) !!}
+                           <div class="form-group {{$errors->has('skin') ? 'has-error' : ''}}">
+                              {!! Form::label('skin', 'Skin', array('class' => 'required')) !!}
+                              <div class="input-group {{$errors->has('skin') ? 'has-error' : ''}}">
+                                 {!! Form::number('skin',null, ['placeholder' => '-', 'class' =>'form-control', 'name' => 'skin', 'id' => 'skin', 'min' => '0', 'max' => '1000']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
-                              {!! $errors->first('dano_total_pozo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('skin', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </fieldset>
@@ -401,113 +554,49 @@
                   <div id="BasicP" class="panel-collapse collapse in">
                      <div class="row">
                         <div class="col-md-6">
-                           <div class="form-group {{$errors->has('permeabilidad_abs_ini') ? 'has-error' : ''}}">
+                           <div class="form-group {{$errors->has('permeability') ? 'has-error' : ''}}">
                               {!! Form::label('permeabilidad absoluta inicial', 'Permeability  ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('permeabilidad_abs_ini', null, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeabilidad_abs_ini']) !!}
+                                 {!! Form::number('permeability', null, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeability', 'min' => '0', 'max' => '1000000']) !!}
                                  <span class="input-group-addon" id="basic-addon2">md</span>
                               </div>
-                              {!! $errors->first('permeabilidad_abs_ini', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              {!! $errors->first('permeability', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
-                           <div class="form-group {{$errors->has('tipo_roca') ? 'has-error' : ''}}">
+                           <div class="form-group {{$errors->has('rock_type') ? 'has-error' : ''}}">
                               {!! Form::label('tipo de roca', 'Rock Type ', array('class' => 'required')) !!}
-                              <select name="tipo_roca" class="form-control" id="tipo_roca">
-                                 <option value="0"></option>
-                                 @if(session('tipo_roca') == 'consolidada')
+                              <select name="rock_type" class="form-control" id="rock_type">
+                                 <option selected>Select a rock type</option>
+                                 @if(session('rock_type') == 'consolidada')
                                  <option value="consolidada" selected>Consolidated</option>
                                  @else
                                  <option value="consolidada">Consolidated</option>
                                  @endif
-                                 @if(session('tipo_roca') == 'poco consolidada')
+                                 @if(session('rock_type') == 'poco consolidada')
                                  <option value="poco consolidada" selected>Unconsolidated</option>
                                  @else
                                  <option value="poco consolidada" >Unconsolidated</option>
                                  @endif
-                                 @if(session('tipo_roca')=='microfracturada')
+                                 @if(session('rock_type')=='microfracturada')
                                  <option value="microfracturada" selected>Microfractured</option>
                                  @else
                                  <option value="microfracturada">Microfractured</option>
                                  @endif
                               </select>
-                              <!--</div>-->
+                              {!! $errors->first('rock_type', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
-                           {!! $errors->first('tipo_roca', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('relacion_perm_horiz_vert') ? 'has-error' : ''}}">
-                              {!! Form::label('relacion permeabilidad vertical horizontal', 'Horizontal - Vertical Permeability Ratio ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('relacion_perm_horiz_vert',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'relacion_perm_horiz_vert']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
-                              </div>
-                              {!! $errors->first('relacion_perm_horiz_vert', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', null, ['placeholder' =>  '-', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '1', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                 {!! Form::number('porosity', null, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.1']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">%</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#MP"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Fluid Properties</h4>
-               </div>
-               <div class="panel-body">
-                  <div id="MP" class="panel-collapse collapse in">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('viscosidad_aceite') ? 'has-error' : ''}}">
-                              {!! Form::label('viscosidad del aceite', 'Oil Viscosity ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('viscosidad_aceite',null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'viscosidad_aceite', 'min' => '0', 'step' => '0.00001']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">cp</span>
-                              </div>
-                              {!! $errors->first('viscosidad_aceite', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('viscosidad_gas') ? 'has-error' : ''}}">
-                              {!! Form::label('viscosidad del gas', 'Gas Viscosity ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('viscosidad_gas',null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'viscosidad_gas', 'min' => '0', 'step' => '0.00001']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">cp</span>
-                              </div>
-                              {!! $errors->first('viscosidad_gas', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('gravedad_especifica_gas') ? 'has-error' : ''}}">
-                              {!! Form::label('gravedad especifica del gas', 'Specific Gas Gravity ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('gravedad_especifica_gas',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gravedad_especifica_gas', 'min' => '0', 'step' => '0.00001']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
-                              </div>
-                              {!! $errors->first('gravedad_especifica_gas', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('factor_volumetrico_aceite') ? 'has-error' : ''}}">
-                              {!! Form::label('volumetric oil factor', 'Oil Volumetric Factor ', array('class' => 'required')) !!}
-                              <div class="input-group">
-                                 {!! Form::number('factor_volumetrico_aceite',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'factor_volumetrico_aceite',  'min' => '0', 'step' => '0.00001']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
-                              </div>
-                              {!! $errors->first('factor_volumetrico_aceite', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -519,49 +608,6 @@
             <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
          </div>
          <div class="tab-pane" id="stress_gradients_c">
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#Grad"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Stress Gradients</h4>
-               </div>
-               <div class="panel-body">
-                  <div id="Grad" class="panel-collapse collapse in">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('minimun horizontal stress gradient', 'Minimum Horizontal Stress Gradient ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('gradiente_esfuerzo_horizontal_minimo') ? 'has-error' : ''}}">
-                                 {!! Form::number('gradiente_esfuerzo_horizontal_minimo',null, ['placeholder' => 'psi/ft', 'class' =>'form-control', 'id' => 'gradiente_esfuerzo_horizontal_minimo',  'min' => '0', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi/ft</span>
-                              </div>
-                              {!! $errors->first('gradiente_esfuerzo_horizontal_minimo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('maximum horizontal stress gradient', 'Maximum horizontal stress gradient ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('gradiente_esfuerzo_horizontal_maximo') ? 'has-error' : ''}}">
-                                 {!! Form::number('gradiente_esfuerzo_horizontal_maximo',null, ['placeholder' => 'psi/ft', 'class' =>'form-control', 'id' => 'gradiente_esfuerzo_horizontal_maximo', 'min' => '0', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi/ft</span>
-                              </div>
-                              {!! $errors->first('gradiente_esfuerzo_horizontal_maximo', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('vertical stress gradient', 'Vertical Stress Gradient ', array('class' => 'required')) !!}
-                              <div class="input-group {{$errors->has('gradiente_esfuerzo_vertical') ? 'has-error' : ''}}">
-                                 {!! Form::number('gradiente_esfuerzo_vertical',null, ['placeholder' => 'psi/ft', 'class' =>'form-control', 'id' => 'gradiente_esfuerzo_vertical',  'min' => '0', 'step' => '0.01']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi/ft</span>
-                              </div>
-                              {!! $errors->first('gradiente_esfuerzo_vertical', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
             <div class="panel panel-default">
                <div class="panel-heading">
                   <h4><a data-parent="#accordion" data-toggle="collapse" href="#Unids"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right" ></span></a> Hydraulic Units Data</h4>
@@ -587,7 +633,7 @@
             
             <div class="row">
                <div class="col-xs-12">
-                 {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
+                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
                   {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right', 'onclick' => 'enviar();')) !!}
                   <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
                   <div id="loading" style="display:none;"></div>

@@ -2858,8 +2858,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Rutas de desagregación que ya están funcionando
     Route::post('Desagregacion/store', 'DesagregacionController@store');
-    Route::get('Desagregacion/show/{id_escenario}', 'DesagregacionController@show');
-    Route::resource('DesagregacionEdit', 'DesagregacionController@back');
+    Route::get('Desagregacion/show/{id}', 'DesagregacionController@show');
+    Route::get('Desagregacion/edit/{id}', 'DesagregacionController@edit');
+    Route::resource('Desagregacion/update', 'DesagregacionController@update');
+    Route::post('Desagregacion/save_temporary', 'DesagregacionController@save_temporary');
     Route::resource('Desagregacion', 'DesagregacionController');
 
 

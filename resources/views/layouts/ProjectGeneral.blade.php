@@ -375,7 +375,7 @@ $.get("{!! url('arbol') !!}",
                     } else {
 
 
-                        var as = "{{ URL::route('Desagregacion.show',array('id' => "xx")) }}";
+                        var as = "{{ url('Desagregacion/edit',array('id' => "xx")) }}";
                         var color = "#ff1b00";
 
                         if (res == "1") {

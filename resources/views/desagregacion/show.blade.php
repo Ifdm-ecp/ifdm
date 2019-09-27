@@ -55,7 +55,7 @@
                         <tbody>
                             <tr>
                                 <th>Well friction coefficient [1/ft]</th>
-                                <td>{!! sprintf("%E", round($coeficiente_friccion,2)) !!} </td>
+                                <td>{!! sprintf("%E", round($coeficiente_friccion),2) !!}</td>
                             </tr>
                             <tr>
                                 <th>Well permeability module [1/PSI]</th>
@@ -65,7 +65,6 @@
                     </table>
                     <div id="grafica_desagregacion"></div>
                     <div id="grafica_pres_perm"></div>
-                    <div id="grafica_aumentada"></div>
                 </div>
             </div>
         </div>
@@ -85,7 +84,7 @@
         {!! Form::hidden('id', $desagregacion->id, array('id' => 'id')) !!}
         {!! Form::hidden('id_escenario', $desagregacion->id_escenario, array('id' => 'id_escenario')) !!}
 
-        <a href="{{ url('Desagregacion/edit',array('id' => $desagregacion->id_escenario)) }}" class="btn btn-warning" role="button">Edit</a>
+        <a href="{{ url('Desagregacion/edit', $desagregacion->id_escenario) }}" class="btn btn-warning" role="button">Edit</a>
     </div>
 </div>
 

@@ -91,6 +91,24 @@
       </div>
    </div>
 </div>
+<div id="hydraulic_modal_incomplete" class="modal fade">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Error</h4>
+         </div>
+         <div class="modal-body">
+            <p>
+               Error in Hydraulic Units Data. Check table values.
+            </p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+         </div>
+      </div>
+   </div>
+</div>
 <div onload="multiparametrico();">
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky">
@@ -542,8 +560,8 @@
                   </div>
                </div>
             </div>
-            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
-            <a class="btn btn-primary pull-right btnNext" >Next</a>
+            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();', 'type' => 'button')) !!}
+            <a class="btn btn-primary pull-right btnNext" type = 'button'>Next</a>
          </div>
          <div class="tab-pane" id="rock_properties_c">
             <div class="panel panel-default {{$errors->has('MSFormation') ? 'has-error' : ''}}">
@@ -568,21 +586,9 @@
                               {!! Form::label('tipo de roca', 'Rock Type ', array('class' => 'required')) !!}
                               <select name="rock_type" class="form-control" id="rock_type">
                                  <option selected>Select a rock type</option>
-                                 @if(session('rock_type') == 'consolidada')
-                                 <option value="consolidada" selected>Consolidated</option>
-                                 @else
                                  <option value="consolidada">Consolidated</option>
-                                 @endif
-                                 @if(session('rock_type') == 'poco consolidada')
-                                 <option value="poco consolidada" selected>Unconsolidated</option>
-                                 @else
                                  <option value="poco consolidada" >Unconsolidated</option>
-                                 @endif
-                                 @if(session('rock_type')=='microfracturada')
-                                 <option value="microfracturada" selected>Microfractured</option>
-                                 @else
                                  <option value="microfracturada">Microfractured</option>
-                                 @endif
                               </select>
                               {!! $errors->first('rock_type', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
@@ -603,9 +609,9 @@
                   </div>
                </div>
             </div>
-            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
-            <a class="btn btn-primary pull-right btnNext" >Next</a>
-            <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
+            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();', 'type' => 'button')) !!}
+            <a class="btn btn-primary pull-right btnNext" type="button">Next</a>
+            <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;" type="button">Previous</a>
          </div>
          <div class="tab-pane" id="stress_gradients_c">
             <div class="panel panel-default">
@@ -622,7 +628,7 @@
                               <div class="col-md-12">
                                  <div tabindex="0" id="hidraulic_units_data" class="dataTable" style="overflow: auto;  height: 150px; max-height: 150px; table-layout: auto; width: 100%;">
                                  </div>
-                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the Hydraulic Units Data you'll need Permeability, Porosity, and Producing Formation Thickness Data." onclick="calculate_hydraulic_units_data()">Calculate Hydraulic Units Data</button>
+                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the Hydraulic Units Data you'll need Permeability, Porosity, and Producing Formation Thickness Data." onclick="calculate_hydraulic_units_data()" type='button'>Calculate Hydraulic Units Data</button>
                               </div>
                            </div>
                         </div>
@@ -633,12 +639,13 @@
             
             <div class="row">
                <div class="col-xs-12">
-                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
-                  {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right', 'onclick' => 'enviar();')) !!}
+                  {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'guardar();', 'type' => 'button')) !!}
+                  {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right','id' => 'next', 'onclick' => 'enviar();', 'type' => 'button')) !!}
                   <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
                   <div id="loading" style="display:none;"></div>
                   &nbsp;
-                  {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+                  
                   {!! Form::Close() !!}
                   {!!Form::open(array('url' => 'IPR/storeIPR', 'method' => 'post','style'=>'display:inline'))!!}
                   {!! Form::hidden('inputskins', "back" , array('id' => 'inputskins')) !!}

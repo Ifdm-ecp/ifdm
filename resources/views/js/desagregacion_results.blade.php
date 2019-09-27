@@ -86,11 +86,12 @@
           if(zoomed)
           {
             max_eje_x = 10;
-            title += " (Zoomed "+Math.min.apply(Math, eje_x)+"< radius < 10)";
+            //title += " (Zoomed "+Math.min.apply(Math, eje_x)+"< radius < 10)";
           }
           else
           {
-            max_eje_x = Math.max.apply(Math, eje_x);
+            max_eje_x = 10;
+            //max_eje_x = Math.max.apply(Math, eje_x);
           }
           Highcharts.chart(div, {
         
@@ -104,17 +105,17 @@
                  x: -20 //center
              },
              xAxis: {
-              min: Math.min.apply(Math, eje_x),
+              //min: Math.min.apply(Math, eje_x),
               max: max_eje_x,
               title: {
-                text: 'Radius [ft]'
+                text: 'r(i)'
               }
              },
              yAxis: {
-              min: Math.min.apply(Math, eje_y),
-              max: Math.max.apply(Math, eje_y),
+              //min: Math.min.apply(Math, eje_y),
+              //max: Math.max.apply(Math, eje_y),
                  title: {
-                     text: title
+                     text: 'Skin by Effective Stress'
                  },
                  plotLines: [{
                      value: 0,
@@ -141,8 +142,7 @@
         
         plot_spider_chart( {!! $results !!}, "grafica_desagregacion", ["Total Skin", "Mechanical Skin", "Stress-dependent Skin", "Pseudo Skin", "Rate-dependent Skin"], 'Skin By Components');
         draw_results_table({!! $results !!});
-        plot_line_chart("grafica_pres_perm", {!! $radios !!}, {!! $permeabilidades !!}, "Radius[ft] vs. Permeability[k]", false);
-        plot_line_chart("grafica_aumentada",{!! $radios !!}, {!! $permeabilidades !!},"Radius[ft] vs. Permeability[k]", true);
+        plot_line_chart("grafica_pres_perm",{!! $ri !!} ,{!! $skin_by_stress !!} , "r(i) vs. Skin by Effective Stress", true);
         
         
         

@@ -91,6 +91,24 @@
       </div>
    </div>
 </div>
+<div id="hydraulic_modal_incomplete" class="modal fade">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Error</h4>
+         </div>
+         <div class="modal-body">
+            <p>
+               Error in Hydraulic Units Data. Check table values.
+            </p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+         </div>
+      </div>
+   </div>
+</div>
 <div onload="multiparametrico();">
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky">
@@ -568,21 +586,9 @@
                               {!! Form::label('tipo de roca', 'Rock Type ', array('class' => 'required')) !!}
                               <select name="rock_type" class="form-control" id="rock_type">
                                  <option selected>Select a rock type</option>
-                                 @if(session('rock_type') == 'consolidada')
-                                 <option value="consolidada" selected>Consolidated</option>
-                                 @else
                                  <option value="consolidada">Consolidated</option>
-                                 @endif
-                                 @if(session('rock_type') == 'poco consolidada')
-                                 <option value="poco consolidada" selected>Unconsolidated</option>
-                                 @else
                                  <option value="poco consolidada" >Unconsolidated</option>
-                                 @endif
-                                 @if(session('rock_type')=='microfracturada')
-                                 <option value="microfracturada" selected>Microfractured</option>
-                                 @else
                                  <option value="microfracturada">Microfractured</option>
-                                 @endif
                               </select>
                               {!! $errors->first('rock_type', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
@@ -593,7 +599,7 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', $disaggregation->porosity, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.1']) !!}
+                                 {!! Form::number('porosity', (($disaggregation->porosity)*100), ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.1']) !!}
                                  <span class="input-group-addon" id="basic-addon2">%</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -633,7 +639,7 @@
             
             <div class="row">
                <div class="col-xs-12">
-                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();')) !!}
+                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'guardar();')) !!}
                   {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right', 'onclick' => 'enviar();')) !!}
                   <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
                   <div id="loading" style="display:none;"></div>

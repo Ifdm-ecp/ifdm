@@ -636,7 +636,6 @@
                   </div>
                </div>
             </div>
-            
             <div class="row">
                <div class="col-xs-12">
                   {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}

@@ -122,7 +122,7 @@
       final_message = message_numeric + message_value_empty;
       return [final_message];
   }
-  
+
   /** Valida que el formulario esté completo por pestaña: negro a formularios completos, rojo a incompletos */
   function validate_form_data() {
     /* Unidades hidráulicas */

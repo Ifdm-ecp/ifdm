@@ -496,7 +496,7 @@ public function store(Request $request)
 }
 
 /**
-* Display the specified resource.
+* Organiza los datos requeridos para mostrar los resultados y los envía a la vista "show".
 *
 * @param  int  $id
 * @return \Illuminate\Http\Response
@@ -880,6 +880,203 @@ public function update(Request $request, $id)
         return view('loginfirst');
     }
 }
+
+/**
+* Guarda los datos del escenario de desagregación con base en la información almacenada en el formluario e inserta en la base de datos.
+*
+* @param  \Illuminate\Http\Request  $request
+* @return \Illuminate\Http\Response
+*/
+public function prueba($id)
+{
+    if (\Auth::check()) {
+            
+        $scenaryId = $id;
+        $scenary = escenario::find($scenaryId);
+        $pozo = DB::table('pozos')->find($scenary->pozo_id);
+        $cuenca = DB::table('cuencas')->find($scenary->cuenca_id);
+        $formacion = DB::table('formacionxpozos')->where('nombre', $scenary->formacion_id)->first();
+
+        $well_radius = 0.3;
+        $reservoir_pressure = 3260;
+        $measured_well_depth = 8600;
+        $true_vertical_depth = 8500;
+        $formation_thickness = 40;
+        $perforated_thickness = 40;
+        $well_completitions = 3;
+        $perforation_penetration_depth = 0.5;
+        $perforating_phase_angle = 0.0;
+        $perforating_radius = 1.8;
+        $production_formation_thickness = 260;
+        $horizontal_vertical_permeability_ratio = 0.5;
+        $drainage_area_shape = 1;
+        $fluid_of_interest = 1;
+        $oil_rate = 560;
+        $oil_bottomhole_flowing_pressure = 2200;
+        $oil_viscosity = 0.9;
+        $oil_volumetric_factor = 1.06;
+        $skin = 13.8;
+        $permeability = 50;
+        $rock_type = 'microfracturada';
+        $porosity = 11/100;
+        $status_wr = 1.0;
+
+
+        DB::table('desagregacion')->where('id_escenario', $scenaryId)->update([
+            'well_radius' => $well_radius,
+            'reservoir_pressure' => $reservoir_pressure,
+            'measured_well_depth' => $measured_well_depth,
+            'true_vertical_depth' => $true_vertical_depth,
+            'formation_thickness' => $formation_thickness,
+            'perforated_thickness' => $perforated_thickness,
+            'well_completitions' => $well_completitions,
+            'perforation_penetration_depth' => $perforation_penetration_depth,
+            'perforating_phase_angle' => $perforating_phase_angle,
+            'perforating_radius' => $perforating_radius,
+            'production_formation_thickness' => $production_formation_thickness,
+            'horizontal_vertical_permeability_ratio' => $horizontal_vertical_permeability_ratio,
+            'drainage_area_shape' => $drainage_area_shape,
+            'oil_rate' => $oil_rate,
+            'oil_bottomhole_flowing_pressure' => $oil_bottomhole_flowing_pressure,
+            'oil_viscosity' => $oil_viscosity,
+            'oil_volumetric_factor' => $oil_volumetric_factor,
+            'fluid_of_interest' => $fluid_of_interest,
+            'skin' => $skin,
+            'permeability' => $permeability,
+            'rock_type' => $rock_type,
+            'porosity' => $porosity,
+            'status_wr' => $status_wr,
+            'id_escenario' => $scenaryId,
+
+        ]);
+
+        
+        $desagregacion = DB::table('desagregacion')->where('id_escenario', $scenaryId)->first();
+
+        $desagregacion_tabla = DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->first();
+        if (!is_null($desagregacion_tabla)) {
+            DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->delete();
+        }
+
+
+        $fzi = 0.0314 * (sqrt($permeability/$porosity)/$porosity/(1-$porosity));
+        $unidades_table = [[$formation_thickness,$fzi,$porosity,$permeability]];
+        $unidades_table = json_encode($unidades_table);
+
+
+        $tabla = str_replace(",[null,null,null,null]","",$unidades_table);
+        $tabla = json_decode($tabla);
+        foreach ($tabla as $value) {
+            $desagregacion_tabla = new desagregacion_tabla;
+            $desagregacion_tabla->Espesor = str_replace(",", ".", $value[0]);
+            $desagregacion_tabla->fzi = str_replace(",",".",$value[1]);
+            $desagregacion_tabla->porosidad_promedio = str_replace(",",".",$value[2]);
+            $desagregacion_tabla->permeabilidad = str_replace(",",".",$value[3]);
+            $desagregacion_tabla->id_desagregacion=$desagregacion->id;
+            $desagregacion_tabla->save();
+        }
+
+        $arreglo = json_decode($unidades_table);
+        $datos_unidades_hidraulicas = array();
+        foreach($arreglo as $value){
+            if($value[0] != null){
+                $datos_unidades_hidraulicas[] = $value;
+            }
+        }
+
+        $hidraulic_units_data = json_encode($datos_unidades_hidraulicas);
+
+        $results = 0;
+        $radios = 0;
+        $permeabilidades = 0;
+        $coeficiente_friccion = 0;
+        $modulo_permeabilidad = 0;
+
+        $fluid_rate = $oil_rate;
+        $bottomhole_flowing_pressure = $oil_bottomhole_flowing_pressure;
+        $fluid_viscosity = $oil_viscosity;
+        $fluid_volumetric_factor = $oil_volumetric_factor;
+
+        $results = $this->run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data);
+
+        //dd($results);
+
+        $radios = $results[5]; 
+        $permeabilidades = $results[6];
+        $coeficiente_friccion = $results[7];
+        $modulo_permeabilidad = $results[8];
+        $suma = $results[1] + $results[2] + $results[3] + $results[4];
+        $total = $results[0];
+        $ri = $results[9];
+        $skin_by_stress = $results[10];
+        $skin_by_stress = $skin_by_stress[0];
+        $results = array_slice($results, 0,5);
+
+        /* Resultados spider */
+        $resultado_desagregacion = DB::table('resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
+        if (!is_null($resultado_desagregacion)) {
+            DB::table('resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->delete();
+        }
+        $resultado_desagregacion = new resultado_desagregacion;
+        $resultado_desagregacion->id_desagregacion = $desagregacion->id;
+        $resultado_desagregacion->total_skin = $results[0];
+        $resultado_desagregacion->mechanical_skin = $results[1];
+        $resultado_desagregacion->stress_skin = $results[2];
+        $resultado_desagregacion->pseudo_skin = $results[3];
+        $resultado_desagregacion->rate_skin = $results[4];
+        $resultado_desagregacion->permeability_module = $modulo_permeabilidad;
+        $resultado_desagregacion->friction_coefficient = $coeficiente_friccion;
+        $resultado_desagregacion->save();
+
+        /* Resultados radios */
+        $resultado_ri = DB::table('radios_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
+        if (!is_null($resultado_ri)) {
+            DB::table('radios_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->delete();
+        } 
+        foreach ($ri as $value)
+        {
+            $resultado_ri = new radios_resultado_desagregacion;
+            $resultado_ri->id_desagregacion = $desagregacion->id;
+            $resultado_ri->radio = $value;
+            $resultado_ri->save();
+        }
+
+        /* Resultados permeabilidades */
+        $resultado_skin_by_stress = DB::table('permeabilidades_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
+        if (!is_null($resultado_skin_by_stress)) {
+            DB::table('permeabilidades_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->delete();
+        } 
+        foreach ($skin_by_stress as $value)
+        {
+            $resultado_skin_by_stress = new permeabilidades_resultado_desagregacion;
+            $resultado_skin_by_stress->id_desagregacion = $desagregacion->id;
+            $resultado_skin_by_stress->permeabilidad = $value;
+            $resultado_skin_by_stress->save();
+        }
+
+        $results = json_encode($results);
+        $radios = json_encode($radios);
+        $permeabilidades = json_encode($permeabilidades);
+        $ri = json_encode($ri);
+        $skin_by_stress = json_encode($skin_by_stress);
+
+        $scenary_s = DB::table('escenarios')->where('id', $desagregacion->id_escenario)->first();
+
+        $intervalo = DB::table('formacionxpozos')->where('id',$scenary_s->formacion_id)->first();
+        $campo = DB::table('campos')->where('id',$scenary_s->campo_id)->first();
+
+        $scenary->completo = 1;
+        $scenary->estado = 1;
+        $scenary->save();
+
+        return view('desagregacion.show', compact('results', 'formacion', 'cuenca', 'pozo','ri','skin_by_stress','desagregacion','suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion','scenary_s','intervalo', 'campo'));
+        
+    } else {
+        return view('loginfirst');
+    }
+}
+
+
 
 
 
@@ -1568,6 +1765,14 @@ public function back()
 
 
 
+
+
+
+
+
+
+
+
 /**
 * Corre el caso base de ipr para adicionarlo a los resultados del escenario de desagregación.
 *
@@ -1691,52 +1896,103 @@ public function destroy($id)
 /* Módulo de cálculo */
 /* Cálculo del daño por efecto de los esfuerzos */
 
-/**Distancia del pozo al punto i*/
-/* Parámetro 1: @well_radius, radio del pozo */
-/* Parámetro 2: @drainage_radius, radio de drenaje del pozo */
-/* Return: Vector de intervalos de distancias del pozo a distintos puntos */
-public function well_point_i_distance($well_radius, $drainage_radius)
+/* Módulo de permeabilidad (4.3) (verificada) */
+/* Parámetro 1: @indice_zona_flujo_para_tipo_roca_j, Índice de zona de flujo para */
+/* el tipo de roca j */
+/* Parámetro 2: @tipo_roca, tipo de roca */
+/* Return: Vector de permeabilidad */
+public function permeability_module($hidraulic_units_data, $rock_type)
 {
-    $well_point_i_distance = [];
-#Distancia en la que aumentan los puntos a partir de los 10 pies
-    $longitude = 1;
-    $cont_1 = 0;
+    $calculated_hidraulic_units_data = [];
 
-    /**Se establecen las distancias del pozo a los puntos a estudiar. Los primeros 10 pies se estudian con minuciosidad,  por ello las distancias aumentan 0.2 */
-    while($well_radius + (1 * $cont_1) <= 10)
+    if($rock_type == "consolidada")
     {
-        array_push($well_point_i_distance, ($well_radius + (1 * $cont_1)));
-        $cont_1++;
+        $a = 0.000809399;
+        $b = -0.986179237;
+    }
+    else if($rock_type == "poco consolidada")
+    {
+        $a = 0.000433696;
+        $b = -0.587596095;
+    }
+    else if($rock_type == "microfracturada")
+    {
+        $a = 0.000613657;
+        $b = 0.371958564;
     }
 
-    /* Después de los 10 pies las distancias aumentan en la longitud ya calculada */
-    for ($j=0; $j < 100 ; $j++) 
-    { 
-        $element = ($longitude + $well_point_i_distance[count($well_point_i_distance) - 1]); /* Revisar último índice */
-        if($element <= $drainage_radius)
-        {
-            array_push($well_point_i_distance, ($longitude + $well_point_i_distance[count($well_point_i_distance) - 1]));
-        }
-
+    foreach ($hidraulic_units_data as $hidraulic_unit) 
+    {   
+        array_push($hidraulic_unit, ($a * (pow(floatval($hidraulic_unit[1]), $b))));
+        array_push($calculated_hidraulic_units_data, $hidraulic_unit);
     }
 
-    array_push($well_point_i_distance, $drainage_radius);
-
-    return $well_point_i_distance;
+    return $calculated_hidraulic_units_data; 
 }
 
-/* Esfuerzo total (4.1) (Verificada) */
-/* Parámetro 1: @gradiente_esfuerzo_vertical, Gradiente del esfuerzo vertical */
-/* Parámetro 2: @gradiente_esfuerzo_horizontal_min,  */
-/* Gradiente del esfuerzo horizontal mínimo */
-/* Parámetro 3: @gradiente_esfuerzo_horizontal_max, */
-/* Gradiente del esfuerzo horizontal máximo */
-/* Parámetro 4: @profundidad_real_formacion, */
-/* Profundidad real de la formación */
-/* Return: Float del esfuerzo total */
-public function total_stress($vertical_stress_gradient, $min_horizontal_stress_gradient, $max_horizontal_stress_gradient, $true_vertical_depth)
+/* Módulo de permebilidad del pozo (4.6) (Verificada) */
+/* Parámetro 1: @datos_unidades_hidraulicas, matriz con información de las unidades */
+/* hidráulicas */
+/* Return: Float del módulo de permeabilidad del pozo            */
+public function well_permeability_module($hidraulic_units_data)
+{   
+    $a = 0; /* Dividendo */
+    $b = 1; /* Divisor */
+
+    foreach ($hidraulic_units_data as $hidraulic_unit) 
+    {
+        /* *unidad[0] = Espesor, unidad[4] = Permeabilidad promedio */
+        $a += floatval($hidraulic_unit[0]) * $hidraulic_unit[4];
+        $b += floatval($hidraulic_unit[0]);
+    }
+    //dd($a, $b, $hidraulic_units_data);
+    return $a/$b; //Revisar divisiòn por cero
+}
+
+/* Coeficiente  de fricción (vector) (4.9) (verificada) */
+public function friction_coefficient($hidraulic_units_data)
 {
-    return((($vertical_stress_gradient + $min_horizontal_stress_gradient + $max_horizontal_stress_gradient) / 3) * $true_vertical_depth);
+    $a = 140043503030.2;
+    $b = 1.096638;
+    $c = -1.588135;
+    $flag = 0;
+
+    $new_hidraulic_units_data = [];
+    foreach ($hidraulic_units_data as $hidraulic_unit) 
+    {
+        if ($hidraulic_unit[3] == 0)
+        {
+            $hidraulic_unit[3] = 0.000001;
+            $flag = 1;
+        }
+
+        // B = a * b^porosity * permeabibility^c
+        /* Posible error: división por cero */
+        array_push($hidraulic_unit, ($a * pow($b, $hidraulic_unit[2]) * pow($hidraulic_unit[3], $c)));
+
+        if($flag == 1)
+        {
+            $hidraulic_unit[3] = 0;
+        }
+
+        array_push($new_hidraulic_units_data, $hidraulic_unit);
+    }
+
+    return $new_hidraulic_units_data;
+}
+
+/* -Coeficiente de fricción del pozo (escalar) (4.10) (verificada) */
+public function well_friction_coefficient($hidraulic_units_data)
+{
+    $a = 0; #Numerador
+    $b = 0; #Denominador
+    foreach ($hidraulic_units_data as $hidraulic_unit) 
+    {
+        $a += $hidraulic_unit[0] * $hidraulic_unit[5];
+        $b += $hidraulic_unit[0];
+    }
+
+    return $a/$b;
 }
 
 /* Presión de poro (4.2) (Verificada) */
@@ -1778,77 +2034,38 @@ public function pore_pressure ($bottomhole_flowing_pressure, $fluid_rate, $fluid
     return $pore_pressure_at_point_i;
 }
 
-/* Presión de poro (4.2) (Verificada) */
-/* Parámetro 1: @presion_fondo_pozo, Presión en el fondo del pozo */
-/* Parámetro 2: @caudal_produccion_aceite, Caudal de produccion de aceite */
-/* Parámetro 3: @viscosidad_aceite, Viscosidad del aceite */
-/* Parámetro 4: @factor_volumetrico_aceite, Factor volumétrico del aceite */
-/* Parámetro 5: @permeabilidad_estimada_para_formacion, */
-/* Permeabilidad estimada para la formación */
-/* Parámetro 6: @espesor_formacion_productora, Espesor de la formación productora */
-/* Parámetro 7: @radio_pozo, Radio del pozo */
-/* Parámetro 8: @radio_drenaje_pozo, Radio de drenaje del pozo */
-/* Parámetro 9: @dano_total_pozo, Daño total en el pozo */
-/* Parámetro 10: @presion_promedio_yacimiento, Presión promedio del yacimiento */
-/* Return: Vector de presión de poro */
-public function pore_pressure_view ($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $production_formation_thickness, $well_radius, $skin, $reservoir_pressure, $formation_thickness)
+/**Distancia del pozo al punto i*/
+/* Parámetro 1: @well_radius, radio del pozo */
+/* Parámetro 2: @drainage_radius, radio de drenaje del pozo */
+/* Return: Vector de intervalos de distancias del pozo a distintos puntos */
+public function well_point_i_distance($well_radius, $drainage_radius)
 {
-    $pore_pressure_at_point_i = [];
-    $well_point_i_distance = $this->well_point_i_distance($well_radius, 10);
+    $well_point_i_distance = [];
+#Distancia en la que aumentan los puntos a partir de los 10 pies
+    $longitude = 1;
+    $cont_1 = 0;
 
-    /* El primer valor de presión es la presión en el fondo del pozo*/
-    array_push($pore_pressure_at_point_i, $bottomhole_flowing_pressure);
-
-    /* Se llena los valores de presión para cada punto del vector de distancias*/
-    foreach ($well_point_i_distance as $key => $pressure) 
+    /**Se establecen las distancias del pozo a los puntos a estudiar. Los primeros 10 pies se estudian con minuciosidad,  por ello las distancias aumentan 0.2 */
+    while($well_radius + (1 * $cont_1) <= 10)
     {
-        array_push($pore_pressure_at_point_i, $well_point_i_distance[$key]);
+        array_push($well_point_i_distance, ($well_radius + (1 * $cont_1)));
+        $cont_1++;
     }
 
-    return $pore_pressure_at_point_i;
-}
+    /* Después de los 10 pies las distancias aumentan en la longitud ya calculada */
+    for ($j=0; $j < 100 ; $j++) 
+    { 
+        $element = ($longitude + $well_point_i_distance[count($well_point_i_distance) - 1]); /* Revisar último índice */
+        if($element <= $drainage_radius)
+        {
+            array_push($well_point_i_distance, ($longitude + $well_point_i_distance[count($well_point_i_distance) - 1]));
+        }
 
-/* Módulo de permeabilidad (4.3) (verificada) */
-/* Parámetro 1: @indice_zona_flujo_para_tipo_roca_j, Índice de zona de flujo para */
-/* el tipo de roca j */
-/* Parámetro 2: @tipo_roca, tipo de roca */
-/* Return: Vector de permeabilidad */
-public function permeability_module($hidraulic_units_data, $rock_type)
-{
-    $calculated_hidraulic_units_data = [];
-
-    if($rock_type == "consolidada")
-    {
-        $a = 0.000809399;
-        $b = -0.986179237;
-    }
-    else if($rock_type == "poco consolidada")
-    {
-        $a = 0.000433696;
-        $b = -0.587596095;
-    }
-    else if($rock_type == "microfracturada")
-    {
-        $a = 0.000613657;
-        $b = 0.371958564;
     }
 
-    foreach ($hidraulic_units_data as $hidraulic_unit) 
-    {   
-        array_push($hidraulic_unit, ($a * (pow(floatval($hidraulic_unit[1]), $b))));
-        array_push($calculated_hidraulic_units_data, $hidraulic_unit);
-    }
+    array_push($well_point_i_distance, $drainage_radius);
 
-    return $calculated_hidraulic_units_data; 
-}
-
-/* Esfuerzo efectivo inicial (4.4) (Verificada)*/
-/* Parámetro 1: @esfuerzo_total, esfuerzo total */
-/* Parámetro 2: @presion_reservorio, presión del reservorio */
-/* Return: Float del esfuerzo efectivo inicial */
-public function initial_effective_stress($total_stress, $reservoir_pressure)
-{
-    return floatval($total_stress - $reservoir_pressure);
+    return $well_point_i_distance;
 }
 
 /**Esfuerzo efectivo (4.5) (verificada) */
@@ -1865,44 +2082,6 @@ public function effective_stress($reservoir_pressure, $pore_pressure)
     }
 
     return $effective_stress;
-}
-
-/* Módulo de permebilidad del pozo (4.6) (Verificada) */
-/* Parámetro 1: @datos_unidades_hidraulicas, matriz con información de las unidades */
-/* hidráulicas */
-/* Return: Float del módulo de permeabilidad del pozo            */
-public function well_permeability_module($hidraulic_units_data)
-{   
-    $a = 0; /* Dividendo */
-    $b = 1; /* Divisor */
-
-    foreach ($hidraulic_units_data as $hidraulic_unit) 
-    {
-        /* *unidad[0] = Espesor, unidad[4] = Permeabilidad promedio */
-        $a += floatval($hidraulic_unit[0]) * $hidraulic_unit[4];
-        $b += floatval($hidraulic_unit[0]);
-    }
-    //dd($a, $b, $hidraulic_units_data);
-    return $a/$b; //Revisar divisiòn por cero
-}
-
-/* Permeabilidad de la zona afectada por esfuerzos (vector) (4.7) VERIFICAR */
-/* Parámetro 1: @permeabilidad_original, permeabilidad original */
-/* Parámetro 2: @modulo_permeabilidad, módulo de permeabilidad */
-/* Parámetro 3: @esfuerzo_efectivo_inicial, esfuerzo efectivo inicial */
-/* Parámetro 4: @esfuerzo_efectivo, esfuerzo efectivo */
-/* Return: Vector de la permeabilidad de la zona afectada por efecto de los */
-/* esfuerzos */
-public function affected_area_permeability($original_permeability, $well_permeability_module, $initial_effective_stress, $effective_stress)
-{
-    $affected_area_permeability = [];
-
-    foreach ($effective_stress as $value) 
-    {
-        array_push($affected_area_permeability, ($original_permeability * (exp($well_permeability_module * ($initial_effective_stress - $value)))));
-    }   
-
-    return $affected_area_permeability;
 }
 
 /* Daño por esfuerzos (4.8) */
@@ -1949,55 +2128,6 @@ public function stress_damage_view ($well_permeability_module, $well_radius, $ef
     return array($result);
 }  
 
-
-/* Cálculo del daño por efecto de la tasa */
-
-/* Coeficiente  de fricción (vector) (4.9) (verificada) */
-public function friction_coefficient($hidraulic_units_data)
-{
-    $a = 140043503030.2;
-    $b = 1.096638;
-    $c = -1.588135;
-    $flag = 0;
-
-    $new_hidraulic_units_data = [];
-    foreach ($hidraulic_units_data as $hidraulic_unit) 
-    {
-        if ($hidraulic_unit[3] == 0)
-        {
-            $hidraulic_unit[3] = 0.000001;
-            $flag = 1;
-        }
-
-        // B = a * b^porosity * permeabibility^c
-        /* Posible error: división por cero */
-        array_push($hidraulic_unit, ($a * pow($b, $hidraulic_unit[2]) * pow($hidraulic_unit[3], $c)));
-
-        if($flag == 1)
-        {
-            $hidraulic_unit[3] = 0;
-        }
-
-        array_push($new_hidraulic_units_data, $hidraulic_unit);
-    }
-
-    return $new_hidraulic_units_data;
-}
-
-/* -Coeficiente de fricción del pozo (escalar) (4.10) (verificada) */
-public function well_friction_coefficient($hidraulic_units_data)
-{
-$a = 0; #Numerador
-$b = 0; #Denominador
-foreach ($hidraulic_units_data as $hidraulic_unit) 
-{
-    $a += $hidraulic_unit[0] * $hidraulic_unit[5];
-    $b += $hidraulic_unit[0];
-}
-
-return $a/$b;
-}
-
 /* -Convierte el valor de barriles por día (bp/d) a ft^3/d */
 public function bpd_to_ftd($value)
 {
@@ -2019,33 +2149,25 @@ public function damage_rate ($non_darcy_flow_coefficient, $fluid_rate_in_ftpd)
     return $non_darcy_flow_coefficient * $fluid_rate_in_ftpd; 
 }
 
-/* Determinación del daño susceptible a ser mejorado por estimulación química */
-
-/* Pseudo-daño total (4.13-4.28) */
-
-/* -Pseudo-daño por desviación 1 (4.13) */
-public function pseudo_damage_deviation_1 ($production_formation_thickness, $well_radius, $horizontal_vertical_permeability_ratio)
+public function damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $formation_thickness, $well_radius)
 {
-    return (($production_formation_thickness / $well_radius) * sqrt($horizontal_vertical_permeability_ratio));
+    $well_angle = asin($true_vertical_depth/$measured_well_depth);
+    
+    $pseudo_angle = atan(sqrt($horizontal_vertical_permeability_ratio)*tan($well_angle));
+
+    $hd = ($formation_thickness/$well_radius) * (sqrt(pow($horizontal_vertical_permeability_ratio, -1)));
+    $damage = ((-1) * pow($pseudo_angle/41, 2.06)) - ( (pow($pseudo_angle/56, 1.865)) * log10($hd / 100) );
+
+    return($damage);
 }
 
-/* -Pseudo-daño por desviación 2 (4.14) */
-public function pseudo_damage_deviation_2 ($horizontal_vertical_permeability_ratio, $true_vertical_depth, $average_well_depth)
+public function damage_by_partial_penetration($formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius)
 {
-    $well_deviation_angle = asin($true_vertical_depth / $average_well_depth);
-    return (atan(sqrt($horizontal_vertical_permeability_ratio) * tan($well_deviation_angle)));
-}
+    $damage1 = ($formation_thickness / $perforated_thickness) - 1;
 
-/* -Pseudo-daño por desviación 3 (4.15) */
-public function pseudo_damage_deviation_3 ($damage_deviation_2, $damage_deviation_1)
-{
-    return(-pow(($damage_deviation_2 / 41), 2.06) - pow(($damage_deviation_2 / 56), 1.865) * log10($damage_deviation_1 / 100));
-}
+    $damage2 = (sqrt(pow($horizontal_vertical_permeability_ratio, -1)) * log($formation_thickness/$well_radius)) - 2;
 
-/* -Pseudo-daño por penetración parcial (4.16) */
-public function pseudo_damage_partial_penetration ($producing_formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius)
-{
-    return ((($producing_formation_thickness/$perforated_thickness)-1) * ((pow(($horizontal_vertical_permeability_ratio), 0.5) * log($producing_formation_thickness / $well_radius))-2));
+    return( $damage1 * $damage2 );
 }
 
 /* -Pseudo-daño por la forma del reservorio (4.17) */
@@ -2119,23 +2241,15 @@ public function pseudo_damage_reservoir_shape($drainage_area_shape)
     return (0.5 * log(31.62 / $reservoir_shape));
 }
 
-/* ---Pseudo-daño por cañoneo 1 (4.18) */
-public function pseudo_damage_perforation_1 ($pseudo_damage_perforation_8, $pseudo_damage_perforation_2, $pseudo_damage_perforation_5)
-{
-    return ($pseudo_damage_perforation_8 + $pseudo_damage_perforation_2 + $pseudo_damage_perforation_5);
-}
-
-/* ---Pseudo-daño por cañoneo 2 (4.19) */
-public function pseudo_damage_perforation_2 ($well_radius, $equivalent_well_radius)
-{
-    return log($well_radius/$equivalent_well_radius);
-}
-
 /* ---Pseudo-daño por cañoneo 3 (4.20) */
 public function pseudo_damage_perforation_3 ($phase, $cannon_penetrating_depth, $well_radius)
 {
     $alpha0 = 0;
 
+    if ($phase == 0)
+    {
+        $alpha0 = 0.25;
+    }
     if ($phase == 360)
     {
         $alpha0 = 0.25;
@@ -2173,13 +2287,6 @@ public function pseudo_damage_perforation_3 ($phase, $cannon_penetrating_depth, 
     return (log($well_radius/$pseudo_damage_perforation_3));
 }
 
-
-/* --Pseudo-daño por cañoneo 4 (4.21) */
-public function pseudo_damage_perforation_4 ($well_radius, $cannon_penetrating_depth)
-{
-    return($well_radius / ($cannon_penetrating_depth + $well_radius));
-}
-
 /* ---Pseudo-daño por cañoneo 5 (4.22) */
 public function pseudo_damage_perforation_5 ($phase, $well_radius, $perforation_penetration_depth)
 {
@@ -2214,24 +2321,13 @@ public function pseudo_damage_perforation_5 ($phase, $well_radius, $perforation_
         $c2 = 4.532;
     }
 
-    $rwd = $well_radius / ($well_radius + $perforation_penetration_depth);
-    return ($c1 / (pow(M_E, $c2 * $rwd)));
-}
+    $rwd = $well_radius * ($well_radius + $perforation_penetration_depth);
 
-/*  ---Pseudo-daño por cañoneo 6 (4.23)*/
-public function pseudo_damage_perforation_6 ($perforated_radius, $perforated_thickness, $horizontal_vertical_permeability_ratio)
-{
-    return (($perforated_radius/(24 * $perforated_thickness)) * (1 + sqrt($horizontal_vertical_permeability_ratio)));
-}
-
-/* ---Pseudo-daño por cañoneo 7 (4.24) */
-public function pseudo_damage_perforation_7 ($perforated_thickness, $cannon_penetrating_depth, $horizontal_vertical_permeability_ratio)
-{
-    return(($perforated_thickness/$cannon_penetrating_depth) * sqrt($horizontal_vertical_permeability_ratio));
+    return ($c1 * pow( M_E, $c2 * $rwd * 0.3048));
 }
 
 /* ---Pseudo-daño por cañoneo 10 (4.27) */
-public function pseudo_damage_perforation_8 ($phase, $formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $perforating_radius)
+public function pseudo_damage_perforation_8 ($phase, $formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $perforating_radius, $well_radius, $perforation_penetration_depth)
 {
     if ($phase == 0 or $phase == 360)
     {
@@ -2276,57 +2372,17 @@ public function pseudo_damage_perforation_8 ($phase, $formation_thickness, $perf
         $b2 = 1.8115;
     }
 
-    $hdc = ($formation_thickness/$perforated_thickness) * pow($horizontal_vertical_permeability_ratio, 0.5);
+    $hdc = ($perforated_thickness/$perforation_penetration_depth) * sqrt(pow($horizontal_vertical_permeability_ratio, -1));
 
 
-    $rdc = ($perforating_radius / (24 * $perforated_thickness)) * (1 + pow($horizontal_vertical_permeability_ratio, 0.5));
+    $rdc = ($perforating_radius / (24 * $perforated_thickness)) * (1 + sqrt($horizontal_vertical_permeability_ratio));
 
-    $a = $a1 * log10($rdc) + $a2;
+    $a = ( $a1 * log10($rdc)) + $a2;
     $b = $b1 * $rdc + $b2;
 
-    $damage = (pow(10, (-1 * $a)) * pow($hdc, ($b-1)) * pow($rdc, $b));
+    $damage = (pow(10, $a * (-1)) * pow($hdc, ($b-1)) * pow($rdc, $b));
 
     return ($damage);
-}
-
-/* Pseudo daño (4.28) */
-public function pseudo_damage($pseudo_damage_perforation_1, $pseudo_damage_partial_penetration, $reservoir_shape_damage, $pseudo_damage_deviation_3)
-{
-    return ($pseudo_damage_perforation_1 + $pseudo_damage_partial_penetration + $reservoir_shape_damage + $pseudo_damage_deviation_3);
-}
-
-/* Cálculo del daño total (4.29) ---Ovmr */
-public function total_damage ($original_permeability, $producing_formation_thickness, $average_reservoir_pressure, $well_bottom_pressure, $oil_production_rate, $oil_viscosity, $oil_volumetric_factor, $drainage_radius, $well_radius)
-{
-    $constant = 7.082 * pow(10, -3);
-    $a = ($original_permeability * $producing_formation_thickness * ($average_reservoir_pressure - $well_bottom_pressure)); /* Numerador */
-    $b = ($oil_production_rate * $oil_viscosity * $oil_volumetric_factor); /* Denominador */
-    $log =  log($drainage_radius / $well_radius);  
-    return $constant * ($a / $b) - $log + 0.75;
-}
-
-/* Cálculo del daño mecánico (Potencialmente estimulable químicamente) (4.30) */
-public function mechanical_damage ($total_damage, $stress_damage, $pseudo_damage, $damage_rate)
-{
-    return ($total_damage - $stress_damage - $pseudo_damage - $damage_rate);
-}
-
-public function damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $perforated_thickness)
-{
-    $well_angle = asin($true_vertical_depth/$measured_well_depth);
-    
-    $pseudo_angle = atan(sqrt($horizontal_vertical_permeability_ratio)*tan($well_angle));
-    $damage = ((-1) * pow($pseudo_angle/41, 2.06) - pow($pseudo_angle/56, 1.865)) * log10($perforated_thickness/100);
-    return($damage);
-}
-
-public function damage_by_partial_penetration($formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius)
-{
-    $damage1 = ($formation_thickness / $perforated_thickness) - 1;
-
-    $damage2 = (sqrt($horizontal_vertical_permeability_ratio) * log($perforated_thickness/$well_radius)) - 2;
-
-    return( $damage1 * $damage2 );
 }
 
 public function damage_by_perforation($damage_sm, $damage_wb, $damage_sv)
@@ -2338,6 +2394,7 @@ public function total_pseudo_skin($damage_by_deflection, $damage_by_partial_pene
 {
     return $damage_by_deflection + $damage_by_partial_penetration + $damage_by_shape + $damage_by_perforation;
 }
+
 
 
 public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data)
@@ -2550,7 +2607,7 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
 
     if ($well_completitions == 3) {
         //REVISADO 11
-        $damage_by_deflection = $this->damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $perforated_thickness);
+        $damage_by_deflection = $this->damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $formation_thickness, $well_radius);
 
         //REVISADO 12
         $damage_by_partial_penetration = $this->damage_by_partial_penetration($formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius);
@@ -2565,7 +2622,7 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
         $damage_wb = $this->pseudo_damage_perforation_5($perforating_phase_angle, $well_radius, $perforation_penetration_depth);
 
         //REVISADO 16 ////// MUY POSIBLE ERROR... RESULTADO DESORBITADO
-        $damage_sv = $this->pseudo_damage_perforation_8($perforating_phase_angle, $formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $perforating_radius);
+        $damage_sv = $this->pseudo_damage_perforation_8($perforating_phase_angle, $formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $perforating_radius, $well_radius, $perforation_penetration_depth);
 
         //REVISADO 17
         $damage_by_perforation = $this->damage_by_perforation($damage_sm, $damage_wb, $damage_sv);

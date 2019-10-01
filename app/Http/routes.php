@@ -2863,6 +2863,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('Desagregacion/update', 'DesagregacionController@update');
     Route::post('Desagregacion/save_temporary', 'DesagregacionController@save_temporary');
     Route::resource('Desagregacion', 'DesagregacionController');
+    Route::get('Desagregacion/prueba/{id}', 'DesagregacionController@prueba');
 
 
 

@@ -168,24 +168,11 @@ function guardar() {
   function enviar() {
     /* Loading */
     $("#loading_icon").show();
-    calculate_hydraulic_units_data();
+    //calculate_hydraulic_units_data();
     hidraulic_units_data = clean_table_data("hidraulic_units_data");
     $("#unidades_table").val(JSON.stringify(hidraulic_units_data));
 
-    
-
-    
-    var thickness = parseFloat($("#production_formation_thickness").val());
-    var average_porosity = parseFloat($("#porosity").val())/100;
-    var average_permeability = parseFloat($("#permeability").val());
-
-    if(thickness && average_porosity && average_permeability) {
-      console.log("if")
-      validate_table(hidraulic_units_data, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
-      console.log("a_validate_table");
-    }
-      console.log("end enviar");
-
+    validate_table(hidraulic_units_data, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
   }
 
 //Llamar cada vez que se necesiten validar los datos de la tabla.

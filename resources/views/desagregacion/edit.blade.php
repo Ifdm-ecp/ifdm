@@ -144,7 +144,7 @@
                            <div class="form-group">
                               {!! Form::label('well Radius', 'Well Radius ', array('class' => 'required')) !!}
                               <div class="input-group {{$errors->has('well_radius') ? 'has-error' : ''}}">
-                                 {!! Form::number('well_radius', (float) $disaggregation->well_radius, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'well_radius', 'min' => '0', 'step' => '0.01', 'max' => '5']) !!}
+                                 {!! Form::number('well_radius', (float) $disaggregation->well_radius, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'well_radius', 'min' => '0', 'step' => '0.00001', 'max' => '5']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                               {!! $errors->first('well_radius', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -154,7 +154,7 @@
                            <div class="form-group {{$errors->has('reservoir_pressure') ? 'has-error' : ''}}">
                               {!! Form::label('reservoir pressure', 'Reservoir Pressure ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('reservoir_pressure', $disaggregation->reservoir_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'reservoir_pressure', 'min' => '0', 'max' => '10000']) !!}
+                                 {!! Form::number('reservoir_pressure', $disaggregation->reservoir_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'reservoir_pressure', 'min' => '0', 'max' => '10000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
                               {!! $errors->first('reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -166,7 +166,7 @@
                            <div class="form-group {{$errors->has('measured_well_depth') ? 'has-error' : ''}}">
                               {!! Form::label('measured well depth', 'Measured Well Depth ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('measured_well_depth', $disaggregation->measured_well_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'measured_well_depth', 'min' => '0', 'max' => '30000']) !!}
+                                 {!! Form::number('measured_well_depth', $disaggregation->measured_well_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'measured_well_depth', 'min' => '0', 'max' => '30000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                               {!! $errors->first('measured_well_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -176,7 +176,7 @@
                            <div class="form-group">
                               {!! Form::label('real formation depth', 'True Vertical Depth ', array('class' => 'required')) !!}
                               <div class="input-group {{$errors->has('true_vertical_depth') ? 'has-error' : ''}}">
-                                 {!! Form::number('true_vertical_depth', $disaggregation->true_vertical_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'true_vertical_depth', 'min' => '0', 'max' => '30000']) !!}
+                                 {!! Form::number('true_vertical_depth', $disaggregation->true_vertical_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'true_vertical_depth', 'min' => '0', 'max' => '30000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                               {!! $errors->first('true_vertical_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -188,7 +188,7 @@
                            <div class="form-group {{$errors->has('formation_thickness') ? 'has-error' : ''}}">
                               {!! Form::label('espesor formation', 'Formation Thickness', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('formation_thickness', $disaggregation->formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'formation_thickness', 'min' => '0', 'max' => '1000']) !!}
+                                 {!! Form::number('formation_thickness', $disaggregation->formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'formation_thickness', 'min' => '0', 'max' => '1000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                               {!! $errors->first('formation_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -198,7 +198,7 @@
                            <div class="form-group {{$errors->has('perforated_thickness') ? 'has-error' : ''}}">
                               {!! Form::label('espesor canoneado', 'Perforated Thickness', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('perforated_thickness', $disaggregation->perforated_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforated_thickness', 'min' => '0', 'max' => '1000']) !!}
+                                 {!! Form::number('perforated_thickness', $disaggregation->perforated_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforated_thickness', 'min' => '0', 'max' => '1000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                               {!! $errors->first('perforated_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -220,7 +220,7 @@
                               <div class="form-group {{$errors->has('perforation_penetration_depth') ? 'has-error' : ''}}">
                                  {!! Form::label('profundidad penetracion canones', 'Perforation Penetration Depth ') !!}
                                  <div class="input-group">
-                                    {!! Form::number('perforation_penetration_depth', $disaggregation->perforation_penetration_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforation_penetration_depth', 'min' => '0', 'step' => '0.01', 'max' => '50']) !!}
+                                    {!! Form::number('perforation_penetration_depth', $disaggregation->perforation_penetration_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforation_penetration_depth', 'min' => '0', 'step' => '0.0001', 'max' => '50']) !!}
                                     <span class="input-group-addon" id="basic-addon2">ft</span>
                                  </div>
                                  {!! $errors->first('perforation_penetration_depth', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -239,7 +239,7 @@
                               <div class="form-group {{$errors->has('perforating_radius') ? 'has-error' : ''}}">
                                  {!! Form::label('perforated radius', 'Perforating Radius ' )!!}
                                  <div class="input-group">
-                                    {!! Form::number('perforating_radius', $disaggregation->perforating_radius, ['placeholder' => 'in', 'class' =>'form-control', 'id' => 'perforating_radius', 'min' => '0', 'step' => '0.01', 'max' => '10']) !!}
+                                    {!! Form::number('perforating_radius', $disaggregation->perforating_radius, ['placeholder' => 'in', 'class' =>'form-control', 'id' => 'perforating_radius', 'min' => '0', 'step' => '0.0001', 'max' => '10']) !!}
                                     <span class="input-group-addon" id="basic-addon2">in</span>
                                  </div>
                                  {!! $errors->first('perforating_radius', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -249,7 +249,7 @@
                               <div class="form-group">
                                  {!! Form::label('production formation thickness', 'Production Formation Thickness ') !!}
                                  <div class="input-group {{$errors->has('production_formation_thickness') ? 'has-error' : ''}}">
-                                    {!! Form::number('production_formation_thickness', $disaggregation->production_formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'production_formation_thickness', 'min' => '0', 'max' => '1000'], ) !!}
+                                    {!! Form::number('production_formation_thickness', $disaggregation->production_formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'production_formation_thickness', 'min' => '0', 'max' => '1000', 'step' => '0.00001'], ) !!}
                                     <span class="input-group-addon" id="basic-addon2">ft</span>
                                  </div>
                                  {!! $errors->first('production_formation_thickness', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -261,7 +261,7 @@
                               <div class="form-group {{$errors->has('horizontal_vertical_permeability_ratio') ? 'has-error' : ''}}">
                                  {!! Form::label('relacion permeabilidad vertical horizontal', 'Horizontal - Vertical Permeability Ratio ') !!}
                                  <div class="input-group">
-                                    {!! Form::number('horizontal_vertical_permeability_ratio', $disaggregation->horizontal_vertical_permeability_ratio, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'horizontal_vertical_permeability_ratio', 'min' => '0', 'max' => '100']) !!}
+                                    {!! Form::number('horizontal_vertical_permeability_ratio', $disaggregation->horizontal_vertical_permeability_ratio, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'horizontal_vertical_permeability_ratio', 'min' => '0', 'max' => '100', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
                                  </div>
                                  {!! $errors->first('horizontal_vertical_permeability_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -404,7 +404,7 @@
                               <div class="form-group">
                                  {!! Form::label('oil rate', 'Oil Rate ') !!}
                                  <div class="input-group {{$errors->has('oil_rate') ? 'has-error' : ''}}">
-                                    {!! Form::number('oil_rate', $disaggregation->oil_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'oil_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    {!! Form::number('oil_rate', $disaggregation->oil_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'oil_rate', 'min' => '0', 'max' => '10000', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
                                  </div>
                                  {!! $errors->first('oil_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -414,7 +414,7 @@
                               <div class="form-group">
                                  {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
                                  <div class="input-group {{$errors->has('oil_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
-                                    {!! Form::number('oil_bottomhole_flowing_pressure', $disaggregation->oil_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'oil_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    {!! Form::number('oil_bottomhole_flowing_pressure', $disaggregation->oil_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'oil_bottomhole_flowing_pressure', 'min' => '0', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
                                  </div>
                                  {!! $errors->first('oil_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -450,7 +450,7 @@
                               <div class="form-group">
                                  {!! Form::label('gas rate', 'Gas Rate ') !!}
                                  <div class="input-group {{$errors->has('gas_rate') ? 'has-error' : ''}}">
-                                    {!! Form::number('gas_rate', $disaggregation->gas_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'gas_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    {!! Form::number('gas_rate', $disaggregation->gas_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'gas_rate', 'min' => '0', 'max' => '10000', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
                                  </div>
                                  {!! $errors->first('gas_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -460,7 +460,7 @@
                               <div class="form-group">
                                  {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
                                  <div class="input-group {{$errors->has('gas_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
-                                    {!! Form::number('gas_bottomhole_flowing_pressure', $disaggregation->gas_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'gas_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    {!! Form::number('gas_bottomhole_flowing_pressure', $disaggregation->gas_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'gas_bottomhole_flowing_pressure', 'min' => '0', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
                                  </div>
                                  {!! $errors->first('gas_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -496,7 +496,7 @@
                               <div class="form-group">
                                  {!! Form::label('water rate', 'Water Rate ') !!}
                                  <div class="input-group {{$errors->has('water_rate') ? 'has-error' : ''}}">
-                                    {!! Form::number('water_rate', $disaggregation->water_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'water_rate', 'min' => '0', 'max' => '10000']) !!}
+                                    {!! Form::number('water_rate', $disaggregation->water_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'water_rate', 'min' => '0', 'max' => '10000', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
                                  </div>
                                  {!! $errors->first('water_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -506,7 +506,7 @@
                               <div class="form-group">
                                  {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
                                  <div class="input-group {{$errors->has('water_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
-                                    {!! Form::number('water_bottomhole_flowing_pressure', $disaggregation->water_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'water_bottomhole_flowing_pressure', 'min' => '0']) !!}
+                                    {!! Form::number('water_bottomhole_flowing_pressure', $disaggregation->water_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'water_bottomhole_flowing_pressure', 'min' => '0', 'step' => '0.00001']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
                                  </div>
                                  {!! $errors->first('water_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -548,9 +548,9 @@
                      <fieldset>
                         <div class="col-md-6 input_skin">
                            <div class="form-group {{$errors->has('skin') ? 'has-error' : ''}}">
-                              {!! Form::label('skin', 'Skin', array('class' => 'required')) !!}
+                              {!! Form::label('skin', 'Skin') !!}
                               <div class="input-group {{$errors->has('skin') ? 'has-error' : ''}}">
-                                 {!! Form::number('skin', $disaggregation->skin, ['placeholder' => '-', 'class' =>'form-control', 'name' => 'skin', 'id' => 'skin', 'min' => '0', 'max' => '1000']) !!}
+                                 {!! Form::number('skin', $disaggregation->skin, ['placeholder' => '-', 'class' =>'form-control', 'name' => 'skin', 'id' => 'skin', 'min' => '0', 'max' => '1000','step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
                               {!! $errors->first('skin', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -575,7 +575,7 @@
                            <div class="form-group {{$errors->has('permeability') ? 'has-error' : ''}}">
                               {!! Form::label('permeabilidad absoluta inicial', 'Permeability  ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('permeability', $disaggregation->permeability, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeability', 'min' => '0', 'max' => '1000000']) !!}
+                                 {!! Form::number('permeability', $disaggregation->permeability, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeability', 'min' => '0', 'max' => '1000000', 'step' => '0.00001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">md</span>
                               </div>
                               {!! $errors->first('permeability', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -599,7 +599,7 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', (($disaggregation->porosity)*100), ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.1']) !!}
+                                 {!! Form::number('porosity', (($disaggregation->porosity)*100), ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.00001']) !!} 
                                  <span class="input-group-addon" id="basic-addon2">%</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -645,10 +645,6 @@
                   <div id="loading" style="display:none;"></div>
                   &nbsp;
                   {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
-                  {!! Form::Close() !!}
-                  {!!Form::open(array('url' => 'IPR/storeIPR', 'method' => 'post','style'=>'display:inline'))!!}
-                  {!! Form::hidden('inputskins', "back" , array('id' => 'inputskins')) !!}
-                  &nbsp;
                   {!! Form::Close() !!}
                </div>
             </div>

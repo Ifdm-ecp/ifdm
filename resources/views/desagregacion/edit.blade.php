@@ -586,7 +586,7 @@
                               {!! Form::label('tipo de roca', 'Rock Type ', array('class' => 'required')) !!}
                               <select name="rock_type" class="form-control" id="rock_type">
                                  <option selected>Select a rock type</option>
-                                 <option value="consolidada">Consolidated</option>
+                                 <option value="consolidada" >Consolidated</option>
                                  <option value="poco consolidada" >Unconsolidated</option>
                                  <option value="microfracturada">Microfractured</option>
                               </select>
@@ -599,8 +599,8 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', (($disaggregation->porosity)*100), ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.00001']) !!} 
-                                 <span class="input-group-addon" id="basic-addon2">%</span>
+                                 {!! Form::number('porosity', $disaggregation->porosity, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.00001']) !!} 
+                                 <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>

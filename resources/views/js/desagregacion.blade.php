@@ -49,6 +49,12 @@
     $("#loading_icon").show();
     //calculate_hydraulic_units_data();
     hidraulic_units_data = clean_table_data("hidraulic_units_data");
+
+    if (hidraulic_units_data.length == 0 ) {
+      calculate_hydraulic_units_data();
+      hidraulic_units_data = clean_table_data("hidraulic_units_data");
+    }
+
     $("#unidades_table").val(JSON.stringify(hidraulic_units_data));
     
     validate_table(hidraulic_units_data, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
@@ -258,7 +264,7 @@ function clean_table_data(table_div_id)
       format: '0[.]0000000'
     }, 
     {
-      title: "Average Porosity [%]",
+      title: "Average Porosity [0-1]",
       data: 2,
       type: 'numeric',
       format: '0[.]0000000'
@@ -278,7 +284,7 @@ function calculate_hydraulic_units_data()
 {
   var production_formation_thickness = parseFloat($("#production_formation_thickness").val());
   var formation_thickness = parseFloat($("#formation_thickness").val());
-  var porosity = parseFloat($("#porosity").val())/100;
+  var porosity = parseFloat($("#porosity").val());
   var permeability = parseFloat($("#permeability").val());
   var well_completitions = parseFloat($("#well_completitions").val());
 

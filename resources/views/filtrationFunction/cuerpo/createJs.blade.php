@@ -478,7 +478,7 @@ function a_b_chart()
 
     $("#a_b_chart").highcharts({
            title: {
-               text: 'dVf/(dt^1/2) as function of K*Pob',
+               text: 'dV/d√t as function of K*Pob',
                x: -20 //center
            },
            subtitle:{
@@ -491,7 +491,7 @@ function a_b_chart()
            },
            yAxis: {
                title: {
-                   text: 'dVf/(dt^1/2)'
+                   text: 'dV/d√t'
                },
                plotLines: [{
                    value: 0,

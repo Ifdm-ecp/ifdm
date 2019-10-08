@@ -37,14 +37,12 @@
 						{!! Form::hidden('lab_test_counter', 3, array('id' => 'lab_test_counter')) !!}
 					</div>
 					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
-							   {!! Form::label('ff_name', 'Filtration Function Name') !!}
-							   <div class="input-group" id="filtration_function_name_input">
-							      {!! Form::text('filtration_function_name',null, ['placeholder' => '', 'class' =>'form-control','id'=>'filtration_function_name']) !!}
-							      <span class="input-group-addon" id="ff_addon"></span>
-							   </div>
-							</div>
+						<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
+						   {!! Form::label('ff_name', 'Filtration Function Name') !!}
+						   <div class="input-group" id="filtration_function_name_input">
+						      {!! Form::text('filtration_function_name',null, ['placeholder' => '', 'class' =>'form-control','id'=>'filtration_function_name']) !!}
+						      <span class="input-group-addon" id="ff_addon"></span>
+						   </div>
 						</div>
 					</div>
 
@@ -57,7 +55,7 @@
 						    			<div class="form-group {{$errors->has('mud_density') ? 'has-error' : ''}}">
 										   {!! Form::label('mud_density', 'Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 										   <div class="input-group">
-										      {!! Form::text('mud_density',null, ['placeholder' => 'lb/gal', 'class' =>'form-control']) !!}
+										      {!! Form::number('mud_density',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
 										      <span class="input-group-addon">lb/gal</span>
 										   </div>
 										</div>
@@ -66,8 +64,8 @@
 						    			<div class="form-group {{$errors->has('Plastic Viscosity') ? 'has-error' : ''}}">
 										   {!! Form::label('plastic_viscosity', 'Plastic Viscosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 										   <div class="input-group">
-										      {!! Form::text('plastic_viscosity',null, ['placeholder' => '-', 'class' =>'form-control']) !!}
-										      <span class="input-group-addon">-</span>
+										      {!! Form::number('plastic_viscosity',null, ['placeholder' => 'eP', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">eP</span>
 										   </div>
 										</div>
 									</div>
@@ -75,8 +73,8 @@
 						    			<div class="form-group {{$errors->has('yield_point') ? 'has-error' : ''}}">
 										   {!! Form::label('yield_point', 'Yield Point') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 										   <div class="input-group">
-										      {!! Form::text('yield_point',null, ['placeholder' => '-', 'class' =>'form-control']) !!}
-										      <span class="input-group-addon">-</span>
+										      {!! Form::number('yield_point',null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">bf/100ft²</span>
 										   </div>
 										</div>
 									</div>
@@ -86,8 +84,8 @@
 						    			<div class="form-group {{$errors->has('lplt_filtrate') ? 'has-error' : ''}}">
 										   {!! Form::label('lplt_filtrate', 'LPLT Filtrate') !!}
 										   <div class="input-group">
-										      {!! Form::text('lplt_filtrate',null, ['placeholder' => '-', 'class' =>'form-control']) !!}
-										      <span class="input-group-addon">-</span>
+										      {!! Form::number('lplt_filtrate',null, ['placeholder' => 'mL', 'class' => 'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">mL</span>
 										   </div>
 										</div>
 									</div>
@@ -95,8 +93,8 @@
 						    			<div class="form-group {{$errors->has('hpht_filtrate') ? 'has-error' : ''}}">
 										   {!! Form::label('hpht_filtrate', 'HPHT Filtrate') !!}
 										   <div class="input-group">
-										      {!! Form::text('hpht_filtrate',null, ['placeholder' => '-', 'class' =>'form-control']) !!}
-										      <span class="input-group-addon">-</span>
+										      {!! Form::number('hpht_filtrate',null, ['placeholder' => 'mL', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">mL</span>
 										   </div>
 										</div>
 									</div>
@@ -106,7 +104,7 @@
 						    			<div class="form-group {{$errors->has('ph') ? 'has-error' : ''}}">
 										   {!! Form::label('ph', 'PH') !!}
 										   <div class="input-group">
-										      {!! Form::text('ph',null, ['placeholder' => 'PH', 'class' =>'form-control']) !!}
+										      {!! Form::number('ph',null, ['placeholder' => 'PH', 'class' =>'form-control', 'min' => '0', 'max' => '14', 'step' => '0.0000001']) !!}
 										      <span class="input-group-addon">PH</span>
 										   </div>
 										</div>
@@ -115,8 +113,8 @@
 						    			<div class="form-group {{$errors->has('gel_strength') ? 'has-error' : ''}}">
 										   {!! Form::label('gel_strength', 'Gel Strength') !!}
 										   <div class="input-group">
-										      {!! Form::text('gel_strength',null, ['placeholder' => '-', 'class' =>'form-control']) !!}
-										      <span class="input-group-addon">-</span>
+										      {!! Form::number('gel_strength',null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control',  'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">bf/100ft²</span>
 										   </div>
 										</div>
 									</div>
@@ -126,7 +124,7 @@
 					</div>
 					<div class="row">
 						<div class="panel panel-default">
-						  	<div class="panel-heading">Composicion</div>
+						  	<div class="panel-heading">Drilling fluid formulation</div>
 						  	<div class="panel-body">
 						    	<div id="tablaComponents"></div>
 						    	{!! Form::hidden('mudComposicion',null, ['id' =>'data']) !!}
@@ -136,9 +134,9 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group {{$errors->has('kdki_cement_slurry') ? 'has-error' : ''}}">
-							   {!! Form::label('kdki_cement_slurry', 'Kd/Ki Cement Slurry') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							   {!! Form::label('kdki_cement_slurry', 'Kd/Ki Completition Fluids') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 							   <div class="input-group">
-							      {!! Form::text('kdki_cement_slurry',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors']) !!}
+							      {!! Form::number('kdki_cement_slurry',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors',  'min' => '0', 'max' =>  '1', 'step' => '0.0000001']) !!}
 							      <span class="input-group-addon">-</span>
 							   </div>
 							</div>
@@ -147,7 +145,7 @@
 							<div class="form-group {{$errors->has('kdki_mud') ? 'has-error' : ''}}">
 							   {!! Form::label('kdki_mud', 'Kd/Ki Mud') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 							   <div class="input-group">
-							      {!! Form::text('kdki_mud',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_mud_factors']) !!}
+							      {!! Form::number('kdki_mud',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_mud_factors', 'min' => '0', 'max' => '1', 'step' => '0.0000001']) !!}
 							      <span class="input-group-addon">-</span>
 							   </div>
 							</div>
@@ -156,8 +154,8 @@
 							<div class="form-group {{$errors->has('core_diameter') ? 'has-error' : ''}}">
 							   {!! Form::label('core_diameter', 'Core Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 							   <div class="input-group">
-							      {!! Form::text('core_diameter',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'core_diameter_factors']) !!}
-							      <span class="input-group-addon">-</span>
+							      {!! Form::number('core_diameter',null, ['placeholder' => 'cm', 'class' =>'form-control','id'=>'core_diameter_factors', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
+							      <span class="input-group-addon">cm</span>
 							   </div>
 							</div>
 						</div>
@@ -175,7 +173,7 @@
 									<div class="form-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
 									   {!! Form::label('a_factor_l', 'a') !!}
 									   <div class="input-group" id="a_factor_input">
-									      {!! Form::text('a_factor',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'a_factor']) !!}
+									      {!! Form::number('a_factor',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'a_factor', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
 									      <span class="input-group-addon" id="a_factor_addon">-</span>
 									   </div>
 									</div>
@@ -184,7 +182,7 @@
 									<div class="form-group {{$errors->has('b_factor') ? 'has-error' : ''}}">
 									   {!! Form::label('b_factor_l', 'b') !!}
 									   <div class="input-group" id="b_factor_input">
-									      {!! Form::text('b_factor',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'b_factor']) !!}
+									      {!! Form::number('b_factor',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'b_factor', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
 									      <span class="input-group-addon" id="b_factor_addon">-</span>
 									   </div>
 									</div>

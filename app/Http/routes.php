@@ -2326,8 +2326,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('test', 'test_controller');
 
 
-    #Módulo de daño Inducido
+    // Drilling module routes - checked
+    Route::post('Drilling/store', 'drilling_controller@store');
+    Route::get('Drilling/show/{id}', 'drilling_controller@show');
+    Route::get('Drilling/edit/{id}', 'drilling_controller@edit');
+    Route::resource('Drilling/update', 'drilling_controller@update');
     Route::resource('Drilling', 'drilling_controller');
+
+    #Módulo de daño Inducido
     Route::resource('DrillingStore', 'drilling_controller@store');
 
     Route::get('Drilling/result/{id_escenario}',  ['as' => 'drilling.result', 'uses' => 'drilling_controller@result']);
@@ -2861,7 +2867,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('Desagregacion/show/{id}', 'DesagregacionController@show');
     Route::get('Desagregacion/edit/{id}', 'DesagregacionController@edit');
     Route::resource('Desagregacion/update', 'DesagregacionController@update');
-    Route::post('Desagregacion/save_temporary', 'DesagregacionController@save_temporary');
     Route::resource('Desagregacion', 'DesagregacionController');
 
 

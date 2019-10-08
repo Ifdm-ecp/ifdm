@@ -575,7 +575,7 @@
                            <div class="form-group {{$errors->has('permeability') ? 'has-error' : ''}}">
                               {!! Form::label('permeabilidad absoluta inicial', 'Permeability  ', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('permeability', null, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeability', 'min' => '0', 'max' => '1000000', 'step' => '0.01']) !!}
+                                 {!! Form::number('permeability', null, ['placeholder' => 'md', 'class' =>'form-control', 'id' => 'permeability', 'min' => '0', 'max' => '1000000', 'step' => '0.00000001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">md</span>
                               </div>
                               {!! $errors->first('permeability', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -599,8 +599,8 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', null, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '45', 'step' => '0.1']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">%</span>
+                                 {!! Form::number('porosity', null, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.0000001']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>

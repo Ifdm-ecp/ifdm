@@ -59,32 +59,6 @@ public function create()
             $desagregacion->save();
         }
 
-        /*
-        //Checks if permeabilidades_resultado_desagregacion row already exists. If not, creates a table row. Avoids duplicates.
-        $resultado_permeabilidades = DB::table('permeabilidades_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
-        if (is_null($resultado_permeabilidades)) {
-            $resultado_permeabilidades = new permeabilidades_resultado_desagregacion;
-            $resultado_permeabilidades->id_desagregacion = $desagregacion->id;
-            $resultado_permeabilidades->save();
-        }
-
-        //Checks if radios_resultado_desagregacion row already exists. If not, creates a table row. Avoids duplicates.
-        $resultado_radios = DB::table('radios_resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
-        if (is_null($resultado_radios)) {
-            $resultado_radios = new radios_resultado_desagregacion;
-            $resultado_radios->id_desagregacion = $desagregacion->id;
-            $resultado_radios->save();
-        }
-
-        //Checks if desagregacion_tabla row already exists. If not, creates a table row. Avoids duplicates.
-        $desagregacion_tabla = DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->first();
-        if (is_null($desagregacion_tabla)) {
-            $desagregacion_tabla = new desagregacion_tabla;
-            $desagregacion_tabla->id_desagregacion=$desagregacion->id;
-            $desagregacion_tabla->save();
-        }
-        */
-
         return view('desagregacion.create', compact('scenario', 'scenario_id'));
     } else {
         return view('loginfirst');
@@ -241,7 +215,7 @@ public function store(Request $request)
                 'skin' => $request->input('skin'),
                 'permeability' => $request->input('permeability'),
                 'rock_type' => $request->input('rock_type'),
-                'porosity' => ($request->input('porosity')/100),
+                'porosity' => $request->input('porosity'),
                 'status_wr' => !isset($_POST['btn_os']),
                 'id_escenario' => $scenaryId,
             ]);
@@ -315,7 +289,7 @@ public function store(Request $request)
             $skin = $request->get("skin");
             $permeability = $request->get("permeability");
             $rock_type = $request->get("rock_type");
-            $porosity = ($request->get("porosity"))/100;
+            $porosity = $request->get("porosity");
 
             if ($request->input('fluid_of_interest') == 1) {
                 $fluid_rate = $request->get("oil_rate");
@@ -437,7 +411,7 @@ public function store(Request $request)
                     'skin' => $request->input('skin'),
                     'permeability' => $request->input('permeability'),
                     'rock_type' => $request->input('rock_type'),
-                    'porosity' => ($request->input('porosity')/100),
+                    'porosity' => $request->input('porosity'),
                     'status_wr' => !isset($_POST['btn_os']),
                     'id_escenario' => $scenaryId,
                 ]);
@@ -626,7 +600,7 @@ public function update(Request $request, $id)
                 'skin' => $request->input('skin'),
                 'permeability' => $request->input('permeability'),
                 'rock_type' => $request->input('rock_type'),
-                'porosity' => ($request->input('porosity')/100),
+                'porosity' => $request->input('porosity'),
                 'status_wr' => !isset($_POST['btn_os']),
                 'id_escenario' => $scenaryId,
             ]);
@@ -700,7 +674,7 @@ public function update(Request $request, $id)
             $skin = $request->get("skin");
             $permeability = $request->get("permeability");
             $rock_type = $request->get("rock_type");
-            $porosity = ($request->get("porosity"))/100;
+            $porosity = $request->get("porosity");
 
             if ($request->input('fluid_of_interest') == 1) {
                 $fluid_rate = $request->get("oil_rate");
@@ -823,7 +797,7 @@ public function update(Request $request, $id)
                 'skin' => $request->input('skin'),
                 'permeability' => $request->input('permeability'),
                 'rock_type' => $request->input('rock_type'),
-                'porosity' => ($request->input('porosity')/100),
+                'porosity' => $request->input('porosity'),
                 'status_wr' => !isset($_POST['btn_os']),
                 'id_escenario' => $scenaryId,
             ]);
@@ -1277,7 +1251,10 @@ public function pseudo_damage_perforation_3 ($phase, $cannon_penetrating_depth, 
         $pseudo_damage_perforation_3 = ($alpha0 * ($well_radius + $cannon_penetrating_depth));
     }
 
-    return (log($well_radius/$pseudo_damage_perforation_3));
+    $result = log($well_radius/$pseudo_damage_perforation_3);
+
+    return ($result);
+
 }
 
 /* ---Pseudo-daño por cañoneo 5 (4.22) */
@@ -1412,10 +1389,8 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
     $fluid_volumetric_factor = floatval($fluid_volumetric_factor);
     $skin = floatval($skin);
     $permeability = floatval($permeability);
-    $rock_type = floatval($rock_type);
     $porosity = floatval($porosity);
     $hidraulic_units_data = json_decode($hidraulic_units_data);
-
 
     /* HIDRAULC UNITS DATA */
 
@@ -1500,7 +1475,7 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
         //REVISADO 18
         $total_pseudo_skin = $this->total_pseudo_skin($damage_by_deflection, $damage_by_partial_penetration, $damage_by_shape, $damage_by_perforation);
 
-        //dd($damage_by_deflection, $damage_by_partial_penetration, $damage_by_shape, $damage_sm, $damage_wb, $damage_sv, $total_pseudo_skin);
+        //dd($damage_by_deflection, $damage_by_partial_penetration, $damage_by_shape, $damage_by_perforation, $total_pseudo_skin);
     } else {
         $total_pseudo_skin = 0;
     }

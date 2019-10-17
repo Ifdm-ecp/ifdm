@@ -69,6 +69,11 @@ class filtration_function_controller extends Controller
             $filtration_function->formation_id = $request->input("formation");
             $filtration_function->name = $request->input("filtration_function_name");
             $filtration_function->mud_density = $request->input("mud_density");
+            if ($request->input("kdki_cement_slurry") == "") {
+                $filtration_function->kdki_cement_slurry = null;
+            }else{
+                $filtration_function->kdki_cement_slurry = $request->input("kdki_cement_slurry");
+            }
             $filtration_function->kdki_cement_slurry = $request->input("kdki_cement_slurry");
             $filtration_function->kdki_mud = $request->input("kdki_mud");
             $filtration_function->core_diameter = $request->input("core_diameter");
@@ -81,6 +86,7 @@ class filtration_function_controller extends Controller
             $filtration_function->a_factor = $request->input("a_factor");
             $filtration_function->b_factor = $request->input("b_factor");
             $filtration_function->method = $request->filtration_function_factors_option;
+            //dd($filtration_function->a_factor, $filtration_function->b_factor, 'lolala');
             $filtration_function->save();
 
 
@@ -91,6 +97,7 @@ class filtration_function_controller extends Controller
                 $update->a_factor =$factores['a'];
                 $update->b_factor =$factores['b'];
                 $update->save();
+                //dd($factores['a'], $factores['b'], 'dentro del if');
             }
 
             if($request->mudComposicion)
@@ -253,10 +260,12 @@ class filtration_function_controller extends Controller
               $pob_data_complete = json_decode($request->input("p_data"));    
               $lab_test_data_complete = json_decode($request->input("lab_test_data"));
 
+              //dd($permeability_data_complete, $pob_data_complete, $lab_test_data_complete);
+
               $flag_lab_test_data = 0; 
               $dv_dt_all = array();
               $kpob_all = array();
-              $aux2 = []; 
+              $aux2 = [];
               foreach ($permeability_data_complete as $value) 
               {
                   $laboratory_test = new d_laboratory_test();
@@ -264,6 +273,8 @@ class filtration_function_controller extends Controller
                   $laboratory_test->permeability = $value;
                   $laboratory_test->pob = $pob_data_complete[$flag_lab_test_data];
                   $laboratory_test->kpob = floatval($pob_data_complete[$flag_lab_test_data])*floatval($value);
+                  //dd(floatval($pob_data_complete[$flag_lab_test_data]));
+                  //dd($laboratory_test);
                   $laboratory_test->save();
 
                   // $times = array();
@@ -281,6 +292,8 @@ class filtration_function_controller extends Controller
                       // array_push($filtered_volumes, floatval($laboratory_test_data->filtered_volume));
                       array_push($aux, array(sqrt(floatval($laboratory_test_data->time)), floatval($laboratory_test_data->filtered_volume)));
                   }
+
+                  //dd($aux);
 
                   // $n = count($times);
                   // $x = $times;
@@ -302,6 +315,12 @@ class filtration_function_controller extends Controller
 
                   list($m, $intercept) = $this->linearRegression($aux);
 
+                  //dd($m, $intercept);
+
+                  if($intercept < 0){
+                    $intercept = 0;
+                  }
+
                   $laboratory_test_aux =\App\d_laboratory_test::find($laboratory_test->id);
                   $laboratory_test_aux->dv_dt = $m;
                   $laboratory_test_aux->save();
@@ -310,8 +329,12 @@ class filtration_function_controller extends Controller
                   array_push($kpob_all, $laboratory_test->kpob);
                   array_push($aux2, array($laboratory_test->kpob, $laboratory_test_aux->dv_dt));
 
+                  //dd($dv_dt_all, $kpob_all, $aux2);
+
                   $flag_lab_test_data++;
               }
+
+              //dd($dv_dt_all, $kpob_all, $aux2);
 
               // $n = count($dv_dt_all);
               // $x = $kpob_all;
@@ -333,11 +356,15 @@ class filtration_function_controller extends Controller
               
               # En caso de solo existir una prueba de filtrado
               if (count($aux2) == 1){
-                array_push($aux2, array(0, 0.01));
+                array_push($aux2, array($intercept, 0));
               }
 
               list($a, $b) = $this->linearRegression($aux2);
-              
+
+              if ($b < 0) {
+                $b = $intercept;      
+              }
+
               return collect(['a' => $a, 'b' => $b]);
     }
 

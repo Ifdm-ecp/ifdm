@@ -34,7 +34,7 @@
 				<div class="col-md-12">
 					<div class="row">
 						{!! Form::hidden('filtration_function_factors_option', 0, array('id' => 'filtration_function_factors_option')) !!}
-						{!! Form::hidden('lab_test_counter', 3, array('id' => 'lab_test_counter')) !!}
+						{!! Form::hidden('lab_test_counter', 2, array('id' => 'lab_test_counter')) !!}
 					</div>
 					<div class="row">
 						<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
@@ -134,9 +134,10 @@
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group {{$errors->has('kdki_cement_slurry') ? 'has-error' : ''}}">
-							   {!! Form::label('kdki_cement_slurry', 'Kd/Ki Completition Fluids') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+								<input type="checkbox" name="check_set_completition_fluids" id="check_set_completition_fluids" >
+							   {!! Form::label('kdki_cement_slurry', 'Set Kd/Ki Completition Fluids') !!}
 							   <div class="input-group">
-							      {!! Form::number('kdki_cement_slurry',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors',  'min' => '0', 'max' =>  '1', 'step' => '0.0000001']) !!}
+							      {!! Form::number('kdki_cement_slurry',null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors',  'min' => '0', 'max' =>  '1', 'step' => '0.0000001', 'disabled']) !!}
 							      <span class="input-group-addon">-</span>
 							   </div>
 							</div>
@@ -188,9 +189,6 @@
 									</div>
 								</div>
 							</div>
-							<div calss="row">
-								<div id="a_b_chart"></div>
-							</div>
 						</div>
 					</div>
 
@@ -220,7 +218,7 @@
 													<div class="form-group {{$errors->has('k_lab_test_1') ? 'has-error' : ''}}">
 													   {!! Form::label('k_lab_test_l', 'Permeability') !!}
 													   <div class="input-group" id="k_lab_test_1_input">
-													      {!! Form::text('k_lab_test_1',null, ['placeholder' => 'mD', 'class' =>'form-control k_value','id'=>'k_lab_test_1']) !!}
+													      {!! Form::number('k_lab_test_1',null, ['placeholder' => 'mD', 'class' =>'form-control k_value','id'=>'k_lab_test_1', 'min' => '0', 'max' => '10000', 'step' => '0.000001']) !!}
 													      <span class="input-group-addon" id="k_lab_test_1_a">mD</span>
 													   </div>
 													</div>
@@ -230,7 +228,7 @@
 													<div class="form-group {{$errors->has('p_lab_test_1') ? 'has-error' : ''}}">
 													   {!! Form::label('p_lab_test_l', 'Pob') !!}
 													   <div class="input-group" id="p_lab_test_1_input">
-													      {!! Form::text('p_lab_test_1',null, ['placeholder' => 'psi', 'class' =>'form-control pob_value','id'=>'p_lab_test_1']) !!}
+													      {!! Form::number('p_lab_test_1',null, ['placeholder' => 'psi', 'class' =>'form-control pob_value','id'=>'p_lab_test_1', 'min' => '0', 'max' => '10000', 'step' => '0.000001']) !!}
 													      <span class="input-group-addon" id="p_lab_test_1_a">psi</span>
 													   </div>
 													</div>
@@ -239,42 +237,7 @@
 											</div>
 											<div id="lab_test_1_chart"></div>
 										</div>
-										
-									</div>
-									<br>
-									<div class="row">
-										<div class="col-md-6">
-											<h4>Laboratory Test #2</h4>
-											<div id="lab_test_2_table" class="lab_test"></div>
-											{!! Form::button('Plot' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'plot_lab_test(2);', 'name' => 'accion', 'id'=>'plot_2')) !!}
-											<input type="hidden" class="lab_test_hidden" id="lab_test_2_hidden" value="false">
-										</div>
-										<div class="col-md-6">
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group {{$errors->has('k_lab_test_2') ? 'has-error' : ''}}">
-													   {!! Form::label('k_lab_test_l', 'Permeability') !!}
-													   <div class="input-group" id="k_lab_test_2_input">
-													      {!! Form::text('k_lab_test_2',null, ['placeholder' => 'mD', 'class' =>'form-control k_value','id'=>'k_lab_test_2']) !!}
-													      <span class="input-group-addon" id="k_lab_test_2_a">mD</span>
-													   </div>
-													</div>
-												</div>
-												<input type="hidden" class="k_hidden" id="k_lab_test_2_hidden" value="false">
-												<div class="col-md-6">
-													<div class="form-group {{$errors->has('p_lab_test_2') ? 'has-error' : ''}}">
-													   {!! Form::label('p_lab_test_l', 'Pob') !!}
-													   <div class="input-group" id="p_lab_test_2_input">
-													      {!! Form::text('p_lab_test_2',null, ['placeholder' => 'psi', 'class' =>'form-control pob_value','id'=>'p_lab_test_2']) !!}
-													      <span class="input-group-addon" id="p_lab_test_2_a">psi</span>
-													   </div>
-													</div>
-												</div>
-												<input type="hidden" class="p_hidden" id="p_lab_test_2_hidden" value="false">
-											</div>
-											<div id="lab_test_2_chart"></div>
-										</div>
-									</div>
+									</div>									
 									<hr>
 									<div id="extra_lab_test"></div>
 									{!! Form::hidden('lab_test_data', '', array('id' => 'lab_test_data')) !!}
@@ -285,9 +248,19 @@
 											{!! Form::button('Add Extra Laboratory Test' , array('class' => 'btn btn-warning btn-sm', 'onclick' => 'add_extra_lab_test();', 'name' => 'accion', 'id'=>'plot_1')) !!}
 										</div>
 									</div>
+									<br>
+									{!! Form::button('Linear Regresssion' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'linear_regression_plot();')) !!}
 								</div>
 							</div>
 						</div>
+					</div>
+					<br>
+					<br>
+					<div class="row" id="function_factors_graph">
+						<div id="a_b_chart"></div>
+					</div>
+					<div class="row" id="manual_assigment_graph">
+						<div id="a_b_chart_manual"></div>
 					</div>
 					<br>
 					<br>

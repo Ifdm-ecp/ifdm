@@ -8,7 +8,7 @@
       Scenario: {!! $scenario->nombre !!} </br> 
       Basin: {!! $scenario->cuenca->nombre !!} - 
       Field: {!! $scenario->campo->nombre !!} - 
-      Producing interval: {!!  $scenario->formacionxpozo->nombre !!} - 
+      {{-- Producing interval: {!!  $scenario->formacionxpozo->nombre !!} -  --}}
       Well: {!!  $scenario->pozo->nombre !!}</br> 
       User: {!! $scenario->user->fullName !!}
    </center>
@@ -19,9 +19,9 @@
    <div class="tabbable">
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
          <li class="active"><a data-toggle="tab" href="#general_data_c" id="general_data">General Data</a></li>
+         <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions">Filtration Functions</a></li>
          <li><a data-toggle="tab" href="#drilling_data_c" id="drilling_data">Drilling Data</a></li>
          <li><a data-toggle="tab" href="#cementing_data">Cementing Data</a></li>
-         <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions">Filtration Functions</a></li>
       </ul>
       <div class="tab-content">
          <div id="general_data_c" class="tab-pane active">
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('intervalSelect') ? 'has-error' : ''}}">
                               {!! Form::label('interval', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              {!! Form::select('intervalSelect', $scenario->formacionxpozo->pozo->formacionesxpozo->pluck('nombre', 'id'),null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
+                              {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'),null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
                            </div>
                         </div>
                      </div>
@@ -92,6 +92,51 @@
                   {!! Form::hidden('select_interval_general_data', '', array('id' => 'select_interval_general_data')) !!}
                   {!! Form::hidden('select_input_data', '', array('id' => 'select_input_data')) !!}
                   {!! Form::hidden('select_filtration_function', '', array('id' => 'select_filtration_function')) !!}
+               </div>
+            </div>
+         </div>
+         <div id="filtration_functions_c" class="tab-pane" >
+            <br>
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#filtration_function"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a>Filtration Function</h4>
+               </div>
+               <div class="panel-body">
+                  <div id="filtration_function" class="panel-collapse collapse in">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group {{$errors->has('filtration_function_select') ? 'has-error' : ''}}">
+                              {!! Form::label('filtration_function_l', 'Filtration Function') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('a_factor_l', 'a') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                                 {!! Form::text('a_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'a_factor_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('b_factor_l', 'b') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                                 {!! Form::text('b_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12">
+                           {!! Form::submit('Run' , array('class' => 'btn btn-primary', 'onclick' => 'verifyDrilling(false);', 'name' => 'accion', 'id'=>'run')) !!}
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
@@ -195,70 +240,25 @@
                         </div>
                      </div>
                      <div class="row">
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 {!! Form::label('c_cement_slurry_density_l', 'Cement Slurry Density') !!} <span style='color:red;'>*</span>
-                                 <div class="input-group {{$errors->has('c_cement_slurry_density_t') ? 'has-error' : ''}}">
-                                    {!! Form::text('c_cement_slurry_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
-                                    <span class="input-group-addon" id="basic-addon2">lb/gal</span>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-6">
-                              <div class="form-group">
-                                 {!! Form::label('c_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
-                                 <div class="input-group {{$errors->has('c_equivalent_circulating_density_t') ? 'has-error' : ''}}">
-                                    {!! Form::text('c_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
-                                    <span class="input-group-addon" id="basic-addon2">gpm</span>
-                                 </div>
-                                 <br>
-                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Cement Slurry Density, and Pump Rate." onclick="calculate_ecd(1)">Calculate ECD</button>
-                              </div>
-                           </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div id="filtration_functions_c" class="tab-pane" >
-            <br>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#filtration_function"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a>Filtration Function</h4>
-               </div>
-               <div class="panel-body">
-                  <div id="filtration_function" class="panel-collapse collapse in">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group {{$errors->has('filtration_function_select') ? 'has-error' : ''}}">
-                              {!! Form::label('filtration_function_l', 'Filtration Function') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('a_factor_l', 'a') !!} <span style='color:red;'>*</span>
-                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
-                                 {!! Form::text('a_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'a_factor_t']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              {!! Form::label('c_cement_slurry_density_l', 'Cement Slurry Density') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('c_cement_slurry_density_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('c_cement_slurry_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">lb/gal</span>
                               </div>
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('b_factor_l', 'b') !!} <span style='color:red;'>*</span>
-                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
-                                 {!! Form::text('b_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                              {!! Form::label('c_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
+                              <div class="input-group {{$errors->has('c_equivalent_circulating_density_t') ? 'has-error' : ''}}">
+                                 {!! Form::text('c_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
+                              <br>
+                              <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Cement Slurry Density, and Pump Rate." onclick="calculate_ecd(1)">Calculate ECD</button>
                            </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                           {!! Form::submit('Run' , array('class' => 'btn btn-primary', 'onclick' => 'verifyDrilling(false);', 'name' => 'accion', 'id'=>'run')) !!}
                         </div>
                      </div>
                   </div>
@@ -268,7 +268,13 @@
       </div>
    </div>
 </div>
-<button type="submit" class="btn btn-success pull-right" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
+<div class="row">
+   <div class="col-md-6"></div>
+   <div class="col-md-6" align="right">
+      <button type="button" class="btn btn-primary" onclick="nextStep();">Next</button>
+      <button type="submit" class="btn btn-success" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
+   </div>
+</div>
 {!! Form::Close() !!}
 @endsection
 @section('Scripts')

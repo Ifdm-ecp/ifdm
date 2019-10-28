@@ -25,8 +25,7 @@ window.onload = function()
 {
     //verifica si esta habilitado cementing
     cementingAvailable();
-
-    var formation = [{!! $scenario->formacionxpozo->formacion_id !!}];
+    var formation = [{!! $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
     var interval = [$("#select_interval_general_data").val()];
     var input_data_method = $("#select_input_data").val();
     var preset_function_values = $("#selects_filtration_function").val();
@@ -607,6 +606,10 @@ function calculate_ecd(option)
         }
       });
   }
+}
+
+function nextStep() {
+  $('.nav.nav-tabs li.active').next().children().click();
 }
 
 $(function () 

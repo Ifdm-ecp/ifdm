@@ -209,7 +209,7 @@
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('well_completitions') ? 'has-error' : ''}}">
                               {!! Form::label('well completitions', 'Well Completitions', array('class' => 'required')) !!}
-                              {!! Form::select('well_completitions', array(1 => 'Open Hole', 2 => 'Slotted Liners', 3 => 'Perforated Liner'), null, ['class' => 'form-control', 'id'=>'well_completitions', 'placeholder' => 'Select a well completition']) !!}
+                              {!! Form::select('well_completitions', array(1 => 'Open Hole', 2 => 'Slotted Liners', 3 => 'Perforated Liner'), $disaggregation->well_completitions, ['class' => 'form-control', 'id'=>'well_completitions', 'placeholder' => 'Select a well completition']) !!}
                            </div>
                            {!! $errors->first('well_completitions', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
@@ -393,7 +393,7 @@
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('fluid_of_interest') ? 'has-error' : ''}}">
                               {!! Form::label('fluid of interest', 'Fluid of Interest', array('class' => 'required')) !!}
-                              {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water'), null, ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
+                              {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water'), $disaggregation->fluid_of_interest, ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
                            </div>
                            {!! $errors->first('fluid_of_interest', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
@@ -584,12 +584,7 @@
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('rock_type') ? 'has-error' : ''}}">
                               {!! Form::label('tipo de roca', 'Rock Type ', array('class' => 'required')) !!}
-                              <select name="rock_type" class="form-control" id="rock_type">
-                                 <option selected>Select a rock type</option>
-                                 <option value="consolidada" >Consolidated</option>
-                                 <option value="poco consolidada" >Unconsolidated</option>
-                                 <option value="microfracturada">Microfractured</option>
-                              </select>
+                              {!! Form::select('rock_type', array('consolidada' => 'Consolidated', 'poco consolidada' => 'Unconsolidated', 'microfracturada' => 'Microfractured'), $disaggregation->rock_type, ['class' => 'form-control', 'id'=>'rock_type', 'placeholder' => 'Select a rock type']) !!}
                               {!! $errors->first('rock_type', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
@@ -599,7 +594,7 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', $disaggregation->porosity, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.00001']) !!} 
+                                 {!! Form::number('porosity', $disaggregation->porosity, ['placeholder' =>  '[0-1]', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.00001']) !!} 
                                  <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}

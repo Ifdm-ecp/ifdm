@@ -864,6 +864,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         for ($i=1; $i <= $nx ; $i++) 
         { 
             $phip[$i] = $porosity_limit_constant * $sigma[$i] / $rhop;
+            //$phip[$i] = $7.92422141219959E-05 * $sigma[$i] / $rhop;
             #beta=((8.91*10^-8)*tao)/(phio*ko)  ---- ajuste del modelo multitasa
             $dphi[$i] = -$phin[$i] / 3.0 / pow($relperm, (2.0 / 3.0)) * (1.0 - 0.00092903 * $k6) * exp(-$ab * pow($t, 0.5)) * $ab / (2.0 * pow($t, 0.5)) - $dsigma[$i] / $rhop;
 
@@ -982,9 +983,12 @@ class add_fines_migration_diagnosis_controller extends Controller
 
     function extrapolation($xa, $ya, $n, $x)
     {
-        $n_max = 10;
-        $c = array_fill(1,10,0);
-        $d = array_fill(1,10,0);
+        //$n_max = 10; -> cambiado
+        $n_max = $n;  // prototipo
+        //$c = array_fill(1,10,0);
+        $c = array_fill(1, $n, 0);
+        //$d = array_fill(1,10,0);
+        $d = array_fill(1, $n, 0);
         $ns = 1;
         $dif = abs($x-$xa[1]);
 
@@ -1047,7 +1051,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         return [$y, $dy];
     }
-    function run_simulation($rdre, $hf, $rw, $swi, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant) 
+    function run_simulation($rdre, $hf, $rw, $swi, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant)   
     {
 
         #Formateando arreglos - empezando índices en 1 
@@ -1091,6 +1095,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $uopvt = $pvt_data[2];
         $bopvt = $pvt_data[3];
 
+        //dd('ppvt', $ppvt, 'dopvt', $dopvt, 'uopvt', $uopvt, 'bopvt', $bopvt);
+
         #Revisar ajuste nh
         $nh = count($historical_data[0]) - 1;
         $hist = $historical_data[0];
@@ -1113,6 +1119,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pi = 3.14159265359;
         $x = 0;
         $ki = [];
+        //
 
         #Escalamiento de tasa crítica escalada
         $rplug = 0.061; #Medición estandar para un núcleo de laboratorio [ft]
@@ -1121,70 +1128,72 @@ class add_fines_migration_diagnosis_controller extends Controller
         #Conversión tasas de laboratorio
         for ($i=1; $i <= $ns ; $i++) 
         { 
-          $qlab[$i] = $this->rate_scaling($rw, $qlab[$i], $hf, $rplug, $tpp, $rp, $qlab[$i]);
-      }
+            $qlab[$i] = $this->rate_scaling($rw, $qlab[$i], $hf, $rplug, $tpp, $rp);
+        }
 
         #Discretizando el medio (geometría radial)
-      $nr = 500;
-      $ri = 0;
+        $nr = 500;
+        $ri = 0;
 
-      $r = array_fill(1, $nr, 0); 
-      $dr = array_fill(1, $nr, 0); 
-      $r1 = array_fill(1, $nr, 0);
-      $dr1 = array_fill(1, $nr - 1, 0);
-      $alfa = pow(($rdre / $rw), (1 / ($nr - 1)));
-      $r[1] = $rw;
+        $r = array_fill(1, $nr, 0); 
+        $dr = array_fill(1, $nr, 0);
+        $r1 = array_fill(1, $nr, 0);
+        $dr1 = array_fill(1, $nr - 1, 0);
+        $alfa = pow(($rdre / $rw), (1 / ($nr - 1)));
+        $r[1] = $rw;
 
-      for ($i=2; $i <= $nr ; $i++) 
-      { 
-        $r[$i] = $alfa * $r[$i - 1];
-    }
-
-    for ($i=1; $i < $nr ; $i++) 
-    { 
-        $dr1[$i] = $r[$i + 1] - $r[$i];
-    }
-
-    for ($i=1; $i <= $nr ; $i++) 
-    { 
-        if ($i == $nr)
-        {
-            $r1[$i] = $rdre;
+        for ($i=2; $i <= $nr ; $i++) 
+        { 
+            $r[$i] = $alfa * $r[$i - 1];
         }
-        else
-        {   
-            $r1[$i] = (($alfa - 1) * $r[$i]) / (log($alfa));
-            if ($r1[$i] < $ri)
+
+        for ($i=1; $i < $nr; $i++) 
+        //for ($i=1; $i < ($nr - 1); $i++) 
+        { 
+            $dr1[$i] = $r[$i + 1] - $r[$i];
+        }
+
+        for ($i=1; $i <= $nr ; $i++) 
+        { 
+            if ($i == $nr)
             {
-                $x = $i;
+                $r1[$i] = $rdre;
+            }
+            else
+            {   
+                $r1[$i] = (($alfa - 1) * $r[$i]) / (log($alfa));
+                if ($r1[$i] < $ri)
+                {
+                    $x = $i;
+                }
             }
         }
-    }
 
-    for ($i=1; $i <= $nr ; $i++) 
-    { 
-        if ($i == 1)
-        {
-            $dr[$i] = $r1[$i] - $r[$i];
+        for ($i=1; $i <= $nr ; $i++) 
+        { 
+            if ($i == 1)
+            {
+                $dr[$i] = $r1[$i] - $r[$i];
+            }
+            else
+            {
+                $dr[$i] = $r1[$i] - $r1[$i - 1];
+            }
         }
-        else
-        {
-            $dr[$i] = $r1[$i] - $r1[$i - 1];
-        }
-    }
 
-        #Inicializando varibles iniciales
-    $pn = array_fill(1, $nr, $pini); 
-    $phin = array_fill(1, $nr, $phio); 
-    $kn = array_fill(1, $nr, $ko); 
-    $co = array_fill(1, $nr, $coi); 
-    $cod = array_fill(1, $nr, 0); 
-    $sigmaini = array_fill(1, $nr, $sigmai); 
-    $bo = array_fill(1, $nr, 0);
-    $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+            #Inicializando varibles iniciales
+        $pn = array_fill(1, $nr, $pini); 
+        $phin = array_fill(1, $nr, $phio); 
+        $kn = array_fill(1, $nr, $ko); 
+        $co = array_fill(1, $nr, $coi); 
+        $cod = array_fill(1, $nr, 0); 
+        $sigmaini = array_fill(1, $nr, $sigmai); 
+        $bo = array_fill(1, $nr, 0);
+        $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
 
+        //HASTA AQUÍ LLEGAMOS
 
-        #Dimensionamiento
+    #Dimensionamiento
     $b = array_fill(1, $nr, 0); 
     $a = array_fill(1, $nr, 0); 
     $f = array_fill(1, $nr, 0); 
@@ -1262,7 +1271,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                 $a[$i] = pow($r1[$i], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i]);
             }
 
-            for ($i=$x; $i < $nr ; $i++) 
+            for ($i=$x; $i < $nr ; $i++)
+            //for ($i=$x; $i < $nr - 1 ; $i++)
             { 
                 $a[$i] = $r1[$i] / ($r[$i] * $dr[$i] * $dr1[$i]);
             }
@@ -1274,10 +1284,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                 $i = $i + 1;
                 $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
                 $g1 = 3792.58489625175 * $n * $phin[$i] * $cr / $kn[$i];
-                    $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
+                $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
                 }
 
                 for ($i=$x + 1; $i < $nr ; $i++) 
+                //for ($i=$x + 1; $i < $nr - 1; $i++) 
                 { 
                     $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
                     $f[$i] = $g2 / $dt;
@@ -1296,6 +1307,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 $c[$nr] = -($b[$nr] + $f[$nr]);
 
                 for ($i=2; $i < $nr ; $i++) 
+                //for ($i=2; $i < $nr - 1; $i++) 
                 { 
                     $c[$i] = -($a[$i] + $b[$i] + $f[$i]);
                 }
@@ -1305,13 +1317,16 @@ class add_fines_migration_diagnosis_controller extends Controller
                     if ($i == 1)
                     {
                         $beta = $this->interpolation($pn[$i], $nv, $ppvt, $bopvt);
+                        //dd('Verificar si el interpolation esta bien','pn', $pn, 'nv', $nv, 'ppvt', $ppvt, 'bopvt', $bopvt, 'dopvt', $dopvt);
                         $vm = $pi * $hf * (pow($r1[1], 2) - pow($rw, 2)) / (5.615 * $beta);
                         $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
                         $d[$i] = -$f[$i] * $pn[$i] - 158.024370659982 * ($qo / ($kn[$i] * $vm)) * $mu;
+                        //dd('f', $f, 'pn', $pn, 'qo', $qo, 'kn', $kn, 'vm', $vm, 'mu', $mu, 'beta', $beta, 'nv', $nv);
                     }
                     else
                     {
                         $d[$i] = -$f[$i] * $pn[$i];
+                        //dd('d', $d, 'f', $f, 'pn', $pn);
                     }
                 }
 
@@ -1331,6 +1346,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                 { 
                     $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                 }
+                
+                //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
 
                 for ($i=1; $i <= $nr ; $i++) 
                 { 
@@ -1339,6 +1356,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                 #Cálculo del flux
                 for ($i=2; $i < $nr; $i++) 
+                //for ($i=2; $i < $nr - 1 ; $i++) 
                 { 
                     $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
                 }
@@ -1460,9 +1478,12 @@ class add_fines_migration_diagnosis_controller extends Controller
             { 
                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $coc[$i]);
             }
+            //dd($r, $pcal, $phic, $kc, $coc, 'lel');
             array_push($complete_simulated_results, $simulation_results);
             $damage_results[$kk] = array($hist[$kk], $radio_dam, $skin);
         }
+
+        //dd($complete_simulated_results);
 
         return array($complete_simulated_results, $damage_results);
     }

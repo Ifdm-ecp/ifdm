@@ -599,7 +599,7 @@
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
                               {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
                               <div class="input-group">
-                                 {!! Form::number('porosity', null, ['placeholder' =>  '%', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.0000001']) !!}
+                                 {!! Form::number('porosity', null, ['placeholder' =>  '[0-1]', 'class' =>'form-control', 'id' => 'porosity', 'min' => '0', 'max' => '0.45', 'step' => '0.0000001']) !!}
                                  <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                               </div>
                               {!! $errors->first('porosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}

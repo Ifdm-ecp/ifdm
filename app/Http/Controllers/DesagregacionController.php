@@ -544,7 +544,9 @@ public function edit($scenario_id)
         #$disaggregation = desagregacion::find($id);
 
         /* Leyendo datos desde base de datos */
-        $hidraulic_units_data_query = DB::table('desagregacion_tabla')->where('id_desagregacion',$scenario_id)->get();
+        $hidraulic_units_data_query = DB::table('desagregacion_tabla')->where('id_desagregacion',$disaggregation->id)->get();
+
+        //dd($hidraulic_units_data_query, $disaggregation->id);
 
         /* Organizando datos para tablas */
         $hidraulic_units_data = [];
@@ -553,8 +555,10 @@ public function edit($scenario_id)
             array_push($hidraulic_units_data, array($value->espesor, $value->fzi, $value->porosidad_promedio, $value->permeabilidad));
         }
 
+        $hidraulic_units_data_saved = $hidraulic_units_data;
+
         //$duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
-        return View::make('desagregacion.edit', compact(['scenario_id', 'scenario', 'disaggregation', 'hidraulic_units_data']));    
+        return View::make('desagregacion.edit', compact(['scenario_id', 'scenario', 'disaggregation', 'hidraulic_units_data', 'hidraulic_units_data_saved']));    
     } 
     else 
     {
@@ -892,6 +896,8 @@ public function permeability_module($hidraulic_units_data, $rock_type)
         array_push($calculated_hidraulic_units_data, $hidraulic_unit);
     }
 
+    //dd($hidraulic_unit, $calculated_hidraulic_units_data);
+
     return $calculated_hidraulic_units_data; 
 }
 
@@ -902,7 +908,7 @@ public function permeability_module($hidraulic_units_data, $rock_type)
 public function well_permeability_module($hidraulic_units_data)
 {   
     $a = 0; /* Dividendo */
-    $b = 1; /* Divisor */
+    $b = 0; /* Divisor */
 
     foreach ($hidraulic_units_data as $hidraulic_unit) 
     {
@@ -910,7 +916,7 @@ public function well_permeability_module($hidraulic_units_data)
         $a += floatval($hidraulic_unit[0]) * $hidraulic_unit[4];
         $b += floatval($hidraulic_unit[0]);
     }
-    //dd($a, $b, $hidraulic_units_data);
+    //dd($a/$b, $hidraulic_units_data);
     return $a/$b; //Revisar divisiòn por cero
 }
 
@@ -979,12 +985,14 @@ public function pore_pressure ($bottomhole_flowing_pressure, $fluid_rate, $fluid
     $well_point_i_distance = $this->well_point_i_distance($well_radius, 10);
 
     /* El primer valor de presión es la presión en el fondo del pozo*/
-    array_push($pore_pressure_at_point_i, $bottomhole_flowing_pressure);    
+    //array_push($pore_pressure_at_point_i, $bottomhole_flowing_pressure);    
 
     /* Se llena los valores de presión para cada punto del vector de distancias*/
     foreach ($well_point_i_distance as $key => $pressure) 
     {
-        $pressure = $bottomhole_flowing_pressure + (((141.2*$fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness)) * (log($well_point_i_distance[$key] / $well_radius) - (0.5*pow($well_point_i_distance[$key] / 10, 2 ))));
+        $pressure = $bottomhole_flowing_pressure + ((141.2*$fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness) * (log($well_point_i_distance[$key] / $well_radius) - (0.5*pow($well_point_i_distance[$key] / 10, 2 ))));
+
+        //dd($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $formation_thickness, $well_point_i_distance[$key] ,$well_radius, 'ri');
 
         /** Si la presión calculada es igual o superior a la presión promedio,se ignora la calculada y se coloca en su lugar la promedio */
 
@@ -995,6 +1003,8 @@ public function pore_pressure ($bottomhole_flowing_pressure, $fluid_rate, $fluid
 
         array_push($pore_pressure_at_point_i, $pressure);
     }
+
+    //dd($well_point_i_distance, $pore_pressure_at_point_i);
 
     return $pore_pressure_at_point_i;
 }
@@ -1011,9 +1021,9 @@ public function well_point_i_distance($well_radius, $drainage_radius)
     $cont_1 = 0;
 
     /**Se establecen las distancias del pozo a los puntos a estudiar. Los primeros 10 pies se estudian con minuciosidad,  por ello las distancias aumentan 0.2 */
-    while($well_radius + (1 * $cont_1) <= 10)
+    while($well_radius + (0.1 * $cont_1) <= 10)
     {
-        array_push($well_point_i_distance, ($well_radius + (1 * $cont_1)));
+        array_push($well_point_i_distance, ($well_radius + (0.1 * $cont_1)));
         $cont_1++;
     }
 
@@ -1028,7 +1038,7 @@ public function well_point_i_distance($well_radius, $drainage_radius)
 
     }
 
-    array_push($well_point_i_distance, $drainage_radius);
+    //array_push($well_point_i_distance, $drainage_radius);
 
     return $well_point_i_distance;
 }
@@ -1060,15 +1070,19 @@ public function stress_damage ($well_permeability_module, $well_radius, $effecti
     $well_point_i_distance = $this->well_point_i_distance($well_radius, 10);
     $sum = 0;
 
+    //$arrayyyy = [];
+
     for ($i=0; $i < count($well_point_i_distance) - 1 ; $i++) 
     { 
-        $sum += (log($well_point_i_distance[$i+1] / $well_point_i_distance[$i])) * (pow(M_E, $well_permeability_module * $effective_stress[$i]));
+        $sum += (log($well_point_i_distance[$i+1] / $well_point_i_distance[$i])) * (pow(M_E, /*(-1) * */ $well_permeability_module * $effective_stress[$i]));
+        //array_push($arrayyyy, log($well_point_i_distance[$i+1] / $well_point_i_distance[$i]) / (pow(M_E, (-1) * $well_permeability_module * $effective_stress[$i])) );
+        //dd($arrayyyy, $well_point_i_distance[$i+1], $well_point_i_distance[$i], $well_permeability_module, $effective_stress[$i] );
     }
 
     //$result = $original_permeability * $sum;
     $result = $sum - log(10 / $well_radius);
 
-
+    //dd($arrayyyy );
 
     return array($result, $well_point_i_distance);
 }  
@@ -1104,7 +1118,7 @@ public function bpd_to_ftd($value)
 /* --Coeficiente de flujo no Darcy (escalar)  */
 public function non_darcy_flow_coefficient($fluid_volumetric_factor, $permeability, $fluid_viscosity, $well_radius, $perforated_thickness, $well_friction_coefficient)
 {
-    $a = (2.22 * pow(10, -15)) * $fluid_volumetric_factor * $permeability * $well_friction_coefficient;
+    $a = (2.22 * pow(10, 15)) * $fluid_volumetric_factor * $permeability * $well_friction_coefficient;
     $b = $fluid_viscosity * $well_radius * $perforated_thickness;
 
     return($a / $b);
@@ -1402,9 +1416,15 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
 
     //REVISADO 3
     $hidraulic_units_data = $this->friction_coefficient($permeability_module); /* Nuevos datos de unidades hidráulicas calculadas en la función permeability_module (Antes estaba hidraulic_units_data) */
+
+    //dd($hidraulic_units_data);
     
     //REVISADO 4
     $well_friction_coefficient = $this->well_friction_coefficient($hidraulic_units_data);
+
+    //dd($well_friction_coefficient, $hidraulic_units_data);
+
+    //dd($well_permeability_module, $well_friction_coefficient);
 
     /* SKIN BY STRESS */
 
@@ -1414,6 +1434,8 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
     //REVISADO 5.1 - VIEW
     $pore_pressure_view = $this->well_point_i_distance($well_radius, 10);
 
+    //dd($pore_pressure_view, $pore_pressure);
+
     //ESTO YA NO SE CALCULA
     //$total_stress = $this->total_stress($vertical_stress_gradient, $min_horizontal_stress_gradient, $max_horizontal_stress_gradient, $true_vertical_depth);
     
@@ -1422,6 +1444,8 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
 
     //REVISADO 6
     $effective_stress = $this->effective_stress($reservoir_pressure, $pore_pressure);
+
+    //dd($pore_pressure_view, $effective_stress);
 
     //MIRAR PARA QUÉ SIRVE
     //$affected_area_permeability = $this->affected_area_permeability($permeability, $well_permeability_module, $initial_effective_stress, $effective_stress);

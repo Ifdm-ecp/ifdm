@@ -5,8 +5,19 @@
 
 <script type="text/javascript">
 
+document.getElementById('well_completitions').onchange = function() {
+    document.getElementById('kdki_cement_slurry_factors').disabled = !this.checked;
+    document.getElementById('kdki_cement_slurry_factors').value = "";
+};
+
 $(document).ready(function()
 {
+
+  // Muestra los campos correspondientes a los de la lista desplegable seleccionada
+  if ($('#well_completitions').val() == 3) { $("#hidden_div_perforated_liner").show(); }
+  if ($('#fluid_of_interest').val() == 1) { $("#hidden_oil").show(); }
+  if ($('#fluid_of_interest').val() == 2) { $("#hidden_gas").show(); }
+  if ($('#fluid_of_interest').val() == 3) { $("#hidden_water").show(); }
 
   /** Modales de error formulario */
   $("#myModal").modal('show');
@@ -255,7 +266,7 @@ function clean_table_data(table_div_id)
 
 function create_hydraulic_units_data()
 {
-  var hidraulic_units_data = {!!json_encode($hidraulic_units_data)!!};
+  var hidraulic_units_data = {!!json_encode($hidraulic_units_data_saved)!!};
 
   $hidraulic_units_data_table = $("#hidraulic_units_data");
   $hidraulic_units_data_table.handsontable({

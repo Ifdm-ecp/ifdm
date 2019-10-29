@@ -388,9 +388,9 @@
                     </div>
                      <br>
 
-                  <div class="row">
-                    <div id="graphic_historical_data_table"></div>
-                  </div>
+                    <div class="row col-md-12">
+                      <div id="graphic_historical_data_table"></div>
+                    </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-check">
@@ -449,10 +449,10 @@
                      <div class="row col-md-6">  
                          <button type="button" class="btn btn-primary" onclick="perform_production_projection()">Calculate Production Projection</button>   
                     </div>
-                    <div class="row">
+                    <div class="row col-md-12">
                       <div id="oil_projection_chart"></div>
                     </div>
-                    <div class="row">
+                    <div class="row col-md-12">
                       <div id="water_projection_chart"></div>
                     </div>
                   </div>

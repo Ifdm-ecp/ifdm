@@ -580,10 +580,12 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $aux_i = 1;
         if ($x < $xt[1]) {
             $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
         if ($x > $xt[$n]) {
             $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
         if ($x < $xt[$n]) {
@@ -605,8 +607,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
     function extrapolation($xa, $ya, $n, $x)
     {
         $n_max = 10;
+        //$n_max = $n;
         $c = array_fill(1, 10, 0);
+        //$c = array_fill(1, $n, 0);
         $d = array_fill(1, 10, 0);
+        //$d = array_fill(1, $n, 0);
         $ns = 1;
         $dif = abs($x - $xa[1]);
 

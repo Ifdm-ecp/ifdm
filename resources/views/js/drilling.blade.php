@@ -5,6 +5,177 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 
+/* Drilling rulesets
+ * This is a set of rules for each table and/or section of the form
+ * Each element in the array corresponds to a rule assigned to the column
+ * So element 0 has the rules for the column 0 of the table
+*/
+generaldata_table_ruleset = [
+  {
+    column: "Interval",
+    rules: [
+      {rule: "required"},
+      {rule: "any"}
+    ]
+  },
+  {
+    column: "Top [ft]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 50000},
+    ]
+  },
+  {
+    column: "Bottom [ft]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 50000},
+    ]
+  },
+  {
+    column: "Reservoir Pressure [psi]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000},
+    ]
+  },
+  {
+    column: "Hole Diameter [in]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10},
+    ]
+  },
+  {
+    column: "Drill Pipe Diameter [in]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10},
+    ]
+  }
+];
+
+profile_table_ruleset = [
+  {
+    column: "Top [ft]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 50000},
+    ]
+  },
+  {
+    column: "Bottom [ft]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 50000},
+    ]
+  },
+  {
+    column: "Porosity [-]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1},
+    ]
+  },
+  {
+    column: "Permeability [mD]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000},
+    ]
+  },
+  {
+    column: "Fracture Intensity [#/ft]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100},
+    ]
+  },
+  {
+    column: "Irreducible Saturation [-]",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1},
+    ]
+  }
+];
+
+/* multiValidatorHandsonTable
+ * returns a boolean with a check for specific rule
+ * params {value: mixed, ruleset: object}
+*/
+function multiValidatorHandsonTable(value, ruleset)
+{
+  var isValid = false;
+
+  $.each(ruleset.rules, function (key, set) {
+    switch (set.rule) {
+      case "any":
+        isValid = true
+        return false;
+        break;
+      case "numeric":
+        isValid = $.isNumeric(value);
+        return isValid;
+        break;
+      case "range":
+        isValid = (value >= set.min && value <= set.max);
+        return isValid;
+        break;
+    }
+  });
+
+  return isValid;
+};
+
+/* multiValidator
+* returns an array with a boolean with a validation result and a message in case the validation fails
+* params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+*/
+function multiValidator(value, tableName, tableRow, ruleset)
+{
+  var isValid = [];
+
+  $.each(ruleset.rules, function (key, set) {
+    switch (set.rule) {
+      case "any":
+        return [true, ""];
+        break;
+      case "required":
+        if (value == null || value == "") {
+          isValid = [false, "The table " + tableName + " in the row " + tableRow + " and column " + ruleset.column + " has an empty value"]
+          return false;
+        }
+        break;
+      case "numeric":
+        if (!$.isNumeric(value)) {
+          isValid = [false, "The table " + tableName + " in the row " + tableRow + " and column " + ruleset.column + " has a non numeric value"];
+          return false
+        }
+        break;
+      case "range":
+        if (value < set.min || value > set.max) {
+          isValid = [false, "The table " + tableName + " in the row " + tableRow + " and column " + ruleset.column + " has is out of the numeric range [" + set.min + "," + set.max + "]"];
+          return false;
+        }
+        break;
+    }
+  });
+
+  return (isValid.length > 0 ? isValid : [true, ""]);
+};
+
 //*****/////*****
 $(document).ready(function(){
   input_data_profile = $("#inputdata_profile_table").val();
@@ -166,24 +337,24 @@ function json_toarray(json)
 
 function create_interval_general_data_table(data)
 {
-    $intervalGeneral_t = $("#intervalsGeneral_t");
-    $intervalGeneral_t.handsontable(
-    {
-        data: data, 
-        rowHeaders: true, 
-        colWidths: [110, 100, 100, 165, 140, 155],
-        columns: 
-        [
-          {title:"Interval", data: 0, readOnly: true},
-          {title:"Top [ft]",data: 1,type: 'numeric', format: '0[.]0000000'},
-          {title:"Bottom [ft]",data: 2,type: 'numeric', format: '0[.]0000000'},
-          {title:"Reservoir Pressure [psi]",data: 3,type: 'numeric', format: '0[.]0000000'},
-          {title:"Hole Diameter [in]",data: 4,type: 'numeric', format: '0[.]0000000'},
-          {title:"Drill Pipe Diameter [in]",data: 5,type: 'numeric', format: '0[.]0000000'}
-        ],
-        minSpareRows: 1,
-        contextMenu: true,
-    });
+  $intervalGeneral_t = $("#intervalsGeneral_t");
+  $intervalGeneral_t.handsontable(
+  {
+    data: data, 
+    rowHeaders: true, 
+    colWidths: [110, 100, 100, 165, 140, 155],
+    columns: 
+    [
+      {title: generaldata_table_ruleset[0].column, data: 0, readOnly: true},
+      {title: generaldata_table_ruleset[1].column, data: 1, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[1])); }},
+      {title: generaldata_table_ruleset[2].column, data: 2, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[2])); }},
+      {title: generaldata_table_ruleset[3].column, data: 3, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[3])); }},
+      {title: generaldata_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[4])); }},
+      {title: generaldata_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[5])); }}
+    ],
+    minSpareRows: 1,
+    contextMenu: true,
+  });
 }
 
 function create_intervals_input_data_table(data)
@@ -203,7 +374,7 @@ function create_intervals_input_data_table(data)
         columns: 
         [
           {title:"Interval", data: 0, readOnly: true},
-          {title:"Porosity [-]",data: 1,type: 'numeric', format: '0[.]0000000'},
+          {title:"Porosity [-]", data: 1, type: 'numeric', format: '0[.]0000000'},
           {title:"Permeability [mD]",data: 2,type: 'numeric', format: '0[.]0000000'},
           {title:"Fracture Intensity [#/ft]",data: 3,type: 'numeric', format: '0[.]0000000'},
           {title:"Irreducible Saturation [-]",data: 4,type: 'numeric', format: '0[.]0000000'}
@@ -225,14 +396,15 @@ function create_profile_input_data_table(data)
     {
         data: data, 
         rowHeaders: true, 
-        colWidths: [150, 100, 120, 150, 165],
+        colWidths: [100, 100, 100, 120, 150, 165],
         columns: 
         [
-          {title:"Depth [ft]", data: 0, type: 'numeric', format:'0[.]0000000'},
-          {title:"Porosity [-]",data: 1,type: 'numeric', format: '0[.]0000000'},
-          {title:"Permeability [mD]",data: 2,type: 'numeric', format: '0[.]0000000'},
-          {title:"Fracture Intensity [#/ft]",data: 3,type: 'numeric', format: '0[.]0000000'},
-          {title:"Irreducible Saturation [-]",data: 4,type: 'numeric', format: '0[.]0000000'}
+          {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[0])); }},
+          {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[1])); }},
+          {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[2])); }},
+          {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[3])); }},
+          {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[4])); }},
+          {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, generaldata_table_ruleset[5])); }}
         ],
         minSpareRows: 1,
         contextMenu: true,
@@ -241,7 +413,8 @@ function create_profile_input_data_table(data)
 
 function plotProfileData()
 {
-  var data = $("#profileInput_t").handsontable('getData');
+  var container = $("#profileInput_t");
+  var data = container.handsontable('getData');
   var data_aux = [];
   //Input Data Profile
   for (var i = 0; i < data.length; i++) 
@@ -251,8 +424,9 @@ function plotProfileData()
     d2 = data[i][2];
     d3 = data[i][3];
     d4 = data[i][4];
+    d5 = data[i][5];
 
-    if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null) && (d3 ==="" || d3 == null) && (d4==="" || d4 == null))
+    if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null) && (d3 ==="" || d3 == null) && (d4==="" || d4 == null) && (d5==="" || d5 == null))
     {
        continue;
     }
@@ -263,23 +437,34 @@ function plotProfileData()
   }
   data = data_aux;
 
-  var depth = [];
+  var top = [];
+  var bottom = [];
   var porosity = [];
   var permeability = [];
   var fracture_intensity = [];
   var irreducible_saturation = [];
   for (var i = 0; i < data.length; i++)
   {
-    depth.push(data[i][0]);
-    porosity.push(data[i][1]);
-    permeability.push(data[i][2]);
-    fracture_intensity.push(data[i][3]);
-    irreducible_saturation.push(data[i][4]);
+    top.push(data[i][0]);
+    bottom.push(data[i][1]);
+    porosity.push(data[i][2]);
+    permeability.push(data[i][3]);
+    fracture_intensity.push(data[i][4]);
+    irreducible_saturation.push(data[i][5]);
   }
   porosity.pop();
   permeability.pop();
   fracture_intensity.pop();
   irreducible_saturation.pop();
+  
+  var xAxisCalc = [];
+  $.each(data, function (rowKey, object) {
+    if (!container.handsontable('isEmptyRow', rowKey) && !container.handsontable('isEmptyRow', rowKey)) {
+      xAxisCalc[rowKey] = '' + (bottom[rowKey] - top[rowKey]);
+    }
+  });
+  console.log(xAxisCalc);
+
   $('#profile_g').highcharts({
         chart: {
             type: 'line',
@@ -294,7 +479,7 @@ function plotProfileData()
           title: {
             text: 'Depth[ft]'
           },
-             categories: depth
+          categories: xAxisCalc
          },
          yAxis: {
              title: {
@@ -378,81 +563,104 @@ function validate_table(table_name,table_data, start_column)
 
     return [flag, message];
 }
+
+function validateTable(tableName, tableData, tableRuleset) {
+  var message = "";
+  var tableLength = tableData.length;
+  var rowValidation = [];
+  var errorMessages = [];
+
+  if (tableLength < 1) {
+    message = "The table " + tableName + " is empty. Please check your data";
+    return [message];
+  } else {
+    var tableColumnLength = tableData[0].length;
+
+    for (var i = 0; i < tableLength; i++) {
+      for (var j = 0; j < tableColumnLength; j++) {
+        var rowValidation = multiValidator(tableData[i][j], tableName, i, tableRuleset[j]);
+        if (!rowValidation[0]) {
+          errorMessages.push(rowValidation[1]);
+        }
+      }
+    }
+  }
+
+  return errorMessages;
+}
+
 function verifyDrilling(w_verificate_data)
 {
 
-    //var evt = window.event || arguments.callee.caller.arguments[0];
-    //evt.preventDefault();
+  //var evt = window.event || arguments.callee.caller.arguments[0];
+  //evt.preventDefault();
 
-    //Saving tables...
+  //Saving tables...
+  var validationMessages = [];
   //General Data
   var generaldata_table = clean_table_data("intervalsGeneral_t");
-  validate_return = validate_table("General Data", generaldata_table, 1);
-  flag_general_data = validate_return[0]; 
+  // validate_return = validate_table("General Data", generaldata_table, generaldata_table_ruleset);
+  validationMessages = validateTable("General Data", generaldata_table, generaldata_table_ruleset);
+  // flag_general_data = validate_return[0]; 
 
-    //Normalización de valores de tablas
-    var generaldata_table_aux = [];
-    var inputdata_intervals_table_aux = [];
-    var inputdata_profile_table_aux = [];
+  //Normalización de valores de tablas
+  // var generaldata_table_aux = [];
+  // var inputdata_intervals_table_aux = [];
+  // var inputdata_profile_table_aux = [];
 
-    //Flags para tablas
-    var flag_input_method_1 = true;
-    var flag_input_method_2 = true;
-  var flag_general_data = true;
-    var flag_filtration_function = true;
-    var flag_message = "";
-    var validate_return = [];
+  // Flags para tablas
+  // var flag_input_method_1 = true;
+  // var flag_input_method_2 = true;
+  // var flag_general_data = true;
+  // var flag_filtration_function = true;
+  // var flag_message = "";
+  // var validate_return = [];
 
-  if($("#inputDataMethodSelect").val()=="1")
-  {
+  if ($("#inputDataMethodSelect").val() == "1") {
     //Limpiando datos de tablas
     var inputdata_profile_table = clean_table_data("profileInput_t");
 
-    validate_return = validate_table("Input Data", inputdata_profile_table, 0);
-    flag_input_method_1 = validate_return[0]; 
-    flag_message = validate_return[1];
-
-  }
-    else if($("#inputDataMethodSelect").val()=="2")
-    {
-    //Limpiando datos de tablas
+    // validate_return = validate_table("Input Data", inputdata_profile_table, 0);
+    validationMessages = validationMessages.concat(validateTable("Input Data", inputdata_profile_table, profile_table_ruleset));
+    // flag_input_method_1 = validate_return[0];
+  } else if ($("#inputDataMethodSelect").val() == "2") {
+    // This condition is never met, pending future developments
+    // Limpiando datos de tablas
     var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
 
-        validate_return = validate_table("Input Data", inputdata_intervals_table, 1);
-        flag_input_method_2 = validate_return[0]; 
-        flag_message = validate_return[1];
-    }
+    // validate_return = validate_table("Input Data", inputdata_intervals_table, 1);
+    // validationMessages = validationMessages.concat(validateTable("Input Data", inputdata_intervals_table, profile_table_ruleset));
+    // flag_input_method_2 = validate_return[0]; 
+    // flag_message = validate_return[1];
+  }
 
-  //Guardando los valores de los selectores
+  // Guardando los valores de los selectores
   var select_interval_general_data = $("#intervalSelect").val();
   var select_input_data = $("#inputDataMethodSelect").val();
 
-  $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+  if (select_interval_general_data != null) {
+    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+  } else {
+    validationMessages = validationMessages.concat("There's no producing intervals selected");
+  }
   $("#select_input_data").val(select_input_data);
   $("#select_filtration_function").val($("#filtration_function_select").val());
 
-    if(!flag_general_data)
-    {
-        flag_message = validate_return[1];
-    }
+  if (validationMessages.length < 1) {
+    // var evt = window.event || arguments.callee.caller.arguments[0];
+    // evt.preventDefault();
 
-    if(flag_input_method_1 && flag_input_method_2 && flag_general_data)
-    {
-        //var evt = window.event || arguments.callee.caller.arguments[0];
-        //evt.preventDefault();
+    // Guardando los datos de tablas validadas y limpiadas en formulario
+    $("#generaldata_table").val(JSON.stringify(generaldata_table));
+    $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+    $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
 
-        //Guardando los datos de tablas validadas y limpiadas en formulario
-        $("#generaldata_table").val(JSON.stringify(generaldata_table));
-        $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-        $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-    }
-    else
-    {
-        var evt = window.event || arguments.callee.caller.arguments[0];
-        evt.preventDefault();
-        alert(flag_message);
-    }
+    $("#drillingForm").submit();
+  } else {
+    showFrontendErrors(validationMessages);
+  }
 }
+
 function sticky_relocate() 
 {
    var window_top = $(window).scrollTop();
@@ -463,22 +671,19 @@ function sticky_relocate()
        $('#sticky').removeClass('stick');
    }
 }
+
 function remove_nulls(array)
 {   
-    //array = array.split(",");
-    var array_aux = [];
-    for (var i = 0; i<array.length; i++) 
-    {
-        if(array[i]==null || array[i]=='')
-        {
-            continue;
-        }
-        else
-        {
-            array_aux.push(array[i]);
-        }
+  //array = array.split(",");
+  var array_aux = [];
+  for (var i = 0; i < array.length; i++) {
+    if(array[i] == null || array[i] == '') {
+      continue;
+    } else {
+      array_aux.push(array[i]);
     }
-    return array_aux;
+  }
+  return array_aux;
 }
 
 

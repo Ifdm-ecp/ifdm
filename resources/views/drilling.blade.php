@@ -21,7 +21,7 @@
          <li class="active"><a data-toggle="tab" href="#general_data_c" id="general_data">General Data</a></li>
          <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions">Filtration Functions</a></li>
          <li><a data-toggle="tab" href="#drilling_data_c" id="drilling_data">Drilling Data</a></li>
-         <li><a data-toggle="tab" href="#cementing_data">Cementing Data</a></li>
+         <li><a data-toggle="tab" href="#cementing_data">Completion Data</a></li>
       </ul>
       <div class="tab-content">
          <div id="general_data_c" class="tab-pane active">
@@ -32,13 +32,13 @@
                </div>
                <div class="panel-body">
                   <div id="GD" class="panel-collapse collapse in">
-                     {!! Form::open(array('url'=>'DrillingStore', 'method' => 'post')) !!}
+                     {!! Form::open(array('url'=>'DrillingStore', 'method' => 'post', 'id' => 'drillingForm')) !!}
                      <input type="hidden" name="scenary_id" id="scenary_id" value="{{ $scenario->id }}">
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('intervalSelect') ? 'has-error' : ''}}">
                               {!! Form::label('interval', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'),null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
+                              {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'), null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
                            </div>
                         </div>
                      </div>
@@ -210,7 +210,7 @@
             <div class="panel panel-default">
                <div class="panel-heading">
                   <h4>
-                     Cementing Data
+                     Completion Data
                      <div class="pull-right">
                      {!! Form::checkbox('cementingAvailable',null,true, array('id' => 'check_available')) !!}
                      {!! Form::label('available', 'Available') !!}
@@ -272,7 +272,7 @@
    <div class="col-md-6"></div>
    <div class="col-md-6" align="right">
       <button type="button" class="btn btn-primary" onclick="nextStep();">Next</button>
-      <button type="submit" class="btn btn-success" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
+      <button type="button" class="btn btn-success" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
    </div>
 </div>
 {!! Form::Close() !!}
@@ -282,4 +282,5 @@
 @include('js/drilling')
 @include('css/drilling')
 @include('js/modal_error')
+@include('js/modal_error_frontend')
 @endsection

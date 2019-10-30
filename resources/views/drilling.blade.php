@@ -183,7 +183,7 @@
                               {!! Form::label('d_rop_l', 'ROP') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_rop_t') ? 'has-error' : ''}}">
                                  {!! Form::text('d_rop_t',null, ['placeholder' => 'ft/h', 'class' =>'form-control', 'id' => 'd_rop_t']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">ft/ho</span>
+                                 <span class="input-group-addon" id="basic-addon2">ft/h</span>
                               </div>
                            </div>
                         </div>
@@ -271,7 +271,8 @@
 <div class="row">
    <div class="col-md-6"></div>
    <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" onclick="nextStep();">Next</button>
+      <button type="button" class="btn btn-primary" onclick="tabStep('prev');">Prev</button>
+      <button type="button" class="btn btn-primary" onclick="tabStep('next');">Next</button>
       <button type="button" class="btn btn-success" onclick="verifyDrilling(true);" name="only_s" id="only_s">Save</button>
    </div>
 </div>

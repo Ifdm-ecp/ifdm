@@ -34,6 +34,9 @@ class filtration_function_request extends Request
             'core_diameter'=>'required|numeric',
             'plastic_viscosity' => 'required|numeric',
             'yield_point' => 'required|numeric',
+            'cement_density' => 'numeric',
+            'cement_plastic_viscosity' => 'numeric',
+            'cement_yield_point' => 'numeric',
         ];
         
         if($this->filtration_function_factors_option == 1)

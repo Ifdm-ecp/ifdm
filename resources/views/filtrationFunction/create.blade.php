@@ -61,7 +61,7 @@
 										</div>
 									</div>
 									<div class="col-md-4">
-						    			<div class="form-group {{$errors->has('Plastic Viscosity') ? 'has-error' : ''}}">
+						    			<div class="form-group {{$errors->has('plastic_viscosity') ? 'has-error' : ''}}">
 										   {!! Form::label('plastic_viscosity', 'Plastic Viscosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 										   <div class="input-group">
 										      {!! Form::number('plastic_viscosity',null, ['placeholder' => 'eP', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
@@ -122,6 +122,44 @@
 						  	</div>
 						</div>
 					</div>
+
+					<div class="row" >
+						<div class="panel panel-default">
+						  	<div class="panel-heading">Cement Properties</div>
+						  	<div class="panel-body">
+						    	<div class="row">
+						    		<div class="col-md-4">
+						    			<div class="form-group {{$errors->has('cement_density') ? 'has-error' : ''}}">
+										   {!! Form::label('cement_density', 'Density') !!}
+										   <div class="input-group">
+										      {!! Form::number('cement_density',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">lb/gal</span>
+										   </div>
+										</div>
+									</div>
+									<div class="col-md-4">
+						    			<div class="form-group {{$errors->has('cement_plastic_viscosity') ? 'has-error' : ''}}">
+										   {!! Form::label('cement_plastic_viscosity', 'Plastic Viscosity') !!}
+										   <div class="input-group">
+										      {!! Form::number('cement_plastic_viscosity',null, ['placeholder' => 'eP', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">eP</span>
+										   </div>
+										</div>
+									</div>
+									<div class="col-md-4">
+						    			<div class="form-group {{$errors->has('cement_yield_point') ? 'has-error' : ''}}">
+										   {!! Form::label('cement_yield_point', 'Yield Point') !!}
+										   <div class="input-group">
+										      {!! Form::number('cement_yield_point',null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
+										      <span class="input-group-addon">bf/100ft²</span>
+										   </div>
+										</div>
+									</div>
+						    	</div>
+						  	</div>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="panel panel-default">
 						  	<div class="panel-heading">Drilling fluid formulation</div>

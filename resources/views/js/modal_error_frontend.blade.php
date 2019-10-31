@@ -25,6 +25,12 @@
         $("#modal_error_frontend").modal("show");
     }
 
+    function showFrontendErrorsBasic(message) {
+        $("#modal_error_frontend_messages").empty();
+        $("#modal_error_frontend_messages").append(message);
+        $("#modal_error_frontend").modal("show");
+    }
+
     function toggleModalErrorUl(index) {
         $("#modal_error_frontend_ul_" + index).toggle("fast");
     }

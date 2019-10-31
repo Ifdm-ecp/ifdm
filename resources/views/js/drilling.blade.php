@@ -1042,14 +1042,15 @@ function clean_table_data(table_div_id)
     return cleaned_data;
 }
 
-function calculate_ecd(option)
-{
-  if($("#intervalSelect").val() == null)
-  {
-    alert("For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate. ");
-  }
-  else
-  {
+/* calculate_ecd
+ * Makes the calculations to get either the Drilling Data Cementing Data ECD depending on the
+ * param value
+ * params {option: integer}
+*/
+function calculate_ecd(option) {
+  if ($("#intervalSelect").val() == null) {
+    showFrontendErrorsBasic("To calculate the ECD you need the following data: <ul><li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+  } else {
     var mud_density = 0;
     var pump_rate = 0;
     var result_div_id = "";
@@ -1059,60 +1060,42 @@ function calculate_ecd(option)
     var plastic_viscosity = null;
     var ecd = 0;
 
-    $.get("{{url('filtration_function_data')}}",
-      {ff_id:filtration_function_id},
-      function(data)
-      {
-        $.each(data, function(index,value)
-        {
-          yield_point = value.yield_point;
-          plastic_viscosity = value.plastic_viscosity;
-        });
+    if (option == 0) {
+      mud_density = parseFloat($("#d_mud_density_t").val());
+      pump_rate = parseFloat($("#d_pump_rate_t").val());
+      plastic_viscosity = parseFloat($("#d_plastic_viscosity_t").val());
+      result_div_id = "d_equivalent_circulating_density_t";
+    } else if (option == 1) {
+      mud_density = parseFloat($("#c_cement_slurry_density_t").val());
+      pump_rate = parseFloat($("#c_pump_rate_t").val());
+      plastic_viscosity = parseFloat($("#c_plastic_viscosity_t").val());
+      result_div_id = "c_equivalent_circulating_density_t";
+    }
 
-        if(option == 0)
-        {
-          mud_density = parseFloat($("#d_mud_density_t").val());
-          pump_rate = parseFloat($("#d_pump_rate_t").val());
-          result_div_id = "d_equivalent_circulating_density_t";
-        }
-        else if(option == 1)
-        {
-          mud_density = parseFloat($("#c_cement_slurry_density_t").val());
-          pump_rate = parseFloat($("#c_pump_rate_t").val());
-          result_div_id = "c_equivalent_circulating_density_t";
-        }
+    var hole_diameter_sum = 0;
+    var drill_pipe_diameter_sum = 0;
+    var general_data_table_length = general_data_table.length;
 
-        var hole_diameter_sum = 0;
-        var drill_pipe_diameter_sum = 0;
-        var general_data_table_length = general_data_table.length;
+    for (var i = 0; i < general_data_table_length; i++) {
+      hole_diameter_sum += parseFloat(general_data_table[i][4]);  
+      drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
+    }
 
-        for (var i = 0; i < general_data_table_length; i++) 
-        {
-          hole_diameter_sum += parseFloat(general_data_table[i][4]);  
-          drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
-        }
+    var hole_diameter = hole_diameter_sum / general_data_table_length;
+    var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
+    var annular_velocity = 24.5 * (pump_rate / (Math.pow(hole_diameter, 2) - Math.pow(drill_pipe_diameter, 2)));
 
-        var hole_diameter = hole_diameter_sum / general_data_table_length;
-        var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
-        var annular_velocity = 24.5 * (pump_rate / (Math.pow(hole_diameter, 2) - Math.pow(drill_pipe_diameter, 2)));
+    if(mud_density < 13) {
+      ecd = mud_density + ((0.1 * yield_point) / (hole_diameter - drill_pipe_diameter));
+    } else {
+      ecd = mud_density + ((0.1 / (hole_diameter - drill_pipe_diameter)) * (yield_point + ((plastic_viscosity * annular_velocity) / (300 * (hole_diameter - drill_pipe_diameter)))));
+    }
 
-        if(mud_density < 13)
-        {
-          ecd = mud_density + ((0.1 * yield_point)/ (hole_diameter - drill_pipe_diameter));
-        }
-        else
-        {
-          ecd = mud_density + ((0.1 / (hole_diameter - drill_pipe_diameter)) * (yield_point + ((plastic_viscosity * annular_velocity) / (300 * (hole_diameter - drill_pipe_diameter)))));
-        }
-        if(isNaN(ecd))
-        {
-          alert("For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate. ");
-        }
-        else
-        {
-          $("#"+result_div_id).val(ecd);
-        }
-      });
+    if (isNaN(ecd)) {
+      showFrontendErrorsBasic("To calculate the ECD you need the following data: <ul><li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+    } else {
+      $("#" + result_div_id).val(ecd);
+    }
   }
 }
 
@@ -1169,39 +1152,32 @@ $(function ()
     sticky_relocate();
 });
 
-//Dinamyc content
-//ROP & Total exposure time
-$("#d_total_exposure_time_t").change(function(e)
-{
-    var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
-    var tops = [];
-    var bottoms = [];
-    var texp = $("#d_total_exposure_time_t").val();
-    for (var i = 0; i<generaldata_table_data.length; i++) 
-    {
-        if(generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '')
-        {
-            continue;
-        }
-        else
-        {
-            tops.push(parseFloat(generaldata_table_data[i][1]));
-        }
-        if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '')
-        {
-            continue;
-        }
-        else
-        {
-            bottoms.push(parseFloat(generaldata_table_data[i][2]));
-        }
+// Dynamic content
+// ROP calculation (This needs further development, since it is calculating based on just one top and bottom when
+// Handsontable can have more than one interval)
+$("#d_total_exposure_time_t").change(function(e) {
+  var input_table_data = $("#profileInput_t").handsontable("getData");
+  var tops = [];
+  var bottoms = [];
+  var texp = $("#d_total_exposure_time_t").val();
+  for (var i = 0; i < input_table_data.length; i++) {
+    if(input_table_data[i][0] != null && input_table_data[i][0] !== "") {
+      tops.push(parseFloat(input_table_data[i][0]));
     }
-    var MDbottom = Math.max.apply(Math,bottoms); 
-    var MDtop = Math.min.apply(Math,tops);
-    $("#MDbottom").val(MDbottom);
-    $("#MDtop").val(MDtop);
-    var rop =  (MDbottom-MDtop)/(texp*24);
-    $("#d_rop_t").val(rop);
+    if(input_table_data[i][1] != null && input_table_data[i][1] !== "") {
+      bottoms.push(parseFloat(input_table_data[i][1]));
+    }
+  }
+  var MDbottom = 0;
+  var MDtop = 0;
+  for (var i = 0; i < bottoms.length; i++) {
+    MDbottom += bottoms[i];
+    MDtop += tops[i];
+  }
+  $("#MDbottom").val(MDbottom / bottoms.length);
+  $("#MDtop").val(MDtop / tops.length);
+  var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
+  $("#d_rop_t").val(rop);
 });
 
 $("#d_rop_t").change(function(e)
@@ -1254,13 +1230,21 @@ $("#filtration_function_select").change(function(e)
         a_factor = value.a_factor;
         b_factor = value.b_factor;
         mud_density = value.mud_density;
+        plastic_viscosity = value.plastic_viscosity;
+        yield_point = value.yield_point;
+        cement_slurry_density = value.cement_slurry_density;
+        cement_plastic_viscosity = value.cement_plastic_viscosity;
+        cement_yield_point = value.cement_yield_point;
       });
 
       $("#a_factor_t").val(a_factor);
       $("#b_factor_t").val(b_factor);
       $("#d_mud_density_t").val(mud_density);
-      $("#c_cement_slurry_density_t").val(mud_density);
-
+      $("#d_plastic_viscosity_t").val(plastic_viscosity);
+      $("#d_yield_point_t").val(yield_point);
+      $("#c_cement_slurry_density_t").val(cement_slurry_density != null ? cement_slurry_density : mud_density);
+      $("#c_plastic_viscosity_t").val(cement_plastic_viscosity != null ? cement_plastic_viscosity : plastic_viscosity);
+      $("#c_yield_point_t").val(cement_yield_point != null ? cement_yield_point : yield_point);
     });
 });
 

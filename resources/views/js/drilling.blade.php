@@ -233,8 +233,9 @@ completion_data_tab_ruleset = [
 ];
 
 /* multiValidatorHandsonTable
- * returns a boolean with a check for specific rule
+ * Returns a boolean with a check for specific rule
  * params {value: mixed, ruleset: object}
+ * returns {boolean}
 */
 function multiValidatorHandsonTable(value, ruleset)
 {
@@ -261,8 +262,9 @@ function multiValidatorHandsonTable(value, ruleset)
 };
 
 /* multiValidatorTable
-* returns an array with a boolean with a validation result and a message in case the validation fails
-* params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+ * Returns an array with a boolean with a validation result and a message in case the validation fails
+ * params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+ * returns {array}
 */
 function multiValidatorTable(value, tableName, tableRow, ruleset)
 {
@@ -298,8 +300,9 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
 };
 
 /* multiValidator
-* returns an array with a boolean with a validation result and a message in case the validation fails
-* params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+ * Returns an array with a boolean with a validation result and a message in case the validation fails
+ * params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+ * returns {array}
 */
 function multiValidatorGeneral(value, ruleset)
 {
@@ -724,6 +727,11 @@ function validate_table(table_name,table_data, start_column)
     return [flag, message];
 }
 
+/* validateTable
+ * Returns an array which contains either an error message string or an object with a set of error messages
+ * params {tableName: string, tableData: array, tableRuleset: array}
+ * returns {array}
+*/
 function validateTable(tableName, tableData, tableRuleset) {
   var message = "";
   var tableLength = tableData.length;
@@ -746,76 +754,37 @@ function validateTable(tableName, tableData, tableRuleset) {
     }
   }
 
-  if (errorMessages.length > 1) {
+  if (errorMessages.length > 0) {
     return [{message: "The table " + tableName + " has validation errors (click to expand)", errors: errorMessages}];
   } else {
     return [];
   }
 }
 
-function verifyDrilling(w_verificate_data)
-{
-  //var evt = window.event || arguments.callee.caller.arguments[0];
-  //evt.preventDefault();
+/* verifyDrilling
+ * Validates the form entirely a by section depending on the entry value and returns a boolean when needed
+ * params {section: string}
+ * returns {boolean}
+*/
+function verifyDrilling(section, hasToReturn) {
   // Title tab for modal errors
   var titleTab = "";
   //Saving tables...
   var validationMessages = [];
 
   // Validating General Data
-  var select_interval_general_data = $("#intervalSelect").val();
-  var generalValidator = multiValidatorGeneral(select_interval_general_data, general_data_select_ruleset[0]);
-  if (generalValidator[0]) {
-    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-  } else {
-    titleTab = "Tab: General Data";
-    validationMessages = validationMessages.concat(titleTab);
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-  var generaldata_table = clean_table_data("intervalsGeneral_t");
-  // validate_return = validate_table("General Data", generaldata_table, general_data_table_ruleset);
-  var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
-  if (generalValidator.length > 0) {
-    if (titleTab == "") {
+  if (section == "general_data" || section == "all") {
+    var select_interval_general_data = $("#intervalSelect").val();
+    var generalValidator = multiValidatorGeneral(select_interval_general_data, general_data_select_ruleset[0]);
+    if (generalValidator[0]) {
+      $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+    } else {
       titleTab = "Tab: General Data";
       validationMessages = validationMessages.concat(titleTab);
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator);
-  }
-  
-  // flag_general_data = validate_return[0]; 
-
-  //Normalización de valores de tablas
-  // var generaldata_table_aux = [];
-  // var inputdata_intervals_table_aux = [];
-  // var inputdata_profile_table_aux = [];
-
-  // Flags para tablas
-  // var flag_input_method_1 = true;
-  // var flag_input_method_2 = true;
-  // var flag_general_data = true;
-  // var flag_filtration_function = true;
-  // var flag_message = "";
-  // var validate_return = [];
-
-  var select_input_data = $("#inputDataMethodSelect").val();
-  generalValidator = multiValidatorGeneral(select_input_data, profile_select_ruleset[0]);
-  if (generalValidator[0]) {
-    $("#select_input_data").val(select_input_data);
-  } else {
-    if (titleTab == "") {
-      titleTab = "Tab: General Data";
-      validationMessages = validationMessages.concat(titleTab);
-    }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-
-  if (select_input_data == "1") {
-    //Limpiando datos de tablas
-    var inputdata_profile_table = clean_table_data("profileInput_t");
-
-    // validate_return = validate_table("Input Data", inputdata_profile_table, 0);
-    var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
+    var generaldata_table = clean_table_data("intervalsGeneral_t");
+    var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
     if (generalValidator.length > 0) {
       if (titleTab == "") {
         titleTab = "Tab: General Data";
@@ -823,145 +792,175 @@ function verifyDrilling(w_verificate_data)
       }
       validationMessages = validationMessages.concat(generalValidator);
     }
-    // flag_input_method_1 = validate_return[0];
-  } else if (select_input_data == "2") {
-    // This condition is never met, pending future developments
-    // Limpiando datos de tablas
-    var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
 
-    // validate_return = validate_table("Input Data", inputdata_intervals_table, 1);
-    // validationMessages = validationMessages.concat(validateTable("Input Data", inputdata_intervals_table, profile_table_ruleset));
-    // flag_input_method_2 = validate_return[0]; 
-    // flag_message = validate_return[1];
+    var select_input_data = $("#inputDataMethodSelect").val();
+    generalValidator = multiValidatorGeneral(select_input_data, profile_select_ruleset[0]);
+    if (generalValidator[0]) {
+      $("#select_input_data").val(select_input_data);
+    } else {
+      if (titleTab == "") {
+        titleTab = "Tab: General Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
+    }
+
+    if (select_input_data == "1") {
+      //Limpiando datos de tablas
+      var inputdata_profile_table = clean_table_data("profileInput_t");
+      var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
+      if (generalValidator.length > 0) {
+        if (titleTab == "") {
+          titleTab = "Tab: General Data";
+          validationMessages = validationMessages.concat(titleTab);
+        }
+        validationMessages = validationMessages.concat(generalValidator);
+      }
+    } else if (select_input_data == "2") {
+      // This condition is never met, pending future developments
+      // Limpiando datos de tablas
+      var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
+    }
   }
 
   // Validating Filtration Function data
-  titleTab = "";
+  if (section == "filtration_functions" || section == "all") {
+    titleTab = "";
 
-  // Guardando los valores de los selectores
-  var select_filtration_function = $("#filtration_function_select").val();
-  generalValidator = multiValidatorGeneral(select_filtration_function, filtration_function_tab_ruleset[0]);
-  if (generalValidator[0]) {
-    $("#select_filtration_function").val(select_filtration_function);
-  } else {
-    titleTab = "Tab: Filtration Functions";
-    validationMessages = validationMessages.concat(titleTab);
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-
-  generalValidator = multiValidatorGeneral($("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
+    // Guardando los valores de los selectores
+    var select_filtration_function = $("#filtration_function_select").val();
+    generalValidator = multiValidatorGeneral(select_filtration_function, filtration_function_tab_ruleset[0]);
+    if (generalValidator[0]) {
+      $("#select_filtration_function").val(select_filtration_function);
+    } else {
       titleTab = "Tab: Filtration Functions";
       validationMessages = validationMessages.concat(titleTab);
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Filtration Functions";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Filtration Functions";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
+
+    generalValidator = multiValidatorGeneral($("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Filtration Functions";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
+    }
   }
 
   // Validating Drilling Data
-  titleTab = "";
+  if (section == "drilling_data" || section == "all") {
+    titleTab = "";
 
-  generalValidator = multiValidatorGeneral($("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
-  if (!generalValidator[0]) {
-    titleTab = "Tab: Drilling Data";
-    validationMessages = validationMessages.concat(titleTab);
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-
-  generalValidator = multiValidatorGeneral($("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
+    generalValidator = multiValidatorGeneral($("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+    if (!generalValidator[0]) {
       titleTab = "Tab: Drilling Data";
       validationMessages = validationMessages.concat(titleTab);
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Drilling Data";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Drilling Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#d_rop_t").val(), drilling_data_tab_ruleset[3]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Drilling Data";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Drilling Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[4]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Drilling Data";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#d_rop_t").val(), drilling_data_tab_ruleset[3]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Drilling Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
+
+    generalValidator = multiValidatorGeneral($("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[4]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Drilling Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
+    }
   }
 
   // Validating Completion Data
-  titleTab = "";
+  if (section == "cementing_data" || section == "all") {
+    titleTab = "";
 
-  generalValidator = multiValidatorGeneral($("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
-  if (!generalValidator[0]) {
-    titleTab = "Tab: Completion Data";
-    validationMessages = validationMessages.concat(titleTab);
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-
-  generalValidator = multiValidatorGeneral($("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
+    generalValidator = multiValidatorGeneral($("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
+    if (!generalValidator[0]) {
       titleTab = "Tab: Completion Data";
       validationMessages = validationMessages.concat(titleTab);
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Completion Data";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Completion Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
 
-  generalValidator = multiValidatorGeneral($("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[3]);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = "Tab: Completion Data";
-      validationMessages = validationMessages.concat(titleTab);
+    generalValidator = multiValidatorGeneral($("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Completion Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
     }
-    validationMessages = validationMessages.concat(generalValidator[1]);
+
+    generalValidator = multiValidatorGeneral($("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[3]);
+    if (!generalValidator[0]) {
+      if (titleTab == "") {
+        titleTab = "Tab: Completion Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator[1]);
+    }
   }
 
   if (validationMessages.length < 1) {
-    // var evt = window.event || arguments.callee.caller.arguments[0];
-    // evt.preventDefault();
+    if (hasToReturn) {
+      return true;
+    } else {
+      // Guardando los datos de tablas validadas y limpiadas en formulario
+      $("#generaldata_table").val(JSON.stringify(generaldata_table));
+      $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+      $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
 
-    // Guardando los datos de tablas validadas y limpiadas en formulario
-    $("#generaldata_table").val(JSON.stringify(generaldata_table));
-    $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-    $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-
-    $("#drillingForm").submit();
+      $("#drillingForm").submit();
+    }
   } else {
     showFrontendErrors(validationMessages);
+
+    if (hasToReturn) {
+      return false;
+    }
   }
 }
 
@@ -1117,11 +1116,50 @@ function calculate_ecd(option)
   }
 }
 
+/* tabStep
+ * After validating the current tab, it is changed to the next or previous tab depending on the
+ * entry value
+ * params {direction: string}
+*/
 function tabStep(direction) {
+  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
   if (direction == "prev") {
     $(".nav.nav-tabs li.active").prev().children().click();
+    $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+    $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
   } else {
-    $(".nav.nav-tabs li.active").next().children().click();
+    if (verifyDrilling(tabToValidate, true)) {
+      $(".nav.nav-tabs li.active").next().children().click();
+      $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+      $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+    }
+  }
+}
+
+/* validateTab
+ * Forces a validation on the current tab before performing the bootstrap tab default event
+ * entry value
+ * params {direction: string}
+*/
+function validateTab() {
+  var event = window.event || arguments.callee.caller.arguments[0];
+  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+  var tabActiveElement = $(".nav.nav-tabs li.active");
+  var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
+
+  if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
+    if (!verifyDrilling(tabToValidate, true)) {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      event.preventDefault();
+    } else {
+      $("#next_button").toggle(nextPrevElement.next().is("li"));
+      $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+    }
+  } else {
+    $("#next_button").toggle(nextPrevElement.next().is("li"));
+    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
   }
 }
 

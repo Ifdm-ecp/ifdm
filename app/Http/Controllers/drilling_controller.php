@@ -66,6 +66,7 @@ class drilling_controller extends Controller
      */
     public function store(/*drilling_request*/Request $request)
     {
+        dd($request);
         if (\Auth::check()) 
         {
             if(!isset($request->cementingAvailable) || empty($request->cementingAvailable || $request->cementingAvailable == null)) {

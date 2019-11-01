@@ -131,11 +131,6 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                           {!! Form::submit('Run' , array('class' => 'btn btn-primary', 'onclick' => 'verifyDrilling(false);', 'name' => 'accion', 'id'=>'run')) !!}
-                        </div>
-                     </div>
                   </div>
                </div>
             </div>
@@ -307,7 +302,7 @@
 <div class="row">
    <div class="col-md-6"></div>
    <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Prev</button>
+      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
       <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
       <button type="button" class="btn btn-success" onclick="verifyDrilling('all', false);" name="only_s" id="only_s">Save</button>
    </div>

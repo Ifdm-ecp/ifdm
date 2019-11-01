@@ -180,6 +180,22 @@ drilling_data_tab_ruleset = [
     ]
   },
   {
+    column: "Plastic Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100},
+    ]
+  },
+  {
+    column: "Yield Point",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100},
+    ]
+  },
+  {
     column: "ROP",
     rules: [
       {rule: "required"},
@@ -220,6 +236,22 @@ completion_data_tab_ruleset = [
       {rule: "required"},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 50},
+    ]
+  },
+  {
+    column: "Plastic Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100},
+    ]
+  },
+  {
+    column: "Yield Point",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100},
     ]
   },
   {
@@ -761,6 +793,23 @@ function validateTable(tableName, tableData, tableRuleset) {
   }
 }
 
+/* validateField
+ * Validates an individual field in the form
+ * params {titleTab: string, tabTitle: string, validationMessages: array, value: mixed, ruleset: object}
+*/
+function validateField(titleTab, tabTitle, validationMessages, value, ruleset) {
+  var generalValidator = multiValidatorGeneral(value, ruleset);
+  if (!generalValidator[0]) {
+    if (titleTab == "") {
+      titleTab = tabTitle;
+      validationMessages = validationMessages.concat(titleTab);
+    }
+    validationMessages = validationMessages.concat(generalValidator[1]);
+  }
+
+  return [titleTab, validationMessages];
+}
+
 /* verifyDrilling
  * Validates the form entirely a by section depending on the entry value and returns a boolean when needed
  * params {section: string}
@@ -769,20 +818,20 @@ function validateTable(tableName, tableData, tableRuleset) {
 function verifyDrilling(section, hasToReturn) {
   // Title tab for modal errors
   var titleTab = "";
+  var tabTitle = "";
   //Saving tables...
   var validationMessages = [];
+  var validationFunctionResult = [];
 
   // Validating General Data
   if (section == "general_data" || section == "all") {
+    tabTitle = "Tab: General Data";
+
     var select_interval_general_data = $("#intervalSelect").val();
-    var generalValidator = multiValidatorGeneral(select_interval_general_data, general_data_select_ruleset[0]);
-    if (generalValidator[0]) {
-      $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-    } else {
-      titleTab = "Tab: General Data";
-      validationMessages = validationMessages.concat(titleTab);
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+
     var generaldata_table = clean_table_data("intervalsGeneral_t");
     var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
     if (generalValidator.length > 0) {
@@ -794,16 +843,9 @@ function verifyDrilling(section, hasToReturn) {
     }
 
     var select_input_data = $("#inputDataMethodSelect").val();
-    generalValidator = multiValidatorGeneral(select_input_data, profile_select_ruleset[0]);
-    if (generalValidator[0]) {
-      $("#select_input_data").val(select_input_data);
-    } else {
-      if (titleTab == "") {
-        titleTab = "Tab: General Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
     if (select_input_data == "1") {
       //Limpiando datos de tablas
@@ -826,122 +868,87 @@ function verifyDrilling(section, hasToReturn) {
   // Validating Filtration Function data
   if (section == "filtration_functions" || section == "all") {
     titleTab = "";
+    tabTitle = "Tab: Filtration Functions";
 
     // Guardando los valores de los selectores
     var select_filtration_function = $("#filtration_function_select").val();
-    generalValidator = multiValidatorGeneral(select_filtration_function, filtration_function_tab_ruleset[0]);
-    if (generalValidator[0]) {
-      $("#select_filtration_function").val(select_filtration_function);
-    } else {
-      titleTab = "Tab: Filtration Functions";
-      validationMessages = validationMessages.concat(titleTab);
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Filtration Functions";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    var select_filtration_function = $("#filtration_function_select").val();
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Filtration Functions";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    var select_filtration_function = $("#filtration_function_select").val();
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
   }
 
   // Validating Drilling Data
   if (section == "drilling_data" || section == "all") {
     titleTab = "";
+    tabTitle = "Tab: Drilling Data";
 
-    generalValidator = multiValidatorGeneral($("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
-    if (!generalValidator[0]) {
-      titleTab = "Tab: Drilling Data";
-      validationMessages = validationMessages.concat(titleTab);
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Drilling Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Drilling Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#d_rop_t").val(), drilling_data_tab_ruleset[3]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Drilling Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[4]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Drilling Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
   }
 
   // Validating Completion Data
-  if (section == "cementing_data" || section == "all") {
+  if ((section == "cementing_data" || section == "all") && $("#check_available").prop("checked")) {
     titleTab = "";
+    tabTitle = "Tab: Completion Data";
 
-    generalValidator = multiValidatorGeneral($("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
-    if (!generalValidator[0]) {
-      titleTab = "Tab: Completion Data";
-      validationMessages = validationMessages.concat(titleTab);
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Completion Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Completion Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
 
-    generalValidator = multiValidatorGeneral($("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[3]);
-    if (!generalValidator[0]) {
-      if (titleTab == "") {
-        titleTab = "Tab: Completion Data";
-        validationMessages = validationMessages.concat(titleTab);
-      }
-      validationMessages = validationMessages.concat(generalValidator[1]);
-    }
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+
+    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
   }
 
   if (validationMessages.length < 1) {
@@ -1076,13 +1083,18 @@ function calculate_ecd(option) {
     var drill_pipe_diameter_sum = 0;
     var general_data_table_length = general_data_table.length;
 
-    for (var i = 0; i < general_data_table_length; i++) {
-      hole_diameter_sum += parseFloat(general_data_table[i][4]);  
-      drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
-    }
+    // In the backburner until multiple data is supported
+    // for (var i = 0; i < general_data_table_length; i++) {
+    //   hole_diameter_sum += parseFloat(general_data_table[i][4]);  
+    //   drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
+    // }
 
-    var hole_diameter = hole_diameter_sum / general_data_table_length;
-    var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
+    // var hole_diameter = hole_diameter_sum / general_data_table_length;
+    // var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
+
+    var hole_diameter = parseFloat(general_data_table[0][4]);
+    var drill_pipe_diameter = parseFloat(general_data_table[0][5]);
+
     var annular_velocity = 24.5 * (pump_rate / (Math.pow(hole_diameter, 2) - Math.pow(drill_pipe_diameter, 2)));
 
     if(mud_density < 13) {
@@ -1156,27 +1168,31 @@ $(function ()
 // ROP calculation (This needs further development, since it is calculating based on just one top and bottom when
 // Handsontable can have more than one interval)
 $("#d_total_exposure_time_t").change(function(e) {
-  var input_table_data = $("#profileInput_t").handsontable("getData");
-  var tops = [];
-  var bottoms = [];
+  var general_data_table = $("#intervalsGeneral_t").handsontable("getData");
+  // In the backburner until multiple cases are supported
+  // var tops = [];
+  // var bottoms = [];
   var texp = $("#d_total_exposure_time_t").val();
-  for (var i = 0; i < input_table_data.length; i++) {
-    if(input_table_data[i][0] != null && input_table_data[i][0] !== "") {
-      tops.push(parseFloat(input_table_data[i][0]));
-    }
-    if(input_table_data[i][1] != null && input_table_data[i][1] !== "") {
-      bottoms.push(parseFloat(input_table_data[i][1]));
-    }
-  }
-  var MDbottom = 0;
-  var MDtop = 0;
-  for (var i = 0; i < bottoms.length; i++) {
-    MDbottom += bottoms[i];
-    MDtop += tops[i];
-  }
-  $("#MDbottom").val(MDbottom / bottoms.length);
-  $("#MDtop").val(MDtop / tops.length);
-  var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
+  // for (var i = 0; i < general_data_table.length; i++) {
+  //   if(general_data_table[i][0] != null && general_data_table[i][0] !== "") {
+  //     tops.push(parseFloat(general_data_table[i][0]));
+  //   }
+  //   if(general_data_table[i][1] != null && input_table_data[i][1] !== "") {
+  //     bottoms.push(parseFloat(general_data_table[i][1]));
+  //   }
+  // }
+  // var MDbottom = 0;
+  // var MDtop = 0;
+  // for (var i = 0; i < bottoms.length; i++) {
+  //   MDbottom += bottoms[i];
+  //   MDtop += tops[i];
+  // }
+  // $("#MDbottom").val(MDbottom / bottoms.length);
+  // $("#MDtop").val(MDtop / tops.length);
+  var MDbottom = general_data_table[0][2];
+  var MDtop = general_data_table[0][1];
+  var rop = (MDbottom - MDtop) / (texp * 24);
+  // var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
   $("#d_rop_t").val(rop);
 });
 
@@ -1242,9 +1258,17 @@ $("#filtration_function_select").change(function(e)
       $("#d_mud_density_t").val(mud_density);
       $("#d_plastic_viscosity_t").val(plastic_viscosity);
       $("#d_yield_point_t").val(yield_point);
-      $("#c_cement_slurry_density_t").val(cement_slurry_density != null ? cement_slurry_density : mud_density);
-      $("#c_plastic_viscosity_t").val(cement_plastic_viscosity != null ? cement_plastic_viscosity : plastic_viscosity);
-      $("#c_yield_point_t").val(cement_yield_point != null ? cement_yield_point : yield_point);
+
+      if (cement_slurry_density != null) {
+        $("#c_cement_slurry_density_t").val(cement_slurry_density);
+        $("#c_plastic_viscosity_t").val(cement_plastic_viscosity != null ? cement_plastic_viscosity : plastic_viscosity);
+        $("#c_yield_point_t").val(cement_yield_point != null ? cement_yield_point : yield_point);
+        $("#check_available").prop("checked", true);
+        cementingAvailable();
+      } else {
+        $("#check_available").prop("checked", false);
+        cementingAvailable();
+      }
     });
 });
 

@@ -959,6 +959,9 @@ function verifyDrilling(section, hasToReturn) {
       $("#generaldata_table").val(JSON.stringify(generaldata_table));
       $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
       $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+      $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+      $("#select_input_data").val(select_input_data);
+      $("#select_filtration_function").val($("#filtration_function_select").val());
 
       $("#drillingForm").submit();
     }
@@ -1196,8 +1199,7 @@ $("#d_total_exposure_time_t").change(function(e) {
   $("#d_rop_t").val(rop);
 });
 
-$("#d_rop_t").change(function(e)
-{
+$("#d_rop_t").change(function(e) {
     if($("#d_total_exposure_time_t").val()=='')
     {
         var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
@@ -1227,7 +1229,7 @@ $("#d_rop_t").change(function(e)
         var MDtop = Math.min.apply(Math,tops); 
         $("#MDbottom").val(MDbottom);
         $("#MDtop").val(MDtop);
-        var texp =  (MDbottom-MDtop)/(d_rop_t*24);
+        var texp = (MDbottom-MDtop) / (d_rop_t*24);
         $("#d_total_exposure_time_t").val(texp);
     }
 });

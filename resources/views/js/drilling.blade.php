@@ -308,7 +308,7 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
         return false;
         break;
       case "required":
-        if (value == null || value == "") {
+        if (value === null || value === "") {
           isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has an empty value"];
           return false;
         }
@@ -346,13 +346,13 @@ function multiValidatorGeneral(value, ruleset)
         return false;
         break;
       case "required":
-        if (value == null || value == "") {
+        if (value === null || value === "") {
           isValid = [false, "The field " + ruleset.column + " has an empty value"];
           return false;
         }
         break;
       case "requiredselect":
-        if (value == null || value == "") {
+        if (value === null || value === "") {
           isValid = [false, "There is no " + ruleset.column + " selected"];
           return false;
         }

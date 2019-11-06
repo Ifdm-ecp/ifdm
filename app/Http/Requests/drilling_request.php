@@ -24,22 +24,31 @@ class drilling_request extends Request
     public function rules()
     {
         $rules = [
-            'formationSelect'=>'required',
-            'intervalSelect'=>'required',
-            'inputDataMethodSelect'=>'required',
-            'd_total_exposure_time_t'=>'required|numeric',
-            'd_pump_rate_t'=>'required|numeric',
+            'formationSelect' => 'required',
+            'intervalSelect' => 'required',
+            'inputDataMethodSelect' => 'required',
+            'select_filtration_function' => 'required|exists:d_filtration_function,id',
+            'a_factor_t' => 'required|numeric|min:0|max:50',
+            'b_factor_t' => 'required|numeric|min:0|max:50',
+            'd_total_exposure_time_t' => 'required|numeric|min:0|max:50',
+            'd_pump_rate_t' => 'required|numeric|min:0|max:500',
+            'd_mud_density_t' => 'required|numeric|min:0|max:20',
+            'd_plastic_viscosity_t' => 'required|numeric|min:0|max:100',
+            'd_yield_point_t' => 'required|numeric|min:0|max:100',
+            'd_rop_t' => 'required|numeric|min:0|max:500',
+            'd_equivalent_circulating_density_t' => 'required|numeric|min:0|max:30',
             'd_max_p_mud_t'=>'required|numeric',
             'd_min_p_mud_t'=>'required|numeric',
-            'd_rop_t'=>'required|numeric',
         ];
 
         if($this->cementingAvailable)
         {
-            $rules['c_total_exposure_time_t'] = 'required|numeric';
-            $rules['c_pump_rate_t'] = 'required|numeric';
-            $rules['c_cement_slurry_density_t'] = 'required|numeric';
-            $rules['c_equivalent_circulating_density_t'] = 'required|numeric';
+            $rules['c_total_exposure_time_t'] = 'required|numeric|min:0|max:50';
+            $rules['c_pump_rate_t'] = 'required|numeric|min:0|max:500';
+            $rules['c_cement_slurry_density_t'] = 'required|numeric|min:0|max:50';
+            $rules['c_cement_plastic_viscosity_t'] = 'required|numeric|min:0|max:10';
+            $rules['c_cement_yield_point_t'] = 'required|numeric|min:0|max:100';
+            $rules['c_equivalent_circulating_density_t'] = 'required|numeric|min:0|max:70';
         }
         return $rules;
 

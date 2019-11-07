@@ -811,11 +811,9 @@ function validateField(titleTab, tabTitle, validationMessages, value, ruleset) {
 }
 
 /* verifyDrilling
- * Validates the form entirely a by section depending on the entry value and returns a boolean when needed
- * params {section: string}
- * returns {boolean}
+ * Validates the form entirely
 */
-function verifyDrilling(section, hasToReturn) {
+function verifyDrilling() {
   // Title tab for modal errors
   var titleTab = "";
   var tabTitle = "";
@@ -824,16 +822,32 @@ function verifyDrilling(section, hasToReturn) {
   var validationFunctionResult = [];
 
   // Validating General Data
-  if (section == "general_data" || section == "all") {
-    tabTitle = "Tab: General Data";
+  tabTitle = "Tab: General Data";
 
-    var select_interval_general_data = $("#intervalSelect").val();
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  var select_interval_general_data = $("#intervalSelect").val();
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    var generaldata_table = clean_table_data("intervalsGeneral_t");
-    var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
+  var generaldata_table = clean_table_data("intervalsGeneral_t");
+  var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
+  if (generalValidator.length > 0) {
+    if (titleTab == "") {
+      titleTab = "Tab: General Data";
+      validationMessages = validationMessages.concat(titleTab);
+    }
+    validationMessages = validationMessages.concat(generalValidator);
+  }
+
+  var select_input_data = $("#inputDataMethodSelect").val();
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+
+  if (select_input_data == "1") {
+    //Limpiando datos de tablas
+    var inputdata_profile_table = clean_table_data("profileInput_t");
+    var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
     if (generalValidator.length > 0) {
       if (titleTab == "") {
         titleTab = "Tab: General Data";
@@ -841,88 +855,66 @@ function verifyDrilling(section, hasToReturn) {
       }
       validationMessages = validationMessages.concat(generalValidator);
     }
-
-    var select_input_data = $("#inputDataMethodSelect").val();
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
-
-    if (select_input_data == "1") {
-      //Limpiando datos de tablas
-      var inputdata_profile_table = clean_table_data("profileInput_t");
-      var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
-      if (generalValidator.length > 0) {
-        if (titleTab == "") {
-          titleTab = "Tab: General Data";
-          validationMessages = validationMessages.concat(titleTab);
-        }
-        validationMessages = validationMessages.concat(generalValidator);
-      }
-    } else if (select_input_data == "2") {
-      // This condition is never met, pending future developments
-      // Limpiando datos de tablas
-      var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
-    }
+  } else if (select_input_data == "2") {
+    // This condition is never met, pending future developments
+    // Limpiando datos de tablas
+    var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
   }
 
   // Validating Filtration Function data
-  if (section == "filtration_functions" || section == "all") {
-    titleTab = "";
-    tabTitle = "Tab: Filtration Functions";
+  titleTab = "";
+  tabTitle = "Tab: Filtration Functions";
 
-    // Guardando los valores de los selectores
-    var select_filtration_function = $("#filtration_function_select").val();
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  // Guardando los valores de los selectores
+  var select_filtration_function = $("#filtration_function_select").val();
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    var select_filtration_function = $("#filtration_function_select").val();
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  var select_filtration_function = $("#filtration_function_select").val();
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    var select_filtration_function = $("#filtration_function_select").val();
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
-  }
+  var select_filtration_function = $("#filtration_function_select").val();
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
   // Validating Drilling Data
-  if (section == "drilling_data" || section == "all") {
-    titleTab = "";
-    tabTitle = "Tab: Drilling Data";
+  titleTab = "";
+  tabTitle = "Tab: Drilling Data";
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
-    titleTab = validationFunctionResult[0];
-    validationMessages = validationFunctionResult[1];
-  }
+  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
 
   // Validating Completion Data
-  if ((section == "cementing_data" || section == "all") && $("#check_available").prop("checked")) {
+  if ($("#check_available").prop("checked")) {
     titleTab = "";
     tabTitle = "Tab: Completion Data";
 
@@ -952,25 +944,17 @@ function verifyDrilling(section, hasToReturn) {
   }
 
   if (validationMessages.length < 1) {
-    if (hasToReturn) {
-      return true;
-    } else {
-      // Guardando los datos de tablas validadas y limpiadas en formulario
-      $("#generaldata_table").val(JSON.stringify(generaldata_table));
-      $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-      $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-      $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-      $("#select_input_data").val(select_input_data);
-      $("#select_filtration_function").val($("#filtration_function_select").val());
+    // Guardando los datos de tablas validadas y limpiadas en formulario
+    $("#generaldata_table").val(JSON.stringify(generaldata_table));
+    $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+    $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+    $("#select_input_data").val(select_input_data);
+    $("#select_filtration_function").val($("#filtration_function_select").val());
 
-      $("#drillingForm").submit();
-    }
+    $("#drillingForm").submit();
   } else {
     showFrontendErrors(validationMessages);
-
-    if (hasToReturn) {
-      return false;
-    }
   }
 }
 
@@ -1127,11 +1111,11 @@ function tabStep(direction) {
     $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
     $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
   } else {
-    if (verifyDrilling(tabToValidate, true)) {
+    // if (verifyDrilling(tabToValidate, true)) {
       $(".nav.nav-tabs li.active").next().children().click();
       $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
       $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
-    }
+    // }
   }
 }
 
@@ -1140,21 +1124,38 @@ function tabStep(direction) {
  * entry value
  * params {direction: string}
 */
-function validateTab() {
-  var event = window.event || arguments.callee.caller.arguments[0];
-  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+// function validateTab() {
+//   var event = window.event || arguments.callee.caller.arguments[0];
+//   var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+//   var tabActiveElement = $(".nav.nav-tabs li.active");
+//   var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
+
+//   if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
+//     if (!verifyDrilling(tabToValidate, true)) {
+//       event.stopImmediatePropagation();
+//       event.stopPropagation();
+//       event.preventDefault();
+//     } else {
+//       $("#next_button").toggle(nextPrevElement.next().is("li"));
+//       $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+//     }
+//   } else {
+//     $("#next_button").toggle(nextPrevElement.next().is("li"));
+//     $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+//   }
+// }
+
+/* switchTab
+ * Captures the tab clicking event to determine if a previous or next button has to be shown
+ * entry value
+*/
+function switchTab() {
   var tabActiveElement = $(".nav.nav-tabs li.active");
   var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
 
   if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
-    if (!verifyDrilling(tabToValidate, true)) {
-      event.stopImmediatePropagation();
-      event.stopPropagation();
-      event.preventDefault();
-    } else {
-      $("#next_button").toggle(nextPrevElement.next().is("li"));
-      $("#prev_button").toggle(nextPrevElement.prev().is("li"));
-    }
+    $("#next_button").toggle(nextPrevElement.next().is("li"));
+    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
   } else {
     $("#next_button").toggle(nextPrevElement.next().is("li"));
     $("#prev_button").toggle(nextPrevElement.prev().is("li"));

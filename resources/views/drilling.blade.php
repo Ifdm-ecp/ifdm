@@ -18,10 +18,10 @@
 <div class="nav">
    <div class="tabbable">
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-         <li class="active"><a data-toggle="tab" href="#general_data_c" id="general_data" onclick="validateTab()">General Data</a></li>
-         <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions" onclick="validateTab()">Filtration Functions</a></li>
-         <li><a data-toggle="tab" href="#drilling_data_c" id="drilling_data" onclick="validateTab()">Drilling Data</a></li>
-         <li><a data-toggle="tab" href="#cementing_data_c" id="cementing_data" onclick="validateTab()">Completion Data</a></li>
+         <li class="active"><a data-toggle="tab" href="#general_data_c" id="general_data" onclick="switchTab()">General Data</a></li>
+         <li><a data-toggle="tab" href="#filtration_functions_c" id="filtration_functions" onclick="switchTab()">Filtration Functions</a></li>
+         <li><a data-toggle="tab" href="#drilling_data_c" id="drilling_data" onclick="switchTab()">Drilling Data</a></li>
+         <li><a data-toggle="tab" href="#cementing_data_c" id="cementing_data" onclick="switchTab()">Completion Data</a></li>
       </ul>
       <div class="tab-content">
          <div id="general_data_c" class="tab-pane active">
@@ -304,7 +304,7 @@
    <div class="col-md-6" align="right">
       <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
       <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-      <button type="button" class="btn btn-success" onclick="verifyDrilling('all', false);" name="only_s" id="only_s">Save</button>
+      <button type="button" class="btn btn-success" onclick="verifyDrilling();" name="only_s" id="only_s">Save</button>
    </div>
 </div>
 {!! Form::Close() !!}

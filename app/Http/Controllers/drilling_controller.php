@@ -2619,18 +2619,19 @@ class drilling_controller extends Controller
 
             // 1) Calculate perforation overbalance
             // Get media point for bottom and top in the profile table
-            $media_point_profile_bottom = 0;
-            $media_point_profile_top = 0;
+            $media_point_profile_bottom = floatval($drilling_general->bottom);
+            $media_point_profile_top = floatval($drilling_general->top);;
 
-            foreach ($rows_profile_data as $row) {
-                $media_point_profile_bottom += floatval($row->bottom);
-                $media_point_profile_top += floatval($row->top);
-            }
+            // foreach ($rows_profile_data as $row) {
+            //     $media_point_profile_bottom += floatval($row->bottom);
+            //     $media_point_profile_top += floatval($row->top);
+            // }
 
-            $media_point_profile_bottom /= count($rows_profile_data);
-            $media_point_profile_top /= count($rows_profile_data);
+            // $media_point_profile_bottom /= count($rows_profile_data);
+            // $media_point_profile_top /= count($rows_profile_data);
 
-            $TVD = $media_point_profile_bottom - $media_point_profile_top;
+            $TVD = ($media_point_profile_bottom + $media_point_profile_top) / 2;
+
             // This is retrieving Reservoir Pressure from the first row of the general data table
             // This needs to be changed
             $RP = floatval($drilling_general->reservoir_pressure);
@@ -2661,7 +2662,7 @@ class drilling_controller extends Controller
                 $k_corrected = $permeability * (1 + $fracture_intensity);
 
                 // 3.2) Calculate drilling exposure time
-                $t_exp_calc = (floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop))) * 0.0416667;
+                $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
                 array_push($t_exp_perf, $t_exp_calc);
 
                 // 3.3) Calculate drilling filtrate volume

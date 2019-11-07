@@ -1,6 +1,7 @@
 <script type="text/javascript">
     function showFrontendErrors(messageList) {
         $("#modal_error_frontend_messages").empty();
+        $("#modal_error_frontend_title").html("Error");
 
         for (var i = 0; i < messageList.length; i++) {
             if (typeof messageList[i] === "object") {
@@ -13,6 +14,9 @@
                 
                 tableMessageList += "</ul>";
                 $("#modal_error_frontend_messages").append(tableMessageList);
+            } else if (typeof messageList[i] === "boolean") {
+                $("#modal_error_frontend_title").html("Warning");
+                $("#modal_error_frontend_messages").append("<p>This scenario is going to be saved with missing data. You need to complete the information required at a later date in order to run the results.</p>");
             } else {
                 if (messageList[i].includes("Tab: ")) {
                     $("#modal_error_frontend_messages").append("<h4>" + messageList[i] + "</h4>");
@@ -20,6 +24,14 @@
                     $("#modal_error_frontend_messages").append("<li>" + messageList[i] + "</li>");
                 }
             }
+        }
+
+        if (typeof messageList[0] === "boolean") {
+            $("#modal_error_frontend_button_ok").html("Stay and fill the form");
+            $("#modal_error_frontend_button_continue").show();
+        } else {
+            $("#modal_error_frontend_button_ok").html("Ok");
+            $("#modal_error_frontend_button_continue").hide();
         }
 
         $("#modal_error_frontend").modal("show");

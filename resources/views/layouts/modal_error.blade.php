@@ -52,7 +52,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Error</h4>
+                <h4 id="modal_error_frontend_title" class="modal-title">Error</h4>
             </div>
             <div class="modal-body">
                 <p>
@@ -62,7 +62,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                <button type="button" id="modal_error_frontend_button_ok" class="btn btn-default" data-dismiss="modal">Ok</button>
+                <button type="button" id="modal_error_frontend_button_continue" class="btn btn-default" style="display: none" onclick="saveForm()" data-dismiss="modal">Continue saving</button>
             </div>
         </div>
     </div>

@@ -316,12 +316,12 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
       case "numeric":
         if (!$.isNumeric(value)) {
           isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a non numeric value"];
-          return false
+          return false;
         }
         break;
       case "range":
         if (value < set.min || value > set.max) {
-          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a value that is out of the numeric range [" + set.min + "," + set.max + "]"];
+          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
           return false;
         }
         break;
@@ -331,48 +331,56 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
   return (isValid.length > 0 ? isValid : [true, ""]);
 };
 
-/* multiValidator
+/* multiValidatorGeneral
  * Returns an array with a boolean with a validation result and a message in case the validation fails
- * params {value: mixed, tableName: string, tableRow: int, ruleset: object}
+ * params {action: string, value: mixed, tableName: string, tableRow: int, ruleset: object}
  * returns {array}
 */
-function multiValidatorGeneral(value, ruleset)
+function multiValidatorGeneral(action, value, ruleset)
 {
-  var isValid = [];
+  var isValid = null;
 
   $.each(ruleset.rules, function (key, set) {
-    switch (set.rule) {
-      case "any":
-        return false;
-        break;
-      case "required":
-        if (value === null || value === "") {
-          isValid = [false, "The field " + ruleset.column + " has an empty value"];
+    if (action === "run") {
+      switch (set.rule) {
+        case "any":
+          isValid = [true, ""];
           return false;
-        }
-        break;
-      case "requiredselect":
-        if (value === null || value === "") {
-          isValid = [false, "There is no " + ruleset.column + " selected"];
-          return false;
-        }
-        break;
-      case "numeric":
-        if (!$.isNumeric(value)) {
-          isValid = [false, "The field " + ruleset.column + " has a non numeric value"];
-          return false
-        }
-        break;
-      case "range":
-        if (value < set.min || value > set.max) {
-          isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.min + "," + set.max + "]"];
-          return false;
-        }
-        break;
+          break;
+        case "required":
+          if (value === null || value === "") {
+            isValid = [false, "The field " + ruleset.column + " has an empty value"];
+            return false;
+          }
+          break;
+        case "requiredselect":
+          if (value === null || value === "") {
+            isValid = [false, "There is no " + ruleset.column + " selected"];
+            return false;
+          }
+          break;
+      }
+    }
+
+    if (isValid === null && value !== null && value !== "") {
+      switch (set.rule) {
+        case "numeric":
+          if (!$.isNumeric(value)) {
+            isValid = [false, "The field " + ruleset.column + " has a non numeric value"];
+            return false;
+          }
+          break;
+        case "range":
+          if (value < set.min || value > set.max) {
+            isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
+            return false;
+          }
+          break;
+      }
     }
   });
 
-  return (isValid.length > 0 ? isValid : [true, ""]);
+  return (isValid !== null ? isValid : [true, ""]);
 };
 
 //*****/////*****
@@ -545,11 +553,11 @@ function create_interval_general_data_table(data)
     columns: 
     [
       {title: general_data_table_ruleset[0].column, data: 0, readOnly: true},
-      {title: general_data_table_ruleset[1].column, data: 1, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[1])); }},
-      {title: general_data_table_ruleset[2].column, data: 2, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[2])); }},
-      {title: general_data_table_ruleset[3].column, data: 3, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[3])); }},
-      {title: general_data_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[4])); }},
-      {title: general_data_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[5])); }}
+      {title: general_data_table_ruleset[1].column, data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[1])); }},
+      {title: general_data_table_ruleset[2].column, data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[2])); }},
+      {title: general_data_table_ruleset[3].column, data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[3])); }},
+      {title: general_data_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[4])); }},
+      {title: general_data_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[5])); }}
     ],
     minSpareRows: 1,
     contextMenu: true,
@@ -573,10 +581,10 @@ function create_intervals_input_data_table(data)
         columns: 
         [
           {title:"Interval", data: 0, readOnly: true},
-          {title:"Porosity [-]", data: 1, type: 'numeric', format: '0[.]0000000'},
-          {title:"Permeability [mD]",data: 2,type: 'numeric', format: '0[.]0000000'},
-          {title:"Fracture Intensity [#/ft]",data: 3,type: 'numeric', format: '0[.]0000000'},
-          {title:"Irreducible Saturation [-]",data: 4,type: 'numeric', format: '0[.]0000000'}
+          {title:"Porosity [-]", data: 1, type: 'numeric', format: '0[.]00'},
+          {title:"Permeability [mD]",data: 2,type: 'numeric', format: '0[.]00'},
+          {title:"Fracture Intensity [#/ft]",data: 3,type: 'numeric', format: '0[.]00'},
+          {title:"Irreducible Saturation [-]",data: 4,type: 'numeric', format: '0[.]00'}
         ],
         minSpareRows: 1,
         contextMenu: true,
@@ -598,12 +606,12 @@ function create_profile_input_data_table(data)
         colWidths: [100, 100, 100, 120, 150, 165],
         columns: 
         [
-          {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[0])); }},
-          {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[1])); }},
-          {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[2])); }},
-          {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[3])); }},
-          {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[4])); }},
-          {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]0000000', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
+          {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[0])); }},
+          {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[1])); }},
+          {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[2])); }},
+          {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[3])); }},
+          {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[4])); }},
+          {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
         ],
         minSpareRows: 1,
         contextMenu: true,
@@ -795,10 +803,10 @@ function validateTable(tableName, tableData, tableRuleset) {
 
 /* validateField
  * Validates an individual field in the form
- * params {titleTab: string, tabTitle: string, validationMessages: array, value: mixed, ruleset: object}
+ * params {action: string, titleTab: string, tabTitle: string, validationMessages: array, value: mixed, ruleset: object}
 */
-function validateField(titleTab, tabTitle, validationMessages, value, ruleset) {
-  var generalValidator = multiValidatorGeneral(value, ruleset);
+function validateField(action, titleTab, tabTitle, validationMessages, value, ruleset) {
+  var generalValidator = multiValidatorGeneral(action, value, ruleset);
   if (!generalValidator[0]) {
     if (titleTab == "") {
       titleTab = tabTitle;
@@ -812,8 +820,11 @@ function validateField(titleTab, tabTitle, validationMessages, value, ruleset) {
 
 /* verifyDrilling
  * Validates the form entirely
+ * params {action: string}
 */
-function verifyDrilling() {
+function verifyDrilling(action) {
+  // Boolean for empty values for the save button
+  var emptyValues = false;
   // Title tab for modal errors
   var titleTab = "";
   var tabTitle = "";
@@ -825,9 +836,10 @@ function verifyDrilling() {
   tabTitle = "Tab: General Data";
 
   var select_interval_general_data = $("#intervalSelect").val();
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_interval_general_data === null || select_interval_general_data === "")) ? true: emptyValues;
 
   var generaldata_table = clean_table_data("intervalsGeneral_t");
   var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
@@ -840,9 +852,10 @@ function verifyDrilling() {
   }
 
   var select_input_data = $("#inputDataMethodSelect").val();
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_input_data === null || select_input_data === "")) ? true: emptyValues;
 
   if (select_input_data == "1") {
     //Limpiando datos de tablas
@@ -867,80 +880,94 @@ function verifyDrilling() {
 
   // Guardando los valores de los selectores
   var select_filtration_function = $("#filtration_function_select").val();
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_filtration_function === null || select_filtration_function === "")) ? true: emptyValues;
 
-  var select_filtration_function = $("#filtration_function_select").val();
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#a_factor_t").val() === null || $("#a_factor_t").val() === "")) ? true: emptyValues;
 
-  var select_filtration_function = $("#filtration_function_select").val();
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#b_factor_t").val() === null || $("#b_factor_t").val() === "")) ? true: emptyValues;
 
   // Validating Drilling Data
   titleTab = "";
   tabTitle = "Tab: Drilling Data";
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_total_exposure_time_t").val() === null || $("#d_total_exposure_time_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_pump_rate_t").val() === null || $("#d_pump_rate_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_mud_density_t").val() === null || $("#d_mud_density_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_plastic_viscosity_t").val() === null || $("#d_plastic_viscosity_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_yield_point_t").val() === null || $("#d_yield_point_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_rop_t").val() === null || $("#d_rop_t").val() === "")) ? true: emptyValues;
 
-  validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
   titleTab = validationFunctionResult[0];
   validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_equivalent_circulating_density_t").val() === null || $("#d_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
 
   // Validating Completion Data
   if ($("#check_available").prop("checked")) {
     titleTab = "";
     tabTitle = "Tab: Completion Data";
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_total_exposure_time_t").val() === null || $("#c_total_exposure_time_t").val() === "")) ? true: emptyValues;
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_pump_rate_t").val() === null || $("#c_pump_rate_t").val() === "")) ? true: emptyValues;
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_cement_slurry_density_t").val() === null || $("#c_cement_slurry_density_t").val() === "")) ? true: emptyValues;
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_plastic_viscosity_t").val() === null || $("#c_plastic_viscosity_t").val() === "")) ? true: emptyValues;
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_yield_point_t").val() === null || $("#c_yield_point_t").val() === "")) ? true: emptyValues;
 
-    validationFunctionResult = validateField(titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
   if (validationMessages.length < 1) {
@@ -952,10 +979,22 @@ function verifyDrilling() {
     $("#select_input_data").val(select_input_data);
     $("#select_filtration_function").val($("#filtration_function_select").val());
 
-    $("#drillingForm").submit();
+    if (emptyValues) {
+      validationMessages.push(true);
+      showFrontendErrors(validationMessages);
+    } else {
+      $("#drillingForm").submit();
+    }
   } else {
     showFrontendErrors(validationMessages);
   }
+}
+
+/* saveForm
+ * Submits the form when the confirmation button from the modal is clicked
+*/
+function saveForm() {
+  $("#drillingForm").submit();
 }
 
 function sticky_relocate() 
@@ -1058,11 +1097,13 @@ function calculate_ecd(option) {
       mud_density = parseFloat($("#d_mud_density_t").val());
       pump_rate = parseFloat($("#d_pump_rate_t").val());
       plastic_viscosity = parseFloat($("#d_plastic_viscosity_t").val());
+      yield_point = parseFloat($("#d_yield_point_t").val());
       result_div_id = "d_equivalent_circulating_density_t";
     } else if (option == 1) {
       mud_density = parseFloat($("#c_cement_slurry_density_t").val());
       pump_rate = parseFloat($("#c_pump_rate_t").val());
       plastic_viscosity = parseFloat($("#c_plastic_viscosity_t").val());
+      yield_point = parseFloat($("#c_yield_point_t").val());
       result_div_id = "c_equivalent_circulating_density_t";
     }
 
@@ -1078,7 +1119,7 @@ function calculate_ecd(option) {
 
     // var hole_diameter = hole_diameter_sum / general_data_table_length;
     // var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
-
+    
     var hole_diameter = parseFloat(general_data_table[0][4]);
     var drill_pipe_diameter = parseFloat(general_data_table[0][5]);
 
@@ -1108,15 +1149,13 @@ function tabStep(direction) {
 
   if (direction == "prev") {
     $(".nav.nav-tabs li.active").prev().children().click();
-    $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
-    $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
   } else {
-    // if (verifyDrilling(tabToValidate, true)) {
-      $(".nav.nav-tabs li.active").next().children().click();
-      $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
-      $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
-    // }
+    $(".nav.nav-tabs li.active").next().children().click();
   }
+
+  $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+  $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+  $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
 }
 
 /* validateTab
@@ -1147,19 +1186,16 @@ function tabStep(direction) {
 
 /* switchTab
  * Captures the tab clicking event to determine if a previous or next button has to be shown
- * entry value
+ * and also the run button
 */
 function switchTab() {
+  var event = window.event || arguments.callee.caller.arguments[0];
   var tabActiveElement = $(".nav.nav-tabs li.active");
   var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
 
-  if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
-    $("#next_button").toggle(nextPrevElement.next().is("li"));
-    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
-  } else {
-    $("#next_button").toggle(nextPrevElement.next().is("li"));
-    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
-  }
+  $("#next_button").toggle(nextPrevElement.next().is("li"));
+  $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+  $("#run_calc").toggle(!nextPrevElement.next().is("li"));
 }
 
 $(function () 

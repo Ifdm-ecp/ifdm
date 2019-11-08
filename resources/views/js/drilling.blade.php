@@ -5,6 +5,9 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 
+// Data variable to save producing interval id's
+var producing_interval_ids = [];
+
 /* Drilling rulesets
  * This is a set of rules for each table and/or section of the form
  * Each element in the array corresponds to a rule assigned to the column
@@ -468,20 +471,18 @@ window.onload = function()
     );*/
 
     //General Data
-    if(interval.length>0 && !isNaN(interval[0]))
-    {
+    if (interval.length > 0 && !isNaN(interval[0])) {
       var data_aux = [];
       var general_data_table = $("#generaldata_table").val();
-      if(general_data_table === "")
-      {
+      if (general_data_table === "") {
         $.get("{{url('intervalsInfoDrilling')}}",
           {intervals:interval},
-          function(data)
-          {
-            $.each(data, function(index,value)
-            {
-              var data_row = [value.nombre, value.top,,value.presion_reservorio,,];
+          function(data) {
+            producing_interval_ids = [];
+            $.each(data, function(index,value) {
+              var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
               data_aux.push(data_row);
+              producing_interval_ids.push(value.id);
             });
             create_interval_general_data_table(data_aux);
           });
@@ -560,7 +561,7 @@ function create_interval_general_data_table(data)
       {title: general_data_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[5])); }}
     ],
     minSpareRows: 1,
-    contextMenu: true,
+    contextMenu: true
   });
 }
 
@@ -614,7 +615,7 @@ function create_profile_input_data_table(data)
           {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
         ],
         minSpareRows: 1,
-        contextMenu: true,
+        contextMenu: true
     });
 }
 
@@ -972,6 +973,10 @@ function verifyDrilling(action) {
 
   if (validationMessages.length < 1) {
     // Guardando los datos de tablas validadas y limpiadas en formulario
+    for (var i = 0; i < producing_interval_ids.length; i++) {
+      generaldata_table[i].push(producing_interval_ids[i]);
+    }
+
     $("#generaldata_table").val(JSON.stringify(generaldata_table));
     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
@@ -1134,7 +1139,7 @@ function calculate_ecd(option) {
     if (isNaN(ecd)) {
       showFrontendErrorsBasic("To calculate the ECD you need the following data: <ul><li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
     } else {
-      $("#" + result_div_id).val(ecd);
+      $("#" + result_div_id).val(ecd.toFixed(2));
     }
   }
 }
@@ -1212,7 +1217,7 @@ $("#d_total_exposure_time_t").change(function(e) {
   // In the backburner until multiple cases are supported
   // var tops = [];
   // var bottoms = [];
-  var texp = $("#d_total_exposure_time_t").val();
+  var texp = parseFloat($("#d_total_exposure_time_t").val());
   // for (var i = 0; i < general_data_table.length; i++) {
   //   if(general_data_table[i][0] != null && general_data_table[i][0] !== "") {
   //     tops.push(parseFloat(general_data_table[i][0]));
@@ -1233,7 +1238,7 @@ $("#d_total_exposure_time_t").change(function(e) {
   var MDtop = general_data_table[0][1];
   var rop = (MDbottom - MDtop) / (texp * 24);
   // var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
-  $("#d_rop_t").val(rop);
+  $("#d_rop_t").val(rop.toFixed(2));
 });
 
 $("#d_rop_t").change(function(e) {
@@ -1312,22 +1317,21 @@ $("#filtration_function_select").change(function(e)
 });
 
 //IntervalSelect: crea la tabla de general data para diligenciar la información de los intervalos a analizar.
-$("#intervalSelect").change(function(e)
-{
-    var intervals = $("#intervalSelect").val();
-    var data_aux = [];
-    $.get("{{url('intervalsInfoDrilling')}}",
-        {intervals:intervals},
-        function(data)
-        {
-            $.each(data, function(index,value)
-            {
-                var data_row = [value.nombre, value.top,,value.presion_reservorio,,];
-                data_aux.push(data_row);
-            });
+$("#intervalSelect").change(function(e) {
+  var intervals = $("#intervalSelect").val();
+  var data_aux = [];
+  $.get("{{url('intervalsInfoDrilling')}}",
+    { intervals: intervals },
+    function(data) {
+      producing_interval_ids = [];
+      $.each(data, function(index,value) {
+        var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
+        data_aux.push(data_row);
+        producing_interval_ids.push(value.id);
+      });
 
-            create_interval_general_data_table(data_aux);
-        });
+      create_interval_general_data_table(data_aux);
+    });
 });
 
 //InputDataMethodSelect

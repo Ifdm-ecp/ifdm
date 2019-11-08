@@ -2377,7 +2377,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('intervalsInfoDrilling', function()
     {
         $intervals = Input::get('intervals');
-        $data = App\formacionxpozo::wherein('id',$intervals)->get();
+        $data = App\formacionxpozo::wherein('id', $intervals)->get();
         return Response::json($data);
     });
 

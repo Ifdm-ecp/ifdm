@@ -177,7 +177,7 @@
                            <div class="form-group">
                               {!! Form::label('d_plastic_viscosity_l', 'Plastic Viscosity') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_plastic_viscosity_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_plastic_viscosity_t',null, ['placeholder' => 'eP', 'class' =>'form-control', 'id' => 'd_plastic_viscosity_t']) !!}
+                                 {!! Form::text('d_plastic_viscosity_t',null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'd_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">eP</span>
                               </div>
                            </div>
@@ -266,7 +266,7 @@
                            <div class="form-group">
                               {!! Form::label('c_plastic_viscosity_l', 'Plastic Viscosity') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_plastic_viscosity_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_plastic_viscosity_t',null, ['placeholder' => 'eP', 'class' =>'form-control', 'id' => 'c_plastic_viscosity_t']) !!}
+                                 {!! Form::text('c_plastic_viscosity_t',null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'c_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">eP</span>
                               </div>
                            </div>

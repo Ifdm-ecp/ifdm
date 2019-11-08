@@ -105,9 +105,8 @@ class drilling_controller extends Controller
 
             foreach ($drilling_general as $value) {
                 $drilling_general_table = new d_general_data();
-                $interval = DB::table('formacionxpozos')->select('id')->where('nombre', $value[0])->first();
                 $drilling_general_table->drilling_id = $drilling->id;
-                $drilling_general_table->producing_interval_id = $interval->id;
+                $drilling_general_table->producing_interval_id = $value[6];
                 $drilling_general_table->top = str_replace(",", ".", $value[1]);
                 $drilling_general_table->bottom = str_replace(",", ".", $value[2]);
                 $drilling_general_table->reservoir_pressure = str_replace(",", ".", $value[3]);

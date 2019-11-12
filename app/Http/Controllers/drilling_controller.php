@@ -64,7 +64,7 @@ class drilling_controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(/*drilling_request*/Request $request)
+    public function store(drilling_request $request)
     {
         if (\Auth::check()) 
         {

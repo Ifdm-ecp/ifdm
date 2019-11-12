@@ -971,28 +971,36 @@ function verifyDrilling(action) {
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
-  if (validationMessages.length < 1) {
-    // Guardando los datos de tablas validadas y limpiadas en formulario
-    for (var i = 0; i < producing_interval_ids.length; i++) {
-      generaldata_table[i].push(producing_interval_ids[i]);
-    }
+  $("#generaldata_table").val(JSON.stringify(generaldata_table));
+  $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+  $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+  $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+  $("#select_input_data").val(select_input_data);
+  $("#select_filtration_function").val($("#filtration_function_select").val());
+  $("#drillingForm").submit();
 
-    $("#generaldata_table").val(JSON.stringify(generaldata_table));
-    $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-    $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-    $("#select_input_data").val(select_input_data);
-    $("#select_filtration_function").val($("#filtration_function_select").val());
+  // if (validationMessages.length < 1) {
+  //   // Guardando los datos de tablas validadas y limpiadas en formulario
+  //   for (var i = 0; i < producing_interval_ids.length; i++) {
+  //     generaldata_table[i].push(producing_interval_ids[i]);
+  //   }
 
-    if (emptyValues) {
-      validationMessages.push(true);
-      showFrontendErrors(validationMessages);
-    } else {
-      $("#drillingForm").submit();
-    }
-  } else {
-    showFrontendErrors(validationMessages);
-  }
+  //   $("#generaldata_table").val(JSON.stringify(generaldata_table));
+  //   $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+  //   $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+  //   $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+  //   $("#select_input_data").val(select_input_data);
+  //   $("#select_filtration_function").val($("#filtration_function_select").val());
+
+  //   if (emptyValues) {
+  //     validationMessages.push(true);
+  //     showFrontendErrors(validationMessages);
+  //   } else {
+  //     $("#drillingForm").submit();
+  //   }
+  // } else {
+  //   showFrontendErrors(validationMessages);
+  // }
 }
 
 /* saveForm
@@ -1087,7 +1095,7 @@ function clean_table_data(table_div_id)
 */
 function calculate_ecd(option) {
   if ($("#intervalSelect").val() == null) {
-    showFrontendErrorsBasic("To calculate the ECD you need the following data: <ul><li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+    showFrontendErrorsBasic("To calculate the ECD you need the following data: <li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
   } else {
     var mud_density = 0;
     var pump_rate = 0;
@@ -1137,7 +1145,7 @@ function calculate_ecd(option) {
     }
 
     if (isNaN(ecd)) {
-      showFrontendErrorsBasic("To calculate the ECD you need the following data: <ul><li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+      showFrontendErrorsBasic("To calculate the ECD you need the following data: <li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
     } else {
       $("#" + result_div_id).val(ecd.toFixed(2));
     }

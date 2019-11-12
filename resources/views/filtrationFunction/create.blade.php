@@ -65,7 +65,7 @@
 										   {!! Form::label('plastic_viscosity', 'Plastic Viscosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 										   <div class="input-group">
 										      {!! Form::number('plastic_viscosity',null, ['placeholder' => 'cP', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
-										      <span class="input-group-addon">eP</span>
+										      <span class="input-group-addon">cP</span>
 										   </div>
 										</div>
 									</div>
@@ -142,7 +142,7 @@
 										   {!! Form::label('cement_plastic_viscosity', 'Plastic Viscosity') !!}
 										   <div class="input-group">
 										      {!! Form::number('cement_plastic_viscosity',null, ['placeholder' => 'cP', 'class' =>'form-control', 'min' => '0', 'max' => '100', 'step' => '0.0000001']) !!}
-										      <span class="input-group-addon">eP</span>
+										      <span class="input-group-addon">cP</span>
 										   </div>
 										</div>
 									</div>

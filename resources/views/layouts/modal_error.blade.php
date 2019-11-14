@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <p class="text-danger">
                         <small>
-                            <ul id="modal_error_frontend_messages">
+                            <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach

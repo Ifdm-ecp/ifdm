@@ -97,7 +97,7 @@ class drilling_controller extends Controller
             $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t; 
             $drilling->general_interval_select = $request->select_interval_general_data;
             $drilling->input_data_select = $request->select_input_data;
-            $drilling->status_wr = isset($request->only_s);
+            $drilling->status_wr = $request->only_s == "save" ? 1 : 0;
             $drilling->save();
             
             // General data table

@@ -19,8 +19,10 @@
                 $("#modal_error_frontend_messages").append("<p>This scenario is going to be saved with missing data. You need to complete the information required at a later time in order to run the results.</p>");
             } else {
                 if (messageList[i].includes("Tab: ")) {
+                    console.log(messageList[i]);
                     $("#modal_error_frontend_messages").append("<h4>" + messageList[i] + "</h4>");
                 } else {
+                    console.log(messageList[i]);
                     $("#modal_error_frontend_messages").append("<li>" + messageList[i] + "</li>");
                 }
             }

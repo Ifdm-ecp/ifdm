@@ -550,7 +550,7 @@ function verifyDrilling(action) {
       validationMessages.push(true);
       showFrontendErrors(validationMessages);
     } else {
-      $("#only_s").val("0");
+      $("#only_s").val("run");
       $("#drillingForm").submit();
     }
   } else {
@@ -562,7 +562,7 @@ function verifyDrilling(action) {
  * Submits the form when the confirmation button from the modal is clicked
 */
 function saveForm() {
-  $("#only_s").val("1");
+  $("#only_s").val("save");
   $("#drillingForm").submit();
 }
 

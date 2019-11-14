@@ -50,7 +50,7 @@ class drilling_request extends Request
             'd_yield_point_t' => 'required|numeric|min:0|max:100',
             'd_rop_t' => 'required|numeric|min:0|max:500',
             'd_equivalent_circulating_density_t' => 'required|numeric|min:0|max:30',
-            'only_s' => 'required|in:1,2',
+            'only_s' => 'required|in:run,save',
         ];
 
         if (is_array($this->array_generaldata_table)) {
@@ -79,7 +79,7 @@ class drilling_request extends Request
             $rules['c_total_exposure_time_t'] = 'required|numeric|min:0|max:50';
             $rules['c_pump_rate_t'] = 'required|numeric|min:0|max:500';
             $rules['c_cement_slurry_density_t'] = 'required|numeric|min:0|max:50';
-            $rules['c_plastic_viscosity_t'] = 'required|numeric|min:0|max:10';
+            $rules['c_plastic_viscosity_t'] = 'required|numeric|min:0|max:100';
             $rules['c_yield_point_t'] = 'required|numeric|min:0|max:100';
             $rules['c_equivalent_circulating_density_t'] = 'required|numeric|min:0|max:70';
         }
@@ -183,8 +183,8 @@ class drilling_request extends Request
             'c_equivalent_circulating_density_t.numeric' => 'The completion equivalent circulating density must be a number.',
             'c_equivalent_circulating_density_t.min' => 'The completion equivalent circulating density must be higher or equal than 0.',
             'c_equivalent_circulating_density_t.max' => 'The completion equivalent circulating density must be lower or equal than 70.',
-            'only_s.required' => 'The sent info that determines if the form is ran or saved is empty.',
-            'only_s.in' => 'The sent info that determines if the form is ran or saved is incorrect.',
+            'only_s.required' => 'The info sent that determines if the form is ran or saved is empty.',
+            'only_s.in' => 'The info sent that determines if the form is ran or saved is incorrect.',
         ];
 
         if (is_array($this->array_generaldata_table)) {

@@ -36,7 +36,7 @@
                      <input type="hidden" name="scenary_id" id="scenary_id" value="{{ $scenario->id }}">
                      <div class="row">
                         <div class="col-md-6">
-                           <div class="form-group {{$errors->has('intervalSelect') ? 'has-error' : ''}}">
+                           <div class="form-group {{$errors->has('array_select_interval_general_data') ? 'has-error' : ''}}">
                               {!! Form::label('interval', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'), null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
                            </div>
@@ -105,7 +105,7 @@
                   <div id="filtration_function" class="panel-collapse collapse in">
                      <div class="row">
                         <div class="col-md-6">
-                           <div class="form-group {{$errors->has('filtration_function_select') ? 'has-error' : ''}}">
+                           <div class="form-group {{$errors->has('select_filtration_function') ? 'has-error' : ''}}">
                               {!! Form::label('filtration_function_l', 'Filtration Function') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
                            </div>
@@ -115,7 +115,7 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('a_factor_l', 'a') !!} <span style='color:red;'>*</span>
-                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                              <div class="input-group {{$errors->has('a_factor_t') ? 'has-error' : ''}}">
                                  {!! Form::text('a_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'a_factor_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
@@ -124,7 +124,7 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('b_factor_l', 'b') !!} <span style='color:red;'>*</span>
-                              <div class="input-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
+                              <div class="input-group {{$errors->has('b_factor_t') ? 'has-error' : ''}}">
                                  {!! Form::text('b_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>

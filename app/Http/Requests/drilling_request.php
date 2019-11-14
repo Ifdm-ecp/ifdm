@@ -7,6 +7,17 @@ use App\Http\Requests\Request;
 class drilling_request extends Request
 {
     /**
+     * Create a new request instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        request()->merge(['array_select_interval_general_data' => json_decode(request()->select_interval_general_data)]);
+        request()->merge(['array_generaldata_table' => json_decode(request()->generaldata_table)]);
+        request()->merge(['array_inputdata_profile_table' => json_decode(request()->inputdata_profile_table)]);
+    }
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -23,14 +34,12 @@ class drilling_request extends Request
      */
     public function rules()
     {
-        $this->request->add(['array_generaldata_table' => json_decode(str_replace(",[null,null,null,null,null,null]", "", $this->generaldata_table))]);
-
         $rules = [
-            'select_interval_general_data' => 'required|array|min:1',
-            'array_generaldata_table' => 'array',
+            'array_select_interval_general_data' => 'required|array|min:1',
+            'array_generaldata_table' => 'required|array',
             'inputDataMethodSelect' => 'required|in:1,2',
-            'inputdata_intervals_table' => 'required|array',
-            'inputdata_profile_table' => 'required|array|min:1',
+            'inputdata_intervals_table' => 'array',
+            'array_inputdata_profile_table' => 'required|array|min:1',
             'select_filtration_function' => 'required|exists:d_filtration_function,id',
             'a_factor_t' => 'required|numeric|min:0|max:50',
             'b_factor_t' => 'required|numeric|min:0|max:50',
@@ -54,14 +63,14 @@ class drilling_request extends Request
             }
         }
 
-        if (is_array($this->inputdata_profile_table)) {
-            for ($i = 0; $i < count($this->inputdata_profile_table); $i++) {
-                $rules["inputdata_profile_table." . $i . ".0"] = 'required|numeric|min:0|max:50000';
-                $rules["inputdata_profile_table." . $i . ".1"] = 'required|numeric|min:0|max:50000';
-                $rules["inputdata_profile_table." . $i . ".2"] = 'required|numeric|min:0|max:1';
-                $rules["inputdata_profile_table." . $i . ".3"] = 'required|numeric|min:0|max:10000';
-                $rules["inputdata_profile_table." . $i . ".4"] = 'required|numeric|min:0|max:100';
-                $rules["inputdata_profile_table." . $i . ".5"] = 'required|numeric|min:0|max:1';
+        if (is_array($this->array_inputdata_profile_table)) {
+            for ($i = 0; $i < count($this->array_inputdata_profile_table); $i++) {
+                $rules["array_inputdata_profile_table." . $i . ".0"] = 'required|numeric|min:0|max:50000';
+                $rules["array_inputdata_profile_table." . $i . ".1"] = 'required|numeric|min:0|max:50000';
+                $rules["array_inputdata_profile_table." . $i . ".2"] = 'required|numeric|min:0|max:1';
+                $rules["array_inputdata_profile_table." . $i . ".3"] = 'required|numeric|min:0|max:10000';
+                $rules["array_inputdata_profile_table." . $i . ".4"] = 'required|numeric|min:0|max:100';
+                $rules["array_inputdata_profile_table." . $i . ".5"] = 'required|numeric|min:0|max:1';
             }
         }
 
@@ -80,15 +89,15 @@ class drilling_request extends Request
     public function messages()
     {
         $messages = [
-            'select_interval_general_data.required' => 'A producing interval must be selected.',
-            'select_interval_general_data.array' => 'The data structure containing the producing intervals is incorrect.',
-            'select_interval_general_data.min' => 'A producing interval must be selected.',
+            'array_select_interval_general_data.required' => 'A producing interval must be selected.',
+            'array_select_interval_general_data.array' => 'The data structure containing the producing intervals is incorrect.',
+            'array_select_interval_general_data.min' => 'A producing interval must be selected.',
             'array_generaldata_table.required' => 'The table general data is empty. Please check your data.',
             'array_generaldata_table.array' => 'The data structure containing the general data table contents is incorrect.',
             'inputDataMethodSelect.required' => 'An input method (Average, By Intervals, Profile) must be selected.',
             'inputDataMethodSelect.in' => 'The input method selected is not part of the allowed selection.',
-            'inputdata_profile_table.required' => 'The table input data is empty. Please check your data.',
-            'inputdata_profile_table.array' => 'The data structure containing the input data table contents is incorrect.',
+            'array_inputdata_profile_table.required' => 'The table input data is empty. Please check your data.',
+            'array_inputdata_profile_table.array' => 'The data structure containing the input data table contents is incorrect.',
             'select_filtration_function.required' => 'A filtration function must be selected.',
             'select_filtration_function.exists' => 'The filtration function selected must exist in the database.',
             'a_factor_t.required' => 'The a factor is required.',
@@ -179,32 +188,32 @@ class drilling_request extends Request
             }
         }
 
-        if (is_array($this->inputdata_profile_table)) {
-            for ($i = 0; $i < count($this->inputdata_profile_table); $i++) {
-                $messages["inputdata_profile_table." . $i . ".1.required"] = 'The table input data in row ' . ($i + 1) . ' and column Top has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".1.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be a number.';
-                $messages["inputdata_profile_table." . $i . ".1.min"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".1.max"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be lower or equal than 50000.';
-                $messages["inputdata_profile_table." . $i . ".1.required"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".1.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be a number.';
-                $messages["inputdata_profile_table." . $i . ".1.min"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".1.max"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be lower or equal than 50000.';
-                $messages["inputdata_profile_table." . $i . ".2.required"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".2.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be a number.';
-                $messages["inputdata_profile_table." . $i . ".2.min"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".2.max"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be lower or equal than 1.';
-                $messages["inputdata_profile_table." . $i . ".3.required"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".3.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be a number.';
-                $messages["inputdata_profile_table." . $i . ".3.min"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".3.max"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be lower or equal than 10000.';
-                $messages["inputdata_profile_table." . $i . ".4.required"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".4.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be a number.';
-                $messages["inputdata_profile_table." . $i . ".4.min"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".4.max"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be lower or equal than 100.';
-                $messages["inputdata_profile_table." . $i . ".5.required"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation has en empty value.';
-                $messages["inputdata_profile_table." . $i . ".5.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be a number.';
-                $messages["inputdata_profile_table." . $i . ".5.min"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be higher or equal than 0.';
-                $messages["inputdata_profile_table." . $i . ".5.max"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be lower or equal than 1.';
+        if (is_array($this->array_inputdata_profile_table)) {
+            for ($i = 0; $i < count($this->array_inputdata_profile_table); $i++) {
+                $messages["array_inputdata_profile_table." . $i . ".0.required"] = 'The table input data in row ' . ($i + 1) . ' and column Top has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".0.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".0.min"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".0.max"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be lower or equal than 50000.';
+                $messages["array_inputdata_profile_table." . $i . ".1.required"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".1.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".1.min"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".1.max"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be lower or equal than 50000.';
+                $messages["array_inputdata_profile_table." . $i . ".2.required"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".2.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".2.min"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".2.max"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be lower or equal than 1.';
+                $messages["array_inputdata_profile_table." . $i . ".3.required"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".3.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".3.min"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".3.max"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be lower or equal than 10000.';
+                $messages["array_inputdata_profile_table." . $i . ".4.required"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".4.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".4.min"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".4.max"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be lower or equal than 100.';
+                $messages["array_inputdata_profile_table." . $i . ".5.required"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".5.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be a number.';
+                $messages["array_inputdata_profile_table." . $i . ".5.min"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be higher or equal than 0.';
+                $messages["array_inputdata_profile_table." . $i . ".5.max"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be lower or equal than 1.';
             }
         }
 

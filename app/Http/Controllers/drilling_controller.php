@@ -66,7 +66,7 @@ class drilling_controller extends Controller
      */
     public function store(drilling_request $request)
     {
-        if (\Auth::check()) 
+        if (\Auth::check())
         {
             if(!isset($request->cementingAvailable) || empty($request->cementingAvailable || $request->cementingAvailable == null)) {
                 $request->c_pump_rate_t = 0;
@@ -100,7 +100,7 @@ class drilling_controller extends Controller
             $drilling->status_wr = isset($_POST['only_s']);
             $drilling->save();
             
-            $drilling_general = json_decode(str_replace(",[null,null,null,null,null,null]", "", $request->generaldata_table));
+            $drilling_general = json_decode($request->generaldata_table);
             $drilling_general = is_null($drilling_general) ? [] : $drilling_general;
 
             foreach ($drilling_general as $value) {
@@ -2597,7 +2597,7 @@ class drilling_controller extends Controller
     /**
      * Makes the calculations for a drilling scenary and displays the results in the view.
      *
-     * @param  Number  $id
+     * @param  int  $id
      * @return View
      */
     public function result($id)

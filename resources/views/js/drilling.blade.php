@@ -404,112 +404,109 @@ $(document).ready(function(){
 //Cargar valores de select en recarga de página
 window.onload = function() 
 {
-    //verifica si esta habilitado cementing
-    cementingAvailable();
-    var formation = [{!! $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
-    var interval = [$("#select_interval_general_data").val()];
-    var input_data_method = $("#select_input_data").val();
-    var preset_function_values = $("#selects_filtration_function").val();
+  //verifica si esta habilitado cementing
+  cementingAvailable();
+  var formation = [{!! $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
+  var interval = $("#select_interval_general_data").val();
+  var input_general_data = $("#generaldata_table").val();
+  var input_data_method = $("#select_input_data").val();
+  var preset_function_values = $("#select_filtration_function").val();
 
-    $("#inputDataMethodSelect").val(input_data_method);
-    $("#inputDataMethodSelect").selectpicker('refresh');
+  $("#inputDataMethodSelect").val(input_data_method);
+  $("#inputDataMethodSelect").selectpicker('refresh');
 
-    if(isNaN(formation[0])){formation = [];};
-    if(isNaN(interval)){interval = [];};
+  if (isNaN(formation[0])) {formation = [];};
 
-    //Select Input data method
-    if(input_data_method == 1)
-    {
-      input_data_profile = $("#inputdata_profile_table").val();
-      if(input_data_profile==="")
-      {
-        var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
-        create_profile_input_data_table(data_aux);
-      }
-      else
-      {
-        create_profile_input_data_table(JSON.parse(input_data_profile));
-      }
+  //Select Input data method
+  if (input_data_method == 1) {
+    input_data_profile = $("#inputdata_profile_table").val();
+    
+    if (input_data_profile === "") {
+      var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
+      create_profile_input_data_table(data_aux);
+    } else {
+      create_profile_input_data_table(JSON.parse(input_data_profile));
     }
-    else if(input_data_method == 2)
-    {
-        input_data_intervals = $("#inputdata_intervals_table").val();
-        if(input_data_intervals==="")
-        {
-            var data_byIntervals = [];
-            var intervals = $("#intervalSelect").val();
-            $.get("{{url('intervalsInfoDrilling')}}",
-                {intervals:intervals},
-                function(data)
-                {
-                    $.each(data, function(index,value)
-                    {
-                        var data_row = [value.nombre,value.porosidad,value.permeabilidad,];
-                        data_byIntervals.push(data_row);
-                    });
-                    create_intervals_input_data_table(data_byIntervals);
-                });
-        }
-        else
-        {
-            create_intervals_input_data_table(JSON.parse(input_data_intervals));
-        }
-    }
-
-    //Select intervalos
-    /*$.get("{{url('intervalsDrilling')}}", {
-            formations: formation
-        },
+  } else if (input_data_method == 2) {
+    input_data_intervals = $("#inputdata_intervals_table").val();
+    
+    if (input_data_intervals === "") {
+      var data_byIntervals = [];
+      var intervals = $("#intervalSelect").val();
+      $.get("{{url('intervalsInfoDrilling')}}",
+        {intervals: intervals},
         function(data) {
-            $("#intervalSelect").empty();
-            $.each(data, function(index, value) {
-                $("#intervalSelect").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-            });
-            $("#intervalSelect").val(interval);
-            $("#intervalSelect").selectpicker('refresh');
-        }
-    );*/
-
-    //General Data
-    if (interval.length > 0 && !isNaN(interval[0])) {
-      var data_aux = [];
-      var general_data_table = $("#generaldata_table").val();
-      if (general_data_table === "") {
-        $.get("{{url('intervalsInfoDrilling')}}",
-          {intervals:interval},
-          function(data) {
-            producing_interval_ids = [];
-            $.each(data, function(index,value) {
-              var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
-              data_aux.push(data_row);
-              producing_interval_ids.push(value.id);
-            });
-            create_interval_general_data_table(data_aux);
+          $.each(data, function(index, value) {
+            var data_row = [value.nombre, value.porosidad, value.permeabilidad,];
+            data_byIntervals.push(data_row);
           });
-      }
-      else
-      {
-        data_aux = JSON.parse(general_data_table);
-        create_interval_general_data_table(data_aux);
-      }
-    }
-
-    //Select Filtration Function
-    $.get('{{url("filtration_functions_by_formation_id")}}',
-      {formation_id: formation[0]},
-      function(data)
-      {
-        $("#filtration_function_select").empty();
-        $("#filtration_function_select").append('<option value="disabled" disabled>Please, choose one.</option>');
-        $.each(data, function(index, value) {
-            $("#filtration_function_select").append('<option value="' + value.id + '">' + value.name + '</option>');
+          create_intervals_input_data_table(data_byIntervals);
         });
+    } else {
+      create_intervals_input_data_table(JSON.parse(input_data_intervals));
+    }
+  }
 
-        $('#filtration_function_select').val('disabled');
-        $('#filtration_function_select').selectpicker('refresh');
-        $('#filtration_function_select').selectpicker('deselectAll');
+  //Select intervalos
+  /*$.get("{{url('intervalsDrilling')}}", {
+          formations: formation
+      },
+      function(data) {
+          $("#intervalSelect").empty();
+          $.each(data, function(index, value) {
+              $("#intervalSelect").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+          });
+          $("#intervalSelect").val(interval);
+          $("#intervalSelect").selectpicker('refresh');
+      }
+  );*/
 
+  //General Data
+  if (interval.length > 0) {
+    interval = JSON.parse($("#select_interval_general_data").val());
+    if (!Array.isArray(interval)) {interval = [];};
+
+    $('#intervalSelect').selectpicker('val', interval);
+    var data_aux = [];
+    var general_data_table = $("#generaldata_table").val();
+    if (general_data_table === "") {
+      $.get("{{url('intervalsInfoDrilling')}}",
+        {intervals: interval},
+        function(data) {
+          producing_interval_ids = [];
+          $.each(data, function(index,value) {
+            var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
+            data_aux.push(data_row);
+            producing_interval_ids.push(value.id);
+          });
+          create_interval_general_data_table(data_aux);
+        });
+    } else {
+      data_aux = JSON.parse(general_data_table);
+      create_interval_general_data_table(data_aux);
+    }
+  } else {
+    create_interval_general_data_table([]);
+  }
+
+  //Select Filtration Function
+  $.get('{{url("filtration_functions_by_formation_id")}}',
+    {formation_id: formation[0]},
+    function(data) {
+      $("#filtration_function_select").empty();
+      $("#filtration_function_select").append('<option value="disabled" disabled>Please, choose one.</option>');
+      $.each(data, function(index, value) {
+        $("#filtration_function_select").append('<option value="' + value.id + '">' + value.name + '</option>');
       });
+
+      $('#filtration_function_select').selectpicker('refresh');
+      if ($("#select_filtration_function").val().length == 0) {
+        $('#filtration_function_select').val('disabled');
+        $('#filtration_function_select').selectpicker('deselectAll');
+      } else {
+        $('#filtration_function_select').selectpicker('val', $("#select_filtration_function").val());
+      }
+    });
 }
 
 $('#check_available').bind('change init', function() {
@@ -546,7 +543,7 @@ function json_toarray(json)
 function create_interval_general_data_table(data)
 {
   $intervalGeneral_t = $("#intervalsGeneral_t");
-  $intervalGeneral_t.handsontable(
+  var tempValidation = $intervalGeneral_t.handsontable(
   {
     data: data, 
     rowHeaders: true, 
@@ -971,36 +968,32 @@ function verifyDrilling(action) {
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
-  $("#generaldata_table").val(JSON.stringify(generaldata_table));
-  $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-  $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-  $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-  $("#select_input_data").val(select_input_data);
-  $("#select_filtration_function").val($("#filtration_function_select").val());
-  $("#drillingForm").submit();
+  for (var i = 0; i < producing_interval_ids.length; i++) {
+    generaldata_table[i].push(producing_interval_ids[i]);
+  }
 
-  // if (validationMessages.length < 1) {
-  //   // Guardando los datos de tablas validadas y limpiadas en formulario
-  //   for (var i = 0; i < producing_interval_ids.length; i++) {
-  //     generaldata_table[i].push(producing_interval_ids[i]);
-  //   }
+  if (validationMessages.length < 1) {
+    // Guardando los datos de tablas validadas y limpiadas en formulario
+    for (var i = 0; i < producing_interval_ids.length; i++) {
+      generaldata_table[i].push(producing_interval_ids[i]);
+    }
 
-  //   $("#generaldata_table").val(JSON.stringify(generaldata_table));
-  //   $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-  //   $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-  //   $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-  //   $("#select_input_data").val(select_input_data);
-  //   $("#select_filtration_function").val($("#filtration_function_select").val());
+    $("#generaldata_table").val(JSON.stringify(generaldata_table));
+    $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+    $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+    $("#select_input_data").val(select_input_data);
+    $("#select_filtration_function").val($("#filtration_function_select").val());
 
-  //   if (emptyValues) {
-  //     validationMessages.push(true);
-  //     showFrontendErrors(validationMessages);
-  //   } else {
-  //     $("#drillingForm").submit();
-  //   }
-  // } else {
-  //   showFrontendErrors(validationMessages);
-  // }
+    if (emptyValues) {
+      validationMessages.push(true);
+      showFrontendErrors(validationMessages);
+    } else {
+      $("#drillingForm").submit();
+    }
+  } else {
+    showFrontendErrors(validationMessages);
+  }
 }
 
 /* saveForm

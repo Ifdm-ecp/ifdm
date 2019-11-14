@@ -16,7 +16,7 @@
                 $("#modal_error_frontend_messages").append(tableMessageList);
             } else if (typeof messageList[i] === "boolean") {
                 $("#modal_error_frontend_title").html("Warning");
-                $("#modal_error_frontend_messages").append("<p>This scenario is going to be saved with missing data. You need to complete the information required at a later date in order to run the results.</p>");
+                $("#modal_error_frontend_messages").append("<p>This scenario is going to be saved with missing data. You need to complete the information required at a later time in order to run the results.</p>");
             } else {
                 if (messageList[i].includes("Tab: ")) {
                     $("#modal_error_frontend_messages").append("<h4>" + messageList[i] + "</h4>");

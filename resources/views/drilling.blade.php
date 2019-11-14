@@ -92,6 +92,7 @@
                   {!! Form::hidden('select_interval_general_data', '', array('id' => 'select_interval_general_data')) !!}
                   {!! Form::hidden('select_input_data', '', array('id' => 'select_input_data')) !!}
                   {!! Form::hidden('select_filtration_function', '', array('id' => 'select_filtration_function')) !!}
+                  {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
                </div>
             </div>
          </div>
@@ -304,14 +305,16 @@
    <div class="col-md-6" align="right">
       <button type="button" class="btn btn-primary" id="prev_button" onclick="tabStep('prev');">Previous</button>
       <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-      <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" name="run_calc" id="run_calc">Run</button>
-      <button type="button" class="btn btn-success" onclick="verifyDrilling('save');" name="only_s" id="only_s">Save</button>
+      <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');">Run</button>
+      <button type="button" class="btn btn-success" onclick="verifyDrilling('save');">Save</button>
    </div>
 </div>
 {!! Form::Close() !!}
 @endsection
 @section('Scripts')
 @include('js/regresion')
+@include('js/frontend_validator')
+@include('js/frontend_rules/drilling')
 @include('js/drilling')
 @include('css/drilling')
 @include('js/modal_error')

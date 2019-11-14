@@ -97,16 +97,17 @@ class drilling_controller extends Controller
             $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t; 
             $drilling->general_interval_select = $request->select_interval_general_data;
             $drilling->input_data_select = $request->select_input_data;
-            $drilling->status_wr = isset($_POST['only_s']);
+            $drilling->status_wr = isset($request->only_s);
             $drilling->save();
             
+            // General data table
             $drilling_general = json_decode($request->generaldata_table);
             $drilling_general = is_null($drilling_general) ? [] : $drilling_general;
 
-            foreach ($drilling_general as $value) {
+            foreach ($drilling_general as $index => $value) {
                 $drilling_general_table = new d_general_data();
                 $drilling_general_table->drilling_id = $drilling->id;
-                $drilling_general_table->producing_interval_id = $value[6];
+                $drilling_general_table->producing_interval_id = $request->array_select_interval_general_data[$index];
                 $drilling_general_table->top = str_replace(",", ".", $value[1]);
                 $drilling_general_table->bottom = str_replace(",", ".", $value[2]);
                 $drilling_general_table->reservoir_pressure = str_replace(",", ".", $value[3]);
@@ -118,7 +119,6 @@ class drilling_controller extends Controller
             if ($request->select_input_data == "1") {
                 // Profile input data (different inputs planned in the future)
                 $input_profile = json_decode($request->inputdata_profile_table);
-
                 $input_profile = is_null($input_profile) ? [] : $input_profile;
 
                 foreach ($input_profile as $value) {
@@ -1633,10 +1633,10 @@ class drilling_controller extends Controller
         if (\Auth::check()) 
         {
             $scenario = escenario::find($id_escenario);
-            $drilling_scenario = drilling::where('scenario_id','=',$scenario->id)->first();
+            $drilling_scenario = drilling::where('scenario_id', $scenario->id)->first();
 
             //Tablas
-            $general_data = DB::table('d_general_data')->where('drilling_id','=',$drilling_scenario->id)->get();
+            $general_data = DB::table('d_general_data')->where('drilling_id', $drilling_scenario->id)->get();
             $general_data_table = [];
             foreach ($general_data as $value) 
             {
@@ -2606,158 +2606,163 @@ class drilling_controller extends Controller
         {
             $scenario = escenario::find($id);
             $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
-            $drilling_general = DB::table('d_general_data')->where('drilling_id', $drilling->id)->first();
-            $rows_profile_data = DB::table('d_profile_input_data')->where('drilling_id', $drilling->id)->get();
 
-            // Calculations phase
-            // Get filtration function data
-            $filtration_function_data = DB::table('d_filtration_function')->where('id', $drilling->filtration_function_id)->first();
-            
-            // Get Hole Diameter from general data table;
-            $hole_diameter = floatval($drilling_general->hole_diameter);
+            if (!$drilling->status_wr) {
+                $drilling_general = DB::table('d_general_data')->where('drilling_id', $drilling->id)->first();
+                $rows_profile_data = DB::table('d_profile_input_data')->where('drilling_id', $drilling->id)->get();
 
-            // 1) Calculate perforation overbalance
-            // Get media point for bottom and top in the profile table
-            $media_point_profile_bottom = floatval($drilling_general->bottom);
-            $media_point_profile_top = floatval($drilling_general->top);;
+                // Calculations phase
+                // Get filtration function data
+                $filtration_function_data = DB::table('d_filtration_function')->where('id', $drilling->filtration_function_id)->first();
+                
+                // Get Hole Diameter from general data table;
+                $hole_diameter = floatval($drilling_general->hole_diameter);
 
-            // foreach ($rows_profile_data as $row) {
-            //     $media_point_profile_bottom += floatval($row->bottom);
-            //     $media_point_profile_top += floatval($row->top);
-            // }
+                // 1) Calculate perforation overbalance
+                // Get media point for bottom and top in the profile table
+                $media_point_profile_bottom = floatval($drilling_general->bottom);
+                $media_point_profile_top = floatval($drilling_general->top);;
 
-            // $media_point_profile_bottom /= count($rows_profile_data);
-            // $media_point_profile_top /= count($rows_profile_data);
+                // foreach ($rows_profile_data as $row) {
+                //     $media_point_profile_bottom += floatval($row->bottom);
+                //     $media_point_profile_top += floatval($row->top);
+                // }
 
-            $TVD = ($media_point_profile_bottom + $media_point_profile_top) / 2;
+                // $media_point_profile_bottom /= count($rows_profile_data);
+                // $media_point_profile_top /= count($rows_profile_data);
 
-            // This is retrieving Reservoir Pressure from the first row of the general data table
-            // This needs to be changed
-            $RP = floatval($drilling_general->reservoir_pressure);
+                $TVD = ($media_point_profile_bottom + $media_point_profile_top) / 2;
 
-            $ob_perf = 0.052 * (floatval($drilling->d_equivalent_circulating_density) * $TVD) - $RP;
+                // This is retrieving Reservoir Pressure from the first row of the general data table
+                // This needs to be changed
+                $RP = floatval($drilling_general->reservoir_pressure);
 
-            // 2) Calculate completion/cementing overbalance
-            $ob_cem = 0.052 * (floatval($drilling->c_equivalent_circulating_density) * $TVD) - $RP;
+                $ob_perf = 0.052 * (floatval($drilling->d_equivalent_circulating_density) * $TVD) - $RP;
 
-            // 3) Enter cycle to make calculations for each row in the profile table
-            $t_exp_perf = array();
-            $vf_perf = array();
-            $rd_perf = array();
-            $vf_cem = array();
-            $rd_cem = array();
-            $a_factor = floatval($drilling->a_factor);
-            $b_factor = floatval($drilling->b_factor);
+                // 2) Calculate completion/cementing overbalance
+                $ob_cem = 0.052 * (floatval($drilling->c_equivalent_circulating_density) * $TVD) - $RP;
 
-            foreach ($rows_profile_data as $row) {
-                $bottom = floatval($row->bottom);
-                $top = floatval($row->top);
-                $permeability = floatval($row->permeability);
-                $fracture_intensity = floatval($row->fracture_intensity);
-                $porosity = floatval($row->porosity);
-                $irreducible_saturation = floatval($row->irreducible_saturation);
+                // 3) Enter cycle to make calculations for each row in the profile table
+                $t_exp_perf = array();
+                $vf_perf = array();
+                $rd_perf = array();
+                $vf_cem = array();
+                $rd_cem = array();
+                $a_factor = floatval($drilling->a_factor);
+                $b_factor = floatval($drilling->b_factor);
 
-                // 3.1) Calculate k corrected
-                $k_corrected = $permeability * (1 + $fracture_intensity);
+                foreach ($rows_profile_data as $row) {
+                    $bottom = floatval($row->bottom);
+                    $top = floatval($row->top);
+                    $permeability = floatval($row->permeability);
+                    $fracture_intensity = floatval($row->fracture_intensity);
+                    $porosity = floatval($row->porosity);
+                    $irreducible_saturation = floatval($row->irreducible_saturation);
 
-                // 3.2) Calculate drilling exposure time
-                $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
-                array_push($t_exp_perf, $t_exp_calc);
+                    // 3.1) Calculate k corrected
+                    $k_corrected = $permeability * (1 + $fracture_intensity);
 
-                // 3.3) Calculate drilling filtrate volume
-                // Calculate af_field and af_lab
-                $af_field = 2 * pi() * ($hole_diameter / (2 / 12)) * ($bottom - $top);
-                $af_lab = 2 * pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2);
+                    // 3.2) Calculate drilling exposure time
+                    $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
+                    array_push($t_exp_perf, $t_exp_calc);
 
-                $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
-                array_push($vf_perf, $vf_perf_calc);
+                    // 3.3) Calculate drilling filtrate volume
+                    // Calculate af_field and af_lab
+                    $af_field = 2 * pi() * ($hole_diameter / (2 / 12)) * ($bottom - $top);
+                    $af_lab = 2 * pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2);
 
-                // 3.4) Calculate drilling invasion radius
-                $rd_perf_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
-                array_push($rd_perf, $rd_perf_calc);
+                    $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
+                    array_push($vf_perf, $vf_perf_calc);
 
-                // Do calculations for completion/cementation
-                if ($drilling->cementingAvailable == 1) {
-                    // 3.5) Calculate cementing exposure time
-                    $vf_cem_calc = $a_factor * (($k_corrected * $ob_cem) + $b_factor) * sqrt(floatval($drilling->c_total_exposure_time) * 1440) * 0.0000063 * ($af_field / $af_lab);
-                    array_push($vf_cem, $vf_cem_calc);
+                    // 3.4) Calculate drilling invasion radius
+                    $rd_perf_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                    array_push($rd_perf, $rd_perf_calc);
 
-                    // 3.6) Calculate cementing invasion radius
-                    $rd_cem_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
-                    array_push($rd_cem, $rd_cem_calc);
+                    // Do calculations for completion/cementation
+                    if ($drilling->cementingAvailable == 1) {
+                        // 3.5) Calculate cementing exposure time
+                        $vf_cem_calc = $a_factor * (($k_corrected * $ob_cem) + $b_factor) * sqrt(floatval($drilling->c_total_exposure_time) * 1440) * 0.0000063 * ($af_field / $af_lab);
+                        array_push($vf_cem, $vf_cem_calc);
+
+                        // 3.6) Calculate cementing invasion radius
+                        $rd_cem_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                        array_push($rd_cem, $rd_cem_calc);
+                    }
                 }
-            }
 
-            // 4) Calculate drilling average invasion radius
-            $rd_perf_avg = array_sum($rd_perf);
-            $rd_perf_avg /= count($rd_perf);
+                // 4) Calculate drilling average invasion radius
+                $rd_perf_avg = array_sum($rd_perf);
+                $rd_perf_avg /= count($rd_perf);
 
-            // 5) Calculate drilling max invasion radius
-            $rd_perf_max = max($rd_perf);
+                // 5) Calculate drilling max invasion radius
+                $rd_perf_max = max($rd_perf);
 
-            // 6) Calculate drilling average skin
-            $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_avg / ($hole_diameter / (2 / 12)));
-        
-            // 7) Calculate drilling max skin
-            $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_max / ($hole_diameter / (2 / 12)));
-
-            if ($drilling->cementingAvailable == 1) {
-                // 8) Calculate cementing average invasion radius
-                $rd_cem_avg = array_sum($rd_cem);
-                $rd_cem_avg /= count($rd_cem);
-
-                // 9) Calculate cementing max invasion radius
-                $rd_cem_max = max($rd_cem);
-
-                // 10) Calculate cementing average skin
-                $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_avg / ($hole_diameter / (2 / 12)));
+                // 6) Calculate drilling average skin
+                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_avg / ($hole_diameter / (2 / 12)));
             
-                // 11) Calculate cementing max skin
-                $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_max / ($hole_diameter / (2 / 12)));
-            }
-
-            // 12) Calculate drilling max filtrate volume
-            $vf_perf_total = array_sum($vf_perf);
-
-            if ($drilling->cementingAvailable == 1) {
-                // 13) Calculate cementing max filtrate volume
-                $vf_cem_total = array_sum($vf_cem);
-            }
-
-            // Calculations are done, now on to showing the results
-            $graph_results_perf = array();
-            $graph_results_perf_x = array();
-            $graph_results_perf_y = array();
-            $graph_results_cem = array();
-            $graph_results_cem_x = array();
-            $graph_results_cem_y = array();
-
-            foreach ($rows_profile_data as $index => $row) {
-                $bottom = floatval($row->bottom);
-                $top = floatval($row->top);
-
-                array_push($graph_results_perf_x, $rd_perf[$index]);
-                array_push($graph_results_perf_y, ($bottom + $top) / 2);
+                // 7) Calculate drilling max skin
+                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_max / ($hole_diameter / (2 / 12)));
 
                 if ($drilling->cementingAvailable == 1) {
-                    array_push($graph_results_cem_x, $rd_cem[$index]);
-                    array_push($graph_results_cem_y, ($bottom + $top) / 2);
+                    // 8) Calculate cementing average invasion radius
+                    $rd_cem_avg = array_sum($rd_cem);
+                    $rd_cem_avg /= count($rd_cem);
+
+                    // 9) Calculate cementing max invasion radius
+                    $rd_cem_max = max($rd_cem);
+
+                    // 10) Calculate cementing average skin
+                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_avg / ($hole_diameter / (2 / 12)));
+                
+                    // 11) Calculate cementing max skin
+                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_max / ($hole_diameter / (2 / 12)));
                 }
+
+                // 12) Calculate drilling max filtrate volume
+                $vf_perf_total = array_sum($vf_perf);
+
+                if ($drilling->cementingAvailable == 1) {
+                    // 13) Calculate cementing max filtrate volume
+                    $vf_cem_total = array_sum($vf_cem);
+                }
+
+                // Calculations are done, now on to showing the results
+                $graph_results_perf = array();
+                $graph_results_perf_x = array();
+                $graph_results_perf_y = array();
+                $graph_results_cem = array();
+                $graph_results_cem_x = array();
+                $graph_results_cem_y = array();
+
+                foreach ($rows_profile_data as $index => $row) {
+                    $bottom = floatval($row->bottom);
+                    $top = floatval($row->top);
+
+                    array_push($graph_results_perf_x, $rd_perf[$index]);
+                    array_push($graph_results_perf_y, ($bottom + $top) / 2);
+
+                    if ($drilling->cementingAvailable == 1) {
+                        array_push($graph_results_cem_x, $rd_cem[$index]);
+                        array_push($graph_results_cem_y, ($bottom + $top) / 2);
+                    }
+                }
+                
+                array_push($graph_results_perf, array($graph_results_perf_x, $graph_results_perf_y));
+                array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
+
+                $table_results = array(
+                    array($skin_perf_avg, $skin_perf_max, $rd_perf_avg, $rd_perf_max, $vf_perf_total)
+                );
+
+                if ($drilling->cementingAvailable == 1) {
+                    array_push($table_results, array($skin_cem_avg, $skin_cem_max, $rd_cem_avg, $rd_cem_max, $vf_cem_total));
+                    array_push($table_results, array($skin_perf_avg + $skin_cem_avg, $skin_perf_max + $skin_cem_max, 0, 0, $vf_perf_total + $vf_cem_total));
+                }
+
+                return View::make('drilling_results', compact('scenario', 'drilling', 'graph_results_perf', 'graph_results_cem', 'table_results'));
+            } else {
+                return View::make('drilling_results', compact('scenario', 'drilling'));
             }
-            
-            array_push($graph_results_perf, array($graph_results_perf_x, $graph_results_perf_y));
-            array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
-
-            $table_results = array(
-                array($skin_perf_avg, $skin_perf_max, $rd_perf_avg, $rd_perf_max, $vf_perf_total)
-            );
-
-            if ($drilling->cementingAvailable == 1) {
-                array_push($table_results, array($skin_cem_avg, $skin_cem_max, $rd_cem_avg, $rd_cem_max, $vf_cem_total));
-                array_push($table_results, array($skin_perf_avg + $skin_cem_avg, $skin_perf_max + $skin_cem_max, 0, 0, $vf_perf_total + $vf_cem_total));
-            }
-
-            return View::make('drilling_results', compact('scenario', 'drilling', 'graph_results_perf', 'graph_results_cem', 'table_results'));
         } else {
             return view('loginfirst');
         }

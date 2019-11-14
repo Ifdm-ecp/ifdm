@@ -5,387 +5,6 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 
-// Data variable to save producing interval id's
-var producing_interval_ids = [];
-
-/* Drilling rulesets
- * This is a set of rules for each table and/or section of the form
- * Each element in the array corresponds to a rule assigned to the column
- * So element 0 has the rules for the column 0 of the table
-*/
-general_data_select_ruleset = [
-  {
-    column: "Producing Interval",
-    rules: [
-      {rule: "requiredselect"}
-    ]
-  },
-];
-
-general_data_table_ruleset = [
-  {
-    column: "Interval",
-    rules: [
-      {rule: "required"},
-      {rule: "any"}
-    ]
-  },
-  {
-    column: "Top [ft]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
-    ]
-  },
-  {
-    column: "Bottom [ft]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
-    ]
-  },
-  {
-    column: "Reservoir Pressure [psi]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
-    ]
-  },
-  {
-    column: "Hole Diameter [in]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
-    ]
-  },
-  {
-    column: "Drill Pipe Diameter [in]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
-    ]
-  }
-];
-
-profile_select_ruleset = [
-  {
-    column: "Input Data Method",
-    rules: [
-      {rule: "requiredselect"}
-    ]
-  },
-];
-
-profile_table_ruleset = [
-  {
-    column: "Top [ft]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
-    ]
-  },
-  {
-    column: "Bottom [ft]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
-    ]
-  },
-  {
-    column: "Porosity [-]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
-    ]
-  },
-  {
-    column: "Permeability [mD]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
-    ]
-  },
-  {
-    column: "Fracture Intensity [#/ft]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
-    ]
-  },
-  {
-    column: "Irreducible Saturation [-]",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
-    ]
-  }
-];
-
-filtration_function_tab_ruleset = [
-  {
-    column: "Filtration Function",
-    rules: [
-      {rule: "requiredselect"}
-    ]
-  },
-  {
-    column: "a",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
-    ]
-  },
-  {
-    column: "b",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
-    ]
-  }
-];
-
-drilling_data_tab_ruleset = [
-  {
-    column: "Total Exposure Time",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
-    ]
-  },
-  {
-    column: "Pump Rate",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
-    ]
-  },
-  {
-    column: "Mud Density",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 20},
-    ]
-  },
-  {
-    column: "Plastic Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
-    ]
-  },
-  {
-    column: "Yield Point",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
-    ]
-  },
-  {
-    column: "ROP",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
-    ]
-  },
-  {
-    column: "ECD (Equivalent Circulating Density)",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 30},
-    ]
-  }
-];
-
-completion_data_tab_ruleset = [
-  {
-    column: "Total Exposure Time",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
-    ]
-  },
-  {
-    column: "Pump Rate",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
-    ]
-  },
-  {
-    column: "Cement Slurry Density",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
-    ]
-  },
-  {
-    column: "Plastic Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
-    ]
-  },
-  {
-    column: "Yield Point",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
-    ]
-  },
-  {
-    column: "ECD (Equivalent Circulating Density)",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 70},
-    ]
-  }
-];
-
-/* multiValidatorHandsonTable
- * Returns a boolean with a check for specific rule
- * params {value: mixed, ruleset: object}
- * returns {boolean}
-*/
-function multiValidatorHandsonTable(value, ruleset)
-{
-  var isValid = false;
-
-  $.each(ruleset.rules, function (key, set) {
-    switch (set.rule) {
-      case "any":
-        isValid = true;
-        return false;
-        break;
-      case "numeric":
-        isValid = $.isNumeric(value);
-        return isValid;
-        break;
-      case "range":
-        isValid = (value >= set.min && value <= set.max);
-        return isValid;
-        break;
-    }
-  });
-
-  return isValid;
-};
-
-/* multiValidatorTable
- * Returns an array with a boolean with a validation result and a message in case the validation fails
- * params {value: mixed, tableName: string, tableRow: int, ruleset: object}
- * returns {array}
-*/
-function multiValidatorTable(value, tableName, tableRow, ruleset)
-{
-  var isValid = [];
-
-  $.each(ruleset.rules, function (key, set) {
-    switch (set.rule) {
-      case "any":
-        return false;
-        break;
-      case "required":
-        if (value === null || value === "") {
-          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has an empty value"];
-          return false;
-        }
-        break;
-      case "numeric":
-        if (!$.isNumeric(value)) {
-          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a non numeric value"];
-          return false;
-        }
-        break;
-      case "range":
-        if (value < set.min || value > set.max) {
-          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
-          return false;
-        }
-        break;
-    }
-  });
-
-  return (isValid.length > 0 ? isValid : [true, ""]);
-};
-
-/* multiValidatorGeneral
- * Returns an array with a boolean with a validation result and a message in case the validation fails
- * params {action: string, value: mixed, tableName: string, tableRow: int, ruleset: object}
- * returns {array}
-*/
-function multiValidatorGeneral(action, value, ruleset)
-{
-  var isValid = null;
-
-  $.each(ruleset.rules, function (key, set) {
-    if (action === "run") {
-      switch (set.rule) {
-        case "any":
-          isValid = [true, ""];
-          return false;
-          break;
-        case "required":
-          if (value === null || value === "") {
-            isValid = [false, "The field " + ruleset.column + " has an empty value"];
-            return false;
-          }
-          break;
-        case "requiredselect":
-          if (value === null || value === "") {
-            isValid = [false, "There is no " + ruleset.column + " selected"];
-            return false;
-          }
-          break;
-      }
-    }
-
-    if (isValid === null && value !== null && value !== "") {
-      switch (set.rule) {
-        case "numeric":
-          if (!$.isNumeric(value)) {
-            isValid = [false, "The field " + ruleset.column + " has a non numeric value"];
-            return false;
-          }
-          break;
-        case "range":
-          if (value < set.min || value > set.max) {
-            isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
-            return false;
-          }
-          break;
-      }
-    }
-  });
-
-  return (isValid !== null ? isValid : [true, ""]);
-};
-
 //*****/////*****
 $(document).ready(function(){
   input_data_profile = $("#inputdata_profile_table").val();
@@ -473,11 +92,9 @@ window.onload = function()
       $.get("{{url('intervalsInfoDrilling')}}",
         {intervals: interval},
         function(data) {
-          producing_interval_ids = [];
           $.each(data, function(index,value) {
-            var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
+            var data_row = [value.nombre, value.top, , value.presion_reservorio, ];
             data_aux.push(data_row);
-            producing_interval_ids.push(value.id);
           });
           create_interval_general_data_table(data_aux);
         });
@@ -716,54 +333,6 @@ function plotProfileData()
          }]
      });
 }
-function validate_table(table_name,table_data, start_column)
-{
-    var message = "";
-    var flag = true;
-    var number_rows = table_data.length;
-    if(number_rows>0)
-    {
-        var number_columns = table_data[0].length;  
-    }
-    else
-    {
-        flag = false;
-        message = "The table "+table_name+" is empty. Please check your data";
-        return [flag,message];
-    }
-    console.log(number_columns);
-    console.log(table_data);
-
-    for (var i = 0; i < number_rows; i++) 
-    {
-        var flag_row = true;
-        for (var j = start_column; j < number_columns; j++) 
-        {
-            if(!$.isNumeric(table_data[i][j]))
-            {
-                flag_row = flag_row && false;
-                message = "The data for the table "+table_name+" must be numeric. Please check your data";
-            }
-            else
-            {
-                flag_row = flag_row && true;
-            }
-            if(table_data[i][j] == null || table_data[i][j] === "" )
-            {
-                flag_row = flag_row && false;
-                message = "There's missing information for the table "+table_name+". Please check your data";
-            }
-            else
-            {
-                flag_row = flag_row && true;
-            }
-
-        }
-        flag = flag && flag_row;
-    }
-
-    return [flag, message];
-}
 
 /* validateTable
  * Returns an array which contains either an error message string or an object with a set of error messages
@@ -968,16 +537,8 @@ function verifyDrilling(action) {
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
-  for (var i = 0; i < producing_interval_ids.length; i++) {
-    generaldata_table[i].push(producing_interval_ids[i]);
-  }
-
   if (validationMessages.length < 1) {
     // Guardando los datos de tablas validadas y limpiadas en formulario
-    for (var i = 0; i < producing_interval_ids.length; i++) {
-      generaldata_table[i].push(producing_interval_ids[i]);
-    }
-
     $("#generaldata_table").val(JSON.stringify(generaldata_table));
     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
@@ -989,6 +550,7 @@ function verifyDrilling(action) {
       validationMessages.push(true);
       showFrontendErrors(validationMessages);
     } else {
+      $("#only_s").val("0");
       $("#drillingForm").submit();
     }
   } else {
@@ -1000,6 +562,7 @@ function verifyDrilling(action) {
  * Submits the form when the confirmation button from the modal is clicked
 */
 function saveForm() {
+  $("#only_s").val("1");
   $("#drillingForm").submit();
 }
 
@@ -1324,11 +887,9 @@ $("#intervalSelect").change(function(e) {
   $.get("{{url('intervalsInfoDrilling')}}",
     { intervals: intervals },
     function(data) {
-      producing_interval_ids = [];
       $.each(data, function(index,value) {
-        var data_row = [value.nombre,value.top,,value.presion_reservorio,,];
+        var data_row = [value.nombre, value.top, , value.presion_reservorio, ];
         data_aux.push(data_row);
-        producing_interval_ids.push(value.id);
       });
 
       create_interval_general_data_table(data_aux);

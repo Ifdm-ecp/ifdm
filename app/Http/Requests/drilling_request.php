@@ -50,6 +50,7 @@ class drilling_request extends Request
             'd_yield_point_t' => 'required|numeric|min:0|max:100',
             'd_rop_t' => 'required|numeric|min:0|max:500',
             'd_equivalent_circulating_density_t' => 'required|numeric|min:0|max:30',
+            'only_s' => 'required|in:1,2',
         ];
 
         if (is_array($this->array_generaldata_table)) {
@@ -81,6 +82,28 @@ class drilling_request extends Request
             $rules['c_plastic_viscosity_t'] = 'required|numeric|min:0|max:10';
             $rules['c_yield_point_t'] = 'required|numeric|min:0|max:100';
             $rules['c_equivalent_circulating_density_t'] = 'required|numeric|min:0|max:70';
+        }
+
+        if ($this->only_s == "1") {
+            $rules["select_filtration_function"] = str_replace("required|", "", $rules["select_filtration_function"]);
+            $rules["a_factor_t"] = str_replace("required|", "", $rules["a_factor_t"]);
+            $rules["b_factor_t"] = str_replace("required|", "", $rules["b_factor_t"]);
+            $rules["d_total_exposure_time_t"] = str_replace("required|", "", $rules["d_total_exposure_time_t"]);
+            $rules["d_pump_rate_t"] = str_replace("required|", "", $rules["d_pump_rate_t"]);
+            $rules["d_mud_density_t"] = str_replace("required|", "", $rules["d_mud_density_t"]);
+            $rules["d_plastic_viscosity_t"] = str_replace("required|", "", $rules["d_plastic_viscosity_t"]);
+            $rules["d_yield_point_t"] = str_replace("required|", "", $rules["d_yield_point_t"]);
+            $rules["d_rop_t"] = str_replace("required|", "", $rules["d_rop_t"]);
+            $rules["d_equivalent_circulating_density_t"] = str_replace("required|", "", $rules["d_equivalent_circulating_density_t"]);
+            
+            if ($this->cementingAvailable) {
+                $rules["c_total_exposure_time_t"] = str_replace("required|", "", $rules["c_total_exposure_time_t"]);
+                $rules["c_pump_rate_t"] = str_replace("required|", "", $rules["c_pump_rate_t"]);
+                $rules["c_cement_slurry_density_t"] = str_replace("required|", "", $rules["c_cement_slurry_density_t"]);
+                $rules["c_plastic_viscosity_t"] = str_replace("required|", "", $rules["c_plastic_viscosity_t"]);
+                $rules["c_yield_point_t"] = str_replace("required|", "", $rules["c_yield_point_t"]);
+                $rules["c_equivalent_circulating_density_t"] = str_replace("required|", "", $rules["c_equivalent_circulating_density_t"]);
+            }
         }
 
         return $rules;
@@ -160,6 +183,8 @@ class drilling_request extends Request
             'c_equivalent_circulating_density_t.numeric' => 'The completion equivalent circulating density must be a number.',
             'c_equivalent_circulating_density_t.min' => 'The completion equivalent circulating density must be higher or equal than 0.',
             'c_equivalent_circulating_density_t.max' => 'The completion equivalent circulating density must be lower or equal than 70.',
+            'only_s.required' => 'The sent info that determines if the form is ran or saved is empty.',
+            'only_s.in' => 'The sent info that determines if the form is ran or saved is incorrect.',
         ];
 
         if (is_array($this->array_generaldata_table)) {

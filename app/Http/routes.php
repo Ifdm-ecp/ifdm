@@ -2329,7 +2329,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Drilling module routes - checked
     Route::post('Drilling/store', 'drilling_controller@store');
     Route::get('Drilling/show/{id}', 'drilling_controller@show');
-    Route::get('Drilling/edit/{id}', 'drilling_controller@edit');
+    Route::get('Drilling/edit/{id}', ['as' => 'drilling.edit', 'uses' => 'drilling_controller@edit']);
     Route::resource('Drilling/update', 'drilling_controller@update');
     Route::resource('Drilling', 'drilling_controller');
 

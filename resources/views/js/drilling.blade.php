@@ -29,7 +29,7 @@ window.onload = function()
   var interval = $("#select_interval_general_data").val();
   var input_general_data = $("#generaldata_table").val();
   var input_data_method = $("#select_input_data").val();
-  var preset_function_values = $("#select_filtration_function").val();
+  var filtration_function_select_values = $("#select_filtration_function").val();
 
   $("#inputDataMethodSelect").val(input_data_method);
   $("#inputDataMethodSelect").selectpicker('refresh');
@@ -82,7 +82,7 @@ window.onload = function()
 
   //General Data
   if (interval.length > 0) {
-    interval = JSON.parse($("#select_interval_general_data").val());
+    interval = JSON.parse(interval);
     if (!Array.isArray(interval)) {interval = [];};
 
     $('#intervalSelect').selectpicker('val', interval);
@@ -117,11 +117,11 @@ window.onload = function()
       });
 
       $('#filtration_function_select').selectpicker('refresh');
-      if ($("#select_filtration_function").val().length == 0) {
+      if (filtration_function_select_values.length == 0) {
         $('#filtration_function_select').val('disabled');
         $('#filtration_function_select').selectpicker('deselectAll');
       } else {
-        $('#filtration_function_select').selectpicker('val', $("#select_filtration_function").val());
+        $('#filtration_function_select').selectpicker('val', filtration_function_select_values);
       }
     });
 }
@@ -160,7 +160,7 @@ function json_toarray(json)
 function create_interval_general_data_table(data)
 {
   $intervalGeneral_t = $("#intervalsGeneral_t");
-  var tempValidation = $intervalGeneral_t.handsontable(
+  $intervalGeneral_t.handsontable(
   {
     data: data, 
     rowHeaders: true, 
@@ -205,32 +205,33 @@ function create_intervals_input_data_table(data)
         contextMenu: true,
     });
 }
+
 function create_profile_input_data_table(data)
 {
-    $("#averageInput_t").hide();
-    $("#byIntervalsInput_t").hide();
-    $("#profileInput_t").show();
-    $("#profile_g").show();
-    $("#plotProfile").show();
+  $("#averageInput_t").hide();
+  $("#byIntervalsInput_t").hide();
+  $("#profileInput_t").show();
+  $("#profile_g").show();
+  $("#plotProfile").show();
 
-    $profileInput_t = $("#profileInput_t");
-    $profileInput_t.handsontable(
-    {
-        data: data, 
-        rowHeaders: true, 
-        colWidths: [100, 100, 100, 120, 150, 165],
-        columns: 
-        [
-          {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[0])); }},
-          {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[1])); }},
-          {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[2])); }},
-          {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[3])); }},
-          {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[4])); }},
-          {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
-        ],
-        minSpareRows: 1,
-        contextMenu: true
-    });
+  $profileInput_t = $("#profileInput_t");
+  $profileInput_t.handsontable(
+  {
+    data: data, 
+    rowHeaders: true, 
+    colWidths: [100, 100, 100, 120, 150, 165],
+    columns: 
+    [
+      {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[0])); }},
+      {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[1])); }},
+      {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[2])); }},
+      {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[3])); }},
+      {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[4])); }},
+      {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
+    ],
+    minSpareRows: 1,
+    contextMenu: true
+  });
 }
 
 function plotProfileData()
@@ -250,11 +251,11 @@ function plotProfileData()
 
     if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null) && (d3 ==="" || d3 == null) && (d4==="" || d4 == null) && (d5==="" || d5 == null))
     {
-       continue;
+      continue;
     }
     else
     {
-       data_aux.push(data[i]);
+      data_aux.push(data[i]);
     }
   }
   data = data_aux;
@@ -281,108 +282,56 @@ function plotProfileData()
       xAxisCalc[rowKey] = '' + ((bottom[rowKey] + top[rowKey]) / 2);
     }
   });
-  console.log(xAxisCalc);
 
   $('#profile_g').highcharts({
-        chart: {
-            type: 'line',
-            zoomType: 'x',
-            inverted: true
-        },
-         title: {
-             text: 'Profile Data',
-             x: -20 //center
-         },
-         xAxis: {
-          title: {
-            text: 'Depth[ft]'
-          },
-          categories: xAxisCalc
-         },
-         yAxis: {
-             title: {
-                 text: 'Profile Data'
-             },
-             plotLines: [{
-                 value: 0,
-                 width: 1,
-                 color: '#808080'
-             }]
-         },
-         tooltip: {
-             valueSuffix: ''
-         },
-         legend: {
-             layout: 'vertical',
-             align: 'right',
-             verticalAlign: 'middle',
-             borderWidth: 0
-         },
-         series: [{
-             name: 'Porosity [-]',
-             data: porosity
-         }, {
-             name: 'Permeability [mD]',
-             data: permeability
-         }, {
-             name: 'Fracture Intesity [#/ft]',
-             data: fracture_intensity
-         }, {
-             name: 'Irreducible Saturation[-]',
-             data: irreducible_saturation
-         }]
-     });
-}
-
-/* validateTable
- * Returns an array which contains either an error message string or an object with a set of error messages
- * params {tableName: string, tableData: array, tableRuleset: array}
- * returns {array}
-*/
-function validateTable(tableName, tableData, tableRuleset) {
-  var message = "";
-  var tableLength = tableData.length;
-  var rowValidation = [];
-  var errorMessages = [];
-
-  if (tableLength < 1) {
-    message = "The table " + tableName + " is empty. Please check your data";
-    return [message];
-  } else {
-    var tableColumnLength = tableData[0].length;
-
-    for (var i = 0; i < tableLength; i++) {
-      for (var j = 0; j < tableColumnLength; j++) {
-        var rowValidation = multiValidatorTable(tableData[i][j], tableName, i, tableRuleset[j]);
-        if (!rowValidation[0]) {
-          errorMessages.push(rowValidation[1]);
-        }
-      }
-    }
-  }
-
-  if (errorMessages.length > 0) {
-    return [{message: "The table " + tableName + " has validation errors (click to expand)", errors: errorMessages}];
-  } else {
-    return [];
-  }
-}
-
-/* validateField
- * Validates an individual field in the form
- * params {action: string, titleTab: string, tabTitle: string, validationMessages: array, value: mixed, ruleset: object}
-*/
-function validateField(action, titleTab, tabTitle, validationMessages, value, ruleset) {
-  var generalValidator = multiValidatorGeneral(action, value, ruleset);
-  if (!generalValidator[0]) {
-    if (titleTab == "") {
-      titleTab = tabTitle;
-      validationMessages = validationMessages.concat(titleTab);
-    }
-    validationMessages = validationMessages.concat(generalValidator[1]);
-  }
-
-  return [titleTab, validationMessages];
+    chart: {
+      type: 'line',
+      zoomType: 'x',
+      inverted: true
+    },
+    title: {
+      text: 'Profile Data',
+      x: -20 //center
+    },
+    xAxis: {
+      title: {
+        text: 'Depth[ft]'
+      },
+      categories: xAxisCalc
+    },
+    yAxis: {
+      title: {
+        text: 'Profile Data'
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+    },
+    series: [{
+      name: 'Porosity [-]',
+      data: porosity
+    }, {
+      name: 'Permeability [mD]',
+      data: permeability
+    }, {
+      name: 'Fracture Intesity [#/ft]',
+      data: fracture_intensity
+    }, {
+      name: 'Irreducible Saturation[-]',
+      data: irreducible_saturation
+    }]
+  });
 }
 
 /* verifyDrilling
@@ -806,51 +755,39 @@ $("#d_total_exposure_time_t").change(function(e) {
 });
 
 $("#d_rop_t").change(function(e) {
-    if($("#d_total_exposure_time_t").val()=='')
-    {
-        var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
-        var tops = [];
-        var bottoms = [];
-        var d_rop_t = $("#d_rop_t").val();
-        for (var i = 0; i<generaldata_table_data.length; i++) 
-        {
-            if(generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '')
-            {
-                continue;
-            }
-            else
-            {
-                tops.push(parseFloat(generaldata_table_data[i][1]));
-            }
-            if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '')
-            {
-                continue;
-            }
-            else
-            {
-                bottoms.push(parseFloat(generaldata_table_data[i][2]));
-            }
-        }
-        var MDbottom = Math.max.apply(Math,bottoms); 
-        var MDtop = Math.min.apply(Math,tops); 
-        $("#MDbottom").val(MDbottom);
-        $("#MDtop").val(MDtop);
-        var texp = (MDbottom-MDtop) / (d_rop_t*24);
-        $("#d_total_exposure_time_t").val(texp);
+  if ($("#d_total_exposure_time_t").val() == '') {
+    var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
+    var tops = [];
+    var bottoms = [];
+    var d_rop_t = $("#d_rop_t").val();
+    for (var i = 0; i < generaldata_table_data.length; i++) {
+      if (generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '') {
+        continue;
+      } else {
+        tops.push(parseFloat(generaldata_table_data[i][1]));
+      } if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '') {
+        continue;
+      } else {
+        bottoms.push(parseFloat(generaldata_table_data[i][2]));
+      }
     }
+    var MDbottom = Math.max.apply(Math, bottoms); 
+    var MDtop = Math.min.apply(Math, tops); 
+    $("#MDbottom").val(MDbottom);
+    $("#MDtop").val(MDtop);
+    var texp = (MDbottom - MDtop) / (d_rop_t * 24);
+    $("#d_total_exposure_time_t").val(texp);
+  }
 });
 
 
 //Selects  **/**
 //General Data
-$("#filtration_function_select").change(function(e)
-{
+$("#filtration_function_select").change(function(e) {
   $.get("{{url('filtration_function_data')}}",
-    {ff_id:$(this).val()},
-    function(data)
-    {
-      $.each(data, function(index,value)
-      {
+    {ff_id: $(this).val()},
+    function(data) {
+      $.each(data, function(index,value) {
         a_factor = value.a_factor;
         b_factor = value.b_factor;
         mud_density = value.mud_density;
@@ -929,6 +866,4 @@ $("#inputDataMethodSelect").change(function(e)
         $("#plotProfile").hide();
     }
 });
-
 </script>
-

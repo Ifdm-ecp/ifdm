@@ -119,4 +119,55 @@ function multiValidatorGeneral(action, value, ruleset)
 
   return (isValid !== null ? isValid : [true, ""]);
 };
+
+/* validateTable
+ * Returns an array which contains either an error message string or an object with a set of error messages
+ * params {tableName: string, tableData: array, tableRuleset: array}
+ * returns {array}
+*/
+function validateTable(tableName, tableData, tableRuleset) {
+  var message = "";
+  var tableLength = tableData.length;
+  var rowValidation = [];
+  var errorMessages = [];
+
+  if (tableLength < 1) {
+    message = "The table " + tableName + " is empty. Please check your data";
+    return [message];
+  } else {
+    var tableColumnLength = tableData[0].length;
+
+    for (var i = 0; i < tableLength; i++) {
+      for (var j = 0; j < tableColumnLength; j++) {
+        var rowValidation = multiValidatorTable(tableData[i][j], tableName, i, tableRuleset[j]);
+        if (!rowValidation[0]) {
+          errorMessages.push(rowValidation[1]);
+        }
+      }
+    }
+  }
+
+  if (errorMessages.length > 0) {
+    return [{message: "The table " + tableName + " has validation errors (click to expand)", errors: errorMessages}];
+  } else {
+    return [];
+  }
+}
+
+/* validateField
+ * Validates an individual field in the form
+ * params {action: string, titleTab: string, tabTitle: string, validationMessages: array, value: mixed, ruleset: object}
+*/
+function validateField(action, titleTab, tabTitle, validationMessages, value, ruleset) {
+  var generalValidator = multiValidatorGeneral(action, value, ruleset);
+  if (!generalValidator[0]) {
+    if (titleTab == "") {
+      titleTab = tabTitle;
+      validationMessages = validationMessages.concat(titleTab);
+    }
+    validationMessages = validationMessages.concat(generalValidator[1]);
+  }
+
+  return [titleTab, validationMessages];
+}
 </script>

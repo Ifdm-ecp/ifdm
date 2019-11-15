@@ -37,15 +37,13 @@ class drilling_controller extends Controller
         if (\Auth::check()) 
         {
             $scenario = escenario::find(\Request::get('scenaryId'));
-            //dd($scenario);
+
             return View::make('drilling', compact('scenario')); 
         }
         else
         {
             return view('loginfirst');
         }
-
-
     }
 
     /**
@@ -66,9 +64,8 @@ class drilling_controller extends Controller
      */
     public function store(drilling_request $request)
     {
-        if (\Auth::check())
-        {
-            if(!isset($request->cementingAvailable) || empty($request->cementingAvailable || $request->cementingAvailable == null)) {
+        if (\Auth::check()) {
+            if (!isset($request->cementingAvailable) || empty($request->cementingAvailable || $request->cementingAvailable == null)) {
                 $request->c_pump_rate_t = 0;
                 $request->cementingAvailable = 0;
             } else {
@@ -1625,37 +1622,33 @@ class drilling_controller extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id_escenario
      * @return \Illuminate\Http\Response
      */
     public function edit($id_escenario)
     {
-        if (\Auth::check()) 
-        {
+        if (\Auth::check()) {
             $scenario = escenario::find($id_escenario);
             $drilling_scenario = drilling::where('scenario_id', $scenario->id)->first();
 
             //Tablas
             $general_data = DB::table('d_general_data')->where('drilling_id', $drilling_scenario->id)->get();
             $general_data_table = [];
-            foreach ($general_data as $value) 
-            {
-                $producing_interval_name = DB::table('formacionxpozos')->select('nombre')->where('id',$value->producing_interval_id)->first()->nombre;
+            foreach ($general_data as $value) {
+                $producing_interval_name = DB::table('formacionxpozos')->select('nombre')->where('id', $value->producing_interval_id)->first()->nombre;
                 array_push($general_data_table, array($producing_interval_name, $value->top, $value->bottom, $value->reservoir_pressure, $value->hole_diameter, $value->drill_pipe_diameter));
             }
 
-            $input_data_profile = DB::table('d_profile_input_data')->where('drilling_id','=',$drilling_scenario->id)->get();
+            $input_data_profile = DB::table('d_profile_input_data')->where('drilling_id', $drilling_scenario->id)->get();
             $input_data_profile_table = [];
-            foreach ($input_data_profile as $value) 
-            {
-                array_push($input_data_profile_table, array($value->depth, $value->porosity, $value->permeability, $value->fracture_intensity, $value->irreducible_saturation));
+            foreach ($input_data_profile as $value) {
+                array_push($input_data_profile_table, array($value->top, $value->bottom, $value->porosity, $value->permeability, $value->fracture_intensity, $value->irreducible_saturation));
             }
 
-            $input_data_intervals = DB::table('d_intervals_input_data')->where('drilling_id','=',$drilling_scenario->id)->get();
+            $input_data_intervals = DB::table('d_intervals_input_data')->where('drilling_id', $drilling_scenario->id)->get();
             $input_data_intervals_table = [];
-            foreach ($input_data_intervals as $value) 
-            {
-                $producing_interval_name = DB::table('formacionxpozos')->select('nombre')->where('id',$value->producing_interval_id)->first()->nombre;
+            foreach ($input_data_intervals as $value) {
+                $producing_interval_name = DB::table('formacionxpozos')->select('nombre')->where('id', $value->producing_interval_id)->first()->nombre;
                 array_push($input_data_intervals_table, array($producing_interval_name, $value->porosity, $value->permeability, $value->fracture_intensity, $value->irreducible_saturation));
             }
 
@@ -1663,12 +1656,13 @@ class drilling_controller extends Controller
             $formation = DB::table('formacionxpozos')->where('id', $scenario->formacion_id)->first();
             $field = DB::table('campos')->where('id', $scenario->campo_id)->first();
             $scenario_id = \Request::get('scenaryId');
-            $user = DB::table('users')->join('escenarios','users.id','=','escenarios.user_id')->select('users.fullName')->where('escenarios.id','=',$scenario->id)->first();
+            $user = DB::table('users')->select('users.fullName')->join('escenarios', 'users.id', '=', 'escenarios.user_id')->where('escenarios.id', $scenario->id)->first();
             $interval = DB::table('formacionxpozos')->where('id',$scenario->formacion_id)->first();
             $formations = DB::table('formaciones')->where('campo_id','=',$scenario->campo_id);
             $basin = DB::table('cuencas')->where('id', $scenario->cuenca_id)->first();
+            // dd($drilling_scenario->a_factor);
 
-            return View::make('edit_drilling', compact(['user','formation','basin','well','field','drilling_scenario','general_data_table', 'input_data_profile_table', 'input_data_intervals_table','user','well', 'formation', 'field', 'interval','scenario','formations']));
+            return View::make('edit_drilling', compact(['user', 'formation', 'basin', 'well', 'field', 'drilling_scenario', 'general_data_table', 'input_data_profile_table', 'input_data_intervals_table', 'user', 'well', 'formation', 'field', 'interval', 'scenario', 'formations']));
         } else {
             return view('loginfirst');
         }

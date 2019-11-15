@@ -60,7 +60,7 @@
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('inputDataMethodSelect') ? 'has-error' : ''}}">
                               {!! Form::label('inputDataMethod', 'Input Data Method') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              {!! Form::select('inputDataMethodSelect', ['1'=>'Profile'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}
+                              {!! Form::select('inputDataMethodSelect', ['1'=>'Profile'], null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}
                               {{--{!! Form::select('inputDataMethodSelect', ['1'=>'Profile','2'=>'By Intervals'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}--}}
                            </div>
                         </div>
@@ -126,7 +126,7 @@
                            <div class="form-group">
                               {!! Form::label('b_factor_l', 'b') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('b_factor_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('b_factor_t',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
+                                 {!! Form::text('b_factor_t', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
                            </div>
@@ -149,7 +149,7 @@
                            <div class="form-group">
                               {!! Form::label('d_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_total_exposure_time_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_total_exposure_time_t',null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'd_total_exposure_time_t']) !!}
+                                 {!! Form::text('d_total_exposure_time_t', null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'd_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>
                               </div>
                            </div>
@@ -158,7 +158,7 @@
                            <div class="form-group">
                               {!! Form::label('d_pump_rate_l', 'Pump Rate') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_pump_rate_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_pump_rate_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_pump_rate_t']) !!}
+                                 {!! Form::text('d_pump_rate_t', null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_pump_rate_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
                            </div>
@@ -169,7 +169,7 @@
                            <div class="form-group">
                               {!! Form::label('d_mud_density_l', 'Mud Density') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_mud_density_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_mud_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'd_mud_density_t']) !!}
+                                 {!! Form::text('d_mud_density_t', null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'd_mud_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">lb/gal</span>
                               </div>
                            </div>
@@ -178,7 +178,7 @@
                            <div class="form-group">
                               {!! Form::label('d_plastic_viscosity_l', 'Plastic Viscosity') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_plastic_viscosity_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_plastic_viscosity_t',null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'd_plastic_viscosity_t']) !!}
+                                 {!! Form::text('d_plastic_viscosity_t', null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'd_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">cP</span>
                               </div>
                            </div>
@@ -187,7 +187,7 @@
                            <div class="form-group">
                               {!! Form::label('d_yield_point_l', 'Yield Point') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_yield_point_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_yield_point_t',null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'd_yield_point_t']) !!}
+                                 {!! Form::text('d_yield_point_t', null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'd_yield_point_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">bf/100ft²</span>
                               </div>
                            </div>
@@ -196,7 +196,7 @@
                            <div class="form-group">
                               {!! Form::label('d_rop_l', 'ROP') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_rop_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_rop_t',null, ['placeholder' => 'ft/h', 'class' =>'form-control', 'id' => 'd_rop_t']) !!}
+                                 {!! Form::text('d_rop_t', null, ['placeholder' => 'ft/h', 'class' =>'form-control', 'id' => 'd_rop_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft/h</span>
                               </div>
                            </div>
@@ -207,7 +207,7 @@
                            <div class="form-group">
                               {!! Form::label('d_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_equivalent_circulating_density_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('d_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_equivalent_circulating_density_t']) !!}
+                                 {!! Form::text('d_equivalent_circulating_density_t', null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_equivalent_circulating_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
                               <br>
@@ -238,7 +238,7 @@
                            <div class="form-group">
                               {!! Form::label('c_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_total_exposure_time_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_total_exposure_time_t',null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'c_total_exposure_time_t']) !!}
+                                 {!! Form::text('c_total_exposure_time_t', null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'c_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>
                               </div>
                            </div>
@@ -247,7 +247,7 @@
                            <div class="form-group">
                               {!! Form::label('c_pump_rate_l', 'Pump Rate') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_pump_rate_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_pump_rate_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_pump_rate_t']) !!}
+                                 {!! Form::text('c_pump_rate_t', null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_pump_rate_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
                            </div>
@@ -258,7 +258,7 @@
                            <div class="form-group">
                               {!! Form::label('c_cement_slurry_density_l', 'Cement Slurry Density') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_cement_slurry_density_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_cement_slurry_density_t',null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
+                                 {!! Form::text('c_cement_slurry_density_t', null, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">lb/gal</span>
                               </div>
                            </div>
@@ -267,7 +267,7 @@
                            <div class="form-group">
                               {!! Form::label('c_plastic_viscosity_l', 'Plastic Viscosity') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_plastic_viscosity_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_plastic_viscosity_t',null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'c_plastic_viscosity_t']) !!}
+                                 {!! Form::text('c_plastic_viscosity_t', null, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'c_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">cP</span>
                               </div>
                            </div>
@@ -276,7 +276,7 @@
                            <div class="form-group">
                               {!! Form::label('c_yield_point_l', 'Yield Point') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_yield_point_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_yield_point_t',null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'c_yield_point_t']) !!}
+                                 {!! Form::text('c_yield_point_t', null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'c_yield_point_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">bf/100ft²</span>
                               </div>
                            </div>
@@ -285,7 +285,7 @@
                            <div class="form-group">
                               {!! Form::label('c_equivalent_circulating_density_l', 'ECD (Equivalent Circulating Density)') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_equivalent_circulating_density_t') ? 'has-error' : ''}}">
-                                 {!! Form::text('c_equivalent_circulating_density_t',null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
+                                 {!! Form::text('c_equivalent_circulating_density_t', null, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
                               <br>
@@ -319,4 +319,5 @@
 @include('css/drilling')
 @include('js/modal_error')
 @include('js/modal_error_frontend')
+@include('css/modal_error_frontend')
 @endsection

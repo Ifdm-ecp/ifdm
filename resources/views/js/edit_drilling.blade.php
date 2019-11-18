@@ -486,8 +486,9 @@ function verifyDrilling(action) {
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
-  // Guardando los datos de tablas validadas y limpiadas en formulario
-  $("#generaldata_table").val(JSON.stringify(generaldata_table));
+  if (validationMessages.length < 1) {
+    // Guardando los datos de tablas validadas y limpiadas en formulario
+    $("#generaldata_table").val(JSON.stringify(generaldata_table));
     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
     $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
@@ -495,18 +496,15 @@ function verifyDrilling(action) {
     $("#select_filtration_function").val($("#filtration_function_select").val());
 
     if (emptyValues) {
-      validationMessages = [];
       validationMessages.push(true);
       showFrontendErrors(validationMessages);
     } else {
       $("#only_s").val("run");
       $("#drillingForm").submit();
     }
-  // if (validationMessages.length < 1) {
-    
-  // } else {
-  //   showFrontendErrors(validationMessages);
-  // }
+  } else {
+    showFrontendErrors(validationMessages);
+  }
 }
 
 /* saveForm

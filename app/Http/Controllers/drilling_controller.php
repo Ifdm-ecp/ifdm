@@ -74,26 +74,26 @@ class drilling_controller extends Controller
 
             // Storing data phase
             $drilling = new drilling();
-            $drilling->scenario_id = $request->scenary_id;
-            $drilling->cementingAvailable = $request->cementingAvailable;
+            $drilling->scenario_id = $request->scenary_id !== "" ? $request->scenary_id : null;
+            $drilling->cementingAvailable = $request->cementingAvailable !== "" ? $request->cementingAvailable : null;
             $drilling->filtration_function_id = $request->select_filtration_function ? $request->select_filtration_function : null;
-            $drilling->a_factor = $request->a_factor_t;
-            $drilling->b_factor = $request->b_factor_t;
-            $drilling->d_total_exposure_time = $request->d_total_exposure_time_t;
-            $drilling->d_pump_rate = $request->d_pump_rate_t;
-            $drilling->d_mud_density = $request->d_mud_density_t;
-            $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t;
-            $drilling->d_yield_point = $request->d_yield_point_t;
-            $drilling->d_rop = $request->d_rop_t;
-            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t; 
-            $drilling->c_total_exposure_time = $request->c_total_exposure_time_t;
-            $drilling->c_pump_rate = $request->c_pump_rate_t;
-            $drilling->c_cement_slurry = $request->c_cement_slurry_density_t;
-            $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t;
-            $drilling->c_yield_point = $request->c_yield_point_t;
-            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t; 
-            $drilling->general_interval_select = $request->select_interval_general_data;
-            $drilling->input_data_select = $request->select_input_data;
+            $drilling->a_factor = $request->a_factor_t !== "" ? $request->a_factor_t : null;
+            $drilling->b_factor = $request->b_factor_t !== "" ? $request->b_factor_t : null;
+            $drilling->d_total_exposure_time = $request->d_total_exposure_time_t !== "" ? $request->d_total_exposure_time_t : null;
+            $drilling->d_pump_rate = $request->d_pump_rate_t !== "" ? $request->d_pump_rate_t : null;
+            $drilling->d_mud_density = $request->d_mud_density_t !== "" ? $request->d_mud_density_t : null;
+            $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t !== "" ? $request->d_plastic_viscosity_t : null;
+            $drilling->d_yield_point = $request->d_yield_point_t !== "" ? $request->d_yield_point_t : null;
+            $drilling->d_rop = $request->d_rop_t !== "" ? $request->d_rop_t : null;
+            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null; 
+            $drilling->c_total_exposure_time = $request->c_total_exposure_time_t !== "" ? $request->c_total_exposure_time_t : null;
+            $drilling->c_pump_rate = $request->c_pump_rate_t !== "" ? $request->c_pump_rate_t : null;
+            $drilling->c_cement_slurry = $request->c_cement_slurry_density_t !== "" ? $request->c_cement_slurry_density_t : null;
+            $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t !== "" ? $request->c_plastic_viscosity_t : null;
+            $drilling->c_yield_point = $request->c_yield_point_t !== "" ? $request->c_yield_point_t : null;
+            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null; 
+            $drilling->general_interval_select = $request->select_interval_general_data !== "" ? $request->select_interval_general_data : null;
+            $drilling->input_data_select = $request->select_input_data !== "" ? $request->select_input_data : null;
             $drilling->status_wr = $request->only_s == "save" ? 1 : 0;
             $drilling->save();
             
@@ -1694,28 +1694,31 @@ class drilling_controller extends Controller
                 $drilling = new drilling();
             }
 
-            $drilling->scenario_id = $request->scenary_id;
-            $drilling->cementingAvailable = $request->cementingAvailable;
+            $drilling->scenario_id = $request->scenary_id !== "" ? $request->scenary_id : null;
+            $drilling->cementingAvailable = $request->cementingAvailable !== "" ? $request->cementingAvailable : null;
             $drilling->filtration_function_id = $request->select_filtration_function ? $request->select_filtration_function : null;
-            $drilling->a_factor = $request->a_factor_t;
-            $drilling->b_factor = $request->b_factor_t;
-            $drilling->d_total_exposure_time = $request->d_total_exposure_time_t;
-            $drilling->d_pump_rate = $request->d_pump_rate_t;
-            $drilling->d_mud_density = $request->d_mud_density_t;
-            $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t;
-            $drilling->d_yield_point = $request->d_yield_point_t;
-            $drilling->d_rop = $request->d_rop_t;
-            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t; 
-            $drilling->c_total_exposure_time = $request->c_total_exposure_time_t;
-            $drilling->c_pump_rate = $request->c_pump_rate_t;
-            $drilling->c_cement_slurry = $request->c_cement_slurry_density_t;
-            $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t;
-            $drilling->c_yield_point = $request->c_yield_point_t;
-            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t; 
-            $drilling->general_interval_select = $request->select_interval_general_data;
-            $drilling->input_data_select = $request->select_input_data;
+            $drilling->a_factor = $request->a_factor_t !== "" ? $request->a_factor_t : null;
+            $drilling->b_factor = $request->b_factor_t !== "" ? $request->b_factor_t : null;
+            $drilling->d_total_exposure_time = $request->d_total_exposure_time_t !== "" ? $request->d_total_exposure_time_t : null;
+            $drilling->d_pump_rate = $request->d_pump_rate_t !== "" ? $request->d_pump_rate_t : null;
+            $drilling->d_mud_density = $request->d_mud_density_t !== "" ? $request->d_mud_density_t : null;
+            $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t !== "" ? $request->d_plastic_viscosity_t : null;
+            $drilling->d_yield_point = $request->d_yield_point_t !== "" ? $request->d_yield_point_t : null;
+            $drilling->d_rop = $request->d_rop_t !== "" ? $request->d_rop_t : null;
+            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null; 
+            $drilling->c_total_exposure_time = $request->c_total_exposure_time_t !== "" ? $request->c_total_exposure_time_t : null;
+            $drilling->c_pump_rate = $request->c_pump_rate_t !== "" ? $request->c_pump_rate_t : null;
+            $drilling->c_cement_slurry = $request->c_cement_slurry_density_t !== "" ? $request->c_cement_slurry_density_t : null;
+            $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t !== "" ? $request->c_plastic_viscosity_t : null;
+            $drilling->c_yield_point = $request->c_yield_point_t !== "" ? $request->c_yield_point_t : null;
+            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null; 
+            $drilling->general_interval_select = $request->select_interval_general_data !== "" ? $request->select_interval_general_data : null;
+            $drilling->input_data_select = $request->select_input_data !== "" ? $request->select_input_data : null;
             $drilling->status_wr = $request->only_s == "save" ? 1 : 0;
             $drilling->save();
+
+            $scenario->completo = $request->only_s == "save" ? 0 : 1;
+            $scenario->save();
             
             // General data table
             d_general_data::where('drilling_id', $drilling->id)->delete();

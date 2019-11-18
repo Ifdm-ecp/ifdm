@@ -84,7 +84,7 @@ class drilling_request extends Request
             $rules['c_equivalent_circulating_density_t'] = 'required|numeric|min:0|max:70';
         }
 
-        if ($this->only_s == "1") {
+        if ($this->only_s == "save") {
             $rules["select_filtration_function"] = str_replace("required|", "", $rules["select_filtration_function"]);
             $rules["a_factor_t"] = str_replace("required|", "", $rules["a_factor_t"]);
             $rules["b_factor_t"] = str_replace("required|", "", $rules["b_factor_t"]);

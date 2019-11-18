@@ -7,13 +7,13 @@
 
 //*****/////*****
 $(document).ready(function(){
-    input_data_profile = $("#inputdata_profile_table").val();
-    if(input_data_profile === "") {
-      var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
-      create_profile_input_data_table(data_aux);
-    } else {
-      create_profile_input_data_table(JSON.parse(input_data_profile));
-    }
+  input_data_profile = $("#inputdata_profile_table").val();
+  if(input_data_profile === "") {
+    var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
+    create_profile_input_data_table(data_aux);
+  } else {
+    create_profile_input_data_table(JSON.parse(input_data_profile));
+  }
 });
 
 //Cargar valores de select en recarga de página

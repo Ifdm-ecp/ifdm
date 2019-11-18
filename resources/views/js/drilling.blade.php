@@ -21,8 +21,7 @@ $(document).ready(function(){
 
 
 //Cargar valores de select en recarga de página
-window.onload = function() 
-{
+window.onload = function() {
   //verifica si esta habilitado cementing
   cementingAvailable();
   var formation = [{!! $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
@@ -820,12 +819,26 @@ $("#filtration_function_select").change(function(e) {
 //IntervalSelect: crea la tabla de general data para diligenciar la información de los intervalos a analizar.
 $("#intervalSelect").change(function(e) {
   var intervals = $("#intervalSelect").val();
+  var generaldata_table = clean_table_data("intervalsGeneral_t");
   var data_aux = [];
   $.get("{{url('intervalsInfoDrilling')}}",
     { intervals: intervals },
     function(data) {
-      $.each(data, function(index,value) {
-        var data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+      $.each(data, function(index, value) {
+        var data_row = [];
+
+        for (var i = 0; i < generaldata_table.length; i++) {
+          if (generaldata_table[i][0] === value.nombre) {
+            data_row = generaldata_table[i];
+            generaldata_table.splice(i, 1);
+            break;
+          }
+        }
+
+        if (data_row.length === 0) {
+          data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+        }
+
         data_aux.push(data_row);
       });
 

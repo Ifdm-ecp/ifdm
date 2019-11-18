@@ -8,31 +8,25 @@
 //*****/////*****
 $(document).ready(function(){
     input_data_profile = $("#inputdata_profile_table").val();
-    if(input_data_profile==="")
-    {
-        var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
-        create_profile_input_data_table(data_aux);
-    }
-    else
-    {
-        create_profile_input_data_table(JSON.parse(input_data_profile));
+    if(input_data_profile === "") {
+      var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
+      create_profile_input_data_table(data_aux);
+    } else {
+      create_profile_input_data_table(JSON.parse(input_data_profile));
     }
 });
 
 //Cargar valores de select en recarga de página
-window.onload = function() 
-{
+window.onload = function() {
   //verifica si esta habilitado cementing
   cementingAvailable();
   var formation = [{!! !empty($interval->formacion_id) ? $interval->formacion_id : $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
-  var interval = @if (!empty($drilling_scenario->general_interval_select)) {!! $drilling_scenario->general_interval_select !!}; @else $("#select_interval_general_data").val(); @endif
-  var input_data_method = @if (!empty($drilling_scenario->input_data_select)) {!! $drilling_scenario->input_data_select !!}; @else $("#select_input_data").val(); @endif
-  var filtration_function_select_values = @if (!empty($drilling_scenario->filtration_function_id)) {!! $drilling_scenario->filtration_function_id !!}; @else $("#select_filtration_function").val(); @endif
+  var interval = $("#select_interval_general_data").val() !== "" ? $("#select_interval_general_data").val() : @if (!empty($drilling_scenario->general_interval_select)) {!! $drilling_scenario->general_interval_select !!} @endif;
+  var input_data_method = $("#select_input_data").val() !== "" ? $("#select_input_data").val() : @if (!empty($drilling_scenario->input_data_select)) {!! $drilling_scenario->input_data_select !!} @endif;
+  var filtration_function_select_values = $("#select_filtration_function").val() !== "" ? $("#select_filtration_function").val() : @if (!empty($drilling_scenario->filtration_function_id)) {!! $drilling_scenario->filtration_function_id !!} @endif;
   
   $("#inputDataMethodSelect").val(input_data_method);
   $("#inputDataMethodSelect").selectpicker('refresh');
-
-  if(isNaN(interval[0])) {interval = [];};
 
   if(input_data_method == 1) {
     input_data_profile = $("#inputdata_profile_table").val();
@@ -492,9 +486,8 @@ function verifyDrilling(action) {
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
   }
 
-  if (validationMessages.length < 1) {
-    // Guardando los datos de tablas validadas y limpiadas en formulario
-    $("#generaldata_table").val(JSON.stringify(generaldata_table));
+  // Guardando los datos de tablas validadas y limpiadas en formulario
+  $("#generaldata_table").val(JSON.stringify(generaldata_table));
     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
     $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
@@ -502,15 +495,18 @@ function verifyDrilling(action) {
     $("#select_filtration_function").val($("#filtration_function_select").val());
 
     if (emptyValues) {
+      validationMessages = [];
       validationMessages.push(true);
       showFrontendErrors(validationMessages);
     } else {
       $("#only_s").val("run");
       $("#drillingForm").submit();
     }
-  } else {
-    showFrontendErrors(validationMessages);
-  }
+  // if (validationMessages.length < 1) {
+    
+  // } else {
+  //   showFrontendErrors(validationMessages);
+  // }
 }
 
 /* saveForm
@@ -791,7 +787,7 @@ $("#filtration_function_select").change(function(e) {
   $.get("{{url('filtration_function_data')}}",
     {ff_id: $(this).val()},
     function(data) {
-      $.each(data, function(index,value) {
+      $.each(data, function(index, value) {
         a_factor = value.a_factor;
         b_factor = value.b_factor;
         mud_density = value.mud_density;
@@ -824,12 +820,26 @@ $("#filtration_function_select").change(function(e) {
 //IntervalSelect: crea la tabla de general data para diligenciar la información de los intervalos a analizar.
 $("#intervalSelect").change(function(e) {
   var intervals = $("#intervalSelect").val();
+  var generaldata_table = clean_table_data("intervalsGeneral_t");
   var data_aux = [];
   $.get("{{url('intervalsInfoDrilling')}}",
     { intervals: intervals },
     function(data) {
-      $.each(data, function(index,value) {
-        var data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+      $.each(data, function(index, value) {
+        var data_row = [];
+
+        for (var i = 0; i < generaldata_table.length; i++) {
+          if (generaldata_table[i][0] === value.nombre) {
+            data_row = generaldata_table[i];
+            generaldata_table.splice(i, 1);
+            break;
+          }
+        }
+
+        if (data_row.length === 0) {
+          data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+        }
+
         data_aux.push(data_row);
       });
 

@@ -161,6 +161,175 @@ class drilling_controller extends Controller
                 }
             }
 
+            if (!$drilling->status_wr) {
+                $drilling_general = DB::table('d_general_data')->where('drilling_id', $drilling->id)->first();
+                $rows_profile_data = DB::table('d_profile_input_data')->where('drilling_id', $drilling->id)->get();
+
+                // Calculations phase
+                // Get filtration function data
+                $filtration_function_data = DB::table('d_filtration_function')->where('id', $drilling->filtration_function_id)->first();
+                
+                // Get Hole Diameter from general data table;
+                $hole_diameter = floatval($drilling_general->hole_diameter);
+
+                // 1) Calculate perforation overbalance
+                // Get media point for bottom and top in the profile table
+                $media_point_profile_bottom = floatval($drilling_general->bottom);
+                $media_point_profile_top = floatval($drilling_general->top);;
+
+                // foreach ($rows_profile_data as $row) {
+                //     $media_point_profile_bottom += floatval($row->bottom);
+                //     $media_point_profile_top += floatval($row->top);
+                // }
+
+                // $media_point_profile_bottom /= count($rows_profile_data);
+                // $media_point_profile_top /= count($rows_profile_data);
+
+                $TVD = ($media_point_profile_bottom + $media_point_profile_top) / 2;
+
+                // This is retrieving Reservoir Pressure from the first row of the general data table
+                // This needs to be changed
+                $RP = floatval($drilling_general->reservoir_pressure);
+
+                $ob_perf = 0.052 * (floatval($drilling->d_equivalent_circulating_density) * $TVD) - $RP;
+
+                // 2) Calculate completion/cementing overbalance
+                $ob_cem = 0.052 * (floatval($drilling->c_equivalent_circulating_density) * $TVD) - $RP;
+
+                // 3) Enter cycle to make calculations for each row in the profile table
+                $t_exp_perf = array();
+                $vf_perf = array();
+                $rd_perf = array();
+                $vf_cem = array();
+                $rd_cem = array();
+                $a_factor = floatval($drilling->a_factor);
+                $b_factor = floatval($drilling->b_factor);
+
+                foreach ($rows_profile_data as $row) {
+                    $bottom = floatval($row->bottom);
+                    $top = floatval($row->top);
+                    $permeability = floatval($row->permeability);
+                    $fracture_intensity = floatval($row->fracture_intensity);
+                    $porosity = floatval($row->porosity);
+                    $irreducible_saturation = floatval($row->irreducible_saturation);
+
+                    // 3.1) Calculate k corrected
+                    $k_corrected = $permeability * (1 + $fracture_intensity);
+
+                    // 3.2) Calculate drilling exposure time
+                    $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
+                    array_push($t_exp_perf, $t_exp_calc);
+
+                    // 3.3) Calculate drilling filtrate volume
+                    // Calculate af_field and af_lab
+                    $af_field = 2 * pi() * ($hole_diameter / (2 / 12)) * ($bottom - $top);
+                    $af_lab = 2 * pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2);
+
+                    $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
+                    array_push($vf_perf, $vf_perf_calc);
+
+                    // 3.4) Calculate drilling invasion radius
+                    $rd_perf_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                    array_push($rd_perf, $rd_perf_calc);
+
+                    // Do calculations for completion/cementation
+                    if ($drilling->cementingAvailable == 1) {
+                        // 3.5) Calculate cementing exposure time
+                        $vf_cem_calc = $a_factor * (($k_corrected * $ob_cem) + $b_factor) * sqrt(floatval($drilling->c_total_exposure_time) * 1440) * 0.0000063 * ($af_field / $af_lab);
+                        array_push($vf_cem, $vf_cem_calc);
+
+                        // 3.6) Calculate cementing invasion radius
+                        $rd_cem_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                        array_push($rd_cem, $rd_cem_calc);
+                    }
+                }
+
+                // 4) Calculate drilling average invasion radius
+                $rd_perf_avg = array_sum($rd_perf);
+                $rd_perf_avg /= count($rd_perf);
+
+                // 5) Calculate drilling max invasion radius
+                $rd_perf_max = max($rd_perf);
+
+                // 6) Calculate drilling average skin
+                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_avg / ($hole_diameter / (2 / 12)));
+
+                // 7) Calculate drilling max skin
+                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_max / ($hole_diameter / (2 / 12)));
+
+                if ($drilling->cementingAvailable == 1) {
+                    // 8) Calculate cementing average invasion radius
+                    $rd_cem_avg = array_sum($rd_cem);
+                    $rd_cem_avg /= count($rd_cem);
+
+                    // 9) Calculate cementing max invasion radius
+                    $rd_cem_max = max($rd_cem);
+
+                    // 10) Calculate cementing average skin
+                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_avg / ($hole_diameter / (2 / 12)));
+                
+                    // 11) Calculate cementing max skin
+                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_max / ($hole_diameter / (2 / 12)));
+                }
+
+                // 12) Calculate drilling max filtrate volume
+                $vf_perf_total = array_sum($vf_perf);
+
+                if ($drilling->cementingAvailable == 1) {
+                    // 13) Calculate cementing max filtrate volume
+                    $vf_cem_total = array_sum($vf_cem);
+                }
+
+                // Calculations are done, now on to storing the results
+                // Drilling results table
+                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+                $drilling_results = new drilling_results();
+                $drilling_results->drilling_id = $drilling->id;
+
+                // Table results for Drilling
+                $drilling_results->d_average_calculated_skin = $skin_perf_avg;
+                $drilling_results->d_maximum_calculated_skin = $skin_perf_max;
+                $drilling_results->d_average_invasion_radius = $rd_perf_avg;
+                $drilling_results->d_maximum_invasion_radius = $rd_perf_max;
+                $drilling_results->d_total_invasion_radius_volume = $vf_perf_total;
+
+                // Table results for completion
+                $drilling_results->c_average_calculated_skin = $skin_cem_avg;
+                $drilling_results->c_maximum_calculated_skin = $skin_cem_max;
+                $drilling_results->c_average_invasion_radius = $rd_cem_avg;
+                $drilling_results->c_maximum_invasion_radius = $rd_cem_max;
+                $drilling_results->c_total_invasion_radius_volume = $vf_cem_total;
+
+                // Table results for totals
+                $drilling_results->calculated_skin_avg_total = $skin_perf_avg + $skin_cem_avg;
+                $drilling_results->calculated_skin_max_total = $skin_perf_max + $skin_cem_max;
+                $drilling_results->filtration_volume_avg_total = 0;
+                $drilling_results->filtration_volume_max_total = 0;
+                $drilling_results->total_invasion_radius_max_total = $vf_perf_total + $vf_cem_total;
+
+                $drilling_results->save();
+
+                // Drilling results chart
+                DB::table('drilling_results_chart')->where('drilling_id', $drilling->id)->delete();
+                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+
+                foreach ($rows_profile_data as $index => $row) {
+                    $bottom = floatval($row->bottom);
+                    $top = floatval($row->top);
+                    
+                    $drilling_results_chart_data = new drilling_results_chart();
+                    $drilling_results_chart_data->drilling_id = $drilling->id;
+                    $drilling_results_chart_data->top = ($bottom + $top) / 2;
+                    $drilling_results_chart_data->d_invasion_radius = $rd_perf[$index];
+                    
+                    if ($drilling->cementingAvailable == 1) {
+                        $drilling_results_chart_data->c_invasion_radius = $rd_cem[$index];
+                    }
+
+                    $drilling_results_chart_data->save();
+                }
+            }
+
             return redirect(url('Drilling/result', $request->scenary_id));
         } else {
             return view('loginfirst');
@@ -1748,6 +1917,7 @@ class drilling_controller extends Controller
             $drilling->save();
 
             $scenario->completo = $request->only_s == "save" ? 0 : 1;
+            $scenario->estado = $request->only_s == "save" ? 0 : 1;
             $scenario->save();
             
             // General data table
@@ -1785,25 +1955,6 @@ class drilling_controller extends Controller
                     $input_profile_table->save();
                 }
             }
-
-            return redirect(url('Drilling/result', $request->scenary_id));
-        } else {
-            return view('loginfirst');
-        }
-    }
-
-    /**
-     * Makes the calculations for a drilling scenary and displays the results in the view.
-     *
-     * @param  int  $id
-     * @return View
-     */
-    public function result($id)
-    {   
-        if (\Auth::check()) 
-        {
-            $scenario = escenario::find($id);
-            $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
 
             if (!$drilling->status_wr) {
                 $drilling_general = DB::table('d_general_data')->where('drilling_id', $drilling->id)->first();
@@ -1924,7 +2075,75 @@ class drilling_controller extends Controller
                     $vf_cem_total = array_sum($vf_cem);
                 }
 
-                // Calculations are done, now on to showing the results
+                // Calculations are done, now on to storing the results
+                // Drilling results table
+                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+                $drilling_results = new drilling_results();
+                $drilling_results->drilling_id = $drilling->id;
+
+                // Table results for Drilling
+                $drilling_results->d_average_calculated_skin = $skin_perf_avg;
+                $drilling_results->d_maximum_calculated_skin = $skin_perf_max;
+                $drilling_results->d_average_invasion_radius = $rd_perf_avg;
+                $drilling_results->d_maximum_invasion_radius = $rd_perf_max;
+                $drilling_results->d_total_invasion_radius_volume = $vf_perf_total;
+
+                // Table results for completion
+                $drilling_results->c_average_calculated_skin = $skin_cem_avg;
+                $drilling_results->c_maximum_calculated_skin = $skin_cem_max;
+                $drilling_results->c_average_invasion_radius = $rd_cem_avg;
+                $drilling_results->c_maximum_invasion_radius = $rd_cem_max;
+                $drilling_results->c_total_invasion_radius_volume = $vf_cem_total;
+
+                // Table results for totals
+                $drilling_results->calculated_skin_avg_total = $skin_perf_avg + $skin_cem_avg;
+                $drilling_results->calculated_skin_max_total = $skin_perf_max + $skin_cem_max;
+                $drilling_results->filtration_volume_avg_total = 0;
+                $drilling_results->filtration_volume_max_total = 0;
+                $drilling_results->total_invasion_radius_max_total = $vf_perf_total + $vf_cem_total;
+
+                $drilling_results->save();
+
+                // Drilling results chart
+                DB::table('drilling_results_chart')->where('drilling_id', $drilling->id)->delete();
+                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+
+                foreach ($rows_profile_data as $index => $row) {
+                    $bottom = floatval($row->bottom);
+                    $top = floatval($row->top);
+                    
+                    $drilling_results_chart_data = new drilling_results_chart();
+                    $drilling_results_chart_data->drilling_id = $drilling->id;
+                    $drilling_results_chart_data->top = ($bottom + $top) / 2;
+                    $drilling_results_chart_data->d_invasion_radius = $rd_perf[$index];
+                    
+                    if ($drilling->cementingAvailable == 1) {
+                        $drilling_results_chart_data->c_invasion_radius = $rd_cem[$index];
+                    }
+
+                    $drilling_results_chart_data->save();
+                }
+            }
+
+            return redirect(url('Drilling/result', $request->scenary_id));
+        } else {
+            return view('loginfirst');
+        }
+    }
+
+    /**
+     * Makes the calculations for a drilling scenary and displays the results in the view.
+     *
+     * @param  int  $id
+     * @return View
+     */
+    public function result($id)
+    {   
+        if (\Auth::check()) {
+            $scenario = escenario::find($id);
+            $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
+
+            if (!$drilling->status_wr) {
                 $graph_results_perf = array();
                 $graph_results_perf_x = array();
                 $graph_results_perf_y = array();
@@ -1932,16 +2151,16 @@ class drilling_controller extends Controller
                 $graph_results_cem_x = array();
                 $graph_results_cem_y = array();
 
-                foreach ($rows_profile_data as $index => $row) {
-                    $bottom = floatval($row->bottom);
-                    $top = floatval($row->top);
+                $drilling_results = drilling_results::where('drilling_id', $drilling->id)->first();
+                $drilling_results_chart = drilling_results_chart::where('drilling_id', $drilling->id)->get();
 
-                    array_push($graph_results_perf_x, $rd_perf[$index]);
-                    array_push($graph_results_perf_y, ($bottom + $top) / 2);
+                foreach ($drilling_results_chart as $profile) {
+                    array_push($graph_results_perf_x, $profile->d_invasion_radius);
+                    array_push($graph_results_perf_y, $profile->top);
 
                     if ($drilling->cementingAvailable == 1) {
-                        array_push($graph_results_cem_x, $rd_cem[$index]);
-                        array_push($graph_results_cem_y, ($bottom + $top) / 2);
+                        array_push($graph_results_cem_x, $profile->c_invasion_radius);
+                        array_push($graph_results_cem_y, $profile->top);
                     }
                 }
                 
@@ -1949,12 +2168,12 @@ class drilling_controller extends Controller
                 array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
 
                 $table_results = array(
-                    array($this->autoRound($skin_perf_avg), $this->autoRound($skin_perf_max), $this->autoRound($rd_perf_avg), $this->autoRound($rd_perf_max), $this->autoRound($vf_perf_total))
+                    array($this->autoRound($drilling_results->d_average_calculated_skin), $this->autoRound($drilling_results->d_maximum_calculated_skin), $this->autoRound($drilling_results->d_average_invasion_radius), $this->autoRound($drilling_results->d_maximum_invasion_radius), $this->autoRound($drilling_results->d_total_invasion_radius_volume))
                 );
 
                 if ($drilling->cementingAvailable == 1) {
-                    array_push($table_results, array($this->autoRound($skin_cem_avg), $this->autoRound($skin_cem_max), $this->autoRound($rd_cem_avg), $this->autoRound($rd_cem_max), $this->autoRound($vf_cem_total)));
-                    array_push($table_results, array($this->autoRound($skin_perf_avg + $skin_cem_avg), $this->autoRound($skin_perf_max + $skin_cem_max), 0, 0, $this->autoRound($vf_perf_total + $vf_cem_total)));
+                    array_push($table_results, array($this->autoRound($drilling_results->c_average_calculated_skin), $this->autoRound($drilling_results->c_maximum_calculated_skin), $this->autoRound($drilling_results->c_average_invasion_radius), $this->autoRound($drilling_results->c_maximum_invasion_radius), $this->autoRound($drilling_results->c_total_invasion_radius_volume)));
+                    array_push($table_results, array($this->autoRound($drilling_results->calculated_skin_avg_total), $this->autoRound($drilling_results->calculated_skin_max_total), $this->autoRound($drilling_results->filtration_volume_avg_total), $this->autoRound($drilling_results->filtration_volume_max_total), $this->autoRound($drilling_results->total_invasion_radius_max_total)));
                 }
 
                 return View::make('drilling_results', compact('scenario', 'drilling', 'graph_results_perf', 'graph_results_cem', 'table_results'));

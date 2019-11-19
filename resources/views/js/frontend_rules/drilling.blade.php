@@ -162,7 +162,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
+      {rule: "range", min: 0, max: 1000},
     ]
   },
   {

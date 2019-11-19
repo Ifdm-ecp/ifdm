@@ -97,15 +97,13 @@ class filtration_function_controller extends Controller
                 $update->a_factor =$factores['a'];
                 $update->b_factor =$factores['b'];
                 $update->save();
-                dd($factores['a'], $factores['b'], 'dentro del if');
+                //dd($factores['a'], $factores['b'], 'dentro del if');
             }
 
             if($request->mudComposicion)
             {
                MudComposicion::store($request->mudComposicion, $filtration_function);
             }
-
-            dd();
 
             return redirect('database');
         }   
@@ -126,7 +124,7 @@ class filtration_function_controller extends Controller
     {
         $dr = filtration_function::find($id);
         $dr->composicion;
-        dd($dr->composicion);
+        //dd($dr->composicion);
     }
 
     /**
@@ -336,7 +334,7 @@ class filtration_function_controller extends Controller
                   $flag_lab_test_data++;
               }
 
-              dd($dv_dt_all, $kpob_all, $aux2);
+              //dd($dv_dt_all, $kpob_all, $aux2);
 
               // $n = count($dv_dt_all);
               // $x = $kpob_all;

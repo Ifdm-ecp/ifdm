@@ -628,6 +628,8 @@
                               <div class="col-md-12">
                                  <div tabindex="0" id="hidraulic_units_data" class="dataTable" style="overflow: auto;  height: 150px; max-height: 150px; table-layout: auto; width: 100%;">
                                  </div>
+                                 <div tabindex="0" id="hidraulic_units_data_hidden" class="dataTable" style="overflow: auto;  height: 150px; max-height: 150px; table-layout: auto; width: 100%;" hidden>
+                                 </div>
                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the Hydraulic Units Data you'll need Permeability, Porosity, and Producing Formation Thickness Data." onclick="calculate_hydraulic_units_data()" type='button'>Calculate Hydraulic Units Data</button>
                               </div>
                            </div>
@@ -639,6 +641,7 @@
             <div class="row">
                <div class="col-xs-12">
                   {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+                  {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
                   {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'guardar();', 'type' => 'button')) !!}
                   {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right','id' => 'next', 'onclick' => 'enviar();', 'type' => 'button')) !!}
                   <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>

@@ -32,6 +32,7 @@
     $pvt_table = $("#pvt_table");
     $phenomenological_constants_table = $("#phenomenological_constants_table");
     $historical_data_table = $("#historical_data_table");
+    $historical_data_table_without_projection = $("#historical_data_table_without_projection");
 
 
     
@@ -166,6 +167,31 @@
             ]
         });
 
+        $historical_data_table_without_projection.handsontable({
+            height: 200,
+            colHeaders: true,
+            minSpareRows: 1,
+            viewportColumnRenderingOffset: 10,
+            rowHeaders: true,
+            contextMenu: true,
+            stretchH: 'all',
+            colWidths: [240, 240],
+
+            columns: [{
+                title: "Date [YYYY-MM-DD]",
+                data: 0,
+                type: 'date',
+                dateFormat: 'YYYY-MM-DD'
+            },
+                {
+                    title: "BOPD [bbl/d]",
+                    data: 1,
+                    type: 'numeric',
+                    format: '0[.]0000000'
+                }
+            ]
+        });
+
         $('.concentration_ev').on('click', function() {
             $("#fines_concentration_fluid").modal('toggle');
         });
@@ -178,13 +204,33 @@
             historical_data = clean_table_data("historical_data_table");
             $("#value_historical_data").val(JSON.stringify(historical_data));
 
+            historical_data_without_projection = clean_table_data("historical_data_table_without_projection");
+            $("#value_historical_data_without_projection").val(JSON.stringify(historical_data_without_projection));
+
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
 
             pvt_data = clean_table_data("pvt_table");
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
 
-            validate_table([pvt_data, historical_data, phenomenological_constants],["pvt table", "historical table", "phenomenological constants table"],[["numeric", "numeric", "numeric", "numeric"],["text", "numeric"],["numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]]);
+            //Si la tabla de Datos Históricos sin proyección está vacía, calcularla con la tabla de Datos Históricos con proyección.
+            var tablesssssss = $("#historical_data_table_without_projection").handsontable('getData');
+            var empty_array_flag = 1; 
+            for (var i = 0; i < tablesssssss.length; i++) {  //Mirar si la tabla de Datos Históricos sin proyección está vacía 
+                if(  !(tablesssssss[i].every(element => element === null))  ){
+                    empty_array_flag = 0;
+                }
+            }
+            if (empty_array_flag == 1) {
+                var table_datasss = $("#historical_data_table").handsontable('getData');
+                var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
+                historical_data_table_without_projection.updateSettings({
+                            data: table_datasss
+                        });
+                historical_data_table_without_projection.render();
+            }
+
+            validate_table([pvt_data, historical_data, historical_data_without_projection, phenomenological_constants],["pvt table", "historical table", "phenomenological constants table"],[["numeric", "numeric", "numeric", "numeric"],["text", "numeric"], ["text", "numeric"], ["numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]]);
         });
 
         //Antes de guardar los datos se deben limpiar y validar los datos de las tablas
@@ -195,11 +241,32 @@
             historical_data = clean_table_data("historical_data_table");
             $("#value_historical_data").val(JSON.stringify(historical_data));
 
+            historical_data_without_projection = clean_table_data("historical_data_table_without_projection");
+            $("#value_historical_data_without_projection").val(JSON.stringify(historical_data_without_projection));
+
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
 
             pvt_data = clean_table_data("pvt_table");
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
+
+            //Si la tabla de Datos Históricos sin proyección está vacía, calcularla con la tabla de Datos Históricos con proyección.
+            var tablesssssss = $("#historical_data_table_without_projection").handsontable('getData');
+            var empty_array_flag = 1; 
+            for (var i = 0; i < tablesssssss.length; i++) {  //Mirar si la tabla de Datos Históricos sin proyección está vacía 
+                if(  !(tablesssssss[i].every(element => element === null))  ){
+                    empty_array_flag = 0;
+                }
+            }
+            if (empty_array_flag == 1) {
+                var table_datasss = $("#historical_data_table").handsontable('getData');
+                var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
+                historical_data_table_without_projection.updateSettings({
+                            data: table_datasss
+                        });
+                historical_data_table_without_projection.render();
+            }
+
         });
 
         //Abrir modal para importar datos
@@ -309,12 +376,19 @@
 
         var aux_historical_data_table = $("#value_historical_data").val();
         var hot_historical_data_table = $('#historical_data_table').handsontable('getInstance');
+        var aux_historical_data_table_without_projection = $("#value_historical_data_without_projection").val();
+        var hot_historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
         if (aux_historical_data_table !== '') {//Si se han ingresado datos en la tabla volver a cargarlos
             hot_historical_data_table.updateSettings({
                 data: JSON.parse(aux_historical_data_table),
                 stretchH: 'all'
             });
             hot_historical_data_table.render();
+            hot_historical_data_table_without_projection.updateSettings({
+                data: JSON.parse(aux_historical_data_table_without_projection),
+                stretchH: 'all'
+            });
+            hot_historical_data_table_without_projection.render();
         }
 
         var aux_pvt_table = $("#value_pvt_data").val();
@@ -462,6 +536,24 @@
                 }]
             });
         }
+    });
+
+    //Llenar tabla para guardar datos históricos sin proyección
+    $('.save_historical_data').on('click', function () {
+        var table_datasss = $("#historical_data_table").handsontable('getData');
+
+        var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
+
+
+        historical_data_table_without_projection.updateSettings({
+                    data: table_datasss
+                });
+
+        historical_data_table_without_projection.render();
+
+        console.log($("#historical_data_table_without_projection").handsontable('getData'));
+
+        $("#historical_data_saved").modal('show');
     });
 
     //Graficar historicos

@@ -84,7 +84,8 @@
         {!! Form::hidden('id', $desagregacion->id, array('id' => 'id')) !!}
         {!! Form::hidden('id_escenario', $desagregacion->id_escenario, array('id' => 'id_escenario')) !!}
 
-        <a href="{{ url('Desagregacion/edit', $desagregacion->id_escenario) }}" class="btn btn-warning" role="button">Edit</a>
+        <a href="{!! url('share_scenario') !!}" class="btn btn-danger pull-right" role="button">Exit</a>
+        <a href="{{ url('Desagregacion/edit', $desagregacion->id_escenario) }}" class="btn btn-warning pull-right" role="button" style="margin-right: 10px;">Edit</a>
     </div>
 </div>
 

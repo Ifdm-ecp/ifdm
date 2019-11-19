@@ -30,9 +30,11 @@
 
             damage_radius_serie_data = [{"name": "Damage Radius [ft]", "data":damage_radius_serie}];
             skin_serie_data = [{"name": "Skin", "data":skin_serie}];
+            console.log('radio de daño');
             console.log(damage_radius_serie_data);
+            console.log('skin');
+            console.log(skin_serie_data);
             plot_damage_radius_results("damage_radius_chart", damage_radius_serie_data, "Damage Radius", "Damage Radius [ft]");
-            console.log(damage_radius_serie_data[0].data[damage_radius_serie_data[0].data.length - 1][0], damage_radius_serie_data);
             plot_damage_radius_results("skin_chart", skin_serie_data, "Skin", "Skin");
         });
 
@@ -50,6 +52,7 @@
                 permeability_radius = [];
                 co_radius = [];
 
+                console.log(data);
                 $.each(data[0], function(index, date)
                 {
                     porosity_radius_row = [];
@@ -70,8 +73,10 @@
 
                 console.log('porosidad');
                 console.log(porosity_radius);
-                console.log('permeabilidad');
+                console.log('permeability');
                 console.log(permeability_radius);
+                console.log('co');
+                console.log(co_radius);
                 plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [Fraction]", data[1]);
                 plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", data[1]);
                 plot_results("co_chart", co_radius, "Fines Concentration", "Radius [ft]", "Fines Concentration [% Weight]", data[1]);
@@ -97,7 +102,6 @@
                 title: {
                     text: x_axis_tittle
                 },
-                max: max_x_value
             },
 
             plotOptions: {

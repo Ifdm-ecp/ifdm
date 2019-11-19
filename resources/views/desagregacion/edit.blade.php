@@ -623,6 +623,8 @@
                               <div class="col-md-12">
                                  <div tabindex="0" id="hidraulic_units_data" class="dataTable" style="overflow: auto;  height: 150px; max-height: 150px; table-layout: auto; width: 100%;">
                                  </div>
+                                 <div tabindex="0" id="hidraulic_units_data_hidden" class="dataTable" style="overflow: auto;  height: 150px; max-height: 150px; table-layout: auto; width: 100%;" hidden>
+                                 </div>
                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the Hydraulic Units Data you'll need Permeability, Porosity, and Producing Formation Thickness Data." onclick="calculate_hydraulic_units_data()">Calculate Hydraulic Units Data</button>
                               </div>
                            </div>
@@ -640,6 +642,7 @@
                   <div id="loading" style="display:none;"></div>
                   &nbsp;
                   {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+                  {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
                   {!! Form::Close() !!}
                </div>
             </div>

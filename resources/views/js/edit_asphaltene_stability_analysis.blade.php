@@ -13,7 +13,7 @@
     $(document).ready(function () {
         //Calcular y pintar label Total SARA
         calculate_total_sara();
-        
+
         //Inicializar tabla de componentes
         $components_table.handsontable({
             height: 200,
@@ -110,6 +110,7 @@
         var hot_components_table = $('#components_table').handsontable('getInstance');
 
         var components_value = [];
+
         var zi_value = [];
 
         $.get("{!! url('asphaltenes_d_stability_analysis_components') !!}", { //Como estamos en el editar, se necesita consultar los valores guardados previamente
@@ -122,6 +123,7 @@
             //Saber si es la primera vez que se entra a la interfaz para cargar valores en las tablas
             aux_components_table = $("#value_components_table").val();
             if (aux_components_table === '') {//Si es la primera vez que se ingresa a la interfaz, cargamos los valores de la BD
+                $('#components').selectpicker();
                 $('#components').selectpicker('val', components_value);
 
                 for (var i = components_value.length - 1; i >= 0; i--) {

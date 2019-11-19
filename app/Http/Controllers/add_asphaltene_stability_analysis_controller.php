@@ -94,7 +94,6 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->reservoir_initial_pressure = $request->input('reservoir_initial_pressure');
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
-        $asphaltenes_d_stability_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
         $asphaltenes_d_stability_analysis->status_wr = $button_wr;
         $asphaltenes_d_stability_analysis->save();
@@ -133,9 +132,8 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $input_reservoir_initial_pressure = $asphaltenes_d_stability_analysis->reservoir_initial_pressure;
         $input_bubble_pressure = $asphaltenes_d_stability_analysis->bubble_pressure;
         $input_reservoir_density_at_t = $asphaltenes_d_stability_analysis->density_at_reservoir_temperature;
-        $input_reservoir_current_pressure = $asphaltenes_d_stability_analysis->current_reservoir_pressure;
         $input_api_gravity = $asphaltenes_d_stability_analysis->api_gravity;
-        $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, $input_reservoir_current_pressure, $input_api_gravity];
+        $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, 0, $input_api_gravity];
 
         if (!$button_wr) {
             $calculate_boer_stability_criteria_results = $this->calculate_boer_stability_criteria($components, $input_sara, $input_saturation);
@@ -321,7 +319,6 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->reservoir_initial_pressure = $request->input('reservoir_initial_pressure');
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
-        $asphaltenes_d_stability_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
         $asphaltenes_d_stability_analysis->status_wr = $button_wr;
         $asphaltenes_d_stability_analysis->save();
@@ -329,6 +326,12 @@ class add_asphaltene_stability_analysis_controller extends Controller
         #Tabla componentes
         asphaltenes_d_stability_analysis_components::where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->delete();
         $components_table = json_decode($request->input("value_components_table"));
+
+
+
+
+
+
 
         $components_data = [];
         $molar_fraction_data = [];
@@ -362,9 +365,8 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $input_reservoir_initial_pressure = $asphaltenes_d_stability_analysis->reservoir_initial_pressure;
         $input_bubble_pressure = $asphaltenes_d_stability_analysis->bubble_pressure;
         $input_reservoir_density_at_t = $asphaltenes_d_stability_analysis->density_at_reservoir_temperature;
-        $input_reservoir_current_pressure = $asphaltenes_d_stability_analysis->current_reservoir_pressure;
         $input_api_gravity = $asphaltenes_d_stability_analysis->api_gravity;
-        $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, $input_reservoir_current_pressure, $input_api_gravity];
+        $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, 0, $input_api_gravity];
 
         if (!$button_wr) {
             $calculate_boer_stability_criteria_results = $this->calculate_boer_stability_criteria($components, $input_sara, $input_saturation);
@@ -556,7 +558,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $reservoir_initial_pressure_value = $input_saturation[1];
         $bubble_pressure_value = $input_saturation[2];
         $reservoir_density_at_t_value = $input_saturation[3];
-        $current_reservoir_pressure = $input_saturation[4];
+        //$current_reservoir_pressure = $input_saturation[4];
         $api_gravity = $input_saturation[5];
 
         $calculate_colloidal_instability_index_results = $this->calculate_colloidal_instability_index($saturated_value, $asphaltenes_value, $resins_value, $aromatic_value);
@@ -801,13 +803,13 @@ class add_asphaltene_stability_analysis_controller extends Controller
                 $sara_conclusion_1 = "<b>Problems:</b> low low";
                 $sara_conclusion_2 = "Aromatics/Resins rate is higher than <b>2.5</b>. There's a <b>high</b> asphaltene molecules stability";
                 $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>10%</b> or less";
-                $sara_type = 10;
-                $sara_probability = 1;
+                $sara_type = 1;
+                $sara_probability = 10;
             } else if ($saturated_content == 1 and $asphaltene_content == 1 and $resins_content == 2 and $aromatic_content == 2) {
                 $sara_conclusion_1 = "<b>Problems:</b> medium low";
                 $sara_conclusion_2 = "Aromatics/Resins rate increments the instability";
-                $sara_type = 20;
-                $sara_probability = 1;
+                $sara_type = 1;
+                $sara_probability = 20;
             } else if ($saturated_content == 1 and $asphaltene_content == 2 and $resins_content == 1 and $aromatic_content == 1) #2'
             {
                 $sara_conclusion_1 = "<b>Problems:</b> none";

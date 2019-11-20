@@ -77,7 +77,7 @@ class drilling_controller extends Controller
             }
             
             if ($newPos !== false) {
-                return round($number, $newPos + 1);
+                return round($number, ($newPos + 1 < 2 ? 2 : $newPos + 1));
             } else {
                 return round($number, 2);
             }
@@ -168,7 +168,7 @@ class drilling_controller extends Controller
                 // Calculations phase
                 // Get filtration function data
                 $filtration_function_data = DB::table('d_filtration_function')->where('id', $drilling->filtration_function_id)->first();
-                
+
                 // Get Hole Diameter from general data table;
                 $hole_diameter = floatval($drilling_general->hole_diameter);
 
@@ -222,14 +222,14 @@ class drilling_controller extends Controller
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
-                    $af_field = 2 * pi() * ($hole_diameter / (2 / 12)) * ($bottom - $top);
-                    $af_lab = 2 * pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2);
+                    $af_field = 2 * pi() * ($hole_diameter / 2 / 12) * ($bottom - $top);
+                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) * 0.001076;
 
                     $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
                     array_push($vf_perf, $vf_perf_calc);
 
                     // 3.4) Calculate drilling invasion radius
-                    $rd_perf_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                    $rd_perf_calc = sqrt(pow($hole_diameter / 2 / 12, 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
                     array_push($rd_perf, $rd_perf_calc);
 
                     // Do calculations for completion/cementation
@@ -239,7 +239,7 @@ class drilling_controller extends Controller
                         array_push($vf_cem, $vf_cem_calc);
 
                         // 3.6) Calculate cementing invasion radius
-                        $rd_cem_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                        $rd_cem_calc = sqrt(pow($hole_diameter / 2 / 12, 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
                         array_push($rd_cem, $rd_cem_calc);
                     }
                 }
@@ -252,10 +252,10 @@ class drilling_controller extends Controller
                 $rd_perf_max = max($rd_perf);
 
                 // 6) Calculate drilling average skin
-                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_avg / ($hole_diameter / (2 / 12)));
+                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud) - 1) * log($rd_perf_avg / ($hole_diameter / 2 / 12));
 
                 // 7) Calculate drilling max skin
-                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_max / ($hole_diameter / (2 / 12)));
+                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud) - 1) * log($rd_perf_max / ($hole_diameter / 2 / 12));
 
                 if ($drilling->cementingAvailable == 1) {
                     // 8) Calculate cementing average invasion radius
@@ -266,10 +266,10 @@ class drilling_controller extends Controller
                     $rd_cem_max = max($rd_cem);
 
                     // 10) Calculate cementing average skin
-                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_avg / ($hole_diameter / (2 / 12)));
+                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_avg / ($hole_diameter / 2 / 12));
                 
                     // 11) Calculate cementing max skin
-                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_max / ($hole_diameter / (2 / 12)));
+                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_max / ($hole_diameter / 2 / 12));
                 }
 
                 // 12) Calculate drilling max filtrate volume
@@ -282,7 +282,7 @@ class drilling_controller extends Controller
 
                 // Calculations are done, now on to storing the results
                 // Drilling results table
-                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+                drilling_results::where('drilling_id', $drilling->id)->delete();
                 $drilling_results = new drilling_results();
                 $drilling_results->drilling_id = $drilling->id;
 
@@ -1963,7 +1963,7 @@ class drilling_controller extends Controller
                 // Calculations phase
                 // Get filtration function data
                 $filtration_function_data = DB::table('d_filtration_function')->where('id', $drilling->filtration_function_id)->first();
-                
+
                 // Get Hole Diameter from general data table;
                 $hole_diameter = floatval($drilling_general->hole_diameter);
 
@@ -2017,14 +2017,14 @@ class drilling_controller extends Controller
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
-                    $af_field = 2 * pi() * ($hole_diameter / (2 / 12)) * ($bottom - $top);
-                    $af_lab = 2 * pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2);
+                    $af_field = 2 * pi() * ($hole_diameter / 2 / 12) * ($bottom - $top);
+                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) * 0.001076;
 
                     $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
                     array_push($vf_perf, $vf_perf_calc);
 
                     // 3.4) Calculate drilling invasion radius
-                    $rd_perf_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                    $rd_perf_calc = sqrt(pow($hole_diameter / 2 / 12, 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
                     array_push($rd_perf, $rd_perf_calc);
 
                     // Do calculations for completion/cementation
@@ -2034,7 +2034,7 @@ class drilling_controller extends Controller
                         array_push($vf_cem, $vf_cem_calc);
 
                         // 3.6) Calculate cementing invasion radius
-                        $rd_cem_calc = sqrt(pow($hole_diameter / (2 / 12), 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                        $rd_cem_calc = sqrt(pow($hole_diameter / 2 / 12, 2) + ($vf_cem_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
                         array_push($rd_cem, $rd_cem_calc);
                     }
                 }
@@ -2047,10 +2047,10 @@ class drilling_controller extends Controller
                 $rd_perf_max = max($rd_perf);
 
                 // 6) Calculate drilling average skin
-                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_avg / ($hole_diameter / (2 / 12)));
+                $skin_perf_avg = (1 / floatval($filtration_function_data->kdki_mud) - 1) * log($rd_perf_avg / ($hole_diameter / 2 / 12));
 
                 // 7) Calculate drilling max skin
-                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud)) * log($rd_perf_max / ($hole_diameter / (2 / 12)));
+                $skin_perf_max = (1 / floatval($filtration_function_data->kdki_mud) - 1) * log($rd_perf_max / ($hole_diameter / 2 / 12));
 
                 if ($drilling->cementingAvailable == 1) {
                     // 8) Calculate cementing average invasion radius
@@ -2061,10 +2061,10 @@ class drilling_controller extends Controller
                     $rd_cem_max = max($rd_cem);
 
                     // 10) Calculate cementing average skin
-                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_avg / ($hole_diameter / (2 / 12)));
+                    $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_avg / ($hole_diameter / 2 / 12));
                 
                     // 11) Calculate cementing max skin
-                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry)) * log($rd_cem_max / ($hole_diameter / (2 / 12)));
+                    $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_max / ($hole_diameter / 2 / 12));
                 }
 
                 // 12) Calculate drilling max filtrate volume
@@ -2077,7 +2077,7 @@ class drilling_controller extends Controller
 
                 // Calculations are done, now on to storing the results
                 // Drilling results table
-                drilling_results_chart::where('drilling_id', $drilling->id)->delete();
+                drilling_results::where('drilling_id', $drilling->id)->delete();
                 $drilling_results = new drilling_results();
                 $drilling_results->drilling_id = $drilling->id;
 

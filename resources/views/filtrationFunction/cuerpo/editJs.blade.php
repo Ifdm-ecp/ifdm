@@ -1,55 +1,59 @@
-
-
 <script type="text/javascript">
 
   function tablaComponents()
   {
-
     data = $("#data").val();
-    console.log(data)
     if (data === '') {
-      @if($filtration_function->mudComposicion)
-          data = JSON.stringify({{$filtration_function->mudComposicion}});
-      @else
-        data = [[null,null], [null,null]]
-      @endif
+        @if($filtration_function->mudComposicion)
+            data = JSON.stringify({{$filtration_function->mudComposicion}});
+        @else
+            data = [[null,null], [null,null]];
+        @endif
     } else {
         data = JSON.parse(data);
     }
 
     $('#tablaComponents').handsontable({
-       data: data,
-       colWidths: [360, 360] ,
-       rowHeaders: true, 
-           columns: [
-         {title:"Component",type: 'text'},
-         {title:"Concentration lb/b o gal/b",type: 'numeric', format: '0[.]0000000'},
-       ],
+        data: data,
+        colWidths: [360, 360] ,
+        rowHeaders: true, 
+        columns: [
+            {title:"Component", data: 0, type: 'text'},
+            {title:"Concentration lb/b o gal/b", data: 1, type: 'numeric', format: '0[.]0000000'},
+        ],
         colHeaders: true,
         minSpareRows: 1
-      });
-  }
+    });
+}
 
- function verificarComposicion()
- {
+function verificarComposicion()
+{
     var datos = JSON.stringify($("#tablaComponents").handsontable('getData'));
-    
-    $("#data").val(datos);
- }
 
+    $("#data").val(datos);
+}
 
 var counter = $("#lab_test_counter").val();
 
 //Variables para verificar la validación
 var flag_lab_tests = false;
 
+//Guardar valores de select para volver a cargar en caso de error en el formulario
+window.onbeforeunload = function() {
+    localStorage.setItem('field', $('#field').val());
+    localStorage.setItem('formation', $('#formation').val());
+}
+
+document.getElementById('check_set_completition_fluids').onchange = function() {
+    document.getElementById('kdki_cement_slurry_factors').disabled = !this.checked;
+    document.getElementById('kdki_cement_slurry_factors').value = "";
+};
 
 //Cargar valores de select en recarga de página
 window.onload = function() {
     var cuenca = {!! $basin_id !!};
     var campo = {!! $field_id !!};
     var formation = {!! $formation_id !!};
-
 
     $("#basin").val(cuenca);
     $("#basin").selectpicker('refresh');
@@ -58,9 +62,8 @@ window.onload = function() {
     $("#formation").val(formation);
     $("#formation").selectpicker('refresh');
 
-    $.get("{{url('campos')}}", {
-            cuenca: cuenca
-        },
+    $.get("{{url('campos')}}", 
+        { cuenca: cuenca },
         function(data) {
             $("#field").empty();
             $.each(data, function(index, value) {
@@ -162,8 +165,6 @@ $(document).ready(function()
     });
 
     create_lab_test_table("1");
-    create_lab_test_table("2");
-    a_b_chart()
 
     // graph when "a" and "b" are defined
     $("#a_factor").change(function(){
@@ -183,24 +184,24 @@ $(document).ready(function()
     {
         $("#check_manual_assigment").attr('checked', false);
         $("#function_factors").show();
+        $("#function_factors_graph").show();
         $("#manual_assigment").hide();
+        $("#manual_assigment_graph").hide();
         $("#filtration_function_factors_option").val('0'); //0: set filtration function factors; 1: create filtration function with laboratory test
-
     });
 
     $("#check_manual_assigment").click(function()
     {
         $("#check_set_function_factors").attr('checked', false);
         $("#function_factors").hide();
+        $("#function_factors_graph").hide();
         $("#manual_assigment").show();
+        $("#manual_assigment_graph").show();
         $("#filtration_function_factors_option").val('1'); //0: set filtration function factors; 1: create filtration function with laboratory test
     });
 
     //On load page
     on_load_tables_data();
-
-    //Carga de datos desde BD para edit
-    load_lab_test_data();
 });
 //Validaciones
 function validate_ff_k_value(input_id)
@@ -242,12 +243,12 @@ function validate_ff_pob_value(input_id)
 function plot_lab_test(lab_test_id)
 {
     data = $("#lab_test_"+lab_test_id+"_table").handsontable('getData');
+
     var time = [];
     var filtered_volume = [];
-    for (var i = 0; i < data.length; i++)
-    {
-      time.push(data[i][0]);
-      filtered_volume.push(data[i][1]);
+    for (var i = 0; i < data.length; i++) {
+        time.push(data[i][0]);
+        filtered_volume.push(data[i][1]);
     }
     time.pop();
     filtered_volume.pop();
@@ -323,81 +324,48 @@ function create_lab_test_table(lab_test_table_id)
         colWidths: [150, 150],
         columns: 
         [
-          {title:"Time [s]", data: 0, type: 'numeric', format: '0[.]0000000'},
-          {title:"Filtered Volume [ml]",data: 1, type: 'numeric', format: '0[.]0000000'}
+            {title:"Time [min]", data: 0, type: 'numeric', format: '0[.]0000000'},
+            {title:"Filtrate Volume [ml]", data: 1, type: 'numeric', format: '0[.]0000000'}
         ],
         minSpareRows: 1,
         contextMenu: true,
+        columnSorting: true,
     });
 }
 
 //Verficar si existen datos para las tablas o no. Si existen, se crean dinámicamente las pruebas de laboratorio faltantes y se precargan los datos en todas las tablas.
 function on_load_tables_data()
 {
-  if($("#lab_test_data").val()==="")
-  {
-    console.log("Tablas vacías");
-  }
-  else
-  {
-    complete_data = JSON.parse($("#lab_test_data").val());
-    k_data = JSON.parse($("#k_data").val());
-    p_data = JSON.parse($("#p_data").val());
-    console.log("Cargando datos");
-    console.log(counter);
-    
-    for (var i = 3; i <counter; i++) 
-    {
-      add_extra_lab_test_on_load(i);
-    }
-    for (var i = 1; i < counter; i++)
-    {
-      lab_test_div_aux = $("#lab_test_"+i+"_table");
-      lab_test_div_aux.handsontable({data:complete_data[i-1]});
+    if($("#lab_test_data").val() === "") {
+        console.log("Tablas vacías");
+    } else {
+        complete_data = JSON.parse($("#lab_test_data").val());
+        k_data = JSON.parse($("#k_data").val());
+        p_data = JSON.parse($("#p_data").val());
 
-      k_div_aux = $("#k_lab_test_"+i);
-      p_div_aux = $("#p_lab_test_"+i);
+        console.log("Cargando datos");
+        console.log(counter);
+        
+        for (var i = 3; i <counter; i++) {
+            add_extra_lab_test_on_load(i);
+        }
+        for (var i = 1; i < counter; i++) {
+            lab_test_div_aux = $("#lab_test_"+i+"_table");
+            lab_test_div_aux.handsontable({data:complete_data[i-1]});
 
-      k_div_aux.val(k_data[i-1]);
-      p_div_aux.val(p_data[i-1]);
+            k_div_aux = $("#k_lab_test_"+i);
+            p_div_aux = $("#p_lab_test_"+i);
+
+            k_div_aux.val(k_data[i-1]);
+            p_div_aux.val(p_data[i-1]);
+        }
     }
-  }
 }
 
-//Consultar los datos desde la BD para cargar en las pruebas de laboratorio(tabla, permeabilidad y pob)
-function load_lab_test_data()
-{
-  var option = $("#filtration_function_factors_option").val();
-  if(option==1)
-  {
-    $.get("{!! url('laboratory_test_data') !!}", {
-      filtration_function_id: <?php echo $filtration_function->id ?>
-    }, function(data)
-    {
-      counter = data.length+1;
-      for (var i = 3; i <counter; i++) 
-      {
-        add_extra_lab_test_on_load(i);
-      }
-      for (var i = 1; i < counter; i++)
-      {
-        lab_test_div_aux = $("#lab_test_"+i+"_table");
-        lab_test_div_aux.handsontable({data:data[i-1][2]});
-
-        k_div_aux = $("#k_lab_test_"+i);
-        p_div_aux = $("#p_lab_test_"+i);
-
-        k_div_aux.val(data[i-1][0]);
-        p_div_aux.val(data[i-1][1]);
-
-      }
-    });
-  }
-}
 //Añade una sección de prueba de laboratorio completa incluyendo la tabla de la prueba de laboratorio e inputs para permeability y pob. 
 function add_extra_lab_test()
 {
-    $('#extra_lab_test').append('<div class="row" id="lab_test_'+counter+'_div"><div class="col-md-6"><h4>Laboratory Test #'+counter+'</h4><div class="row" id="lab_test_'+counter+'_table" class="lab_test"></div><button type="button" class="btn btn-primary btn-sm" onclick="plot_lab_test('+counter+')">Plot</button><button type="button" class="btn btn-danger btn-sm" onclick="delete_lab_test('+counter+')">Delete Laboratory Test</button></div><input type="hidden" class="lab_test_hidden" id="lab_test_'+counter+'_hidden" value="false"><div class="col-md-6"></br><div class="row"><div class="col-md-6"><div class="form-group {{$errors->has("k_lab_test_'+counter+'") ? "has-error" : ""}}"><label>Permeability</label><div class="input-group" id="k_lab_test_'+counter+'_input"><input placeholder="mD" class="form-control k_value" id="k_lab_test_'+counter+'" name="k_lab_test_'+counter+'" type="text"><span class="input-group-addon">mD</span></div></div></div><input type="hidden" class="k_hidden" id="k_lab_test_'+counter+'_hidden" value="false"><div class="col-md-6"><div class="form-group {{$errors->has("p_lab_test_'+counter+'") ? "has-error" : ""}}"><label>Pob</label><div class="input-group" id="p_lab_test_'+counter+'_input"><input placeholder="psi" class="form-control pob_value" id="p_lab_test_'+counter+'" name="p_lab_test_'+counter+'" type="text"><span class="input-group-addon">psi</span></div></div></div></div><input type="hidden" class="p_hidden" id="p_lab_test_'+counter+'_hidden" value="false"><div class="row"><div class="col-md-12"><div id="lab_test_'+counter+'_chart"></div></div></div></div></div></br>');
+    $('#extra_lab_test').append('<div class="row" id="lab_test_'+counter+'_div"><div class="col-md-6"><h4>Laboratory Test #'+counter+'</h4><div class="row" id="lab_test_'+counter+'_table" class="lab_test"></div><button type="button" class="btn btn-primary btn-sm" onclick="plot_lab_test('+counter+')">Plot</button><button type="button" class="btn btn-danger btn-sm" onclick="delete_lab_test('+counter+')">Delete Laboratory Test</button></div><input type="hidden" class="lab_test_hidden" id="lab_test_'+counter+'_hidden" value="false"><div class="col-md-6"></br><div class="row"><div class="col-md-6"><div class="form-group {{$errors->has("k_lab_test_'+counter+'") ? "has-error" : ""}}"><label>Permeability</label><div class="input-group" id="k_lab_test_'+counter+'_input"><input placeholder="mD" class="form-control k_value" id="k_lab_test_'+counter+'" name="k_lab_test_'+counter+'" type="text" min="0" max="10000" step="0.000001"><span class="input-group-addon">mD</span></div></div></div><input type="hidden" class="k_hidden" id="k_lab_test_'+counter+'_hidden" value="false"><div class="col-md-6"><div class="form-group {{$errors->has("p_lab_test_'+counter+'") ? "has-error" : ""}}"><label>Pob</label><div class="input-group" id="p_lab_test_'+counter+'_input"><input placeholder="psi" type="text" class="form-control pob_value" id="p_lab_test_'+counter+'" name="p_lab_test_'+counter+'" min="0" max="10000" step="0.000001"><span class="input-group-addon">psi</span></div></div></div></div><input type="hidden" class="p_hidden" id="p_lab_test_'+counter+'_hidden" value="false"><div class="row"><div class="col-md-12"><div id="lab_test_'+counter+'_chart"></div></div></div></div></div></br>');
     create_lab_test_table(counter);
     counter++;
     $("#lab_test_counter").val(counter);
@@ -460,48 +428,213 @@ function validate_lab_test_tables()
     return [final_flag_lab_test, final_lab_test_data];
 }
 
+// Grafica la regresión lineal cuando se calculan a y b manualmente
+function linear_regression_plot()
+{
+    verificarComposicion();
+
+    if($("#filtration_function_factors_option").val() == 1) {
+        cleaned_and_validated_data = validate_lab_test_tables();
+        if(cleaned_and_validated_data[0]) {
+            $("#lab_test_data").val(JSON.stringify(cleaned_and_validated_data[1]));
+
+            //K y pob para cada prueba de laboratorio
+            var final_k_data = [];
+            $( ".k_value" ).each(function() {
+                final_k_data.push(parseFloat($(this).val()));
+            });
+            $("#k_data").val(JSON.stringify(final_k_data));
+
+            var final_p_data = [];
+            $( ".pob_value" ).each(function() {
+                final_p_data.push(parseFloat($(this).val()));
+            });
+            $("#p_data").val(JSON.stringify(final_p_data));
+        } else {
+            var evt = window.event || arguments.callee.caller.arguments[0];
+            evt.preventDefault();
+            console.log("Error");
+            alert("Please, check your laboratory test data. You must include at least two rows of numerical data.");
+        }
+    }
+
+    //aux[]
+    var aux2 = [];
+    var aux = []; 
+
+    $("#k_lab_test_"+i).val()
+    $("#p_lab_test_1"+i).val()
+    var dv_dt;
+    var kpob;
+
+    var m;
+    var intercept;
+
+    //sirve para organizar los datos al momento de hacer operaciones
+    var temp;
+
+    
+    for (var i = 1; i < counter; i++) {
+        data = $("#lab_test_"+i+"_table").handsontable('getData');
+        
+        aux = [];
+        for (var j = 0; j < data.length; j++) {
+            temp = data[j]
+            aux.push([Math.sqrt(temp[0]),parseFloat(temp[1])]);
+        }
+
+        aux.pop();
+
+        temp = linear_regression(aux);
+
+        m = temp[0];
+        intercept = temp[1];
+
+        if (intercept < 0) 
+        {
+          intercept = 0;
+        }
+
+        dv_dt = m;
+        kpob = parseFloat($("#p_lab_test_"+i).val())*parseFloat($("#k_lab_test_"+i).val());
+        aux2.push([kpob, dv_dt]);
+    }
+
+    //En caso de solo existir una prueba de filtrado
+    if (aux2.length == 1) {
+      aux2.push([intercept, 0]);
+    }
+
+    temp = linear_regression(aux2);
+
+    a = temp[0];
+    b = temp[1];
+
+    if (b < 0) {
+        b = intercept;
+    }
+
+    //graficar
+    /*data = [
+        [0, b],
+        [x_value, m*x_value + b],
+        [x_value_2, m*x_value_2 + b]
+    ];*/
+
+    data = aux2
+    
+    //data = [[0.2704,696],[0.4275,800],[0.0263,348],[0.1209,400]];
+    data_aux = fitData(data).data;
+
+    $("#a_b_chart_manual").highcharts({
+        title: {
+            text: 'dV/d√t as function of K*Pob',
+            x: -20 //center
+        },
+        subtitle:{
+            text: "a: " + a + " - b: " + b
+        },
+        xAxis: {
+            title: {
+                text: 'K*Pob'
+            },
+            min: 0
+        },
+        yAxis: {
+            title: {
+                text: 'dV/d√t'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+            min: 0
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            type: 'scatter',
+            data: data
+        },
+        {
+            type: 'line',
+            marker: { enabled: false },
+            // function returns data for trend-line 
+            data: data_aux
+        }]
+    });
+}
+
+function linear_regression(pairs)
+{
+    var x = y = m = b = 0;
+    var Sx = Sy = Sxx = Sxy = 0.0;
+    var n = pairs.length;
+
+    //sirve para organizar los datos (sacarlos y ponerlos en los arreglos)
+    var ayuda;
+    for (var k = 0; k < pairs.length; k++) {
+        ayuda = pairs[k];
+        x = ayuda[0];
+        y = ayuda[1];
+        Sx += x;
+        Sy += y;
+        Sxx += Math.pow(x, 2);
+        Sxy += x * y;
+    }
+
+    m = ((n * Sxy) - (Sx * Sy)) / ((n * Sxx) - Math.pow(Sx, 2));
+    b = (Sy - (m * Sx)) / n;
+
+    ayuda = [m, b];
+
+    return(ayuda);
+}
+
 //Guarda los datos de las pruebas de laboratorio (tabla lab test, k y pob). 
 function save_filtration_function()
 {
     verificarComposicion();
-    if($("#filtration_function_factors_option").val()==1)
-    {
-      cleaned_and_validated_data = validate_lab_test_tables();
-      if(cleaned_and_validated_data[0])
-      {
-          $("#lab_test_data").val(JSON.stringify(cleaned_and_validated_data[1]));
 
-          //K y pob para cada prueba de laboratorio
-          var final_k_data = [];
-          $( ".k_value" ).each(function() 
-          {
-              final_k_data.push(parseFloat($(this).val()));
-          });
-          $("#k_data").val(JSON.stringify(final_k_data));
+    if($("#filtration_function_factors_option").val()==1) {
+        cleaned_and_validated_data = validate_lab_test_tables();
+        if(cleaned_and_validated_data[0]) {
+            $("#lab_test_data").val(JSON.stringify(cleaned_and_validated_data[1]));
 
-          var final_p_data = [];
-          $( ".pob_value" ).each(function() 
-          {
-              final_p_data.push(parseFloat($(this).val()));
-          });
-          $("#p_data").val(JSON.stringify(final_p_data));
-      }
-      else
-      {
-          var evt = window.event || arguments.callee.caller.arguments[0];
-          evt.preventDefault();
-          console.log("Error");
-          alert("Please, check your laboratory test data. You must include at least two rows of numerical data.");
+            //K y pob para cada prueba de laboratorio
+            var final_k_data = [];
+            $( ".k_value" ).each(function() {
+                final_k_data.push(parseFloat($(this).val()));
+            });
+            $("#k_data").val(JSON.stringify(final_k_data));
 
-      }
+            var final_p_data = [];
+            $( ".pob_value" ).each(function() {
+                final_p_data.push(parseFloat($(this).val()));
+            });
+            $("#p_data").val(JSON.stringify(final_p_data));
+        } else {
+            var evt = window.event || arguments.callee.caller.arguments[0];
+            evt.preventDefault();
+            console.log("Error");
+            alert("Please, check your laboratory test data. You must include at least two rows of numerical data.");
+        }
     }
 }
 
 //Grafica la representación de las pruebas de laboratorio con datos fijos. 
 function a_b_chart()
 {
-    x_value = 100000;
-    x_value_2 = 100;
+    x_value = 100;
+    x_value_2 = 1000;
     m = parseFloat($("#a_factor").val());
     b = parseFloat($("#b_factor").val());
     data = [
@@ -514,48 +647,47 @@ function a_b_chart()
     data_aux = fitData(data).data;
 
     $("#a_b_chart").highcharts({
-           title: {
-               text: 'dVf/(dt^1/2) as function of K*Pob',
-               x: -20 //center
-           },
-           subtitle:{
+        title: {
+            text: 'dV/d√t as function of K*Pob',
+            x: -20 //center
+        },
+        subtitle:{
             text:"a: slope - b: intercept"
-           },
-           xAxis: {
+        },
+        xAxis: {
             title: {
-              text: 'K*Pob'
+                text: 'K*Pob'
             }
-           },
-           yAxis: {
-               title: {
-                   text: 'dVf/(dt^1/2)'
-               },
-               plotLines: [{
-                   value: 0,
-                   width: 1,
-                   color: '#808080'
-               }]
-           },
-           tooltip: {
-               valueSuffix: ''
-           },
-           legend: {
-               layout: 'vertical',
-               align: 'right',
-               verticalAlign: 'middle',
-               borderWidth: 0
-           },
-           series: [{
-             type: 'scatter',
-             data: data
-           },
-           {
-             type: 'line',
-             marker: { enabled: false },
-             /* function returns data for trend-line */
-             data: data_aux
-           }]
-       });
-
+        },
+        yAxis: {
+            title: {
+                text: 'dVf/(dt^1/2)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            type: 'scatter',
+            data: data
+        },
+        {
+            type: 'line',
+            marker: { enabled: false },
+            /* function returns data for trend-line */
+            data: data_aux
+        }]
+    });
 }
 </script>

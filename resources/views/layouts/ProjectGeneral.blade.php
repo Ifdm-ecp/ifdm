@@ -490,7 +490,7 @@ $.get("{!! url('arbol') !!}",
                         var as = "{{ URL::route('finesMigrationDiagnosis.show_results',"xxxxxx") }}";
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('finesMigrationDiagnosis.edit',"xxxxxx") }}";
                         var color = "#ff1b00";
                     }
 

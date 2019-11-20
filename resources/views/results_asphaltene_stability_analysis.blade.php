@@ -159,7 +159,7 @@
 
 <div class="row pull-right">
   <div class="col-xs-12">
-    <a href="{!! action('add_precipitated_asphaltenes_analysis_controller@result',$scenaryId) !!}" class="btn btn-danger" role="button">Cancel</a>
+    <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Exit</a>
   </div>
 </div>
 

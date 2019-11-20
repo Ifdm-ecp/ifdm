@@ -249,7 +249,7 @@ public function store(Request $request)
             if (!is_null($desagregacion_tabla)) {
                 DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->delete();
             }
-            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table"));
+            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table_hidden"));
             $tabla = json_decode($tabla);
             foreach ($tabla as $value) {
                 $desagregacion_tabla = new desagregacion_tabla;
@@ -261,7 +261,7 @@ public function store(Request $request)
                 $desagregacion_tabla->save();
             }
 
-            $arreglo = json_decode($request->get("unidades_table"));
+            $arreglo = json_decode($request->get("unidades_table_hidden"));
             $datos_unidades_hidraulicas = array();
             foreach($arreglo as $value){
                 if($value[0] != null){
@@ -445,7 +445,7 @@ public function store(Request $request)
                 if (!is_null($desagregacion_tabla)) {
                     DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->delete();
                 }
-                $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table"));
+                $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table_hidden"));
                 $tabla = json_decode($tabla);
                 foreach ($tabla as $value) {
                     $desagregacion_tabla = new desagregacion_tabla;
@@ -638,7 +638,7 @@ public function update(Request $request, $id)
             if (!is_null($desagregacion_tabla)) {
                 DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->delete();
             }
-            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table"));
+            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table_hidden"));
             $tabla = json_decode($tabla);
             foreach ($tabla as $value) {
                 $desagregacion_tabla = new desagregacion_tabla;
@@ -650,7 +650,7 @@ public function update(Request $request, $id)
                 $desagregacion_tabla->save();
             }
 
-            $arreglo = json_decode($request->get("unidades_table"));
+            $arreglo = json_decode($request->get("unidades_table_hidden"));
             $datos_unidades_hidraulicas = array();
             foreach($arreglo as $value){
                 if($value[0] != null){
@@ -659,7 +659,6 @@ public function update(Request $request, $id)
             }
 
             $hidraulic_units_data = json_encode($datos_unidades_hidraulicas);
-
 
             $well_radius = $request->get("well_radius");
             $reservoir_pressure = $request->get("reservoir_pressure");
@@ -835,7 +834,7 @@ public function update(Request $request, $id)
             if (!is_null($desagregacion_tabla)) {
                 DB::table('desagregacion_tabla')->where('id_desagregacion', $desagregacion->id)->delete();
             }
-            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table"));
+            $tabla = str_replace(",[null,null,null,null]","",$request->input("unidades_table_hidden"));
             $tabla = json_decode($tabla);
             foreach ($tabla as $value) {
                 $desagregacion_tabla = new desagregacion_tabla;
@@ -1118,7 +1117,7 @@ public function bpd_to_ftd($value)
 /* --Coeficiente de flujo no Darcy (escalar)  */
 public function non_darcy_flow_coefficient($fluid_volumetric_factor, $permeability, $fluid_viscosity, $well_radius, $perforated_thickness, $well_friction_coefficient)
 {
-    $a = (2.22 * pow(10, 15)) * $fluid_volumetric_factor * $permeability * $well_friction_coefficient;
+    $a = (2.22 * pow(10, -15)) * $fluid_volumetric_factor * $permeability * $well_friction_coefficient;
     $b = $fluid_viscosity * $well_radius * $perforated_thickness;
 
     return($a / $b);
@@ -1472,6 +1471,8 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
     //REVISADO 10
     $damage_ratio = $this->damage_rate($non_darcy_flow_coefficient, $fluid_rate_in_ftpd);
 
+    //dd($non_darcy_flow_coefficient);
+
     /* PSEUDO-SKIN */
 
     if ($well_completitions == 3) {
@@ -1514,6 +1515,8 @@ public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $
         //mostrar 'ERROR 105'
         $mechanical_damage = ($skin - $stress_damage - $damage_ratio - $total_pseudo_skin);
     }
+
+    //dd($damage_ratio);
 
     $results = array($skin, $mechanical_damage, $stress_damage, $total_pseudo_skin, $damage_ratio, $pressure_axis, $pressure_axis/* $permeability_axis */, $well_friction_coefficient, $well_permeability_module, $pore_pressure_view, $stress_damage_results_view);
 

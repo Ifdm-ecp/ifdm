@@ -230,7 +230,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         $scenario_id = Input::get('scenario_id');
 
-        $fines_d_historical_data = DB::table('fines_d_historical_data')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_historical_data.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('date', 'bopd', 'bwpd')->orderBy('fines_d_historical_data.id', 'asc')->get();
+        $fines_d_historical_data = DB::table('fines_d_historical_data')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_historical_data.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('date', 'bopd', 'bwpd')->distinct()->get();
 
         return Response::json($fines_d_historical_data);
     });
@@ -239,7 +239,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         $scenario_id = Input::get('scenario_id');
 
-        $fines_d_phenomenological_constants = DB::table('fines_d_phenomenological_constants')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_phenomenological_constants.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('flow', 'k1', 'k2', 'dp_dl', 'k3', 'k4', 'k5', 'dp_dl2', 'sigma', 'k6', 'ab_2', 'ab')->orderBy('fines_d_phenomenological_constants.id', 'asc')->get();
+        $fines_d_phenomenological_constants = DB::table('fines_d_phenomenological_constants')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_phenomenological_constants.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('flow', 'k1', 'k2', 'dp_dl', 'k3', 'k4', 'k5', 'dp_dl2', 'sigma', 'k6', 'ab_2', 'ab')->orderBy('fines_d_phenomenological_constants.id', 'asc')->distinct()->get();
 
         return Response::json($fines_d_phenomenological_constants);
     });
@@ -248,7 +248,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         $scenario_id = Input::get('scenario_id');
 
-        $fines_d_diagnosis = DB::table('fines_d_pvt')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_pvt.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('pressure', 'oil_density', 'oil_viscosity', 'volumetric_oil_factor')->orderBy('fines_d_pvt.id', 'asc')->get();
+        $fines_d_diagnosis = DB::table('fines_d_pvt')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_pvt.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('pressure', 'oil_density', 'oil_viscosity', 'volumetric_oil_factor')->orderBy('fines_d_pvt.id', 'asc')->distinct()->get();
 
         return Response::json($fines_d_diagnosis);
     });
@@ -257,7 +257,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         $scenario_id = Input::get('scenario_id');
 
-        $fines_d_diagnosis = DB::table('fines_d_pvt')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_pvt.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('pressure', 'volumetric_water_factor', 'water_viscosity', 'water_density')->orderBy('fines_d_pvt.id', 'asc')->get();
+        $fines_d_diagnosis = DB::table('fines_d_pvt')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_pvt.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('pressure', 'volumetric_water_factor', 'water_viscosity', 'water_density')->orderBy('fines_d_pvt.id', 'asc')->distinct()->get();
 
         return Response::json($fines_d_diagnosis);
     });
@@ -400,9 +400,15 @@ Route::group(['middleware' => 'auth'], function(){
 
         $asphaltenes_d_stability_analysis_results = DB::table('asphaltenes_d_stability_analysis_results')->where('id', $asphaltenes_d_stability_analysis_results_id)->first();
 
-        $campo = DB::table('asphaltenes_d_stability_analysis')->where('asphaltenes_d_stability_analysis.id', $asphaltenes_d_stability_analysis_results->asphaltenes_d_stability_analysis_id)->join('escenarios', 'escenarios.id', '=', 'asphaltenes_d_stability_analysis.scenario_id')->join('campos', 'campos.id', '=', 'escenarios.campo_id')->select('campos.nombre as field_name')->first();
+        //$pozo = DB::table('asphaltenes_d_stability_analysis')->where('asphaltenes_d_stability_analysis.id', $asphaltenes_d_stability_analysis_results->asphaltenes_d_stability_analysis_id)->join('escenarios', 'escenarios.id', '=', 'asphaltenes_d_stability_analysis.scenario_id')->join('campos', 'campos.id', '=', 'escenarios.campo_id')->select('campos.id as well_name')->first();
 
-        $data = array('asphaltenes_d_stability_analysis_results' => $asphaltenes_d_stability_analysis_results, 'campo'=>$campo);
+        $scenario_id = DB::table('asphaltenes_d_stability_analysis')->where('id', $asphaltenes_d_stability_analysis_results->asphaltenes_d_stability_analysis_id)->select('asphaltenes_d_stability_analysis.scenario_id as id')->first();
+
+        $pozo_id = DB::table('escenarios')->where('id', $scenario_id->id)->select('escenarios.pozo_id as id')->first();
+
+        $pozo = DB::table('pozos')->where('id', $pozo_id->id)->select('pozos.nombre as well_name')->first();
+
+        $data = array('asphaltenes_d_stability_analysis_results' => $asphaltenes_d_stability_analysis_results, 'pozo'=>$pozo);
 
         return Response::json($data);
     });
@@ -2780,6 +2786,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::resource('finesMigrationDiagnosisStore', 'add_fines_migration_diagnosis_controller@store');
     Route::get('/finesMigrationDiagnosis/{scenario_id}/show_results', ['as' => 'finesMigrationDiagnosis.show_results', 'uses' => 'add_fines_migration_diagnosis_controller@show_results']);
+
+    Route::get('/finesMigrationDiagnosis/{id}/edit', ['as' => 'finesMigrationDiagnosis.edit', 'uses' => 'add_fines_migration_diagnosis_controller@edit']);
 
     Route::get('/scenarioR/{scenario_id}/show_asphaltene_report', ['as' => 'scenario_report.show_asphaltene_report', 'uses' => 'scenario_report_controller@show_asphaltene_report']);
     Route::get('/scenarioR/{scenario_id}/show_fines_report', ['as' => 'scenario_report.show_fines_report', 'uses' => 'scenario_report_controller@show_fines_report']);

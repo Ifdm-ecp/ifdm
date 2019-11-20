@@ -27,7 +27,49 @@
     /* Loading */
     $("#loading_icon").show();
     hidraulic_units_data = clean_table_data("hidraulic_units_data");
+    hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
+
+    // Si tabla sin el FZI está llena
+    if (hidraulic_units_data.length != 0 ) {
+
+      // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+      var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+      for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+        if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+          var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+          hidraulic_units_data_hidden[i].splice(1,0,value);
+        }else{
+          hidraulic_units_data_hidden[i].splice(1,0,null);
+        }
+      }
+
+      // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
+      var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
+      hidraulic_units_data_table_hidden.updateSettings(
+      {
+        data: hidraulic_units_data_hidden,
+        stretchH: 'all'
+      });
+      hidraulic_units_data_table_hidden.render();
+
+      hidraulic_units_data = clean_table_data("hidraulic_units_data");
+      hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
+
+      hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
+
+      $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
+      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
+
+    }
+
+
+    /*
+    hidraulic_units_data = clean_table_data("hidraulic_units_data");
     $("#unidades_table").val(JSON.stringify(hidraulic_units_data));
+
+    hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
+    $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
+    */
 
     /*
     var thickness = parseFloat($("#production_formation_thickness").val());
@@ -49,16 +91,51 @@
     $("#loading_icon").show();
     //calculate_hydraulic_units_data();
     hidraulic_units_data = clean_table_data("hidraulic_units_data");
+    hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
 
+    // si tabla vacía, entonces calcular y después calcular hidden. Por último valida
+    // si tabla llena, entonces calcular hidden y después valida
     if (hidraulic_units_data.length == 0 ) {
+
       calculate_hydraulic_units_data();
       hidraulic_units_data = clean_table_data("hidraulic_units_data");
+      hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
+
+      hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
+
+      $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
+      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
+
+    }else{
+
+      // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+      var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+      for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+        if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+          var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+          hidraulic_units_data_hidden[i].splice(1,0,value);
+        }else{
+          hidraulic_units_data_hidden[i].splice(1,0,null);
+        }
+      }
+
+      // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
+      var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
+      hidraulic_units_data_table_hidden.updateSettings(
+      {
+        data: hidraulic_units_data_hidden,
+        stretchH: 'all'
+      });
+      hidraulic_units_data_table_hidden.render();
+
+      hidraulic_units_data = clean_table_data("hidraulic_units_data");
+      hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
+
+      hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
+
+      $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
+      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
     }
-
-    $("#unidades_table").val(JSON.stringify(hidraulic_units_data));
-    
-    validate_table(hidraulic_units_data, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
-
   }
 
   //Llamar cada vez que se necesiten validar los datos de la tabla.
@@ -239,46 +316,103 @@ function clean_table_data(table_div_id)
 
  function create_hydraulic_units_data_table()
  {
+  // Para mostrar valores de la tabla de unidades hidráulicas sin el FZI
   $hidraulic_units_data_table = $("#hidraulic_units_data");
   $hidraulic_units_data_table.handsontable({
-    data: [[],[],[],[]],
-    height: 200,
-    colHeaders: true,
-    minSpareRows: 4,
-    viewportColumnRenderingOffset: 10,
-    rowHeaders: true,
-    contextMenu: true,
-    stretchH: 'all',
-    colWidths: [180, 180, 180, 180],
-    columns: [
-    {
-      title: "Thickness [ft]",
-      data: 0,
-      type: 'numeric',
-      format: '0[.]0000000'
-    },
-    {
-      title: "Flow Zone Index [µm]",
-      data: 1,
-      type: 'numeric',
-      format: '0[.]0000000'
-    }, 
-    {
-      title: "Average Porosity [0-1]",
-      data: 2,
-      type: 'numeric',
-      format: '0[.]0000000'
-    },
-    {
-      title: "Average Permeability [mD]",
-      data: 3,
-      type: 'numeric',
-      format: '0[.]0000000'
-    },
-    ]
+      height: 200,
+      colHeaders: true,
+      minSpareRows: 4,
+      viewportColumnRenderingOffset: 10,
+      rowHeaders: true,
+      contextMenu: true,
+      stretchH: 'all',
+      colWidths: [240, 240, 240],
+      columns: [
+      {
+          title: "Thickness [ft]",
+          data: 0,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      {
+          title: "Average Porosity [0-1]",
+          data: 1,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      {
+          title: "Average Permeability [mD]",
+          data: 2,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      ]
+
+  });
+
+  // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+  var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+
+  for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+    if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+      var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+      hidraulic_units_data_hidden[i].splice(1,0,value);
+    }else{
+      hidraulic_units_data_hidden[i].splice(1,0,null);
+    }
+  }
+
+  $hidraulic_units_data_table = $("#hidraulic_units_data_hidden");
+  $hidraulic_units_data_table.handsontable({
+      data: hidraulic_units_data_hidden,
+      height: 200,
+      colHeaders: true,
+      minSpareRows: 4,
+      viewportColumnRenderingOffset: 10,
+      rowHeaders: true,
+      contextMenu: true,
+      stretchH: 'all',
+      colWidths: [180, 180, 180, 180],
+      columns: [
+      {
+          title: "Thickness [ft]",
+          data: 0,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      {
+          title: "Flow Zone Index [µm]",
+          data: 1,
+          type: 'numeric',
+          format: '0[.]0000000'
+      }, {
+          title: "Average Porosity [0-1]",
+          data: 2,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      {
+          title: "Average Permeability [mD]",
+          data: 3,
+          type: 'numeric',
+          format: '0[.]0000000'
+      },
+      ]
 
   });
 }
+
+function parseArrayToNumeric(multidimensionalArray)
+{
+
+  for (var i = multidimensionalArray.length - 1; i >= 0; i--) {
+    for (var j = multidimensionalArray[i].length - 1; j >= 0; j--) {
+      multidimensionalArray[i][j] = parseFloat(multidimensionalArray[i][j]);
+    }
+  }
+
+  return multidimensionalArray;
+  }
 
 function calculate_hydraulic_units_data()
 {
@@ -291,45 +425,54 @@ function calculate_hydraulic_units_data()
   if (well_completitions == 3) {
     if(production_formation_thickness && porosity && permeability)
     {
-      //Cálculo de Flow Zone Index (FZI)
-      var rqi = 0.0314 * Math.sqrt(permeability/porosity);
-      var porosity_z = porosity / (1 - porosity);
-      var flow_zone_index = rqi / porosity_z;
-
-      var hydraulic_units_data = [[production_formation_thickness, flow_zone_index, porosity, permeability]];
-
+      // Cálculo de la tabla sin el FZI
+      var hydraulic_units_data = [[production_formation_thickness, porosity, permeability]];
       var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
       hydraulic_units_data_table.updateSettings(
       {
         data: hydraulic_units_data,
         stretchH: 'all'
       });
-
       hydraulic_units_data_table.render();
     }
     else
     {
       $('#hydraulic_modal').modal("show");
     }
+
+    // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+    var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+    for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+      if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+        var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+        hidraulic_units_data_hidden[i].splice(1,0,value);
+      }else{
+        hidraulic_units_data_hidden[i].splice(1,0,null);
+      }
+    }
+
+    // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
+    var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
+    hidraulic_units_data_table_hidden.updateSettings(
+    {
+      data: hidraulic_units_data_hidden,
+      stretchH: 'all'
+    });
+    hidraulic_units_data_table_hidden.render();
+
   }
   else if (well_completitions == 1 || well_completitions == 2) 
   {
     if(formation_thickness && porosity && permeability)
     {
-      //Cálculo de Flow Zone Index (FZI)
-      var rqi = 0.0314 * Math.sqrt(permeability/porosity);
-      var porosity_z = porosity / (1 - porosity);
-      var flow_zone_index = rqi / porosity_z;
-
-      var hydraulic_units_data = [[formation_thickness, flow_zone_index, porosity, permeability]];
-
+      //Cálculo de la tabla sin el FZI
+      var hydraulic_units_data = [[formation_thickness, porosity, permeability]];
       var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
       hydraulic_units_data_table.updateSettings(
       {
         data: hydraulic_units_data,
         stretchH: 'all'
       });
-
       hydraulic_units_data_table.render();
     }
   }  
@@ -337,6 +480,26 @@ function calculate_hydraulic_units_data()
   {
     $('#hydraulic_modal_incomplete').modal("show");
   }
+
+  // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+  var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+  for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+    if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+      var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+      hidraulic_units_data_hidden[i].splice(1,0,value);
+    }else{
+      hidraulic_units_data_hidden[i].splice(1,0,null);
+    }
+  }
+
+  // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
+  var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
+  hidraulic_units_data_table_hidden.updateSettings(
+  {
+    data: hidraulic_units_data_hidden,
+    stretchH: 'all'
+  });
+  hidraulic_units_data_table_hidden.render();
 }
 
 document.getElementById('well_completitions').addEventListener('change', function () {

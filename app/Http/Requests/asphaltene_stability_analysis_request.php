@@ -37,7 +37,6 @@ class asphaltene_stability_analysis_request extends Request
             $rules['reservoir_initial_pressure'] = 'required_if:'.$button_wr.',=,false|numeric|min:0|not_in:0';
             $rules['bubble_pressure'] = 'required_if:'.$button_wr.',=,'.$validate.'|numeric|min:0|not_in:0';
             $rules['density_at_reservoir_temperature'] = 'required_if:'.$button_wr.',=,'.$validate.'|numeric|between:0.5,2';
-            $rules['current_reservoir_pressure'] = 'required_if:'.$button_wr.',=,'.$validate.'|numeric|between:0,'.$reservoir_initial_pressure.'|not_in:0';
             $rules['api_gravity'] = 'required_if:'.$button_wr.',=,'.$validate.'|numeric|between:5,70';
             $rules['value_components_table'] = 'required_if:'.$button_wr.',=,'.$validate.'';
             $rules['components'] = 'required_if:'.$button_wr.',=,'.$validate.'';
@@ -67,7 +66,6 @@ class asphaltene_stability_analysis_request extends Request
             'reservoir_initial_pressure.required' => 'Reservoir initial pressure required.',
             'bubble_pressure.required' => 'Bubble pressure required.',
             'density_at_reservoir_temperature.required' => 'Density at reservoir temperature required.',
-            'current_reservoir_pressure.required' => 'Current reservoir pressure required.',
             'api_gravity.required' => 'API gravity required.',
             'value_components_table.required' => 'Components table required.',
             'components.required' => 'Components required.',
@@ -79,7 +77,6 @@ class asphaltene_stability_analysis_request extends Request
             'reservoir_initial_pressure.numeric' => 'Reservoir initial pressure must be numeric.',
             'bubble_pressure.numeric' => 'Bubble pressure must be numeric.',
             'density_at_reservoir_temperature.numeric' => 'Density at reservoir temperature must be numeric.',
-            'current_reservoir_pressure.numeric' => 'Current reservoir pressure must be numeric.',
             'api_gravity.numeric' => 'API gravity must be numeric.',
 
             'saturated.between' => 'Saturated must be between 0 and 100.',
@@ -95,8 +92,6 @@ class asphaltene_stability_analysis_request extends Request
             'bubble_pressure.min' => 'Bubble Pressure must be greater than 0.',
             'bubble_pressure.not_in' => 'Bubble Pressure must be greater than 0.',
             'density_at_reservoir_temperature.between' => 'Density at Reservoir Temperature must be between 0.5 and 2.',
-            'current_reservoir_pressure.between' => 'Current Reservoir Pressure must be greater than 0 and less than Reservoir Initial Pressure.',
-            'current_reservoir_pressure.not_in' => 'Current Reservoir Pressure must be greater than 0 and less than Reservoir Initial Pressure.',
             'api_gravity.between' => 'API Gravity must be between 5 and 70.',
             
             'sum_zi_components_table.between' => 'The sum of Zi in components table must be 1+-0.1.',

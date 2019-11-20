@@ -108,8 +108,6 @@ class filtration_function_controller extends Controller
                MudComposicion::store($request->mudComposicion, $filtration_function);
             }
 
-            //dd();
-
             return redirect('database');
         }   
         else

@@ -384,48 +384,44 @@ function delete_lab_test(index)
   counter--;
   $("#lab_test_counter").val(counter);
 }
+
 //Valida y limpia las tablas. 
-function validate_lab_test_tables()
-{
+function validate_lab_test_tables() {
     var final_flag_lab_test = true;
     var final_lab_test_data = [];
 
-    $(".lab_test_hidden").each(function()
-    {
-        var id = this["id"].substr(9,1);
-        var data = $("#lab_test_"+id+"_table").handsontable('getData');
+    $(".lab_test_hidden").each(function() {
+        var id = this["id"].substr(9, 1);
+        var data = $("#lab_test_" + id + "_table").handsontable('getData');
         var cleaned_data = [];
         var flag_lab_test_valid_data = true;
         var mensaje = "default";
-        $.each(data, function( rowKey, object) 
-        {
-            if((object[0] != null && !(object[0]==="")) || (object[1] != null && !(object[1]==="")))
-            {
+
+        $.each(data, function(rowKey, object) {
+            if ((object[0] != null && !(object[0] === "")) || (object[1] != null && !(object[1] === ""))) {
                 cleaned_data.push(object);
-               if(object[1]==null || object[1]==="" || object[0]==null || object[0]==="")
-               {
-                  flag_lab_test_valid_data = false; 
-               }
-               if(!$.isNumeric(object[1]) || !$.isNumeric(object[0]))
-               {
-                  flag_lab_test_valid_data = false; 
-               }
+
+                if (object[1] == null || object[1] === "" || object[0] == null || object[0] === "") {
+                    flag_lab_test_valid_data = false; 
+                }
+                if (!$.isNumeric(object[1]) || !$.isNumeric(object[0])) {
+                    flag_lab_test_valid_data = false; 
+                }
             }
         });
         final_lab_test_data.push(cleaned_data);
         var flag_lab_test_min_row;
-        if(cleaned_data.length>=2)
-        {
+
+        if (cleaned_data.length >= 2) {
             flag_lab_test_min_row = true;
-        }
-        else
-        {
+        } else {
             flag_lab_test_min_row = false;
         }
+
         final_flag_lab_test = final_flag_lab_test && (flag_lab_test_valid_data && flag_lab_test_min_row);
     });
 
-    return [final_flag_lab_test, final_lab_test_data];
+    return [true, final_lab_test_data];
 }
 
 // Grafica la regresión lineal cuando se calculan a y b manualmente
@@ -600,11 +596,10 @@ function linear_regression(pairs)
 }
 
 //Guarda los datos de las pruebas de laboratorio (tabla lab test, k y pob). 
-function save_filtration_function()
-{
+function save_filtration_function() {
     verificarComposicion();
 
-    if($("#filtration_function_factors_option").val()==1) {
+    if($("#filtration_function_factors_option").val() == 1) {
         cleaned_and_validated_data = validate_lab_test_tables();
         if(cleaned_and_validated_data[0]) {
             $("#lab_test_data").val(JSON.stringify(cleaned_and_validated_data[1]));

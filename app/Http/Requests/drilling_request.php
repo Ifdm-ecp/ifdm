@@ -39,7 +39,7 @@ class drilling_request extends Request
             'array_generaldata_table' => 'required|array',
             'inputDataMethodSelect' => 'required|in:1,2',
             'inputdata_intervals_table' => 'array',
-            'array_inputdata_profile_table' => 'required|array|min:1',
+            'array_inputdata_profile_table' => 'required|array',
             'select_filtration_function' => 'required|exists:d_filtration_function,id',
             'a_factor_t' => 'required|numeric|min:0|max:50',
             'b_factor_t' => 'required|numeric|min:0|max:50',

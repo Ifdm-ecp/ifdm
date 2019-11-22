@@ -2,7 +2,6 @@
 
 namespace App;
 use App\campo;
-use App\formacion;
 use App\catalogoIntervaloProductor;
 use Sofa\Revisionable\Laravel\RevisionableTrait; // trait
 use Sofa\Revisionable\Revisionable; // interface

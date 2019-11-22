@@ -15,7 +15,7 @@
 					<div class="col-md-4">
 						<div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
 						   {!! Form::label('basin', 'Basin') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-						   {!! Form::select('basin', $basins->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control', 'id'=>'basin')) !!}
+						   {!! Form::select('basin', $basins->lists('nombre','id'), null, array('placeholder' => '', 'class'=>'form-control', 'id'=>'basin')) !!}
 						</div>
 					</div>
 					<div class="col-md-4">

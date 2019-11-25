@@ -189,24 +189,24 @@ class drilling_request extends Request
 
         if (is_array($this->array_generaldata_table)) {
             for ($i = 0; $i < count($this->array_generaldata_table); $i++) {
-                $messages["array_generaldata_table." . $i . ".0.required"] = 'The table general data in row ' . ($i + 1) . ' and column Interval has en empty value.';
-                $messages["array_generaldata_table." . $i . ".1.required"] = 'The table general data in row ' . ($i + 1) . ' and column Top has en empty value.';
+                $messages["array_generaldata_table." . $i . ".0.required"] = 'The table general data in row ' . ($i + 1) . ' and column Interval has an empty value.';
+                $messages["array_generaldata_table." . $i . ".1.required"] = 'The table general data in row ' . ($i + 1) . ' and column Top has an empty value.';
                 $messages["array_generaldata_table." . $i . ".1.numeric"] = 'The table general data in row ' . ($i + 1) . ' and column Top must be a number.';
                 $messages["array_generaldata_table." . $i . ".1.min"] = 'The table general data in row ' . ($i + 1) . ' and column Top must be higher or equal than 0.';
                 $messages["array_generaldata_table." . $i . ".1.max"] = 'The table general data in row ' . ($i + 1) . ' and column Top must be lower or equal than 50000.';
-                $messages["array_generaldata_table." . $i . ".2.required"] = 'The table general data in row ' . ($i + 1) . ' and column Bottom has en empty value.';
+                $messages["array_generaldata_table." . $i . ".2.required"] = 'The table general data in row ' . ($i + 1) . ' and column Bottom has an empty value.';
                 $messages["array_generaldata_table." . $i . ".2.numeric"] = 'The table general data in row ' . ($i + 1) . ' and column Bottom must be a number.';
                 $messages["array_generaldata_table." . $i . ".2.min"] = 'The table general data in row ' . ($i + 1) . ' and column Bottom must be higher or equal than 0.';
                 $messages["array_generaldata_table." . $i . ".2.max"] = 'The table general data in row ' . ($i + 1) . ' and column Bottom must be lower or equal than 50000.';
-                $messages["array_generaldata_table." . $i . ".3.required"] = 'The table general data in row ' . ($i + 1) . ' and column Reservoir Pressure has en empty value.';
+                $messages["array_generaldata_table." . $i . ".3.required"] = 'The table general data in row ' . ($i + 1) . ' and column Reservoir Pressure has an empty value.';
                 $messages["array_generaldata_table." . $i . ".3.numeric"] = 'The table general data in row ' . ($i + 1) . ' and column Reservoir Pressure must be a number.';
                 $messages["array_generaldata_table." . $i . ".3.min"] = 'The table general data in row ' . ($i + 1) . ' and column Reservoir Pressure must be higher or equal than 0.';
                 $messages["array_generaldata_table." . $i . ".3.max"] = 'The table general data in row ' . ($i + 1) . ' and column Reservoir Pressure must be lower or equal than 10000.';
-                $messages["array_generaldata_table." . $i . ".4.required"] = 'The table general data in row ' . ($i + 1) . ' and column Hole Diameter has en empty value.';
+                $messages["array_generaldata_table." . $i . ".4.required"] = 'The table general data in row ' . ($i + 1) . ' and column Hole Diameter has an empty value.';
                 $messages["array_generaldata_table." . $i . ".4.numeric"] = 'The table general data in row ' . ($i + 1) . ' and column Hole Diameter must be a number.';
                 $messages["array_generaldata_table." . $i . ".4.min"] = 'The table general data in row ' . ($i + 1) . ' and column Hole Diameter must be higher or equal than 0.';
                 $messages["array_generaldata_table." . $i . ".4.max"] = 'The table general data in row ' . ($i + 1) . ' and column Hole Diameter must be lower or equal than 10.';
-                $messages["array_generaldata_table." . $i . ".5.required"] = 'The table general data in row ' . ($i + 1) . ' and column Drill Pipe Diameter has en empty value.';
+                $messages["array_generaldata_table." . $i . ".5.required"] = 'The table general data in row ' . ($i + 1) . ' and column Drill Pipe Diameter has an empty value.';
                 $messages["array_generaldata_table." . $i . ".5.numeric"] = 'The table general data in row ' . ($i + 1) . ' and column Drill Pipe Diameter must be a number.';
                 $messages["array_generaldata_table." . $i . ".5.min"] = 'The table general data in row ' . ($i + 1) . ' and column Drill Pipe Diameter must be higher or equal than 0.';
                 $messages["array_generaldata_table." . $i . ".5.max"] = 'The table general data in row ' . ($i + 1) . ' and column Drill Pipe Diameter must be lower or equal than 10.';
@@ -215,27 +215,27 @@ class drilling_request extends Request
 
         if (is_array($this->array_inputdata_profile_table)) {
             for ($i = 0; $i < count($this->array_inputdata_profile_table); $i++) {
-                $messages["array_inputdata_profile_table." . $i . ".0.required"] = 'The table input data in row ' . ($i + 1) . ' and column Top has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".0.required"] = 'The table input data in row ' . ($i + 1) . ' and column Top has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".0.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".0.min"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".0.max"] = 'The table input data in row ' . ($i + 1) . ' and column Top must be lower or equal than 50000.';
-                $messages["array_inputdata_profile_table." . $i . ".1.required"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".1.required"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".1.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".1.min"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".1.max"] = 'The table input data in row ' . ($i + 1) . ' and column Bottom must be lower or equal than 50000.';
-                $messages["array_inputdata_profile_table." . $i . ".2.required"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".2.required"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".2.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".2.min"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".2.max"] = 'The table input data in row ' . ($i + 1) . ' and column Porosity must be lower or equal than 1.';
-                $messages["array_inputdata_profile_table." . $i . ".3.required"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".3.required"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".3.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".3.min"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".3.max"] = 'The table input data in row ' . ($i + 1) . ' and column Permeability must be lower or equal than 10000.';
-                $messages["array_inputdata_profile_table." . $i . ".4.required"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".4.required"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".4.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".4.min"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".4.max"] = 'The table input data in row ' . ($i + 1) . ' and column Fracture intensity must be lower or equal than 100.';
-                $messages["array_inputdata_profile_table." . $i . ".5.required"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation has en empty value.';
+                $messages["array_inputdata_profile_table." . $i . ".5.required"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation has an empty value.';
                 $messages["array_inputdata_profile_table." . $i . ".5.numeric"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be a number.';
                 $messages["array_inputdata_profile_table." . $i . ".5.min"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be higher or equal than 0.';
                 $messages["array_inputdata_profile_table." . $i . ".5.max"] = 'The table input data in row ' . ($i + 1) . ' and column Irreducible Saturation must be lower or equal than 1.';

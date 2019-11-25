@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\filtration_function;
 use App\Http\Requests\Request;
 
 class filtration_function_request extends Request
@@ -11,10 +12,12 @@ class filtration_function_request extends Request
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         request()->merge(['array_k_data' => json_decode(request()->k_data)]);
         request()->merge(['array_p_data' => json_decode(request()->p_data)]);
         request()->merge(['array_lab_test_table' => json_decode(request()->lab_test_data)]);
+        request()->merge(['array_mud_composition' => json_decode(request()->mudComposicion)]);
     }
 
     /**
@@ -52,7 +55,22 @@ class filtration_function_request extends Request
             'cement_density' => 'numeric|min:0|max:50',
             'cement_plastic_viscosity' => 'numeric|min:0|max:100',
             'cement_yield_point' => 'numeric|min:0|max:100',
+            'array_mud_composition' => 'array',
         ];
+
+        if (request()->route('filtration_function') !== null) {
+            $filtration_function = filtration_function::find(request()->route('filtration_function'));
+            if ($filtration_function && $filtration_function->name == $this->filtration_function_name) {
+                $rules["filtration_function_name"] = 'required';
+            }
+        }
+
+        if (is_array($this->array_mud_composition)) {
+            for ($i = 0; $i < count($this->array_mud_composition); $i++) {
+                $rules["array_mud_composition." . $i . ".0"] = 'required';
+                $rules["array_mud_composition." . $i . ".1"] = 'required|numeric';
+            }
+        }
 
         if ($this->filtration_function_factors_option == 1) {
             $rules['array_k_data'] = 'required|array';
@@ -130,6 +148,7 @@ class filtration_function_request extends Request
             'cement_yield_point.numeric' => 'The cement yield point must be a number.',
             'cement_yield_point.min' => 'The cement yield point must be higher or equal than 0.',
             'cement_yield_point.max' => 'The cement yield point must be lower or equal than 100.',
+            'array_mud_composition.array' => 'The data structure containing drilling fluid formulation table contents is incorrect.',
             'kdki_cement_slurry.numeric' => 'The Kd/Ki completition fluids must be a number.',
             'kdki_cement_slurry.min' => 'The Kd/Ki completition fluids must be higher or equal than 0.',
             'kdki_cement_slurry.max' => 'The Kd/Ki completition fluids must be lower or equal than 1.',
@@ -151,6 +170,14 @@ class filtration_function_request extends Request
             'b_factor.max' => 'The b factor must be lower or equal than 50.',
         ];
 
+        if (is_array($this->array_mud_composition)) {
+            for ($i = 0; $i < count($this->array_mud_composition); $i++) {
+                $messages["array_mud_composition." . $i . ".0.required"] = 'The table drilling fluid formulation in row ' . ($i + 1) . ' and column Component has an empty value.';
+                $messages["array_mud_composition." . $i . ".1.required"] = 'The table drilling fluid formulation in row ' . ($i + 1) . ' and column Concentration has an empty value.';
+                $messages["array_mud_composition." . $i . ".1.numeric"] = 'The table drilling fluid formulation in row ' . ($i + 1) . ' and column Concentration must be a number.';
+            }
+        }
+
         if (is_array($this->array_lab_test_table)) {
             for ($i = 0; $i < count($this->array_lab_test_table); $i++) {
                 $messages["array_k_data." . $i . ".required"] = 'The permeability value for lab test #' . ($i + 1) . ' is required.';
@@ -163,7 +190,7 @@ class filtration_function_request extends Request
                 $messages["array_p_data." . $i . ".max"] = 'The Pob value for lab test #' . ($i + 1) . ' must be lower or equal than 10000.';
                 $messages["array_lab_test_table." . $i . ".required"] = 'The lab tests #' . ($i + 1) . ' table is empty. Please check your data.';
                 $messages["array_lab_test_table." . $i . ".array"] = 'The data structure containing the lab tests #' . ($i + 1) . ' table contents is incorrect.';
-                
+
                 if (is_array($this->array_lab_test_table[$i])) {
                     for ($j = 0; $j < count($this->array_lab_test_table[$i]); $j++) {
                         $messages["array_lab_test_table." . $i . "." . $j . ".required"] = 'The lab tests #' . ($i + 1) . ' table in row ' . ($j + 1) . ' is empty. Please check your data.';

@@ -51,7 +51,7 @@ class filtration_function_controller extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  filtration_function_request  $request
    * @return \Illuminate\Http\Response
    */
   public function store(filtration_function_request $request)
@@ -148,7 +148,7 @@ class filtration_function_controller extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  \Illuminate\Http\Request  $request
+   * @param  filtration_function_request  $request
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */

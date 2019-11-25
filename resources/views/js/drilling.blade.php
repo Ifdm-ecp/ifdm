@@ -574,19 +574,18 @@ function check_nulls(array_list)
 }
 
 //Llamarla antes de guardar todos los datos de tablas - elmina nulos
-function clean_table_data(table_div_id) 
-{
-    container = $("#" + table_div_id); //Div de la tabla
-    var table_data = container.handsontable('getData');
-    var cleaned_data = [];
+function clean_table_data(table_div_id) {
+  container = $("#" + table_div_id); //Div de la tabla
+  var table_data = container.handsontable('getData');
+  var cleaned_data = [];
 
-    $.each(table_data, function (rowKey, object) {
-        if (!container.handsontable('isEmptyRow', rowKey)) {
-            cleaned_data[rowKey] = object;
-        }
-    });
+  $.each(table_data, function (rowKey, object) {
+    if (!container.handsontable('isEmptyRow', rowKey)) {
+      cleaned_data[rowKey] = object;
+    }
+  });
 
-    return cleaned_data;
+  return cleaned_data;
 }
 
 /* calculate_ecd

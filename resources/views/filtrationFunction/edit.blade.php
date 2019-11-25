@@ -161,7 +161,7 @@
 							<div class="panel-heading">Drilling fluid formulation</div>
 							<div class="panel-body">
 								<div id="tablaComponents"></div>
-								{!! Form::hidden('mudComposicion', null, ['id' =>'data']) !!}
+								{!! Form::hidden('mudComposicion', null, ['id' => 'data']) !!}
 							</div>
 						</div>
 					</div>	
@@ -172,7 +172,7 @@
 								<input type="checkbox" name="check_set_completition_fluids" id="check_set_completition_fluids" >
 								{!! Form::label('kdki_cement_slurry', 'Set Kd/Ki Completition Fluids') !!}
 								<div class="input-group">
-									{!! Form::text('kdki_cement_slurry', null, ['placeholder' => '-', 'class' =>'form-control', 'id'=>'kdki_cement_slurry_factors', 'min' => '0', 'max' =>  '1', 'step' => '0.0000001', 'disabled']) !!}
+									{!! Form::text('kdki_cement_slurry', null, ['placeholder' => '-', 'class' => 'form-control', 'id'=>'kdki_cement_slurry_factors', 'disabled']) !!}
 									<span class="input-group-addon">-</span>
 								</div>
 							</div>
@@ -181,7 +181,7 @@
 							<div class="form-group {{$errors->has('kdki_mud') ? 'has-error' : ''}}">
 								{!! Form::label('kdki_mud', 'Kd/Ki Mud') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 								<div class="input-group">
-									{!! Form::text('kdki_mud', null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_mud_factors', 'min' => '0', 'max' => '1', 'step' => '0.0000001']) !!}
+									{!! Form::text('kdki_mud', null, ['placeholder' => '-', 'class' => 'form-control', 'id' => 'kdki_mud_factors']) !!}
 									<span class="input-group-addon">-</span>
 								</div>
 							</div>
@@ -190,7 +190,7 @@
 							<div class="form-group {{$errors->has('core_diameter') ? 'has-error' : ''}}">
 								{!! Form::label('core_diameter', 'Core Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 								<div class="input-group">
-									{!! Form::text('core_diameter', null, ['placeholder' => 'cm', 'class' =>'form-control','id'=>'core_diameter_factors', 'min' => '0', 'max' => '50', 'step' => '0.0000001']) !!}
+									{!! Form::text('core_diameter', null, ['placeholder' => 'cm', 'class' => 'form-control', 'id' => 'core_diameter_factors']) !!}
 									<span class="input-group-addon">cm</span>
 								</div>
 							</div>
@@ -210,7 +210,7 @@
 									<div class="form-group {{$errors->has('a_factor') ? 'has-error' : ''}}">
 										{!! Form::label('a_factor_l', 'a') !!}
 										<div class="input-group" id="a_factor_input">
-											{!! Form::text('a_factor', $filtration_function->a_factor, ['placeholder' => '-', 'class' =>'form-control','id'=>'a_factor']) !!}
+											{!! Form::text('a_factor', $filtration_function->a_factor, ['placeholder' => '-', 'class' => 'form-control','id' => 'a_factor']) !!}
 											<span class="input-group-addon" id="a_factor_addon">-</span>
 										</div>
 									</div>
@@ -219,7 +219,7 @@
 									<div class="form-group {{$errors->has('b_factor') ? 'has-error' : ''}}">
 									   {!! Form::label('b_factor_l', 'b') !!}
 									   <div class="input-group" id="b_factor_input">
-											{!! Form::text('b_factor', $filtration_function->b_factor, ['placeholder' => '-', 'class' =>'form-control','id'=>'b_factor']) !!}
+											{!! Form::text('b_factor', $filtration_function->b_factor, ['placeholder' => '-', 'class' => 'form-control','id' => 'b_factor']) !!}
 											<span class="input-group-addon" id="b_factor_addon">-</span>
 									   </div>
 									</div>
@@ -323,6 +323,10 @@
   		tablaComponents();
   	});
   </script>
+  @include('js/frontend_validator')
+  @include('js/frontend_rules/filtration_function')
   @include('filtrationFunction.cuerpo.editJs')
   @include('js/modal_error')
+  @include('js/modal_error_frontend')
+  @include('css/modal_error_frontend')
 @endsection

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
-  function tablaComponents()
-  {
+function tablaComponents()
+{
     data = $("#data").val();
     if (data === '') {
         @if($filtration_function->mudComposicion)
@@ -44,16 +44,21 @@ window.onbeforeunload = function() {
     localStorage.setItem('formation', $('#formation').val());
 }
 
-document.getElementById('check_set_completition_fluids').onchange = function() {
-    document.getElementById('kdki_cement_slurry_factors').disabled = !this.checked;
-    document.getElementById('kdki_cement_slurry_factors').value = "";
-};
+$("#check_set_completition_fluids").change(function(e) {
+    $('#kdki_cement_slurry_factors').prop("disabled", !this.checked);
+    $('#kdki_cement_slurry_factors').val(!this.checked ? "" : $('#kdki_cement_slurry_factors').val());
+});
 
 //Cargar valores de select en recarga de página
 window.onload = function() {
     var cuenca = {!! $basin_id !!};
     var campo = {!! $field_id !!};
     var formation = {!! $formation_id !!};
+
+    if ($('#kdki_cement_slurry_factors').val() !== "") {
+        $('#check_set_completition_fluids').prop("checked", true);
+        $('#kdki_cement_slurry_factors').prop("disabled", false);
+    }
 
     $("#basin").val(cuenca);
     $("#basin").selectpicker('refresh');
@@ -62,7 +67,7 @@ window.onload = function() {
     $("#formation").val(formation);
     $("#formation").selectpicker('refresh');
 
-    $.get("{{url('campos')}}", 
+    $.get("{{url('campos')}}",
         { cuenca: cuenca },
         function(data) {
             $("#field").empty();
@@ -76,9 +81,8 @@ window.onload = function() {
         }
     );
 
-    $.get("{{url('formations_by_field')}}", {
-            field: campo
-        },
+    $.get("{{url('formations_by_field')}}",
+        { field: campo },
         function(data) {
             $("#formation").empty();
             $.each(data, function(index, value) {

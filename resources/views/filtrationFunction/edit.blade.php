@@ -38,7 +38,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
-							{!! Form::label('ff_name', 'Filtration Function Name') !!}
+							{!! Form::label('ff_name', 'Filtration Function Name') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
 							{!! Form::text('filtration_function_name', $filtration_function->name, ['placeholder' => '', 'class' =>'form-control','id'=>'filtration_function_name']) !!}
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 								<input type="checkbox" name="check_set_completition_fluids" id="check_set_completition_fluids" >
 								{!! Form::label('kdki_cement_slurry', 'Set Kd/Ki Completition Fluids') !!}
 								<div class="input-group">
-									{!! Form::text('kdki_cement_slurry', null, ['placeholder' => '-', 'class' =>'form-control','id'=>'kdki_cement_slurry_factors',  'min' => '0', 'max' =>  '1', 'step' => '0.0000001', 'disabled']) !!}
+									{!! Form::text('kdki_cement_slurry', null, ['placeholder' => '-', 'class' =>'form-control', 'id'=>'kdki_cement_slurry_factors', 'min' => '0', 'max' =>  '1', 'step' => '0.0000001', 'disabled']) !!}
 									<span class="input-group-addon">-</span>
 								</div>
 							</div>

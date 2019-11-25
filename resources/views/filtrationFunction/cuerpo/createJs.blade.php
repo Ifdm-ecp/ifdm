@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
-  function tablaComponents()
-  {
+function tablaComponents()
+{
     data = $("#data").val();
     if (data === '') {
         data = [[null,null], [null,null]]
@@ -40,10 +40,10 @@ window.onbeforeunload = function() {
     localStorage.setItem('formation', $('#formation').val());
 }
 
-document.getElementById('check_set_completition_fluids').onchange = function() {
-    document.getElementById('kdki_cement_slurry_factors').disabled = !this.checked;
-    document.getElementById('kdki_cement_slurry_factors').value = "";
-};
+$("#check_set_completition_fluids").change(function(e) {
+    $('#kdki_cement_slurry_factors').prop("disabled", !this.checked);
+    $('#kdki_cement_slurry_factors').val(!this.checked ? "" : $('#kdki_cement_slurry_factors').val());
+});
 
 //Cargar valores de select en recarga de página
 window.onload = function() {

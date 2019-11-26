@@ -441,8 +441,7 @@ function linear_regression_plot()
         } else {
             var evt = window.event || arguments.callee.caller.arguments[0];
             evt.preventDefault();
-            console.log("Error");
-            alert("Please, check your laboratory test data. You must include at least two rows of numerical data.");
+            showFrontendErrorsBasic("Please, check your laboratory test data. You must include at least two rows of numerical data.");
         }
     }
 

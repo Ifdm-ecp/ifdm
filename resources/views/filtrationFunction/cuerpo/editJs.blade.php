@@ -1,7 +1,6 @@
 <script type="text/javascript">
 
-function tablaComponents()
-{
+function tablaComponents() {
     data = $("#data").val();
     if (data === '') {
         @if($filtration_function->mudComposicion)
@@ -50,9 +49,9 @@ $("#check_set_completition_fluids").change(function(e) {
 
 //Cargar valores de select en recarga de página
 window.onload = function() {
-    var cuenca = {!! $basin_id !!};
-    var campo = {!! $field_id !!};
-    var formation = {!! $formation_id !!};
+    var cuenca = $("#select_basin").val() !== "" ? $("#select_basin").val() : @if (!empty($basin_id)) {!! $basin_id !!} @endif;
+    var campo = $("#select_field").val() !== "" ? $("#select_field").val() : @if (!empty($field_id)) {!! $field_id !!} @endif;
+    var formation = $("#select_formation").val() !== "" ? $("#select_formation").val() : @if (!empty($formation_id)) {!! $formation_id !!} @endif;
 
     if ($('#kdki_cement_slurry_factors').val() !== "") {
         $('#check_set_completition_fluids').prop("checked", true);
@@ -250,7 +249,7 @@ function plot_lab_test(lab_test_id)
     var time = [];
     var filtered_volume = [];
     for (var i = 0; i < data.length; i++) {
-        time.push(data[i][0]);
+        time.push(parseFloat(data[i][0]));
         filtered_volume.push(data[i][1]);
     }
     time.pop();
@@ -414,7 +413,7 @@ function validate_lab_test_tables() {
         final_flag_lab_test = final_flag_lab_test && (flag_lab_test_valid_data && flag_lab_test_min_row);
     });
 
-    return [true, final_lab_test_data];
+    return [final_flag_lab_test, final_lab_test_data];
 }
 
 // Grafica la regresión lineal cuando se calculan a y b manualmente
@@ -798,6 +797,10 @@ function save_filtration_function() {
             });
             $("#p_data").val(JSON.stringify(final_p_data));
         }
+
+        $("#select_basin").val(select_basin);
+        $("#select_field").val(select_field);
+        $("#select_formation").val(select_formation);
     } else {
         var evt = window.event || arguments.callee.caller.arguments[0];
         evt.preventDefault();
@@ -807,17 +810,17 @@ function save_filtration_function() {
 
 //Llamarla antes de guardar todos los datos de tablas - elmina nulos
 function clean_table_data(table_div_id) {
-  container = $("#" + table_div_id); //Div de la tabla
-  var table_data = container.handsontable('getData');
-  var cleaned_data = [];
+    container = $("#" + table_div_id); //Div de la tabla
+    var table_data = container.handsontable('getData');
+    var cleaned_data = [];
 
-  $.each(table_data, function (rowKey, object) {
-    if (!container.handsontable('isEmptyRow', rowKey)) {
-      cleaned_data[rowKey] = object;
-    }
-  });
+    $.each(table_data, function (rowKey, object) {
+        if (!container.handsontable('isEmptyRow', rowKey)) {
+            cleaned_data[rowKey] = object;
+        }
+    });
 
-  return cleaned_data;
+    return cleaned_data;
 }
 
 //Grafica la representación de las pruebas de laboratorio con datos fijos. 

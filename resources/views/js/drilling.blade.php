@@ -647,7 +647,7 @@ function calculate_ecd(option) {
     if (isNaN(ecd)) {
       showFrontendErrorsBasic("To calculate the ECD you need the following data: <li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
     } else {
-      $("#" + result_div_id).val(ecd.toFixed(2));
+      $("#" + result_div_id).val(ecd);
     }
   }
 }
@@ -746,7 +746,7 @@ $("#d_total_exposure_time_t").change(function(e) {
   var MDtop = general_data_table[0][1];
   var rop = (MDbottom - MDtop) / (texp * 24);
   // var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
-  $("#d_rop_t").val(rop.toFixed(2));
+  $("#d_rop_t").val(rop);
 });
 
 $("#d_rop_t").change(function(e) {

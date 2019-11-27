@@ -175,7 +175,7 @@ class drilling_controller extends Controller
                 // 1) Calculate perforation overbalance
                 // Get media point for bottom and top in the profile table
                 $media_point_profile_bottom = floatval($drilling_general->bottom);
-                $media_point_profile_top = floatval($drilling_general->top);;
+                $media_point_profile_top = floatval($drilling_general->top);
 
                 // foreach ($rows_profile_data as $row) {
                 //     $media_point_profile_bottom += floatval($row->bottom);
@@ -204,6 +204,7 @@ class drilling_controller extends Controller
                 $rd_cem = array();
                 $a_factor = floatval($drilling->a_factor);
                 $b_factor = floatval($drilling->b_factor);
+                $t_exp_calc = $drilling->d_total_exposure_time;
 
                 foreach ($rows_profile_data as $row) {
                     $bottom = floatval($row->bottom);
@@ -217,13 +218,13 @@ class drilling_controller extends Controller
                     $k_corrected = $permeability * (1 + $fracture_intensity);
 
                     // 3.2) Calculate drilling exposure time
-                    $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
+                    $t_exp_calc = floatval($t_exp_calc) - (($bottom - $top) / floatval($drilling->d_rop)) * (1 / 24);
                     array_push($t_exp_perf, $t_exp_calc);
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
                     $af_field = 2 * pi() * ($hole_diameter / 2 / 12) * ($bottom - $top);
-                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) * 0.001076;
+                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) / pow(30.48, 2);
 
                     $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
                     array_push($vf_perf, $vf_perf_calc);
@@ -234,7 +235,7 @@ class drilling_controller extends Controller
 
                     // Do calculations for completion/cementation
                     if ($drilling->cementingAvailable == 1) {
-                        // 3.5) Calculate cementing exposure time
+                        // 3.5) Calculate cementing filtrate volume
                         $vf_cem_calc = $a_factor * (($k_corrected * $ob_cem) + $b_factor) * sqrt(floatval($drilling->c_total_exposure_time) * 1440) * 0.0000063 * ($af_field / $af_lab);
                         array_push($vf_cem, $vf_cem_calc);
 
@@ -1970,7 +1971,7 @@ class drilling_controller extends Controller
                 // 1) Calculate perforation overbalance
                 // Get media point for bottom and top in the profile table
                 $media_point_profile_bottom = floatval($drilling_general->bottom);
-                $media_point_profile_top = floatval($drilling_general->top);;
+                $media_point_profile_top = floatval($drilling_general->top);
 
                 // foreach ($rows_profile_data as $row) {
                 //     $media_point_profile_bottom += floatval($row->bottom);
@@ -1999,6 +2000,7 @@ class drilling_controller extends Controller
                 $rd_cem = array();
                 $a_factor = floatval($drilling->a_factor);
                 $b_factor = floatval($drilling->b_factor);
+                $t_exp_calc = $drilling->d_total_exposure_time;
 
                 foreach ($rows_profile_data as $row) {
                     $bottom = floatval($row->bottom);
@@ -2012,13 +2014,13 @@ class drilling_controller extends Controller
                     $k_corrected = $permeability * (1 + $fracture_intensity);
 
                     // 3.2) Calculate drilling exposure time
-                    $t_exp_calc = floatval($drilling->d_total_exposure_time) - (($bottom - $top) / floatval($drilling->d_rop)) * 0.041666667;
+                    $t_exp_calc = floatval($t_exp_calc) - (($bottom - $top) / floatval($drilling->d_rop)) * (1 / 24);
                     array_push($t_exp_perf, $t_exp_calc);
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
                     $af_field = 2 * pi() * ($hole_diameter / 2 / 12) * ($bottom - $top);
-                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) * 0.001076;
+                    $af_lab = (pi() * pow(floatval($filtration_function_data->core_diameter) / 2, 2)) / pow(30.48, 2);
 
                     $vf_perf_calc = $a_factor * (($k_corrected * $ob_perf) + $b_factor) * sqrt($t_exp_calc * 1440) * 0.0000063 * ($af_field / $af_lab);
                     array_push($vf_perf, $vf_perf_calc);
@@ -2029,7 +2031,7 @@ class drilling_controller extends Controller
 
                     // Do calculations for completion/cementation
                     if ($drilling->cementingAvailable == 1) {
-                        // 3.5) Calculate cementing exposure time
+                        // 3.5) Calculate cementing filtrate volume
                         $vf_cem_calc = $a_factor * (($k_corrected * $ob_cem) + $b_factor) * sqrt(floatval($drilling->c_total_exposure_time) * 1440) * 0.0000063 * ($af_field / $af_lab);
                         array_push($vf_cem, $vf_cem_calc);
 

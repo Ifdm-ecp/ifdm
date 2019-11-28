@@ -49,9 +49,9 @@ $("#check_set_completition_fluids").change(function(e) {
 
 //Cargar valores de select en recarga de página
 window.onload = function() {
-    var cuenca = $("#select_basin").val() !== "" ? $("#select_basin").val() : @if (!empty($basin_id)) {!! $basin_id !!} @endif;
-    var campo = $("#select_field").val() !== "" ? $("#select_field").val() : @if (!empty($field_id)) {!! $field_id !!} @endif;
-    var formation = $("#select_formation").val() !== "" ? $("#select_formation").val() : @if (!empty($formation_id)) {!! $formation_id !!} @endif;
+    var cuenca = $("#select_basin").val() !== "" ? $("#select_basin").val() : @if (!empty($basin_id)) {!! $basin_id !!} @else ""  @endif;
+    var campo = $("#select_field").val() !== "" ? $("#select_field").val() : @if (!empty($field_id)) {!! $field_id !!} @else "" @endif;
+    var formation = $("#select_formation").val() !== "" ? $("#select_formation").val() : @if (!empty($formation_id)) {!! $formation_id !!} @else ""  @endif;
 
     if ($('#kdki_cement_slurry_factors').val() !== "") {
         $('#check_set_completition_fluids').prop("checked", true);

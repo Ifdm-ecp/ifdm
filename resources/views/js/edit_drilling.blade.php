@@ -21,9 +21,9 @@ window.onload = function() {
   //verifica si esta habilitado cementing
   cementingAvailable();
   var formation = [{!! !empty($interval->formacion_id) ? $interval->formacion_id : $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
-  var interval = $("#select_interval_general_data").val() !== "" ? $("#select_interval_general_data").val() : @if (!empty($drilling_scenario->general_interval_select)) {!! $drilling_scenario->general_interval_select !!} @endif;
-  var input_data_method = $("#select_input_data").val() !== "" ? $("#select_input_data").val() : @if (!empty($drilling_scenario->input_data_select)) {!! $drilling_scenario->input_data_select !!} @endif;
-  var filtration_function_select_values = $("#select_filtration_function").val() !== "" ? $("#select_filtration_function").val() : @if (!empty($drilling_scenario->filtration_function_id)) {!! $drilling_scenario->filtration_function_id !!} @endif;
+  var interval = $("#select_interval_general_data").val() !== "" ? $("#select_interval_general_data").val() : @if (!empty($drilling_scenario->general_interval_select)) {!! $drilling_scenario->general_interval_select !!} @else "" @endif;
+  var input_data_method = $("#select_input_data").val() !== "" ? $("#select_input_data").val() : @if (!empty($drilling_scenario->input_data_select)) {!! $drilling_scenario->input_data_select !!} @else "" @endif;
+  var filtration_function_select_values = $("#select_filtration_function").val() !== "" ? $("#select_filtration_function").val() : @if (!empty($drilling_scenario->filtration_function_id)) {!! $drilling_scenario->filtration_function_id !!} @else "" @endif;
   
   $("#inputDataMethodSelect").val(input_data_method);
   $("#inputDataMethodSelect").selectpicker('refresh');

@@ -684,7 +684,7 @@ function tabStep(direction) {
 //   var event = window.event || arguments.callee.caller.arguments[0];
 //   var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
 //   var tabActiveElement = $(".nav.nav-tabs li.active");
-//   var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
+//   var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
 
 //   if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
 //     if (!verifyDrilling(tabToValidate, true)) {
@@ -708,7 +708,7 @@ function tabStep(direction) {
 function switchTab() {
   var event = window.event || arguments.callee.caller.arguments[0];
   var tabActiveElement = $(".nav.nav-tabs li.active");
-  var nextPrevElement = $("#" + event.explicitOriginalTarget.id).parent();
+  var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
 
   $("#next_button").toggle(nextPrevElement.next().is("li"));
   $("#prev_button").toggle(nextPrevElement.prev().is("li"));

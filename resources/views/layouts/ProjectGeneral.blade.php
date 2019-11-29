@@ -118,7 +118,7 @@
                         as = as.replace("xx", value.id);
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('drilling.edit',"xxxxxx") }}";
                         as = as.replace("xxxxxx", value.id);
                         var color = "#ff1b00";
                     }
@@ -437,7 +437,7 @@ $.get("{!! url('arbol') !!}",
                         var as = "{{ URL::route('drilling.result',array('id' => "xxxxxx")) }}";
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('drilling.edit',"xxxxxx") }}";
                         var color = "#ff1b00";
                     }
 

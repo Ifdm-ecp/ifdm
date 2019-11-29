@@ -33,13 +33,9 @@ class ScenaryCreateRequest extends Request
             'well' => 'required',
             'date' => 'required',
             'project' => 'required',
+            'formation_ipr' => 'required_if:type,IPR',
+            'formation' => 'required_unless:type,IPR,Drilling',
         ];
-
-        if (isset($_POST['type']) && $_POST['type'] == 'IPR') {
-            $validations_ = array_merge($validations_,['formation_ipr' => 'required']);
-        } else {
-            $validations_ = array_merge($validations_,['formation' => 'required']);
-        }
 
         return $validations_;
     }
@@ -53,8 +49,8 @@ class ScenaryCreateRequest extends Request
             'basin.required' => 'Basin name required',
             'field.required'  => 'Field required',
             'well.required' => 'Well name required',
-            'formation.required' => 'Formation name required',
-            'formation_ipr.required' => 'Formation name required',
+            'formation.required_unless' => 'Formation name required',
+            'formation_ipr.required_if' => 'Formation name required',
             'date.required' => 'Date required',
             'project.required' => 'Project required',
             'scenary.unique' => 'Scenary name has already been taken',

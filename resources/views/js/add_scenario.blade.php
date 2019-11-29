@@ -345,12 +345,6 @@ $(document).ready(function() {
             $("#multiparametric_type_button").hide();
         }
 
-        if (type == "Drilling") {
-            /*$("#div_Dformation").show();*/
-        } else {
-            $("#div_Dformation").hide();
-        }
-
         if (type == "IPR") {                
             $('#div_formation_ipr').show();
             $('#div_formation_wipr').hide();
@@ -364,6 +358,13 @@ $(document).ready(function() {
             $('#well').removeAttr('disabled');
             $('#formation_ipr').removeAttr('disabled');
 
+        }
+
+        if (type == "Drilling") {
+            $('#div_formation_wipr').hide();
+            /*$("#div_Dformation").show();*/
+        } else {
+            $("#div_Dformation").hide();
         }
 
         $('.selectpicker').selectpicker('refresh');

@@ -122,6 +122,8 @@ class add_scenario_controller extends Controller
                 $formation_ids = str_replace(']', '', $formation_ids);
 
                 $scenary->formacion_id = $formation_ids;
+            } else if ($request->input('type') == 'Drilling') {
+                $scenary->formacion_id = 0;
             } else {
                 $scenary->formacion_id = $request->input('formation');
             }

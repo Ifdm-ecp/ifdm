@@ -283,6 +283,25 @@ else
 }
 }
 
+/* tabStep
+ * After validating the current tab, it is changed to the next or previous tab depending on the
+ * entry value
+ * params {direction: string}
+*/
+function tabStep(direction) {
+  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+  if (direction == "prev") {
+    $(".nav.nav-tabs li.active").prev().children().click();
+  } else {
+    $(".nav.nav-tabs li.active").next().children().click();
+  }
+
+  $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+  $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+  $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+}
+
 //Llamarla antes de guardar todos los datos de tablas - elmina nulos
 function clean_table_data(table_div_id) 
 {

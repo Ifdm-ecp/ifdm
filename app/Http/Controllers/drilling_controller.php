@@ -2,46 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\drilling_request;
-use App\Http\Controllers\Controller;
 use App\drilling;
 use App\drilling_results;
 use App\drilling_results_chart;
 use App\d_general_data;
-use App\d_average_input_data;
-use App\d_intervals_input_data;
 use App\d_profile_input_data;
-use App\d_filtration_test_data;
-use App\d_filtration_function;
-use App\d_filtration_function_data;
-use App\d_laboratory_test_data;
-use App\d_laboratory_test;
 use App\escenario;
-use App\formacionxpozo;
-
-
+use App\Http\Controllers\Controller;
+use App\Http\Requests\drilling_request;
 use DB;
+use Illuminate\Http\Request;
 use View;
 
 class drilling_controller extends Controller
 {
-    /** 
+    /**
      * Despliega la vista inicial del escenario Drilling con la información del usuario, el pozo, la formación y el intervalo productor.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        if (\Auth::check()) 
-        {
+        if (\Auth::check()) {
             $scenario = escenario::find(\Request::get('scenaryId'));
 
-            return View::make('drilling', compact('scenario')); 
-        }
-        else
-        {
+            return View::make('drilling', compact('scenario'));
+        } else {
             return view('loginfirst');
         }
     }
@@ -62,7 +48,8 @@ class drilling_controller extends Controller
      * @param  int  $number
      * @return int
      */
-    function autoRound($number) {
+    public function autoRound($number)
+    {
         $dotPos = strpos(strval($number), ".");
 
         if ($dotPos !== false) {
@@ -75,7 +62,7 @@ class drilling_controller extends Controller
                     break;
                 }
             }
-            
+
             if ($newPos !== false) {
                 return round($number, ($newPos + 1 < 2 ? 2 : $newPos + 1));
             } else {
@@ -115,18 +102,18 @@ class drilling_controller extends Controller
             $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t !== "" ? $request->d_plastic_viscosity_t : null;
             $drilling->d_yield_point = $request->d_yield_point_t !== "" ? $request->d_yield_point_t : null;
             $drilling->d_rop = $request->d_rop_t !== "" ? $request->d_rop_t : null;
-            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null; 
+            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null;
             $drilling->c_total_exposure_time = $request->c_total_exposure_time_t !== "" ? $request->c_total_exposure_time_t : null;
             $drilling->c_pump_rate = $request->c_pump_rate_t !== "" ? $request->c_pump_rate_t : null;
             $drilling->c_cement_slurry = $request->c_cement_slurry_density_t !== "" ? $request->c_cement_slurry_density_t : null;
             $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t !== "" ? $request->c_plastic_viscosity_t : null;
             $drilling->c_yield_point = $request->c_yield_point_t !== "" ? $request->c_yield_point_t : null;
-            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null; 
+            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null;
             $drilling->general_interval_select = $request->select_interval_general_data !== "" ? $request->select_interval_general_data : null;
             $drilling->input_data_select = $request->select_input_data !== "" ? $request->select_input_data : null;
             $drilling->status_wr = $request->only_s == "save" ? 1 : 0;
             $drilling->save();
-            
+
             // General data table
             $drilling_general = json_decode($request->generaldata_table);
             $drilling_general = is_null($drilling_general) ? [] : $drilling_general;
@@ -268,7 +255,7 @@ class drilling_controller extends Controller
 
                     // 10) Calculate cementing average skin
                     $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_avg / ($hole_diameter / 2 / 12));
-                
+
                     // 11) Calculate cementing max skin
                     $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_max / ($hole_diameter / 2 / 12));
                 }
@@ -317,12 +304,12 @@ class drilling_controller extends Controller
                 foreach ($rows_profile_data as $index => $row) {
                     $bottom = floatval($row->bottom);
                     $top = floatval($row->top);
-                    
+
                     $drilling_results_chart_data = new drilling_results_chart();
                     $drilling_results_chart_data->drilling_id = $drilling->id;
                     $drilling_results_chart_data->top = ($bottom + $top) / 2;
                     $drilling_results_chart_data->d_invasion_radius = $rd_perf[$index];
-                    
+
                     if ($drilling->cementingAvailable == 1) {
                         $drilling_results_chart_data->c_invasion_radius = $rd_cem[$index];
                     }
@@ -346,7 +333,7 @@ class drilling_controller extends Controller
     // public function store2(/*drilling_request*/Request $request)
     // {
     //     dd($request);
-    //     if (\Auth::check()) 
+    //     if (\Auth::check())
     //     {
     //         if(!isset($request->cementingAvailable) || empty($request->cementingAvailable || $request->cementingAvailable == null)) {
     //             $request->c_pump_rate_t = 0;
@@ -372,10 +359,10 @@ class drilling_controller extends Controller
     //             $c_pump_rate = !empty($request->c_pump_rate_t) ? $request->c_pump_rate_t : 0;
 
     //             $dividendo_d_pump = ($d_pump_rate*0.134);
-    //             $dividendo_d_pump = $dividendo_d_pump == 0 ? 1 : $dividendo_d_pump; 
+    //             $dividendo_d_pump = $dividendo_d_pump == 0 ? 1 : $dividendo_d_pump;
 
     //             $divisor = (0.0055*(($hole_diameter_aux*$hole_diameter_aux)-($drill_pipe_aux*$drill_pipe_aux)));
-    //             $divisor = $divisor == 0 ? 1 : $divisor; 
+    //             $divisor = $divisor == 0 ? 1 : $divisor;
 
     //             $d_anular_flow_velocity = $dividendo_d_pump / $divisor;
     //             $pre_dividendo = ($hole_diameter_aux-$drill_pipe_aux);
@@ -384,7 +371,7 @@ class drilling_controller extends Controller
     //             $d_shear_rate = (2.4*$d_anular_flow_velocity)/$pre_dividendo;
 
     //             $dividendo_c_pump = ($c_pump_rate*0.134);
-    //             $dividendo_c_pump = $dividendo_c_pump == 0 ? 1 : $dividendo_c_pump; 
+    //             $dividendo_c_pump = $dividendo_c_pump == 0 ? 1 : $dividendo_c_pump;
 
     //             $c_anular_flow_velocity = $dividendo_c_pump/$divisor;
     //             $c_shear_rate = (2.4*$c_anular_flow_velocity)/$pre_dividendo;
@@ -398,13 +385,13 @@ class drilling_controller extends Controller
     //             $drilling->d_anular_flow_velocity = $d_anular_flow_velocity;
     //             $drilling->d_shear_rate = $d_shear_rate;
     //             $drilling->d_rop = $request->input("d_rop_t");
-    //             $drilling->d_equivalent_circulating_density = $request->input("d_equivalent_circulating_density_t"); 
+    //             $drilling->d_equivalent_circulating_density = $request->input("d_equivalent_circulating_density_t");
     //             $drilling->c_total_exposure_time = $request->input("c_total_exposure_time_t");
     //             $drilling->c_pump_rate = $request->input("c_pump_rate_t");
     //             $drilling->c_cement_slurry = $request->input("c_cement_slurry_density_t");
     //             $drilling->c_shear_rate = $c_shear_rate;
     //             $drilling->c_anular_flow_velocity = $c_anular_flow_velocity;
-    //             $drilling->c_equivalent_circulating_density = $request->input("c_equivalent_circulating_density_t"); 
+    //             $drilling->c_equivalent_circulating_density = $request->input("c_equivalent_circulating_density_t");
     //             $drilling->general_interval_select = $request->input("select_interval_general_data");
     //             $drilling->filtration_function_id = $request->select_filtration_function ? $request->select_filtration_function : null;
     //             $drilling->input_data_select = $request->input("select_input_data");
@@ -437,7 +424,7 @@ class drilling_controller extends Controller
     //                 $drilling_general_table->drill_pipe_diameter = str_replace(",", ".", $value[5]);
     //                 $drilling_general_table->save();
 
-    //                 #Llenado de los arrays con la data general para los cálculos posteriores. 
+    //                 #Llenado de los arrays con la data general para los cálculos posteriores.
 
     //                 #Texp por intervalo
     //                 array_push($row_intervals,$drilling_general_table->producing_interval_id);
@@ -450,7 +437,7 @@ class drilling_controller extends Controller
     //                 array_push($row_intervals_op,$drilling_general_table->bottom);
     //                 array_push($row_intervals_op,$drilling_general_table->reservoir_pressure);
     //                 array_push($row_intervals_op,$drilling_general_table->top);
-    //                 array_push($intervals_op,$row_intervals_op);                
+    //                 array_push($intervals_op,$row_intervals_op);
 
     //                 #Overbalance Pressure por intervalo Cementation
     //                 array_push($row_intervals_op_c,$drilling_general_table->producing_interval_id);
@@ -506,7 +493,7 @@ class drilling_controller extends Controller
     //                 $data = $request->input("inputdata_intervals_table");
     //                 $input_intervals = json_decode($data);
     //                 $intervals_data_input_all = array();
-    //                 foreach ($input_intervals as $value) 
+    //                 foreach ($input_intervals as $value)
     //                 {
     //                     $intervals_data_input_row = array();
 
@@ -528,13 +515,13 @@ class drilling_controller extends Controller
     //                     array_push($intervals_data_input_all,$intervals_data_input_row);
     //                 }
     //             }
-                
-    //             #Filtration test: asignación de información de funciones de filtrado por formación. 
 
-    //             #Formaciones que son elegidas desde la primera pestaña y a las que se le va a definir una función de filtrado. 
+    //             #Filtration test: asignación de información de funciones de filtrado por formación.
+
+    //             #Formaciones que son elegidas desde la primera pestaña y a las que se le va a definir una función de filtrado.
     //             $formation_ids_ff = explode(",",$request->input('formations_select_gd'));
 
-    //             #Id de la función de filtrado escogida para cada una de las formaciones. 
+    //             #Id de la función de filtrado escogida para cada una de las formaciones.
     //             $preset_function_values = json_decode($request->input('preset_function_values'));
 
     //             # $filtration_function_generalData = $this->assign_filtration_function_generalData($formation_ids_ff, $preset_function_values, $input_data_method);
@@ -547,7 +534,7 @@ class drilling_controller extends Controller
     //                 $kd_ki_cementation = $filtration_function->kdki_cement_slurry;
     //                 $a_factor = $filtration_function->a_factor;
     //                 $b_factor = $filtration_function->b_factor;
-    //             } else { 
+    //             } else {
     //                 $core_diameter = 0;;
     //                 $kd_ki_drilling = 0;;
     //                 $kd_ki_cementation =0;;
@@ -603,7 +590,7 @@ class drilling_controller extends Controller
     //                         break;
 
     //                     }
-    //                 }    
+    //                 }
     //             }
 
     //             #6-Overbalance Pressure por perfil (Cementation)
@@ -631,7 +618,7 @@ class drilling_controller extends Controller
     //                         break;
 
     //                     }
-    //                 }    
+    //                 }
     //             }
     //             #dd($op_cementation_profile);
 
@@ -667,7 +654,7 @@ class drilling_controller extends Controller
 
     //                     }
     //                     $i++;
-    //                 }    
+    //                 }
     //                 array_push($tops,$depth[1]);
     //             }
 
@@ -682,7 +669,6 @@ class drilling_controller extends Controller
     //                 array_push($row_lab_areas,$aflab);
     //                 array_push($lab_areas,$row_lab_areas);
     //             }
-                
 
     //             $aflabs_profile = array();
 
@@ -696,7 +682,7 @@ class drilling_controller extends Controller
 
     //                     }
     //                     $flag++;
-    //                 }    
+    //                 }
     //             }
 
     //             #9- Cálculo volumen de filtrado (Drilling y Cementation)
@@ -710,7 +696,7 @@ class drilling_controller extends Controller
 
     //                     }
     //                     $flag++;
-    //                 }    
+    //                 }
     //             }
 
     //             #Volumen de filtrado drilling y cementación por intervalos
@@ -746,7 +732,7 @@ class drilling_controller extends Controller
     //                         } else {
     //                             $filtered_volume_value_cementation = 0;
     //                         }
-                            
+
     //                         $total_filtered_volume_value = $filtered_volume_value_drilling + $filtered_volume_value_cementation;
     //                         break;
 
@@ -767,7 +753,7 @@ class drilling_controller extends Controller
 
     //             #10 - Cálculo del radio de invasión por perfil (Drilling y Cementation)
     //             #Asignación de hole diameter y h a datos a profundidad a partir de intervalos
-    //             $info_profile = array(); 
+    //             $info_profile = array();
     //             foreach ($profile_data_input_all as $depth) {
     //                 foreach ($intervals_data_all as $value) {
     //                     $info_profile_row = array();
@@ -796,7 +782,7 @@ class drilling_controller extends Controller
 
     //             $h_values = array();
     //             array_push($h_values, 1);
-    //             for ($i=1; $i < count($profile_data_input_all) ; $i++) { 
+    //             for ($i=1; $i < count($profile_data_input_all) ; $i++) {
     //                 array_push($h_values,$profile_data_input_all[$i][1]-$profile_data_input_all[$i-1][1]);
     //             }
 
@@ -819,7 +805,7 @@ class drilling_controller extends Controller
 
     //             #11 - Cálculo SDrilling y SCementation para cada intervalo
 
-    //             $info_profile_skin = array(); 
+    //             $info_profile_skin = array();
     //             foreach ($profile_data_input_all as $depth) {
     //                 foreach ($intervals_data_all as $value) {
     //                     $info_profile_skin_row = array();
@@ -841,14 +827,13 @@ class drilling_controller extends Controller
     //                 }
     //             }
 
-
     //             $flag = 0;
     //             $s_drilling = array();
     //             $s_cementation = array();
     //             $s_total = array();
     //             foreach ($profile_data_input_all as $depth) {
 
-    //                 $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag]; 
+    //                 $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag];
     //                 $invasion_radius_cementation_value_aux = $invasion_radius_cementation[$flag];
     //                 $permeability = $info_profile_skin[$flag][0];
 
@@ -876,7 +861,7 @@ class drilling_controller extends Controller
     //             $d_average_total_skin = number_format($d_average_total_skin,2,'.','');
 
     //             #Invasion radius drilling
-                
+
     //             $total_invasion_radius_drilling = array_sum($invasion_radius_drilling);
     //             $total_invasion_radius_drilling = number_format($total_invasion_radius_drilling,2,'.','');
     //             $maximum_invasion_radius_drilling = max($invasion_radius_drilling);
@@ -884,14 +869,14 @@ class drilling_controller extends Controller
     //             $average_invasion_radius_drilling = $total_invasion_radius_drilling/count($invasion_radius_drilling);
     //             $average_invasion_radius_drilling = number_format($average_invasion_radius_drilling,2,'.','');
     //             #Skin cementation
-                
+
     //             $c_maximum_total_skin = max($s_cementation);
     //             $c_maximum_total_skin = number_format($c_maximum_total_skin,2,'.','');
     //             $c_average_total_skin = array_sum($s_cementation)/count($s_cementation);
     //             $c_average_total_skin = number_format($c_average_total_skin,2,'.','');
 
     //             #Invasion radius cementation
-                
+
     //             $total_invasion_radius_cementation = array_sum($invasion_radius_cementation);
     //             $total_invasion_radius_cementation = number_format($total_invasion_radius_cementation,2,'.','');
     //             $maximum_invasion_radius_cementation = max($invasion_radius_cementation);
@@ -900,21 +885,21 @@ class drilling_controller extends Controller
     //             $average_invasion_radius_cementation = number_format($average_invasion_radius_cementation,2,'.','');
     //             #Totals
     //             #Skin
-                
+
     //             $maximum_total_skin = max($s_total);
     //             $maximum_total_skin = number_format($maximum_total_skin,2,'.','');
     //             $average_total_skin = array_sum($s_total)/count($s_total);
     //             $average_total_skin = number_format($average_total_skin,2,'.','');
 
     //             #Filtration volumes
-                
+
     //             $maximum_total_filtration_volume = max($total_filtered_volume);
     //             $maximum_total_filtration_volume = number_format($maximum_total_filtration_volume,2,'.','');
     //             $average_total_filtration_volume = array_sum($total_filtered_volume)/count($total_filtered_volume);
     //             $average_total_filtration_volume = number_format($average_total_filtration_volume,2,'.','');
 
     //             #Invasion radius
-                
+
     //             $maximum_total_invasion_radius = max($total_invasion_radius);
     //             $maximum_total_invasion_radius = number_format($maximum_total_invasion_radius,2,'.','');
     //             $average_total_invasion_radius = array_sum($total_invasion_radius)/count($total_invasion_radius);
@@ -926,7 +911,7 @@ class drilling_controller extends Controller
 
     //         } else if($input_data_method == "2" && !isset($_POST['only_s'])) {
 
-    //             #4-Tiempo de exposición por intervalos 
+    //             #4-Tiempo de exposición por intervalos
     //             $texp_range = $this->calculate_exposure_time($intervals_texpr,$MDtop, $texp, $rop, $input_data_method);
 
     //             #5-Overbalance Pressure por intervalos (Drilling)
@@ -991,8 +976,8 @@ class drilling_controller extends Controller
     //                 array_push($row_intervals_by_formation,floatval( $value[2]));
     //                 array_push($intervals_by_formation, $row_intervals_by_formation);
 
-    //             }   
-                
+    //             }
+
     //             #Asignación de core diameter a intervalo específico
     //             $core_diameter_by_intervals = array();
     //             foreach ($intervals_id as $value) {
@@ -1019,7 +1004,7 @@ class drilling_controller extends Controller
 
     //             #9-Cálculo Volumen de filtrado (Drilling y Cementación)
     //             $formation_function_info = array();
-    //             $flag = 0; 
+    //             $flag = 0;
     //             foreach ([$formation_ids_ff] as $value) {
     //                 $formation_function_info_row = array();
     //                 array_push($formation_function_info_row,$value);
@@ -1071,7 +1056,7 @@ class drilling_controller extends Controller
     //                         } else {
     //                             $filtered_volume_value_cementation = 0;
     //                         }
-                            
+
     //                         $total_filtered_volume_value = $filtered_volume_value_drilling + $filtered_volume_value_cementation;
 
     //                     }
@@ -1080,7 +1065,7 @@ class drilling_controller extends Controller
     //                 array_push($filtered_volumes_cementation,$filtered_volume_value_cementation);
     //                 array_push($total_filtered_volume,$total_filtered_volume_value);
     //             }
-                
+
     //             # 10 - Cálculo de radio de invasión por intervalo (Drilling y Cementación)
     //             $invasion_radius_drilling = array();
     //             $invasion_radius_cementation = array();
@@ -1120,7 +1105,7 @@ class drilling_controller extends Controller
     //                 array_push($row_intervals_by_formation, $row_intervals_ids);
     //                 array_push($row_intervals_by_formation, $value[2]);
     //                 array_push($intervals_by_formation, $row_intervals_by_formation);
-    //             }   
+    //             }
 
     //             #Asignación de kd/ki drilling a intervalo específico
     //             $kd_ki_drilling_by_intervals = array();
@@ -1148,8 +1133,8 @@ class drilling_controller extends Controller
     //                 array_push($row_intervals_by_formation, $row_intervals_ids);
     //                 array_push($row_intervals_by_formation, $value[2]);
     //                 array_push($intervals_by_formation, $row_intervals_by_formation);
-    //             }   
-                
+    //             }
+
     //             #Asignación de kd/ki cementation a intervalo específico
     //             $kd_ki_cementation_by_intervals = array();
     //             foreach ($intervals_id as $value) {
@@ -1171,9 +1156,9 @@ class drilling_controller extends Controller
     //             foreach ($intervals_data_all as $value)
     //             {
     //                 $permeability = $intervals_data_input_all[$flag][2]*(1+$intervals_data_input_all[$flag][3]);
-    //                 $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag]; 
+    //                 $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag];
     //                 $invasion_radius_cementation_value_aux = $invasion_radius_cementation[$flag];
-    //                 $hole_diameter = floatval($value[4]); 
+    //                 $hole_diameter = floatval($value[4]);
     //                 $hole_diameter_value = $hole_diameter;
     //                 $kd_ki_cementation_value = floatval($kd_ki_cementation_by_intervals[$flag][1]);
     //                 $kd_ki_drilling_value = floatval($kd_ki_drilling_by_intervals[$flag][1]);
@@ -1190,14 +1175,14 @@ class drilling_controller extends Controller
     //             #Results
     //             $results = $this->save_results($drilling->id, $drilling->scenario_id, $s_drilling, $invasion_radius_drilling, $s_cementation, $invasion_radius_cementation, $s_total, $total_filtered_volume, $total_invasion_radius, $tops);
     //             #Skin drilling
-                
+
     //             $d_maximum_total_skin = max($s_drilling);
     //             $d_maximum_total_skin = number_format($d_maximum_total_skin,2,'.','');
     //             $d_average_total_skin = array_sum($s_drilling)/count($s_drilling);
     //             $d_average_total_skin = number_format($d_average_total_skin,2,'.','');
 
     //             #Invasion radius drilling
-                
+
     //             $total_invasion_radius_drilling = array_sum($invasion_radius_drilling);
     //             $total_invasion_radius_drilling = number_format($total_invasion_radius_drilling,2,'.','');
     //             $maximum_invasion_radius_drilling = max($invasion_radius_drilling);
@@ -1205,14 +1190,14 @@ class drilling_controller extends Controller
     //             $average_invasion_radius_drilling = $total_invasion_radius_drilling/count($invasion_radius_drilling);
     //             $average_invasion_radius_drilling = number_format($average_invasion_radius_drilling,2,'.','');
     //             #Skin cementation
-                
+
     //             $c_maximum_total_skin = max($s_cementation);
     //             $c_maximum_total_skin = number_format($c_maximum_total_skin,2,'.','');
     //             $c_average_total_skin = array_sum($s_cementation)/count($s_cementation);
     //             $c_average_total_skin = number_format($c_average_total_skin,2,'.','');
 
     //             #Invasion radius cementation
-                
+
     //             $total_invasion_radius_cementation = array_sum($invasion_radius_cementation);
     //             $total_invasion_radius_cementation = number_format($total_invasion_radius_cementation,2,'.','');
     //             $maximum_invasion_radius_cementation = max($invasion_radius_cementation);
@@ -1221,21 +1206,21 @@ class drilling_controller extends Controller
     //             $average_invasion_radius_cementation = number_format($average_invasion_radius_cementation,2,'.','');
     //             #Totals
     //             #Skin
-                
+
     //             $maximum_total_skin = max($s_total);
     //             $maximum_total_skin = number_format($maximum_total_skin,2,'.','');
     //             $average_total_skin = array_sum($s_total)/count($s_total);
     //             $average_total_skin = number_format($average_total_skin,2,'.','');
 
     //             #Filtration volumes
-                
+
     //             $maximum_total_filtration_volume = max($total_filtered_volume);
     //             $maximum_total_filtration_volume = number_format($maximum_total_filtration_volume,2,'.','');
     //             $average_total_filtration_volume = array_sum($total_filtered_volume)/count($total_filtered_volume);
     //             $average_total_filtration_volume = number_format($average_total_filtration_volume,2,'.','');
 
     //             #Invasion radius
-                
+
     //             $maximum_total_invasion_radius = max($total_invasion_radius);
     //             $maximum_total_invasion_radius = number_format($maximum_total_invasion_radius,2,'.','');
     //             $average_total_invasion_radius = array_sum($total_invasion_radius)/count($total_invasion_radius);
@@ -1261,27 +1246,27 @@ class drilling_controller extends Controller
     //     }
     // }
 
-    // /** 
-    //  * Asigna la información general de las funciones de filtrado (core diameter, kd_ki cementing y drilling) a nivel de formación. 
+    // /**
+    //  * Asigna la información general de las funciones de filtrado (core diameter, kd_ki cementing y drilling) a nivel de formación.
     //  *
-    //  * @return Arreglo con la información de estos tres parámetros a nivel de formación. Incluye también un arreglo con los intervalos productores pertenecientes a cada una de las formaciones. 
+    //  * @return Arreglo con la información de estos tres parámetros a nivel de formación. Incluye también un arreglo con los intervalos productores pertenecientes a cada una de las formaciones.
     //  */
     // public function assign_filtration_function_generalData($formation_ids, $filtration_function_ids, $input_data_method)
     // {
-    //     #Arrays para almacenar la información de core y kd_ki drilling y cementing. 
+    //     #Arrays para almacenar la información de core y kd_ki drilling y cementing.
     //     $core_diameter_all = array();
     //     $kd_ki_drilling = array();
     //     $kd_ki_cementation = array();
 
     //     $flag = 0;
-    //     foreach ($formation_ids as $value) 
+    //     foreach ($formation_ids as $value)
     //     {
-    //         #**Nota: Estas operaciones se hacen en el orden del arreglo de funciones. Tal cual aparecen en la interfaz. Para eso es $flag.  
+    //         #**Nota: Estas operaciones se hacen en el orden del arreglo de funciones. Tal cual aparecen en la interfaz. Para eso es $flag.
     //         $row_core_diameter = array();
     //         $row_kd_ki_drilling = array();
     //         $row_kd_ki_cementation = array();
 
-    //         #ids de todos los intervalos para cada una de las formaciones. 
+    //         #ids de todos los intervalos para cada una de las formaciones.
     //         $intervals_x_formation = DB::table('formacionxpozos')->select('id')->where('formacion_id','=',$value)->get();
     //         $filtration_function = DB::table('d_filtration_function')->where('id', $filtration_function_ids[$flag])->get();
 
@@ -1307,113 +1292,104 @@ class drilling_controller extends Controller
     //     return array($core_diameter_all, $kd_ki_drilling, $kd_ki_cementation);
     // }
 
-    /** 
+    /**
      * Calcula el tiempo de exposición por rango(formación, intervalo o perfil)
      *
-     * @return Arreglo con los tiempos de exposición para cada uno de los valores del rango. 
+     * @return Arreglo con los tiempos de exposición para cada uno de los valores del rango.
      */
     public function calculate_exposure_time($range_data, $md_top, $texp, $d_rop, $input_data_method)
     {
 
-        if($input_data_method == "1")
-        {
+        if ($input_data_method == "1") {
             $texp_profile = array();
             array_push($texp_profile, $texp);
-            for ($i=1; $i < count($range_data) ; $i++)
-            { 
-                $texpt_r = $texp_profile[$i-1] - (($range_data[$i][1]-$range_data[$i-1][1])/(-0.333 * 24));
-                array_push($texp_profile,$texpt_r);
+            for ($i = 1; $i < count($range_data); $i++) {
+                $texpt_r = $texp_profile[$i - 1] - (($range_data[$i][1] - $range_data[$i - 1][1]) / (-0.333 * 24));
+                array_push($texp_profile, $texpt_r);
             }
 
-            return $texp_profile; 
-        }
-        else if($input_data_method == "2")
-        {
+            return $texp_profile;
+        } else if ($input_data_method == "2") {
             $texp_range = array();
-            foreach ($range_data as $value) 
-            {
+            foreach ($range_data as $value) {
                 $row_texp_range = array();
-                $texpt_r = $texp - (($value[1]-$md_top)/($d_rop * 24));
+                $texpt_r = $texp - (($value[1] - $md_top) / ($d_rop * 24));
                 array_push($row_texp_range, $value[0]);
                 array_push($row_texp_range, $texpt_r);
-                array_push($texp_range,$row_texp_range);
+                array_push($texp_range, $row_texp_range);
             }
 
-            return $texp_range; 
+            return $texp_range;
         }
     }
 
-    /** 
-     * Calcula la presión de overbalance drilling por rango. Recibe los datos del rango, la presión mínima y máxima, el ecd y el método de input. 
+    /**
+     * Calcula la presión de overbalance drilling por rango. Recibe los datos del rango, la presión mínima y máxima, el ecd y el método de input.
      *
-     * @return Arreglo con las presiones de overbalance de cada rango. 
+     * @return Arreglo con las presiones de overbalance de cada rango.
      */
     public function calculate_overbalance_pressure_drilling($range_data, $p_min, $p_max, $ecd_d, $input_method)
     {
-        if($input_method == "1")
-        {
+        if ($input_method == "1") {
             $op_range = array();
-            foreach ($range_data as $value) 
-            {
+            foreach ($range_data as $value) {
                 $row_op_range = array();
-                $op_value = (0.052*(($p_min+$p_max)/2)*$value[1])*$ecd_d-$value[2];
-                array_push($row_op_range,$value[0]);
-                array_push($row_op_range,$op_value);
-                array_push($op_range,$row_op_range);
+                $op_value = (0.052 * (($p_min + $p_max) / 2) * $value[1]) * $ecd_d - $value[2];
+                array_push($row_op_range, $value[0]);
+                array_push($row_op_range, $op_value);
+                array_push($op_range, $row_op_range);
             }
             return $op_range;
         }
     }
 
-    /** 
-     * Calcula la presión de overbalance cementing por rango. Recibe los datos del rango, la densidad de cementación (slurry), el ecd y el método de input. 
+    /**
+     * Calcula la presión de overbalance cementing por rango. Recibe los datos del rango, la densidad de cementación (slurry), el ecd y el método de input.
      *
-     * @return Arreglo con las presiones de overbalance de cada rango. 
+     * @return Arreglo con las presiones de overbalance de cada rango.
      */
     public function calculate_overbalance_pressure_cementing($range_data, $slurry_density, $ecd_c, $input_data_method)
     {
 
         $op_c_range = array();
-        foreach ($range_data as $value) 
-        {
+        foreach ($range_data as $value) {
             $row_op_c_range = array();
-            $op_value = (0.052*($slurry_density)*$value[1])*$ecd_c-$value[2];
-            array_push($row_op_c_range,$value[0]);
-            array_push($row_op_c_range,$op_value);
-            array_push($op_c_range,$row_op_c_range);
+            $op_value = (0.052 * ($slurry_density) * $value[1]) * $ecd_c - $value[2];
+            array_push($row_op_c_range, $value[0]);
+            array_push($row_op_c_range, $op_value);
+            array_push($op_c_range, $row_op_c_range);
         }
         return $op_c_range;
     }
 
-    /** 
-     * Calcula las áreas de flujo de cada elemento del rango.  
+    /**
+     * Calcula las áreas de flujo de cada elemento del rango.
      *
-     * @return Arreglo con las áreas de flujo de cada elemento del rango. 
+     * @return Arreglo con las áreas de flujo de cada elemento del rango.
      */
     public function calculate_flow_area($range_data)
     {
         $flow_areas = array();
         $tops = array();
-        foreach ($range_data as $value) 
-        {
-            $flow_area_row = array();   
-            $hole_diameter_value = (floatval($value[4])*0.0833333)/2;
-            $h_value = $value[2]-$value[1];
-            $flow_area_value = 2*pi()*$hole_diameter_value*$h_value;
+        foreach ($range_data as $value) {
+            $flow_area_row = array();
+            $hole_diameter_value = (floatval($value[4]) * 0.0833333) / 2;
+            $h_value = $value[2] - $value[1];
+            $flow_area_value = 2 * pi() * $hole_diameter_value * $h_value;
 
-            array_push($flow_area_row,$value[0]);
-            array_push($flow_area_row,$flow_area_value);
-            array_push($flow_areas,$flow_area_row);
+            array_push($flow_area_row, $value[0]);
+            array_push($flow_area_row, $flow_area_value);
+            array_push($flow_areas, $flow_area_row);
 
-            array_push($tops,$value[1]);
+            array_push($tops, $value[1]);
         }
         return array($flow_areas, $tops);
     }
 
-    /** 
+    /**
      * Calcula las áreas de laboratorio de cada elemento del rango. Recibe la información general del rango y la información del diámetro de núcleo.
      *
-     * @return Arreglo con las áreas de laboratorio de cada elemento del rango. 
+     * @return Arreglo con las áreas de laboratorio de cada elemento del rango.
      */
     public function calculate_laboratory_areas($range_data, $core_diameter_data)
     {
@@ -1421,98 +1397,86 @@ class drilling_controller extends Controller
 
         #Asignación de formaciones a intervalos
         $intervals_id = array();
-        foreach ($range_data as $value) 
-        {
-            array_push($intervals_id,$value[0]);
+        foreach ($range_data as $value) {
+            array_push($intervals_id, $value[0]);
         }
 
         #Asignación de core diameter a grupos de intervalos
         $intervals_by_formation = array();
-        foreach ($core_diameter_data as $value) 
-        {
+        foreach ($core_diameter_data as $value) {
             $row_intervals_by_formation = array();
             $row_intervals_ids = array();
             array_push($row_intervals_by_formation, $value[0]);
-            foreach ($value[1] as $value2) 
-            {
-                array_push($row_intervals_ids,$value2->id);
+            foreach ($value[1] as $value2) {
+                array_push($row_intervals_ids, $value2->id);
             }
             array_push($row_intervals_by_formation, $row_intervals_ids);
-            array_push($row_intervals_by_formation,floatval( $value[2]));
+            array_push($row_intervals_by_formation, floatval($value[2]));
             array_push($intervals_by_formation, $row_intervals_by_formation);
 
-        }   
-        
+        }
+
         #Asignación de core diameter a intervalo específico
         $core_diameter_by_intervals = array();
         foreach ($intervals_id as $value) {
             $row_core_diameter_by_intervals = array();
-            foreach ($intervals_by_formation as $value2) 
-            {
-                if(in_array($value,$value2[1]))
+            foreach ($intervals_by_formation as $value2) {
+                if (in_array($value, $value2[1])) {
+                    array_push($row_core_diameter_by_intervals, $value);
+                    array_push($row_core_diameter_by_intervals, $value2[2]);
+                } else #Revisar casos especiales.
                 {
-                    array_push($row_core_diameter_by_intervals,$value);
-                    array_push($row_core_diameter_by_intervals,$value2[2]);
-                }
-                else #Revisar casos especiales.
-                {
-                    array_push($row_core_diameter_by_intervals,$value);
-                    array_push($row_core_diameter_by_intervals,1);
+                    array_push($row_core_diameter_by_intervals, $value);
+                    array_push($row_core_diameter_by_intervals, 1);
                 }
             }
-            array_push($core_diameter_by_intervals,$row_core_diameter_by_intervals);
+            array_push($core_diameter_by_intervals, $row_core_diameter_by_intervals);
         }
 
         #Cálculo de área de laboratorio por cada intervalo
-        foreach ($core_diameter_by_intervals as $value) 
-        {
+        foreach ($core_diameter_by_intervals as $value) {
             $row_lab_areas = array();
-            $aflab = (pi()*pow(($value[1]/12), 2))/4;
-            array_push($row_lab_areas,$value[0]);
-            array_push($row_lab_areas,$aflab);
-            array_push($lab_areas,$row_lab_areas);
+            $aflab = (pi() * pow(($value[1] / 12), 2)) / 4;
+            array_push($row_lab_areas, $value[0]);
+            array_push($row_lab_areas, $aflab);
+            array_push($lab_areas, $row_lab_areas);
         }
-        return array($lab_areas, $intervals_id); 
+        return array($lab_areas, $intervals_id);
     }
 
-    /** 
+    /**
      * Calcula el volumen filtrado en fase de drilling y cementing. Recibe los ids de las formaciones involucradas, las funciones de filtrado escogidas, la información de la tabla input_data de la primera pestaña en drilling, las presiones overbalance de cada intervalo desde la interfaz, las presiones overbalance calculadas para drilling y cementing, el tiempo de exposición desde la interfaz para drilling y cementing, las áreas de flujo y de laboratorio calculadas en los campos anteriores.
      *
-     * @return Arreglo con el volumen de filtrado de drilling y de cementing y el volumen total de filtrado.  
+     * @return Arreglo con el volumen de filtrado de drilling y de cementing y el volumen total de filtrado.
      */
-    public function calculate_filtered_volume($formation_ids, $preset_function_values,$average_data_input_all, $intervals_overbalance_pressure, $overbalance_pressure_drilling, $overbalance_pressure_cementing, $total_exposure_time_drilling, $total_exposure_time_cementing, $flow_areas, $lab_areas)
+    public function calculate_filtered_volume($formation_ids, $preset_function_values, $average_data_input_all, $intervals_overbalance_pressure, $overbalance_pressure_drilling, $overbalance_pressure_cementing, $total_exposure_time_drilling, $total_exposure_time_cementing, $flow_areas, $lab_areas)
     {
         #Id formaciones con función de filtrado
         $formation_function_info = array();
         $flag = 0;
-        foreach ($formation_ids as $value) 
-        {
+        foreach ($formation_ids as $value) {
             $formation_function_info_row = array();
-            array_push($formation_function_info_row,$value);
-            $intervals_by_formation_function = DB::table('formacionxpozos')->select('id')->where('formacion_id','=',$value)->get();
+            array_push($formation_function_info_row, $value);
+            $intervals_by_formation_function = DB::table('formacionxpozos')->select('id')->where('formacion_id', '=', $value)->get();
             $intervals_by_formation_function_ids = array();
-            foreach ($intervals_by_formation_function as $value3) 
-            {
-                array_push($intervals_by_formation_function_ids,$value3->id);
+            foreach ($intervals_by_formation_function as $value3) {
+                array_push($intervals_by_formation_function_ids, $value3->id);
             }
 
-            $filtration_function = DB::table('d_filtration_function')->where('id',$preset_function_values[$flag])->get();
-            array_push($formation_function_info_row,$intervals_by_formation_function_ids);
-            array_push($formation_function_info_row,$filtration_function[0]->a_factor);
-            array_push($formation_function_info_row,$filtration_function[0]->b_factor);
-            array_push($formation_function_info,$formation_function_info_row);
+            $filtration_function = DB::table('d_filtration_function')->where('id', $preset_function_values[$flag])->get();
+            array_push($formation_function_info_row, $intervals_by_formation_function_ids);
+            array_push($formation_function_info_row, $filtration_function[0]->a_factor);
+            array_push($formation_function_info_row, $filtration_function[0]->b_factor);
+            array_push($formation_function_info, $formation_function_info_row);
             $flag++;
         }
         #Intervalos por formación
         $intervals_data_input_all = array();
-        foreach ($intervals_overbalance_pressure as $value) 
-        {
+        foreach ($intervals_overbalance_pressure as $value) {
             $interval_query = DB::table('formacionxpozos')->where('id', '=', $value[0])->first();
-            foreach ($average_data_input_all as $value2) 
-            {
+            foreach ($average_data_input_all as $value2) {
                 $intervals_data_input_row = array();
-                if($interval_query->formacion_id == $value2[0])
-                {
+                if ($interval_query->formacion_id == $value2[0]) {
                     array_push($intervals_data_input_row, $interval_query->id);
                     array_push($intervals_data_input_row, $value2[1]);
                     array_push($intervals_data_input_row, $value2[2]);
@@ -1529,14 +1493,11 @@ class drilling_controller extends Controller
         $filtered_volumes_cementation = array();
         $total_filtered_volume = array();
         $c = 0;
-        foreach ($intervals_data_input_all as $value) 
-        {
-            foreach ($formation_function_info as $value2) 
-            {
-                if(in_array($value[0], $value2[1]))
-                {
+        foreach ($intervals_data_input_all as $value) {
+            foreach ($formation_function_info as $value2) {
+                if (in_array($value[0], $value2[1])) {
                     $a_factor_value = $value2[2];
-                    $permeability_value = $value[2]*(1+$value[3]); #Permeability*Fracture intensity
+                    $permeability_value = $value[2] * (1 + $value[3]); #Permeability*Fracture intensity
                     $overbalance_pressure_value = $overbalance_pressure_drilling[$c][1];
                     $c_overbalance_pressure_value = $overbalance_pressure_cementing[$c][1];
 
@@ -1546,34 +1507,34 @@ class drilling_controller extends Controller
                     $aflab_value = $lab_areas[$c][1];
                     $affield_value = $flow_areas[$c][1];
 
-                    if (($a_factor_value*$permeability_value*$overbalance_pressure_value+$b_factor_value) >= 0) {
-                        $filtered_volume_value_drilling = ($a_factor_value*$permeability_value*$overbalance_pressure_value+$b_factor_value)*sqrt($d_total_exposure_time_value*1440)*0.0000063*($affield_value/$aflab_value);
+                    if (($a_factor_value * $permeability_value * $overbalance_pressure_value + $b_factor_value) >= 0) {
+                        $filtered_volume_value_drilling = ($a_factor_value * $permeability_value * $overbalance_pressure_value + $b_factor_value) * sqrt($d_total_exposure_time_value * 1440) * 0.0000063 * ($affield_value / $aflab_value);
                     } else {
                         $filtered_volume_value_drilling = 0;
                     }
-                    
-                    if (($a_factor_value*$permeability_value*$c_overbalance_pressure_value+$b_factor_value) >= 0) {
-                        $filtered_volume_value_cementation = ($a_factor_value*$permeability_value*$c_overbalance_pressure_value+$b_factor_value)*sqrt(($c_total_exposure_time_value/24)*1440)*0.0000063*($affield_value/$aflab_value);
+
+                    if (($a_factor_value * $permeability_value * $c_overbalance_pressure_value + $b_factor_value) >= 0) {
+                        $filtered_volume_value_cementation = ($a_factor_value * $permeability_value * $c_overbalance_pressure_value + $b_factor_value) * sqrt(($c_total_exposure_time_value / 24) * 1440) * 0.0000063 * ($affield_value / $aflab_value);
                     } else {
                         $filtered_volume_value_cementation = 0;
                     }
-                    
+
                     $total_filtered_volume_value = $filtered_volume_value_drilling + $filtered_volume_value_cementation;
                 }
 
             }
-            array_push($filtered_volumes_drilling,$filtered_volume_value_drilling);
-            array_push($filtered_volumes_cementation,$filtered_volume_value_cementation);
-            array_push($total_filtered_volume,$total_filtered_volume_value);
+            array_push($filtered_volumes_drilling, $filtered_volume_value_drilling);
+            array_push($filtered_volumes_cementation, $filtered_volume_value_cementation);
+            array_push($total_filtered_volume, $total_filtered_volume_value);
             #dd($filtered_volumes_drilling,$filtered_volumes_cementation);
         }
-        return(array($filtered_volumes_drilling, $filtered_volumes_cementation, $total_filtered_volume, $intervals_data_input_all));
+        return (array($filtered_volumes_drilling, $filtered_volumes_cementation, $total_filtered_volume, $intervals_data_input_all));
     }
 
-    /** 
+    /**
      * Calcula el volumen filtrado en fase de drilling y cementing. Recibe los ids de las formaciones involucradas, las funciones de filtrado escogidas, la información de la tabla input_data de la primera pestaña en drilling, las presiones overbalance de cada intervalo desde la interfaz, las presiones overbalance calculadas para drilling y cementing, el tiempo de exposición desde la interfaz para drilling y cementing, las áreas de flujo y de laboratorio calculadas en los campos anteriores.
      *
-     * @return Arreglo con el volumen de filtrado de drilling y de cementing y el volumen total de filtrado.  
+     * @return Arreglo con el volumen de filtrado de drilling y de cementing y el volumen total de filtrado.
      */
     public function calculate_invasion_radius($intervals_data, $filtered_volumes_drilling, $filtered_volumes_cementing, $intervals_data_input_all)
     {
@@ -1581,127 +1542,116 @@ class drilling_controller extends Controller
         $invasion_radius_cementation = array();
         $total_invasion_radius = array();
         $flag = 0;
-        foreach ($intervals_data as $value)
-        {
-            $hole_diameter_value = floatval($value[4])*0.0833333;
-            $h_value = floatval($value[2]-$value[1]);
+        foreach ($intervals_data as $value) {
+            $hole_diameter_value = floatval($value[4]) * 0.0833333;
+            $h_value = floatval($value[2] - $value[1]);
 
             $filtered_volume_drilling_value = $filtered_volumes_drilling[$flag];
             $filtered_volume_cementation_value = $filtered_volumes_cementing[$flag];
             $porosity_value = floatval($intervals_data_input_all[$flag][1]);
             $irreducible_saturation_value = floatval($intervals_data_input_all[$flag][4]);
 
-            $invasion_radius_drilling_value =    sqrt(abs(pow(($hole_diameter_value/(2/12)),2)+(($filtered_volume_drilling_value   *5.615)/(pi()*$porosity_value*(1-$irreducible_saturation_value)*$h_value))));
-            $invasion_radius_cementation_value = sqrt(abs(pow(($hole_diameter_value/(2/12)),2)+(($filtered_volume_cementation_value*5.615)/(pi()*$porosity_value*(1-$irreducible_saturation_value)*$h_value))));
+            $invasion_radius_drilling_value = sqrt(abs(pow(($hole_diameter_value / (2 / 12)), 2) + (($filtered_volume_drilling_value * 5.615) / (pi() * $porosity_value * (1 - $irreducible_saturation_value) * $h_value))));
+            $invasion_radius_cementation_value = sqrt(abs(pow(($hole_diameter_value / (2 / 12)), 2) + (($filtered_volume_cementation_value * 5.615) / (pi() * $porosity_value * (1 - $irreducible_saturation_value) * $h_value))));
 
             $total_invasion_radius_value = $invasion_radius_drilling_value + $invasion_radius_cementation_value;
-            array_push($invasion_radius_drilling,$invasion_radius_drilling_value);
-            array_push($invasion_radius_cementation,$invasion_radius_cementation_value);
+            array_push($invasion_radius_drilling, $invasion_radius_drilling_value);
+            array_push($invasion_radius_cementation, $invasion_radius_cementation_value);
             array_push($total_invasion_radius, $total_invasion_radius_value);
             $flag++;
         }
-        return(array($invasion_radius_drilling, $invasion_radius_cementation, $total_invasion_radius));
+        return (array($invasion_radius_drilling, $invasion_radius_cementation, $total_invasion_radius));
     }
 
-    /** 
+    /**
      * Calcula el skin en drilling y cementing. Recibe al información de kd_ki para drilling y cementing, los id de los intervalos involucrados en el escenario, la información general de los intervalos que viene de las formaciones, la información de la tabla input_Data y los radios de invasión para drilling y cementación calculados en el paso anterior.
      *
-     * @return Arreglo con el valor de skin para drilling, cementación y total. 
+     * @return Arreglo con el valor de skin para drilling, cementación y total.
      */
     public function calculate_skin($kd_ki_drilling, $intervals_id, $kd_ki_cementation, $invertals_data, $intervals_data_input, $invasion_radius_drilling, $invasion_radius_cementation)
     {
         #Asignación de kd/ki drilling a cada intervalo
         $intervals_by_formation = array();
-        foreach ($kd_ki_drilling as $value) 
-        {
+        foreach ($kd_ki_drilling as $value) {
             $row_intervals_by_formation = array();
             $row_intervals_ids = array();
             array_push($row_intervals_by_formation, $value[0]);
-            foreach ($value[1] as $value2) 
-            {
-                array_push($row_intervals_ids,$value2->id);
+            foreach ($value[1] as $value2) {
+                array_push($row_intervals_ids, $value2->id);
             }
             array_push($row_intervals_by_formation, $row_intervals_ids);
             array_push($row_intervals_by_formation, $value[2]);
             array_push($intervals_by_formation, $row_intervals_by_formation);
-        }   
+        }
 
         #Asignación de kd/ki drilling a intervalo específico
         $kd_ki_drilling_by_intervals = array();
-        foreach ($intervals_id as $value) 
-        {
+        foreach ($intervals_id as $value) {
             $row_kd_ki_drilling_by_intervals = array();
-            foreach ($intervals_by_formation as $value2) 
-            {
-                if(in_array($value,$value2[1]))
-                {
-                    array_push($row_kd_ki_drilling_by_intervals,$value);
-                    array_push($row_kd_ki_drilling_by_intervals,$value2[2]);
+            foreach ($intervals_by_formation as $value2) {
+                if (in_array($value, $value2[1])) {
+                    array_push($row_kd_ki_drilling_by_intervals, $value);
+                    array_push($row_kd_ki_drilling_by_intervals, $value2[2]);
                 }
             }
-            array_push($kd_ki_drilling_by_intervals,$row_kd_ki_drilling_by_intervals);
+            array_push($kd_ki_drilling_by_intervals, $row_kd_ki_drilling_by_intervals);
         }
 
         #Asignación de kd/ki cementation a cada intervalo
         $intervals_by_formation = array();
-        foreach ($kd_ki_cementation as $value) 
-        {
+        foreach ($kd_ki_cementation as $value) {
             $row_intervals_by_formation = array();
             $row_intervals_ids = array();
             array_push($row_intervals_by_formation, $value[0]);
-            foreach ($value[1] as $value2) 
-            {
-                array_push($row_intervals_ids,$value2->id);
+            foreach ($value[1] as $value2) {
+                array_push($row_intervals_ids, $value2->id);
             }
             array_push($row_intervals_by_formation, $row_intervals_ids);
             array_push($row_intervals_by_formation, $value[2]);
             array_push($intervals_by_formation, $row_intervals_by_formation);
-        }   
+        }
 
         #Asignación de kd/ki cementation a intervalo específico
         $kd_ki_cementation_by_intervals = array();
         foreach ($intervals_id as $value) {
             $row_kd_ki_cementation_by_intervals = array();
-            foreach ($intervals_by_formation as $value2) 
-            {
-                if(in_array($value,$value2[1]))
-                {
-                    array_push($row_kd_ki_cementation_by_intervals,$value);
-                    array_push($row_kd_ki_cementation_by_intervals,$value2[2]);
+            foreach ($intervals_by_formation as $value2) {
+                if (in_array($value, $value2[1])) {
+                    array_push($row_kd_ki_cementation_by_intervals, $value);
+                    array_push($row_kd_ki_cementation_by_intervals, $value2[2]);
                 }
             }
-            array_push($kd_ki_cementation_by_intervals,$row_kd_ki_cementation_by_intervals);
+            array_push($kd_ki_cementation_by_intervals, $row_kd_ki_cementation_by_intervals);
         }
 
         $flag = 0;
         $s_drilling = array();
         $s_cementation = array();
         $s_total = array();
-        foreach ($invertals_data as $value)
-        {
-            $permeability = $intervals_data_input[$flag][2]*(1+$intervals_data_input[$flag][3]);
-            $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag]; 
+        foreach ($invertals_data as $value) {
+            $permeability = $intervals_data_input[$flag][2] * (1 + $intervals_data_input[$flag][3]);
+            $invasion_radius_drilling_value_aux = $invasion_radius_drilling[$flag];
             $invasion_radius_cementation_value_aux = $invasion_radius_cementation[$flag];
-            $hole_diameter = floatval($value[4]); 
+            $hole_diameter = floatval($value[4]);
             $hole_diameter_value = $hole_diameter;
             $kd_ki_cementation_value = floatval($kd_ki_cementation_by_intervals[$flag][1]);
             $kd_ki_drilling_value = floatval($kd_ki_drilling_by_intervals[$flag][1]);
 
-            $s_drilling_value =    ((($permeability/($kd_ki_drilling_value   *$permeability))-1)*log($invasion_radius_drilling_value_aux/($hole_diameter_value/2/12)));
-            $s_cementation_value = ((($permeability/($kd_ki_cementation_value*$permeability))-1)*log($invasion_radius_cementation_value_aux/($hole_diameter_value/2/12)));
+            $s_drilling_value = ((($permeability / ($kd_ki_drilling_value * $permeability)) - 1) * log($invasion_radius_drilling_value_aux / ($hole_diameter_value / 2 / 12)));
+            $s_cementation_value = ((($permeability / ($kd_ki_cementation_value * $permeability)) - 1) * log($invasion_radius_cementation_value_aux / ($hole_diameter_value / 2 / 12)));
             $s_total_value = $s_drilling_value + $s_cementation_value;
-            array_push($s_drilling,$s_drilling_value);
-            array_push($s_cementation,$s_cementation_value);
+            array_push($s_drilling, $s_drilling_value);
+            array_push($s_cementation, $s_cementation_value);
             array_push($s_total, $s_total_value);
             $flag++;
         }
         return (array($s_drilling, $s_cementation, $s_total));
     }
 
-    /** 
+    /**
      * Inserta los resultados a la base de datos y organiza los datos para reenviar a la vista de resultados.
      *
-     * @return vista de resultados. 
+     * @return vista de resultados.
      */
     public function save_results($drilling_id, $scenario_id, $s_drilling, $invasion_radius_drilling, $s_cementation, $invasion_radius_cementation, $s_total, $total_filtered_volume, $total_invasion_radius, $tops)
     {
@@ -1709,56 +1659,56 @@ class drilling_controller extends Controller
 
         #Skin drilling
         $d_maximum_total_skin = max($s_drilling);
-        $d_maximum_total_skin = number_format($d_maximum_total_skin,2,'.','');
-        $d_average_total_skin = array_sum($s_drilling)/count($s_drilling);
-        $d_average_total_skin = number_format($d_average_total_skin,2,'.','');
+        $d_maximum_total_skin = number_format($d_maximum_total_skin, 2, '.', '');
+        $d_average_total_skin = array_sum($s_drilling) / count($s_drilling);
+        $d_average_total_skin = number_format($d_average_total_skin, 2, '.', '');
 
         #Invasion radius drilling
         $total_invasion_radius_drilling = array_sum($invasion_radius_drilling);
-        $total_invasion_radius_drilling = number_format($total_invasion_radius_drilling,2,'.','');
+        $total_invasion_radius_drilling = number_format($total_invasion_radius_drilling, 2, '.', '');
         $maximum_invasion_radius_drilling = max($invasion_radius_drilling);
-        $maximum_invasion_radius_drilling = number_format($maximum_invasion_radius_drilling,2,'.','');
-        $average_invasion_radius_drilling = $total_invasion_radius_drilling/count($invasion_radius_drilling);
-        $average_invasion_radius_drilling = number_format($average_invasion_radius_drilling,2,'.','');
+        $maximum_invasion_radius_drilling = number_format($maximum_invasion_radius_drilling, 2, '.', '');
+        $average_invasion_radius_drilling = $total_invasion_radius_drilling / count($invasion_radius_drilling);
+        $average_invasion_radius_drilling = number_format($average_invasion_radius_drilling, 2, '.', '');
 
         #Skin cementation
         $c_maximum_total_skin = max($s_cementation);
-        $c_maximum_total_skin = number_format($c_maximum_total_skin,2,'.','');
-        $c_average_total_skin = array_sum($s_cementation)/count($s_cementation);//se cuenta
-        $c_average_total_skin = number_format($c_average_total_skin,2,'.','');
+        $c_maximum_total_skin = number_format($c_maximum_total_skin, 2, '.', '');
+        $c_average_total_skin = array_sum($s_cementation) / count($s_cementation); //se cuenta
+        $c_average_total_skin = number_format($c_average_total_skin, 2, '.', '');
 
         #Invasion radius cementation
         $total_invasion_radius_cementation = array_sum($invasion_radius_cementation);
-        $total_invasion_radius_cementation = number_format($total_invasion_radius_cementation,2,'.','');
+        $total_invasion_radius_cementation = number_format($total_invasion_radius_cementation, 2, '.', '');
         $maximum_invasion_radius_cementation = max($invasion_radius_cementation);
-        $maximum_invasion_radius_cementation = number_format($maximum_invasion_radius_cementation,2,'.','');
-        $average_invasion_radius_cementation = $total_invasion_radius_cementation/count($invasion_radius_cementation);
-        $average_invasion_radius_cementation = number_format($average_invasion_radius_cementation,2,'.','');
+        $maximum_invasion_radius_cementation = number_format($maximum_invasion_radius_cementation, 2, '.', '');
+        $average_invasion_radius_cementation = $total_invasion_radius_cementation / count($invasion_radius_cementation);
+        $average_invasion_radius_cementation = number_format($average_invasion_radius_cementation, 2, '.', '');
 
         #Totals
         #Skin
         $conteo = count($s_total);
         $maximum_total_skin = max($s_total);
-        $maximum_total_skin = number_format($maximum_total_skin,2,'.','');
-        
-        $average_total_skin = array_sum($s_total)/count($s_total);
-        $average_total_skin = number_format($average_total_skin,2,'.','');
+        $maximum_total_skin = number_format($maximum_total_skin, 2, '.', '');
+
+        $average_total_skin = array_sum($s_total) / count($s_total);
+        $average_total_skin = number_format($average_total_skin, 2, '.', '');
 
         #Filtration volumes
         $maximum_total_filtration_volume = max($total_filtered_volume);
-        $maximum_total_filtration_volume = number_format($maximum_total_filtration_volume,2,'.','');
-        $average_total_filtration_volume = array_sum($total_filtered_volume)/count($total_filtered_volume);
-        $average_total_filtration_volume = number_format($average_total_filtration_volume,2,'.','');
+        $maximum_total_filtration_volume = number_format($maximum_total_filtration_volume, 2, '.', '');
+        $average_total_filtration_volume = array_sum($total_filtered_volume) / count($total_filtered_volume);
+        $average_total_filtration_volume = number_format($average_total_filtration_volume, 2, '.', '');
 
         #Invasion radius
         $maximum_total_invasion_radius = max($total_invasion_radius);
-        $maximum_total_invasion_radius = number_format($maximum_total_invasion_radius,2,'.','');
-        $average_total_invasion_radius = array_sum($total_invasion_radius)/count($total_invasion_radius);
-        $average_total_invasion_radius = number_format($average_total_invasion_radius,2,'.','');
+        $maximum_total_invasion_radius = number_format($maximum_total_invasion_radius, 2, '.', '');
+        $average_total_invasion_radius = array_sum($total_invasion_radius) / count($total_invasion_radius);
+        $average_total_invasion_radius = number_format($average_total_invasion_radius, 2, '.', '');
 
-        #Borrando resultados antiguos 
-        DB::table('drilling_results')->where('drilling_id','=',$drilling_id)->delete();
-        DB::table('drilling_results_chart')->where('drilling_id','=',$drilling_id)->delete();
+        #Borrando resultados antiguos
+        DB::table('drilling_results')->where('drilling_id', '=', $drilling_id)->delete();
+        DB::table('drilling_results_chart')->where('drilling_id', '=', $drilling_id)->delete();
 
         #Guardando resultados
         $drilling_results_data = new drilling_results();
@@ -1780,9 +1730,8 @@ class drilling_controller extends Controller
         $drilling_results_data->total_invasion_radius_max_total = $maximum_total_invasion_radius;
         $drilling_results_data->total_invasion_radius_avg_total = $average_total_invasion_radius;
         $drilling_results_data->save();
-        
-        for ($i=0; $i < count($tops); $i++) 
-        { 
+
+        for ($i = 0; $i < count($tops); $i++) {
             $drilling_results_chart_data = new drilling_results_chart();
             $drilling_results_chart_data->drilling_id = $drilling_id;
             $drilling_results_chart_data->top = $tops[$i];
@@ -1792,10 +1741,8 @@ class drilling_controller extends Controller
         }
 
         $scenario_id = $scenario_id;
-        return array($d_maximum_total_skin,$d_average_total_skin,$total_invasion_radius_drilling,$invasion_radius_drilling,$maximum_invasion_radius_drilling,$average_invasion_radius_drilling,$c_maximum_total_skin,$c_average_total_skin,$total_invasion_radius_cementation,$invasion_radius_cementation,$maximum_invasion_radius_cementation,$average_invasion_radius_cementation,$maximum_total_skin,$average_total_skin,$maximum_total_filtration_volume,$average_total_filtration_volume,$maximum_total_invasion_radius,$average_total_invasion_radius,$tops,$scenario_id);
+        return array($d_maximum_total_skin, $d_average_total_skin, $total_invasion_radius_drilling, $invasion_radius_drilling, $maximum_invasion_radius_drilling, $average_invasion_radius_drilling, $c_maximum_total_skin, $c_average_total_skin, $total_invasion_radius_cementation, $invasion_radius_cementation, $maximum_invasion_radius_cementation, $average_invasion_radius_cementation, $maximum_total_skin, $average_total_skin, $maximum_total_filtration_volume, $average_total_filtration_volume, $maximum_total_invasion_radius, $average_total_invasion_radius, $tops, $scenario_id);
     }
-
-
 
     public function test()
     {
@@ -1812,8 +1759,8 @@ class drilling_controller extends Controller
         //
     }
 
-    /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */    
-    public function duplicate($id,$duplicateFrom)
+    /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */
+    public function duplicate($id, $duplicateFrom)
     {
         $_SESSION["scenary_id_dup"] = $id;
         return $this->edit($duplicateFrom);
@@ -1857,8 +1804,8 @@ class drilling_controller extends Controller
             $field = DB::table('campos')->where('id', $scenario->campo_id)->first();
             $scenario_id = \Request::get('scenaryId');
             $user = DB::table('users')->select('users.fullName')->join('escenarios', 'users.id', '=', 'escenarios.user_id')->where('escenarios.id', $scenario->id)->first();
-            $interval = DB::table('formacionxpozos')->where('id',$scenario->formacion_id)->first();
-            $formations = DB::table('formaciones')->where('campo_id','=',$scenario->campo_id);
+            $interval = DB::table('formacionxpozos')->where('id', $scenario->formacion_id)->first();
+            $formations = DB::table('formaciones')->where('campo_id', '=', $scenario->campo_id);
             $basin = DB::table('cuencas')->where('id', $scenario->cuenca_id)->first();
             // dd($drilling_scenario->a_factor);
 
@@ -1905,13 +1852,13 @@ class drilling_controller extends Controller
             $drilling->d_plastic_viscosity = $request->d_plastic_viscosity_t !== "" ? $request->d_plastic_viscosity_t : null;
             $drilling->d_yield_point = $request->d_yield_point_t !== "" ? $request->d_yield_point_t : null;
             $drilling->d_rop = $request->d_rop_t !== "" ? $request->d_rop_t : null;
-            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null; 
+            $drilling->d_equivalent_circulating_density = $request->d_equivalent_circulating_density_t !== "" ? $request->d_equivalent_circulating_density_t : null;
             $drilling->c_total_exposure_time = $request->c_total_exposure_time_t !== "" ? $request->c_total_exposure_time_t : null;
             $drilling->c_pump_rate = $request->c_pump_rate_t !== "" ? $request->c_pump_rate_t : null;
             $drilling->c_cement_slurry = $request->c_cement_slurry_density_t !== "" ? $request->c_cement_slurry_density_t : null;
             $drilling->c_plastic_viscosity = $request->c_plastic_viscosity_t !== "" ? $request->c_plastic_viscosity_t : null;
             $drilling->c_yield_point = $request->c_yield_point_t !== "" ? $request->c_yield_point_t : null;
-            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null; 
+            $drilling->c_equivalent_circulating_density = $request->c_equivalent_circulating_density_t !== "" ? $request->c_equivalent_circulating_density_t : null;
             $drilling->general_interval_select = $request->select_interval_general_data !== "" ? $request->select_interval_general_data : null;
             $drilling->input_data_select = $request->select_input_data !== "" ? $request->select_input_data : null;
             $drilling->status_wr = $request->only_s == "save" ? 1 : 0;
@@ -1920,7 +1867,7 @@ class drilling_controller extends Controller
             $scenario->completo = $request->only_s == "save" ? 0 : 1;
             $scenario->estado = $request->only_s == "save" ? 0 : 1;
             $scenario->save();
-            
+
             // General data table
             d_general_data::where('drilling_id', $drilling->id)->delete();
             $drilling_general = json_decode($request->generaldata_table);
@@ -2064,7 +2011,7 @@ class drilling_controller extends Controller
 
                     // 10) Calculate cementing average skin
                     $skin_cem_avg = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_avg / ($hole_diameter / 2 / 12));
-                
+
                     // 11) Calculate cementing max skin
                     $skin_cem_max = (1 / floatval($filtration_function_data->kdki_cement_slurry) - 1) * log($rd_cem_max / ($hole_diameter / 2 / 12));
                 }
@@ -2113,12 +2060,12 @@ class drilling_controller extends Controller
                 foreach ($rows_profile_data as $index => $row) {
                     $bottom = floatval($row->bottom);
                     $top = floatval($row->top);
-                    
+
                     $drilling_results_chart_data = new drilling_results_chart();
                     $drilling_results_chart_data->drilling_id = $drilling->id;
                     $drilling_results_chart_data->top = ($bottom + $top) / 2;
                     $drilling_results_chart_data->d_invasion_radius = $rd_perf[$index];
-                    
+
                     if ($drilling->cementingAvailable == 1) {
                         $drilling_results_chart_data->c_invasion_radius = $rd_cem[$index];
                     }
@@ -2140,7 +2087,7 @@ class drilling_controller extends Controller
      * @return View
      */
     public function result($id)
-    {   
+    {
         if (\Auth::check()) {
             $scenario = escenario::find($id);
             $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
@@ -2165,12 +2112,12 @@ class drilling_controller extends Controller
                         array_push($graph_results_cem_y, $profile->top);
                     }
                 }
-                
+
                 array_push($graph_results_perf, array($graph_results_perf_x, $graph_results_perf_y));
                 array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
 
                 $table_results = array(
-                    array($this->autoRound($drilling_results->d_average_calculated_skin), $this->autoRound($drilling_results->d_maximum_calculated_skin), $this->autoRound($drilling_results->d_average_invasion_radius), $this->autoRound($drilling_results->d_maximum_invasion_radius), $this->autoRound($drilling_results->d_total_invasion_radius_volume))
+                    array($this->autoRound($drilling_results->d_average_calculated_skin), $this->autoRound($drilling_results->d_maximum_calculated_skin), $this->autoRound($drilling_results->d_average_invasion_radius), $this->autoRound($drilling_results->d_maximum_invasion_radius), $this->autoRound($drilling_results->d_total_invasion_radius_volume)),
                 );
 
                 if ($drilling->cementingAvailable == 1) {
@@ -2189,13 +2136,12 @@ class drilling_controller extends Controller
 
     #Despliega los resultados a partir de la BD
     public function result2($id)
-    {   
-        if (\Auth::check()) 
-        {
+    {
+        if (\Auth::check()) {
             $scenario = escenario::find($id);
-            $drilling = DB::table('drilling')->where('scenario_id','=',$id)->first();
-            $results_data = drilling_results::where('drilling_id', '=',$drilling->id)->first();
-            $chart_data = drilling_results_chart::where('drilling_id','=',$drilling->id)->get();
+            $drilling = DB::table('drilling')->where('scenario_id', '=', $id)->first();
+            $results_data = drilling_results::where('drilling_id', '=', $drilling->id)->first();
+            $chart_data = drilling_results_chart::where('drilling_id', '=', $drilling->id)->get();
 
             if (!$results_data) {
                 $not_run = true;
@@ -2239,17 +2185,15 @@ class drilling_controller extends Controller
             $invasion_radius_cementation = [];
             $tops = [];
             foreach ($chart_data as $value) {
-                array_push($invasion_radius_drilling,$value->d_invasion_radius);
-                array_push($invasion_radius_cementation,$value->c_invasion_radius);
-                array_push($tops,$value->top);
+                array_push($invasion_radius_drilling, $value->d_invasion_radius);
+                array_push($invasion_radius_cementation, $value->c_invasion_radius);
+                array_push($tops, $value->top);
             }
 
             $scenario_id = $drilling->scenario_id;
 
-            return View::make('drilling_results',compact('scenario','not_run','drilling','d_maximum_total_skin','d_average_total_skin','total_invasion_radius_drilling','invasion_radius_drilling','maximum_invasion_radius_drilling','average_invasion_radius_drilling','c_maximum_total_skin','c_average_total_skin','total_invasion_radius_cementation','invasion_radius_cementation','maximum_invasion_radius_cementation','average_invasion_radius_cementation','maximum_total_skin','average_total_skin','maximum_total_filtration_volume','average_total_filtration_volume','maximum_total_invasion_radius','average_total_invasion_radius','tops','scenario_id'));
-        }
-        else
-        {
+            return View::make('drilling_results', compact('scenario', 'not_run', 'drilling', 'd_maximum_total_skin', 'd_average_total_skin', 'total_invasion_radius_drilling', 'invasion_radius_drilling', 'maximum_invasion_radius_drilling', 'average_invasion_radius_drilling', 'c_maximum_total_skin', 'c_average_total_skin', 'total_invasion_radius_cementation', 'invasion_radius_cementation', 'maximum_invasion_radius_cementation', 'average_invasion_radius_cementation', 'maximum_total_skin', 'average_total_skin', 'maximum_total_filtration_volume', 'average_total_filtration_volume', 'maximum_total_invasion_radius', 'average_total_invasion_radius', 'tops', 'scenario_id'));
+        } else {
             return view('loginfirst');
         }
     }

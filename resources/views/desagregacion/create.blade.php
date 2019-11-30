@@ -1,6 +1,7 @@
 @extends('layouts.ProjectGeneral')
 @section('title', 'IFDM Project')
 @section('content')
+@include('layouts/modal_error')
 <?php  
    if(!isset($_SESSION)) {
      session_start();
@@ -42,29 +43,6 @@
             <p>Error in the input Data or skin value</p>
             </small>
             </p>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-         </div>
-      </div>
-   </div>
-</div>
-@endif
-@if (count($errors) > 0)
-<div id="myModal" class="modal fade">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Error</h4>
-         </div>
-         <div class="modal-body">
-            <p class="text-danger">
-               <small>
-                  @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-            </small></p>
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
@@ -560,8 +538,6 @@
                   </div>
                </div>
             </div>
-            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();', 'type' => 'button')) !!}
-            <a class="btn btn-primary pull-right btnNext" type = 'button'>Next</a>
          </div>
          <div class="tab-pane" id="rock_properties_c">
             <div class="panel panel-default {{$errors->has('MSFormation') ? 'has-error' : ''}}">
@@ -609,9 +585,6 @@
                   </div>
                </div>
             </div>
-            {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();', 'type' => 'button')) !!}
-            <a class="btn btn-primary pull-right btnNext" type="button">Next</a>
-            <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;" type="button">Previous</a>
          </div>
          <div class="tab-pane" id="stress_gradients_c">
             <div class="panel panel-default">
@@ -638,20 +611,23 @@
                   </div>
                </div>
             </div>
-            <div class="row">
-               <div class="col-xs-12">
-                  {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
-                  {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
-                  {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'guardar();', 'type' => 'button')) !!}
-                  {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right','id' => 'next', 'onclick' => 'enviar();', 'type' => 'button')) !!}
-                  <a class="btn btn-primary pull-right btnPrevious" style="margin-right: 15px;">Previous</a>
-                  <div id="loading" style="display:none;"></div>
-                  &nbsp;
-                  
-                  {!! Form::Close() !!}
-
-
-               </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6" align="left">
+               {!! Form::submit('Save' , array('class' => 'btn btn-success', 'id' => 'btn_os', 'name' => 'btn_os', 'onclick' => 'enviar();', 'type' => 'button')) !!}
+               <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+            </div>
+            <div class="col-md-6" align="right">
+               <button type="button" class="btn btn-primary" id="prev_button" onclick="tabStep('prev');">Previous</button>
+               <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+               <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
+               {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+               {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
+               {!! Form::submit('Next' , array('class' => 'btn btn-primary pull-right','id' => 'next', 'onclick' => 'enviar();', 'type' => 'button')) !!}
+               <div id="loading" style="display:none;"></div>
+               &nbsp;
+               
+               {!! Form::Close() !!}
             </div>
          </div>
       </div>
@@ -662,6 +638,10 @@
 
 @endsection
 @section('Scripts')
+@include('js/frontend_validator')
 @include('js/desagregacion')
 @include('css/desagregacion')
+@include('js/modal_error')
+@include('js/modal_error_frontend')
+@include('css/modal_error_frontend')
 @endsection

@@ -69,7 +69,7 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
 };
 
 /* multiValidatorGeneral
- * Returns an array with a boolean with a validation result and a message in case the validation fails
+ * Returns an array with a boolean containing a validation result and a message in case the validation fails
  * params {action: string, value: mixed, tableName: string, tableRow: int, ruleset: object}
  * returns {array}
 */
@@ -125,16 +125,16 @@ function multiValidatorGeneral(action, value, ruleset)
  * params {tableName: string, tableData: array, tableRuleset: array}
  * returns {array}
 */
-function validateTable(tableName, tableData, tableRuleset) {
+function validateTable(tableName, tableData, tableRuleset, action = "run", isRequired = true) {
   var message = "";
   var tableLength = tableData.length;
   var rowValidation = [];
   var errorMessages = [];
 
-  if (tableLength < 1) {
+  if (tableLength < 1 && action == "run" && isRequired) {
     message = "The table " + tableName + " is empty. Please check your data";
     return [message];
-  } else {
+  } else if (tableLength > 1) {
     var tableColumnLength = tableData[0].length;
 
     for (var i = 0; i < tableLength; i++) {

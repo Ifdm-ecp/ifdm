@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class dissagregation_request extends Request
+class disaggregation_request extends Request
 {
     /**
      * Create a new request instance.
@@ -41,12 +41,12 @@ class dissagregation_request extends Request
             'formation_thickness' => 'required|numeric|between:0,1000',
             'perforated_thickness' => 'required|numeric|between:0,1000',
             'well_completitions' => 'required|numeric|in:1,2,3',
-            'perforation_penetration_depth' => 'required_if:well_completions,3|numeric|between:0,50',
-            'perforating_phase_angle' => 'required_if:well_completions,3|numeric|in:0.0,45.0,60.0,90.0,120.0,180.0,360.0',
-            'perforating_radius' => 'required_if:well_completions,3|numeric|between:0,10',
-            'production_formation_thickness' => 'required_if:well_completions,3|numeric|between:0,1000',
-            'horizontal_vertical_permeability_ratio' => 'required_if:well_completions,3|numeric|between:0,100',
-            'drainage_area_shape' => 'required_if:well_completions,3|integer|in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
+            'perforation_penetration_depth' => 'required_if:well_completitions,3|numeric|between:0,50',
+            'perforating_phase_angle' => 'required_if:well_completitions,3|numeric|in:0.0,45.0,60.0,90.0,120.0,180.0,360.0',
+            'perforating_radius' => 'required_if:well_completitions,3|numeric|between:0,10',
+            'production_formation_thickness' => 'required_if:well_completitions,3|numeric|between:0,1000',
+            'horizontal_vertical_permeability_ratio' => 'required_if:well_completitions,3|numeric|between:0,100',
+            'drainage_area_shape' => 'required_if:well_completitions,3|integer|in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
             'fluid_of_interest' => 'required|in:1,2,3',
             'oil_rate' => 'required_if:fluid_of_interest,1|numeric|between:0,10000',
             'oil_bottomhole_flowing_pressure' => 'required_if:fluid_of_interest,1|numeric|between:0,10000',

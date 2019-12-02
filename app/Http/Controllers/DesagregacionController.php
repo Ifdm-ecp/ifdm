@@ -9,7 +9,7 @@ use App\desagregacion;
 use App\desagregacion_tabla;
 use App\escenario;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\dissagregation_request;
+use App\Http\Requests\disaggregation_request;
 use App\permeabilidades_resultado_desagregacion;
 use App\radios_resultado_desagregacion;
 use App\resultado_desagregacion;
@@ -56,10 +56,10 @@ class desagregacionController extends Controller
     /**
      * Guarda los datos del escenario de desagregación con base en la información almacenada en el formluario e inserta en la base de datos.
      *
-     * @param  \Illuminate\Http\dissagregation_request  $request
+     * @param  \Illuminate\Http\disaggregation_request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(dissagregation_request $request)
+    public function store(disaggregation_request $request)
     {
         if (\Auth::check()) {
             if (!isset($_POST['btn_os'])) { //Procedure if "Save" button wasn't pressed
@@ -426,8 +426,11 @@ class desagregacionController extends Controller
     /**
      * Actualiza un escenario de desagregación y todos sus componentes con base en un id específico.
      *
+     * @param  \Illuminate\Http\disaggregation_request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(dissagregation_request $request, $id)
+    public function update(disaggregation_request $request, $id)
     {
         if (\Auth::check()) {
             if (!isset($_POST['btn_os'])) {

@@ -639,6 +639,7 @@
 @endsection
 @section('Scripts')
 @include('js/frontend_validator')
+@include('js/frontend_rules/disaggregation')
 @include('js/desagregacion')
 @include('css/desagregacion')
 @include('js/modal_error')

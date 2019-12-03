@@ -59,14 +59,14 @@ well_data_ruleset = [
       {rule: "requiredselect"},
       {
         rule: "selection",
-        selections: [1, 2, 3]
+        selections: ["1", "2", "3"]
       }
     ]
   },
   {
     column: "Perforation Penetration Depth",
     rules: [
-      {rule: "requiredif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredif", requiredfield: "well_completitions", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 50},
     ]
@@ -74,17 +74,17 @@ well_data_ruleset = [
   {
     column: "Perforating Phase Angle",
     rules: [
-      {rule: "requiredselectif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredselectif", requiredfield: "well_completitions", value: 3},
       {
         rule: "selection",
-        selections: [0, 45, 60, 90, 120, 180, 360]
+        selections: ["0", "45", "60", "90", "120", "180", "360"]
       }
     ]
   },
   {
     column: "Perforating Radius",
     rules: [
-      {rule: "requiredif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredif", requiredfield: "well_completitions", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10},
     ]
@@ -92,7 +92,7 @@ well_data_ruleset = [
   {
     column: "Production Formation Thickness",
     rules: [
-      {rule: "requiredif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredif", requiredfield: "well_completitions", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 1000},
     ]
@@ -100,7 +100,7 @@ well_data_ruleset = [
   {
     column: "Horizontal - Vertical Permeability Ratio",
     rules: [
-      {rule: "requiredif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredif", requiredfield: "well_completitions", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 100},
     ]
@@ -108,10 +108,10 @@ well_data_ruleset = [
   {
     column: "Drainage Area Shape",
     rules: [
-      {rule: "requiredselectif" requiredfield: "well_completitions" value: 3},
+      {rule: "requiredselectif", requiredfield: "well_completitions", value: 3},
       {
         rule: "selection",
-        selections: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        selections: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
       }
     ]
   },
@@ -124,14 +124,14 @@ production_data_ruleset = [
       {rule: "requiredselect"},
       {
         rule: "selection",
-        selections: [1, 2, 3]
+        selections: ["1", "2", "3"]
       }
     ]
   },
   {
     column: "Oil Rate",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 1},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 1},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -139,7 +139,7 @@ production_data_ruleset = [
   {
     column: "Bottomhole Flowing Pressure",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 1},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 1},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -147,7 +147,7 @@ production_data_ruleset = [
   {
     column: "Oil Viscosity",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 1},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 1},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 100000},
     ]
@@ -155,7 +155,7 @@ production_data_ruleset = [
   {
     column: "Oil Volumetric Factor",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 1},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 1},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10},
     ]
@@ -163,7 +163,7 @@ production_data_ruleset = [
   {
     column: "Gas Rate",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 2},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 2},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -171,7 +171,7 @@ production_data_ruleset = [
   {
     column: "Bottomhole Flowing Pressure",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 2},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 2},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -179,7 +179,7 @@ production_data_ruleset = [
   {
     column: "Gas Viscosity",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 2},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 2},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 100000},
     ]
@@ -187,7 +187,7 @@ production_data_ruleset = [
   {
     column: "Gas Volumetric Factor",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 2},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 2},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10},
     ]
@@ -195,7 +195,7 @@ production_data_ruleset = [
   {
     column: "Water Rate",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 3},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -203,7 +203,7 @@ production_data_ruleset = [
   {
     column: "Bottomhole Flowing Pressure",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 3},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10000},
     ]
@@ -211,7 +211,7 @@ production_data_ruleset = [
   {
     column: "Water Viscosity",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 3},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 100000},
     ]
@@ -219,7 +219,7 @@ production_data_ruleset = [
   {
     column: "Water Volumetric Factor",
     rules: [
-      {rule: "requiredif" requiredfield: "fluid_of_interest" value: 3},
+      {rule: "requiredif", requiredfield: "fluid_of_interest", value: 3},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10},
     ]
@@ -292,3 +292,4 @@ hydraulic_units_data_table_ruleset = [
     ]
   }
 ];
+</script>

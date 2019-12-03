@@ -21,7 +21,253 @@
     $('.nav-tabs > .active').prev('li').find('a').trigger('click');
   });
 
+  /* verifyDisaggregation
+  * Validates the form entirely
+  * params {action: string}
+  */
+  function verifyDisaggregation(action) {
+    // Boolean for empty values for the save button
+    var emptyValues = false;
+    // Title tab for modal errors
+    var titleTab = "";
+    var tabTitle = "";
+    //Saving tables...
+    var validationMessages = [];
+    var validationFunctionResult = [];
 
+    // Validating Well Data
+    tabTitle = "Tab: Well Data";
+
+    var well_radius = $("#well_radius").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, well_radius, well_data_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (well_radius === null || well_radius === "")) ? true: emptyValues;
+
+    var reservoir_pressure = $("#reservoir_pressure").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, reservoir_pressure, well_data_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (reservoir_pressure === null || reservoir_pressure === "")) ? true: emptyValues;
+
+    var measured_well_depth = $("#measured_well_depth").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, measured_well_depth, well_data_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (measured_well_depth === null || measured_well_depth === "")) ? true: emptyValues;
+
+    var true_vertical_depth = $("#true_vertical_depth").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, true_vertical_depth, well_data_ruleset[3]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (true_vertical_depth === null || true_vertical_depth === "")) ? true: emptyValues;
+
+    var formation_thickness = $("#formation_thickness").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, formation_thickness, well_data_ruleset[4]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (formation_thickness === null || formation_thickness === "")) ? true: emptyValues;
+
+    var perforated_thickness = $("#perforated_thickness").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, perforated_thickness, well_data_ruleset[5]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (perforated_thickness === null || perforated_thickness === "")) ? true: emptyValues;
+
+    var well_completitions = $("#well_completitions").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, well_completitions, well_data_ruleset[6]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (well_completitions === null || well_completitions === "")) ? true: emptyValues;
+
+    if (well_completitions == "3") {
+      var perforation_penetration_depth = $("#perforation_penetration_depth").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, perforation_penetration_depth, well_data_ruleset[7]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (perforation_penetration_depth === null || perforation_penetration_depth === "")) ? true: emptyValues;
+
+      var perforating_phase_angle = $("#perforating_phase_angle").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, perforating_phase_angle, well_data_ruleset[8]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (perforating_phase_angle === null || perforating_phase_angle === "")) ? true: emptyValues;
+
+      var perforating_radius = $("#perforating_radius").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, perforating_radius, well_data_ruleset[9]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (perforating_radius === null || perforating_radius === "")) ? true: emptyValues;
+
+      var production_formation_thickness = $("#production_formation_thickness").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, production_formation_thickness, well_data_ruleset[10]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (production_formation_thickness === null || production_formation_thickness === "")) ? true: emptyValues;
+
+      var horizontal_vertical_permeability_ratio = $("#horizontal_vertical_permeability_ratio").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, horizontal_vertical_permeability_ratio, well_data_ruleset[11]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (horizontal_vertical_permeability_ratio === null || horizontal_vertical_permeability_ratio === "")) ? true: emptyValues;
+
+      var drainage_area_shape = $("#drainage_area_shape").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, drainage_area_shape, well_data_ruleset[12]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (drainage_area_shape === null || drainage_area_shape === "")) ? true: emptyValues;
+    }
+  
+    // Production data section
+    var fluid_of_interest = $("#fluid_of_interest").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, fluid_of_interest, production_data_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (fluid_of_interest === null || fluid_of_interest === "")) ? true: emptyValues;
+
+    if (fluid_of_interest == "1") {
+      var oil_rate = $("#oil_rate").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oil_rate, production_data_ruleset[1]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (oil_rate === null || oil_rate === "")) ? true: emptyValues;
+
+      var oil_bottomhole_flowing_pressure = $("#oil_bottomhole_flowing_pressure").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oil_bottomhole_flowing_pressure, production_data_ruleset[2]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (oil_bottomhole_flowing_pressure === null || oil_bottomhole_flowing_pressure === "")) ? true: emptyValues;
+
+      var oil_viscosity = $("#oil_viscosity").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oil_viscosity, production_data_ruleset[3]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (oil_viscosity === null || oil_viscosity === "")) ? true: emptyValues;
+
+      var oil_volumetric_factor = $("#oil_volumetric_factor").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oil_volumetric_factor, production_data_ruleset[4]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (oil_volumetric_factor === null || oil_volumetric_factor === "")) ? true: emptyValues;
+    }
+
+    if (fluid_of_interest == "2") {
+      var gas_rate = $("#gas_rate").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_rate, production_data_ruleset[5]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (gas_rate === null || gas_rate === "")) ? true: emptyValues;
+
+      var gas_bottomhole_flowing_pressure = $("#gas_bottomhole_flowing_pressure").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_bottomhole_flowing_pressure, production_data_ruleset[6]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (gas_bottomhole_flowing_pressure === null || gas_bottomhole_flowing_pressure === "")) ? true: emptyValues;
+
+      var gas_viscosity = $("#gas_viscosity").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_viscosity, production_data_ruleset[7]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (gas_viscosity === null || gas_viscosity === "")) ? true: emptyValues;
+
+      var gas_volumetric_factor = $("#gas_volumetric_factor").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_volumetric_factor, production_data_ruleset[8]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (gas_volumetric_factor === null || gas_volumetric_factor === "")) ? true: emptyValues;
+    }
+
+    if (fluid_of_interest == "3") {
+      var water_rate = $("#water_rate").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_rate, production_data_ruleset[9]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (water_rate === null || water_rate === "")) ? true: emptyValues;
+
+      var water_bottomhole_flowing_pressure = $("#water_bottomhole_flowing_pressure").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_bottomhole_flowing_pressure, production_data_ruleset[10]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (water_bottomhole_flowing_pressure === null || water_bottomhole_flowing_pressure === "")) ? true: emptyValues;
+
+      var water_viscosity = $("#water_viscosity").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_viscosity, production_data_ruleset[11]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (water_viscosity === null || water_viscosity === "")) ? true: emptyValues;
+
+      var water_volumetric_factor = $("#water_volumetric_factor").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_volumetric_factor, production_data_ruleset[12]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (water_volumetric_factor === null || water_volumetric_factor === "")) ? true: emptyValues;
+    }
+
+    // Damage data section
+    var skin = $("#skin").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, skin, damage_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (skin === null || skin === "")) ? true: emptyValues;
+  
+    // Validating Reservoir data
+    titleTab = "";
+    tabTitle = "Tab: Reservoir data";
+
+    var permeability = $("#permeability").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, permeability, basic_petrophysics_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (permeability === null || permeability === "")) ? true: emptyValues;
+
+    var rock_type = $("#rock_type").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, rock_type, basic_petrophysics_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (rock_type === null || rock_type === "")) ? true: emptyValues;
+
+    var porosity = $("#porosity").val();
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, porosity, basic_petrophysics_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && (porosity === null || porosity === "")) ? true: emptyValues;
+    
+    // Validating Hydraulic Units data
+    titleTab = "";
+    tabTitle = "Tab: Hydraulic Units data";
+
+    var hidraulic_units_data_table = clean_table_data("hidraulic_units_data");
+    var generalValidator = validateTable("Hydraulic Units Data", hidraulic_units_data_table, hydraulic_units_data_table_ruleset, action);
+    if (generalValidator.length > 0) {
+      if (titleTab == "") {
+        titleTab = "Tab: Hydraulic Units data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator);
+    }
+
+    if (validationMessages.length < 1) {
+      // Put stuff from enviar/guardar
+
+      if (emptyValues) {
+        validationMessages.push(true);
+        showFrontendErrors(validationMessages);
+      } else {
+        $("#only_s").val("run");
+        $("#disaggregationForm").submit();
+      }
+    } else {
+      showFrontendErrors(validationMessages);
+    }
+  }
+
+  /* saveForm
+   * Submits the form when the confirmation button from the modal is clicked
+  */
+  function saveForm() {
+    $("#only_s").val("save");
+    $("#disaggregationForm").submit();
+  }
 
   function guardar() {
     /* Loading */
@@ -31,22 +277,20 @@
 
     // Si tabla sin el FZI está llena
     if (hidraulic_units_data.length != 0 ) {
-
       // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
       var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
       for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
         if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
           var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
           hidraulic_units_data_hidden[i].splice(1,0,value);
-        }else{
+        } else {
           hidraulic_units_data_hidden[i].splice(1,0,null);
         }
       }
 
       // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
       var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
-      hidraulic_units_data_table_hidden.updateSettings(
-      {
+      hidraulic_units_data_table_hidden.updateSettings({
         data: hidraulic_units_data_hidden,
         stretchH: 'all'
       });
@@ -59,9 +303,7 @@
 
       $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
       validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
-
     }
-
 
     /*
     hidraulic_units_data = clean_table_data("hidraulic_units_data");
@@ -83,7 +325,6 @@
     }
       console.log("end enviar");
       */
-
   }
 
   function enviar() {
@@ -96,7 +337,6 @@
     // si tabla vacía, entonces calcular y después calcular hidden. Por último valida
     // si tabla llena, entonces calcular hidden y después valida
     if (hidraulic_units_data.length == 0 ) {
-
       calculate_hydraulic_units_data();
       hidraulic_units_data = clean_table_data("hidraulic_units_data");
       hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
@@ -105,8 +345,7 @@
 
       $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
       validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
-
-    }else{
+    } else {
 
       // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
       var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
@@ -114,15 +353,14 @@
         if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
           var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
           hidraulic_units_data_hidden[i].splice(1,0,value);
-        }else{
+        } else {
           hidraulic_units_data_hidden[i].splice(1,0,null);
         }
       }
 
       // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
       var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
-      hidraulic_units_data_table_hidden.updateSettings(
-      {
+      hidraulic_units_data_table_hidden.updateSettings({
         data: hidraulic_units_data_hidden,
         stretchH: 'all'
       });
@@ -302,21 +540,34 @@ function tabStep(direction) {
   $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
 }
 
+/* switchTab
+ * Captures the tab clicking event to determine if a previous or next button has to be shown
+ * and also the run button
+*/
+function switchTab() {
+  var event = window.event || arguments.callee.caller.arguments[0];
+  var tabActiveElement = $(".nav.nav-tabs li.active");
+  var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+  $("#next_button").toggle(nextPrevElement.next().is("li"));
+  $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+  $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+}
+
 //Llamarla antes de guardar todos los datos de tablas - elmina nulos
-function clean_table_data(table_div_id) 
-{
-    container = $("#" + table_div_id); //Div de la tabla
-    var table_data = container.handsontable('getData');
-    var cleaned_data = [];
+function clean_table_data(table_div_id) {
+  container = $("#" + table_div_id); //Div de la tabla
+  var table_data = container.handsontable('getData');
+  var cleaned_data = [];
 
-    $.each(table_data, function (rowKey, object) {
-      if (!container.handsontable('isEmptyRow', rowKey)) {
-        cleaned_data[rowKey] = object;
-      }
-    });
+  $.each(table_data, function (rowKey, object) {
+    if (!container.handsontable('isEmptyRow', rowKey)) {
+      cleaned_data[rowKey] = object;
+    }
+  });
 
-    return cleaned_data;
-  }
+  return cleaned_data;
+}
 
   /** Banner info escenario */
   function sticky_relocate() 

@@ -90,8 +90,20 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
+        case "requiredif":
+          if ($("#" + set.requiredfield).val() == set.value && (value === null || value === "")) {
+            isValid = [false, "The field " + ruleset.column + " has an empty value"];
+            return false;
+          }
+          break;
         case "requiredselect":
           if (value === null || value === "") {
+            isValid = [false, "There is no " + ruleset.column + " selected"];
+            return false;
+          }
+          break;
+        case "requiredselectif":
+          if ($("#" + set.requiredfield).val() == set.value && (value === null || value === "")) {
             isValid = [false, "There is no " + ruleset.column + " selected"];
             return false;
           }
@@ -99,7 +111,7 @@ function multiValidatorGeneral(action, value, ruleset)
       }
     }
 
-    if (isValid === null && value !== null && value !== "") {
+    if (isValid === null && value !== null && value !== "" && value !== undefined) {
       switch (set.rule) {
         case "numeric":
           if (!$.isNumeric(value)) {
@@ -110,6 +122,12 @@ function multiValidatorGeneral(action, value, ruleset)
         case "range":
           if (value < set.min || value > set.max) {
             isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
+            return false;
+          }
+          break;
+        case "selection":
+          if (!set.selections.includes(value)) {
+            isValid = [false, "The field " + ruleset.column + " has a value that is not part of the allowed selection"];
             return false;
           }
           break;
@@ -134,7 +152,7 @@ function validateTable(tableName, tableData, tableRuleset, action = "run", isReq
   if (tableLength < 1 && action == "run" && isRequired) {
     message = "The table " + tableName + " is empty. Please check your data";
     return [message];
-  } else if (tableLength > 1) {
+  } else if (tableLength > 0) {
     var tableColumnLength = tableData[0].length;
 
     for (var i = 0; i < tableLength; i++) {

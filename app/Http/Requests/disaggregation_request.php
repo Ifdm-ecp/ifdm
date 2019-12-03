@@ -13,7 +13,7 @@ class disaggregation_request extends Request
      */
     public function __construct()
     {
-        request()->merge(['array_hydraulic_units_data' => json_decode(request()->unidades_table_hidden)]);
+        request()->merge(['array_hydraulic_units_data' => json_decode(request()->hidraulic_units_data_table)]);
     }
 
     /**
@@ -63,16 +63,51 @@ class disaggregation_request extends Request
             'skin' => 'required|numeric|between:0,1000',
             'permeability' => 'required|numeric|between:0,1000000',
             'rock_type' => 'required|in:poco consolidada,consolidada,microfracturada',
-            'porosity' => 'required|numeric|between:0,45',
+            'porosity' => 'required|numeric|between:0,0.45',
             'array_hydraulic_units_data' => 'required|array|min:1',
+            'only_s' => 'required|in:run,save',
         ];
 
         if (is_array($this->array_hydraulic_units_data)) {
             for ($i = 0; $i < count($this->array_hydraulic_units_data); $i++) {
                 $rules["array_hydraulic_units_data." . $i . ".0"] = 'required|numeric|between:0,1000';
-                $rules["array_hydraulic_units_data." . $i . ".1"] = 'required|numeric|between:0,45';
+                $rules["array_hydraulic_units_data." . $i . ".1"] = 'required|numeric|between:0,0.45';
                 $rules["array_hydraulic_units_data." . $i . ".2"] = 'required|numeric|between:0,1000000';
             }
+        }
+
+        if ($this->only_s == "save") {
+            $rules["well_radius"] = str_replace("required|", "", $rules["well_radius"]);
+            $rules["reservoir_pressure"] = str_replace("required|", "", $rules["reservoir_pressure"]);
+            $rules["measured_well_depth"] = str_replace("required|", "", $rules["measured_well_depth"]);
+            $rules["true_vertical_depth"] = str_replace("required|", "", $rules["true_vertical_depth"]);
+            $rules["formation_thickness"] = str_replace("required|", "", $rules["formation_thickness"]);
+            $rules["perforated_thickness"] = str_replace("required|", "", $rules["perforated_thickness"]);
+            $rules["well_completitions"] = str_replace("required|", "", $rules["well_completitions"]);
+            $rules["perforation_penetration_depth"] = str_replace("required_if|", "", $rules["perforation_penetration_depth"]);
+            $rules["perforating_phase_angle"] = str_replace("required_if|", "", $rules["perforating_phase_angle"]);
+            $rules["perforating_radius"] = str_replace("required_if|", "", $rules["perforating_radius"]);
+            $rules["production_formation_thickness"] = str_replace("required_if|", "", $rules["production_formation_thickness"]);
+            $rules["horizontal_vertical_permeability_ratio"] = str_replace("required_if|", "", $rules["horizontal_vertical_permeability_ratio"]);
+            $rules["drainage_area_shape"] = str_replace("required_if|", "", $rules["drainage_area_shape"]);
+            $rules["fluid_of_interest"] = str_replace("required|", "", $rules["fluid_of_interest"]);
+            $rules["oil_rate"] = str_replace("required_if|", "", $rules["oil_rate"]);
+            $rules["oil_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["oil_bottomhole_flowing_pressure"]);
+            $rules["oil_viscosity"] = str_replace("required_if|", "", $rules["oil_viscosity"]);
+            $rules["oil_volumetric_factor"] = str_replace("required_if|", "", $rules["oil_volumetric_factor"]);
+            $rules["gas_rate"] = str_replace("required_if|", "", $rules["gas_rate"]);
+            $rules["gas_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["gas_bottomhole_flowing_pressure"]);
+            $rules["gas_viscosity"] = str_replace("required_if|", "", $rules["gas_viscosity"]);
+            $rules["gas_volumetric_factor"] = str_replace("required_if|", "", $rules["gas_volumetric_factor"]);
+            $rules["water_rate"] = str_replace("required_if|", "", $rules["water_rate"]);
+            $rules["water_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["water_bottomhole_flowing_pressure"]);
+            $rules["water_viscosity"] = str_replace("required_if|", "", $rules["water_viscosity"]);
+            $rules["water_volumetric_factor"] = str_replace("required_if|", "", $rules["water_volumetric_factor"]);
+            $rules["skin"] = str_replace("required|", "", $rules["skin"]);
+            $rules["permeability"] = str_replace("required|", "", $rules["permeability"]);
+            $rules["rock_type"] = str_replace("required|", "", $rules["rock_type"]);
+            $rules["porosity"] = str_replace("required|", "", $rules["porosity"]);
+            $rules["array_hydraulic_units_data"] = str_replace("required|", "", $rules["array_hydraulic_units_data"]);
         }
 
         return $rules;
@@ -136,11 +171,13 @@ class disaggregation_request extends Request
             'porosity.numeric' => 'The porosity must be a number.',
 
             'in' => 'The :attribute selected is not part of the allowed selection.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
+            'between' => 'The :attribute value is not between :min - :max.',
 
             'array_hydraulic_units_data.required' => 'The table hydraulic units data is empty. Please check your data.',
             'array_hydraulic_units_data.array' => 'The data structure containing the hydraulic units data table contents is incorrect.',
             'array_hydraulic_units_data.min' => 'The table hydraulic units data is empty. Please check your data.',
+            'only_s.required' => 'The info sent that determines if the form is ran or saved is empty.',
+            'only_s.in' => 'The info sent that determines if the form is ran or saved is incorrect.',
         ];
 
         if (is_array($this->array_hydraulic_units_data)) {
@@ -150,7 +187,7 @@ class disaggregation_request extends Request
                 $messages["array_hydraulic_units_data." . $i . ".0.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Thickness is not between 0 - 1000';
                 $messages["array_hydraulic_units_data." . $i . ".1.required"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity has an empty value.';
                 $messages["array_hydraulic_units_data." . $i . ".1.numeric"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity must be a number.';
-                $messages["array_hydraulic_units_data." . $i . ".1.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity is not between 0 - 45';
+                $messages["array_hydraulic_units_data." . $i . ".1.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity is not between 0 - 0.45';
                 $messages["array_hydraulic_units_data." . $i . ".2.required"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability has an empty value.';
                 $messages["array_hydraulic_units_data." . $i . ".2.numeric"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability must be a number.';
                 $messages["array_hydraulic_units_data." . $i . ".2.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability is not between 0 - 1000000';

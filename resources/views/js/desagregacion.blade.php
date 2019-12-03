@@ -6,19 +6,24 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
+    // Muestra los campos correspondientes a los de la lista desplegable seleccionada
+    if ($('#well_completitions').val() == 3) { $("#hidden_div_perforated_liner").show(); }
+    if ($('#fluid_of_interest').val() == 1) { $("#hidden_oil").show(); }
+    if ($('#fluid_of_interest').val() == 2) { $("#hidden_gas").show(); }
+    if ($('#fluid_of_interest').val() == 3) { $("#hidden_water").show(); }
+
+    /** Modales de error formulario */
     $("#myModal").modal('show');
     $("#myModal_val").modal('show');
 
     /** Crear la tabla de unidades hidráulicas*/
-    create_hydraulic_units_data_table();
-  });
-
-  /** Maneja los botones de next y previous para cambiar de pestañas */
-  $('.btnNext').click(function(){
-    $('.nav-tabs > .active').next('li').find('a').trigger('click');
-  });
-  $('.btnPrevious').click(function(){
-    $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    var hidraulic_units_data_table = $("#hidraulic_units_data_table").val();
+    if (hidraulic_units_data_table === "") {
+      var data_aux = [];
+      create_hydraulic_units_data_table(data_aux);
+    } else {
+      create_hydraulic_units_data_table(JSON.parse(hidraulic_units_data_table));
+    }
   });
 
   /* verifyDisaggregation
@@ -247,12 +252,13 @@
     }
 
     if (validationMessages.length < 1) {
-      // Put stuff from enviar/guardar
+      $("#hidraulic_units_data_table").val(JSON.stringify(hidraulic_units_data_table));
 
       if (emptyValues) {
         validationMessages.push(true);
         showFrontendErrors(validationMessages);
       } else {
+        enviar();
         $("#only_s").val("run");
         $("#disaggregationForm").submit();
       }
@@ -265,6 +271,7 @@
    * Submits the form when the confirmation button from the modal is clicked
   */
   function saveForm() {
+    guardar();
     $("#only_s").val("save");
     $("#disaggregationForm").submit();
   }
@@ -276,7 +283,7 @@
     hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
 
     // Si tabla sin el FZI está llena
-    if (hidraulic_units_data.length != 0 ) {
+    if (hidraulic_units_data.length != 0) {
       // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
       var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
       for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
@@ -302,7 +309,8 @@
       hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
 
       $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
-      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
+    } else {
+      $("#unidades_table_hidden").val("[]");
     }
 
     /*
@@ -336,7 +344,7 @@
 
     // si tabla vacía, entonces calcular y después calcular hidden. Por último valida
     // si tabla llena, entonces calcular hidden y después valida
-    if (hidraulic_units_data.length == 0 ) {
+    if (hidraulic_units_data.length == 0) {
       calculate_hydraulic_units_data();
       hidraulic_units_data = clean_table_data("hidraulic_units_data");
       hidraulic_units_data_hidden = clean_table_data("hidraulic_units_data_hidden");
@@ -344,9 +352,7 @@
       hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
 
       $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
-      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
     } else {
-
       // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
       var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
       for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
@@ -360,7 +366,8 @@
 
       // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
       var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
-      hidraulic_units_data_table_hidden.updateSettings({
+      hidraulic_units_data_table_hidden.updateSettings(
+      {
         data: hidraulic_units_data_hidden,
         stretchH: 'all'
       });
@@ -372,64 +379,63 @@
       hidraulic_units_data_hidden = parseArrayToNumeric(hidraulic_units_data_hidden);
 
       $("#unidades_table_hidden").val(JSON.stringify(hidraulic_units_data_hidden));
-      validate_table(hidraulic_units_data_hidden, ["Hidraulic Units Data Table"], [["numeric", "numeric", "numeric", "numeric"]]);
     }
   }
 
   //Llamar cada vez que se necesiten validar los datos de la tabla.
   //Se necesita indicar: id del div de la tabla, el nombre de la tabla y un array con el tipo de dato de cada columna(text y numeric)
   function validate_table(table_div_id, table_name, column_types) {
-      console.log(table_div_id)
-      $("#hidraulic_units_data").handsontable(config);
-      container = $("#" + table_div_id); //Div de la tabla
-      console.log(container);
-      //$("#hidraulic_units_data");
-      var table_data = container.handsontable('getData');
-      
-      console.log(String(table_data));
+    console.log(table_div_id)
+    $("#hidraulic_units_data").handsontable(config);
+    container = $("#" + table_div_id); //Div de la tabla
+    console.log(container);
+    //$("#hidraulic_units_data");
+    var table_data = container.handsontable('getData');
+    
+    console.log(String(table_data));
 
-      if(!table_data){
-        console.log("if table");
-        table_data = [];
-      }
-      console.log(table_data);
-      var number_rows = table_data.length;
-      console.log([table_data, number_rows]);
-      var flag_numeric = false;
-      var flag_value_empty = false;
+    if(!table_data){
+      console.log("if table");
+      table_data = [];
+    }
+    console.log(table_data);
+    var number_rows = table_data.length;
+    console.log([table_data, number_rows]);
+    var flag_numeric = false;
+    var flag_value_empty = false;
 
-      var message_empty = null;
-      var message_numeric = null;
-      var message_value_empty = null;
+    var message_empty = null;
+    var message_numeric = null;
+    var message_value_empty = null;
 
-      var final_message = null;
-      if (number_rows > 0) {
-          var number_columns = table_data[0].length;
-          console.log("if 1");
-      } else {
-        console.log("else");
+    var final_message = null;
+    if (number_rows > 0) {
+      var number_columns = table_data[0].length;
+      console.log("if 1");
+    } else {
+      console.log("else");
 
-          message_empty = "The table " + table_name + " is empty. Please check your data";
-          return [message_empty];
-      }
+      message_empty = "The table " + table_name + " is empty. Please check your data";
+      return [message_empty];
+    }
 
-      for (var i = 0; i < number_columns; i++) {
-          for (var j = 0; j < number_rows; j++) {
-              if (column_types[i] == "numeric") {
-                  if (!$.isNumeric(table_data[j][i])) {
-                      message_numeric = "Some data for the table " + table_name + " must be numeric. Please check your data" + "<br>";
-                      flag_numeric = true;
-                  }
-                  if (table_data[j][i] == null || table_data[j][i] === "") {
-                      message_value_empty = "There's missing information for the table " + table_name + ". Please check your data";
-                      flag_value_empty = true;
-                  }
-              }
+    for (var i = 0; i < number_columns; i++) {
+      for (var j = 0; j < number_rows; j++) {
+        if (column_types[i] == "numeric") {
+          if (!$.isNumeric(table_data[j][i])) {
+            message_numeric = "Some data for the table " + table_name + " must be numeric. Please check your data" + "<br>";
+            flag_numeric = true;
           }
+          if (table_data[j][i] == null || table_data[j][i] === "") {
+            message_value_empty = "There's missing information for the table " + table_name + ". Please check your data";
+            flag_value_empty = true;
+          }
+        }
       }
+    }
 
-      final_message = message_numeric + message_value_empty;
-      return [final_message];
+    final_message = message_numeric + message_value_empty;
+    return [final_message];
   }
 
   /** Valida que el formulario esté completo por pestaña: negro a formularios completos, rojo a incompletos */
@@ -443,131 +449,130 @@
 
     if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null))
     {
-     valid=false;
-     mensaje="Check your Hidraulic Units Data, there's nothing there.";
-   }
+      valid=false;
+      mensaje="Check your Hidraulic Units Data, there's nothing there.";
+    }
 
-   for (var i = 0; i<datos_unidades_hidraulicas.length; i++)
-   {
-     d0 = datos_unidades_hidraulicas[i][0];
-     d1 = datos_unidades_hidraulicas[i][1];
-     d2 = datos_unidades_hidraulicas[i][2];
-     if((d0 != null && d0!="") || (d1 != null && d1!="") || (d2 != null && d2!=""))
-     {
-
-      if(d1==null || d1==="" || d0==null || d0==="" || d2==null || d2==="")
+    for (var i = 0; i<datos_unidades_hidraulicas.length; i++)
+    {
+      d0 = datos_unidades_hidraulicas[i][0];
+      d1 = datos_unidades_hidraulicas[i][1];
+      d2 = datos_unidades_hidraulicas[i][2];
+      if((d0 != null && d0!="") || (d1 != null && d1!="") || (d2 != null && d2!=""))
       {
-       valid=false;
-       mensaje="Check your Hidraulic Units Data, there's some incomplete data";
-     }
-   }
- }
+        if(d1==null || d1==="" || d0==null || d0==="" || d2==null || d2==="")
+        {
+          valid=false;
+          mensaje="Check your Hidraulic Units Data, there's some incomplete data";
+        }
+      }
+    }
 
- if($("#drainage_area_shape").prop('checked') || !$('#well_radius').val() || !$('#radio_drenaje_yac').val() || !$('#presion_yacimiento').val() || !$('#profundidad_medida_pozo').val() || !$('#espesor_canoneado').val() || !$('#profundidad_penetracion_canones').val() || !$('#radio_perforado').val() || !$('#profundidad_real_formacion').val() || !$('#espesor_formacion_productora').val())
- {
-  document.getElementById('well_data').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('well_data').style.color = "#000000";
-}
-if(!$('#tasa_flujo').val() || !$('#presion_fondo').val() || !$('#caudal_produccion_gas').val())
-{
-  document.getElementById('production_data').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('production_data').style.color = "#000000";
-}
-if($('#tipo_roca').val()=="0" || !$('#permeabilidad_abs_ini').val() || !$('#relacion_perm_horiz_vert').val())
-{
-  document.getElementById('rock_properties').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('rock_properties').style.color = "#000000";
-}
-if(!$('#viscosidad_aceite').val() || !$('#viscosidad_gas').val() || !$('#gravedad_especifica_gas').val() || !$('#factor_volumetrico_aceite').val())
-{
-  document.getElementById('fluid_properties').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('fluid_properties').style.color = "#000000";
-}
-if(!$('#gradiente_esfuerzo_horizontal_minimo').val() || !$('#gradiente_esfuerzo_horizontal_maximo').val() || !$('#gradiente_esfuerzo_vertical').val())
-{
-  document.getElementById('stress_gradients').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('stress_gradients').style.color = "#000000";
-}
-if(!$('#skin').val() && !$('#dano_total_pozo').val())
-{
-  document.getElementById('damage').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('damage').style.color = "#000000";
-}
-if(!valid)
-{
-  document.getElementById('hidraulic_units').style.color = "#DF0101";
-}
-else
-{
-  document.getElementById('hidraulic_units').style.color = "#000000";
-}
-}
-
-/* tabStep
- * After validating the current tab, it is changed to the next or previous tab depending on the
- * entry value
- * params {direction: string}
-*/
-function tabStep(direction) {
-  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
-
-  if (direction == "prev") {
-    $(".nav.nav-tabs li.active").prev().children().click();
-  } else {
-    $(".nav.nav-tabs li.active").next().children().click();
+    if($("#drainage_area_shape").prop('checked') || !$('#well_radius').val() || !$('#radio_drenaje_yac').val() || !$('#presion_yacimiento').val() || !$('#profundidad_medida_pozo').val() || !$('#espesor_canoneado').val() || !$('#profundidad_penetracion_canones').val() || !$('#radio_perforado').val() || !$('#profundidad_real_formacion').val() || !$('#espesor_formacion_productora').val())
+    {
+      document.getElementById('well_data').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('well_data').style.color = "#000000";
+    }
+    if(!$('#tasa_flujo').val() || !$('#presion_fondo').val() || !$('#caudal_produccion_gas').val())
+    {
+      document.getElementById('production_data').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('production_data').style.color = "#000000";
+    }
+    if($('#tipo_roca').val()=="0" || !$('#permeabilidad_abs_ini').val() || !$('#relacion_perm_horiz_vert').val())
+    {
+      document.getElementById('rock_properties').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('rock_properties').style.color = "#000000";
+    }
+    if(!$('#viscosidad_aceite').val() || !$('#viscosidad_gas').val() || !$('#gravedad_especifica_gas').val() || !$('#factor_volumetrico_aceite').val())
+    {
+      document.getElementById('fluid_properties').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('fluid_properties').style.color = "#000000";
+    }
+    if(!$('#gradiente_esfuerzo_horizontal_minimo').val() || !$('#gradiente_esfuerzo_horizontal_maximo').val() || !$('#gradiente_esfuerzo_vertical').val())
+    {
+      document.getElementById('stress_gradients').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('stress_gradients').style.color = "#000000";
+    }
+    if(!$('#skin').val() && !$('#dano_total_pozo').val())
+    {
+      document.getElementById('damage').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('damage').style.color = "#000000";
+    }
+    if(!valid)
+    {
+      document.getElementById('hidraulic_units').style.color = "#DF0101";
+    }
+    else
+    {
+      document.getElementById('hidraulic_units').style.color = "#000000";
+    }
   }
 
-  $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
-  $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
-  $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
-}
+  /* tabStep
+  * After validating the current tab, it is changed to the next or previous tab depending on the
+  * entry value
+  * params {direction: string}
+  */
+  function tabStep(direction) {
+    var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
 
-/* switchTab
- * Captures the tab clicking event to determine if a previous or next button has to be shown
- * and also the run button
-*/
-function switchTab() {
-  var event = window.event || arguments.callee.caller.arguments[0];
-  var tabActiveElement = $(".nav.nav-tabs li.active");
-  var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
-
-  $("#next_button").toggle(nextPrevElement.next().is("li"));
-  $("#prev_button").toggle(nextPrevElement.prev().is("li"));
-  $("#run_calc").toggle(!nextPrevElement.next().is("li"));
-}
-
-//Llamarla antes de guardar todos los datos de tablas - elmina nulos
-function clean_table_data(table_div_id) {
-  container = $("#" + table_div_id); //Div de la tabla
-  var table_data = container.handsontable('getData');
-  var cleaned_data = [];
-
-  $.each(table_data, function (rowKey, object) {
-    if (!container.handsontable('isEmptyRow', rowKey)) {
-      cleaned_data[rowKey] = object;
+    if (direction == "prev") {
+      $(".nav.nav-tabs li.active").prev().children().click();
+    } else {
+      $(".nav.nav-tabs li.active").next().children().click();
     }
-  });
 
-  return cleaned_data;
-}
+    $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+    $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+    $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+  }
+
+  /* switchTab
+  * Captures the tab clicking event to determine if a previous or next button has to be shown
+  * and also the run button
+  */
+  function switchTab() {
+    var event = window.event || arguments.callee.caller.arguments[0];
+    var tabActiveElement = $(".nav.nav-tabs li.active");
+    var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+    $("#next_button").toggle(nextPrevElement.next().is("li"));
+    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+    $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+  }
+
+  //Llamarla antes de guardar todos los datos de tablas - elmina nulos
+  function clean_table_data(table_div_id) {
+    container = $("#" + table_div_id); //Div de la tabla
+    var table_data = container.handsontable('getData');
+    var cleaned_data = [];
+
+    $.each(table_data, function (rowKey, object) {
+      if (!container.handsontable('isEmptyRow', rowKey)) {
+        cleaned_data[rowKey] = object;
+      }
+    });
+
+    return cleaned_data;
+  }
 
   /** Banner info escenario */
   function sticky_relocate() 
@@ -576,19 +581,19 @@ function clean_table_data(table_div_id) {
     var div_top = $('#sticky-anchor').offset().top;
     if (window_top > div_top) 
     {
-     $('#sticky').addClass('stick');
-   } 
-   else 
-   {
-     $('#sticky').removeClass('stick');
-   }
- }
+      $('#sticky').addClass('stick');
+    } 
+    else 
+    {
+      $('#sticky').removeClass('stick');
+    }
+  }
 
- function create_hydraulic_units_data_table()
- {
-  // Para mostrar valores de la tabla de unidades hidráulicas sin el FZI
-  $hidraulic_units_data_table = $("#hidraulic_units_data");
-  $hidraulic_units_data_table.handsontable({
+  function create_hydraulic_units_data_table(data) {
+    // Para mostrar valores de la tabla de unidades hidráulicas sin el FZI
+    $hidraulic_units_data_table = $("#hidraulic_units_data");
+    $hidraulic_units_data_table.handsontable({
+      data: data,
       height: 200,
       colHeaders: true,
       minSpareRows: 4,
@@ -598,42 +603,44 @@ function clean_table_data(table_div_id) {
       stretchH: 'all',
       colWidths: [240, 240, 240],
       columns: [
-      {
-          title: "Thickness [ft]",
-          data: 0,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
-      {
-          title: "Average Porosity [0-1]",
-          data: 1,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
-      {
-          title: "Average Permeability [mD]",
-          data: 2,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
+        {
+            title: hydraulic_units_data_table_ruleset[0].column,
+            data: 0,
+            type: 'numeric',
+            format: '0[.]0000000',
+            validator: function(value, callback) { callback(multiValidatorHandsonTable(value, hydraulic_units_data_table_ruleset[0])); }
+        },
+        {
+            title: hydraulic_units_data_table_ruleset[1].column,
+            data: 1,
+            type: 'numeric',
+            format: '0[.]0000000',
+            validator: function(value, callback) { callback(multiValidatorHandsonTable(value, hydraulic_units_data_table_ruleset[1])); }
+        },
+        {
+            title: hydraulic_units_data_table_ruleset[2].column,
+            data: 2,
+            type: 'numeric',
+            format: '0[.]0000000',
+            validator: function(value, callback) { callback(multiValidatorHandsonTable(value, hydraulic_units_data_table_ruleset[2])); }
+        }
       ]
+    });
 
-  });
+    // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+    var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
 
-  // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
-  var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
-
-  for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
-    if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
-      var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
-      hidraulic_units_data_hidden[i].splice(1,0,value);
-    }else{
-      hidraulic_units_data_hidden[i].splice(1,0,null);
+    for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+      if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+        var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+        hidraulic_units_data_hidden[i].splice(1,0,value);
+      }else{
+        hidraulic_units_data_hidden[i].splice(1,0,null);
+      }
     }
-  }
 
-  $hidraulic_units_data_table = $("#hidraulic_units_data_hidden");
-  $hidraulic_units_data_table.handsontable({
+    $hidraulic_units_data_table = $("#hidraulic_units_data_hidden");
+    $hidraulic_units_data_table.handsontable({
       data: hidraulic_units_data_hidden,
       height: 200,
       colHeaders: true,
@@ -644,70 +651,108 @@ function clean_table_data(table_div_id) {
       stretchH: 'all',
       colWidths: [180, 180, 180, 180],
       columns: [
-      {
-          title: "Thickness [ft]",
-          data: 0,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
-      {
-          title: "Flow Zone Index [µm]",
-          data: 1,
-          type: 'numeric',
-          format: '0[.]0000000'
-      }, {
-          title: "Average Porosity [0-1]",
-          data: 2,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
-      {
-          title: "Average Permeability [mD]",
-          data: 3,
-          type: 'numeric',
-          format: '0[.]0000000'
-      },
+        {
+            title: "Thickness [ft]",
+            data: 0,
+            type: 'numeric',
+            format: '0[.]0000000'
+        },
+        {
+            title: "Flow Zone Index [µm]",
+            data: 1,
+            type: 'numeric',
+            format: '0[.]0000000'
+        }, {
+            title: "Average Porosity [0-1]",
+            data: 2,
+            type: 'numeric',
+            format: '0[.]0000000'
+        },
+        {
+            title: "Average Permeability [mD]",
+            data: 3,
+            type: 'numeric',
+            format: '0[.]0000000'
+        },
       ]
+    });
+  }
 
-  });
-}
-
-function parseArrayToNumeric(multidimensionalArray)
-{
-
-  for (var i = multidimensionalArray.length - 1; i >= 0; i--) {
-    for (var j = multidimensionalArray[i].length - 1; j >= 0; j--) {
-      multidimensionalArray[i][j] = parseFloat(multidimensionalArray[i][j]);
+  function parseArrayToNumeric(multidimensionalArray) {
+    for (var i = multidimensionalArray.length - 1; i >= 0; i--) {
+      for (var j = multidimensionalArray[i].length - 1; j >= 0; j--) {
+        multidimensionalArray[i][j] = parseFloat(multidimensionalArray[i][j]);
+      }
     }
+
+    return multidimensionalArray;
   }
 
-  return multidimensionalArray;
-  }
+  function calculate_hydraulic_units_data()
+  {
+    var production_formation_thickness = parseFloat($("#production_formation_thickness").val());
+    var formation_thickness = parseFloat($("#formation_thickness").val());
+    var porosity = parseFloat($("#porosity").val());
+    var permeability = parseFloat($("#permeability").val());
+    var well_completitions = parseFloat($("#well_completitions").val());
 
-function calculate_hydraulic_units_data()
-{
-  var production_formation_thickness = parseFloat($("#production_formation_thickness").val());
-  var formation_thickness = parseFloat($("#formation_thickness").val());
-  var porosity = parseFloat($("#porosity").val());
-  var permeability = parseFloat($("#permeability").val());
-  var well_completitions = parseFloat($("#well_completitions").val());
-
-  if (well_completitions == 3) {
-    if(production_formation_thickness && porosity && permeability)
-    {
-      // Cálculo de la tabla sin el FZI
-      var hydraulic_units_data = [[production_formation_thickness, porosity, permeability]];
-      var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
-      hydraulic_units_data_table.updateSettings(
+    if (well_completitions == 3) {
+      if(production_formation_thickness && porosity && permeability)
       {
-        data: hydraulic_units_data,
+        // Cálculo de la tabla sin el FZI
+        var hydraulic_units_data = [[production_formation_thickness, porosity, permeability]];
+        var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
+        hydraulic_units_data_table.updateSettings(
+        {
+          data: hydraulic_units_data,
+          stretchH: 'all'
+        });
+        hydraulic_units_data_table.render();
+      }
+      else
+      {
+        $('#hydraulic_modal').modal("show");
+      }
+
+      // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
+      var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
+      for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
+        if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
+          var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
+          hidraulic_units_data_hidden[i].splice(1,0,value);
+        }else{
+          hidraulic_units_data_hidden[i].splice(1,0,null);
+        }
+      }
+
+      // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
+      var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
+      hidraulic_units_data_table_hidden.updateSettings(
+      {
+        data: hidraulic_units_data_hidden,
         stretchH: 'all'
       });
-      hydraulic_units_data_table.render();
+      hidraulic_units_data_table_hidden.render();
+
     }
+    else if (well_completitions == 1 || well_completitions == 2) 
+    {
+      if(formation_thickness && porosity && permeability)
+      {
+        //Cálculo de la tabla sin el FZI
+        var hydraulic_units_data = [[formation_thickness, porosity, permeability]];
+        var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
+        hydraulic_units_data_table.updateSettings(
+        {
+          data: hydraulic_units_data,
+          stretchH: 'all'
+        });
+        hydraulic_units_data_table.render();
+      }
+    }  
     else
     {
-      $('#hydraulic_modal').modal("show");
+      $('#hydraulic_modal_incomplete').modal("show");
     }
 
     // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
@@ -729,61 +774,19 @@ function calculate_hydraulic_units_data()
       stretchH: 'all'
     });
     hidraulic_units_data_table_hidden.render();
-
-  }
-  else if (well_completitions == 1 || well_completitions == 2) 
-  {
-    if(formation_thickness && porosity && permeability)
-    {
-      //Cálculo de la tabla sin el FZI
-      var hydraulic_units_data = [[formation_thickness, porosity, permeability]];
-      var hydraulic_units_data_table = $("#hidraulic_units_data").handsontable('getInstance');
-      hydraulic_units_data_table.updateSettings(
-      {
-        data: hydraulic_units_data,
-        stretchH: 'all'
-      });
-      hydraulic_units_data_table.render();
-    }
-  }  
-  else
-  {
-    $('#hydraulic_modal_incomplete').modal("show");
   }
 
-  // Para calcular los valores de la tabla de unidades hidráulicas con el FZI
-  var hidraulic_units_data_hidden = $('#hidraulic_units_data').handsontable('getData');
-  for (var i = hidraulic_units_data_hidden.length - 1; i >= 0; i--) {
-    if (hidraulic_units_data_hidden[i][0] != null && hidraulic_units_data_hidden[i][1] != null && hidraulic_units_data_hidden[i][2] != null) {
-      var value = 0.0314 * Math.sqrt(hidraulic_units_data_hidden[i][2] / hidraulic_units_data_hidden[i][1]) / (hidraulic_units_data_hidden[i][1]/(1-hidraulic_units_data_hidden[i][1]));
-      hidraulic_units_data_hidden[i].splice(1,0,value);
-    }else{
-      hidraulic_units_data_hidden[i].splice(1,0,null);
-    }
-  }
-
-  // Actualizar los valores de la tabla de unidades hidráulicas sin el FZI
-  var hidraulic_units_data_table_hidden = $("#hidraulic_units_data_hidden").handsontable('getInstance');
-  hidraulic_units_data_table_hidden.updateSettings(
-  {
-    data: hidraulic_units_data_hidden,
-    stretchH: 'all'
+  document.getElementById('well_completitions').addEventListener('change', function () {
+      var style = this.value == 3 ? 'block' : 'none';
+      document.getElementById('hidden_div_perforated_liner').style.display = style;
   });
-  hidraulic_units_data_table_hidden.render();
-}
 
-document.getElementById('well_completitions').addEventListener('change', function () {
-    var style = this.value == 3 ? 'block' : 'none';
-    document.getElementById('hidden_div_perforated_liner').style.display = style;
-});
-
-document.getElementById('fluid_of_interest').addEventListener('change', function () {
-    var style = this.value == 1 ? 'block' : 'none';
-    document.getElementById('hidden_oil').style.display = style;
-    var style = this.value == 2 ? 'block' : 'none';
-    document.getElementById('hidden_gas').style.display = style;
-    var style = this.value == 3 ? 'block' : 'none';
-    document.getElementById('hidden_water').style.display = style;
-});
-
+  document.getElementById('fluid_of_interest').addEventListener('change', function () {
+      var style = this.value == 1 ? 'block' : 'none';
+      document.getElementById('hidden_oil').style.display = style;
+      var style = this.value == 2 ? 'block' : 'none';
+      document.getElementById('hidden_gas').style.display = style;
+      var style = this.value == 3 ? 'block' : 'none';
+      document.getElementById('hidden_water').style.display = style;
+  });
 </script>

@@ -5,7 +5,6 @@ use App\campo;
 use App\cuenca;
 use App\pozo;
 use App\formacion;
-use App\escenario;
 
 use Sofa\Revisionable\Laravel\RevisionableTrait; // trait
 use Sofa\Revisionable\Revisionable; // interface

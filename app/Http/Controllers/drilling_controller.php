@@ -89,6 +89,8 @@ class drilling_controller extends Controller
                 $request->cementingAvailable = 1;
             }
 
+            $scenario = escenario::find($request->scenary_id);
+
             // Storing data phase
             $drilling = new drilling();
             $drilling->scenario_id = $request->scenary_id !== "" ? $request->scenary_id : null;
@@ -147,6 +149,10 @@ class drilling_controller extends Controller
                     $input_profile_table->save();
                 }
             }
+
+            $scenario->completo = $request->only_s == "save" ? 0 : 1;
+            $scenario->estado = 1;
+            $scenario->save();
 
             if (!$drilling->status_wr) {
                 $drilling_general = DB::table('d_general_data')->where('drilling_id', $drilling->id)->first();
@@ -1865,7 +1871,7 @@ class drilling_controller extends Controller
             $drilling->save();
 
             $scenario->completo = $request->only_s == "save" ? 0 : 1;
-            $scenario->estado = $request->only_s == "save" ? 0 : 1;
+            $scenario->estado = 1;
             $scenario->save();
 
             // General data table

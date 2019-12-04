@@ -37,7 +37,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('array_select_interval_general_data') ? 'has-error' : ''}}">
-                              {!! Form::label('interval', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('interval', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'), null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
                            </div>
                         </div>
@@ -59,7 +59,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('inputDataMethodSelect') ? 'has-error' : ''}}">
-                              {!! Form::label('inputDataMethod', 'Input Data Method') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('inputDataMethod', 'Input Data Method') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('inputDataMethodSelect', ['1'=>'Profile'], null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}
                               {{--{!! Form::select('inputDataMethodSelect', ['1'=>'Profile','2'=>'By Intervals'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}--}}
                            </div>
@@ -107,7 +107,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('select_filtration_function') ? 'has-error' : ''}}">
-                              {!! Form::label('filtration_function_l', 'Filtration Function') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('filtration_function_l', 'Filtration Function') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
                            </div>
                         </div>

@@ -527,14 +527,16 @@ function sticky_relocate()
 }
 
 function remove_nulls(array)
-{   
+{
   //array = array.split(",");
   var array_aux = [];
-  for (var i = 0; i < array.length; i++) {
-    if(array[i] == null || array[i] == '') {
-      continue;
-    } else {
-      array_aux.push(array[i]);
+  if (array !== null && array.length > 0) {
+    for (var i = 0; i < array.length; i++) {
+      if(array[i] == null || array[i] == '') {
+        continue;
+      } else {
+        array_aux.push(array[i]);
+      }
     }
   }
   return array_aux;

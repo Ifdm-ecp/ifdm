@@ -165,7 +165,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('formation_thickness') ? 'has-error' : ''}}">
-                              {!! Form::label('espesor formation', 'Formation Thickness', array('class' => 'required')) !!}
+                              {!! Form::label('espesor formation', 'Formation Thickness ', array('class' => 'required')) !!}
                               <div class="input-group">
                                  {!! Form::text('formation_thickness', $disaggregation->formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'formation_thickness']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
@@ -175,7 +175,7 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('perforated_thickness') ? 'has-error' : ''}}">
-                              {!! Form::label('espesor canoneado', 'Perforated Thickness', array('class' => 'required')) !!}
+                              {!! Form::label('espesor canoneado', 'Perforated Thickness ', array('class' => 'required')) !!}
                               <div class="input-group">
                                  {!! Form::text('perforated_thickness', $disaggregation->perforated_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforated_thickness']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
@@ -187,7 +187,7 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('well_completitions') ? 'has-error' : ''}}">
-                              {!! Form::label('well completitions', 'Well Completitions', array('class' => 'required')) !!}
+                              {!! Form::label('well completitions', 'Well Completitions ', array('class' => 'required')) !!}
                               {!! Form::select('well_completitions', array(1 => 'Open Hole', 2 => 'Slotted Liners', 3 => 'Perforated Liner'), $disaggregation->well_completitions, ['class' => 'form-control', 'id'=>'well_completitions', 'placeholder' => 'Select a well completition']) !!}
                            </div>
                            {!! $errors->first('well_completitions', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -197,7 +197,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('perforation_penetration_depth') ? 'has-error' : ''}}">
-                                 {!! Form::label('profundidad penetracion canones', 'Perforation Penetration Depth ') !!}
+                                 {!! Form::label('profundidad penetracion canones', 'Perforation Penetration Depth ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('perforation_penetration_depth', $disaggregation->perforation_penetration_depth, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'perforation_penetration_depth']) !!}
                                     <span class="input-group-addon" id="basic-addon2">ft</span>
@@ -207,7 +207,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('perforating_phase_angle') ? 'has-error' : ''}}">
-                                 {!! Form::label('perforated cannoned phase angle', 'Perforating Phase Angle ') !!}
+                                 {!! Form::label('perforated cannoned phase angle', 'Perforating Phase Angle ', array('class' => 'required')) !!}
                                  {!! Form::select('perforating_phase_angle', array(0.0 => '0°', 45.0 => '45°', 60.0 => '60°', 90.0 => '90°', 120.0 => '120°', 180.0 => '180°', 360.0 => '360°'), $disaggregation->perforating_phase_angle, ['class' => 'form-control', 'id'=>'perforating_phase_angle', 'placeholder' => 'Select an angle']) !!}
                                  {!! $errors->first('perforating_phase_angle', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
@@ -216,7 +216,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('perforating_radius') ? 'has-error' : ''}}">
-                                 {!! Form::label('perforated radius', 'Perforating Radius ' )!!}
+                                 {!! Form::label('perforated radius', 'Perforating Radius ', array('class' => 'required'))!!}
                                  <div class="input-group">
                                     {!! Form::text('perforating_radius', $disaggregation->perforating_radius, ['placeholder' => 'in', 'class' =>'form-control', 'id' => 'perforating_radius']) !!}
                                     <span class="input-group-addon" id="basic-addon2">in</span>
@@ -226,7 +226,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('production formation thickness', 'Production Formation Thickness ') !!}
+                                 {!! Form::label('production formation thickness', 'Production Formation Thickness ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('production_formation_thickness') ? 'has-error' : ''}}">
                                     {!! Form::text('production_formation_thickness', $disaggregation->production_formation_thickness, ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'production_formation_thickness']) !!}
                                     <span class="input-group-addon" id="basic-addon2">ft</span>
@@ -238,7 +238,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('horizontal_vertical_permeability_ratio') ? 'has-error' : ''}}">
-                                 {!! Form::label('relacion permeabilidad vertical horizontal', 'Horizontal - Vertical Permeability Ratio ') !!}
+                                 {!! Form::label('relacion permeabilidad vertical horizontal', 'Horizontal - Vertical Permeability Ratio ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('horizontal_vertical_permeability_ratio', $disaggregation->horizontal_vertical_permeability_ratio, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'horizontal_vertical_permeability_ratio']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -251,7 +251,7 @@
                            <div class="col-md-12">
                               <!-- Ingreso forma de área de drenaje -->
                               <div class="form-group">
-                                 {!! Form::label('drainage area Shape', 'Drainage Area Shape ') !!}
+                                 {!! Form::label('drainage area Shape', 'Drainage Area Shape ', array('class' => 'required')) !!}
                                  <br>
                                  <div>
                                     <div style="height: 150px; overflow-y: scroll; overflow-x: hidden; border: 2px solid rgb(225,225,225);">
@@ -371,7 +371,7 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('fluid_of_interest') ? 'has-error' : ''}}">
-                              {!! Form::label('fluid of interest', 'Fluid of Interest', array('class' => 'required')) !!}
+                              {!! Form::label('fluid of interest', 'Fluid of Interest ', array('class' => 'required')) !!}
                               {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water'), $disaggregation->fluid_of_interest, ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
                            </div>
                            {!! $errors->first('fluid_of_interest', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -381,7 +381,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('oil rate', 'Oil Rate ') !!}
+                                 {!! Form::label('oil rate', 'Oil Rate ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('oil_rate') ? 'has-error' : ''}}">
                                     {!! Form::text('oil_rate', $disaggregation->oil_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'oil_rate']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
@@ -391,7 +391,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('oil_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
                                     {!! Form::text('oil_bottomhole_flowing_pressure', $disaggregation->oil_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'oil_bottomhole_flowing_pressure']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
@@ -403,7 +403,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('oil_viscosity') ? 'has-error' : ''}}">
-                                 {!! Form::label('viscosidad del aceite', 'Oil Viscosity ') !!}
+                                 {!! Form::label('viscosidad del aceite', 'Oil Viscosity ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('oil_viscosity', $disaggregation->oil_viscosity, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'oil_viscosity']) !!}
                                     <span class="input-group-addon" id="basic-addon2">cp</span>
@@ -413,7 +413,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('oil_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('volumetric oil factor', 'Oil Volumetric Factor ') !!}
+                                 {!! Form::label('volumetric oil factor', 'Oil Volumetric Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('oil_volumetric_factor', $disaggregation->oil_volumetric_factor, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'oil_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -427,7 +427,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('gas rate', 'Gas Rate ') !!}
+                                 {!! Form::label('gas rate', 'Gas Rate ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('gas_rate') ? 'has-error' : ''}}">
                                     {!! Form::text('gas_rate', $disaggregation->gas_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'gas_rate']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
@@ -437,7 +437,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('gas_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
                                     {!! Form::text('gas_bottomhole_flowing_pressure', $disaggregation->gas_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'gas_bottomhole_flowing_pressure']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
@@ -449,7 +449,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('gas_viscosity') ? 'has-error' : ''}}">
-                                 {!! Form::label('viscosidad del gas', 'Gas Viscosity ') !!}
+                                 {!! Form::label('viscosidad del gas', 'Gas Viscosity ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('gas_viscosity', $disaggregation->gas_viscosity, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'gas_viscosity']) !!}
                                     <span class="input-group-addon" id="basic-addon2">cp</span>
@@ -459,7 +459,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('gas_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('factor volumetrico del gas', 'Gas Volumetric Factor ') !!}
+                                 {!! Form::label('factor volumetrico del gas', 'Gas Volumetric Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('gas_volumetric_factor', $disaggregation->gas_volumetric_factor, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gas_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -473,7 +473,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('water rate', 'Water Rate ') !!}
+                                 {!! Form::label('water rate', 'Water Rate ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('water_rate') ? 'has-error' : ''}}">
                                     {!! Form::text('water_rate', $disaggregation->water_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'water_rate']) !!}
                                     <span class="input-group-addon" id="basic-addon2">bbls/day</span>
@@ -483,7 +483,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ') !!}
+                                 {!! Form::label('flowing pressure', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('water_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
                                     {!! Form::text('water_bottomhole_flowing_pressure', $disaggregation->water_bottomhole_flowing_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'water_bottomhole_flowing_pressure']) !!}
                                     <span class="input-group-addon" id="basic-addon2">psi</span>
@@ -495,7 +495,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('water_viscosity') ? 'has-error' : ''}}">
-                                 {!! Form::label('viscosidad del agua', 'Water Viscosity ') !!}
+                                 {!! Form::label('viscosidad del agua', 'Water Viscosity ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('water_viscosity', $disaggregation->water_viscosity, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'water_viscosity']) !!}
                                     <span class="input-group-addon" id="basic-addon2">cp</span>
@@ -505,7 +505,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('water_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('volumetric water factor', 'Water Volumetric Factor ') !!}
+                                 {!! Form::label('volumetric water factor', 'Water Volumetric Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('water_volumetric_factor', $disaggregation->water_volumetric_factor, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'water_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -527,7 +527,7 @@
                      <fieldset>
                         <div class="col-md-6 input_skin">
                            <div class="form-group {{$errors->has('skin') ? 'has-error' : ''}}">
-                              {!! Form::label('skin', 'Skin') !!}
+                              {!! Form::label('skin', 'Skin ', array('class' => 'required')) !!}
                               <div class="input-group {{$errors->has('skin') ? 'has-error' : ''}}">
                                  {!! Form::text('skin', $disaggregation->skin, ['placeholder' => '-', 'class' =>'form-control', 'name' => 'skin', 'id' => 'skin']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
@@ -570,7 +570,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group {{$errors->has('porosity') ? 'has-error' : ''}}">
-                              {!! Form::label('porosity_label', 'Porosity', array('class' => 'required')) !!}
+                              {!! Form::label('porosity_label', 'Porosity ', array('class' => 'required')) !!}
                               <div class="input-group">
                                  {!! Form::text('porosity', $disaggregation->porosity, ['placeholder' =>  '[0-1]', 'class' =>'form-control', 'id' => 'porosity']) !!}
                                  <span class="input-group-addon" id="basic-addon2">[0-1]</span>

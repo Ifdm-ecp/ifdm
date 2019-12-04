@@ -14,19 +14,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
-							{!! Form::label('basin', 'Basin') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							{!! Form::label('basin', 'Basin') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 							{!! Form::select('basin', $basins->lists('nombre','id'), null, array('placeholder' => '', 'class'=>'form-control', 'id'=>'basin')) !!}
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
-							{!! Form::label('field', 'Field') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							{!! Form::label('field', 'Field') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 							{!! Form::select('field', array(), null, array('placeholder' => '','class'=>'form-control', 'id'=>'field')) !!}
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-							{!! Form::label('formation', 'Formation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							{!! Form::label('formation', 'Formation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 							{!! Form::select('formation', array(), null, array('placeholder' => '','class'=>'form-control', 'id'=>'formation')) !!}
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group {{$errors->has('ff_name') ? 'has-error' : ''}}">
-							{!! Form::label('ff_name', 'Filtration Function Name') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+							{!! Form::label('ff_name', 'Filtration Function Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 							{!! Form::text('filtration_function_name', $filtration_function->name, ['placeholder' => '', 'class' =>'form-control','id'=>'filtration_function_name']) !!}
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 						    	<div class="row">
 						    		<div class="col-md-4">
 						    			<div class="form-group {{$errors->has('mud_density') ? 'has-error' : ''}}">
-											{!! Form::label('mud_density', 'Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+											{!! Form::label('mud_density', 'Density') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 											<div class="input-group">
 												{!! Form::text('mud_density', null, ['placeholder' => 'lb/gal', 'class' =>'form-control']) !!}
 												<span class="input-group-addon">lb/gal</span>
@@ -62,7 +62,7 @@
 									</div>
 									<div class="col-md-4">
 						    			<div class="form-group {{$errors->has('plastic_viscosity') ? 'has-error' : ''}}">
-											{!! Form::label('plastic_viscosity', 'Plastic Viscosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+											{!! Form::label('plastic_viscosity', 'Plastic Viscosity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 											<div class="input-group">
 												{!! Form::text('plastic_viscosity', null, ['placeholder' => 'cP', 'class' =>'form-control']) !!}
 												<span class="input-group-addon">cP</span>
@@ -71,7 +71,7 @@
 									</div>
 									<div class="col-md-4">
 						    			<div class="form-group {{$errors->has('yield_point') ? 'has-error' : ''}}">
-											{!! Form::label('yield_point', 'Yield Point') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+											{!! Form::label('yield_point', 'Yield Point') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 											<div class="input-group">
 												{!! Form::text('yield_point', null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control']) !!}
 												<span class="input-group-addon">bf/100ft²</span>
@@ -183,7 +183,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group {{$errors->has('kdki_mud') ? 'has-error' : ''}}">
-								{!! Form::label('kdki_mud', 'Kd/Ki Mud') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+								{!! Form::label('kdki_mud', 'Kd/Ki Mud') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 								<div class="input-group">
 									{!! Form::text('kdki_mud', null, ['placeholder' => '-', 'class' => 'form-control', 'id' => 'kdki_mud_factors']) !!}
 									<span class="input-group-addon">-</span>
@@ -192,7 +192,7 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group {{$errors->has('core_diameter') ? 'has-error' : ''}}">
-								{!! Form::label('core_diameter', 'Core Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+								{!! Form::label('core_diameter', 'Core Diameter') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
 								<div class="input-group">
 									{!! Form::text('core_diameter', null, ['placeholder' => 'cm', 'class' => 'form-control', 'id' => 'core_diameter_factors']) !!}
 									<span class="input-group-addon">cm</span>

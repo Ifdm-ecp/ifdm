@@ -63,7 +63,7 @@ class disaggregation_request extends Request
             'skin' => 'required|numeric|between:0,1000',
             'permeability' => 'required|numeric|between:0,1000000',
             'rock_type' => 'required|in:poco consolidada,consolidada,microfracturada',
-            'porosity' => 'required|numeric|between:0,0.45',
+            'porosity' => 'required|numeric|between:0,1',
             'array_hydraulic_units_data' => 'required|array|min:1',
             'only_s' => 'required|in:run,save',
         ];
@@ -71,7 +71,7 @@ class disaggregation_request extends Request
         if (is_array($this->array_hydraulic_units_data)) {
             for ($i = 0; $i < count($this->array_hydraulic_units_data); $i++) {
                 $rules["array_hydraulic_units_data." . $i . ".0"] = 'required|numeric|between:0,1000';
-                $rules["array_hydraulic_units_data." . $i . ".1"] = 'required|numeric|between:0,0.45';
+                $rules["array_hydraulic_units_data." . $i . ".1"] = 'required|numeric|between:0,1';
                 $rules["array_hydraulic_units_data." . $i . ".2"] = 'required|numeric|between:0,1000000';
             }
         }
@@ -187,7 +187,7 @@ class disaggregation_request extends Request
                 $messages["array_hydraulic_units_data." . $i . ".0.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Thickness is not between 0 - 1000';
                 $messages["array_hydraulic_units_data." . $i . ".1.required"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity has an empty value.';
                 $messages["array_hydraulic_units_data." . $i . ".1.numeric"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity must be a number.';
-                $messages["array_hydraulic_units_data." . $i . ".1.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity is not between 0 - 0.45';
+                $messages["array_hydraulic_units_data." . $i . ".1.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Porosity is not between 0 - 1';
                 $messages["array_hydraulic_units_data." . $i . ".2.required"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability has an empty value.';
                 $messages["array_hydraulic_units_data." . $i . ".2.numeric"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability must be a number.';
                 $messages["array_hydraulic_units_data." . $i . ".2.between"] = 'The table hydraulic units data in row ' . ($i + 1) . ' and column Average Permeability is not between 0 - 1000000';

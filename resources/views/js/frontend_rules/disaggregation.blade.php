@@ -261,7 +261,7 @@ basic_petrophysics_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 0.45},
+      {rule: "range", min: 0, max: 1},
     ]
   }
 ];
@@ -280,7 +280,7 @@ hydraulic_units_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 0.45},
+      {rule: "range", min: 0, max: 1},
     ]
   },
   {

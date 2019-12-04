@@ -8,7 +8,7 @@
         <b>Scenario:</b> {!! $scenary_s->nombre !!} - Field: {!! $campo->nombre !!} - Producing interval: {!!  $intervalo->nombre !!} - Well: {!! $pozo->nombre !!}</center></div>
     </br>
     <br>
-    @if(is_null($desagregacion->status_wr) || $desagregacion->status_wr)
+    @if(!$desagregacion->status_wr)
     <div class="panel panel-default" >      
         <div class="panel-heading"><h4><a data-parent="#accordion" data-toggle="collapse" href="#Prod"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Results By Components</h4></div>
         <div class="panel-body">
@@ -96,7 +96,7 @@
 @endsection
 
 @section('Scripts')
-@if(is_null($desagregacion->status_wr) || $desagregacion->status_wr)
+@if(!$desagregacion->status_wr)
 @include('js/desagregacion_results')
 @endif
 @include('css/desagregacion_results')

@@ -623,7 +623,7 @@
                <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
             </div>
             <div class="col-md-6" align="right">
-               <button type="button" class="btn btn-primary" id="prev_button" onclick="tabStep('prev');">Previous</button>
+               <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
                <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
                <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDisaggregation('run');" id="run_calc">Run</button>
                {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}

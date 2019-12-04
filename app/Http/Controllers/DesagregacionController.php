@@ -314,7 +314,6 @@ class desagregacionController extends Controller
             $results = json_encode(array($disaggregation_results_query->total_skin, $disaggregation_results_query->mechanical_skin, $disaggregation_results_query->stress_skin, $disaggregation_results_query->pseudo_skin, $disaggregation_results_query->rate_skin));
 
             return view('desagregacion.show', compact('results', 'formacion', 0, 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo'));
-
         } else {
             return view('loginfirst');
         }

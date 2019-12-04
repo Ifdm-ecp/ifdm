@@ -306,7 +306,7 @@
       <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
    </div>
    <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" id="prev_button" onclick="tabStep('prev');">Previous</button>
+      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
       <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
       <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
    </div>

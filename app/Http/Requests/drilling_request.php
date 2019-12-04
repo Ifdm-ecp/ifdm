@@ -11,7 +11,8 @@ class drilling_request extends Request
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         request()->merge(['array_select_interval_general_data' => json_decode(request()->select_interval_general_data)]);
         request()->merge(['array_generaldata_table' => json_decode(request()->generaldata_table)]);
         request()->merge(['array_inputdata_profile_table' => json_decode(request()->inputdata_profile_table)]);
@@ -95,7 +96,7 @@ class drilling_request extends Request
             $rules["d_yield_point_t"] = str_replace("required|", "", $rules["d_yield_point_t"]);
             $rules["d_rop_t"] = str_replace("required|", "", $rules["d_rop_t"]);
             $rules["d_equivalent_circulating_density_t"] = str_replace("required|", "", $rules["d_equivalent_circulating_density_t"]);
-            
+
             if ($this->cementingAvailable) {
                 $rules["c_total_exposure_time_t"] = str_replace("required|", "", $rules["c_total_exposure_time_t"]);
                 $rules["c_pump_rate_t"] = str_replace("required|", "", $rules["c_pump_rate_t"]);

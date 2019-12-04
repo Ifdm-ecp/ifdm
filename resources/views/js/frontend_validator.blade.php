@@ -69,7 +69,7 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
 };
 
 /* multiValidatorGeneral
- * Returns an array with a boolean with a validation result and a message in case the validation fails
+ * Returns an array with a boolean containing a validation result and a message in case the validation fails
  * params {action: string, value: mixed, tableName: string, tableRow: int, ruleset: object}
  * returns {array}
 */
@@ -90,8 +90,8 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
-        case "requiredselect":
-          if (value === null || value === "") {
+        case "requiredselectif":
+          if ($("#" + set.requiredfield).val() == set.value && (value === null || value === "")) {
             isValid = [false, "There is no " + ruleset.column + " selected"];
             return false;
           }
@@ -99,7 +99,7 @@ function multiValidatorGeneral(action, value, ruleset)
       }
     }
 
-    if (isValid === null && value !== null && value !== "") {
+    if (isValid === null && value !== null && value !== "" && value !== undefined) {
       switch (set.rule) {
         case "numeric":
           if (!$.isNumeric(value)) {
@@ -110,6 +110,12 @@ function multiValidatorGeneral(action, value, ruleset)
         case "range":
           if (value < set.min || value > set.max) {
             isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.min + ", " + set.max + "]"];
+            return false;
+          }
+          break;
+        case "selection":
+          if (!set.selections.includes(value)) {
+            isValid = [false, "The field " + ruleset.column + " has a value that is not part of the allowed selection"];
             return false;
           }
           break;
@@ -125,16 +131,16 @@ function multiValidatorGeneral(action, value, ruleset)
  * params {tableName: string, tableData: array, tableRuleset: array}
  * returns {array}
 */
-function validateTable(tableName, tableData, tableRuleset) {
+function validateTable(tableName, tableData, tableRuleset, action = "run", isRequired = true) {
   var message = "";
   var tableLength = tableData.length;
   var rowValidation = [];
   var errorMessages = [];
 
-  if (tableLength < 1) {
+  if (tableLength < 1 && action == "run" && isRequired) {
     message = "The table " + tableName + " is empty. Please check your data";
     return [message];
-  } else {
+  } else if (tableLength > 0) {
     var tableColumnLength = tableData[0].length;
 
     for (var i = 0; i < tableLength; i++) {

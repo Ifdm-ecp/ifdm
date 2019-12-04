@@ -39,7 +39,6 @@ class fines_migration_diagnosis_request extends Request
                 'initial_permeability'=> 'numeric|required|min:0|not_in:0',
                 'average_pore_diameter'=> 'numeric|required|min:0|not_in:0', 
                 'initial_pressure'=> 'numeric|required|min:0|not_in:0',
-                'type_of_suspension_flux' => 'required',
                 'fine_density' => 'numeric|required|min:0|not_in:0',
                 'fine_diameter' => 'numeric|required|min:0|not_in:0',
                 'initial_deposited_fines_concentration' => 'numeric|required|min:0',
@@ -54,8 +53,6 @@ class fines_migration_diagnosis_request extends Request
                 'emectite' => 'numeric',
                 'total_amount_of_clays' => 'numeric',
                 'feldspar' => 'numeric',
-                'perform_historical_projection_water' => 'required',
-                'perform_historical_projection_oil' => 'required',
                 'initial_fines_concentration_in_fluid' => 'numeric|required|min:0',
             ];
         } else {
@@ -77,7 +74,6 @@ class fines_migration_diagnosis_request extends Request
             'initial_permeability.required'=> 'Initial permeability required.',
             'average_pore_diameter.required'=> 'Average pore diameter required.',
             'initial_pressure.required'=> 'Initial pressure required.',
-            'type_of_suspension_flux.required' => 'Type of suspension flux required.',
             'fine_density.required' => 'Fine density required.',
             'fine_diameter.required' => 'Fine diameter required.',
             'initial_deposited_fines_concentration.required' => 'Initial deposited fines Concentration required.',
@@ -93,8 +89,6 @@ class fines_migration_diagnosis_request extends Request
             'total_amount_of_clays.required' => 'Total amount of clays required.',
             'feldspar.required' => 'Feldspar required.',
             'clay.required' => 'Clay required.',
-            'perform_historical_projection_water.required' => 'Perform historical projection required.',
-            'perform_historical_projection_oil.required' => 'Perform historical projection required.',
             'final_date.required' => 'Final date required.',
             'amount_of_dates.required' => 'Amount of dates required.',
             'initial_fines_concentration_in_fluid.required' => 'Initial Finces Concentration in Fluid is required.',
@@ -157,8 +151,6 @@ class fines_migration_diagnosis_request extends Request
             'critical_rate.min' => 'Critical Rate must be at least 0.',
             'number_of_perforations.min' => 'Number of Perforations must be at least 0.',
             'perforation_radius.min' => 'Perforation Radius must be at least 0.',
-
-
         ];
     }
 }

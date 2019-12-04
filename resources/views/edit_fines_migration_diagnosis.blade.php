@@ -402,7 +402,9 @@
                            </div>
                         </div>  
                       </div>
-                      <div id="historical_projection_table"></div>
+                      <div id="historical_projection_table">
+                           {!! Form::hidden('value_historical_projection_data', '', array('class' => 'form-control', 'id' => 'value_historical_projection_data')) !!}
+                      </div>
                       <br>
                       <div class="row col-md-12">
                         <div id="oil_projection_chart"></div>

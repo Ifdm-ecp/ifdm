@@ -496,13 +496,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->final_date = date("Y/m/d", strtotime($request->input('final_date')));
         $button_wr = isset($_POST['button_wr']);
         $fines_d_diagnosis->status_wr = $button_wr;
-
-        if($request->input('type_of_suspension_flux') == "water"){
-            $fines_d_diagnosis->perform_historical_projection = $request->input('perform_historical_projection_water');
-        }else if($request->input('type_of_suspension_flux') == "oil"){
-            $fines_d_diagnosis->perform_historical_projection = $request->input('perform_historical_projection_oil');
-        }
-        
+        $fines_d_diagnosis->perform_historical_projection = $request->input('perform_historical_projection_oil');
         $fines_d_diagnosis->scenario_id = $scenary->id;
         $fines_d_diagnosis->save();
 
@@ -520,36 +514,19 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         #Guardar tabla PVT segun caso agua o aceite
         foreach ($pvt_data as $value) {
-            if($fines_d_diagnosis->type_of_suspension_flux == "water"){
-                $fines_d_pvt = new fines_d_pvt;
-                $fines_d_pvt->fines_d_diagnosis_id = $fines_d_diagnosis->id;
-                $fines_d_pvt->pressure = str_replace(",", ".", $value[0]);
-                $fines_d_pvt->volumetric_water_factor = str_replace(",", ".", $value[1]);
-                $fines_d_pvt->water_viscosity = str_replace(",", ".", $value[2]);
-                $fines_d_pvt->water_density = str_replace(",", ".", $value[3]);
-                $fines_d_pvt->save();
+            $fines_d_pvt = new fines_d_pvt;
+            $fines_d_pvt->fines_d_diagnosis_id = $fines_d_diagnosis->id;
+            $fines_d_pvt->pressure = str_replace(",", ".", $value[0]);
+            $fines_d_pvt->oil_density = str_replace(",", ".", $value[1]);
+            $fines_d_pvt->oil_viscosity = str_replace(",", ".", $value[2]);
+            $fines_d_pvt->volumetric_oil_factor = str_replace(",", ".", $value[3]);
+            $fines_d_pvt->save();
 
-                #Agregando datos para módulo de cálculo
-                array_push($pressure_data, $fines_d_pvt->pressure);
-                array_push($density_data, $fines_d_pvt->water_density);
-                array_push($oil_viscosity_data, $fines_d_pvt->water_viscosity);
-                array_push($oil_volumetric_factor_data, $fines_d_pvt->volumetric_water_factor);
-            }else if($fines_d_diagnosis->type_of_suspension_flux == "oil"){
-
-                $fines_d_pvt = new fines_d_pvt;
-                $fines_d_pvt->fines_d_diagnosis_id = $fines_d_diagnosis->id;
-                $fines_d_pvt->pressure = str_replace(",", ".", $value[0]);
-                $fines_d_pvt->oil_density = str_replace(",", ".", $value[1]);
-                $fines_d_pvt->oil_viscosity = str_replace(",", ".", $value[2]);
-                $fines_d_pvt->volumetric_oil_factor = str_replace(",", ".", $value[3]);
-                $fines_d_pvt->save();
-
-                #Agregando datos para módulo de cálculo
-                array_push($pressure_data, $fines_d_pvt->pressure);
-                array_push($density_data, $fines_d_pvt->oil_density);
-                array_push($oil_viscosity_data, $fines_d_pvt->oil_viscosity);
-                array_push($oil_volumetric_factor_data, $fines_d_pvt->volumetric_oil_factor);
-            }
+            #Agregando datos para módulo de cálculo
+            array_push($pressure_data, $fines_d_pvt->pressure);
+            array_push($density_data, $fines_d_pvt->oil_density);
+            array_push($oil_viscosity_data, $fines_d_pvt->oil_viscosity);
+            array_push($oil_volumetric_factor_data, $fines_d_pvt->volumetric_oil_factor);
         }
 
         #Arreglos para guardar los datos organizados - módulo de cálculo
@@ -570,8 +547,11 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_d_historical_data->date = date("Y/m/d", strtotime($value[0]));
             $fines_d_historical_data->bopd = str_replace(",", ".", $value[1]);
             $fines_d_historical_data->save();
-
-            #Agregando datos para módulo de cálculo
+        }
+        #Agregando datos para módulo de cálculo
+        $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
+        $historical_data = array_merge($historical_data, $historical_projection_data);
+        foreach ($historical_data as $value) {
             array_push($dates_data, $value[0]);
             array_push($bopd_data, $fines_d_historical_data->bopd);
         }
@@ -663,7 +643,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                 #Guardar tabla de historicos sin proyección
                 fines_d_historical_data::where('fines_d_diagnosis_id', $fines_d_diagnosis->id)->delete();
-                $historical_data = json_decode($request->input("value_historical_data_without_projection"));
+                $historical_data = json_decode($request->input("value_historical_data"));
                 $historical_data = is_null($historical_data) ? [] : $historical_data;
                 foreach ($historical_data as $value) {
                     $fines_d_historical_data = new fines_d_historical_data;
@@ -671,8 +651,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                     $fines_d_historical_data->date = date("Y/m/d", strtotime($value[0]));
                     $fines_d_historical_data->bopd = str_replace(",", ".", $value[1]);
                     $fines_d_historical_data->save();
-
-                    #Agregando datos para módulo de cálculo
+                }
+                #Agregando datos para módulo de cálculo
+                $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
+                $historical_data = array_merge($historical_data, $historical_projection_data);
+                foreach ($historical_data as $value) {
                     array_push($dates_data, $value[0]);
                     array_push($bopd_data, $fines_d_historical_data->bopd);
                 }

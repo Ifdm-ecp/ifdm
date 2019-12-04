@@ -174,6 +174,26 @@
             contextMenu: true,
             stretchH: 'all',
             colWidths: [360, 360],
+            afterChange: function( changes, source ) {
+                if (changes) {
+                    historical_data = clean_table_data("historical_data_table");
+                    historical_data_length = historical_data.length;
+
+                    if (historical_data_length > 0) {
+                        perform_production_projection();  
+                    }else{
+                        var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                        hot_historical_data.updateSettings({
+                            data: [],
+                            stretchH: 'all'
+                        });
+                        hot_historical_data.render();
+                        var chart=$("#oil_projection_chart").highcharts();
+                        chart.destroy();
+                    }
+                }  
+            },
             columns: [{
                 title: "Date [YYYY-MM-DD]",
                 data: 0,
@@ -204,13 +224,15 @@
                 title: "Date [YYYY-MM-DD]",
                 data: 0,
                 type: 'date',
-                dateFormat: 'YYYY-MM-DD'
+                dateFormat: 'YYYY-MM-DD',
+                readOnly: true
             },
                 {
                     title: "BOPD [bbl/d]",
                     data: 1,
                     type: 'numeric',
-                    format: '0[.]0000000'
+                    format: '0[.]0000000',
+                    readOnly: true
                 }
             ]
         });
@@ -218,12 +240,8 @@
         //Actualizar elementos de Production Projection al cambiar el select perform_historical_projection_oil
         $('#perform_historical_projection_oil').on('change',function(){
             if($(this).val() == 'without'){
-                console.log('without');
-                //$( "#final_date" ).prop( "disabled", true );
                 clear_table('historical_projection_table');
             }else{
-                console.log('nope');
-                //$( "#final_date" ).prop( "disabled", false );
                 perform_production_projection();
             }
         });
@@ -232,18 +250,6 @@
         $('#final_date').on('change',function(){
             perform_production_projection();
         });
-
-        /**
-        //Bloquear los elementos del form cuando perform_historical_projection_oil está seleccionado en 'without'
-        $('#perform_historical_projection_oil').on('change',function(){
-            if($(this).val() == 'without'){
-                console.log('without');
-                $( "#final_date" ).prop( "disabled", true );
-            }else{
-                console.log('nope');
-                $( "#final_date" ).prop( "disabled", false );
-            }
-        });**/
 
         $('.concentration_ev').on('click', function () {
             $("#fines_concentration_fluid").modal('toggle');
@@ -254,9 +260,18 @@
             //Loading
             $("#loading_icon").show();
 
-            historical_data = clean_table_data("historical_data_table");
+            if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
 
-            $("#value_historical_data").val(JSON.stringify(historical_data));
+                historical_projection_data = clean_table_data("historical_projection_table");
+                $("#value_historical_projection_data").val(JSON.stringify(historical_projection_data));
+            }else{  
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
+
+                $("#value_historical_projection_data").val(JSON.stringify([]));
+            }
 
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
@@ -274,8 +289,18 @@
             //Loading
             $("#loading_icon").show();
 
-            historical_data = clean_table_data("historical_data_table");
-            $("#value_historical_data").val(JSON.stringify(historical_data));
+            if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
+
+                historical_projection_data = clean_table_data("historical_projection_table");
+                $("#value_historical_projection_data").val(JSON.stringify(historical_projection_data));
+            }else{  
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
+
+                $("#value_historical_projection_data").val(JSON.stringify([]));
+            }
 
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
@@ -370,8 +395,23 @@
                 hot_historical_data_table.updateSettings({
                     data: aux_historical_data
                 });
-
                 hot_historical_data_table.render();
+                historical_data = clean_table_data("historical_data_table");
+                historical_data_length = historical_data.length;
+
+                if (historical_data_length > 0) {
+                    perform_production_projection();  
+                }else{
+                    var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                    hot_historical_data.updateSettings({
+                        data: [],
+                        stretchH: 'all'
+                    });
+                    hot_historical_data.render();
+                    var chart=$("#oil_projection_chart").highcharts();
+                    chart.destroy();
+                }
             });
         }
 
@@ -429,6 +469,22 @@
                 });
             });
             pvt_table_advisor.render();
+        }
+
+
+        //Ajustar las proyecciones según esté la tabla de datos históricos
+        historical_data = clean_table_data("historical_data_table");
+        historical_data_length = historical_data.length;
+        if (historical_data_length > 0) {       //Si la tabla de datos históricos está llena, entonces que calcule la proyección
+            perform_production_projection();  
+        }else{        //Si la tabla de datos históricos está vacía, entonces que limpie la proyección
+            var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+            hot_historical_data.updateSettings({
+                data: [],
+                stretchH: 'all'
+            });
+            hot_historical_data.render();
         }
     });
 
@@ -576,81 +632,81 @@
         historical_data = clean_table_data(table_div);
         historical_data_length = historical_data.length;
 
-        //Cálculo cantidad de fechas - amount of dates
-        final_date_historical_data = historical_data[historical_data_length - 1][0];
-        final_date_splitted = final_date.split("-");
-        final_date_historical_data_splitted = final_date_historical_data.split("-");
+        if (historical_data_length > 0) {
+            //Cálculo cantidad de fechas - amount of dates
+            final_date_historical_data = historical_data[historical_data_length - 1][0];
+            final_date_splitted = final_date.split("-");
+            final_date_historical_data_splitted = final_date_historical_data.split("-");
 
-        amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]), parseInt(final_date_splitted[1]), parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]), parseInt(final_date_historical_data_splitted[1]), parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
+            amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]), parseInt(final_date_splitted[1]), parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]), parseInt(final_date_historical_data_splitted[1]), parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
 
-        if (final_date && historical_data_length > 0) {
+            if (final_date && historical_data_length > 0) {
+                //Devuelve pronóstico hiperbólico y exponencial para gráfico
+                oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates);
 
-            //Devuelve pronóstico hiperbólico y exponencial para gráfico
-            oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates);
+                oil_exponential_serie = [];
+                oil_hyperbolic_serie = [];
+                oil_original_data = [];
+                for (var i = 0; i < historical_data.length; i++) 
+                {
+                    oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
+                }
 
-            oil_exponential_serie = [];
-            oil_hyperbolic_serie = [];
-            oil_original_data = [];
-            for (var i = 0; i < historical_data.length; i++) 
-            {
-                oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
-            }
+                for (var i = 0; i < oil_production_projection[0][0].length; i++) 
+                {
+                    oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
+                    oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
+                }
 
-            for (var i = 0; i < oil_production_projection[0][0].length; i++) 
-            {
-                oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
-                oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
-            }
+                oil_projection_series = [{
+                    name: "Oil Production Hyperbolic Projection",
+                    data: oil_hyperbolic_serie
+                }, {name: "Oil Production Exponential Projection", data: oil_exponential_serie}, {
+                    name: "Oil Production",
+                    data: oil_original_data
+                }];
 
-            oil_projection_series = [{
-                name: "Oil Production Hyperbolic Projection",
-                data: oil_hyperbolic_serie
-            }, {name: "Oil Production Exponential Projection", data: oil_exponential_serie}, {
-                name: "Oil Production",
-                data: oil_original_data
-            }];
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
 
-            plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+                if ($("#perform_historical_projection_oil").val() == "exponential") {
+                    for (i = 0; i < oil_exponential_serie.length; i++) {
+                        var new_historical_table = [];
 
-            if ($("#perform_historical_projection_oil").val() == "exponential") {
-                for (i = 0; i < oil_exponential_serie.length; i++) {
-                    var new_historical_table = [];
+                        new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_exponential_serie[i][1]);
+                        
+                        new_table.push(new_historical_table);
+                    }
+                } else if ($("#perform_historical_projection_oil").val() == "hyperbolic") {
+                    for (i = 0; i < oil_exponential_serie.length; i++) {
+                        var new_historical_table = [];
 
-                    new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_exponential_serie[i][1]);
+                        new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_hyperbolic_serie[i][1]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }
+
+
+                if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                    var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                    hot_historical_data.updateSettings({
+                        data: new_table,
+                        stretchH: 'all'
+                    });
+                    hot_historical_data.render();
                     
-                    new_table.push(new_historical_table);
+                }else{  
+                    historical_data = clean_table_data("historical_data_table");
+                    $("#value_historical_data").val(JSON.stringify(historical_data));
                 }
-            } else if ($("#perform_historical_projection_oil").val() == "hyperbolic") {
-                for (i = 0; i < oil_exponential_serie.length; i++) {
-                    var new_historical_table = [];
-
-                    new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_hyperbolic_serie[i][1]);
-
-                    new_table.push(new_historical_table);
-                }
+            } else {
+                alert('Please complete all the information in "Historical Data" section.');
             }
-
-
-            if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
-                var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
-
-                hot_historical_data.updateSettings({
-                    data: new_table,
-                    stretchH: 'all'
-                });
-                hot_historical_data.render();
-                historical_data = clean_table_data("historical_data_table");
-                historical_projection = clean_table_data("historical_projection_table");
-                complete_historical_data = historical_data.concat(historical_projection);
-                $("#value_historical_data").val(JSON.stringify(complete_historical_data));
-            }else{  
-                historical_data = clean_table_data("historical_data_table");
-                $("#value_historical_data").val(JSON.stringify(historical_data));
-            }
-        } else {
-            alert('Please complete all the information in "Historical Data" section.');
+        }else{
+            alert('Please complete the Historical Data table.');
         }
     }
 

@@ -18,16 +18,16 @@
 <p></p>
 </br>
 
-{!!Form::open(['action' => ['add_precipitated_asphaltenes_analysis_controller@store', 'scenaryId' => $scenaryId], 'method' => 'post'])!!}
+{!!Form::open(['action' => ['add_precipitated_asphaltenes_analysis_controller@store', 'scenaryId' => $scenaryId], 'method' => 'post', 'id' => 'asphalteneForm'])!!}
 
 @include('layouts/general_advisor')
 
 <div class="nav">
    <div class="tabbable">
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-         <li class="active"><a data-toggle="tab" href="#general_data">Component Analysis</a></li>
-         <li><a data-toggle="tab" href="#saturation_data">Saturation Data</a></li>
-         <li><a data-toggle="tab" href="#asphaltenes_data">Asphaltenes Data</a></li>
+         <li class="active"><a data-toggle="tab" href="#general_data" id="general_data_tab" onclick="switchTab()">Component Analysis</a></li>
+         <li><a data-toggle="tab" href="#saturation_data" id="saturation_data_tab" onclick="switchTab()">Saturation Data</a></li>
+         <li><a data-toggle="tab" href="#asphaltenes_data" id="asphaltenes_data_tab" onclick="switchTab()">Asphaltenes Data</a></li>
       </ul>
 
       <div class="tab-content">
@@ -692,11 +692,7 @@
    </div>
 </div>
 {!! Form::Close() !!}
-
-</br>
 <br>
-
-
 
 @include('layouts/modal_table')
 @include('layouts/modal_advisor')
@@ -704,11 +700,15 @@
 @include('layouts/asphaltenes_data_tree')
 @endsection
 @section('Scripts')
-  @include('js/validate_table')
-  @include('css/add_multiparametric')
-   @include('js/modal_error')
+   @include('js/validate_table')
+   @include('css/add_multiparametric')
+   @include('js/frontend_validator')
+   {{-- @include('js/frontend_rules/precipitated_asphaltenes_analysis') --}}
    @include('js/add_precipitated_asphaltenes_analysis')
    @include('js/advisor')
    @include('js/asphaltenes_data_tree')
+   @include('js/modal_error')
+   @include('js/modal_error_frontend')
+   @include('css/modal_error_frontend')
 @endsection
 

@@ -238,7 +238,7 @@
             var plus = {};
 
             if (select_components === null) {
-                alert("Please select at least one component");
+                showFrontendErrorsBasic("Please select at least one component.");
             } else {
                 $.get("{!! url('import_components_data') !!}", {
                     components: select_components.toString()
@@ -295,7 +295,7 @@
             var evt = window.event || arguments.callee.caller.arguments[0];
             if (bubble_point_data.length < 5) {
                 evt.preventDefault();
-                alert("Bubble point table must have more than 5 rows.");
+                showFrontendErrorsBasic("Bubble point table must have more than 5 rows.");
                 $("#loading_icon").hide();
             }
 
@@ -314,7 +314,7 @@
             if(flag_bubble_point_table)
             {
                 evt.preventDefault();
-                alert("Temperature and Bubble Pressure data must be greater than 0.");
+                showFrontendErrorsBasic("Temperature and Bubble Pressure data must be greater than 0.");
                 $("#loading_icon").hide();
             }
 
@@ -607,20 +607,19 @@
                 data: data_components
             });
         });
+    });
 
-});
+    function createArray(length) {
+        var arr = new Array(length || 0),
+        i = length;
 
-function createArray(length) {
-    var arr = new Array(length || 0),
-    i = length;
+        if (arguments.length > 1) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            while (i--) arr[length - 1 - i] = createArray.apply(this, args);
+        }
 
-    if (arguments.length > 1) {
-        var args = Array.prototype.slice.call(arguments, 1);
-        while (i--) arr[length - 1 - i] = createArray.apply(this, args);
+        return arr;
     }
-
-    return arr;
-}
 
     //Llenar toda la tabla de interaccion binaria con ceros
     $('.convert-to-zero').on('click', function () {
@@ -649,7 +648,7 @@ function createArray(length) {
         var hot_coefficients_table = $('#binary_interaction_coefficients_table').handsontable('getInstance');
         var select_components = $("#components").val();
         if (select_components === null) {
-            alert("Please select at least one component");
+            showFrontendErrorsBasic("Please select at least one component");
         } else {
             v1 = [0.0, 0.0, 0.176, 0.0311, 0.0515, 0.852, 0.1, 0.0711, 0.1, 0.1, 0.1496, 0.1441, 0.15, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155, 0.155];
             v2 = [0.0, 0.0, 0.088, 0.107, 0.1322, 0.1241, 0.14, 0.1333, 0.14, 0.14, 0.145, 0.145, 0.14, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145, 0.0145];
@@ -715,7 +714,6 @@ function createArray(length) {
                 "NC24": 29
             };
 
-
             table_data = $("#components_table").handsontable('getData');
             table_data_length = select_components.length;
             binary_interaction_coefficients = createArray(table_data_length, table_data_length);
@@ -773,7 +771,6 @@ function createArray(length) {
         }
     });
 
-
     //Llenar valores de la fila de Plus+ en tabla componentes
     $('.characterize_plus_component').on('click', function () {
         var hot_components_table = $('#components_table').handsontable('getInstance');
@@ -805,8 +802,6 @@ function createArray(length) {
         var correlation_select = $("#correlation").val(); //leer selector *Karen
         console.log(correlation_select);
         if (mw && sg && tb && zi_plus_data && !isNaN(mw) && !isNaN(sg) && !isNaN(tb) && !isNaN(mw) && !isNaN(zi_plus_data) && correlation_select != ' ') {
-
-
             if (correlation_select == "Twu") {
                 num = 0.533272 + 0.000191017 * tb + 0.0000000779681 * Math.pow(tb, 2) - 2.84376e-11 * Math.pow(tb, 3) + 95.9468 / Math.pow((0.01 * tb), 13);
                 tcb = tb / num;
@@ -976,10 +971,8 @@ function createArray(length) {
 
             hot_components_table.render();
         } else {
-            alert("Missing data. Please complete the data and try again.");
+            showFrontendErrorsBasic("Missing data. Please complete the data and try again.");
         }
-
-
     });
 
     //Llamarla antes de guardar todos los datos de tablas - elmina nulos
@@ -1002,39 +995,39 @@ function createArray(length) {
         var row_aux;
         for (var i = 0 ; i<matrix.length; i++) 
         {
-           for (var j=0; j<matrix.length; j++) {
-             if(matrix[j][0]>matrix[i][0] && matrix[i][0])
-             {
-               row_aux = matrix[j];
-               matrix[j] = matrix[i];
-               matrix[i] = row_aux;
-           }
-       }   
-   }
-   return matrix;
-}
-
-function calculate_total_sara()
-{
-    var saturate_value = isNaN(parseFloat($("#saturate").val())) ? 0 : parseFloat($("#saturate").val());
-    var aromatic_value = isNaN(parseFloat($("#aromatic").val())) ? 0 : parseFloat($("#aromatic").val());
-    var resine_value = isNaN(parseFloat($("#resine").val())) ? 0 : parseFloat($("#resine").val());
-    var asphaltene_value = isNaN(parseFloat($("#asphaltene").val())) ? 0 : parseFloat($("#asphaltene").val());
-
-    var total_sara = saturate_value + aromatic_value + resine_value + asphaltene_value;
-    if(total_sara >= 99.9 && total_sara <= 100.1)
-    {
-        $("#total_sara").attr('class', 'label label-success');
+            for (var j=0; j<matrix.length; j++) {
+                if(matrix[j][0]>matrix[i][0] && matrix[i][0])
+                    {
+                    row_aux = matrix[j];
+                    matrix[j] = matrix[i];
+                    matrix[i] = row_aux;
+                }
+            }
+        }
+        return matrix;
     }
-    else
-    {
-        $("#total_sara").attr('class', 'label label-danger');
-    }
-    $("#total_sara").html(total_sara);
-}
 
-function validate_components_data(components_data)
-{
+    function calculate_total_sara()
+    {
+        var saturate_value = isNaN(parseFloat($("#saturate").val())) ? 0 : parseFloat($("#saturate").val());
+        var aromatic_value = isNaN(parseFloat($("#aromatic").val())) ? 0 : parseFloat($("#aromatic").val());
+        var resine_value = isNaN(parseFloat($("#resine").val())) ? 0 : parseFloat($("#resine").val());
+        var asphaltene_value = isNaN(parseFloat($("#asphaltene").val())) ? 0 : parseFloat($("#asphaltene").val());
+
+        var total_sara = saturate_value + aromatic_value + resine_value + asphaltene_value;
+        if(total_sara >= 99.9 && total_sara <= 100.1)
+        {
+            $("#total_sara").attr('class', 'label label-success');
+        }
+        else
+        {
+            $("#total_sara").attr('class', 'label label-danger');
+        }
+        $("#total_sara").html(total_sara);
+    }
+
+    function validate_components_data(components_data)
+    {
         var zi_range_flag = 1; //Determina si todos los valores de zi se encuentran entre 0 y 1
         var sum_zi = 0; //Valor para enviar a validación para controlar que la suma de todos los zi sean 1+-0.1
 
@@ -1082,5 +1075,54 @@ function validate_components_data(components_data)
         }
 
         $("#bubble_point_data_range_flag").val(bubble_point_data_range_flag);
+    }
+
+    /* verifyAsphaltene
+    * Validates the form entirely
+    * params {action: string}
+    */
+    function verifyAsphaltene(action) {
+
+    }
+
+    /* tabStep
+    * After validating the current tab, it is changed to the next or previous tab depending on the
+    * entry value
+    * params {direction: string}
+    */
+    function tabStep(direction) {
+        var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+        if (direction == "prev") {
+            $(".nav.nav-tabs li.active").prev().children().click();
+        } else {
+            $(".nav.nav-tabs li.active").next().children().click();
+        }
+
+        $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+        $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+        $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+    }
+
+    /* switchTab
+    * Captures the tab clicking event to determine if a previous or next button has to be shown
+    * and also the run button
+    */
+    function switchTab() {
+        var event = window.event || arguments.callee.caller.arguments[0];
+        var tabActiveElement = $(".nav.nav-tabs li.active");
+        var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+        $("#next_button").toggle(nextPrevElement.next().is("li"));
+        $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+        $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+    }
+
+    /* saveForm
+    * Submits the form when the confirmation button from the modal is clicked
+    */
+    function saveForm() {
+        $("#only_s").val("save");
+        $("#asphalteneForm").submit();
     }
 </script>

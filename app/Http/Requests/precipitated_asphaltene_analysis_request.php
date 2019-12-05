@@ -113,7 +113,6 @@ class precipitated_asphaltene_analysis_request extends Request
         }
 
         return $rules;
-
     }
 
 

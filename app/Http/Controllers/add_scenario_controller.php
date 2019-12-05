@@ -122,6 +122,8 @@ class add_scenario_controller extends Controller
                 $formation_ids = str_replace(']', '', $formation_ids);
 
                 $scenary->formacion_id = $formation_ids;
+            } else if ($request->input('type') == 'Drilling') {
+                $scenary->formacion_id = 0;
             } else {
                 $scenary->formacion_id = $request->input('formation');
             }
@@ -173,7 +175,7 @@ class add_scenario_controller extends Controller
         }  else if($scenary->tipo == "Dissagregation") {  /* Terminado duplicar */
 
             if (empty($request->id_escenario_dup)) {
-                return \Redirect::action('DesagregacionController@index', compact('scenaryId'));
+                return \Redirect::action('DesagregacionController@create', compact('scenaryId'));
             } else {
                 return \Redirect(url('Desagregacion/duplicate/'.$scenaryId.'/'.$id_escenario_dup));
             }

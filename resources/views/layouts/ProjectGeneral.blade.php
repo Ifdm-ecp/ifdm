@@ -118,7 +118,7 @@
                         as = as.replace("xx", value.id);
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('drilling.edit',"xxxxxx") }}";
                         as = as.replace("xxxxxx", value.id);
                         var color = "#ff1b00";
                     }
@@ -348,7 +348,7 @@ $.get("{!! url('arbol') !!}",
 
                     if (value.completo == 1) {
 
-                        var as = "{{ url('Desagregacion/xx/edit') }}";
+                        var as = "{{ url('Desagregacion/show', array('id' => "xx")) }}";
                         var color = "#000000";
 
                         as = as.replace("xx", value.id);
@@ -359,10 +359,23 @@ $.get("{!! url('arbol') !!}",
                             tags: ['0']
                         });
 
+                        /*
+                        var as = "{{ url('Desagregacion/xx/edit') }}";
+                        var color = "#000000";
+
+                        as = as.replace("xx", value.id);
+                        esc.push({
+                            text: "[SDA] <span title='"+nnombre+"'>" + nnombre_subs + "</span>",
+                            href: as,
+                            color: color,
+                            tags: ['0']
+                        });
+                        */
+
                     } else {
 
 
-                        var as = "{{ URL::route('Desagregacion.show',array('id' => "xx")) }}";
+                        var as = "{{ url('Desagregacion/edit',array('id' => "xx")) }}";
                         var color = "#ff1b00";
 
                         if (res == "1") {
@@ -424,7 +437,7 @@ $.get("{!! url('arbol') !!}",
                         var as = "{{ URL::route('drilling.result',array('id' => "xxxxxx")) }}";
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('drilling.edit',"xxxxxx") }}";
                         var color = "#ff1b00";
                     }
 
@@ -477,7 +490,7 @@ $.get("{!! url('arbol') !!}",
                         var as = "{{ URL::route('finesMigrationDiagnosis.show_results',"xxxxxx") }}";
                         var color = "#000000";
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                        var as = "{{ URL::route('finesMigrationDiagnosis.edit',"xxxxxx") }}";
                         var color = "#ff1b00";
                     }
 

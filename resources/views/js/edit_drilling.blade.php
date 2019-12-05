@@ -6,125 +6,125 @@
 <script type="text/javascript">
 
 //*****/////*****
+$(document).ready(function(){
+  input_data_profile = $("#inputdata_profile_table").val();
+  if(input_data_profile === "") {
+    var data_aux = [[,,,],[,,,],[,,,],[,,,],[,,,]];
+    create_profile_input_data_table(data_aux);
+  } else {
+    create_profile_input_data_table(JSON.parse(input_data_profile));
+  }
+});
 
 //Cargar valores de select en recarga de página
-window.onload = function() 
-{
-    cementingAvailable();
-    var formation = [{!! !empty($interval->formacion_id) ? $interval->formacion_id : [] !!}];
-    var interval = {!! !empty($drilling_scenario->general_interval_select) ? $drilling_scenario->general_interval_select : '' !!};
-    var input_data_method = "{!! !empty($drilling_scenario->input_data_select) ? $drilling_scenario->input_data_select : '' !!}";
-    var filtration_function_select = "{!! !empty($drilling_scenario->filtration_function_id) ? $drilling_scenario->filtration_function_id : '' !!}";
+window.onload = function() {
+  //verifica si esta habilitado cementing
+  cementingAvailable();
+  var formation = [{!! !empty($interval->formacion_id) ? $interval->formacion_id : $scenario->pozo->formacionesxpozo->first()->formacion_id !!}];
+  var interval = $("#select_interval_general_data").val() !== "" ? $("#select_interval_general_data").val() : @if (!empty($drilling_scenario->general_interval_select)) {!! $drilling_scenario->general_interval_select !!} @else "" @endif;
+  var input_data_method = $("#select_input_data").val() !== "" ? $("#select_input_data").val() : @if (!empty($drilling_scenario->input_data_select)) {!! $drilling_scenario->input_data_select !!} @else "" @endif;
+  var filtration_function_select_values = $("#select_filtration_function").val() !== "" ? $("#select_filtration_function").val() : @if (!empty($drilling_scenario->filtration_function_id)) {!! $drilling_scenario->filtration_function_id !!} @else "" @endif;
+  
+  $("#inputDataMethodSelect").val(input_data_method);
+  $("#inputDataMethodSelect").selectpicker('refresh');
 
-    $("#inputDataMethodSelect").val(input_data_method);
-    $("#inputDataMethodSelect").selectpicker('refresh');
-
-    if(isNaN(interval[0])){interval = [];};
-
-    if(input_data_method == 1)
-    {
-        input_data_profile = $("#inputdata_profile_table").val();
-        if(input_data_profile==="")
-        {
-            var data_aux = {!!json_encode($input_data_profile_table)!!};
-            create_profile_input_data_table(data_aux);
-        }
-        else
-        {
-            create_profile_input_data_table(JSON.parse(input_data_profile));
-        }
+  if(input_data_method == 1) {
+    input_data_profile = $("#inputdata_profile_table").val();
+    
+    if(input_data_profile === "") {
+      var data_aux = {!! json_encode($input_data_profile_table) !!};
+      create_profile_input_data_table(data_aux);
+    } else {
+      create_profile_input_data_table(JSON.parse(input_data_profile));
     }
-    else if(input_data_method == 2)
-    {
-        input_data_intervals = $("#inputdata_intervals_table").val();
-        if(input_data_intervals==="")
-        {
-            var data_byIntervals = [];
-            var intervals = $("#intervalSelect").val();
-            @if(isset($input_data_intervals_table))
-                input_data_intervals_table = {!!json_encode($input_data_intervals_table)!!};
-                console.log("Vasm "+input_data_intervals_table);
-                create_intervals_input_data_table(input_data_intervals_table);
-            @else
-                $.get("{{url('intervalsInfoDrilling')}}",
-                    {intervals:intervals},
-                    function(data)
-                    {
-                        $.each(data, function(index,value)
-                        {
-                            var data_row = [value.nombre,value.porosidad,value.permeabilidad,];
-                            data_byIntervals.push(data_row);
-                        });
-                        create_intervals_input_data_table(data_byIntervals);
-                    });
-            @endif
-        }
-        else
-        {
-            create_intervals_input_data_table(JSON.parse(input_data_intervals));
-        }
+  } else if(input_data_method == 2) {
+    input_data_intervals = $("#inputdata_intervals_table").val();
+    
+    if (input_data_intervals === "") {
+      var data_byIntervals = [];
+      var intervals = $("#intervalSelect").val();
+      @if (isset($input_data_intervals_table))
+        input_data_intervals_table = {!! json_encode($input_data_intervals_table) !!};
+        create_intervals_input_data_table(input_data_intervals_table);
+      @else
+        $.get("{{url('intervalsInfoDrilling')}}",
+          {intervals:intervals},
+          function(data) {
+            $.each(data, function(index,value) {
+              var data_row = [value.nombre,value.porosidad,value.permeabilidad,];
+              data_byIntervals.push(data_row);
+            });
+            create_intervals_input_data_table(data_byIntervals);
+          });
+      @endif
+    } else {
+      create_intervals_input_data_table(JSON.parse(input_data_intervals));
+    }
+  }
+
+  //Select intervalos
+  /*$.get("{{url('intervalsDrilling')}}", {
+          formations: formation
+      },
+      function(data) {
+          $("#intervalSelect").empty();
+          $.each(data, function(index, value) {
+              $("#intervalSelect").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+          });
+          $("#intervalSelect").val(interval);
+          $("#intervalSelect").selectpicker('refresh');
+      }
+  );*/
+
+  //General Data
+  if (interval.length > 0) {
+    if (!Array.isArray(interval)) {
+      interval = JSON.parse(interval);
+
+      if (!Array.isArray(interval)) {interval = [];};
     }
 
-    //Selects formación e intervalos
-    // $.get("{{url('intervalsDrilling')}}", {
-    //         formations: formation
-    //     },
-    //     function(data) {
-    //         $("#intervalSelect").empty();
-    //         $.each(data, function(index, value) {
-    //             $("#intervalSelect").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-    //         });
-    //         $("#intervalSelect").val(interval);
-    //         $("#intervalSelect").selectpicker('refresh');
-    //     }
-    // );
-
-    //General Data
-    if(interval.length>0 && !isNaN(interval[0]))
-    {
-        var data_aux = [];
-        var general_data_table = $("#generaldata_table").val();
-        if(general_data_table === "")
-        {
-            @if(isset($general_data_table))
-                general_data_table = {!!json_encode($general_data_table)!!};
-                create_interval_general_data_table(general_data_table);
-            @else
-                $.get("{{url('intervalsInfoDrilling')}}",
-                    {intervals:interval},
-                    function(data)
-                    {
-                        $.each(data, function(index,value)
-                        {
-                            var data_row = [value.nombre, value.top,,value.presion_reservorio,,];
-                            data_aux.push(data_row);
-                        });
-                        create_interval_general_data_table(data_aux);
-                    });
-            @endif
-        }
-        else
-        {
-            data_aux = JSON.parse(general_data_table);
-            console.log(data_aux);
+    $('#intervalSelect').selectpicker('val', interval);
+    var data_aux = [];
+    var general_data_table = $("#generaldata_table").val();
+    if(general_data_table === "") {
+      @if(isset($general_data_table))
+        general_data_table = {!!json_encode($general_data_table)!!};
+        create_interval_general_data_table(general_data_table);
+      @else
+        $.get("{{url('intervalsInfoDrilling')}}",
+          {intervals: interval},
+          function(data) {
+            $.each(data, function(index,value) {
+              var data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+              data_aux.push(data_row);
+            });
             create_interval_general_data_table(data_aux);
-        }
+          });
+      @endif
+    } else {
+      data_aux = JSON.parse(general_data_table);
+      create_interval_general_data_table(data_aux);
     }
+  }
 
-    //Select Filtration Function
-    $.get('{{url("filtration_functions_by_formation_id")}}',
-      {formation_id: formation[0]},
-      function(data)
-      {
-        $("#filtration_function_select").empty();
-        $("#filtration_function_select").append('<option value="disabled" disabled>Please, choose one.</option>');
-        $.each(data, function(index, value) {
-            $("#filtration_function_select").append('<option value="' + value.id + '">' + value.name + '</option>');
-        });
-
-        $('#filtration_function_select').val(filtration_function_select);
-        $('#filtration_function_select').selectpicker('refresh');
+  //Select Filtration Function
+  $.get('{{url("filtration_functions_by_formation_id")}}',
+    {formation_id: formation[0]},
+    function(data) {
+      $("#filtration_function_select").empty();
+      $("#filtration_function_select").append('<option value="disabled" disabled>Please, choose one.</option>');
+      $.each(data, function(index, value) {
+        $("#filtration_function_select").append('<option value="' + value.id + '">' + value.name + '</option>');
       });
+      $('#filtration_function_select').selectpicker('refresh');
+      if (filtration_function_select_values.length == 0) {
+        $('#filtration_function_select').val('disabled');
+        $('#filtration_function_select').selectpicker('deselectAll');
+      } else {
+        $('#filtration_function_select').selectpicker('val', filtration_function_select_values);
+      }
+    });
 }
 
 $('#check_available').bind('change init', function() {
@@ -155,39 +155,38 @@ function json_toarray(json)
 
     return array;
   }
-
 }
+
 function create_interval_general_data_table(data)
 {
-    $intervalGeneral_t = $("#intervalsGeneral_t");
-    $intervalGeneral_t.handsontable(
-    {
-        data: data, 
-        rowHeaders: true, 
-        colWidths: [110, 100, 100, 165, 140, 155],
-        columns: 
-        [
-          {title:"Interval", data: 0, readOnly: true},
-          {title:"Top [ft]",data: 1,type: 'numeric', format: '0[.]0000000'},
-          {title:"Bottom [ft]",data: 2,type: 'numeric', format: '0[.]0000000'},
-          {title:"Reservoir Pressure [psi]",data: 3,type: 'numeric', format: '0[.]0000000'},
-          {title:"Hole Diameter [in]",data: 4,type: 'numeric', format: '0[.]0000000'},
-          {title:"Drill Pipe Diameter [in]",data: 5,type: 'numeric', format: '0[.]0000000'}
-        ],
-        minSpareRows: 1,
-        contextMenu: true,
-    });
+  $intervalGeneral_t = $("#intervalsGeneral_t");
+  $intervalGeneral_t.handsontable(
+  {
+    data: data, 
+    rowHeaders: true, 
+    colWidths: [110, 100, 100, 165, 140, 155],
+    columns: 
+    [
+      {title: general_data_table_ruleset[0].column, data: 0, readOnly: true},
+      {title: general_data_table_ruleset[1].column, data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[1])); }},
+      {title: general_data_table_ruleset[2].column, data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[2])); }},
+      {title: general_data_table_ruleset[3].column, data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[3])); }},
+      {title: general_data_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[4])); }},
+      {title: general_data_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, general_data_table_ruleset[5])); }}
+    ],
+    minSpareRows: 1,
+    contextMenu: true
+  });
 }
 
 function create_intervals_input_data_table(data)
 {
-    console.log("Aasdf");
     $("#averageInput_t").hide();
     $("#byIntervalsInput_t").show();
     $("#profileInput_t").hide();
     $("#profile_g").hide();
     $("#plotProfile").hide();
-    console.log(data);
+
     $byIntervalsInput_t = $("#byIntervalsInput_t");
     $byIntervalsInput_t.handsontable(
     {
@@ -206,36 +205,39 @@ function create_intervals_input_data_table(data)
         contextMenu: true,
     });
 }
+
 function create_profile_input_data_table(data)
 {
-    $("#averageInput_t").hide();
-    $("#byIntervalsInput_t").hide();
-    $("#profileInput_t").show();
-    $("#profile_g").show();
-    $("#plotProfile").show();
+  $("#averageInput_t").hide();
+  $("#byIntervalsInput_t").hide();
+  $("#profileInput_t").show();
+  $("#profile_g").show();
+  $("#plotProfile").show();
 
-    $profileInput_t = $("#profileInput_t");
-    $profileInput_t.handsontable(
-    {
-        data: data, 
-        rowHeaders: true, 
-        colWidths: [150, 100, 120, 150, 165],
-        columns: 
-        [
-          {title:"Depth [ft]", data: 0, type: 'numeric', format:'0[.]0000000'},
-          {title:"Porosity [-]",data: 1,type: 'numeric', format: '0[.]0000000'},
-          {title:"Permeability [mD]",data: 2,type: 'numeric', format: '0[.]0000000'},
-          {title:"Fracture Intensity [#/ft]",data: 3,type: 'numeric', format: '0[.]0000000'},
-          {title:"Irreducible Saturation [-]",data: 4,type: 'numeric', format: '0[.]0000000'}
-        ],
-        minSpareRows: 1,
-        contextMenu: true,
-    });
+  $profileInput_t = $("#profileInput_t");
+  $profileInput_t.handsontable(
+  {
+    data: data, 
+    rowHeaders: true, 
+    colWidths: [100, 100, 100, 120, 150, 165],
+    columns: 
+    [
+      {title: profile_table_ruleset[0].column, data: 0, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[0])); }},
+      {title: profile_table_ruleset[1].column,data: 1, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[1])); }},
+      {title: profile_table_ruleset[2].column,data: 2, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[2])); }},
+      {title: profile_table_ruleset[3].column,data: 3, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[3])); }},
+      {title: profile_table_ruleset[4].column, data: 4, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[4])); }},
+      {title: profile_table_ruleset[5].column, data: 5, type: 'numeric', format: '0[.]00', validator: function(value, callback) { callback(multiValidatorHandsonTable(value, profile_table_ruleset[5])); }}
+    ],
+    minSpareRows: 1,
+    contextMenu: true
+  });
 }
 
 function plotProfileData()
 {
-  var data = $("#profileInput_t").handsontable('getData');
+  var container = $("#profileInput_t");
+  var data = container.handsontable('getData');
   var data_aux = [];
   //Input Data Profile
   for (var i = 0; i < data.length; i++) 
@@ -245,218 +247,274 @@ function plotProfileData()
     d2 = data[i][2];
     d3 = data[i][3];
     d4 = data[i][4];
+    d5 = data[i][5];
 
-    if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null) && (d3 ==="" || d3 == null) && (d4==="" || d4 == null))
+    if((d0 ==="" || d0 == null) && (d1==="" || d1 == null) && (d2==="" || d2 == null) && (d3 ==="" || d3 == null) && (d4==="" || d4 == null) && (d5==="" || d5 == null))
     {
-       continue;
+      continue;
     }
     else
     {
-       data_aux.push(data[i]);
+      data_aux.push(data[i]);
     }
   }
   data = data_aux;
 
-  var depth = [];
+  var top = [];
+  var bottom = [];
   var porosity = [];
   var permeability = [];
   var fracture_intensity = [];
   var irreducible_saturation = [];
   for (var i = 0; i < data.length; i++)
   {
-    depth.push(data[i][0]);
-    porosity.push(data[i][1]);
-    permeability.push(data[i][2]);
-    fracture_intensity.push(data[i][3]);
-    irreducible_saturation.push(data[i][4]);
+    top.push(data[i][0]);
+    bottom.push(data[i][1]);
+    porosity.push(data[i][2]);
+    permeability.push(data[i][3]);
+    fracture_intensity.push(data[i][4]);
+    irreducible_saturation.push(data[i][5]);
   }
-  porosity.pop();
-  permeability.pop();
-  fracture_intensity.pop();
-  irreducible_saturation.pop();
+  
+  var xAxisCalc = [];
+  $.each(data, function (rowKey, object) {
+    if (!container.handsontable('isEmptyRow', rowKey) && !container.handsontable('isEmptyRow', rowKey)) {
+      xAxisCalc[rowKey] = '' + ((bottom[rowKey] + top[rowKey]) / 2);
+    }
+  });
+
   $('#profile_g').highcharts({
-        chart: {
-            type: 'line',
-            zoomType: 'x',
-            inverted: true
-        },
-         title: {
-             text: 'Profile Data',
-             x: -20 //center
-         },
-         xAxis: {
-          title: {
-            text: 'Depth[ft]'
-          },
-             categories: depth
-         },
-         yAxis: {
-             title: {
-                 text: 'Profile Data'
-             },
-             plotLines: [{
-                 value: 0,
-                 width: 1,
-                 color: '#808080'
-             }]
-         },
-         tooltip: {
-             valueSuffix: ''
-         },
-         legend: {
-             layout: 'vertical',
-             align: 'right',
-             verticalAlign: 'middle',
-             borderWidth: 0
-         },
-         series: [{
-             name: 'Porosity [-]',
-             data: porosity
-         }, {
-             name: 'Permeability [mD]',
-             data: permeability
-         }, {
-             name: 'Fracture Intesity [#/ft]',
-             data: fracture_intensity
-         }, {
-             name: 'Irreducible Saturation[-]',
-             data: irreducible_saturation
-         }]
-     });
+    chart: {
+      type: 'line',
+      zoomType: 'x',
+      inverted: true
+    },
+    title: {
+      text: 'Profile Data',
+      x: -20 //center
+    },
+    xAxis: {
+      title: {
+        text: 'Depth[ft]'
+      },
+      categories: xAxisCalc
+    },
+    yAxis: {
+      title: {
+        text: 'Profile Data'
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+    },
+    series: [{
+      name: 'Porosity [-]',
+      data: porosity
+    }, {
+      name: 'Permeability [mD]',
+      data: permeability
+    }, {
+      name: 'Fracture Intesity [#/ft]',
+      data: fracture_intensity
+    }, {
+      name: 'Irreducible Saturation[-]',
+      data: irreducible_saturation
+    }]
+  });
 }
-function validate_table(table_name,table_data, start_column)
-{
-    var message = "";
-    var flag = true;
-    var number_rows = table_data.length;
-    if(number_rows>0)
-    {
-        var number_columns = table_data[0].length;  
-    }
-    else
-    {
-        flag = false;
-        message = "The table "+table_name+" is empty. Please check your data";
-        return [flag,message];
-    }
-    console.log(number_columns);
-    console.log(table_data);
 
-    for (var i = 0; i < number_rows; i++) 
-    {
-        var flag_row = true;
-        for (var j = start_column; j < number_columns; j++) 
-        {
-            if(!$.isNumeric(table_data[i][j]))
-            {
-                flag_row = flag_row && false;
-                message = "The data for the table "+table_name+" must be numeric. Please check your data";
-            }
-            else
-            {
-                flag_row = flag_row && true;
-            }
-            if(table_data[i][j] == null || table_data[i][j] === "" )
-            {
-                flag_row = flag_row && false;
-                message = "There's missing information for the table "+table_name+". Please check your data";
-            }
-            else
-            {
-                flag_row = flag_row && true;
-            }
+/* verifyDrilling
+ * Validates the form entirely
+ * params {action: string}
+*/
+function verifyDrilling(action) {
+  // Boolean for empty values for the save button
+  var emptyValues = false;
+  // Title tab for modal errors
+  var titleTab = "";
+  var tabTitle = "";
+  //Saving tables...
+  var validationMessages = [];
+  var validationFunctionResult = [];
 
-        }
-        flag = flag && flag_row;
-    }
+  // Validating General Data
+  tabTitle = "Tab: General Data";
 
-    return [flag, message];
-}
-function verifyDrilling(w_verificate_data)
-{
-
-    //var evt = window.event || arguments.callee.caller.arguments[0];
-    //evt.preventDefault();
-
-    //Saving tables...
-    //General Data
-    var generaldata_table = clean_table_data("intervalsGeneral_t");
-    validate_return = validate_table("General Data", generaldata_table, 1);
-    flag_general_data = validate_return[0]; 
-
-    //Normalización de valores de tablas
-    var generaldata_table_aux = [];
-    var inputdata_average_table_aux = [];
-    var inputdata_intervals_table_aux = [];
-    var inputdata_profile_table_aux = [];
-
-    //Flags para tablas
-    var flag_input_method_1 = true;
-    var flag_input_method_2 = true;
-    var flag_input_method_3 = true;
-    var flag_general_data = true;
-    var flag_filtration_function = true;
-    var flag_message = "";
-    var validate_return = [];
-
-    if($("#inputDataMethodSelect").val()=="1")
-    {
-        //Input Data Profile
-        //Limpiando datos de tablas
-        var inputdata_profile_table = clean_table_data("profileInput_t");
-
-        validate_return = validate_table("Input Data", inputdata_profile_table, 0);
-        flag_input_method_3 = validate_return[0]; 
-        flag_message = validate_return[1];
-    }
-    else if($("#inputDataMethodSelect").val()=="2")
-    {
-        //Limpiando datos de tablas
-        var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
-
-        validate_return = validate_table("Input Data", inputdata_intervals_table, 1);
-        flag_input_method_2 = validate_return[0]; 
-        flag_message = validate_return[1];
-    }
-
-  //Guardando los valores de los selectores
   var select_interval_general_data = $("#intervalSelect").val();
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_interval_general_data === null || select_interval_general_data === "")) ? true: emptyValues;
+
+  var generaldata_table = clean_table_data("intervalsGeneral_t");
+  var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
+  if (generalValidator.length > 0) {
+    if (titleTab == "") {
+      titleTab = "Tab: General Data";
+      validationMessages = validationMessages.concat(titleTab);
+    }
+    validationMessages = validationMessages.concat(generalValidator);
+  }
+
   var select_input_data = $("#inputDataMethodSelect").val();
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_input_data === null || select_input_data === "")) ? true: emptyValues;
 
-  $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-  $("#select_input_data").val(select_input_data);
-  $("#select_filtration_function").val($("#filtration_function_select").val());
-
-  if (!w_verificate_data) {
-
-
-    if(!flag_general_data && !w_verificate_data)
-    {
-        flag_message = validate_return[1];
+  if (select_input_data == "1") {
+    //Limpiando datos de tablas
+    var inputdata_profile_table = clean_table_data("profileInput_t");
+    var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
+    if (generalValidator.length > 0) {
+      if (titleTab == "") {
+        titleTab = "Tab: General Data";
+        validationMessages = validationMessages.concat(titleTab);
+      }
+      validationMessages = validationMessages.concat(generalValidator);
     }
+  } else if (select_input_data == "2") {
+    // This condition is never met, pending future developments
+    // Limpiando datos de tablas
+    var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
+  }
 
-    if(!w_verificate_data || (flag_input_method_1 && flag_input_method_2 && flag_general_data))
-    {
-        //var evt = window.event || arguments.callee.caller.arguments[0];
-        //evt.preventDefault();
+  // Validating Filtration Function data
+  titleTab = "";
+  tabTitle = "Tab: Filtration Functions";
 
-        //Guardando los datos de tablas validadas y limpiadas en formulario
-        $("#generaldata_table").val(JSON.stringify(generaldata_table));
-        $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-        $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-    }
-    else
-    {
-        var evt = window.event || arguments.callee.caller.arguments[0];
-        evt.preventDefault();
-        alert(flag_message);
-    }
-  } else {
+  // Guardando los valores de los selectores
+  var select_filtration_function = $("#filtration_function_select").val();
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && (select_filtration_function === null || select_filtration_function === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#a_factor_t").val() === null || $("#a_factor_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#b_factor_t").val() === null || $("#b_factor_t").val() === "")) ? true: emptyValues;
+
+  // Validating Drilling Data
+  titleTab = "";
+  tabTitle = "Tab: Drilling Data";
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_total_exposure_time_t").val() === null || $("#d_total_exposure_time_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_pump_rate_t").val() === null || $("#d_pump_rate_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_mud_density_t").val() === null || $("#d_mud_density_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_plastic_viscosity_t").val() === null || $("#d_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_yield_point_t").val() === null || $("#d_yield_point_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_rop_t").val() === null || $("#d_rop_t").val() === "")) ? true: emptyValues;
+
+  validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
+  titleTab = validationFunctionResult[0];
+  validationMessages = validationFunctionResult[1];
+  emptyValues = (emptyValues === false && ($("#d_equivalent_circulating_density_t").val() === null || $("#d_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+
+  // Validating Completion Data
+  if ($("#check_available").prop("checked")) {
+    titleTab = "";
+    tabTitle = "Tab: Completion Data";
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_total_exposure_time_t").val() === null || $("#c_total_exposure_time_t").val() === "")) ? true: emptyValues;
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_pump_rate_t").val() === null || $("#c_pump_rate_t").val() === "")) ? true: emptyValues;
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_cement_slurry_density_t").val() === null || $("#c_cement_slurry_density_t").val() === "")) ? true: emptyValues;
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_plastic_viscosity_t").val() === null || $("#c_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_yield_point_t").val() === null || $("#c_yield_point_t").val() === "")) ? true: emptyValues;
+
+    validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
+    titleTab = validationFunctionResult[0];
+    validationMessages = validationFunctionResult[1];
+    emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+  }
+
+  if (validationMessages.length < 1) {
+    // Guardando los datos de tablas validadas y limpiadas en formulario
     $("#generaldata_table").val(JSON.stringify(generaldata_table));
     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+    $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+    $("#select_input_data").val(select_input_data);
+    $("#select_filtration_function").val($("#filtration_function_select").val());
+
+    if (emptyValues) {
+      validationMessages.push(true);
+      showFrontendErrors(validationMessages);
+    } else {
+      $("#only_s").val("run");
+      $("#drillingForm").submit();
+    }
+  } else {
+    showFrontendErrors(validationMessages);
   }
 }
+
+/* saveForm
+ * Submits the form when the confirmation button from the modal is clicked
+*/
+function saveForm() {
+  $("#only_s").val("save");
+  $("#drillingForm").submit();
+}
+
 function sticky_relocate() 
 {
    var window_top = $(window).scrollTop();
@@ -467,22 +525,21 @@ function sticky_relocate()
        $('#sticky').removeClass('stick');
    }
 }
+
 function remove_nulls(array)
-{   
-    //array = array.split(",");
-    var array_aux = [];
-    for (var i = 0; i<array.length; i++) 
-    {
-        if(array[i]==null || array[i]=='')
-        {
-            continue;
-        }
-        else
-        {
-            array_aux.push(array[i]);
-        }
+{
+  //array = array.split(",");
+  var array_aux = [];
+  if (array !== null && array.length > 0) {
+    for (var i = 0; i < array.length; i++) {
+      if(array[i] == null || array[i] == '') {
+        continue;
+      } else {
+        array_aux.push(array[i]);
+      }
     }
-    return array_aux;
+  }
+  return array_aux;
 }
 
 function clean_item(item)
@@ -537,14 +594,15 @@ function clean_table_data(table_div_id)
     return cleaned_data;
 }
 
-function calculate_ecd(option)
-{
-  if($("#intervalSelect").val() == null)
-  {
-    alert("For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate. ");
-  }
-  else
-  {
+/* calculate_ecd
+ * Makes the calculations to get either the Drilling Data Cementing Data ECD depending on the
+ * param value
+ * params {option: integer}
+*/
+function calculate_ecd(option) {
+  if ($("#intervalSelect").val() == null) {
+    showFrontendErrorsBasic("To calculate the ECD you need the following data: <li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+  } else {
     var mud_density = 0;
     var pump_rate = 0;
     var result_div_id = "";
@@ -554,61 +612,109 @@ function calculate_ecd(option)
     var plastic_viscosity = null;
     var ecd = 0;
 
-    $.get("{{url('filtration_function_data')}}",
-      {ff_id:filtration_function_id},
-      function(data)
-      {
-        $.each(data, function(index,value)
-        {
-          yield_point = value.yield_point;
-          plastic_viscosity = value.plastic_viscosity;
-        });
+    if (option == 0) {
+      mud_density = parseFloat($("#d_mud_density_t").val());
+      pump_rate = parseFloat($("#d_pump_rate_t").val());
+      plastic_viscosity = parseFloat($("#d_plastic_viscosity_t").val());
+      yield_point = parseFloat($("#d_yield_point_t").val());
+      result_div_id = "d_equivalent_circulating_density_t";
+    } else if (option == 1) {
+      mud_density = parseFloat($("#c_cement_slurry_density_t").val());
+      pump_rate = parseFloat($("#c_pump_rate_t").val());
+      plastic_viscosity = parseFloat($("#c_plastic_viscosity_t").val());
+      yield_point = parseFloat($("#c_yield_point_t").val());
+      result_div_id = "c_equivalent_circulating_density_t";
+    }
 
-        if(option == 0)
-        {
-          mud_density = parseFloat($("#d_mud_density_t").val());
-          pump_rate = parseFloat($("#d_pump_rate_t").val());
-          result_div_id = "d_equivalent_circulating_density_t";
-        }
-        else if(option == 1)
-        {
-          mud_density = parseFloat($("#c_cement_slurry_density_t").val());
-          pump_rate = parseFloat($("#c_pump_rate_t").val());
-          result_div_id = "c_equivalent_circulating_density_t";
-        }
+    var hole_diameter_sum = 0;
+    var drill_pipe_diameter_sum = 0;
+    var general_data_table_length = general_data_table.length;
 
-        var hole_diameter_sum = 0;
-        var drill_pipe_diameter_sum = 0;
-        var general_data_table_length = general_data_table.length;
+    // In the backburner until multiple data is supported
+    // for (var i = 0; i < general_data_table_length; i++) {
+    //   hole_diameter_sum += parseFloat(general_data_table[i][4]);  
+    //   drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
+    // }
 
-        for (var i = 0; i < general_data_table_length; i++) 
-        {
-          hole_diameter_sum += parseFloat(general_data_table[i][4]);  
-          drill_pipe_diameter_sum += parseFloat(general_data_table[i][5]);  
-        }
+    // var hole_diameter = hole_diameter_sum / general_data_table_length;
+    // var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
+    
+    var hole_diameter = parseFloat(general_data_table[0][4]);
+    var drill_pipe_diameter = parseFloat(general_data_table[0][5]);
 
-        var hole_diameter = hole_diameter_sum / general_data_table_length;
-        var drill_pipe_diameter = drill_pipe_diameter_sum / general_data_table_length;
-        var annular_velocity = 24.5 * (pump_rate / (Math.pow(hole_diameter, 2) - Math.pow(drill_pipe_diameter, 2)));
+    var annular_velocity = 24.5 * (pump_rate / (Math.pow(hole_diameter, 2) - Math.pow(drill_pipe_diameter, 2)));
 
-        if(mud_density < 13)
-        {
-          ecd = mud_density + ((0.1 * yield_point)/ (hole_diameter - drill_pipe_diameter));
-        }
-        else
-        {
-          ecd = mud_density + ((0.1 / (hole_diameter - drill_pipe_diameter)) * (yield_point + ((plastic_viscosity * annular_velocity) / (300 * (hole_diameter - drill_pipe_diameter)))));
-        }
-        if(isNaN(ecd))
-        {
-          alert("For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate. ");
-        }
-        else
-        {
-          $("#"+result_div_id).val(ecd);
-        }
-      });
+    if(mud_density < 13) {
+      ecd = mud_density + ((0.1 * yield_point) / (hole_diameter - drill_pipe_diameter));
+    } else {
+      ecd = mud_density + ((0.1 / (hole_diameter - drill_pipe_diameter)) * (yield_point + ((plastic_viscosity * annular_velocity) / (300 * (hole_diameter - drill_pipe_diameter)))));
+    }
+
+    if (isNaN(ecd)) {
+      showFrontendErrorsBasic("To calculate the ECD you need the following data: <li>Hole Diameter (from General Data Table)</li><li>Drill Pipe Diameter (from General Data Table)</li><li>Mud Density</li><li>Pump Rate</li>");
+    } else {
+      $("#" + result_div_id).val(ecd);
+    }
   }
+}
+
+/* tabStep
+ * After validating the current tab, it is changed to the next or previous tab depending on the
+ * entry value
+ * params {direction: string}
+*/
+function tabStep(direction) {
+  var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+  if (direction == "prev") {
+    $(".nav.nav-tabs li.active").prev().children().click();
+  } else {
+    $(".nav.nav-tabs li.active").next().children().click();
+  }
+
+  $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+  $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+  $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+}
+
+/* validateTab
+ * Forces a validation on the current tab before performing the bootstrap tab default event
+ * entry value
+ * params {direction: string}
+*/
+// function validateTab() {
+//   var event = window.event || arguments.callee.caller.arguments[0];
+//   var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+//   var tabActiveElement = $(".nav.nav-tabs li.active");
+//   var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+//   if (nextPrevElement.prevAll().filter(tabActiveElement).length !== 0) {
+//     if (!verifyDrilling(tabToValidate, true)) {
+//       event.stopImmediatePropagation();
+//       event.stopPropagation();
+//       event.preventDefault();
+//     } else {
+//       $("#next_button").toggle(nextPrevElement.next().is("li"));
+//       $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+//     }
+//   } else {
+//     $("#next_button").toggle(nextPrevElement.next().is("li"));
+//     $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+//   }
+// }
+
+/* switchTab
+ * Captures the tab clicking event to determine if a previous or next button has to be shown
+ * and also the run button
+*/
+function switchTab() {
+  var event = window.event || arguments.callee.caller.arguments[0];
+  var tabActiveElement = $(".nav.nav-tabs li.active");
+  var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+  $("#next_button").toggle(nextPrevElement.next().is("li"));
+  $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+  $("#run_calc").toggle(!nextPrevElement.next().is("li"));
 }
 
 $(function () 
@@ -616,146 +722,129 @@ $(function ()
     $(window).scroll(sticky_relocate);
     sticky_relocate();
 });
-//Dinamyc content
-//ROP & Total exposure time
-$("#d_total_exposure_time_t").change(function(e)
-{
+
+// Dynamic content
+// ROP calculation (This needs further development, since it is calculating based on just one top and bottom when
+// Handsontable can have more than one interval)
+$("#d_total_exposure_time_t").change(function(e) {
+  var general_data_table = $("#intervalsGeneral_t").handsontable("getData");
+  // In the backburner until multiple cases are supported
+  // var tops = [];
+  // var bottoms = [];
+  var texp = parseFloat($("#d_total_exposure_time_t").val());
+  // for (var i = 0; i < general_data_table.length; i++) {
+  //   if(general_data_table[i][0] != null && general_data_table[i][0] !== "") {
+  //     tops.push(parseFloat(general_data_table[i][0]));
+  //   }
+  //   if(general_data_table[i][1] != null && input_table_data[i][1] !== "") {
+  //     bottoms.push(parseFloat(general_data_table[i][1]));
+  //   }
+  // }
+  // var MDbottom = 0;
+  // var MDtop = 0;
+  // for (var i = 0; i < bottoms.length; i++) {
+  //   MDbottom += bottoms[i];
+  //   MDtop += tops[i];
+  // }
+  // $("#MDbottom").val(MDbottom / bottoms.length);
+  // $("#MDtop").val(MDtop / tops.length);
+  var MDbottom = general_data_table[0][2];
+  var MDtop = general_data_table[0][1];
+  var rop = (MDbottom - MDtop) / (texp * 24);
+  // var rop = (MDbottom / bottoms.length - MDtop / tops.length) / (texp * 24);
+  $("#d_rop_t").val(rop);
+});
+
+$("#d_rop_t").change(function(e) {
+  if ($("#d_total_exposure_time_t").val() == '') {
     var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
     var tops = [];
     var bottoms = [];
-    var texp = $("#d_total_exposure_time_t").val();
-    for (var i = 0; i<generaldata_table_data.length; i++) 
-    {
-        if(generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '')
-        {
-            continue;
-        }
-        else
-        {
-            tops.push(parseFloat(generaldata_table_data[i][1]));
-        }
-        if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '')
-        {
-            continue;
-        }
-        else
-        {
-            bottoms.push(parseFloat(generaldata_table_data[i][2]));
-        }
+    var d_rop_t = $("#d_rop_t").val();
+    for (var i = 0; i < generaldata_table_data.length; i++) {
+      if (generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '') {
+        continue;
+      } else {
+        tops.push(parseFloat(generaldata_table_data[i][1]));
+      } if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '') {
+        continue;
+      } else {
+        bottoms.push(parseFloat(generaldata_table_data[i][2]));
+      }
     }
-    var MDbottom = Math.max.apply(Math,bottoms); 
-    var MDtop = Math.min.apply(Math,tops);
+    var MDbottom = Math.max.apply(Math, bottoms); 
+    var MDtop = Math.min.apply(Math, tops); 
     $("#MDbottom").val(MDbottom);
     $("#MDtop").val(MDtop);
-    var rop =  (MDbottom-MDtop)/(texp*24);
-    $("#d_rop_t").val(rop);
-});
-
-$("#d_rop_t").change(function(e)
-{
-    if($("#d_total_exposure_time_t").val()=='')
-    {
-        var generaldata_table_data = $("#intervalsGeneral_t").handsontable('getData');
-        var tops = [];
-        var bottoms = [];
-        var d_rop_t = $("#d_rop_t").val();
-        for (var i = 0; i<generaldata_table_data.length; i++) 
-        {
-            if(generaldata_table_data[i][1] == null || generaldata_table_data[i][1] === '')
-            {
-                continue;
-            }
-            else
-            {
-                tops.push(parseFloat(generaldata_table_data[i][1]));
-            }
-            if(generaldata_table_data[i][2] == null || generaldata_table_data[i][2] === '')
-            {
-                continue;
-            }
-            else
-            {
-                bottoms.push(parseFloat(generaldata_table_data[i][2]));
-            }
-        }
-        var MDbottom = Math.max.apply(Math,bottoms); 
-        var MDtop = Math.min.apply(Math,tops); 
-        $("#MDbottom").val(MDbottom);
-        $("#MDtop").val(MDtop);
-        var texp =  (MDbottom-MDtop)/(d_rop_t*24);
-        $("#d_total_exposure_time_t").val(texp);
-    }
-});
-
-//EDC
-//Drilling
-$("#d_max_p_mud_t").change(function(e)
-{
-    max_mud_density = $("#d_max_p_mud_t").val();
-    d_correction_factor = $("#d_correction_factor_t").val();
-    $("#d_equivalent_circulating_density_t").val(max_mud_density*d_correction_factor);
-});
-$("#d_correction_factor_t").change(function(e)
-{
-    max_mud_density = $("#d_max_p_mud_t").val();
-    d_correction_factor = $("#d_correction_factor_t").val();
-    $("#d_equivalent_circulating_density_t").val(max_mud_density*d_correction_factor);
-});
-
-//Cementing
-$("#c_cement_slurry_density_t").change(function(e)
-{
-    cement_slurry_density = $("#c_cement_slurry_density_t").val();
-    c_correction_factor = $("#c_correction_factor_t").val();
-    $("#c_equivalent_circulating_density_t").val(cement_slurry_density*c_correction_factor);
-});
-$("#c_correction_factor_t").change(function(e)
-{
-    cement_slurry_density = $("#c_cement_slurry_density_t").val();
-    c_correction_factor = $("#c_correction_factor_t").val();
-    $("#c_equivalent_circulating_density_t").val(cement_slurry_density*c_correction_factor);
+    var texp = (MDbottom - MDtop) / (d_rop_t * 24);
+    $("#d_total_exposure_time_t").val(texp);
+  }
 });
 
 //Selects  **/**
 //General Data
-$("#filtration_function_select").change(function(e)
-{
+$("#filtration_function_select").change(function(e) {
   $.get("{{url('filtration_function_data')}}",
-    {ff_id:$(this).val()},
-    function(data)
-    {
-      $.each(data, function(index,value)
-      {
+    {ff_id: $(this).val()},
+    function(data) {
+      $.each(data, function(index, value) {
         a_factor = value.a_factor;
         b_factor = value.b_factor;
         mud_density = value.mud_density;
+        plastic_viscosity = value.plastic_viscosity;
+        yield_point = value.yield_point;
+        cement_slurry_density = value.cement_slurry_density;
+        cement_plastic_viscosity = value.cement_plastic_viscosity;
+        cement_yield_point = value.cement_yield_point;
       });
 
       $("#a_factor_t").val(a_factor);
       $("#b_factor_t").val(b_factor);
       $("#d_mud_density_t").val(mud_density);
-      $("#c_cement_slurry_density_t").val(mud_density);
+      $("#d_plastic_viscosity_t").val(plastic_viscosity);
+      $("#d_yield_point_t").val(yield_point);
 
+      if (cement_slurry_density != null) {
+        $("#c_cement_slurry_density_t").val(cement_slurry_density);
+        $("#c_plastic_viscosity_t").val(cement_plastic_viscosity != null ? cement_plastic_viscosity : plastic_viscosity);
+        $("#c_yield_point_t").val(cement_yield_point != null ? cement_yield_point : yield_point);
+        $("#check_available").prop("checked", true);
+        cementingAvailable();
+      } else {
+        $("#check_available").prop("checked", false);
+        cementingAvailable();
+      }
     });
 });
 
 //IntervalSelect: crea la tabla de general data para diligenciar la información de los intervalos a analizar.
-$("#intervalSelect").change(function(e)
-{
-    var intervals = $("#intervalSelect").val();
-    var data_aux = [];
-    $.get("{{url('intervalsInfoDrilling')}}",
-        {intervals:intervals},
-        function(data)
-        {
-            $.each(data, function(index,value)
-            {
-                var data_row = [value.nombre, value.top,,value.presion_reservorio,,];
-                data_aux.push(data_row);
-            });
+$("#intervalSelect").change(function(e) {
+  var intervals = $("#intervalSelect").val();
+  var generaldata_table = clean_table_data("intervalsGeneral_t");
+  var data_aux = [];
+  $.get("{{url('intervalsInfoDrilling')}}",
+    { intervals: intervals },
+    function(data) {
+      $.each(data, function(index, value) {
+        var data_row = [];
 
-            create_interval_general_data_table(data_aux);
-        });
+        for (var i = 0; i < generaldata_table.length; i++) {
+          if (generaldata_table[i][0] === value.nombre) {
+            data_row = generaldata_table[i];
+            generaldata_table.splice(i, 1);
+            break;
+          }
+        }
+
+        if (data_row.length === 0) {
+          data_row = [value.nombre, value.top, , value.presion_reservorio, ];
+        }
+
+        data_aux.push(data_row);
+      });
+
+      create_interval_general_data_table(data_aux);
+    });
 });
 
 //InputDataMethodSelect
@@ -791,6 +880,4 @@ $("#inputDataMethodSelect").change(function(e)
         $("#plotProfile").hide();
     }
 });
-
 </script>
-

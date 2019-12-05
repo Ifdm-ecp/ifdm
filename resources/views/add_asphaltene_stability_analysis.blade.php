@@ -253,23 +253,6 @@
                     </div>
                     <div class="col-md-6">
                        <div class="form-group">
-                          {!! Form::label('current_reservoir_pressure_label', 'Current Reservoir Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                          <div class="input-group {{$errors->has('current_reservoir_pressure') ? 'has-error' : ''}}">
-                              @if($advisor === "true")
-                                <span class="input-group-btn">
-                                   <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                </span>
-                              @endif
-                             {!! Form::text('current_reservoir_pressure',null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_reservoir_pressure']) !!}
-                             <span class="input-group-addon" id="basic-addon2">psi</span>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-
-                 <div class="row">
-                    <div class="col-md-6">
-                       <div class="form-group">
                           {!! Form::label('api_gravity_label', 'API Gravity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                           <div class="input-group {{$errors->has('api_gravity') ? 'has-error' : ''}}">
                               @if($advisor === "true")

@@ -207,39 +207,20 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row">
-                       <div class="col-md-6">
-                          <div class="form-group">
-                             {!! Form::label('initial_saturation_label', 'Initial Saturation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                             <div class="input-group {{$errors->has('initial_saturation') ? 'has-error' : ''}}">
-                                @if($advisor === "true")
-                                  <span class="input-group-btn">
-                                     <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                  </span>
-                                @endif
-                                {!! Form::text('initial_saturation', null, ['placeholder' => 'Fraction', 'class' =>'form-control', 'id' => 'initial_saturation']) !!}
-                                <span class="input-group-addon" id="basic-addon2">Fraction</span> 
-                             </div>
-                          </div>
-                       </div>
-                     </div>
                   </div>
                </div>
                <div class="panel panel-default">
                   <div class="panel-heading"><b>Fines Properties</b></div>
                   <div class="panel-body">
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <div class="form-group {{$errors->has('type_of_suspension_flux') ? 'has-error' : ''}}">
-                                 {!! Form::label('type_of_suspension_flux_label', 'Type of Suspension Flux') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                                 {!! Form::select('type_of_suspension_flux', [
-                                    'water' => 'Water',
-                                    'oil' => 'Oil'],null, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'type_of_suspension_flux')
-                                   ) !!}
-                              </div>
-                           </div>
+                    <div class="form-group hidden">
+                        <div class="form-group {{$errors->has('type_of_suspension_flux') ? 'has-error' : ''}}">
+                           {!! Form::label('type_of_suspension_flux_label', 'Type of Suspension Flux') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::select('type_of_suspension_flux', [
+                              'oil' => 'Oil'],null, array('class'=>'form-control selectpicker show-tick', 'id'=>'type_of_suspension_flux')
+                             ) !!}
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div clas="form-group">
                               {!! Form::label('fine_density_label', 'Fine Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -254,8 +235,6 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('fine_diameter_label', 'Fine Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -270,6 +249,8 @@
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_deposited_fines_concentration_label', 'Initial Deposited Fines Concentration') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -288,11 +269,7 @@
                                 </div>
                               </div>
                            </div>
-                           
                         </div>
-                     </div>
-                     
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('critical_rate_label', 'Critical Rate') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -307,6 +284,8 @@
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_fines_label', 'Initial Fines Concentration In Fluid') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -344,7 +323,7 @@
                         </div>
                      </div>
                     <div class="row">
-                      <div id="graphic_pvt_table"></div>
+                      <div class="col-md-12" id="graphic_pvt_table"></div>
                     </div>
                   </div>
                </div>   
@@ -382,10 +361,13 @@
                         <div class="col-md-12" style="overflow: auto;">
                            <div id="historical_data_table"></div>
                            {!! Form::hidden('value_historical_data', '', array('class' => 'form-control', 'id' => 'value_historical_data')) !!}
+                           <div id="historical_data_table_without_projection" style="display: none;"></div>
+                           {!! Form::hidden('value_historical_data_without_projection', '', array('class' => 'form-control', 'id' => 'value_historical_data_without_projection')) !!}
                         </div><br>
                         <div class="row col-md-12">
                           <div>
-                           <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button>      
+                           <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button>  
+                           <button class="btn btn-primary save_historical_data pull-right" type="button" style="margin-right: 5px;">Save Historical Data</button>        
                          </div>
                       </div>
                      </div>
@@ -448,10 +430,10 @@
                      <div class="row col-md-6">  
                          <button type="button" class="btn btn-primary" onclick="perform_production_projection()">Calculate Production Projection</button>   
                     </div>
-                    <div class="row">
+                    <div class="row col-md-12">
                       <div id="oil_projection_chart"></div>
                     </div>
-                    <div class="row">
+                    <div class="row col-md-12">
                       <div id="water_projection_chart"></div>
                     </div>
                   </div>
@@ -478,7 +460,18 @@
 <br>
 
 
-
+<div id="historical_data_saved" class="modal fade" data-toggle="modal">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Historical Data</h4>
+         </div>
+         <div class="modal-body">
+            <p>Historical Data has been saved successfully!</p>
+        </div>
+    </div>
+</div>
 
 <div id="fines_concentration_fluid" class="modal fade" data-toggle="modal">
    <div class="modal-dialog modal-lg">

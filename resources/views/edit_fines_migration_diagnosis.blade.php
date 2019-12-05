@@ -205,39 +205,12 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row">
-                       <div class="col-md-6">
-                          <div class="form-group">
-                             {!! Form::label('initial_saturation_label', 'Initial Saturation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                             <div class="input-group {{$errors->has('initial_saturation') ? 'has-error' : ''}}">
-                                @if($advisor === "true")
-                                  <span class="input-group-btn">
-                                     <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                  </span>
-                                @endif
-                                {!! Form::text('initial_saturation', $fines_d_diagnosis->initial_saturation, ['placeholder' => 'Fraction', 'class' =>'form-control', 'id' => 'initial_saturation']) !!}
-                                <span class="input-group-addon" id="basic-addon2">Fraction</span> 
-                             </div>
-                          </div>
-                       </div>
-                     </div>
                   </div>
                </div>
                <div class="panel panel-default">
                   <div class="panel-heading"><b>Fines Properties</b></div>
                   <div class="panel-body">
                      <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              <div class="form-group {{$errors->has('type_of_suspension_flux') ? 'has-error' : ''}}">
-                                 {!! Form::label('type_of_suspension_flux_label', 'Type of Suspension Flux') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                                 {!! Form::select('type_of_suspension_flux', [
-                                    'water' => 'Water',
-                                    'oil' => 'Oil'],$fines_d_diagnosis->type_of_suspension_flux, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'type_of_suspension_flux')
-                                   ) !!}
-                              </div>
-                           </div>
-                        </div>
                         <div class="col-md-6">
                            <div clas="form-group">
                               {!! Form::label('fine_density_label', 'Fine Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -252,8 +225,6 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('fine_diameter_label', 'Fine Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -268,6 +239,8 @@
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_deposited_fines_concentration_label', 'Initial Deposited Fines Concentration') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -287,8 +260,6 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('critical_rate_label', 'Critical Rate') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -303,6 +274,8 @@
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_fines_label', 'Initial Fines Concentration In Fluid') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -375,29 +348,20 @@
                   <div class="panel-heading"><b>Historical Data</b>&nbsp;&nbsp;@if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_historical_data_table" style="color:black;font-size:15pt;"></i></span>@endif</div>
                   <div class="panel-body">
                      <div class="row">
-                        <div class="col-md-12" style="">
+                        <div class="col-md-12">
                            <div id="historical_data_table"></div>
                            {!! Form::hidden('value_historical_data', '', array('class' => 'form-control', 'id' => 'value_historical_data')) !!}
-                        </div><br>
-                        
-                     </div><br><br>
+                        </div>
+                     </div>
                      <div class="row col-md-12">
                         <div>
-                         <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button>      
+                          <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button> 
                        </div>
                     </div>
                      <br>
-
-                  <div class="row">
-                    <div id="graphic_historical_data_table"></div>
-                  </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-check">
-                          {!! Form::checkbox('perform_production_projection_selector',0,null,array('class'=>'form-check-input', 'id'=>'perform_production_projection_selector')) !!}&nbsp<label class="form-check-label" for="perform_production_projection_selector">Perform Production Projection</label>
-                        </div>
-                      </div>
-                  </div>
+                    <div class="row col-md-12">
+                      <div id="graphic_historical_data_table"></div>
+                    </div>
                </div>
              </div>
               <div class="panel panel-default" id="production_projection">
@@ -407,14 +371,8 @@
                         <div class="col-md-6">
                            <div class="form-group" id="historical_oil">
                               <div class="form-group {{$errors->has('perform_historical_projection_oil') ? 'has-error' : ''}}">
-                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data to be included in the historical data') !!}
-                                 {!! Form::select('perform_historical_projection_oil', ['exponential' => 'Exponential', 'hyperbolic'=>'Hyperbolic'],$fines_d_diagnosis->perform_historical_projection, array('class'=>'form-control', 'id'=>'perform_historical_projection_oil')) !!}
-                              </div>
-                           </div>
-                           <div class="form-group" id="historical_water" style="display: none">
-                              <div class="form-group {{$errors->has('perform_historical_projection_water') ? 'has-error' : ''}}">
-                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data to be included in the historical data') !!}
-                                 {!! Form::select('perform_historical_projection_water', ['exponential' => 'Exponential'],$fines_d_diagnosis->perform_historical_projection, array('class'=>'form-control', 'id'=>'perform_historical_projection_water')) !!}
+                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data if required') !!}
+                                 {!! Form::select('perform_historical_projection_oil', ['without' => 'Without Projection', 'exponential' => 'Exponential', 'hyperbolic'=>'Hyperbolic'], $fines_d_diagnosis->perform_historical_projection, array('class'=>'form-control',  'id'=>'perform_historical_projection_oil')) !!}
                               </div>
                            </div>
                         </div>
@@ -442,19 +400,15 @@
                                 </div>
                               @endif
                            </div>
-                        </div>
-
-                        
-                     </div>
-                     <div class="row col-md-6">  
-                         <button type="button" class="btn btn-primary" onclick="perform_production_projection()">Calculate Production Projection</button>   
-                    </div>
-                    <div class="row">
-                      <div id="oil_projection_chart"></div>
-                    </div>
-                    <div class="row">
-                      <div id="water_projection_chart"></div>
-                    </div>
+                        </div>  
+                      </div>
+                      <div id="historical_projection_table">
+                           {!! Form::hidden('value_historical_projection_data', '', array('class' => 'form-control', 'id' => 'value_historical_projection_data')) !!}
+                      </div>
+                      <br>
+                      <div class="row col-md-12">
+                        <div id="oil_projection_chart"></div>
+                      </div>
                   </div>
                </div>
                 <div class="row">
@@ -478,6 +432,19 @@
 <br>
 
 
+
+<div id="historical_data_saved" class="modal fade" data-toggle="modal">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Historical Data</h4>
+         </div>
+         <div class="modal-body">
+            <p>Historical Data has been saved successfully!</p>
+        </div>
+    </div>
+</div>
 
 
 <div id="fines_concentration_fluid" class="modal fade" data-toggle="modal">

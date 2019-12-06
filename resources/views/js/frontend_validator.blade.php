@@ -91,7 +91,7 @@ function multiValidatorGeneral(action, value, ruleset)
           }
           break;
         case "requiredselect":
-          if ($("#" + set.requiredfield).val() == set.value && (value === null || value === "")) {
+          if (value === null || value === "") {
             isValid = [false, "There is no " + ruleset.column + " selected"];
             return false;
           }

@@ -132,7 +132,7 @@ plus_plus_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {
@@ -166,7 +166,7 @@ bubble_point_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {
@@ -174,7 +174,7 @@ bubble_point_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   }
 ];
@@ -185,7 +185,7 @@ saturation_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {
@@ -193,7 +193,7 @@ saturation_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {
@@ -225,7 +225,7 @@ saturation_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {
@@ -233,7 +233,7 @@ saturation_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "minw" minw: "0"}
+      {rule: "minw", minw: "0"}
     ]
   },
   {

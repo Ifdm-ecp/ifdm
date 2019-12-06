@@ -1314,42 +1314,44 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (asphaltene === null || asphaltene === "")) ? true: emptyValues;
 
-        var hydrogen_carbon_ratio = $("#hydrogen_carbon_ratio").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, hydrogen_carbon_ratio, asphaltenes_tab_ruleset[10]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (hydrogen_carbon_ratio === null || hydrogen_carbon_ratio === "")) ? true: emptyValues;
+        if ($("#elemental_data_selector").prop("checked")) {
+            var hydrogen_carbon_ratio = $("#hydrogen_carbon_ratio").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, hydrogen_carbon_ratio, asphaltenes_tab_ruleset[10]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (hydrogen_carbon_ratio === null || hydrogen_carbon_ratio === "")) ? true: emptyValues;
 
-        var oxygen_carbon_ratio = $("#oxygen_carbon_ratio").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oxygen_carbon_ratio, asphaltenes_tab_ruleset[11]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (oxygen_carbon_ratio === null || oxygen_carbon_ratio === "")) ? true: emptyValues;
+            var oxygen_carbon_ratio = $("#oxygen_carbon_ratio").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oxygen_carbon_ratio, asphaltenes_tab_ruleset[11]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (oxygen_carbon_ratio === null || oxygen_carbon_ratio === "")) ? true: emptyValues;
 
-        var nitrogen_carbon_ratio = $("#nitrogen_carbon_ratio").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, nitrogen_carbon_ratio, asphaltenes_tab_ruleset[12]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (nitrogen_carbon_ratio === null || nitrogen_carbon_ratio === "")) ? true: emptyValues;
+            var nitrogen_carbon_ratio = $("#nitrogen_carbon_ratio").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, nitrogen_carbon_ratio, asphaltenes_tab_ruleset[12]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (nitrogen_carbon_ratio === null || nitrogen_carbon_ratio === "")) ? true: emptyValues;
 
-        var sulphure_carbon_ratio = $("#sulphure_carbon_ratio").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, sulphure_carbon_ratio, asphaltenes_tab_ruleset[13]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (sulphure_carbon_ratio === null || sulphure_carbon_ratio === "")) ? true: emptyValues;
+            var sulphure_carbon_ratio = $("#sulphure_carbon_ratio").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, sulphure_carbon_ratio, asphaltenes_tab_ruleset[13]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (sulphure_carbon_ratio === null || sulphure_carbon_ratio === "")) ? true: emptyValues;
 
-        var fa_aromaticity = $("#fa_aromaticity").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, fa_aromaticity, asphaltenes_tab_ruleset[14]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (fa_aromaticity === null || fa_aromaticity === "")) ? true: emptyValues;
+            var fa_aromaticity = $("#fa_aromaticity").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, fa_aromaticity, asphaltenes_tab_ruleset[14]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (fa_aromaticity === null || fa_aromaticity === "")) ? true: emptyValues;
 
-        var vc_molar_volume = $("#vc_molar_volume").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, vc_molar_volume, asphaltenes_tab_ruleset[15]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
-    
+            var vc_molar_volume = $("#vc_molar_volume").val();
+            validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, vc_molar_volume, asphaltenes_tab_ruleset[15]);
+            titleTab = validationFunctionResult[0];
+            validationMessages = validationFunctionResult[1];
+            emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
+        }
+        
         if (validationMessages.length < 1) {
             bubble_point_table = order_matrix(bubble_point_table);
             $("#value_components_table").val(JSON.stringify(components_data));

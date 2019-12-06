@@ -1042,7 +1042,6 @@
 
         $("#sum_zi_components_table").val(sum_zi);
         $("#zi_range_flag_components_table").val(zi_range_flag);
-
     }
 
     function validate_binary_coefficients_data(binary_interaction_coefficients_data)
@@ -1082,7 +1081,293 @@
     * params {action: string}
     */
     function verifyAsphaltene(action) {
+        // Loading
+        $("#loading_icon").show();
 
+        // Boolean for empty values for the save button
+        var emptyValues = false;
+        // Title tab for modal errors
+        var titleTab = "";
+        var tabTitle = "";
+        //Saving tables...
+        var validationMessages = [];
+        var validationFunctionResult = [];
+
+        // Validating Component Analysis
+        tabTitle = "Tab: Component Analysis";
+
+        var select_components_data = $("#components").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_components_data, components_select_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (select_components_data === null || select_components_data === "")) ? true: emptyValues;
+        
+        var binary_interaction_coefficients_table_ruleset_clone = JSON.parse(JSON.stringify(binary_interaction_coefficients_table_ruleset));
+        var passedSelector = false;
+
+        if (titleTab === "") {
+            passedSelector = true;
+        }
+
+        var components_data = clean_table_data("components_table");
+        var tableValidator = validateTable("Components Data", components_data, components_table_ruleset, action);
+        if (tableValidator.length > 0) {
+            if (titleTab == "") {
+                titleTab = "Tab: Component Analysis";
+                validationMessages = validationMessages.concat(titleTab);
+            }
+            validationMessages = validationMessages.concat(tableValidator);
+        } else {
+            var sumZi = 0;
+
+            for (var i = 0; i < components_data.length; i++) {
+                sumZi += components_data[i][1];
+            }
+
+            if (sumZi < 0.99 || sumZi > 1.1) {
+                if (titleTab == "") {
+                    titleTab = "Tab: Component Analysis";
+                    validationMessages = validationMessages.concat(titleTab);
+                }
+                validationMessages = validationMessages.concat("The total sum for the Zi in the Components Data table is out of the numeric range [0.99, 1.1]");
+            }
+        }
+
+        if (passedSelector) {
+            for (var i = 0; i < select_components_data.length; i++) {
+                binary_interaction_coefficients_table_ruleset_clone.push({
+                    column: select_components_data[i],
+                    rules: [
+                        {rule: "required"},
+                        {rule: "numeric"},
+                        {rule: "range", min: -10, max: 10}
+                    ]
+                });
+            }
+
+            if (select_components_data.includes("Plus +")) {
+                var plus_fraction_molecular_weight = $("#plus_fraction_molecular_weight").val();
+                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, plus_fraction_molecular_weight, plus_plus_data_ruleset[0]);
+                titleTab = validationFunctionResult[0];
+                validationMessages = validationFunctionResult[1];
+                emptyValues = (emptyValues === false && (plus_fraction_molecular_weight === null || plus_fraction_molecular_weight === "")) ? true: emptyValues;
+
+                var plus_fraction_specific_gravity = $("#plus_fraction_specific_gravity").val();
+                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, plus_fraction_specific_gravity, plus_plus_data_ruleset[1]);
+                titleTab = validationFunctionResult[0];
+                validationMessages = validationFunctionResult[1];
+                emptyValues = (emptyValues === false && (plus_fraction_specific_gravity === null || plus_fraction_specific_gravity === "")) ? true: emptyValues;
+
+                var plus_fraction_boiling_temperature = $("#plus_fraction_boiling_temperature").val();
+                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, plus_fraction_boiling_temperature, plus_plus_data_ruleset[2]);
+                titleTab = validationFunctionResult[0];
+                validationMessages = validationFunctionResult[1];
+                emptyValues = (emptyValues === false && (plus_fraction_boiling_temperature === null || plus_fraction_boiling_temperature === "")) ? true: emptyValues;
+
+                var sample_molecular_weight = $("#sample_molecular_weight").val();
+                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, sample_molecular_weight, plus_plus_data_ruleset[3]);
+                titleTab = validationFunctionResult[0];
+                validationMessages = validationFunctionResult[1];
+                emptyValues = (emptyValues === false && (sample_molecular_weight === null || sample_molecular_weight === "")) ? true: emptyValues;
+
+                var correlation = $("#correlation").val();
+                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, correlation, plus_plus_data_ruleset[4]);
+                titleTab = validationFunctionResult[0];
+                validationMessages = validationFunctionResult[1];
+                emptyValues = (emptyValues === false && (correlation === null || correlation === "")) ? true: emptyValues;
+            }
+        }
+
+        binary_interaction_coefficients_data = clean_table_data("binary_interaction_coefficients_table");        
+        tableValidator = validateTable("Binary Interaction Coefficients Data", binary_interaction_coefficients_data, binary_interaction_coefficients_table_ruleset_clone, action);
+        if (tableValidator.length > 0) {
+            if (titleTab == "") {
+                titleTab = "Tab: Component Analysis";
+                validationMessages = validationMessages.concat(titleTab);
+            }
+            validationMessages = validationMessages.concat(tableValidator);
+        }
+
+        // Validating Saturation data
+        titleTab = "";
+        tabTitle = "Tab: Saturation Data";
+
+        var bubble_point_table = clean_table_data("bubble_point_table");
+        tableValidator = validateTable("Bubble Point Data", bubble_point_table, bubble_point_table_ruleset, action);
+        if (tableValidator.length > 0) {
+            if (titleTab == "") {
+                titleTab = "Tab: Saturation Data";
+                validationMessages = validationMessages.concat(titleTab);
+            }
+            validationMessages = validationMessages.concat(tableValidator);
+        }
+
+        var critical_temperature = $("#critical_temperature").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, critical_temperature, saturation_data_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (critical_temperature === null || critical_temperature === "")) ? true: emptyValues;
+
+        var critical_pressure = $("#critical_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, critical_pressure, saturation_data_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (critical_pressure === null || critical_pressure === "")) ? true: emptyValues;
+
+        var density_at_reservoir_pressure = $("#density_at_reservoir_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, density_at_reservoir_pressure, saturation_data_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (density_at_reservoir_pressure === null || density_at_reservoir_pressure === "")) ? true: emptyValues;
+
+        var density_at_bubble_pressure = $("#density_at_bubble_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, density_at_bubble_pressure, saturation_data_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (density_at_bubble_pressure === null || density_at_bubble_pressure === "")) ? true: emptyValues;
+
+        var density_at_atmospheric_pressure = $("#density_at_atmospheric_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, density_at_atmospheric_pressure, saturation_data_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (density_at_atmospheric_pressure === null || density_at_atmospheric_pressure === "")) ? true: emptyValues;
+
+        var reservoir_temperature = $("#reservoir_temperature").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, reservoir_temperature, saturation_data_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (reservoir_temperature === null || reservoir_temperature === "")) ? true: emptyValues;
+
+        var current_reservoir_pressure = $("#current_reservoir_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, current_reservoir_pressure, saturation_data_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (current_reservoir_pressure === null || current_reservoir_pressure === "")) ? true: emptyValues;
+
+        var fluid_api_gravity = $("#fluid_api_gravity").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, fluid_api_gravity, saturation_data_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (fluid_api_gravity === null || fluid_api_gravity === "")) ? true: emptyValues;
+    
+        // Validating Asphaltenes data
+        titleTab = "";
+        tabTitle = "Tab: Asphaltenes Data";
+
+        var initial_temperature = $("#initial_temperature").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, initial_temperature, asphaltenes_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (initial_temperature === null || initial_temperature === "")) ? true: emptyValues;
+
+        var number_of_temperatures = $("#number_of_temperatures").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, number_of_temperatures, asphaltenes_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (number_of_temperatures === null || number_of_temperatures === "")) ? true: emptyValues;
+
+        var temperature_delta = $("#temperature_delta").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, temperature_delta, asphaltenes_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (temperature_delta === null || temperature_delta === "")) ? true: emptyValues;
+
+        var asphaltene_particle_diameter = $("#asphaltene_particle_diameter").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene_particle_diameter, asphaltenes_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene_particle_diameter === null || asphaltene_particle_diameter === "")) ? true: emptyValues;
+
+        var asphaltene_molecular_weight = $("#asphaltene_molecular_weight").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene_molecular_weight, asphaltenes_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene_molecular_weight === null || asphaltene_molecular_weight === "")) ? true: emptyValues;
+
+        var asphaltene_apparent_density = $("#asphaltene_apparent_density").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene_apparent_density, asphaltenes_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene_apparent_density === null || asphaltene_apparent_density === "")) ? true: emptyValues;
+
+        var saturate = $("#saturate").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, saturate, asphaltenes_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (saturate === null || saturate === "")) ? true: emptyValues;
+
+        var aromatic = $("#aromatic").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, aromatic, asphaltenes_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (aromatic === null || aromatic === "")) ? true: emptyValues;
+
+        var resine = $("#resine").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, resine, asphaltenes_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (resine === null || resine === "")) ? true: emptyValues;
+
+        var asphaltene = $("#asphaltene").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene, asphaltenes_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene === null || asphaltene === "")) ? true: emptyValues;
+
+        var hydrogen_carbon_ratio = $("#hydrogen_carbon_ratio").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, hydrogen_carbon_ratio, asphaltenes_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (hydrogen_carbon_ratio === null || hydrogen_carbon_ratio === "")) ? true: emptyValues;
+
+        var oxygen_carbon_ratio = $("#oxygen_carbon_ratio").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oxygen_carbon_ratio, asphaltenes_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (oxygen_carbon_ratio === null || oxygen_carbon_ratio === "")) ? true: emptyValues;
+
+        var nitrogen_carbon_ratio = $("#nitrogen_carbon_ratio").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, nitrogen_carbon_ratio, asphaltenes_tab_ruleset[12]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (nitrogen_carbon_ratio === null || nitrogen_carbon_ratio === "")) ? true: emptyValues;
+
+        var sulphure_carbon_ratio = $("#sulphure_carbon_ratio").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, sulphure_carbon_ratio, asphaltenes_tab_ruleset[13]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (sulphure_carbon_ratio === null || sulphure_carbon_ratio === "")) ? true: emptyValues;
+
+        var fa_aromaticity = $("#fa_aromaticity").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, fa_aromaticity, asphaltenes_tab_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (fa_aromaticity === null || fa_aromaticity === "")) ? true: emptyValues;
+
+        var vc_molar_volume = $("#vc_molar_volume").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, vc_molar_volume, asphaltenes_tab_ruleset[15]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
+    
+        if (validationMessages.length < 1) {
+            bubble_point_table = order_matrix(bubble_point_table);
+            $("#value_components_table").val(JSON.stringify(components_data));
+            $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
+            $("#value_bubble_point_table").val(JSON.stringify(bubble_point_table));
+
+            if (emptyValues) {
+                validationMessages.push(true);
+                showFrontendErrors(validationMessages);
+            } else {
+                $("#only_s").val("run");
+                $("#drillingForm").submit();
+            }
+        } else {
+            showFrontendErrors(validationMessages);
+        }
+
+        $("#loading_icon").hide();
     }
 
     /* tabStep

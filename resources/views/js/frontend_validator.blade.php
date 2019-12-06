@@ -113,10 +113,31 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
+        case "rangew":
+          if (value <= set.minw || value >= set.maxw) {
+            isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.minw + ", " + set.maxw + ", both numbers exclusive]"];
+            return false;
+          }
+          break;
+        case "minw":
+          if (value <= set.minw) {
+            isValid = [false, "The field " + ruleset.column + " must be greater than " + set.minw];
+            return false;
+          }
+          break;
         case "selection":
           if (!set.selections.includes(value)) {
             isValid = [false, "The field " + ruleset.column + " has a value that is not part of the allowed selection"];
             return false;
+          }
+          break;
+        case "selectionmultiple":
+          for (var i = 0; i < value.length; i++) {
+            if (!set.selections.includes(value[i])) {
+              isValid = [false, "The field " + ruleset.column + " has a set or values that are not part of the allowed selection"];
+              break;
+              return false;
+            }
           }
           break;
       }

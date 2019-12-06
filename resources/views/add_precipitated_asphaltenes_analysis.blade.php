@@ -679,6 +679,7 @@
       </div>
       </div>
       <div class="row">
+         {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
          <div class="col-md-6" align="left">
             <button type="button" class="btn btn-success" onclick="verifyAsphaltene('save');">Save</button>
             <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
@@ -703,7 +704,7 @@
    @include('js/validate_table')
    @include('css/add_multiparametric')
    @include('js/frontend_validator')
-   {{-- @include('js/frontend_rules/precipitated_asphaltenes_analysis') --}}
+   @include('js/frontend_rules/asphaltene_precipitated')
    @include('js/add_precipitated_asphaltenes_analysis')
    @include('js/advisor')
    @include('js/asphaltenes_data_tree')

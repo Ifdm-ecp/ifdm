@@ -26,7 +26,7 @@ general_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
+      {rule: "range", min: 0, max: 50000}
     ]
   },
   {
@@ -34,7 +34,7 @@ general_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
+      {rule: "range", min: 0, max: 50000}
     ]
   },
   {
@@ -42,7 +42,7 @@ general_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -50,7 +50,7 @@ general_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -58,7 +58,7 @@ general_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
     ]
   }
 ];
@@ -78,7 +78,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
+      {rule: "range", min: 0, max: 50000}
     ]
   },
   {
@@ -86,7 +86,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50000},
+      {rule: "range", min: 0, max: 50000}
     ]
   },
   {
@@ -94,7 +94,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {
@@ -102,7 +102,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -110,7 +110,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -118,7 +118,7 @@ profile_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
+      {rule: "range", min: 0, max: 1}
     ]
   }
 ];
@@ -135,7 +135,7 @@ filtration_function_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   },
   {
@@ -143,7 +143,7 @@ filtration_function_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   }
 ];
@@ -154,7 +154,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   },
   {
@@ -162,7 +162,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
@@ -170,7 +170,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 20},
+      {rule: "range", min: 0, max: 20}
     ]
   },
   {
@@ -178,7 +178,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -186,7 +186,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -194,7 +194,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
+      {rule: "range", min: 0, max: 500}
     ]
   },
   {
@@ -202,7 +202,7 @@ drilling_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 30},
+      {rule: "range", min: 0, max: 30}
     ]
   }
 ];
@@ -213,7 +213,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   },
   {
@@ -221,7 +221,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 500},
+      {rule: "range", min: 0, max: 500}
     ]
   },
   {
@@ -229,7 +229,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   },
   {
@@ -237,7 +237,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -245,7 +245,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -253,7 +253,7 @@ completion_data_tab_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 70},
+      {rule: "range", min: 0, max: 70}
     ]
   }
 ];

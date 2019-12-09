@@ -76,7 +76,7 @@ class IPR2Controller extends Controller
             $user = DB::table('users')->join('escenarios','users.id','=','escenarios.user_id')->select('users.fullName')->where('escenarios.id','=',$escenario->id)->first();
             $advisor = true;
 
-            return View('template.iprs.create', compact(['user', 'pozo', 'formacion', 'fluido', 'campo', 'IPR', 'pvt', 'escenario', 'advisor', 'cuenca']));
+            return View('template.iprs.create', compact(['user', 'pozo', 'formacion', 'fluido', 'campo', 'IPR', 'escenario', 'advisor', 'cuenca']));
 
         } else {
             return view('loginfirst');

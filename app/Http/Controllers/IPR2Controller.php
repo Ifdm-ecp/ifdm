@@ -3238,9 +3238,6 @@ class IPR2Controller extends Controller
             'campo',
             'IPR',
             'ipr_resultados',
-            'pozo',
-            'formacion',
-            'fluido',
             'categorias',
             'eje_y',
             'skin',
@@ -3249,7 +3246,6 @@ class IPR2Controller extends Controller
             'presion_fondo',
             'tipo_roca',
             'data_i',
-            'i_tables',
             'escenario'
         );
     }
@@ -3458,7 +3454,7 @@ class IPR2Controller extends Controller
 
             $advisor = false;
 
-            return view('template.iprs.sensibilities', compact('advisor','user','campo', 'IPR', 'ipr_resultados' , 'pozo', 'formacion','fluido', 'categorias', 'eje_y', 'skin', 'data', 'tasa_flujo', 'presion_fondo','tipo_roca'));
+            return view('template.iprs.sensibilities', compact('advisor','user','campo', 'IPR', 'pozo', 'formacion', 'tasa_flujo', 'presion_fondo','tipo_roca'));
         }
         else
         {

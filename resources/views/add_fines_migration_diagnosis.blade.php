@@ -323,7 +323,7 @@
                         </div>
                      </div>
                     <div class="row">
-                      <div class="col-md-12" id="graphic_pvt_table"></div>
+                      <div id="graphic_pvt_table"></div>
                     </div>
                   </div>
                </div>   
@@ -358,50 +358,35 @@
                   <div class="panel-heading"><b>Historical Data</b>&nbsp;&nbsp;@if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_historical_data_table" style="color:black;font-size:15pt;"></i></span>@endif</div>
                   <div class="panel-body">
                      <div class="row">
-                        <div class="col-md-12" style="overflow: auto;">
+                        <div class="col-md-12">
                            <div id="historical_data_table"></div>
                            {!! Form::hidden('value_historical_data', '', array('class' => 'form-control', 'id' => 'value_historical_data')) !!}
-                           <div id="historical_data_table_without_projection" style="display: none;"></div>
-                           {!! Form::hidden('value_historical_data_without_projection', '', array('class' => 'form-control', 'id' => 'value_historical_data_without_projection')) !!}
-                        </div><br>
-                        <div class="row col-md-12">
-                          <div>
-                           <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button>  
-                           <button class="btn btn-primary save_historical_data pull-right" type="button" style="margin-right: 5px;">Save Historical Data</button>        
-                         </div>
-                      </div>
-                     </div>
-                     <br>
-                  <div class="row">
-                    <div id="graphic_historical_data_table"></div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-check">
-                          {!! Form::checkbox('perform_production_projection_selector',0,null,array('class'=>'form-check-input', 'id'=>'perform_production_projection_selector')) !!}&nbsp<label class="form-check-label" for="perform_production_projection_selector">Perform Production Projection</label>
                         </div>
-                      </div>
-                  </div>
+                     </div>
+                     <div class="row col-md-12">
+                        <div>
+                          <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button> 
+                       </div>
+                    </div>
+                     <br>
+                    <div class="row col-md-12">
+                      <div id="graphic_historical_data_table"></div>
+                    </div>
                </div>
              </div>
               <div class="panel panel-default" id="production_projection">
                   <div class="panel-heading"><b>Production Projection</b></div>
                   <div class="panel-body">
                     <div class="row">
-                      <div class="col-md-6">
+                        <div class="col-md-6">
                            <div class="form-group" id="historical_oil">
                               <div class="form-group {{$errors->has('perform_historical_projection_oil') ? 'has-error' : ''}}">
-                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data to be included in the historical data') !!}
-                                 {!! Form::select('perform_historical_projection_oil', ['exponential' => 'Exponential', 'hyperbolic'=>'Hyperbolic'], null, array('class'=>'form-control', 'id'=>'perform_historical_projection_oil')) !!}
-                              </div>
-                           </div>
-                           <div class="form-group" id="historical_water" style="display:none">
-                              <div class="form-group {{$errors->has('perform_historical_projection_water') ? 'has-error' : ''}}">
-                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data to be included in the historical data') !!}
-                                 {!! Form::select('perform_historical_projection_water', ['exponential' => 'Exponential'], null, array('class'=>'form-control', 'id'=>'perform_historical_projection_water')) !!}
+                                 {!! Form::label('historical_projection_label', 'Please, choose a projection data if required') !!}
+                                 {!! Form::select('perform_historical_projection_oil', ['without' => 'Without Projection', 'exponential' => 'Exponential', 'hyperbolic'=>'Hyperbolic'], null, array('class'=>'form-control',  'id'=>'perform_historical_projection_oil')) !!}
                               </div>
                            </div>
                         </div>
+
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('final_date_label', 'Final Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -412,7 +397,7 @@
                                         <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                      </span>
                                    @endif
-                                    {!! Form::date('final_date', \Carbon\Carbon::now()->format('Y-m-d'), ['class' =>'form-control', 'id'=>'final_date']); !!}
+                                    {!! Form::date('final_date', null, ['class' =>'form-control', 'id'=>'final_date']); !!}
                                 </div>
                               @else
                                 <div class="form-group {{$errors->has('final_date') ? 'has-error' : ''}}">
@@ -421,21 +406,19 @@
                                         <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                      </span>
                                    @endif
-                                    {!! Form::date('final_date', \Carbon\Carbon::now()->format('Y-m-d'), ['class' =>'form-control', 'id'=>'final_date']); !!}
+                                    {!! Form::date('final_date', null, ['class' =>'form-control', 'id'=>'final_date']); !!}
                                 </div>
                               @endif
                            </div>
-                        </div>                        
-                     </div>
-                     <div class="row col-md-6">  
-                         <button type="button" class="btn btn-primary" onclick="perform_production_projection()">Calculate Production Projection</button>   
-                    </div>
-                    <div class="row col-md-12">
-                      <div id="oil_projection_chart"></div>
-                    </div>
-                    <div class="row col-md-12">
-                      <div id="water_projection_chart"></div>
-                    </div>
+                        </div>  
+                      </div>
+                      <div id="historical_projection_table">
+                           {!! Form::hidden('value_historical_projection_data', '', array('class' => 'form-control', 'id' => 'value_historical_projection_data')) !!}
+                      </div>
+                      <br>
+                      <div class="row col-md-12">
+                        <div id="oil_projection_chart"></div>
+                      </div>
                   </div>
                </div>
                 <div class="row">

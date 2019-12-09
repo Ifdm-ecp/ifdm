@@ -541,17 +541,15 @@ class add_fines_migration_diagnosis_controller extends Controller
         fines_d_historical_data::where('fines_d_diagnosis_id', $fines_d_diagnosis->id)->delete();
         $historical_data = json_decode($request->input("value_historical_data"));
         $historical_data = is_null($historical_data) ? [] : $historical_data;
+        $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
+        $historical_data = array_merge($historical_data, $historical_projection_data);
         foreach ($historical_data as $value) {
             $fines_d_historical_data = new fines_d_historical_data;
             $fines_d_historical_data->fines_d_diagnosis_id = $fines_d_diagnosis->id;
             $fines_d_historical_data->date = date("Y/m/d", strtotime($value[0]));
             $fines_d_historical_data->bopd = str_replace(",", ".", $value[1]);
             $fines_d_historical_data->save();
-        }
-        #Agregando datos para módulo de cálculo
-        $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
-        $historical_data = array_merge($historical_data, $historical_projection_data);
-        foreach ($historical_data as $value) {
+        
             array_push($dates_data, $value[0]);
             array_push($bopd_data, $fines_d_historical_data->bopd);
         }
@@ -608,8 +606,6 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         #Datos PVT
         $pvt_data = [$pressure_data, $density_data, $oil_viscosity_data, $oil_volumetric_factor_data];
-
-        //dd($pvt_data);
         
         #Datos históricos
         $historical_data = [$dates_data, $bopd_data];
@@ -639,6 +635,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         {
             if (!$button_wr) {
                 /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
+                //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'dporo', $dporo,'dpart', $dpart,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant);
 
                 #Guardar tabla de historicos sin proyección
@@ -660,7 +657,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     array_push($bopd_data, $fines_d_historical_data->bopd);
                 }
 
-                //dd($simulation_results);
+                //dd($simulation_results[0]);
 
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
@@ -678,6 +675,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     array_push($fines_diagnosis_results_skin_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'date'=>$value[0], 'damage_radius'=>round($value[1], 7), 'skin'=>round($value[2], 7)));
                     $properties_value = $properties_results[$key - 1];
+                    //dd($value[1]);
 
                     array_shift($properties_value);
                     array_pop($properties_value);
@@ -687,6 +685,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         array_push($fines_diagnosis_results_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'radius'=>round($value_aux[0], 7), 'porosity'=>round($value_aux[2], 7), 'permeability'=>round($value_aux[3], 7), 'co'=>round($value_aux[4], 7), 'date'=>$value[0]));
                     }
 
+                    //dd($fines_diagnosis_results_skin_inserts);
                     DB::table('fines_d_diagnosis_results')->insert($fines_diagnosis_results_inserts);
                     DB::table('fines_d_diagnosis_results_skin')->insert($fines_diagnosis_results_skin_inserts);
                 }
@@ -694,7 +693,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
             $source = "update";
 
-            //dd($fines_d_diagnosis);
+            //dd('loalalala', $fines_diagnosis_results_inserts);
 
             return View::make('results_fines_migration_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'fines_d_diagnosis', 'dates_data', 'fines_d_diagnosis', 'source']));
         }

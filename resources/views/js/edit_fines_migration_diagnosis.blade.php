@@ -90,11 +90,11 @@
 
 
             columns: [{
-                title: "Flow [cc/min]",
-                data: 0,
-                type: 'numeric',
-                format: '0[.]0000000'
-            },
+                    title: "Flow [cc/min]",
+                    data: 0,
+                    type: 'numeric',
+                    format: '0[.]0000000'
+                },
                 {
                     title: "K1",
                     data: 1,
@@ -280,8 +280,6 @@
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
 
             validate_table([pvt_data, historical_data, phenomenological_constants], ["pvt table", "historical table", "phenomenological constants table"], [["numeric", "numeric", "numeric", "numeric"], ["text", "numeric"], ["numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]]);
-
-
         });
 
         //Antes de guardar los datos se deben limpiar y validar los datos de las tablas
@@ -307,7 +305,6 @@
 
             pvt_data = clean_table_data("pvt_table");
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
-
         });
 
         //Abrir modal para importar datos
@@ -323,7 +320,6 @@
             }
             ;
         }).trigger('init');
-
 
         //Recordar datos de tablas//
         var scenario_id = <?php
@@ -470,7 +466,6 @@
             });
             pvt_table_advisor.render();
         }
-
 
         //Ajustar las proyecciones según esté la tabla de datos históricos
         historical_data = clean_table_data("historical_data_table");
@@ -661,8 +656,9 @@
                 oil_projection_series = [{
                     name: "Oil Production Hyperbolic Projection",
                     data: oil_hyperbolic_serie
-                }, {name: "Oil Production Exponential Projection", data: oil_exponential_serie}, {
-                    name: "Oil Production",
+                }, {name: "Oil Production Exponential Projection", 
+                data: oil_exponential_serie
+                }, {name: "Oil Production",
                     data: oil_original_data
                 }];
 
@@ -687,7 +683,6 @@
                         new_table.push(new_historical_table);
                     }
                 }
-
 
                 if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
                     var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
@@ -757,12 +752,7 @@
         var original_dates = [];
         var dhp = 0;
 
-        if (fluid_type === "oil") {
-            q_data_index = 1; //Caudal en posición 1 de la tabla de históricos
-        }
-        else if (fluid_type === "water") {
-            q_data_index = 2; //Caudal en posición 1 de la tabla de históricos 
-        }
+        q_data_index = 1; //Caudal en posición 1 de la tabla de históricos
 
         /*
         Las fechas se tratan de esta manera ya que la conversión de string a date varía con base en el navegador. 
@@ -888,66 +878,33 @@
 
         var bpp = bp / (n - 1);
 
-        if (fluid_type === "oil") {
-            if (bpp <= 0.09) {
-                bp = 0;
-                h = 0;
-                for (var i = 2; i < n; i++) {
-                    b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
-                    if (b[i] <= 0.01) {
-                        continue; //Cambiar
-                    }
-                    else {
-                        bp = bp + b[i];
-                        h = h + 1;
-                    }
+        if (bpp <= 0.09) {
+            bp = 0;
+            h = 0;
+            for (var i = 2; i < n; i++) {
+                b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
+                if (b[i] <= 0.01) {
+                    continue; //Cambiar
                 }
-                bpp = bp / (h);
-            }
-        }
-        else if (fluid_type === "water") {
-            if (bpp <= 0.09) {
-                bp = 0;
-                h = 0;
-                for (var i = 2; i < n; i++) {
-                    b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
-                    if (b[i] <= 0.01 || b[i] >= 1) {
-                        continue; //Cambiar
-                    }
-                    else {
-                        bp = bp + b[i];
-                        h = h + 1;
-                    }
+                else {
+                    bp = bp + b[i];
+                    h = h + 1;
                 }
-                bpp = bp / (h);
             }
+            bpp = bp / (h);
         }
-
 
         var bppr = 1 / bpp;
-        if (fluid_type === "oil") {
-            for (var i = 0; i < nt; i++) {
-                t[i] = deltatf * (i + 1);
-                if (dh[n - 1] < 0) {
-                    qh[i] = q[n - 1] / Math.pow((1 + (bpp * -dh[n - 1] * t[i])), bppr);
-                }
-                else {
-                    qh[i] = q[n - 1] / Math.pow((1 + (bpp * dh[n - 1] * t[i])), bppr);
-                }
-            }
-        }
-        else if (fluid_type === "water") {
-            for (var i = 0; i < nt; i++) {
-                t[i] = deltatf * (i + 1);
-                if (dh[n - 1] > 0) {
-                    qh[i] = q[n - 1] / Math.pow((1 + (bpp * -dh[n - 1] * t[i])), bppr);
-                }
-                else {
-                    qh[i] = q[n - 1] / Math.pow((1 + (bpp * dh[n - 1] * t[i])), bppr);
-                }
-            }
-        }
 
+        for (var i = 0; i < nt; i++) {
+            t[i] = deltatf * (i + 1);
+            if (dh[n - 1] < 0) {
+                qh[i] = q[n - 1] / Math.pow((1 + (bpp * -dh[n - 1] * t[i])), bppr);
+            }
+            else {
+                qh[i] = q[n - 1] / Math.pow((1 + (bpp * dh[n - 1] * t[i])), bppr);
+            }
+        }
 
         var hyperbolic_projection = [projection_dates, qh];
         var original_data = [original_dates, original_q];

@@ -32,10 +32,7 @@
     $pvt_table = $("#pvt_table");
     $phenomenological_constants_table = $("#phenomenological_constants_table");
     $historical_data_table = $("#historical_data_table");
-    $historical_data_table_without_projection = $("#historical_data_table_without_projection");
-
-
-    
+    $historical_projection_table = $("#historical_projection_table");
 
     $(document).ready(function(){
         $(".load-data").tooltip({
@@ -46,12 +43,38 @@
         $pvt_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 6,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [100,215,215,200],
+            colWidths: [100, 215, 215, 200],
+            columns: [
+            {
+                title: "Pressure [psi]",
+                type: 'numeric',
+                format: '0[.]0000000',
+                data: 0
+            },
+            {
+                title: "Oil Density [g/cc]",
+                type: 'numeric',
+                format: '0[.]0000000',
+                data: 1
+            },
+            {
+                title: "Oil Viscosity [cP]",
+                type: 'numeric',
+                format: '0[.]0000000',
+                data: 2
+            },
+            {
+                title: "Oil Volumetric Factor [bbl/BN]",
+                type: 'numeric',
+                format: '0[.]0000000',
+                data: 3
+            },
+            ]
         });
 
         //Inicializar tabla de constantes fenomenologicas
@@ -63,7 +86,7 @@
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [100,80,80,120,80,80,80,120,100,80,100,80],
+            colWidths: [100, 80, 80, 120, 80, 80, 80, 120, 100, 80, 100, 80],
 
 
             columns: [{
@@ -145,13 +168,32 @@
         $historical_data_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 6,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [240,240,240],
+            colWidths: [360, 360],
+            afterChange: function( changes, source ) {
+                if (changes) {
+                    historical_data = clean_table_data("historical_data_table");
+                    historical_data_length = historical_data.length;
 
+                    if (historical_data_length > 0) {
+                        perform_production_projection();  
+                    }else{
+                        var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                        hot_historical_data.updateSettings({
+                            data: [],
+                            stretchH: 'all'
+                        });
+                        hot_historical_data.render();
+                        var chart=$("#oil_projection_chart").highcharts();
+                        chart.destroy();
+                    }
+                }  
+            },
             columns: [{
                     title: "Date [YYYY-MM-DD]",
                     data: 0,
@@ -167,45 +209,69 @@
             ]
         });
 
-        $historical_data_table_without_projection.handsontable({
+        //Inicializar tabla de proyecciones
+        $historical_projection_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 6,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [240, 240],
+            colWidths: [360, 360],
 
             columns: [{
                 title: "Date [YYYY-MM-DD]",
                 data: 0,
                 type: 'date',
-                dateFormat: 'YYYY-MM-DD'
+                dateFormat: 'YYYY-MM-DD',
+                readOnly: true
             },
                 {
                     title: "BOPD [bbl/d]",
                     data: 1,
                     type: 'numeric',
-                    format: '0[.]0000000'
+                    format: '0[.]0000000',
+                    readOnly: true
                 }
             ]
         });
+
+        //Actualizar elementos de Production Projection al cambiar el select perform_historical_projection_oil
+        $('#perform_historical_projection_oil').on('change',function(){
+            if($(this).val() == 'without'){
+                clear_table('historical_projection_table');
+            }else{
+                perform_production_projection();
+            }
+        });
+
+        //Actualizar elementos de Production Projection al cambiar el campo final_date
+        $('#final_date').on('change',function(){
+            perform_production_projection();
+        }); 
 
         $('.concentration_ev').on('click', function() {
             $("#fines_concentration_fluid").modal('toggle');
         });
 
         //Antes de guardar los datos se deben limpiar y validar los datos de las tablas
-        $('.save_table').on('click', function() {
+        $('.save_table').on('click', function () {
             //Loading
             $("#loading_icon").show();
 
-            historical_data = clean_table_data("historical_data_table");
-            $("#value_historical_data").val(JSON.stringify(historical_data));
+            if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
 
-            historical_data_without_projection = clean_table_data("historical_data_table_without_projection");
-            $("#value_historical_data_without_projection").val(JSON.stringify(historical_data_without_projection));
+                historical_projection_data = clean_table_data("historical_projection_table");
+                $("#value_historical_projection_data").val(JSON.stringify(historical_projection_data));
+            }else{  
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
+
+                $("#value_historical_projection_data").val(JSON.stringify([]));
+            }
 
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
@@ -213,60 +279,32 @@
             pvt_data = clean_table_data("pvt_table");
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
 
-            //Si la tabla de Datos Históricos sin proyección está vacía, calcularla con la tabla de Datos Históricos con proyección.
-            var tablesssssss = $("#historical_data_table_without_projection").handsontable('getData');
-            var empty_array_flag = 1; 
-            for (var i = 0; i < tablesssssss.length; i++) {  //Mirar si la tabla de Datos Históricos sin proyección está vacía 
-                if(  !(tablesssssss[i].every(element => element === null))  ){
-                    empty_array_flag = 0;
-                }
-            }
-            if (empty_array_flag == 1) {
-                var table_datasss = $("#historical_data_table").handsontable('getData');
-                var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
-                historical_data_table_without_projection.updateSettings({
-                            data: table_datasss
-                        });
-                historical_data_table_without_projection.render();
-            }
-
-            validate_table([pvt_data, historical_data, historical_data_without_projection, phenomenological_constants],["pvt table", "historical table", "phenomenological constants table"],[["numeric", "numeric", "numeric", "numeric"],["text", "numeric"], ["text", "numeric"], ["numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]]);
+            validate_table([pvt_data, historical_data, phenomenological_constants], ["pvt table", "historical table", "phenomenological constants table"], [["numeric", "numeric", "numeric", "numeric"], ["text", "numeric"], ["numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]]);
         });
 
         //Antes de guardar los datos se deben limpiar y validar los datos de las tablas
-        $('.save_table_wr').on('click', function() {
+        $('.save_table_wr').on('click', function () {
             //Loading
             $("#loading_icon").show();
 
-            historical_data = clean_table_data("historical_data_table");
-            $("#value_historical_data").val(JSON.stringify(historical_data));
+            if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
 
-            historical_data_without_projection = clean_table_data("historical_data_table_without_projection");
-            $("#value_historical_data_without_projection").val(JSON.stringify(historical_data_without_projection));
+                historical_projection_data = clean_table_data("historical_projection_table");
+                $("#value_historical_projection_data").val(JSON.stringify(historical_projection_data));
+            }else{  
+                historical_data = clean_table_data("historical_data_table");
+                $("#value_historical_data").val(JSON.stringify(historical_data));
+
+                $("#value_historical_projection_data").val(JSON.stringify([]));
+            }
 
             phenomenological_constants = clean_table_data("phenomenological_constants_table");
             $("#value_phenomenological_constants").val(JSON.stringify(phenomenological_constants));
 
             pvt_data = clean_table_data("pvt_table");
             $("#value_pvt_data").val(JSON.stringify(pvt_data));
-
-            //Si la tabla de Datos Históricos sin proyección está vacía, calcularla con la tabla de Datos Históricos con proyección.
-            var tablesssssss = $("#historical_data_table_without_projection").handsontable('getData');
-            var empty_array_flag = 1; 
-            for (var i = 0; i < tablesssssss.length; i++) {  //Mirar si la tabla de Datos Históricos sin proyección está vacía 
-                if(  !(tablesssssss[i].every(element => element === null))  ){
-                    empty_array_flag = 0;
-                }
-            }
-            if (empty_array_flag == 1) {
-                var table_datasss = $("#historical_data_table").handsontable('getData');
-                var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
-                historical_data_table_without_projection.updateSettings({
-                            data: table_datasss
-                        });
-                historical_data_table_without_projection.render();
-            }
-
         });
 
         //Abrir modal para importar datos
@@ -275,92 +313,13 @@
         });
         
         $("#perform_production_projection_selector").bind('init change', function () {
-            if(this.checked){$("#production_projection").show();}else{$("#production_projection").hide();};
-        }).trigger('init');
-
-        //Si el tipo de fluido cambia, cambiar columnas de tabla PVT
-        $("#type_of_suspension_flux").bind('init change', function () { 
-            $("#graphic_pvt_table" ).empty();
-            var type_suspension_flux = $("#type_of_suspension_flux").val();
-            var instance_pvt_table = $pvt_table.handsontable('getInstance');
-
-            
-            var new_item = [];
-
-            if(type_suspension_flux == "water"){
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Pressure [psi]";
-                item_suspension_flux ["data"] = 0;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Water Volumetric Factor [bbl/BN]";
-                item_suspension_flux ["data"] = 1;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Water Viscosity [cP]";
-                item_suspension_flux ["data"] = 2;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Water Density [g/cc]";
-                item_suspension_flux ["data"] = 3;
-                new_item.push(item_suspension_flux);
-
-
-                //$('#historical_oil').show(); 
-                //$('#historical_water').show(); 
-            }else if(type_suspension_flux == "oil"){
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Pressure [psi]";
-                item_suspension_flux ["data"] = 0;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Oil Density [g/cc]";
-                item_suspension_flux ["data"] = 1;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Oil Viscosity [cP]";
-                item_suspension_flux ["data"] = 2;
-                new_item.push(item_suspension_flux);
-
-                var item_suspension_flux = {}
-                item_suspension_flux ["type"] = "numeric";
-                item_suspension_flux ["format"] = "0[.]0000000";
-                item_suspension_flux ["title"] = "Oil Volumetric Factor [bbl/BN]";
-                item_suspension_flux ["data"] = 3;
-                new_item.push(item_suspension_flux);
-
-                //$('#historical_oil').show(); 
-                //$('#historical_water').hide(); 
+            if (this.checked) {
+                $("#production_projection").show();
+            } else {
+                $("#production_projection").hide();
             }
-
-            instance_pvt_table.updateSettings({
-                columns: new_item,
-                stretchH: 'all'
-            });
-            instance_pvt_table.render();
+            ;
         }).trigger('init');
-
-
-
 
         //Recordar datos de tablas//
         var aux_phenomenological_constants_table = $("#value_phenomenological_constants").val();
@@ -376,19 +335,12 @@
 
         var aux_historical_data_table = $("#value_historical_data").val();
         var hot_historical_data_table = $('#historical_data_table').handsontable('getInstance');
-        var aux_historical_data_table_without_projection = $("#value_historical_data_without_projection").val();
-        var hot_historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
         if (aux_historical_data_table !== '') {//Si se han ingresado datos en la tabla volver a cargarlos
             hot_historical_data_table.updateSettings({
                 data: JSON.parse(aux_historical_data_table),
                 stretchH: 'all'
             });
             hot_historical_data_table.render();
-            hot_historical_data_table_without_projection.updateSettings({
-                data: JSON.parse(aux_historical_data_table_without_projection),
-                stretchH: 'all'
-            });
-            hot_historical_data_table_without_projection.render();
         }
 
         var aux_pvt_table = $("#value_pvt_data").val();
@@ -399,6 +351,21 @@
                 stretchH: 'all'
             });
             hot_pvt_table.render();
+        }
+
+        //Ajustar las proyecciones según esté la tabla de datos históricos
+        historical_data = clean_table_data("historical_data_table");
+        historical_data_length = historical_data.length;
+        if (historical_data_length > 0) {       //Si la tabla de datos históricos está llena, entonces que calcule la proyección
+            perform_production_projection();  
+        }else{        //Si la tabla de datos históricos está vacía, entonces que limpie la proyección
+            var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+            hot_historical_data.updateSettings({
+                data: [],
+                stretchH: 'all'
+            });
+            hot_historical_data.render();
         }
     });
 
@@ -411,149 +378,67 @@
 
         var type_suspension_flux = $("#type_of_suspension_flux").val();
 
-        if(type_suspension_flux == "water"){
-            var pressure = [];
-            var volumetric_water_factor = [];
-            var water_viscosity = [];
-            var water_density = [];
-            for (var i = 0; i < data.length; i++){
-                pressure.push(parseFloat(data[i][0]));
-                volumetric_water_factor.push(parseFloat(data[i][1]));
-                water_viscosity.push(parseFloat(data[i][2]));
-                water_density.push(parseFloat(data[i][3]));
-            }
-
-            $('#graphic_pvt_table').highcharts({
-                title: {
-                    text: 'Water PVT',
-                    x: -20 //center
-                },
-                xAxis: {
-                 title: {
-                   text: 'Pressure [psi]'
-                 },
-                    categories: pressure
-                },
-                yAxis: {
-                    title: {
-                        text: 'miuw, bw & denw'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: ''
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: 'Water Volumetric Factor [bbl/BN]',
-                    data: volumetric_water_factor,
-                    tooltip:{
-                     valueSuffix: ''
-                    }
-                }, {
-                    name: 'Water Viscosity [cP]',
-                    data: water_viscosity,
-                    tooltip:{
-                     valueSuffix: ''
-                    }
-                }, {
-                    name: 'Water Density [g/cc]',
-                    data: water_density,
-                    tooltip:{
-                     valueSuffix: ''
-                    }
-                }]
-            });
-        }else if(type_suspension_flux == "oil"){
-            var pressure = [];
-            var oil_density = [];
-            var oil_viscosity = [];
-            var volumetric_oil_factor = [];
-            for (var i = 0; i < data.length; i++){
-                pressure.push(parseFloat(data[i][0]));
-                oil_density.push(parseFloat(data[i][1]));
-                oil_viscosity.push(parseFloat(data[i][2]));
-                volumetric_oil_factor.push(parseFloat(data[i][3]));
-            }
-
-            $('#graphic_pvt_table').highcharts({
-                title: {
-                    text: 'Oil PVT',
-                    x: -20 //center
-                },
-                xAxis: {
-                 title: {
-                   text: 'Pressure [psi]'
-                 },
-                    categories: pressure
-                },
-                yAxis: {
-                    title: {
-                        text: 'oil density, miuo & bo'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: ''
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: 'Oil Density [g/cc]',
-                    data: oil_density,
-                    tooltip: {
-                     valueSuffix: ''
-                    }
-                }, {
-                    name: 'Oil Viscosity [cP]',
-                    data: oil_viscosity,
-                    tooltip:{
-                     valueSuffix: ''
-                    }
-                }, {
-                    name: 'Oil Volumetric Factor [bbl/BN]',
-                    data: volumetric_oil_factor,
-                    tooltip:{
-                     valueSuffix: ''
-                    }
-                }]
-            });
+        var pressure = [];
+        var oil_density = [];
+        var oil_viscosity = [];
+        var volumetric_oil_factor = [];
+        for (var i = 0; i < data.length; i++){
+            pressure.push(parseFloat(data[i][0]));
+            oil_density.push(parseFloat(data[i][1]));
+            oil_viscosity.push(parseFloat(data[i][2]));
+            volumetric_oil_factor.push(parseFloat(data[i][3]));
         }
-    });
 
-    //Llenar tabla para guardar datos históricos sin proyección
-    $('.save_historical_data').on('click', function () {
-        var table_datasss = $("#historical_data_table").handsontable('getData');
-
-        var historical_data_table_without_projection = $('#historical_data_table_without_projection').handsontable('getInstance');
-
-
-        historical_data_table_without_projection.updateSettings({
-                    data: table_datasss
-                });
-
-        historical_data_table_without_projection.render();
-
-        console.log($("#historical_data_table_without_projection").handsontable('getData'));
-
-        $("#historical_data_saved").modal('show');
+        $('#graphic_pvt_table').highcharts({
+            title: {
+                text: 'Oil PVT',
+                x: -20 //center
+            },
+            xAxis: {
+             title: {
+               text: 'Pressure [psi]'
+             },
+                categories: pressure
+            },
+            yAxis: {
+                title: {
+                    text: 'oil density, miuo & bo'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Oil Density [g/cc]',
+                data: oil_density,
+                tooltip: {
+                 valueSuffix: ''
+                }
+            }, {
+                name: 'Oil Viscosity [cP]',
+                data: oil_viscosity,
+                tooltip:{
+                 valueSuffix: ''
+                }
+            }, {
+                name: 'Oil Volumetric Factor [bbl/BN]',
+                data: volumetric_oil_factor,
+                tooltip:{
+                 valueSuffix: ''
+                }
+            }]
+        });
     });
 
     //Graficar historicos
@@ -561,7 +446,6 @@
     $('.plot_historical_data_table').on('click',function(){
         data = clean_table_data("historical_data_table");
         historical_data = clean_table_data("historical_data_table");
-
         if(historical_data.length > 0){
             var evt = window.event || arguments.callee.caller.arguments[0];
             evt.preventDefault();
@@ -621,73 +505,100 @@
 
     function perform_production_projection()
     {
-        var hot_historical_data = $('#historical_data_table').handsontable('getInstance');
+        var hot_historical_data = $('#historical_data_table').handsontable('getData');
         var new_table = [];
         final_date = $("#final_date").val(); 
         table_div = "historical_data_table";
         historical_data = clean_table_data(table_div);
-
         historical_data_length = historical_data.length;
 
-        //Cálculo cantidad de fechas - amount of dates
-        final_date_historical_data = historical_data[historical_data_length - 1][0];
-        final_date_splitted = final_date.split("-");
-        final_date_historical_data_splitted = final_date_historical_data.split("-");
+        if (historical_data_length > 0) {
+            //Cálculo cantidad de fechas - amount of dates
+            final_date_historical_data = historical_data[historical_data_length - 1][0];
+            final_date_splitted = final_date.split("-");
+            final_date_historical_data_splitted = final_date_historical_data.split("-");
 
-        amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]),parseInt(final_date_splitted[1]),parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]),parseInt(final_date_historical_data_splitted[1]),parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
+            amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]),parseInt(final_date_splitted[1]),parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]),parseInt(final_date_historical_data_splitted[1]),parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
 
-        if(final_date && historical_data_length > 0){
-            //Devuelve pronóstico hiperbólico y exponencial para gráfico 
-            oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates); 
+            if(final_date && historical_data_length > 0){
+                //Devuelve pronóstico hiperbólico y exponencial para gráfico 
+                oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates); 
 
-            oil_exponential_serie = [];
-            oil_hyperbolic_serie = [];
-            oil_original_data = [];
-
-            for (var i = 0; i < historical_data.length; i++) 
-            {
-                oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
-            }
-            for (var i = 0; i < oil_production_projection[0][0].length; i++) 
-            {
-                oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
-                oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
-            }
-
-            oil_projection_series = [{name:"Oil Production Hyperbolic Projection", data:oil_hyperbolic_serie}, {name:"Oil Production Exponential Projection", data:oil_exponential_serie}, {name:"Oil Production", data:oil_original_data}];
-
-            plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
-
-
-            if($("#perform_historical_projection_oil").val() == "exponential"){
-                for (i = 0; i < oil_exponential_serie.length; i++) { 
-                    var new_historical_table = [];
-
-                    new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_exponential_serie[i][1]);
-
-                    new_table.push(new_historical_table);
+                oil_exponential_serie = [];
+                oil_hyperbolic_serie = [];
+                oil_original_data = [];
+                for (var i = 0; i < historical_data.length; i++) 
+                {
+                    oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
                 }
-            }else if($("#perform_historical_projection_oil").val() == "hyperbolic"){
-                for (i = 0; i < oil_exponential_serie.length; i++) { 
-                    var new_historical_table = [];
 
-                    new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_hyperbolic_serie[i][1]);
-
-                    new_table.push(new_historical_table);
+                for (var i = 0; i < oil_production_projection[0][0].length; i++) 
+                {
+                    oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
+                    oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
                 }
-            }
+
+                oil_projection_series = [{
+                    name:"Oil Production Hyperbolic Projection", 
+                    data:oil_hyperbolic_serie
+                }, {name:"Oil Production Exponential Projection", 
+                    data:oil_exponential_serie
+                }, {name:"Oil Production", 
+                    data:oil_original_data
+                }];
+
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+
+                if($("#perform_historical_projection_oil").val() == "exponential"){
+                    for (i = 0; i < oil_exponential_serie.length; i++) { 
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_exponential_serie[i][1]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }else if($("#perform_historical_projection_oil").val() == "hyperbolic"){
+                    for (i = 0; i < oil_exponential_serie.length; i++) { 
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_hyperbolic_serie[i][1]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }
             
-            var final_historical = historical_data.concat(new_table);
-            hot_historical_data.updateSettings({
-                data: final_historical,
-                stretchH: 'all'
-            });
-            hot_historical_data.render();
+                if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                    var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                    hot_historical_data.updateSettings({
+                        data: new_table,
+                        stretchH: 'all'
+                    });
+                    hot_historical_data.render();
+                    
+                }else{  
+                    historical_data = clean_table_data("historical_data_table");
+                    $("#value_historical_data").val(JSON.stringify(historical_data));
+                }
+            } else {
+                alert('Please complete all the information in "Historical Data" section.');
+            }
         }else{
-            alert('Please complete all the information in "Historical Data" section.');
+            alert('Please complete the Historical Data table.');
         }
+    }
+
+    function clear_table(id) {
+        var hot_historical_data = '#'.concat(id);
+        hot_historical_data = $(hot_historical_data).handsontable('getInstance');
+
+        hot_historical_data.updateSettings({
+            data: [],
+            stretchH: 'all'
+        });
+        hot_historical_data.render();
     }
 
     function date2str(x, y) {
@@ -727,14 +638,7 @@
         var original_dates = [];
         var dhp = 0;
 
-        if(fluid_type === "oil")
-        {
-            q_data_index = 1; //Caudal en posición 1 de la tabla de históricos
-        }
-        else if(fluid_type === "water")
-        {
-            q_data_index = 2; //Caudal en posición 1 de la tabla de históricos 
-        }
+        q_data_index = 1; //Caudal en posición 1 de la tabla de históricos
 
         /*
         Las fechas se tratan de esta manera ya que la conversión de string a date varía con base en el navegador. 
@@ -829,34 +733,17 @@
         }
 
         var depp = dep / n;
-        if(fluid_type === "oil")
+
+        for (var i = 0; i < nt; i++) 
         {
-            for (var i = 0; i < nt; i++) 
+            t[i] = deltatf * (i+1);
+            if (depp > 0)
             {
-                t[i] = deltatf * (i+1);
-                if (depp > 0)
-                {
-                    qe[i] = q[n-1] * Math.exp(-depp * t[i]);
-                }
-                else
-                {
-                    qe[i] = q[n-1] * Math.exp(depp * t[i]);
-                }
+                qe[i] = q[n-1] * Math.exp(-depp * t[i]);
             }
-        }
-        else if(fluid_type == "water")
-        {
-            for (var i = 0; i < nt; i++) 
+            else
             {
-                t[i] = deltatf * (i+1);
-                if (depp < 0)
-                {
-                    qe[i] = q[n-1] * Math.exp(-depp * t[i]);
-                }
-                else
-                {
-                    qe[i] = q[n-1] * Math.exp(depp * t[i]);
-                }
+                qe[i] = q[n-1] * Math.exp(depp * t[i]);
             }
         }
 
@@ -897,84 +784,40 @@
 
         var bpp = bp / (n - 1);
 
-        if(fluid_type === "oil")
+        if (bpp <= 0.09)
         {
-            if (bpp <= 0.09)
+            bp = 0;
+            h = 0;
+            for (var i = 2; i < n; i++) 
             {
-                bp = 0;
-                h = 0;
-                for (var i = 2; i < n; i++) 
+                b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
+                if (b[i] <= 0.01)
                 {
-                    b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
-                    if (b[i] <= 0.01)
-                    {
-                        continue; //Cambiar
-                    }
-                    else
-                    {
-                        bp = bp + b[i];
-                        h = h + 1;
-                    }
+                    continue; //Cambiar
                 }
-                bpp = bp / (h);
-            }
-        }
-        else if(fluid_type === "water")
-        {
-            if (bpp <= 0.09)
-            {
-                bp = 0;
-                h = 0;
-                for (var i = 2; i < n; i++) 
+                else
                 {
-                    b[i] = (dhr[i] - dhr[i - 1]) / dt[i];
-                    if (b[i] <= 0.01 || b[i] >= 1)
-                    {
-                        continue; //Cambiar
-                    }
-                    else
-                    {
-                        bp = bp + b[i];
-                        h = h + 1;
-                    }
+                    bp = bp + b[i];
+                    h = h + 1;
                 }
-                bpp = bp / (h);
             }
+            bpp = bp / (h);
         }
-
 
         var bppr = 1 / bpp;
-        if(fluid_type === "oil")
-        {
-            for (var i = 0; i < nt; i++) 
-            {
-                t[i] = deltatf * (i+1);
-                if (dh[n-1] < 0)
-                {
-                    qh[i] = q[n-1] / Math.pow((1 + (bpp * -dh[n-1] * t[i])), bppr);
-                }
-                else
-                {
-                    qh[i] = q[n-1] / Math.pow((1 + (bpp * dh[n-1] * t[i])), bppr);
-                }
-            }
-        }
-        else if(fluid_type === "water")
-        {
-            for (var i = 0; i < nt; i++) 
-            {
-                t[i] = deltatf * (i+1);
-                if (dh[n-1] > 0)
-                {
-                    qh[i] = q[n-1] / Math.pow((1 + (bpp * -dh[n-1] * t[i])), bppr);
-                }
-                else
-                {
-                    qh[i] = q[n-1] / Math.pow((1 + (bpp * dh[n-1] * t[i])), bppr);
-                }
-            }
-        }
 
+        for (var i = 0; i < nt; i++) 
+        {
+            t[i] = deltatf * (i+1);
+            if (dh[n-1] < 0)
+            {
+                qh[i] = q[n-1] / Math.pow((1 + (bpp * -dh[n-1] * t[i])), bppr);
+            }
+            else
+            {
+                qh[i] = q[n-1] / Math.pow((1 + (bpp * dh[n-1] * t[i])), bppr);
+            }
+        }
 
         var hyperbolic_projection = [projection_dates, qh];
         var original_data = [original_dates, original_q];

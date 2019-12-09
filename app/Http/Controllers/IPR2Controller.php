@@ -3386,10 +3386,10 @@ class IPR2Controller extends Controller
             $intervalo = DB::table('formacionxpozos')->where('id',$scenary->formacion_id)->first();
 
             if (!strpos($scenary->formacion_id, ',')) {
-                return view('template.iprs.results', compact('user','campo', 'IPR', 'ipr_resultados', 'well', 'basin', 'field', 'formacion','fluido', 'categorias', 'eje_y', 'skin', 'data', 'tasa_flujo', 'presion_fondo','tipo_roca', 'desagregacion', 'data_i', 'i_tables','scenary','intervalo','categorias_skin_ideal','eje_y_skin_ideal'));
+                return view('template.iprs.results', compact('user','campo', 'IPR', 'ipr_resultados', 'well', 'basin', 'field', 'formacion', 'categorias', 'eje_y', 'skin', 'data', 'tasa_flujo', 'presion_fondo','tipo_roca', 'desagregacion', 'data_i', 'i_tables','scenary','intervalo','categorias_skin_ideal','eje_y_skin_ideal'));
             }
 
-            return view('template.iprs.multi_results', compact('user','campo', 'IPR', 'ipr_resultados', 'well', 'basin', 'field', 'formacion','fluido', 'categorias', 'eje_y', 'skin', 'data', 'tasa_flujo', 'presion_fondo','tipo_roca', 'desagregacion', 'data_i', 'i_tables','scenary','intervalo','categorias_skin_ideal','eje_y_skin_ideal','intervalos'));
+            return view('template.iprs.multi_results', compact('user','campo', 'IPR', 'ipr_resultados', 'well', 'basin', 'field', 'formacion', 'categorias', 'eje_y', 'skin', 'data', 'tasa_flujo', 'presion_fondo','tipo_roca', 'desagregacion', 'data_i', 'i_tables','scenary','intervalo','categorias_skin_ideal','eje_y_skin_ideal','intervalos'));
 
         }
         else

@@ -345,6 +345,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis = asphaltenes_d_precipitated_analysis::where('scenario_id',$scenary->id)->first();
         $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
 
+        $advisor = $scenary->enable_advisor;
+
         return View::make('results_precipitated_asphaltenes_analysis', compact(['asphaltenes_d_precipitated_analysis','pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'asphaltenes_d_precipitated_analysis_id']));
     }
 

@@ -41,7 +41,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 50000}
+      {rule: "range", min: 0, max: 2000}
     ]
   },
   {
@@ -49,7 +49,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10000}
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -57,7 +57,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: -500, max: 10000}
     ]
   },
   {
@@ -65,7 +65,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: -2, max: 2}
     ]
   },
   {
@@ -73,7 +73,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: -5, max: 10000}
     ]
   },
   {
@@ -81,7 +81,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: 0, max: 2}
     ]
   },
   {
@@ -89,7 +89,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: 0, max: 5000}
     ]
   },
   {
@@ -97,7 +97,7 @@ components_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      // {rule: "range", min: 0, max: 10}
+      {rule: "range", min: 0, max: 1000}
     ]
   }
 ];
@@ -162,7 +162,7 @@ binary_interaction_coefficients_table_ruleset = [
 
 bubble_point_table_ruleset = [
   {
-    column: "Temperature (Bubble curve) [F]",
+    column: "Temperature (Bubble curve) [°F]",
     rules: [
       {rule: "required"},
       {rule: "numeric"},

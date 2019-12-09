@@ -111,64 +111,74 @@
             stretchH: 'all',
 
             columns: [{
-                title: "Components",
+                title: components_table_ruleset[0].column,
                 data: 0,
                 type: 'text',
-                readOnly: true
+                readOnly: true,
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[0])); }
             },
             {
-                title: "Zi [0-1]",
+                title: components_table_ruleset[1].column,
                 data: 1,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[1])); }
             },
             {
-                title: "MW[lb]",
+                title: components_table_ruleset[2].column,
                 data: 2,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[2])); }
             },
             {
-                title: "Pc[psi]",
+                title: components_table_ruleset[3].column,
                 data: 3,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[3])); }
             },
             {
-                title: "Tc[F]",
+                title: components_table_ruleset[4].column,
                 data: 4,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[4])); }
             },
             {
-                title: "W",
+                title: components_table_ruleset[5].column,
                 data: 5,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[5])); }
             },
             {
-                title: "Shift",
+                title: components_table_ruleset[6].column,
                 data: 6,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[6])); }
             },
             {
-                title: "SG",
+                title: components_table_ruleset[7].column,
                 data: 7,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[7])); }
             },
             {
-                title: "Tb[R]",
+                title: components_table_ruleset[8].column,
                 data: 8,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[8])); }
             },
             {
-                title: "Vc[ft3/lbmol]",
+                title: components_table_ruleset[9].column,
                 data: 9,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[9])); }
             }
             ]
         });
@@ -196,16 +206,18 @@
 
             colWidths: [360, 360],
             columns: [{
-                title: "Temperature (Bubble curve) [°F]",
+                title: bubble_point_table_ruleset[0].column,
                 data: 0,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[0])); }
             },
             {
-                title: "Bubble Pressure [psi]",
+                title: bubble_point_table_ruleset[1].column,
                 data: 1,
                 type: 'numeric',
-                format: '0[.]0000000'
+                format: '0[.]0000000',
+                function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[1])); }
             },
             ]
         });
@@ -1124,12 +1136,12 @@
                 sumZi += components_data[i][1];
             }
 
-            if (sumZi < 0.99 || sumZi > 1.1) {
+            if (sumZi < 0.9 || sumZi > 1.1) {
                 if (titleTab == "") {
                     titleTab = "Tab: Component Analysis";
                     validationMessages = validationMessages.concat(titleTab);
                 }
-                validationMessages = validationMessages.concat("The total sum for the Zi in the Components Data table is out of the numeric range [0.99, 1.1]");
+                validationMessages = validationMessages.concat("The total sum for the Zi in the Components Data table is out of the numeric range [0.9, 1.1]");
             }
         }
 
@@ -1351,19 +1363,20 @@
             validationMessages = validationFunctionResult[1];
             emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
         }
-        
+
         if (validationMessages.length < 1) {
             bubble_point_table = order_matrix(bubble_point_table);
             $("#value_components_table").val(JSON.stringify(components_data));
             $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
             $("#value_bubble_point_table").val(JSON.stringify(bubble_point_table));
+            validate_components_data(components_data);
 
             if (emptyValues) {
                 validationMessages.push(true);
                 showFrontendErrors(validationMessages);
             } else {
                 $("#only_s").val("run");
-                $("#drillingForm").submit();
+                $("#asphalteneForm").submit();
             }
         } else {
             showFrontendErrors(validationMessages);

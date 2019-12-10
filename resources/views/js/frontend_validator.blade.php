@@ -90,8 +90,8 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
-        case "requiredselectif":
-          if ($("#" + set.requiredfield).val() == set.value && (value === null || value === "")) {
+        case "requiredselect":
+          if (value === null || value === "") {
             isValid = [false, "There is no " + ruleset.column + " selected"];
             return false;
           }

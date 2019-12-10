@@ -25,10 +25,10 @@
 <div class="nav">
    <div class="tabbable">
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-         <li class="active"><a data-toggle="tab" href="#general_data">General Data</a></li>
-         <li><a data-toggle="tab" href="#pvt_data">PVT Data</a></li>
-         <li><a data-toggle="tab" href="#fines_data">Phenomenological Constants</a></li>
-         <li><a data-toggle="tab" href="#historical_data">Historical Data</a></li>
+         <li class="active"><a data-toggle="tab" href="#general_data" id="general_data_tab" onclick="switchTab()">General Data</a></li>
+         <li><a data-toggle="tab" href="#pvt_data" id="pvt_data_tab" onclick="switchTab()">PVT Data</a></li>
+         <li><a data-toggle="tab" href="#fines_data" id="fines_data_tab" onclick="switchTab()">Phenomenological Constants</a></li>
+         <li><a data-toggle="tab" href="#historical_data" id="historical_data_tab" onclick="switchTab()">Historical Data</a></li>
       </ul>
       <div class="tab-content">
          <div class="tab-pane active" id="general_data">
@@ -421,19 +421,21 @@
                       </div>
                   </div>
                </div>
-                <div class="row">
-                   <div class="col-xs-12">
-                      <p class="pull-right">
-                         {!! Form::submit('Run' , array('class' => 'maximize btn btn-primary save_table')) !!}
-                         <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
-                      </p>
-                      
-                   </div>
-                </div>
             </div>
          </div>
-          {!! Form::submit('Save' , array('class' => 'save_table_wr btn btn-success', 'id' => 'button_wr', 'name' => 'button_wr')) !!}
-
+         <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-6" align="left">
+                {!! Form::submit('Save' , array('class' => 'save_table_wr btn btn-success', 'id' => 'button_wr', 'name' => 'button_wr')) !!}
+                <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+            </div>
+            <div class="col-md-6" align="right">
+                <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+                <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+                {!! Form::submit('Run' , array('class' => 'maximize btn btn-primary save_table', 'style' => 'display: none', 'id' => 'run_calc')) !!}
+            </div>
+          </div>
+         </div>
       </div>
       </div>
    </div>

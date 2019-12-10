@@ -78,7 +78,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         /* Variables para barra de informacion */
         $scenaryId = $request->input('scenaryId');
-        $scenary = DB::table('escenarios')->where('id', $scenaryId)->first();
+        $scenary = escenario::find($scenaryId);
         $pozo = DB::table('pozos')->where('id', $scenary->pozo_id)->first();
         $formacion = DB::table('formacionxpozos')->where('id', $scenary->formacion_id)->select('nombre')->first();
         $campo = DB::table('campos')->where('id', $scenary->campo_id)->select('nombre')->first();
@@ -105,7 +105,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         $advisor = $scenary->enable_advisor;
 
-        $scenary = escenario::find($scenary->id);
         $scenary->estado = 1;
         $scenary->asphaltene_type = "Precipitated asphaltene analysis";
         $scenary->save();
@@ -114,7 +113,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         $asphaltenes_d_precipitated_analysis = new asphaltenes_d_precipitated_analysis;
 
-        $asphaltenes_d_precipitated_analysis->status_wr = $button_wr;
+        $asphaltenes_d_precipitated_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
 
         $asphaltenes_d_precipitated_analysis->scenario_id = $scenary->id;
         $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
@@ -245,7 +244,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         try {
             $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
-            if (!$button_wr) {
+            if (!$asphaltenes_d_precipitated_analysis->status_wr) {
                 $precipitated_asphaltene_analysis_results = $this->run_precipitated_asphaltenes_analysis($components_complete_data, $binary_interaction_coefficients_data, $temperature_data, $bubble_pressure_data, $asphaltenes_d_precipitated_analysis["attributes"]);
                 /* dd($precipitated_asphaltene_analysis_results); */
                 /* Guardando resultados */
@@ -299,17 +298,14 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
                 $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-                if ($asphaltenes_d_stability_analysis and $asphaltenes_d_diagnosis and $asphaltenes_d_precipitated_analysis) {
-                    $scenary = escenario::find($scenary->id);
+                if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
                     $scenary->completo = 1;
                     $scenary->save();
                 } else {
-                    $scenary = escenario::find($scenary->id);
                     $scenary->completo = 0;
                     $scenary->save();
                 }
             }
-
 
             return redirect(route('asp.result', $scenary->id));
         } catch (Exception $e) {
@@ -410,7 +406,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
     public function update(Request $request, $id)
     // public function update(precipitated_asphaltene_analysis_request $request, $id)
     {
-        $button_wr = isset($_POST['button_wr']);
         if (!empty($request->scenary_id)) {
             $asphaltenes_d_precipitated_analysis = new asphaltenes_d_precipitated_analysis();
             $scenaryId = $request->scenary_id;
@@ -450,7 +445,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $scenary->save();
 
         $asphaltenes_d_precipitated_analysis->scenario_id = $scenary->id;
-        $asphaltenes_d_precipitated_analysis->status_wr = $button_wr;
+        $asphaltenes_d_precipitated_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
 
         $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
         $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->input('plus_fraction_specific_gravity');
@@ -592,7 +587,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         try {
             $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
-            if (!$button_wr) {
+            if (!$asphaltenes_d_precipitated_analysis->status_wr) {
                 $precipitated_asphaltene_analysis_results = $this->run_precipitated_asphaltenes_analysis($components_complete_data, $binary_interaction_coefficients_data, $temperature_data, $bubble_pressure_data, $asphaltenes_d_precipitated_analysis["attributes"]);
                 /* dd($precipitated_asphaltene_analysis_results); */
 
@@ -647,6 +642,19 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                         $solid_a_results_database->temperature = $temperature_aux;
                         $solid_a_results_database->save();
                     }
+                }
+
+                /* Escenario completo */
+                $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
+                $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
+                $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
+
+                if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
+                    $scenary->completo = 1;
+                    $scenary->save();
+                } else {
+                    $scenary->completo = 0;
+                    $scenary->save();
                 }
             }
 

@@ -189,7 +189,7 @@ saturation_data_ruleset = [
     ]
   },
   {
-    column: "Bubble pressure [psi]",
+    column: "Critical Pressure (Envelope phase)",
     rules: [
       {rule: "required"},
       {rule: "numeric"},

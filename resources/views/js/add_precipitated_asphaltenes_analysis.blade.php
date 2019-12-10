@@ -109,7 +109,28 @@
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             stretchH: 'all',
+            afterChange: function(changes, source) {
+                var components_table = clean_table_data("components_table");
+                var sumZi = 0;
 
+                for (var i = 0; i < components_table.length; i++) {
+                    if (components_table[i] != undefined) {
+                        if (components_table[i][1] != "" && components_table[i][1] != undefined && components_table[i][1] != null && $.isNumeric(components_table[i][1])) {
+                            sumZi += components_table[i][1];
+                        }
+                    }
+                }
+
+                sumZi = parseFloat(sumZi.toFixed(2));
+
+                if (sumZi >= 0.9 && sumZi <= 1.1) {
+                    $("#total_zi").attr('class', 'label label-success');
+                } else {
+                    $("#total_zi").attr('class', 'label label-danger');
+                }
+
+                $("#total_zi").html(sumZi);
+            },
             columns: [{
                 title: components_table_ruleset[0].column,
                 data: 0,
@@ -1052,6 +1073,8 @@
             }
         }
 
+        sum_zi = parseFloat(sum_zi.toFixed(2));
+
         $("#sum_zi_components_table").val(sum_zi);
         $("#zi_range_flag_components_table").val(zi_range_flag);
     }
@@ -1135,6 +1158,8 @@
             for (var i = 0; i < components_data.length; i++) {
                 sumZi += components_data[i][1];
             }
+
+            sumZi = parseFloat(sumZi.toFixed(2));
 
             if (sumZi < 0.9 || sumZi > 1.1) {
                 if (titleTab == "") {

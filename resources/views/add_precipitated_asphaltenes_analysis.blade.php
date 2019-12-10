@@ -123,6 +123,13 @@
                         <div class="form-group">
                            {!! Form::label('components_table_label', 'Components Data') !!}{!! Form::label('*', '*', array('class' => 'red')) !!} @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_components_table" style="color:black;font-size:15pt;"></i></span>@endif<a><span><i class="glyphicon glyphicon-list-alt import-components-data load-data" id="components_data_import" style="color:black;font-size:15pt;"></i></span></a>
                            <div id="components_table"></div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                 <h5><b>Total Zi </b><span class="label label-default" id="total_zi"></span></h5>
+                                 </div>
+                              </div>
+                           </div>
                            {!! Form::hidden('value_components_table', '', array('class' => 'form-control', 'id' => 'value_components_table')) !!}
                            {!! Form::hidden('sum_zi_components_table', '', array('class' => 'form-control', 'id' => 'sum_zi_components_table')) !!} 
                            {!! Form::hidden('zi_range_flag_components_table', '', array('class' => 'form-control', 'id' => 'zi_range_flag_components_table')) !!}

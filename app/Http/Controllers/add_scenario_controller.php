@@ -46,11 +46,11 @@ class add_scenario_controller extends Controller
 
             } else if(\Auth::User()->office == 1){
 
-                $proyectos = proyecto::where('Proyectos.compania','=',\Auth::User()->company)->orderBy('nombre')->get();
+                $proyectos = proyecto::where('proyectos.compania','=',\Auth::User()->company)->orderBy('nombre')->get();
 
             } else if(\Auth::User()->office == 2){
 
-                $proyectos = proyecto::where('Proyectos.usuario_id','=',\Auth::User()->id)->orderBy('nombre')->get();
+                $proyectos = proyecto::where('proyectos.usuario_id','=',\Auth::User()->id)->orderBy('nombre')->get();
 
             }
 

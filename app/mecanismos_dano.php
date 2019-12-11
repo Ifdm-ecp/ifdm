@@ -34,7 +34,7 @@ class mecanismos_dano extends Model implements AuthenticatableContract,
      *
      * @var string
      */
-    protected $table = 'Mecanismos_dano';
+    protected $table = 'mecanismos_dano';
 
     /**
      * The attributes that are mass assignable.

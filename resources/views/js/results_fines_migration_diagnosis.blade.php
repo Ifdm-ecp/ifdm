@@ -18,6 +18,7 @@
         {fines_d_diagnosis_id : fines_d_diagnosis_id},
         function(data)
         {   
+            console.log(data);
             damage_radius_serie = [];
             skin_serie = [];
             $.each(data, function(index, value)
@@ -52,7 +53,6 @@
                 permeability_radius = [];
                 co_radius = [];
 
-                console.log(data);
                 $.each(data[0], function(index, date)
                 {
                     porosity_radius_row = [];

@@ -3373,7 +3373,7 @@ Route::group(['middleware' => 'auth'], function(){
             }
         } else if(\Auth::User()->office == 2){
 
-            $proyectosxcompañia[\Auth::User()->company] = App\proyecto::where('Proyectos.usuario_id','=',$usuario)->orderBy('nombre')->get();
+            $proyectosxcompañia[\Auth::User()->company] = App\proyecto::where('proyectos.usuario_id','=',$usuario)->orderBy('nombre')->get();
             if(\Auth::User()->company == 0){
                 $compañias[0] = "UN";
             }

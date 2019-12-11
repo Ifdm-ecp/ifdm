@@ -49,7 +49,6 @@
                 dates:selected_dates},
             function(data)
             {   
-                console.log(data);
                 pressure_radius = [];
                 porosity_radius = [];
                 permeability_radius = [];
@@ -60,7 +59,6 @@
                     porosity_radius_row = [];
                     permeability_radius_row = [];
                     co_radius_row = [];
-                    console.log(date[0]);
                     date_aux = date[0].date;
                     $.each(date, function(index, value)
                     {

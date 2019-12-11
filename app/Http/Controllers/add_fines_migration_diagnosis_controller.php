@@ -647,7 +647,6 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     array_push($fines_diagnosis_results_skin_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'date'=>$value[0], 'damage_radius'=>round($value[1], 7), 'skin'=>round($value[2], 7)));
                     $properties_value = $properties_results[$key - 1];
-                    //dd($value[1]);
 
                     array_shift($properties_value);
                     array_pop($properties_value);

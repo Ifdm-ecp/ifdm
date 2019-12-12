@@ -74,8 +74,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
      */
     public function store(precipitated_asphaltene_analysis_request $request)
     {
-        $button_wr = (bool) isset($_POST['button_wr']);
-
         /* Variables para barra de informacion */
         $scenaryId = $request->input('scenaryId');
         $scenary = escenario::find($scenaryId);
@@ -119,7 +117,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
         $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->input('plus_fraction_specific_gravity');
         $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->input('plus_fraction_boiling_temperature');
-        $asphaltenes_d_precipitated_analysis->sample_molecular_weight = $request->input('sample_molecular_weight');
         $asphaltenes_d_precipitated_analysis->correlation = $request->input('correlation');
         $asphaltenes_d_precipitated_analysis->critical_temperature = $request->input('critical_temperature');
         $asphaltenes_d_precipitated_analysis->critical_pressure = $request->input('critical_pressure');
@@ -450,7 +447,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
         $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->input('plus_fraction_specific_gravity');
         $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->input('plus_fraction_boiling_temperature');
-        $asphaltenes_d_precipitated_analysis->sample_molecular_weight = $request->input('sample_molecular_weight');
         $asphaltenes_d_precipitated_analysis->correlation = $request->input('correlation');
         $asphaltenes_d_precipitated_analysis->critical_temperature = $request->input('critical_temperature');
         $asphaltenes_d_precipitated_analysis->critical_pressure = $request->input('critical_pressure');

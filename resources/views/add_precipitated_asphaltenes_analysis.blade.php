@@ -137,8 +137,8 @@
                      </div>
                   </div>
                   <br>
-                  <div id="div_plus" class="col-md-12" style="overflow: auto;">
-                     <div class="container col-md-12 row">
+                  <div id="div_plus" class="row">
+                     <div class="col-md-12">
                         <div class="panel-group">
                            <div class="panel panel-default">
                               <div class="panel-heading">
@@ -151,7 +151,6 @@
                               
                               <div id="plus_charactetization" class="panel-collapse collapse">
                                  <div class="panel-body">
-                                    <hr>
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
@@ -195,20 +194,6 @@
                                                 @endif
                                                 {!! Form::text('plus_fraction_boiling_temperature',null, ['placeholder' => 'R', 'class' =>'form-control', 'id' => 'plus_fraction_boiling_temperature']) !!}
                                                 <span class="input-group-addon" id="basic-addon2">R</span>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          <div class="form-group">
-                                             {!! Form::label('sample_molecular_weight_label', 'Sample Molecular Weight') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                                             <div class="input-group {{$errors->has('sample_molecular_weight') ? 'has-error' : ''}}">
-                                                @if($advisor === "true")
-                                                   <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                   </span>
-                                                @endif
-                                                {!! Form::text('sample_molecular_weight',null, ['placeholder' => 'lb/lbmol', 'class' =>'form-control', 'id' => 'sample_molecular_weight']) !!}
-                                                <span class="input-group-addon" id="basic-addon2">lb/lbmol</span>
                                              </div>
                                           </div>
                                        </div>
@@ -263,14 +248,21 @@
             <div class="panel panel-default">
                <div class="panel-heading"><b>Bubble Point Data</b> @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_bubble_point_table" style="color:black;font-size:15pt;"></i></span>@endif</div>
                <div class="panel-body" style="overflow: auto;">
-               <div id="bubble_point_table"></div><br><br>
-               <button class="btn btn-primary pull-right" onclick="plot_bubble_point_table()">Plot</button>  
-               {!! Form::hidden('value_bubble_point_table', '', array('class' => 'form-control', 'id' => 'value_bubble_point_table')) !!}
-               {!! Form::hidden('bubble_point_data_range_flag', '', array('class' => 'form-control', 'id' => 'bubble_point_data_range_flag')) !!}
-               
-               <div class="row">
-                  <div id="graphic_bubble_point_table"></div>
-               </div>
+                  <div id="bubble_point_table"></div><br>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <button class="btn btn-primary pull-right" onclick="plot_bubble_point_table()">Plot</button>
+                     </div>
+                  </div>
+                  {!! Form::hidden('value_bubble_point_table', '', array('class' => 'form-control', 'id' => 'value_bubble_point_table')) !!}
+                  {!! Form::hidden('bubble_point_data_range_flag', '', array('class' => 'form-control', 'id' => 'bubble_point_data_range_flag')) !!}
+                  
+                  <div class="row">
+                     <div class="col-md-12">
+                        <br>
+                        <div id="graphic_bubble_point_table"></div>
+                     </div>
+                  </div>
                </div>
             </div>
             <div class="panel panel-default">
@@ -687,14 +679,16 @@
       </div>
       <div class="row">
          {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
-         <div class="col-md-6" align="left">
-            <button type="button" class="btn btn-success" onclick="verifyAsphaltene('save');">Save</button>
-            <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
-         </div>
-         <div class="col-md-6" align="right">
-            <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
-            <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-            <button type="button" class="btn btn-primary" style="display: none" onclick="verifyAsphaltene('run');" id="run_calc">Run</button>
+         <div class="col-md-12 scenario-buttons">
+            <div align="left">
+               <button type="button" class="btn btn-success" onclick="verifyAsphaltene('save');">Save</button>
+               <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+            </div>
+            <div align="right">
+               <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+               <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+               <button type="button" class="btn btn-primary" style="display: none" onclick="verifyAsphaltene('run');" id="run_calc">Run</button>
+            </div>
          </div>
       </div>
    </div>

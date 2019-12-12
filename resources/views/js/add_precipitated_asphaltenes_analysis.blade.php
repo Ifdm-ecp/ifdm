@@ -18,53 +18,56 @@
         evt.preventDefault();
         data = order_matrix(clean_table_data("bubble_point_table"));
 
-        var temperature = [];
-        var bubble_pressure = [];
-
-        if (data) {
-            for (var i = 0; i < data.length; i++) {
-                temperature.push(data[i][0]);
-                bubble_pressure.push(data[i][1]);
-            }
-        }
-
-
         $('#graphic_bubble_point_table').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
             title: {
-                text: 'Bubble Point',
-                x: -20 //center
+                text: 'Bubble Point'
             },
-            xAxis: {
-                title: {
-                    text: 'Temperature (Bubble curve) [°F]'
-                },
-                categories: temperature,
-                reversed: false
-            },
+
             yAxis: {
                 title: {
                     text: 'Bubble Pressure [psi]'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                }
             },
-            tooltip: {
-                valueSuffix: ''
+            xAxis: {
+                title: {
+                    text: 'Temperature [F]'
+                }
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: 2010
+                }
             },
+
             series: [{
                 name: 'Bubble Pressure [psi]',
-                data: bubble_pressure
+                data: data,
+                marker: {
+                    enabled: true
+                }
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
             }
-            ]
         });
     }
 
@@ -268,6 +271,7 @@
         $('.import-components-data').on('click', function () {
             var select_components = $("#components").val();
             var table = [];
+            var components_table = clean_table_data("components_table");
             var plus = {};
 
             if (select_components === null) {
@@ -277,6 +281,13 @@
                     components: select_components.toString()
                 }, function (data) {
                     $.each(data, function (index, value) {
+                        for (var i = 0; i < components_table.length; i++) {
+                            if (components_table[i][0] === value.component) {
+                                value.zi = components_table[i][1];
+                                break;
+                            }
+                        }
+
                         table.push(Object.values(value));
                     });
 
@@ -916,14 +927,14 @@
                 tcplus = tcplus + 460;
                 dummy = 2.8290406 + (0.94120109 * 0.001) * tbf - (0.30474749 * 0.00001) * Math.pow(tbf, 2);
                 dummy2 = -(0.2087611 * 0.0001) * (tbf * sgapi) + (0.15184103 * 0.00000001) * Math.pow(tbf, 3);
-                dummy3 = (0.11047899 * 0.0000001) * sgapi * Math.pow(tbf, 2) - (0.48271599 * 0.0000001) * Math.pow(sgapi ^ 2) * tbf;
+                dummy3 = (0.11047899 * 0.0000001) * sgapi * Math.pow(tbf, 2) - (0.48271599 * 0.0000001) * Math.pow(sgapi, 2) * tbf;
                 dummy4 = (0.13949619 * 0.000000001) * Math.pow(sgapi, 2) * Math.pow(tbf, 2);
                 pcplus = Math.pow(10, (dummy + dummy2 + dummy3 + dummy4));
 
                 tbr = tb / tcplus;
                 if (tbr < 0.8) {
                     num = -Math.log(pcplus / 14.7) + a1 + (a2 / tbr) + a3 * Math.log(tbr) + a4 * Math.pow(tbr, 6);
-                    den = a5 + (a6 / tbr) + a7 * Math.log(tbr) + a8 * Math(tbr, 6);
+                    den = a5 + (a6 / tbr) + a7 * Math.log(tbr) + a8 * Math.pow(tbr, 6);
                     omega = num / den;
                 }
                 else {
@@ -937,6 +948,9 @@
                     }
                     kw = Math.pow((0.16637 * sg * sum / (zplus * mw)), -0.84573);
                     omega = -7.904 + 0.1352 * kw - 0.007465 * Math.pow(kw, 2) + 8.359 * tbr + (1.408 - 0.01063 * kw) / tbr;
+                    console.log('kwtbr');
+                    console.log(kw);
+                    console.log(tbr);
                 }
 
                 vcplus = (7.0434 * 0.0000001) * Math.pow(tb, 2.3829) * Math.pow(sg, -1.683);
@@ -1200,12 +1214,6 @@
                 titleTab = validationFunctionResult[0];
                 validationMessages = validationFunctionResult[1];
                 emptyValues = (emptyValues === false && (plus_fraction_boiling_temperature === null || plus_fraction_boiling_temperature === "")) ? true: emptyValues;
-
-                var sample_molecular_weight = $("#sample_molecular_weight").val();
-                validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, sample_molecular_weight, plus_plus_data_ruleset[3]);
-                titleTab = validationFunctionResult[0];
-                validationMessages = validationFunctionResult[1];
-                emptyValues = (emptyValues === false && (sample_molecular_weight === null || sample_molecular_weight === "")) ? true: emptyValues;
 
                 var correlation = $("#correlation").val();
                 validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, correlation, plus_plus_data_ruleset[4]);

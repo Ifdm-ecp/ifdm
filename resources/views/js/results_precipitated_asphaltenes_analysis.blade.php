@@ -51,7 +51,7 @@ $(document).ready(function()
                     });
                     solid_a_series.push({"name":serie_name, "data":serie_data});
                 });
-                plot_results("solid_a_results_chart", solid_a_series, "Solid A Results", "Pressure [psi]", "A [-]");
+                plot_results("solid_a_results_chart", solid_a_series, "Asphaltene Soluble Fraction", "Pressure [psi]", "Soluble Fraction [0 - 1]");
             }
         );
 

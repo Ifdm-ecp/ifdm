@@ -39,7 +39,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('components', 'Components') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('components', 'Components') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            {!! Form::select('components[]', [
                               'N2' => 'N2',
                               'CO2' => 'CO2',
@@ -121,7 +121,7 @@
                   <div class="row" style="overflow: auto;">
                      <div class="col-md-12">
                         <div class="form-group">
-                           {!! Form::label('components_table_label', 'Components Data') !!}{!! Form::label('*', '*', array('class' => 'red')) !!} @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_components_table" style="color:black;font-size:15pt;"></i></span>@endif<a><span><i class="glyphicon glyphicon-list-alt import-components-data load-data" id="components_data_import" style="color:black;font-size:15pt;"></i></span></a>
+                           {!! Form::label('components_table_label', 'Components Data') !!} {!! Form::label('*', '*', array('class' => 'red')) !!} @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_components_table" style="color:black;font-size:15pt;"></i></span>@endif<a><span><i class="glyphicon glyphicon-list-alt import-components-data load-data" id="components_data_import" style="color:black;font-size:15pt;"></i></span></a>
                            <div id="components_table"></div>
                            <div class="row">
                               <div class="col-md-6">
@@ -154,7 +154,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_molecular_weight_label', 'Plus Fraction Molecular Weight (MW)') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_molecular_weight_label', 'Plus Fraction Molecular Weight (MW)') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                                              <div class="input-group {{$errors->has('plus_fraction_molecular_weight') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -168,7 +168,7 @@
                                        </div>
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_specific_gravity_label', 'Plus Fraction Specific Gravity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_specific_gravity_label', 'Plus Fraction Specific Gravity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                                              <div class="input-group {{$errors->has('plus_fraction_specific_gravity') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -185,7 +185,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_boiling_temperature_label', 'Plus Fraction Boiling Temperature') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_boiling_temperature_label', 'Plus Fraction Boiling Temperature') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                                              <div class="input-group {{$errors->has('plus_fraction_boiling_temperature') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -203,7 +203,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('correlation_label', 'Correlation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('correlation_label', 'Correlation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                                              {!! Form::select('correlation', [
                                              ' ' => ' ',
                                              'Twu' => 'Twu',
@@ -231,7 +231,7 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div class="form-group" style="overflow: auto;">
-                           {!! Form::label('binary_interaction_label', 'Binary Interaction Coefficients Data') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}@if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_binary_interaction_coefficients_table" style="color:black;font-size:15pt;"></i></span>@endif
+                           {!! Form::label('binary_interaction_label', 'Binary Interaction Coefficients Data') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}@if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_binary_interaction_coefficients_table" style="color:black;font-size:15pt;"></i></span>@endif
                            <button type="button" class="btn btn-primary btn-xs calculate-binary-interaction-coefficients">Calculate</button>&nbsp;&nbsp;<a><span><i class="glyphicon glyphicon-erase convert-to-zero" id="convert_to_zero" style="color:black;font-size:15pt;"></i></span></a>
                            <div id="binary_interaction_coefficients_table"></div>
                            {!! Form::hidden('value_binary_interaction_coefficients_table', '', array('class' => 'form-control', 'id' => 'value_binary_interaction_coefficients_table')) !!}
@@ -271,7 +271,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('critical_temperature_label', 'Critical Temperature (Envolope phase)') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('critical_temperature_label', 'Critical Temperature (Envolope phase)') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('critical_temperature') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -285,7 +285,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('critical_pressure_label', 'Critical Pressure (Envelope phase)') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('critical_pressure_label', 'Critical Pressure (Envelope phase)') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('critical_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -301,7 +301,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('reservoir_density_label', 'Density at Reservoir Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('reservoir_density_label', 'Density at Reservoir Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('density_at_reservoir_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -315,7 +315,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('bubble_density_label', 'Density at Bubble Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('bubble_density_label', 'Density at Bubble Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('density_at_bubble_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -331,7 +331,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('density_14_7_label', 'Density at Atmospheric Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('density_14_7_label', 'Density at Atmospheric Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('density_at_atmospheric_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -345,7 +345,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('reservoir_temperature_label', 'Reservoir Temperature') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('reservoir_temperature_label', 'Reservoir Temperature') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('reservoir_temperature') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -361,7 +361,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('current_reservoir_pressure_label', 'Current Reservoir Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('current_reservoir_pressure_label', 'Current Reservoir Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('current_reservoir_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -375,7 +375,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('fluid_api_gravity_label', 'Fluid API Gravity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('fluid_api_gravity_label', 'Fluid API Gravity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('fluid_api_gravity') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -400,21 +400,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('initial_temperature_label', 'Initial Temperature') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                           <div class="input-group {{$errors->has('initial_temperature') ? 'has-error' : ''}}">
-                              @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
-                              @endif
-                              {!! Form::text('initial_temperature',400, ['placeholder' => 'R', 'class' =>'form-control', 'id' => 'initial_temperature']) !!}
-                              <span class="input-group-addon" id="basic-addon2">R</span>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           {!! Form::label('number_of_temperatures_label', 'Number Of Temperatures') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('number_of_temperatures_label', 'Number Of Temperatures') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('number_of_temperatures') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                               <span class="input-group-btn">
@@ -426,11 +412,9 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('temperature_delta_label', 'Temperature Delta') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('temperature_delta_label', 'Temperature Delta') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('temperature_delta') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -452,7 +436,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('agregate_deviation_label', 'Asphaltene Particle Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('agregate_deviation_label', 'Asphaltene Particle Diameter') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('asphaltene_particle_diameter') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -466,7 +450,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('asphaltene_molecular_weight_label', 'Asphaltene Molecular Weight') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('asphaltene_molecular_weight_label', 'Asphaltene Molecular Weight') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('asphaltene_molecular_weight') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -482,7 +466,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('bulk_density_label', 'Asphaltene Apparent Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('bulk_density_label', 'Asphaltene Apparent Density') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('asphaltene_apparent_density') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -504,7 +488,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('saturate_label', 'Saturate') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('saturate_label', 'Saturate') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('saturate') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                               <span class="input-group-btn">
@@ -518,7 +502,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('aromatic_label', 'Aromatic') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('aromatic_label', 'Aromatic') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('aromatic') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -534,7 +518,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('resine_label', 'Resine') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('resine_label', 'Resine') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('resine') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -548,7 +532,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('asphaltene_label', 'Asphaltene') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('asphaltene_label', 'Asphaltene') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('asphaltene') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -585,7 +569,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('hydrogen_carbon_ratio_label', 'Hydrogen Carbon Ratio') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('hydrogen_carbon_ratio_label', 'Hydrogen Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('hydrogen_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                               <span class="input-group-btn">
@@ -599,7 +583,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('oxygen_carbon_ratio_label', 'Oxygen Carbon Ratio') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('oxygen_carbon_ratio_label', 'Oxygen Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('oxygen_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -615,7 +599,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('nitrogen_carbon_ratio_label', 'Nitrogen Carbon Ratio') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('nitrogen_carbon_ratio_label', 'Nitrogen Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('nitrogen_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                               <span class="input-group-btn">
@@ -629,7 +613,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('sulphur_carbon_ratio_label', 'Sulphure Carbon Ratio') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('sulphur_carbon_ratio_label', 'Sulphure Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('sulphure_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -645,7 +629,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('fa_aromaticity_label', 'FA Aromaticity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('fa_aromaticity_label', 'FA Aromaticity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('fa_aromaticity') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                               <span class="input-group-btn">
@@ -659,7 +643,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('vc_molar_volume_label', 'VC Molar Volume') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('vc_molar_volume_label', 'VC Molar Volume') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('vc_molar_volume') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">

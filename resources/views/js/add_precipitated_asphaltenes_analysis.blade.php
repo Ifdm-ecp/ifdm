@@ -1154,7 +1154,7 @@
         var binary_interaction_coefficients_table_ruleset_clone = JSON.parse(JSON.stringify(binary_interaction_coefficients_table_ruleset));
         var passedSelector = false;
 
-        if (titleTab === "") {
+        if (titleTab === "" && select_components_data !== null) {
             passedSelector = true;
         }
 
@@ -1166,7 +1166,7 @@
                 validationMessages = validationMessages.concat(titleTab);
             }
             validationMessages = validationMessages.concat(tableValidator);
-        } else {
+        } else if (components_data.length > 0) {
             var sumZi = 0;
 
             for (var i = 0; i < components_data.length; i++) {
@@ -1298,12 +1298,6 @@
         // Validating Asphaltenes data
         titleTab = "";
         tabTitle = "Tab: Asphaltenes Data";
-
-        var initial_temperature = $("#initial_temperature").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, initial_temperature, asphaltenes_tab_ruleset[0]);
-        titleTab = validationFunctionResult[0];
-        validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && (initial_temperature === null || initial_temperature === "")) ? true: emptyValues;
 
         var number_of_temperatures = $("#number_of_temperatures").val();
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, number_of_temperatures, asphaltenes_tab_ruleset[1]);

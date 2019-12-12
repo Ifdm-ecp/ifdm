@@ -20,9 +20,9 @@ class precipitated_asphaltene_analysis_request extends Request
         /* Agregar validacion para SARA */
         if (is_numeric(request()->saturate) || is_numeric(request()->aromatic) || is_numeric(request()->resine) || is_numeric(request()->asphaltene)) {
             $sara = (is_numeric(request()->saturate) ? request()->saturate : 0) +
-            is_numeric(request()->aromatic) ? request()->aromatic : 0 +
-            is_numeric(request()->resine) ? request()->resine : 0 +
-            is_numeric(request()->asphaltene) ? request()->asphaltene : 0;
+            (is_numeric(request()->aromatic) ? request()->aromatic : 0) +
+            (is_numeric(request()->resine) ? request()->resine : 0) +
+            (is_numeric(request()->asphaltene) ? request()->asphaltene : 0);
             request()->merge(['sara_calc' => $sara]);
         } else {
             request()->merge(['sara_calc' => ""]);
@@ -63,7 +63,6 @@ class precipitated_asphaltene_analysis_request extends Request
             'reservoir_temperature' => 'required|numeric|min:0|not_in:0',
             'current_reservoir_pressure' => 'required|numeric|min:0|not_in:0',
             'fluid_api_gravity' => 'required|numeric|between:5,70',
-            'initial_temperature' => 'required|numeric|between:400,600',
             'number_of_temperatures' => 'required|numeric|between:5,20',
             'temperature_delta' => 'required|numeric|between:20,100',
             'asphaltene_particle_diameter' => 'required|numeric|between:1,20',
@@ -80,7 +79,6 @@ class precipitated_asphaltene_analysis_request extends Request
             'sulphure_carbon_ratio' => 'required_if:elemental_data_selector,1,on|numeric',
             'fa_aromaticity' => 'required_if:elemental_data_selector,1,on|numeric',
             'vc_molar_volume' => 'required_if:elemental_data_selector,1,on|numeric',
-            'sum_zi_components_table' => 'numeric|between:0.9,1.1',
             // 'zi_range_flag_components_table' => 'in:1',
             // 'binary_coefficients_range_flag' => 'in:1',
             // 'bubble_point_data_range_flag' => 'in:1',
@@ -93,15 +91,6 @@ class precipitated_asphaltene_analysis_request extends Request
             array_push($temperature, str_replace(",", ".", $value[0]));
         }
 
-        $min_temperature = 400;
-        if (count($temperature) > 0) {
-            $min_temperature = min($temperature);
-        }
-
-        if ($this->critical_temperature !== "" && $this->critical_temperature !== null) {
-            $rules['initial_temperature'] = 'required|numeric|not_in:0|between:' . $min_temperature . ',' . $this->input('critical_temperature');
-        }
-
         if (is_array($this->components)) {
             for ($i = 0; $i < count($this->components); $i++) {
                 $rules["components." . $i] = 'required|in:N2,CO2,H2S,C1,C2,C3,IC4,NC4,IC5,NC5,NC6,NC7,NC8,NC9,NC10,NC11,NC12,NC13,NC14,NC15,NC16,NC17,NC18,NC19,NC20,NC21,NC22,NC23,NC24,FC6,FC7,FC8,FC9,FC10,FC11,FC12,FC13,FC14,FC15,FC16,FC17,FC18,FC19,FC20,FC21,FC22,FC23,FC24,FC25,FC26,FC27,FC28,FC29,FC30,FC31,FC32,FC33,FC34,FC35,FC36,FC37,FC38,FC39,FC40,FC41,FC42,FC43,FC44,FC45,SO2,H2,Plus +';
@@ -109,6 +98,10 @@ class precipitated_asphaltene_analysis_request extends Request
         }
 
         if (is_array($this->array_components_table)) {
+            if (count($this->array_components_table) > 0) {
+                $rules["sum_zi_components_table"] = 'numeric|between:0.9,1.1';
+            }
+
             for ($i = 0; $i < count($this->array_components_table); $i++) {
                 $rules["array_components_table." . $i . ".0"] = 'required|in:N2,CO2,H2S,C1,C2,C3,IC4,NC4,IC5,NC5,NC6,NC7,NC8,NC9,NC10,NC11,NC12,NC13,NC14,NC15,NC16,NC17,NC18,NC19,NC20,NC21,NC22,NC23,NC24,FC6,FC7,FC8,FC9,FC10,FC11,FC12,FC13,FC14,FC15,FC16,FC17,FC18,FC19,FC20,FC21,FC22,FC23,FC24,FC25,FC26,FC27,FC28,FC29,FC30,FC31,FC32,FC33,FC34,FC35,FC36,FC37,FC38,FC39,FC40,FC41,FC42,FC43,FC44,FC45,SO2,H2,Plus +';
                 $rules["array_components_table." . $i . ".1"] = 'required|numeric|between:0,1';
@@ -153,7 +146,6 @@ class precipitated_asphaltene_analysis_request extends Request
             $rules["reservoir_temperature"] = str_replace("required|", "", $rules["reservoir_temperature"]);
             $rules["current_reservoir_pressure"] = str_replace("required|", "", $rules["current_reservoir_pressure"]);
             $rules["fluid_api_gravity"] = str_replace("required|", "", $rules["fluid_api_gravity"]);
-            $rules["initial_temperature"] = str_replace("required|", "", $rules["initial_temperature"]);
             $rules["number_of_temperatures"] = str_replace("required|", "", $rules["number_of_temperatures"]);
             $rules["temperature_delta"] = str_replace("required|", "", $rules["temperature_delta"]);
             $rules["asphaltene_particle_diameter"] = str_replace("required|", "", $rules["asphaltene_particle_diameter"]);
@@ -170,7 +162,9 @@ class precipitated_asphaltene_analysis_request extends Request
             $rules["sulphure_carbon_ratio"] = str_replace("required|", "", $rules["sulphure_carbon_ratio"]);
             $rules["fa_aromaticity"] = str_replace("required|", "", $rules["fa_aromaticity"]);
             $rules["vc_molar_volume"] = str_replace("required|", "", $rules["vc_molar_volume"]);
-            $rules["sum_zi_components_table"] = str_replace("required|", "", $rules["sum_zi_components_table"]);
+            if (array_key_exists("sum_zi_components_table", $rules)) {
+                $rules["sum_zi_components_table"] = str_replace("required|", "", $rules["sum_zi_components_table"]);
+            }
             // $rules["zi_range_flag_components_table"] = str_replace("required|", "", $rules["zi_range_flag_components_table"]);
             // $rules["binary_coefficients_range_flag"] = str_replace("required|", "", $rules["binary_coefficients_range_flag"]);
             // $rules["bubble_point_data_range_flag"] = str_replace("required|", "", $rules["bubble_point_data_range_flag"]);
@@ -202,7 +196,6 @@ class precipitated_asphaltene_analysis_request extends Request
             'reservoir_temperature.required' => 'The reservoir temperature is required.',
             'current_reservoir_pressure.required' => 'The current reservoir pressure is required.',
             'fluid_api_gravity.required' => 'The fluid API gravity is required.',
-            'initial_temperature.required' => 'The initial temperature is required.',
             'number_of_temperatures.required' => 'The number of temperatures is required.',
             'temperature_delta.required' => 'The temperature delta is required.',
             'asphaltene_particle_diameter.required' => 'The asphaltene particle diameter is required.',
@@ -232,7 +225,6 @@ class precipitated_asphaltene_analysis_request extends Request
             'reservoir_temperature.numeric' => 'The reservoir temperature must be a number.',
             'current_reservoir_pressure.numeric' => 'The current reservoir pressure must be a number.',
             'fluid_api_gravity.numeric' => 'The fluid API gravity must be a number.',
-            'initial_temperature.numeric' => 'The initial temperature must be a number.',
             'number_of_temperatures.numeric' => 'The number of temperatures must be a number.',
             'temperature_delta.numeric' => 'The temperature delta must be a number.',
             'asphaltene_particle_diameter.numeric' => 'The asphaltene particle diameter must be a number.',
@@ -250,7 +242,6 @@ class precipitated_asphaltene_analysis_request extends Request
             'fa_aromaticity.numeric' => 'The FA aromaticity must be a number.',
             'vc_molar_volume.numeric' => 'The VC molar volume must be a number.',
 
-            'initial_temperature.between' => 'The initial temperature is not between :min - :max.',
             'number_of_temperatures.between' => 'The number of temperatures is not between :min - :max.',
             'temperature_delta.between' => 'The temperature delta is not between :min - :max.',
 

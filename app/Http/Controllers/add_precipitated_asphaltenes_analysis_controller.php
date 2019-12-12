@@ -127,7 +127,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
         $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->input('fluid_api_gravity');
 
-        $asphaltenes_d_precipitated_analysis->initial_temperature = $request->input('initial_temperature');
+        $asphaltenes_d_precipitated_analysis->initial_temperature = 400;
         $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->input('number_of_temperatures');
         $asphaltenes_d_precipitated_analysis->temperature_delta = $request->input('temperature_delta');
 
@@ -457,7 +457,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
         $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->input('fluid_api_gravity');
 
-        $asphaltenes_d_precipitated_analysis->initial_temperature = $request->input('initial_temperature');
+        $asphaltenes_d_precipitated_analysis->initial_temperature = 400;
         $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->input('number_of_temperatures');
         $asphaltenes_d_precipitated_analysis->temperature_delta = $request->input('temperature_delta');
 
@@ -1527,6 +1527,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $qq = 1 / 27.0 * (2 * pow($a2, 3) - 9 * $a2 * $a3 + 27 * $a4);
         $e = 1 / 4.0 * pow($qq, 2) + 1 / 27.0 * pow($pp, 3);
         $pq = $pp * $qq;
+        $zlogical = 0;
 
         if ($e > 0) {
             $jj = -$qq / 2.0 + sqrt($e);

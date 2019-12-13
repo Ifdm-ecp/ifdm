@@ -400,8 +400,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    // public function update(precipitated_asphaltene_analysis_request $request, $id)
+    public function update(precipitated_asphaltene_analysis_request $request, $id)
     {
         if (!empty($request->scenary_id)) {
             $asphaltenes_d_precipitated_analysis = new asphaltenes_d_precipitated_analysis();

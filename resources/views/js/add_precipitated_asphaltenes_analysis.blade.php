@@ -95,7 +95,6 @@
             }
         }
 
-
         var asphaltenes_d_stability_analysis_id = <?php
         if ($asphaltenes_d_stability_analysis) {
             echo json_encode($asphaltenes_d_stability_analysis->id);
@@ -139,70 +138,70 @@
                 data: 0,
                 type: 'text',
                 readOnly: true,
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[0])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[0])); }
             },
             {
                 title: components_table_ruleset[1].column,
                 data: 1,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[1])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[1])); }
             },
             {
                 title: components_table_ruleset[2].column,
                 data: 2,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[2])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[2])); }
             },
             {
                 title: components_table_ruleset[3].column,
                 data: 3,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[3])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[3])); }
             },
             {
                 title: components_table_ruleset[4].column,
                 data: 4,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[4])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[4])); }
             },
             {
                 title: components_table_ruleset[5].column,
                 data: 5,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[5])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[5])); }
             },
             {
                 title: components_table_ruleset[6].column,
                 data: 6,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[6])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[6])); }
             },
             {
                 title: components_table_ruleset[7].column,
                 data: 7,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[7])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[7])); }
             },
             {
                 title: components_table_ruleset[8].column,
                 data: 8,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[8])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[8])); }
             },
             {
                 title: components_table_ruleset[9].column,
                 data: 9,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[9])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[9])); }
             }
             ]
         });
@@ -226,22 +225,20 @@
             rowHeaders: true,
             stretchH: 'all',
             contextMenu: true,
-
-
             colWidths: [360, 360],
             columns: [{
                 title: bubble_point_table_ruleset[0].column,
                 data: 0,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[0])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[0])); }
             },
             {
                 title: bubble_point_table_ruleset[1].column,
                 data: 1,
                 type: 'numeric',
                 format: '0[.]0000000',
-                function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[1])); }
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, bubble_point_table_ruleset[1])); }
             },
             ]
         });
@@ -251,7 +248,7 @@
         {
             calculate_total_sara();
         });
-        
+
         //Controlar check cuando se inicializa y se cambia el valor, mostrar u ocultar elemental_data segun sea el caso
         $(".elemental_data").prop('disabled', true);
         $("#elemental_data_selector").bind('init change', function () {
@@ -576,7 +573,6 @@
 
                 items_binary_interaction = {};
 
-
                 zi = hot_components_table.getSourceDataAtCol(1);
                 component = hot_components_table.getSourceDataAtCol(0);
 
@@ -635,8 +631,6 @@
 
                     col_values_binary_interaction.push(item_binary_interaction);
                 }
-
-
             }
             //Recargar tabla con nuevos valores y columnas segun los compoentes
             hot_coefficients_table.updateSettings({
@@ -832,10 +826,8 @@
         var components = $("#components").val();
         var nc = components.length; //Número de componentes - Traer desde vista *Karen
         var mw = $("#plus_fraction_molecular_weight").val(); //Traer desde vista *karen 396.93
-        var sg = $("#plus_fraction_specific_gravity").val();
-        ; //Traer desde vista *karen 0.9256
-        var tb = $("#plus_fraction_boiling_temperature").val();
-        ; //Traer desde vista  *karen 1000
+        var sg = $("#plus_fraction_specific_gravity").val(); //Traer desde vista *karen 0.9256
+        var tb = $("#plus_fraction_boiling_temperature").val(); //Traer desde vista  *karen 1000
 
         var components_data = $components_table.handsontable('getData');
 
@@ -844,7 +836,7 @@
         components_data.splice(-2);
 
         var correlation_select = $("#correlation").val(); //leer selector *Karen
-        console.log(correlation_select);
+
         if (mw && sg && tb && zi_plus_data && !isNaN(mw) && !isNaN(sg) && !isNaN(tb) && !isNaN(mw) && !isNaN(zi_plus_data) && correlation_select != ' ') {
             if (correlation_select == "Twu") {
                 num = 0.533272 + 0.000191017 * tb + 0.0000000779681 * Math.pow(tb, 2) - 2.84376e-11 * Math.pow(tb, 3) + 95.9468 / Math.pow((0.01 * tb), 13);
@@ -948,9 +940,6 @@
                     }
                     kw = Math.pow((0.16637 * sg * sum / (zplus * mw)), -0.84573);
                     omega = -7.904 + 0.1352 * kw - 0.007465 * Math.pow(kw, 2) + 8.359 * tbr + (1.408 - 0.01063 * kw) / tbr;
-                    console.log('kwtbr');
-                    console.log(kw);
-                    console.log(tbr);
                 }
 
                 vcplus = (7.0434 * 0.0000001) * Math.pow(tb, 2.3829) * Math.pow(sg, -1.683);

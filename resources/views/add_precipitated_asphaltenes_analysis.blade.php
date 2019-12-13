@@ -4,16 +4,16 @@
 @section('content')
 <?php  
    if(!isset($_SESSION)) {
-   session_start();
+      session_start();
    }
 ?>
 @include('layouts/modal_error')
 
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky">
-<center>
-   {!! Form::label('Scenario: ') !!} {!! Form::label('scenary_name', $scenary->nombre) !!} {!! Form::label(' - Basin: ') !!} {!! Form::label('basin_name', $cuenca->nombre) !!} {!! Form::label(' - Field: ') !!} {!! Form::label('field_name', $campo->nombre) !!} {!! Form::label(' - Producing interval: ') !!} {!! Form::label('interval_name', $formacion->nombre) !!} {!! Form::label(' - Well: ') !!} {!! Form::label('well_name', $pozo->nombre) !!} {!! Form::label(' - User: ') !!} {!! Form::label('user_name', $user->fullName) !!}
-</center>
+   <center>
+      {!! Form::label('Scenario: ') !!} {!! Form::label('scenary_name', $scenary->nombre) !!} {!! Form::label(' - Basin: ') !!} {!! Form::label('basin_name', $cuenca->nombre) !!} {!! Form::label(' - Field: ') !!} {!! Form::label('field_name', $campo->nombre) !!} {!! Form::label(' - Producing interval: ') !!} {!! Form::label('interval_name', $formacion->nombre) !!} {!! Form::label(' - Well: ') !!} {!! Form::label('well_name', $pozo->nombre) !!} {!! Form::label(' - User: ') !!} {!! Form::label('user_name', $user->fullName) !!}
+   </center>
 </div>
 <p></p>
 </br>
@@ -216,8 +216,8 @@
                                        </div>
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             <br>
-                                             <button type="button" class="btn btn-primary characterize_plus_component">Plus characterization</button> 
+                                             {!! Form::label('-', '-', array('style' => 'display: block', 'class' => 'invisible')) !!}
+                                             <button type="button" style="display: block" class="btn btn-primary characterize_plus_component">Plus characterization</button>
                                           </div>
                                        </div>
                                     </div>
@@ -256,7 +256,7 @@
                   </div>
                   {!! Form::hidden('value_bubble_point_table', '', array('class' => 'form-control', 'id' => 'value_bubble_point_table')) !!}
                   {!! Form::hidden('bubble_point_data_range_flag', '', array('class' => 'form-control', 'id' => 'bubble_point_data_range_flag')) !!}
-                  
+
                   <div class="row">
                      <div class="col-md-12">
                         <br>
@@ -403,9 +403,9 @@
                            {!! Form::label('number_of_temperatures_label', 'Number Of Temperatures') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('number_of_temperatures') ? 'has-error' : ''}}">
                               @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
                               @endif
                               {!! Form::text('number_of_temperatures',20, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'number_of_temperatures']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
@@ -491,9 +491,9 @@
                            {!! Form::label('saturate_label', 'Saturate') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('saturate') ? 'has-error' : ''}}">
                               @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
                               @endif
                               {!! Form::text('saturate',(empty($asphaltenes_d_stability_analysis) ? null : $asphaltenes_d_stability_analysis->saturated), ['placeholder' => '% Weight', 'class' =>'form-control sara_data', 'id' => 'saturate']) !!}
                               <span class="input-group-addon" id="basic-addon2">% Weight</span>
@@ -572,9 +572,9 @@
                            {!! Form::label('hydrogen_carbon_ratio_label', 'Hydrogen Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('hydrogen_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
                               @endif
                               {!! Form::text('hydrogen_carbon_ratio',null, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'hydrogen_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
@@ -602,9 +602,9 @@
                            {!! Form::label('nitrogen_carbon_ratio_label', 'Nitrogen Carbon Ratio') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('nitrogen_carbon_ratio') ? 'has-error' : ''}}">
                               @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
                               @endif
                               {!! Form::text('nitrogen_carbon_ratio',null, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'nitrogen_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
@@ -632,9 +632,9 @@
                            {!! Form::label('fa_aromaticity_label', 'FA Aromaticity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('fa_aromaticity') ? 'has-error' : ''}}">
                               @if($advisor === "true")
-                              <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                              </span>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
                               @endif
                               {!! Form::text('fa_aromaticity',null, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'fa_aromaticity']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
@@ -659,7 +659,6 @@
                </div>
             </div>
          </div>
-      </div>
       </div>
       <div class="row">
          {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
@@ -697,4 +696,3 @@
    @include('js/modal_error_frontend')
    @include('css/modal_error_frontend')
 @endsection
-

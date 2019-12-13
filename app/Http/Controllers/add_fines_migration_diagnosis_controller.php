@@ -536,7 +536,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             array_push($dates_data, $value[0]);
             array_push($bopd_data, $fines_d_historical_data->bopd);
         }
-
+        
         #Arreglos para guardar los datos organizados - módulo de cálculo
         $qlab_data = [];
         $k1_lab_data = [];
@@ -647,7 +647,6 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     array_push($fines_diagnosis_results_skin_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'date'=>$value[0], 'damage_radius'=>round($value[1], 7), 'skin'=>round($value[2], 7)));
                     $properties_value = $properties_results[$key - 1];
-                    //dd($value[1]);
 
                     array_shift($properties_value);
                     array_pop($properties_value);
@@ -657,7 +656,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                         array_push($fines_diagnosis_results_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'radius'=>round($value_aux[0], 7), 'porosity'=>round($value_aux[2], 7), 'permeability'=>round($value_aux[3], 7), 'co'=>round($value_aux[4], 7), 'date'=>$value[0]));
                     }
 
-                    //dd($fines_diagnosis_results_skin_inserts);
                     DB::table('fines_d_diagnosis_results')->insert($fines_diagnosis_results_inserts);
                     DB::table('fines_d_diagnosis_results_skin')->insert($fines_diagnosis_results_skin_inserts);
                 }

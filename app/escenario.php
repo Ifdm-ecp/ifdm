@@ -112,7 +112,7 @@ class escenario extends \Eloquent implements Revisionable {
 
     public function statistical()
     {
-        return $this->hasOne('App\Models\MultiparametricAnalysis\statistical');
+        return $this->hasOne('App\Models\MultiparametricAnalysis\Statistical');
     }
 
     public function drilling()

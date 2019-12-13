@@ -1366,7 +1366,6 @@
             emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
         }
 
-        validationMessages = [];
         if (validationMessages.length < 1) {
             bubble_point_table = order_matrix(bubble_point_table);
             $("#value_components_table").val(JSON.stringify(components_data));
@@ -1375,6 +1374,7 @@
             validate_components_data(components_data);
 
             if (emptyValues) {
+                $("#loading_icon").hide();
                 validationMessages.push(true);
                 showFrontendErrors(validationMessages);
             } else {
@@ -1382,10 +1382,9 @@
                 $("#asphalteneForm").submit();
             }
         } else {
+            $("#loading_icon").hide();
             showFrontendErrors(validationMessages);
         }
-
-        $("#loading_icon").hide();
     }
 
     /* tabStep
@@ -1425,6 +1424,7 @@
     * Submits the form when the confirmation button from the modal is clicked
     */
     function saveForm() {
+        $("#loading_icon").show();
         $("#only_s").val("save");
         $("#asphalteneForm").submit();
     }

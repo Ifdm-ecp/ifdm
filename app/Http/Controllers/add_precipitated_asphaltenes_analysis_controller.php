@@ -114,31 +114,31 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
 
         $asphaltenes_d_precipitated_analysis->scenario_id = $scenary->id;
-        $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
-        $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->input('plus_fraction_specific_gravity');
-        $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->input('plus_fraction_boiling_temperature');
-        $asphaltenes_d_precipitated_analysis->correlation = $request->input('correlation');
-        $asphaltenes_d_precipitated_analysis->critical_temperature = $request->input('critical_temperature');
-        $asphaltenes_d_precipitated_analysis->critical_pressure = $request->input('critical_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_reservoir_pressure = $request->input('density_at_reservoir_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->input('density_at_bubble_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->input('density_at_atmospheric_pressure');
-        $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->input('reservoir_temperature');
-        $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
-        $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->input('fluid_api_gravity');
+        $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->plus_fraction_molecular_weight !== "" ? $request->plus_fraction_molecular_weight : null;
+        $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->plus_fraction_specific_gravity !== "" ? $request->plus_fraction_specific_gravity : null;
+        $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->plus_fraction_boiling_temperature !== "" ? $request->plus_fraction_boiling_temperature : null;
+        $asphaltenes_d_precipitated_analysis->correlation = $request->correlation !== "" ? $request->correlation : null;
+        $asphaltenes_d_precipitated_analysis->critical_temperature = $request->critical_temperature !== "" ? $request->critical_temperature : null;
+        $asphaltenes_d_precipitated_analysis->critical_pressure = $request->critical_pressure !== "" ? $request->critical_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_reservoir_pressure = $request->density_at_reservoir_pressure !== "" ? $request->density_at_reservoir_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->density_at_bubble_pressure !== "" ? $request->density_at_bubble_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->density_at_atmospheric_pressure !== "" ? $request->density_at_atmospheric_pressure : null;
+        $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->reservoir_temperature !== "" ? $request->reservoir_temperature : null;
+        $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->current_reservoir_pressure !== "" ? $request->current_reservoir_pressure : null;
+        $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->fluid_api_gravity !== "" ? $request->fluid_api_gravity : null;
 
         $asphaltenes_d_precipitated_analysis->initial_temperature = 400;
-        $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->input('number_of_temperatures');
-        $asphaltenes_d_precipitated_analysis->temperature_delta = $request->input('temperature_delta');
+        $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->number_of_temperatures !== "" ? $request->number_of_temperatures : null;
+        $asphaltenes_d_precipitated_analysis->temperature_delta = $request->temperature_delta !== "" ? $request->temperature_delta : null;
 
-        $asphaltenes_d_precipitated_analysis->asphaltene_particle_diameter = $request->input('asphaltene_particle_diameter');
-        $asphaltenes_d_precipitated_analysis->asphaltene_molecular_weight = $request->input('asphaltene_molecular_weight');
-        $asphaltenes_d_precipitated_analysis->asphaltene_apparent_density = $request->input('asphaltene_apparent_density');
+        $asphaltenes_d_precipitated_analysis->asphaltene_particle_diameter = $request->asphaltene_particle_diameter !== "" ? $request->asphaltene_particle_diameter : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene_molecular_weight = $request->asphaltene_molecular_weight !== "" ? $request->asphaltene_molecular_weight : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene_apparent_density = $request->asphaltene_apparent_density !== "" ? $request->asphaltene_apparent_density : null;
 
-        $asphaltenes_d_precipitated_analysis->saturate = $request->input('saturate');
-        $asphaltenes_d_precipitated_analysis->aromatic = $request->input('aromatic');
-        $asphaltenes_d_precipitated_analysis->resine = $request->input('resine');
-        $asphaltenes_d_precipitated_analysis->asphaltene = $request->input('asphaltene');
+        $asphaltenes_d_precipitated_analysis->saturate = $request->saturate !== "" ? $request->saturate : null;
+        $asphaltenes_d_precipitated_analysis->aromatic = $request->aromatic !== "" ? $request->aromatic : null;
+        $asphaltenes_d_precipitated_analysis->resine = $request->resine !== "" ? $request->resine : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene = $request->asphaltene !== "" ? $request->asphaltene : null;
 
         $asphaltenes_d_precipitated_analysis->include_elemental_asphaltene_analysis = ($request->input('elemental_data_selector') === 'on') ? true : false;
 
@@ -443,31 +443,31 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->scenario_id = $scenary->id;
         $asphaltenes_d_precipitated_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
 
-        $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->input('plus_fraction_molecular_weight');
-        $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->input('plus_fraction_specific_gravity');
-        $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->input('plus_fraction_boiling_temperature');
-        $asphaltenes_d_precipitated_analysis->correlation = $request->input('correlation');
-        $asphaltenes_d_precipitated_analysis->critical_temperature = $request->input('critical_temperature');
-        $asphaltenes_d_precipitated_analysis->critical_pressure = $request->input('critical_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_reservoir_pressure = $request->input('density_at_reservoir_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->input('density_at_bubble_pressure');
-        $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->input('density_at_atmospheric_pressure');
-        $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->input('reservoir_temperature');
-        $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->input('current_reservoir_pressure');
-        $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->input('fluid_api_gravity');
+        $asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight = $request->plus_fraction_molecular_weight !== "" ? $request->plus_fraction_molecular_weight : null;
+        $asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity = $request->plus_fraction_specific_gravity !== "" ? $request->plus_fraction_specific_gravity : null;
+        $asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature = $request->plus_fraction_boiling_temperature !== "" ? $request->plus_fraction_boiling_temperature : null;
+        $asphaltenes_d_precipitated_analysis->correlation = $request->correlation !== "" ? $request->correlation : null;
+        $asphaltenes_d_precipitated_analysis->critical_temperature = $request->critical_temperature !== "" ? $request->critical_temperature : null;
+        $asphaltenes_d_precipitated_analysis->critical_pressure = $request->critical_pressure !== "" ? $request->critical_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_reservoir_pressure = $request->density_at_reservoir_pressure !== "" ? $request->density_at_reservoir_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->density_at_bubble_pressure !== "" ? $request->density_at_bubble_pressure : null;
+        $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->density_at_atmospheric_pressure !== "" ? $request->density_at_atmospheric_pressure : null;
+        $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->reservoir_temperature !== "" ? $request->reservoir_temperature : null;
+        $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->current_reservoir_pressure !== "" ? $request->current_reservoir_pressure : null;
+        $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->fluid_api_gravity !== "" ? $request->fluid_api_gravity : null;
 
         $asphaltenes_d_precipitated_analysis->initial_temperature = 400;
-        $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->input('number_of_temperatures');
-        $asphaltenes_d_precipitated_analysis->temperature_delta = $request->input('temperature_delta');
+        $asphaltenes_d_precipitated_analysis->number_of_temperatures = $request->number_of_temperatures !== "" ? $request->number_of_temperatures : null;
+        $asphaltenes_d_precipitated_analysis->temperature_delta = $request->temperature_delta !== "" ? $request->temperature_delta : null;
 
-        $asphaltenes_d_precipitated_analysis->asphaltene_particle_diameter = $request->input('asphaltene_particle_diameter');
-        $asphaltenes_d_precipitated_analysis->asphaltene_molecular_weight = $request->input('asphaltene_molecular_weight');
-        $asphaltenes_d_precipitated_analysis->asphaltene_apparent_density = $request->input('asphaltene_apparent_density');
+        $asphaltenes_d_precipitated_analysis->asphaltene_particle_diameter = $request->asphaltene_particle_diameter !== "" ? $request->asphaltene_particle_diameter : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene_molecular_weight = $request->asphaltene_molecular_weight !== "" ? $request->asphaltene_molecular_weight : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene_apparent_density = $request->asphaltene_apparent_density !== "" ? $request->asphaltene_apparent_density : null;
 
-        $asphaltenes_d_precipitated_analysis->saturate = $request->input('saturate');
-        $asphaltenes_d_precipitated_analysis->aromatic = $request->input('aromatic');
-        $asphaltenes_d_precipitated_analysis->resine = $request->input('resine');
-        $asphaltenes_d_precipitated_analysis->asphaltene = $request->input('asphaltene');
+        $asphaltenes_d_precipitated_analysis->saturate = $request->saturate !== "" ? $request->saturate : null;
+        $asphaltenes_d_precipitated_analysis->aromatic = $request->aromatic !== "" ? $request->aromatic : null;
+        $asphaltenes_d_precipitated_analysis->resine = $request->resine !== "" ? $request->resine : null;
+        $asphaltenes_d_precipitated_analysis->asphaltene = $request->asphaltene !== "" ? $request->asphaltene : null;
 
         $asphaltenes_d_precipitated_analysis->include_elemental_asphaltene_analysis = ($request->input('elemental_data_selector') === 'on') ? true : false;
 

@@ -1388,6 +1388,7 @@
             validate_components_data(components_data);
 
             if (emptyValues) {
+                $("#loading_icon").hide();
                 validationMessages.push(true);
                 showFrontendErrors(validationMessages);
             } else {
@@ -1395,10 +1396,9 @@
                 $("#asphalteneForm").submit();
             }
         } else {
+            $("#loading_icon").hide();
             showFrontendErrors(validationMessages);
         }
-
-        $("#loading_icon").hide();
     }
 
     /* tabStep
@@ -1438,6 +1438,7 @@
     * Submits the form when the confirmation button from the modal is clicked
     */
     function saveForm() {
+        $("#loading_icon").show();
         $("#only_s").val("save");
         $("#asphalteneForm").submit();
     }

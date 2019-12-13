@@ -301,14 +301,16 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-6" align="left">
-      <button type="button" class="btn btn-success" onclick="verifyDrilling('save');">Save</button>
-      <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
-   </div>
-   <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
-      <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-      <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
+   <div class="col-md-12 scenario-buttons">
+      <div align="left">
+         <button type="button" class="btn btn-success" onclick="verifyDrilling('save');">Save</button>
+         <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+      </div>
+      <div align="right">
+         <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+         <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+         <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
+      </div>
    </div>
 </div>
 {!! Form::Close() !!}

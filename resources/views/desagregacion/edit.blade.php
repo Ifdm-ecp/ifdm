@@ -613,21 +613,23 @@
          <div class="row">
             {!! Form::hidden('hidraulic_units_data_table', '', array('id' => 'hidraulic_units_data_table')) !!}
             {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
-            <div class="col-md-6" align="left">
-               <button type="button" class="btn btn-success" onclick="verifyDisaggregation('save');">Save</button>
-               <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+            <div class="col-md-12 scenario-buttons">
+               <div align="left">
+                  <button type="button" class="btn btn-success" onclick="verifyDisaggregation('save');">Save</button>
+                  <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+               </div>
+               <div align="right">
+                  <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+                  <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+                  <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDisaggregation('run');" id="run_calc">Run</button>
+               </div>
             </div>
-            <div class="col-md-6" align="right">
-               <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
-               <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-               <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDisaggregation('run');" id="run_calc">Run</button>
-               {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
-               {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
-               <div id="loading" style="display:none;"></div>
-               &nbsp;
-               
-               {!! Form::Close() !!}
-            </div>
+            {!! Form::hidden('unidades_table', '', array('id' => 'unidades_table')) !!}
+            {!! Form::hidden('unidades_table_hidden', '', array('id' => 'unidades_table_hidden')) !!}
+            <div id="loading" style="display:none;"></div>
+            &nbsp;
+            
+            {!! Form::Close() !!}
          </div>
       </div>
    </div>

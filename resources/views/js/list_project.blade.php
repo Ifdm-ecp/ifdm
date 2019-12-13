@@ -87,6 +87,7 @@
                             currentString = currentString.replace(/yyy/g, aux);
                             k += currentString;
                         });
+                        
                         $('#proyectos').html("<table class=\"table table-striped\"><thead><tr><th>Name</th><th>Date</th><th>Actions</th></tr></thead>" + k + "</table>");
                         $("#proyectos").show();
                     });

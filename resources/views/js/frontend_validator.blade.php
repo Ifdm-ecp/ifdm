@@ -32,6 +32,10 @@ function multiValidatorHandsonTable(value, ruleset)
         isValid = (value > set.minw);
         return isValid;
         break;
+      case "selection":
+        isValid =(set.selections.includes(value));
+        return isValid;
+        break;
     }
   });
 
@@ -79,6 +83,12 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
       case "minw":
         if (value <= set.minw) {
           isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " must be greater than " + set.minw];
+          return false;
+        }
+        break;
+      case "selection":
+        if (!set.selections.includes(value)) {
+          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a value that is not part of the allowed selection"];
           return false;
         }
         break;

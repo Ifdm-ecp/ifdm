@@ -127,8 +127,9 @@
                            <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group">
-                                 <h5><b>Total Zi </b><span class="label label-default" id="total_zi"></span></h5>
+                                    <h5><b>Total Zi </b><span class="label label-default" id="total_zi"></span></h5>
                                  </div>
+                                 {!! $errors->first('sum_zi_components_table', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
                            </div>
                            {!! Form::hidden('value_components_table', '', array('class' => 'form-control', 'id' => 'value_components_table')) !!}
@@ -165,6 +166,7 @@
                                                 {!! Form::text('plus_fraction_molecular_weight',$asphaltenes_d_precipitated_analysis->plus_fraction_molecular_weight, ['placeholder' => 'lb/lbmol', 'class' =>'form-control', 'id' => 'plus_fraction_molecular_weight']) !!}
                                                 <span class="input-group-addon" id="basic-addon2">lb/lbmol</span>
                                              </div>
+                                             {!! $errors->first('plus_fraction_molecular_weight', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                           </div>
                                        </div>
                                        <div class="col-md-6">
@@ -179,6 +181,7 @@
                                                 {!! Form::text('plus_fraction_specific_gravity',$asphaltenes_d_precipitated_analysis->plus_fraction_specific_gravity, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'plus_fraction_specific_gravity']) !!}
                                                 <span class="input-group-addon" id="basic-addon2">-</span>
                                              </div>
+                                             {!! $errors->first('plus_fraction_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                           </div>
                                        </div>
                                     </div>
@@ -196,6 +199,7 @@
                                                 {!! Form::text('plus_fraction_boiling_temperature',$asphaltenes_d_precipitated_analysis->plus_fraction_boiling_temperature, ['placeholder' => 'R', 'class' =>'form-control', 'id' => 'plus_fraction_boiling_temperature']) !!}
                                                 <span class="input-group-addon" id="basic-addon2">R</span>
                                              </div>
+                                             {!! $errors->first('plus_fraction_boiling_temperature', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                           </div>
                                        </div>
                                     </div>
@@ -206,13 +210,14 @@
                                           <div class="form-group">
                                              {!! Form::label('correlation_label', 'Correlation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                                              {!! Form::select('correlation', [
-                                             ' ' => ' ',
-                                             'Twu' => 'Twu',
-                                             'Lee-Kesler' => 'Lee-Kesler: 60 < MW < 650 & Tbr > 0.8',
-                                             'Kavett' => 'Cavett',
-                                             'Pedersen' => 'Pedersen',
-                                             'Riazzi Daubert' => 'Riazzi Daubert: 540 R < Tb < 1110 & 70 < MW < 700'],$asphaltenes_d_precipitated_analysis->correlation, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'correlation')
+                                                ' ' => ' ',
+                                                'Twu' => 'Twu',
+                                                'Lee-Kesler' => 'Lee-Kesler: 60 < MW < 650 & Tbr > 0.8',
+                                                'Kavett' => 'Cavett',
+                                                'Pedersen' => 'Pedersen',
+                                                'Riazzi Daubert' => 'Riazzi Daubert: 540 R < Tb < 1110 & 70 < MW < 700'],$asphaltenes_d_precipitated_analysis->correlation, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'correlation')
                                              ) !!}
+                                             {!! $errors->first('correlation', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                           </div>
                                        </div>
                                        <div class="col-md-6">
@@ -282,6 +287,7 @@
                               {!! Form::text('critical_temperature',$asphaltenes_d_precipitated_analysis->critical_temperature, ['placeholder' => '°F', 'class' =>'form-control', 'id' => 'critical_temperature']) !!}
                               <span class="input-group-addon" id="basic-addon2">°F</span>
                            </div>
+                           {!! $errors->first('critical_temperature', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -296,6 +302,7 @@
                               {!! Form::text('critical_pressure',$asphaltenes_d_precipitated_analysis->critical_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'critical_pressure']) !!}
                               <span class="input-group-addon" id="basic-addon2">psi</span>
                            </div>
+                           {!! $errors->first('critical_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -312,6 +319,7 @@
                               {!! Form::text('density_at_reservoir_pressure',$asphaltenes_d_precipitated_analysis->density_at_reservoir_pressure, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'density_at_reservoir_pressure']) !!}
                               <span class="input-group-addon" id="basic-addon2">g/cc</span>
                            </div>
+                           {!! $errors->first('density_at_reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -326,6 +334,7 @@
                               {!! Form::text('density_at_bubble_pressure',$asphaltenes_d_precipitated_analysis->density_at_bubble_pressure, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'density_at_bubble_pressure']) !!}
                               <span class="input-group-addon" id="basic-addon2">g/cc</span>
                            </div>
+                           {!! $errors->first('density_at_bubble_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -342,6 +351,7 @@
                               {!! Form::text('density_at_atmospheric_pressure',$asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'density_at_atmospheric_pressure']) !!}
                               <span class="input-group-addon" id="basic-addon2">g/cc</span>
                            </div>
+                           {!! $errors->first('density_at_atmospheric_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -356,6 +366,7 @@
                               {!! Form::text('reservoir_temperature',$asphaltenes_d_precipitated_analysis->reservoir_temperature, ['placeholder' => '°F', 'class' =>'form-control', 'id' => 'reservoir_temperature']) !!}
                               <span class="input-group-addon" id="basic-addon2">°F</span>
                            </div>
+                           {!! $errors->first('reservoir_temperature', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -372,6 +383,7 @@
                               {!! Form::text('current_reservoir_pressure',$asphaltenes_d_precipitated_analysis->current_reservoir_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_reservoir_pressure']) !!}
                               <span class="input-group-addon" id="basic-addon2">psi</span>
                            </div>
+                           {!! $errors->first('current_reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -386,6 +398,7 @@
                               {!! Form::text('fluid_api_gravity',$asphaltenes_d_precipitated_analysis->fluid_api_gravity, ['placeholder' => '°API', 'class' =>'form-control', 'id' => 'fluid_api_gravity']) !!}
                               <span class="input-group-addon" id="basic-addon2">°API</span>
                            </div>
+                           {!! $errors->first('fluid_api_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -411,6 +424,7 @@
                               {!! Form::text('number_of_temperatures',$asphaltenes_d_precipitated_analysis->number_of_temperatures, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'number_of_temperatures']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('number_of_temperatures', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -425,6 +439,7 @@
                               {!! Form::text('temperature_delta',$asphaltenes_d_precipitated_analysis->temperature_delta, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'temperature_delta']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('temperature_delta', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -447,6 +462,7 @@
                               {!! Form::text('asphaltene_particle_diameter',$asphaltenes_d_precipitated_analysis->asphaltene_particle_diameter, ['placeholder' => 'nm', 'class' =>'form-control', 'id' => 'asphaltene_particle_diameter']) !!}
                               <span class="input-group-addon" id="basic-addon2">nm</span>
                            </div>
+                           {!! $errors->first('asphaltene_particle_diameter', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -461,6 +477,7 @@
                               {!! Form::text('asphaltene_molecular_weight',$asphaltenes_d_precipitated_analysis->asphaltene_molecular_weight, ['placeholder' => 'lb/lbm', 'class' =>'form-control', 'id' => 'asphaltene_molecular_weight']) !!}
                               <span class="input-group-addon" id="basic-addon2">lb/lbm</span>
                            </div>
+                           {!! $errors->first('asphaltene_molecular_weight', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -477,6 +494,7 @@
                               {!! Form::text('asphaltene_apparent_density',$asphaltenes_d_precipitated_analysis->asphaltene_apparent_density, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'asphaltene_apparent_density']) !!}
                               <span class="input-group-addon" id="basic-addon2">g/cc</span>
                            </div>
+                           {!! $errors->first('asphaltene_apparent_density', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -499,6 +517,7 @@
                               {!! Form::text('saturate',$asphaltenes_d_precipitated_analysis->saturate, ['placeholder' => '% Weight', 'class' =>'form-control sara_data', 'id' => 'saturate']) !!}
                               <span class="input-group-addon" id="basic-addon2">% Weight</span>
                            </div>
+                           {!! $errors->first('saturate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -513,6 +532,7 @@
                               {!! Form::text('aromatic',$asphaltenes_d_precipitated_analysis->aromatic, ['placeholder' => '% Weight', 'class' =>'form-control sara_data', 'id' => 'aromatic']) !!}
                               <span class="input-group-addon" id="basic-addon2">% Weight</span>
                            </div>
+                           {!! $errors->first('aromatic', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -529,6 +549,7 @@
                               {!! Form::text('resine',$asphaltenes_d_precipitated_analysis->resine, ['placeholder' => '% Weight', 'class' =>'form-control sara_data', 'id' => 'resine']) !!}
                               <span class="input-group-addon" id="basic-addon2">% Weight</span>
                            </div>
+                           {!! $errors->first('resine', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -543,6 +564,7 @@
                               {!! Form::text('asphaltene',$asphaltenes_d_precipitated_analysis->asphaltene, ['placeholder' => '% Weight', 'class' =>'form-control sara_data', 'id' => 'asphaltene']) !!}
                               <span class="input-group-addon" id="basic-addon2">% Weight</span>
                            </div>
+                           {!! $errors->first('asphaltene', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -551,6 +573,7 @@
                         <div class="form-group">
                            <h5><b>Total SARA </b><span class="label label-default" id="total_sara"></span></h5>
                         </div>
+                        {!! $errors->first('sara_calc', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                      </div>
                   </div>
                </div>
@@ -580,6 +603,7 @@
                               {!! Form::text('hydrogen_carbon_ratio',$asphaltenes_d_precipitated_analysis->hydrogen_carbon_ratio, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'hydrogen_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('hydrogen_carbon_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -594,6 +618,7 @@
                               {!! Form::text('oxygen_carbon_ratio',$asphaltenes_d_precipitated_analysis->oxygen_carbon_ratio, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'oxygen_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('oxygen_carbon_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -610,6 +635,7 @@
                               {!! Form::text('nitrogen_carbon_ratio',$asphaltenes_d_precipitated_analysis->nitrogen_carbon_ratio, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'nitrogen_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('nitrogen_carbon_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -624,6 +650,7 @@
                               {!! Form::text('sulphure_carbon_ratio',$asphaltenes_d_precipitated_analysis->sulphure_carbon_ratio, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'sulphure_carbon_ratio']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('sulphure_carbon_ratio', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>
@@ -640,6 +667,7 @@
                               {!! Form::text('fa_aromaticity',$asphaltenes_d_precipitated_analysis->fa_aromaticity, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'fa_aromaticity']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('fa_aromaticity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                      <div class="col-md-6">
@@ -654,6 +682,7 @@
                               {!! Form::text('vc_molar_volume',$asphaltenes_d_precipitated_analysis->vc_molar_volume, ['placeholder' => '-', 'class' =>'form-control elemental_data', 'id' => 'vc_molar_volume']) !!}
                               <span class="input-group-addon" id="basic-addon2">-</span>
                            </div>
+                           {!! $errors->first('vc_molar_volume', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
                   </div>

@@ -70,9 +70,9 @@ class precipitated_asphaltene_analysis_request extends Request
             'asphaltene_apparent_density' => 'required|numeric|between:0.5,2',
             'saturate' => 'required|numeric|between:0,100',
             'aromatic' => 'required|numeric|between:0,100',
-            'sara_calc' => 'required|numeric|between:99,101',
             'resine' => 'required|numeric|between:0,100',
             'asphaltene' => 'required|numeric|between:0,100',
+            'sara_calc' => 'required|numeric|between:99,101',
             'hydrogen_carbon_ratio' => 'required_if:elemental_data_selector,1,on|numeric',
             'oxygen_carbon_ratio' => 'required_if:elemental_data_selector,1,on|numeric',
             'nitrogen_carbon_ratio' => 'required_if:elemental_data_selector,1,on|numeric',
@@ -84,12 +84,6 @@ class precipitated_asphaltene_analysis_request extends Request
             // 'bubble_point_data_range_flag' => 'in:1',
             'only_s' => 'required|in:run,save',
         ];
-
-        $value_bubble_point_table = json_decode(str_replace(",[null,null]", "", $this->input("value_bubble_point_table")));
-        $temperature = [];
-        foreach ($value_bubble_point_table as $value) {
-            array_push($temperature, str_replace(",", ".", $value[0]));
-        }
 
         if (is_array($this->components)) {
             for ($i = 0; $i < count($this->components); $i++) {
@@ -176,7 +170,7 @@ class precipitated_asphaltene_analysis_request extends Request
     public function messages()
     {
         $messages = [
-            'components.required' => 'The components is required.',
+            'components.required' => 'The components selection is required.',
             'components.array' => 'The data structure containing the components selection is incorrect.',
             'array_components_table.required' => 'The table components data is empty. Please check your data.',
             'array_components_table.array' => 'The data structure containing the components data table contents is incorrect.',
@@ -214,6 +208,7 @@ class precipitated_asphaltene_analysis_request extends Request
             'fa_aromaticity.required_if' => 'The FA aromaticity is required.',
             'vc_molar_volume.required_if' => 'The VC molar volume is required.',
 
+            'sum_zi_components_table.numeric' => 'The sum of Zi in components table must be a number.',
             'plus_fraction_molecular_weight.numeric' => 'The plus fraction molecular weight must be a number.',
             'plus_fraction_specific_gravity.numeric' => 'The plus fraction specific gravity must be a number.',
             'plus_fraction_boiling_temperature.numeric' => 'The plus fraction boiling temperature must be a number.',
@@ -245,7 +240,7 @@ class precipitated_asphaltene_analysis_request extends Request
             'number_of_temperatures.between' => 'The number of temperatures is not between :min - :max.',
             'temperature_delta.between' => 'The temperature delta is not between :min - :max.',
 
-            'sara_calc.between' => 'The SARA calculation is not between :min - :max.',
+            'sara_calc.between' => 'The SARA calculation must be 100+-1.',
 
             'plus_fraction_molecular_weight.between' => 'The plus fraction molecular weight is not between :min - :max.',
             'plus_fraction_specific_gravity.between' => 'The plus fraction specific gravity is not between :min - :max.',
@@ -274,13 +269,13 @@ class precipitated_asphaltene_analysis_request extends Request
             'binary_coefficients_range_flag.in' => 'All the Binary Interaction Coefficients Data must be between -10 and 10.',
             'bubble_point_data_range_flag.in' => 'All Temperature and Bubble Point data must be positive numbers, please check your Bubble Point Table.',
 
-            'saturate.between' => 'The saturated is not between :min - :max.',
-            'aromatic.between' => 'The aromatics is not between :min - :max.',
-            'resine.between' => 'The resines is not between :min - :max.',
-            'asphaltene.between' => 'The asphaltenes is not between :min - :max.',
+            'saturate.between' => 'The saturate is not between :min - :max.',
+            'aromatic.between' => 'The aromatic is not between :min - :max.',
+            'resine.between' => 'The resine is not between :min - :max.',
+            'asphaltene.between' => 'The asphaltene is not between :min - :max.',
 
-            'aromatic.not_in' => 'The aromatics must be greater than 0.',
-            'resine.not_in' => 'The resines must be greater than 0.',
+            'aromatic.not_in' => 'The aromatic must be greater than 0.',
+            'resine.not_in' => 'The resine must be greater than 0.',
         ];
 
         if (is_array($this->components)) {

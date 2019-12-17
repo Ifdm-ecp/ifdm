@@ -1,5 +1,4 @@
-{{-- <script src="{{ asset('js/highcharts.js') }}"></script> --}}
-{{-- <script src="http://code.highcharts.com/modules/exporting.js"></script> --}}
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script src="{{ asset('js/handsontable/dist/handsontable.full.js') }}"></script>
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
 <script type="text/javascript">
@@ -22,23 +21,44 @@
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             stretchH: 'all',
-
             colWidths: [150, 150],
+            afterChange: function(changes, source) {
+                var components_table = clean_table_data("components_table");
+                var sumZi = 0;
 
+                for (var i = 0; i < components_table.length; i++) {
+                    if (components_table[i] != undefined) {
+                        if (components_table[i][1] != "" && components_table[i][1] != undefined && components_table[i][1] != null && $.isNumeric(components_table[i][1])) {
+                            sumZi += components_table[i][1];
+                        }
+                    }
+                }
+
+                sumZi = parseFloat(sumZi.toFixed(2));
+
+                if (sumZi >= 0.9 && sumZi <= 1.1) {
+                    $("#total_zi").attr('class', 'label label-success');
+                } else {
+                    $("#total_zi").attr('class', 'label label-danger');
+                }
+
+                $("#total_zi").html(sumZi);
+            },
             columns: [{
-                title: "Component",
+                title: components_table_ruleset[0].column,
                 data: 0,
                 type: 'text',
-                readOnly: true
+                readOnly: true,
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[0])); }
             },
-                {
-                    title: "Zi [0-1]",
-                    data: 1,
-                    type: 'numeric',
-                    format: '0[.]0000000'
-                },
+            {
+                title: components_table_ruleset[1].column,
+                data: 1,
+                type: 'numeric',
+                format: '0[.]0000000',
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[1])); }
+            },
             ]
-
         });
 
         $('.save_table').on('click', function () {
@@ -51,7 +71,7 @@
 
             //Validar rangos de tabla components
             validate_components_data(components_data);
-            
+
             //Validar datos de tabla antes de dejar guardar los datos
             validate_table([components_data], ["components table"], [["text", "numeric"]]);
         });
@@ -68,6 +88,12 @@
             validate_components_data(components_data);
         });
 
+        //Ayuda visual para la sumatoria de los elementos del análisis SARA
+        $(".sara_data").change(function()
+        {
+            calculate_total_sara();
+        });
+
         //Cuando el selector de componentes cambia, se debe actualizar la tabla compoentnes en la primera columna.
         $("#components").change(function (e) {
             var hot = $('#components_table').handsontable('getInstance');
@@ -78,32 +104,26 @@
             zi = hot.getSourceDataAtCol(1);
             component = hot.getSourceDataAtCol(0);
 
-            //Ligar los valores de zi a los componentes (antes de cambiar el selector)
+            //Ligar el valor numerico de zi al componente
             for (i = 0; i < component.length; i++) {
                 items [component[i]] = zi[i];
             }
 
-            //Segun los nuevos componentes que se escogieron, armar un vector con los datos antiguos de Zi
+            //Como se deben mantener los datos de las filas en la tabla, asi se cambien los componentes, se recorre
+            // la tabla y se guarda para volver a cargar.
             if (components) {
                 for (i = 0; i < components.length; i++) {
-                    item = {}
+                    item = {};
                     item [0] = components[i];
-                    item [1] = items[components[i]];
+                    item [1] = items[components[i]] !== undefined ? items[components[i]] : "";
 
                     dataComponents.push(item);
                 }
             }
 
-
             hot.updateSettings({
                 data: dataComponents
             });
-        });
-
-        //Ayuda visual para la sumatoria de los elementos del análisis SARA
-        $(".sara_data").change(function()
-        {
-            calculate_total_sara();
         });
         
         var asphaltenes_d_stability_analysis_id = <?php echo json_encode($asphaltenes_d_stability_analysis->id); ?>;
@@ -163,6 +183,48 @@
         return cleaned_data;
     }
 
+    //Llamar cada vez que se necesiten validar los datos de la tabla.
+    //Se necesita indicar: id del div de la tabla, el nombre de la tabla y un array con el tipo de dato de cada columna(text y numeric)
+    function validate_table(table_div_id, table_name, column_types) {
+        container = $("#" + table_div_id); //Div de la tabla
+        var table_data = container.handsontable('getData');
+
+        var number_rows = table_data.length;
+
+        var flag_numeric = false;
+        var flag_value_empty = false;
+
+        var message_empty = null;
+        var message_numeric = null;
+        var message_value_empty = null;
+
+        var final_message = null;
+        if (number_rows > 0) {
+            var number_columns = table_data[0].length;
+        } else {
+            message_empty = "The table " + table_name + " is empty. Please check your data";
+            return [message_empty];
+        }
+
+        for (var i = 0; i < number_columns; i++) {
+            for (var j = 0; j < number_rows; j++) {
+                if (column_types[i] == "numeric") {
+                    if (!$.isNumeric(table_data[j][i])) {
+                        message_numeric = "Some data for the table " + table_name + " must be numeric. Please check your data" + "<br>";
+                        flag_numeric = true;
+                    }
+                    if (table_data[j][i] == null || table_data[j][i] === "") {
+                        message_value_empty = "There's missing information for the table " + table_name + ". Please check your data";
+                        flag_value_empty = true;
+                    }
+                }
+            }
+        }
+
+        final_message = message_numeric + message_value_empty;
+        return [final_message];
+    }
+
     function calculate_total_sara()
     {
         var saturate_value = isNaN(parseFloat($("#saturated").val())) ? 0 : parseFloat($("#saturated").val());
@@ -198,6 +260,142 @@
 
         $("#sum_zi_components_table").val(sum_zi);
         $("#zi_range_flag_components_table").val(zi_range_flag);
+    }
 
+    function verifyAsphaltene(action) {
+        // Loading
+        $("#loading_icon").show();
+
+        // Boolean for empty values for the save button
+        var emptyValues = false;
+        // Title tab for modal errors
+        var titleTab = "";
+        var tabTitle = "";
+        //Saving tables...
+        var validationMessages = [];
+        var validationFunctionResult = [];
+
+        // Validating Components data
+        tabTitle = "Section: Components Data";
+
+        var select_components_data = $("#components").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_components_data, components_select_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (select_components_data === null || select_components_data === "")) ? true: emptyValues;
+
+        var passedSelector = false;
+
+        if (titleTab === "" && select_components_data !== null) {
+            passedSelector = true;
+        }
+
+        var components_data = clean_table_data("components_table");
+        tableValidator = validateTable("Components Data", components_data, components_table_ruleset, action);
+        if (tableValidator.length > 0) {
+            if (titleTab == "") {
+                titleTab = "Section: Components Data";
+                validationMessages = validationMessages.concat(titleTab);
+            }
+            validationMessages = validationMessages.concat(tableValidator);
+        } else if (components_data.length > 0) {
+            var sumZi = 0;
+
+            for (var i = 0; i < components_data.length; i++) {
+                sumZi += components_data[i][1];
+            }
+
+            sumZi = parseFloat(sumZi.toFixed(2));
+
+            if (sumZi < 0.9 || sumZi > 1.1) {
+                if (titleTab == "") {
+                    titleTab = "Section: Components Data";
+                    validationMessages = validationMessages.concat(titleTab);
+                }
+                validationMessages = validationMessages.concat("The total sum for the Zi in the Components Data table is out of the numeric range [0.9, 1.1]");
+            }
+        }
+
+        // Validating SARA analysis
+        titleTab = "";
+        tabTitle = "Section: SARA Analysis";
+
+        var saturate = $("#saturated").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, saturate, sara_section_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (saturate === null || saturate === "")) ? true: emptyValues;
+
+        var aromatic = $("#aromatics").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, aromatic, sara_section_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (aromatic === null || aromatic === "")) ? true: emptyValues;
+
+        var resine = $("#resines").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, resine, sara_section_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (resine === null || resine === "")) ? true: emptyValues;
+
+        var asphaltene = $("#asphaltenes").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene, sara_section_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene === null || asphaltene === "")) ? true: emptyValues;
+    
+        // Validating Saturation data
+        titleTab = "";
+        tabTitle = "Section: Saturation Data";
+
+        var reservoir_initial_pressure = $("#reservoir_initial_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, reservoir_initial_pressure, saturate_section_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (reservoir_initial_pressure === null || reservoir_initial_pressure === "")) ? true: emptyValues;
+
+        var bubble_pressure = $("#bubble_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, bubble_pressure, saturate_section_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (bubble_pressure === null || bubble_pressure === "")) ? true: emptyValues;
+
+        var density_at_reservoir_temperature = $("#density_at_reservoir_temperature").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, density_at_reservoir_temperature, saturate_section_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (density_at_reservoir_temperature === null || density_at_reservoir_temperature === "")) ? true: emptyValues;
+
+        var api_gravity = $("#api_gravity").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, api_gravity, saturate_section_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (api_gravity === null || api_gravity === "")) ? true: emptyValues;
+
+        if (validationMessages.length < 1) {
+            $("#value_components_table").val(JSON.stringify(components_data));
+            validate_components_data(components_data);
+
+            if (emptyValues) {
+                $("#loading_icon").hide();
+                validationMessages.push(true);
+                showFrontendErrors(validationMessages);
+            } else {
+                $("#only_s").val("run");
+                $("#asphalteneForm").submit();
+            }
+        } else {
+            $("#loading_icon").hide();
+            showFrontendErrors(validationMessages);
+        }
+    }
+
+    /* saveForm
+    * Submits the form when the confirmation button from the modal is clicked
+    */
+    function saveForm() {
+        $("#loading_icon").show();
+        $("#only_s").val("save");
+        $("#asphalteneForm").submit();
     }
 </script>

@@ -296,77 +296,83 @@ asphaltenes_tab_ruleset = [
     ]
   },
   {
-    column: "Saturate",
+    column: "Saturated",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "rangew", minw: 0, maxw: 100}
     ]
   },
   {
-    column: "Aromatic",
+    column: "Aromatics",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "rangew", minw: 0, maxw: 100}
     ]
   },
   {
-    column: "Resine",
+    column: "Resines",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "rangew", minw: 0, maxw: 100}
     ]
   },
   {
-    column: "Asphaltene",
+    column: "Asphaltenes",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "rangew", minw: 0, maxw: 100}
     ]
   },
   {
     column: "Hydrogen Carbon Ratio",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
     column: "Oxygen Carbon Ratio",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
     column: "Nitrogen Carbon Ratio",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
     column: "Sulphure Carbon Ratio",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
     column: "FA Aromaticity",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
     column: "VC Molar Volume",
     rules: [
       {rule: "required"},
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000}
     ]
   }
 ];

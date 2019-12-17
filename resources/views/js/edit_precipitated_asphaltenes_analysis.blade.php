@@ -819,8 +819,6 @@
 
         var zi_plus_data = components_data[nc - 1][1];
 
-        components_data.splice(-2);
-
         var correlation_select = $("#correlation").val(); //leer selector *Karen
 
         if (mw && sg && tb && zi_plus_data && !isNaN(mw) && !isNaN(sg) && !isNaN(tb) && !isNaN(mw) && !isNaN(zi_plus_data) && correlation_select != ' ') {
@@ -852,13 +850,15 @@
                 }
                 else {
                     sum = 0;
-                    zplus = components_data[nc - 1][2]; //Valor zi de plus+ en components data
-                    for (var i = 0; i < nc; i++) {
-                        dummy = components_data[8 + i][2];
-                        dummy3 = components_data[8 + i][3];
-                        dummy3 = components_data[8 + i][8];
+                    zplus = components_data[nc - 1][1]; //Valor zi de plus+ en components data
+                    for (var i = 0; i < nc - 1; i++) {
+                        dummy = components_data[i][1];
+                        dummy2 = components_data[i][2];
+                        dummy3 = components_data[i][8];
                         sum = sum + dummy * Math.pow(dummy2, 0.82053);
                     }
+
+                    sum = sum + zplus * Math.pow(mw, 0.82053);
 
                     kw = Math.pow((0.16637 * sg * sum / (zplus * mw)), -0.84573);
                     omega = -7.904 + 0.1352 * kw - 0.007465 * Math.pow(kw, 2) + 8.359 * tbr + (1.408 - 0.01063 * kw) / tbr;
@@ -872,21 +872,24 @@
                 dummy3 = tb * tb * tb * (0.0000000001 * (0.1685 + 1.6977 / (sg * sg)));
                 pcplus = Math.exp(8.3634 - (0.0566 / sg) - dummy + dummy2 - dummy3);
                 tbr = tb / tcplus;
+                
                 if (tbr < 0.8) {
-
                     num = -Math.log(pcplus / 14.7) + a1 + (a2 / tbr) + a3 * Math.log(tbr) + a4 * Math.pow(tbr, 6);
                     den = a5 + (a6 / tbr) + a7 * Math.log(tbr) + a8 * Math.pow(tbr, 6);
                     omega = num / den;
                 }
                 else {
                     sum = 0;
-                    zplus = components_data[nc - 1][2];
-                    for (var i = 0; i < nc; i++) {
-                        dummy = components_data[8 + i][2];
-                        dummy2 = components_data[8 + i][3];
-                        dummy3 = components_data[8 + i][8];
+                    zplus = components_data[nc - 1][1];
+                    for (var i = 0; i < nc - 1; i++) {
+                        dummy = components_data[i][1];
+                        dummy2 = components_data[i][2];
+                        dummy3 = components_data[i][8];
                         sum = sum + dummy * Math.pow(dummy2, 0.82053);
                     }
+                    
+                    sum = sum + zplus * Math.pow(mw, 0.82053);
+
                     kw = Math.pow((0.16637 * sg * sum / (zplus * mw)), -0.84573);
                     omega = -7.904 + 0.1352 * kw - 0.007465 * Math.pow(kw, 2) + 8.359 * tbr + (1.408 - 0.01063 * kw) / tbr;
                 }
@@ -908,8 +911,8 @@
                 dummy3 = (0.11047899 * 0.0000001) * sgapi * Math.pow(tbf, 2) - (0.48271599 * 0.0000001) * Math.pow(sgapi, 2) * tbf;
                 dummy4 = (0.13949619 * 0.000000001) * Math.pow(sgapi, 2) * Math.pow(tbf, 2);
                 pcplus = Math.pow(10, (dummy + dummy2 + dummy3 + dummy4));
-
                 tbr = tb / tcplus;
+
                 if (tbr < 0.8) {
                     num = -Math.log(pcplus / 14.7) + a1 + (a2 / tbr) + a3 * Math.log(tbr) + a4 * Math.pow(tbr, 6);
                     den = a5 + (a6 / tbr) + a7 * Math.log(tbr) + a8 * Math.pow(tbr, 6);
@@ -917,13 +920,16 @@
                 }
                 else {
                     sum = 0;
-                    zplus = components_data[nc - 1][2];
-                    for (var i = 0; i < nc; i++) {
-                        dummy = components_data[8 + i][2];
-                        dummy2 = components_data[8 + i][3];
-                        dummy3 = components_data[8 + i][8];
+                    zplus = components_data[nc - 1][1];
+                    for (var i = 0; i < nc - 1; i++) {
+                        dummy = components_data[i][1];
+                        dummy2 = components_data[i][2];
+                        dummy3 = components_data[i][8];
                         sum = sum + dummy * Math.pow(dummy2, 0.82053);
                     }
+
+                    sum = sum + zplus * Math.pow(mw, 0.82053);
+
                     kw = Math.pow((0.16637 * sg * sum / (zplus * mw)), -0.84573);
                     omega = -7.904 + 0.1352 * kw - 0.007465 * Math.pow(kw, 2) + 8.359 * tbr + (1.408 - 0.01063 * kw) / tbr;
                 }
@@ -949,10 +955,10 @@
                 }
                 else {
                     sum = 0;
-                    zplus = components_data[nc - 1][2];
+                    zplus = components_data[nc - 1][1];
                     for (var i = 0; i < nc - 1; i++) {
-                        dummy = components_data[8 + i][2];
-                        dummy2 = components_data[8 + i][3];
+                        dummy = components_data[i][1];
+                        dummy2 = mw;
                         sum = sum + dummy * dummy2;
                     }
 
@@ -966,7 +972,6 @@
 
             pch = -11.4 + 3.23 * mw - 0.0022 * Math.pow(mw, 2);
             zra = 0.19844 - 0.00877 * omega;
-
 
             plus_data = []; //Resultados *Karen -->aquí están todas las variables en orden a partir de mw. Para hacer los cálculos debe estar el valor de fracción molar (zi) en plus.
 

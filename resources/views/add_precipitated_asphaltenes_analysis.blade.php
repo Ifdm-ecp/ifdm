@@ -506,7 +506,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('saturate_label', 'Saturate') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('saturate_label', 'Saturated') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('saturate') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -521,7 +521,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('aromatic_label', 'Aromatic') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('aromatic_label', 'Aromatics') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('aromatic') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -538,7 +538,7 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('resine_label', 'Resine') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('resine_label', 'Resines') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('resine') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">
@@ -553,7 +553,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           {!! Form::label('asphaltene_label', 'Asphaltene') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                           {!! Form::label('asphaltene_label', 'Asphaltenes') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('asphaltene') ? 'has-error' : ''}}">
                               @if($advisor === "true")
                                  <span class="input-group-btn">

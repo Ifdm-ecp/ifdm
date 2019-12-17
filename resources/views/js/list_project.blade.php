@@ -20,6 +20,10 @@
         });
     }
 
+    function EscenarioError() {
+        $('#scenarioError').modal('show');
+    }
+
     $(document).ready(function() {
         $("#myModal").modal('show');
         //Fecha actual

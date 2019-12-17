@@ -2,6 +2,34 @@
 @section('title', 'IFDM Database')
 
 @section('content')
+
+@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+   <script>
+      $(function() { 
+         $('#scenarioError').modal('show');
+      });
+   </script>
+@endif
+
+<div id="scenarioError" class="modal">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Error</h4>
+         </div>
+         <div class="modal-body">
+            <p class="text-danger">
+            <p>The project can't be deleted because it still has scenarios associated.</p>
+            </p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+         </div>
+      </div>
+   </div>
+</div>
+
 <div id="endDateS" class="modal fade">
    <div class="modal-dialog">
       <div class="modal-content">

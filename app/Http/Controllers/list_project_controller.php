@@ -16,6 +16,7 @@ use App\proyecto;
 use App\User;
 use App\company;
 use View;
+use Redirect;
 
 class list_project_controller extends Controller
 {
@@ -172,17 +173,22 @@ class list_project_controller extends Controller
     public function destroy($id)
     {
         if (\Auth::check()) {
-            proyecto::destroy($id);
-            
-            if(\Auth::User()->office == 0){
-                $project = DB::table('proyectos')->paginate(15);
-            } else if(\Auth::User()->office == 1){
-                $project = DB::table('proyectos')->where('compania','=', \Auth::User()->company)->paginate(15);
-            } else if(\Auth::User()->office == 2){
-                $project = DB::table('proyectos')->where('usuario_id','=', \Auth::User()->id)->paginate(15);
-            } 
-            return redirect('DeleteProject');
-            return View::make('list_project', compact(['project']));
+            $escenarios = DB::table('escenarios')->where('proyecto_id', $id)->get();
+            if ($escenarios) {
+                return Redirect::back()->with('error_code', 5);
+            }else{
+                proyecto::destroy($id);
+                
+                if(\Auth::User()->office == 0){
+                    $project = DB::table('proyectos')->paginate(15);
+                } else if(\Auth::User()->office == 1){
+                    $project = DB::table('proyectos')->where('compania','=', \Auth::User()->company)->paginate(15);
+                } else if(\Auth::User()->office == 2){
+                    $project = DB::table('proyectos')->where('usuario_id','=', \Auth::User()->id)->paginate(15);
+                } 
+                return redirect('DeleteProject');
+                return View::make('list_project', compact(['project']));
+            }
         }else{
             return view('loginfirst');
         }

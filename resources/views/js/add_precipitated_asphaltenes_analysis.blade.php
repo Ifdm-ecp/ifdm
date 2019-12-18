@@ -292,15 +292,15 @@
                     //para Plus +
                     if (select_components.indexOf("Plus +") != -1) {
                         plus["components"] = "Plus +";
+                        plus["zi"] = components_table[components_table.length - 1][1];
                         plus["mw"] = null;
                         plus["pc"] = null;
-                        plus["sg"] = null;
-                        plus["shift"] = null;
-                        plus["tb"] = null;
                         plus["tc"] = null;
-                        plus["vc"] = null;
                         plus["w"] = null;
-                        plus["zi"] = null;
+                        plus["shift"] = null;
+                        plus["sg"] = null;
+                        plus["tb"] = null;
+                        plus["vc"] = null;
 
                         table.push(Object.values(plus));
                     }

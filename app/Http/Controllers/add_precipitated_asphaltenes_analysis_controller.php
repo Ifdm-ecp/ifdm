@@ -3274,8 +3274,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $arg1 = 0.000000001;
         }
 
-
-
         $solubility_correction_results = $this->solubility_correction($pb, $t, $n, $mwi, $zi);
         $solco2 = $solubility_correction_results[0];
         $solch4 = $solubility_correction_results[1];
@@ -3324,6 +3322,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         } else {
             $ponset = 10000;
             $ponsetc = 10000;
+        }
+
+        if ($ponset == $pb) {
+            $maxa = 1;
         }
 
         return array($wap, $maxa, $ponset, $ponsetc);

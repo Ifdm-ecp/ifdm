@@ -461,7 +461,7 @@ $.get("{!! url('arbol') !!}",
                         nodes_child.push({
                             text: val.nombre + " <span title='"+nnombre+"'>" + nnombre_subs + "</span>",
                             href: val.route,
-                            color: value.completo == 1 ? "#000000" : "#ff1b00",
+                            color: val.status_wr == 0 ? "#000000" : "#ff1b00",
                             tags: ['0'],
                         });
                     });
@@ -470,7 +470,7 @@ $.get("{!! url('arbol') !!}",
 
                         esc.push({
                             text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
-                            color: color,
+                            color: value.completo == 1 ? "#000000" : "#ff1b00",
                             tags: ['0'],
                             nodes: nodes_child
                         });

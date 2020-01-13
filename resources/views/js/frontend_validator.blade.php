@@ -33,7 +33,7 @@ function multiValidatorHandsonTable(value, ruleset)
         return isValid;
         break;
       case "selection":
-        isValid =(set.selections.includes(value));
+        isValid = (set.selections.includes(value));
         return isValid;
         break;
     }

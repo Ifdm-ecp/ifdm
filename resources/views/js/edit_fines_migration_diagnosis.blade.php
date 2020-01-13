@@ -502,6 +502,10 @@
             oil_viscosity.push(parseFloat(data[i][2]));
             volumetric_oil_factor.push(parseFloat(data[i][3]));
         }
+        oil_density.reverse();
+        oil_viscosity.reverse();
+        volumetric_oil_factor.reverse();
+        pressure.reverse();
 
         $('#graphic_pvt_table').highcharts({
             title: {

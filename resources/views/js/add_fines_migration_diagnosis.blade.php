@@ -174,26 +174,6 @@
             contextMenu: true,
             stretchH: 'all',
             colWidths: [360, 360],
-            afterChange: function( changes, source ) {
-                if (changes) {
-                    historical_data = clean_table_data("historical_data_table");
-                    historical_data_length = historical_data.length;
-
-                    if (historical_data_length > 0) {
-                        perform_production_projection();  
-                    }else{
-                        var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
-
-                        hot_historical_data.updateSettings({
-                            data: [],
-                            stretchH: 'all'
-                        });
-                        hot_historical_data.render();
-                        var chart=$("#oil_projection_chart").highcharts();
-                        chart.destroy();
-                    }
-                }  
-            },
             columns: [{
                     title: "Date [YYYY-MM-DD]",
                     data: 0,
@@ -240,16 +220,25 @@
         //Actualizar elementos de Production Projection al cambiar el select perform_historical_projection_oil
         $('#perform_historical_projection_oil').on('change',function(){
             if($(this).val() == 'without'){
-                clear_table('historical_projection_table');
+                $("#final_dates").hide();
+                $("#historical_projection_table").hide();
+                $("#oil_projection_chart").hide();
             }else{
-                perform_production_projection();
+                $("#final_dates").show();
+                $("#historical_projection_table").show();
+                $("#oil_projection_chart").show();
             }
         });
 
-        //Actualizar elementos de Production Projection al cambiar el campo final_date
-        $('#final_date').on('change',function(){
-            perform_production_projection();
-        }); 
+        if ( $('#perform_historical_projection_oil').val() == 'without' ) {
+            $("#final_dates").hide();
+            $("#historical_projection_table").hide();
+            $("#oil_projection_chart").hide();
+        }else{
+            $("#final_dates").show();
+            $("#historical_projection_table").show();
+            $("#oil_projection_chart").show();
+        }
 
         $('.concentration_ev').on('click', function() {
             $("#fines_concentration_fluid").modal('toggle');
@@ -388,21 +377,25 @@
             oil_viscosity.push(parseFloat(data[i][2]));
             volumetric_oil_factor.push(parseFloat(data[i][3]));
         }
+        oil_density.reverse();
+        oil_viscosity.reverse();
+        volumetric_oil_factor.reverse();
+        pressure.reverse();
 
-        $('#graphic_pvt_table').highcharts({
+        $('#graphic_pvt_table_density').highcharts({
             title: {
-                text: 'Oil PVT',
+                text: 'Oil Density',
                 x: -20 //center
             },
             xAxis: {
-             title: {
-               text: 'Pressure [psi]'
-             },
+                title: {
+                    text: 'Pressure [psi]'
+                },
                 categories: pressure
             },
             yAxis: {
                 title: {
-                    text: 'oil density, miuo & bo'
+                    text: 'Oil Density [g/cc]'
                 },
                 plotLines: [{
                     value: 0,
@@ -423,19 +416,85 @@
                 name: 'Oil Density [g/cc]',
                 data: oil_density,
                 tooltip: {
-                 valueSuffix: ''
+                    valueSuffix: ''
                 }
-            }, {
+            }]
+        });
+
+        $('#graphic_pvt_table_viscosity').highcharts({
+            title: {
+                text: 'Oil Viscosity',
+                x: -20 //center
+            },
+            xAxis: {
+                title: {
+                    text: 'Pressure [psi]'
+                },
+                categories: pressure
+            },
+            yAxis: {
+                title: {
+                    text: 'Oil Viscosity [cP]'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
                 name: 'Oil Viscosity [cP]',
                 data: oil_viscosity,
-                tooltip:{
-                 valueSuffix: ''
+                tooltip: {
+                    valueSuffix: ''
                 }
-            }, {
+            }]
+        });
+
+        $('#graphic_pvt_table_volumetric').highcharts({
+            title: {
+                text: 'Oil Volumetric',
+                x: -20 //center
+            },
+            xAxis: {
+                title: {
+                    text: 'Pressure [psi]'
+                },
+                categories: pressure
+            },
+            yAxis: {
+                title: {
+                    text: 'Oil Volumetric Factor [bbl/BN]'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
                 name: 'Oil Volumetric Factor [bbl/BN]',
                 data: volumetric_oil_factor,
-                tooltip:{
-                 valueSuffix: ''
+                tooltip: {
+                    valueSuffix: ''
                 }
             }]
         });
@@ -499,6 +558,93 @@
             });
         }else{
             alert('Please complete historical data table.');
+        }
+    });
+
+
+    $('.calculate_historical_projection').on('click', function () {
+        var hot_historical_data = $('#historical_data_table').handsontable('getData');
+        var new_table = [];
+        final_date = $("#final_date").val();
+        table_div = "historical_data_table";
+        historical_data = clean_table_data(table_div);
+        historical_data_length = historical_data.length;
+
+        if (historical_data_length > 0) {
+            //Cálculo cantidad de fechas - amount of dates
+            final_date_historical_data = historical_data[historical_data_length - 1][0];
+            final_date_splitted = final_date.split("-");
+            final_date_historical_data_splitted = final_date_historical_data.split("-");
+
+            amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]), parseInt(final_date_splitted[1]), parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]), parseInt(final_date_historical_data_splitted[1]), parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
+
+            if (final_date && historical_data_length > 0) {
+                //Devuelve pronóstico hiperbólico y exponencial para gráfico
+                oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates);
+
+                oil_exponential_serie = [];
+                oil_hyperbolic_serie = [];
+                oil_original_data = [];
+                for (var i = 0; i < historical_data.length; i++) 
+                {
+                    oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
+                }
+
+                for (var i = 0; i < oil_production_projection[0][0].length; i++) 
+                {
+                    oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
+                    oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
+                }
+
+                oil_projection_series = [{
+                    name: "Oil Production Hyperbolic Projection",
+                    data: oil_hyperbolic_serie
+                }, {name: "Oil Production Exponential Projection", 
+                data: oil_exponential_serie
+                }, {name: "Oil Production",
+                    data: oil_original_data
+                }];
+
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+
+                if ($("#perform_historical_projection_oil").val() == "exponential") {
+                    for (i = 0; i < oil_exponential_serie.length; i++) {
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_exponential_serie[i][1]);
+                        
+                        new_table.push(new_historical_table);
+                    }
+                } else if ($("#perform_historical_projection_oil").val() == "hyperbolic") {
+                    for (i = 0; i < oil_exponential_serie.length; i++) {
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_hyperbolic_serie[i][1]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }
+
+                if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                    var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                    hot_historical_data.updateSettings({
+                        data: new_table,
+                        stretchH: 'all'
+                    });
+                    hot_historical_data.render();
+                    
+                }else{  
+                    historical_data = clean_table_data("historical_data_table");
+                    $("#value_historical_data").val(JSON.stringify(historical_data));
+                }
+            } else {
+                alert('Please complete all the information in "Historical Data" section.');
+            }
+        }else{
+            alert('Please complete the Historical Data table.');
         }
     });
 

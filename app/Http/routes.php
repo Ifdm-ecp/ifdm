@@ -319,7 +319,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);
 
-            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature;
+            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[$asphaltenes_d_precipitated_analysis->reservoir_temperature]->temperature;
 
             foreach ($asphaltenes_d_precipitated_analysis_solid_a_results as $value){
                 $aux_diferencia = abs($value->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);

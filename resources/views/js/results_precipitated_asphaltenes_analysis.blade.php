@@ -50,6 +50,7 @@ $(document).ready(function()
                 solid_a_series = [];
                 $.each(data, function(index, temperature_group)
                 {
+                    console.log(temperature_group);
                     serie_name = (index - 460) + " [°F]";
                     serie_data = [];
                     $.each(temperature_group, function(index, value)

@@ -293,9 +293,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                     array_push($fines_diagnosis_results_skin_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'date'=>$value[0], 'damage_radius'=>round($value[1], 3), 'skin'=>round($value[2], 4)));
                     $properties_value = $properties_results[$key - 1];
 
-                    array_shift($properties_value);
-                    array_pop($properties_value);
-
                     foreach ($properties_value as $value_aux) {
                         array_push($fines_diagnosis_results_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'radius'=>round($value_aux[0], 7), 'porosity'=>round($value_aux[2], 7), 'permeability'=>round($value_aux[3], 7), 'co'=>round($value_aux[4], 7), 'date'=>$value[0]));
                     }
@@ -647,9 +644,6 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     array_push($fines_diagnosis_results_skin_inserts, array('fines_d_diagnosis_id'=>$fines_d_diagnosis->id, 'date'=>$value[0], 'damage_radius'=>round($value[1], 7), 'skin'=>round($value[2], 7)));
                     $properties_value = $properties_results[$key - 1];
-
-                    array_shift($properties_value);
-                    array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) 
                     {

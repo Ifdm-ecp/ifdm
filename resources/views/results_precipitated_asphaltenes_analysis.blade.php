@@ -42,7 +42,7 @@
             <div class="panel panel-default">
                <div class="panel-heading"><b>Solid Results</b></div>
                <div class="panel-body">
-                 <div id="solid_a_results_chart"></div>
+                <div id="solid_a_results_chart"></div> 
                </div>
             </div>
           </div>

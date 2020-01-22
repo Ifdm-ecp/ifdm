@@ -10,6 +10,7 @@
     $pvt_table = $('#pvt_table');
     $historical_table = $('#historical_table');
     $asphaltenes_table = $('#asphaltenes_table');
+    $historical_projection_table = $("#historical_projection_table");
 
     //Graficar las dos tablas de historicos: bopd y asphaltenes
     //Limpiar los datos para no graficar valores vacios
@@ -18,96 +19,100 @@
         evt.preventDefault();
         data = clean_table_data("historical_table");
 
-        var date = [];
-        var bopd = [];
-        var asphaltenes = [];
-        for (var i = 0; i < data.length; i++){
-            date.push(data[i][0]);
-            bopd.push(parseFloat(data[i][1]));
-            asphaltenes.push(parseFloat(data[i][2]));
+        if (data.length > 0) {
+            var date = [];
+            var bopd = [];
+            var asphaltenes = [];
+            for (var i = 0; i < data.length; i++){
+                date.push(data[i][0]);
+                bopd.push(parseFloat(data[i][1]));
+                asphaltenes.push(parseFloat(data[i][2]));
+            }
+
+            $('#graphic_historical_bopd_table').highcharts({
+                title: {
+                    text: 'Historical Data - BOPD',
+                    x: -20 //center
+                },
+                xAxis: {
+                 title: {
+                   text: 'Date [YYYY-MM-DD]'
+                 },
+                    dateFormat: 'YYYY-mm-dd',
+                    type: 'datetime',
+                    categories: date
+                },
+                yAxis: {
+                    title: {
+                        text: 'BOPD'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'BOPD [bbl/d]',
+                    data: bopd,
+                    tooltip:{
+                     valueSuffix: ''
+                    }
+                }]
+            });
+
+            $('#graphic_historical_asphaltenes_table').highcharts({
+                title: {
+                    text: 'Historical Data - Asphaltenes',
+                    x: -20 //center
+                },
+                xAxis: {
+                 title: {
+                   text: 'Date [YYYY-MM-DD]'
+                 },
+                    dateFormat: 'YYYY-mm-dd',
+                    type: 'datetime',
+                    categories: date
+                },
+                yAxis: {
+                    title: {
+                        text: 'Asphaltenes'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Asphaltenes [%wt]',
+                    data: asphaltenes,
+                    tooltip:{
+                     valueSuffix: ''
+                    }
+                }]
+            });
+        } else {
+            alert('Please complete historical data table.');
         }
-
-        $('#graphic_historical_bopd_table').highcharts({
-            title: {
-                text: 'Historical Data - BOPD',
-                x: -20 //center
-            },
-            xAxis: {
-             title: {
-               text: 'Date [YYYY-MM-DD]'
-             },
-                dateFormat: 'YYYY-mm-dd',
-                type: 'datetime',
-                categories: date
-            },
-            yAxis: {
-                title: {
-                    text: 'BOPD'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'BOPD [bbl/d]',
-                data: bopd,
-                tooltip:{
-                 valueSuffix: ''
-                }
-            }]
-        });
-
-        $('#graphic_historical_asphaltenes_table').highcharts({
-            title: {
-                text: 'Historical Data - Asphaltenes',
-                x: -20 //center
-            },
-            xAxis: {
-             title: {
-               text: 'Date [YYYY-MM-DD]'
-             },
-                dateFormat: 'YYYY-mm-dd',
-                type: 'datetime',
-                categories: date
-            },
-            yAxis: {
-                title: {
-                    text: 'Asphaltenes'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Asphaltenes [%wt]',
-                data: asphaltenes,
-                tooltip:{
-                 valueSuffix: ''
-                }
-            }]
-        });
     }
 
     //Graficar tabla PVT
@@ -116,22 +121,59 @@
         var evt = window.event || arguments.callee.caller.arguments[0];
         evt.preventDefault();
         data = order_matrix(clean_table_data("pvt_table"));
-        console.log(data);
-        var pressure = [];
-        var density = [];
-        var oil_viscosity = [];
-        var oil_formation_volume_factor = [];
-        for (var i = 0; i < data.length; i++){
-            pressure.push(parseFloat(data[i][0]));
-            density.push(parseFloat(data[i][1]));
-            oil_viscosity.push(parseFloat(data[i][2]));
-            oil_formation_volume_factor.push(parseFloat(data[i][3]));
-        }
 
-        plot_line_chart("pvt_density_chart", density, "Density [g/cc]", "Density");
-        plot_line_chart("pvt_oil_viscosity_chart", oil_viscosity, "Oil Viscosity [cp]", "Oil Viscosity");
-        plot_line_chart("pvt_oil_volumetric_factor_chart", oil_formation_volume_factor, "Oil Volumetric Factor [bbl/STB]", "Oil Volumetric Factor");
+        if (data.length > 0) {
+            var pressure = [];
+            var density = [];
+            var oil_viscosity = [];
+            var oil_formation_volume_factor = [];
+            for (var i = 0; i < data.length; i++){
+                pressure.push(parseFloat(data[i][0]));
+                density.push(parseFloat(data[i][1]));
+                oil_viscosity.push(parseFloat(data[i][2]));
+                oil_formation_volume_factor.push(parseFloat(data[i][3]));
+            }
+
+            plot_line_chart("pvt_density_chart", density, "Oil Density [g/cc]", "Oil Density");
+            plot_line_chart("pvt_oil_viscosity_chart", oil_viscosity, "Oil Viscosity [cp]", "Oil Viscosity");
+            plot_line_chart("pvt_oil_volumetric_factor_chart", oil_formation_volume_factor, "Oil Volumetric Factor [bbl/STB]", "Oil Volumetric Factor");
+        } else {
+            alert('Please complete all the information in "PVT Data" section.');
+        }
     }
+
+    /* tabStep
+  * After validating the current tab, it is changed to the next or previous tab depending on the
+  * entry value
+  * params {direction: string}
+  */
+  function tabStep(direction) {
+    var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+    if (direction == "prev") {
+      $(".nav.nav-tabs li.active").prev().children().click();
+    } else {
+      $(".nav.nav-tabs li.active").next().children().click();
+    }
+
+    $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+    $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+    $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+  }
+
+  /* valueSuffixTab
+  * Captures the tab clicking event to determine if a previous or next button has to be shown
+  * and also the run button
+  */
+  function switchTab() {
+    var event = window.event || arguments.callee.caller.arguments[0];
+    var tabActiveElement = $(".nav.nav-tabs li.active");
+    var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+    $("#next_button").toggle(nextPrevElement.next().is("li"));
+    $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+    $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+  }
 
     function plot_line_chart(div, data, data_name, title)
     {
@@ -188,51 +230,53 @@
         var pressure = [];
         var asphaltene_soluble_fraction = [];
 
-        if(data){
-            for (var i = 0; i < data.length; i++) {
-                pressure.push(data[i][0]);
-                asphaltene_soluble_fraction.push(data[i][1]);
-            }
-        }
-        
-
-        $('#graphic_asphaltene_table').highcharts({
-            title: {
-                text: 'Asphaltenes Data',
-                x: -20 //center
-            },
-            xAxis: {
-                title: {
-                    text: 'Pressure [psi]'
-                },
-                categories: pressure,
-                reversed: false
-            },
-            yAxis: {
-                title: {
-                    text: 'Asphaltene Soluble Fraction [Fraction]'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                    name: 'Asphaltene Soluble Fraction [Fraction]',
-                    data: asphaltene_soluble_fraction
+        if (data.length > 0) {
+            if(data){
+                for (var i = 0; i < data.length; i++) {
+                    pressure.push(data[i][0]);
+                    asphaltene_soluble_fraction.push(data[i][1]);
                 }
-            ]
-        });
+            }
+            
+
+            $('#graphic_asphaltene_table').highcharts({
+                title: {
+                    text: 'Asphaltenes Data',
+                    x: -20 //center
+                },
+                xAxis: {
+                    title: {
+                        text: 'Pressure [psi]'
+                    },
+                    categories: pressure,
+                    reversed: false
+                },
+                yAxis: {
+                    title: {
+                        text: 'Asphaltene Soluble Fraction [Fraction]'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    borderWidth: 0
+                },
+                series: [{
+                        name: 'Asphaltene Soluble Fraction [Fraction]',
+                        data: asphaltene_soluble_fraction
+                    }
+                ]
+            });
+        } else {
+            alert('Please complete all the information in "Asphaltenes Data" section.');
+        }
     }
     
     $(document).ready(function() {
@@ -240,7 +284,7 @@
         $pvt_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 8,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
@@ -269,17 +313,14 @@
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
-            ],
-            minSpareRows: 1,
-            contextMenu: true
-
+            ]
         });
 
         //Inicializar valores de tabla historicos
         $historical_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 8,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
@@ -306,16 +347,51 @@
 
         });
 
-        //Inicializar valores de tabla de asfaltenos
-        $asphaltenes_table.handsontable({
+        //Inicializar tabla de proyecciones
+        $historical_projection_table.handsontable({
             height: 200,
             colHeaders: true,
-            minSpareRows: 1,
+            minSpareRows: 8,
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [350,350],
+            colWidths: [240, 240, 240],
+
+            columns: [{
+                    title: "Date [YYYY-MM-DD]",
+                    data: 0,
+                    type: 'date',
+                    dateFormat: 'YYYY-MM-DD',
+                    readOnly: true
+                },
+                {
+                    title: "BOPD [bbl/d]",
+                    data: 1,
+                    type: 'numeric',
+                    format: '0[.]0000000',
+                    readOnly: true
+                },
+                {
+                    title: "Asphaltenes [%wt]",
+                    data: 2,
+                    type: 'numeric',
+                    format: '0[.]0000000',
+                    readOnly: true
+                }
+            ]
+        });
+
+        //Inicializar valores de tabla de asfaltenos
+        $asphaltenes_table.handsontable({
+            height: 200,
+            colHeaders: true,
+            minSpareRows: 8,
+            viewportColumnRenderingOffset: 10,
+            rowHeaders: true,
+            contextMenu: true,
+            stretchH: 'all',
+            colWidths: [360, 360],
             columns: [{
                     title: "Pressure [psi]",
                     data: 0,
@@ -340,6 +416,7 @@
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");
+            historical_projection_table = clean_table_data("historical_projection_table");
             asphaltenes_table = order_matrix(clean_table_data("asphaltenes_table"));
 
             //Validar datos tabla PVT (Mayores a cero)
@@ -350,9 +427,10 @@
 
             $("#value_pvt_table").val(JSON.stringify(pvt_table));
             $("#value_historical_table").val(JSON.stringify(historical_table));
+            $("#value_historical_projection_data").val(JSON.stringify(historical_projection_table));
             $("#value_asphaltenes_table").val(JSON.stringify(asphaltenes_table));
 
-            validate_table([pvt_table, historical_table, asphaltenes_table],["pvt table", "historical table", "asphaltenes table"],[["numeric", "numeric", "numeric", "numeric"],["text", "numeric", "numeric"],["numeric", "numeric"]]); 
+            validate_table([pvt_table, historical_table, historical_projection_table, asphaltenes_table],["pvt table", "historical table", "asphaltenes table"],[["numeric", "numeric", "numeric", "numeric"],["text", "numeric", "numeric"],["numeric", "numeric"]]); 
         });
 
         /* Antes de guardar los datos se deben limpiar y validar los datos de las tablas */
@@ -362,6 +440,7 @@
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");
+            historical_projection_table = clean_table_data("historical_projection_table");
             asphaltenes_table = order_matrix(clean_table_data("asphaltenes_table"));
 
             /* Validar datos tabla PVT (Mayores a cero) */
@@ -372,14 +451,22 @@
 
             $("#value_pvt_table").val(JSON.stringify(pvt_table));
             $("#value_historical_table").val(JSON.stringify(historical_table));
+            $("#value_historical_projection_data").val(JSON.stringify(historical_projection_table));
             $("#value_asphaltenes_table").val(JSON.stringify(asphaltenes_table));
         });
 
-        //Controlar check de datos de produccion
-        $("#perform_production_projection_selector").bind('init change', function () {
-            if(this.checked){$("#production_projection").show();}else{$("#production_projection").hide();};
+        //Actualizar elementos de Production Projection al cambiar el select perform_historical_projection_oil
+        $('#perform_historical_projection_oil').bind('init change',function(){
+            if($(this).val() == 'without'){
+                $("#final_dates").hide();
+                $("#historical_projection_table").hide();
+                $("#oil_projection_chart").hide();
+            }else{
+                $("#final_dates").show();
+                $("#historical_projection_table").show();
+                $("#oil_projection_chart").show();
+            }
         }).trigger('init');
-
 
         var scenario_id = <?php 
             if($scenary){
@@ -425,11 +512,13 @@
 
                     aux_asphaltenes_table.push(temp_asphaltenes_table);
                 });
-                hot_asphaltenes_table.updateSettings({
-                    data: aux_asphaltenes_table
-                });
+                if (data.length > 0) {
+                    hot_asphaltenes_table.updateSettings({
+                        data: aux_asphaltenes_table
+                    });
 
-                hot_asphaltenes_table.render();
+                    hot_asphaltenes_table.render();
+                }
             });
         }
 
@@ -457,11 +546,13 @@
 
                     aux_pvt_table.push(temp_pvt_table);
                 });
-                hot_pvt_table.updateSettings({
-                    data: aux_pvt_table
-                });
+                if (data.length > 0) {
+                    hot_pvt_table.updateSettings({
+                        data: aux_pvt_table
+                    });
 
-                hot_pvt_table.render();
+                    hot_pvt_table.render();
+                } 
             });
         }
         
@@ -488,13 +579,20 @@
 
                     aux_historical_table.push(temp_historical_table);
                 });
-                hot_historical_table.updateSettings({
-                    data: aux_historical_table
-                });
+                if (data.length > 0) {
+                    hot_historical_table.updateSettings({
+                        data: aux_historical_table
+                    });
 
-                hot_historical_table.render();
+                    hot_historical_table.render();
+                }
+                if ($("#perform_historical_projection_oil").val() != "without") {
+                    perform_production_projection();
+                }
             });
         }
+
+        
     });
 
     //Llamarla antes de guardar todos los datos de tablas - elmina nulos
@@ -526,64 +624,76 @@
 
         historical_data_length = historical_data.length;
 
-        //Cálculo cantidad de fechas - amount of dates
-        final_date_historical_data = historical_data[historical_data_length - 1][0];
-        final_date_splitted = final_date.split("-");
-        final_date_historical_data_splitted = final_date_historical_data.split("-");
+        if (historical_data_length > 0) { 
 
-        amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]),parseInt(final_date_splitted[1]),parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]),parseInt(final_date_historical_data_splitted[1]),parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
+            //Cálculo cantidad de fechas - amount of dates
+            final_date_historical_data = historical_data[historical_data_length - 1][0];
+            final_date_splitted = final_date.split("-");
+            final_date_historical_data_splitted = final_date_historical_data.split("-");
 
-        if(final_date && historical_data_length > 0){
-            //Devuelve pronóstico hiperbólico y exponencial para gráfico 
-            oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates); 
+            amount_of_dates = Math.round(date_diff(new Date(parseInt(final_date_splitted[0]),parseInt(final_date_splitted[1]),parseInt(final_date_splitted[2])), new Date(parseInt(final_date_historical_data_splitted[0]),parseInt(final_date_historical_data_splitted[1]),parseInt(final_date_historical_data_splitted[2]))) * 0.0328767); //Convirtiendo a meses
 
-            oil_exponential_serie = [];
-            oil_hyperbolic_serie = [];
-            oil_original_data = [];
-            
-            for (var i = 0; i < historical_data.length; i++) 
-            {
-                oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
-            }
-            for (var i = 0; i < oil_production_projection[0][0].length; i++) 
-            {
-                oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
-                oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
-            }
+            if(final_date && historical_data_length > 0){
+                //Devuelve pronóstico hiperbólico y exponencial para gráfico 
+                oil_production_projection = production_projection(table_div, "oil", final_date, amount_of_dates); 
 
-            oil_projection_series = [{name:"Oil Production Hyperbolic Projection", data:oil_hyperbolic_serie}, {name:"Oil Production Exponential Projection", data:oil_exponential_serie}, {name:"Oil Production", data:oil_original_data}];
-
-            plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
-
-
-            if($("#perform_historical_projection_oil").val() == "exponential"){
-                for (i = 0; i < oil_exponential_serie.length; i++) { 
-                    var new_historical_table = [];
-
-                    new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_exponential_serie[i][1]);
-                    new_historical_table.push(historical_data[historical_data_length - 1][2]);
-
-                    new_table.push(new_historical_table);
+                oil_exponential_serie = [];
+                oil_hyperbolic_serie = [];
+                oil_original_data = [];
+                
+                for (var i = 0; i < historical_data.length; i++) 
+                {
+                    oil_original_data.push([Date.parse(historical_data[i][0]), parseFloat(historical_data[i][1])]);
                 }
-            }else if($("#perform_historical_projection_oil").val() == "hyperbolic"){
-                for (i = 0; i < oil_exponential_serie.length; i++) { 
-                    var new_historical_table = [];
-
-                    new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
-                    new_historical_table.push(oil_hyperbolic_serie[i][1]);
-                    new_historical_table.push(historical_data[historical_data_length - 1][2]);
-
-                    new_table.push(new_historical_table);
+                for (var i = 0; i < oil_production_projection[0][0].length; i++) 
+                {
+                    oil_exponential_serie.push([oil_production_projection[0][0][i], parseFloat(oil_production_projection[0][1][i])]);
+                    oil_hyperbolic_serie.push([oil_production_projection[1][0][i], parseFloat(oil_production_projection[1][1][i])]);
                 }
+
+                oil_projection_series = [{name:"Oil Production Hyperbolic Projection", data:oil_hyperbolic_serie}, {name:"Oil Production Exponential Projection", data:oil_exponential_serie}, {name:"Oil Production", data:oil_original_data}];
+
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+
+
+                if($("#perform_historical_projection_oil").val() == "exponential"){
+                    for (i = 0; i < oil_exponential_serie.length; i++) { 
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_exponential_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_exponential_serie[i][1]);
+                        new_historical_table.push(historical_data[historical_data_length - 1][2]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }else if($("#perform_historical_projection_oil").val() == "hyperbolic"){
+                    for (i = 0; i < oil_exponential_serie.length; i++) { 
+                        var new_historical_table = [];
+
+                        new_historical_table.push(date2str(new Date(parseInt(oil_hyperbolic_serie[i][0])), "yyyy-MM-dd"));
+                        new_historical_table.push(oil_hyperbolic_serie[i][1]);
+                        new_historical_table.push(historical_data[historical_data_length - 1][2]);
+
+                        new_table.push(new_historical_table);
+                    }
+                }
+                
+                if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
+                    var hot_historical_data = $('#historical_projection_table').handsontable('getInstance');
+
+                    hot_historical_data.updateSettings({
+                        data: new_table,
+                        stretchH: 'all'
+                    });
+                    hot_historical_data.render();
+                    
+                }else{  
+                    historical_data = clean_table_data("historical_data_table");
+                    $("#value_historical_data").val(JSON.stringify(historical_data));
+                }
+            }else{
+                alert('Please complete all the information in "Historical Data" section.');
             }
-            
-            var final_historical = historical_data.concat(new_table);
-            hot_historical_data.updateSettings({
-                data: final_historical,
-                stretchH: 'all'
-            });
-            hot_historical_data.render();
         }else{
             alert('Please complete all the information in "Historical Data" section.');
         }

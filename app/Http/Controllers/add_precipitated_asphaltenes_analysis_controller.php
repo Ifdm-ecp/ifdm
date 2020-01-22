@@ -3324,9 +3324,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $ponsetc = 10000;
         }
 
+        /* POSIBLE MEJORA
         if ($ponset == $pb) {
             $maxa = 1;
-        }
+        }*/
 
         return array($wap, $maxa, $ponset, $ponsetc);
     }

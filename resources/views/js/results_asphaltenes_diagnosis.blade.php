@@ -30,6 +30,9 @@ $.get("{{url('asphaltenes_d_diagnosis_results_skin')}}",
             skin_serie.push([date_value, value.skin]);
         });
 
+        damage_radius_serie.shift();
+        skin_serie.shift();
+
         damage_radius_serie_data = [{"name": "Damage Radius [ft]", "data":damage_radius_serie}];
         skin_serie_data = [{"name": "Skin", "data":skin_serie}];
         plot_damage_radius_results("damage_radius_chart", damage_radius_serie_data, "Damage Radius", "Damage Radius [ft]");
@@ -57,6 +60,8 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 deposited_asphaltenes_radius_row = [];
                 soluble_asphaltenes_radius_row = [];
 
+                contador = 0;
+
                 date_aux = date[0].date;
                 $.each(date, function(index, value)
                 {
@@ -66,16 +71,23 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                     soluble_asphaltenes_radius_row.push([value.radius, value.soluble_asphaltenes]);
                 });
 
+                porosity_radius.shift();
+                permeability_radius.shift();
+                deposited_asphaltenes_radius.shift();
+                soluble_asphaltenes_radius.shift();
+
                 porosity_radius.push({"name":"Porosity on date: "+date_aux, "data":porosity_radius_row});
                 permeability_radius.push({"name":"Permeability on date: "+date_aux, "data":permeability_radius_row});
                 deposited_asphaltenes_radius.push({"name":"Deposited Asphaltenes on date: "+date_aux, "data":deposited_asphaltenes_radius_row});
                 soluble_asphaltenes_radius.push({"name":"Soluble Asphaltenes on date: "+date_aux, "data":soluble_asphaltenes_radius_row});
+
+                contador =+ 1;
             });
 
             plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [-]", data[1]);
             plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", data[1]);
-            plot_results("deposited_asphaltenes_chart", deposited_asphaltenes_radius, "Deposited Asphaltenes", "Radius [ft]", "Deposited Asphaltenes [%wt]", data[1]);
-            plot_results("soluble_asphaltenes_chart", soluble_asphaltenes_radius, "Soluble Asphaltenes", "Radius [ft]", "Soluble Asphaltenes [ppm]", data[1]);
+            plot_results("deposited_asphaltenes_chart", deposited_asphaltenes_radius, "Deposited Asphaltenes", "Radius [ft]", "Deposited Asphaltenes [%wt]", 500);
+            plot_results("soluble_asphaltenes_chart", soluble_asphaltenes_radius, "Soluble Asphaltenes", "Radius [ft]", "Soluble Asphaltenes [ppm]", 500);
         });
 }
 function plot_results(div, series_data, tittle, x_axis_tittle, y_axis_tittle, max_x_value)

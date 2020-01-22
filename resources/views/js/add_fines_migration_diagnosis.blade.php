@@ -365,139 +365,143 @@
         evt.preventDefault();
         data = clean_table_data("pvt_table");
 
-        var type_suspension_flux = $("#type_of_suspension_flux").val();
+        if (data.length > 0) {
+            var type_suspension_flux = $("#type_of_suspension_flux").val();
 
-        var pressure = [];
-        var oil_density = [];
-        var oil_viscosity = [];
-        var volumetric_oil_factor = [];
-        for (var i = 0; i < data.length; i++){
-            pressure.push(parseFloat(data[i][0]));
-            oil_density.push(parseFloat(data[i][1]));
-            oil_viscosity.push(parseFloat(data[i][2]));
-            volumetric_oil_factor.push(parseFloat(data[i][3]));
+            var pressure = [];
+            var oil_density = [];
+            var oil_viscosity = [];
+            var volumetric_oil_factor = [];
+            for (var i = 0; i < data.length; i++){
+                pressure.push(parseFloat(data[i][0]));
+                oil_density.push(parseFloat(data[i][1]));
+                oil_viscosity.push(parseFloat(data[i][2]));
+                volumetric_oil_factor.push(parseFloat(data[i][3]));
+            }
+            oil_density.reverse();
+            oil_viscosity.reverse();
+            volumetric_oil_factor.reverse();
+            pressure.reverse();
+
+            $('#graphic_pvt_table_density').highcharts({
+                title: {
+                    text: 'Oil Density',
+                    x: -20 //center
+                },
+                xAxis: {
+                    title: {
+                        text: 'Pressure [psi]'
+                    },
+                    categories: pressure
+                },
+                yAxis: {
+                    title: {
+                        text: 'Oil Density [g/cc]'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Oil Density [g/cc]',
+                    data: oil_density,
+                    tooltip: {
+                        valueSuffix: ''
+                    }
+                }]
+            });
+
+            $('#graphic_pvt_table_viscosity').highcharts({
+                title: {
+                    text: 'Oil Viscosity',
+                    x: -20 //center
+                },
+                xAxis: {
+                    title: {
+                        text: 'Pressure [psi]'
+                    },
+                    categories: pressure
+                },
+                yAxis: {
+                    title: {
+                        text: 'Oil Viscosity [cP]'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Oil Viscosity [cP]',
+                    data: oil_viscosity,
+                    tooltip: {
+                        valueSuffix: ''
+                    }
+                }]
+            });
+
+            $('#graphic_pvt_table_volumetric').highcharts({
+                title: {
+                    text: 'Oil Volumetric',
+                    x: -20 //center
+                },
+                xAxis: {
+                    title: {
+                        text: 'Pressure [psi]'
+                    },
+                    categories: pressure
+                },
+                yAxis: {
+                    title: {
+                        text: 'Oil Volumetric Factor [bbl/BN]'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                series: [{
+                    name: 'Oil Volumetric Factor [bbl/BN]',
+                    data: volumetric_oil_factor,
+                    tooltip: {
+                        valueSuffix: ''
+                    }
+                }]
+            });
+        } else {
+            alert('Please complete all the information in "PVT Data" section.');
         }
-        oil_density.reverse();
-        oil_viscosity.reverse();
-        volumetric_oil_factor.reverse();
-        pressure.reverse();
-
-        $('#graphic_pvt_table_density').highcharts({
-            title: {
-                text: 'Oil Density',
-                x: -20 //center
-            },
-            xAxis: {
-                title: {
-                    text: 'Pressure [psi]'
-                },
-                categories: pressure
-            },
-            yAxis: {
-                title: {
-                    text: 'Oil Density [g/cc]'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Oil Density [g/cc]',
-                data: oil_density,
-                tooltip: {
-                    valueSuffix: ''
-                }
-            }]
-        });
-
-        $('#graphic_pvt_table_viscosity').highcharts({
-            title: {
-                text: 'Oil Viscosity',
-                x: -20 //center
-            },
-            xAxis: {
-                title: {
-                    text: 'Pressure [psi]'
-                },
-                categories: pressure
-            },
-            yAxis: {
-                title: {
-                    text: 'Oil Viscosity [cP]'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Oil Viscosity [cP]',
-                data: oil_viscosity,
-                tooltip: {
-                    valueSuffix: ''
-                }
-            }]
-        });
-
-        $('#graphic_pvt_table_volumetric').highcharts({
-            title: {
-                text: 'Oil Volumetric',
-                x: -20 //center
-            },
-            xAxis: {
-                title: {
-                    text: 'Pressure [psi]'
-                },
-                categories: pressure
-            },
-            yAxis: {
-                title: {
-                    text: 'Oil Volumetric Factor [bbl/BN]'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: ''
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series: [{
-                name: 'Oil Volumetric Factor [bbl/BN]',
-                data: volumetric_oil_factor,
-                tooltip: {
-                    valueSuffix: ''
-                }
-            }]
-        });
     });
 
     //Graficar historicos

@@ -875,7 +875,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $radio_dam = 1;
+        $r_damage = [];
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);
@@ -1128,29 +1128,31 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
 
             #Radio de daño
-            for ($i = 2; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05) {
-                    $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
+            for ($i = 1; $i <= $nr; $i++) {
+                if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
+                    $r_damage[$i] = $r[$i];
+                }else{
+                    $r_damage[$i] = 0;
                 }
             }
+
+            $radio_dam = max($r_damage);
             
             #Cambios cálculos de skin  
-            $skin = 0;
-            $skin_array = [];
+            $skin = [];
             for ($i = 1; $i <= $nr; $i++) 
             {
-                if ($radio_dam != 0) 
+                if ($r_damage[$i] != 0) 
                 {
-                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
                 }
                 else
                 {
-                    $skin = 0;
+                    $skin[$i] = 0;
                 }
-                array_push($skin_array, $skin);
             }
             
-            $max_skin = max($skin_array);                     
+            $max_skin = max($skin);                     
 
             for ($i = 1; $i <= $nr; $i++) 
             {

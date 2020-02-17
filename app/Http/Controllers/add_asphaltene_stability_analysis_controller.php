@@ -896,14 +896,14 @@ class add_asphaltene_stability_analysis_controller extends Controller
                 $sara_conclusion_1 = "<b>Problems:</b> medium high";
                 $sara_conclusion_2 = "<b>High</b> content of asphaltenes, <b>low</b> content of aromatics";
                 $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>50%</b> or less";
-                $sara_type = 4;
-                $sara_probability = 60;
+                $sara_type = 3;
+                $sara_probability = 50;
             } else if ($saturated_content == 2 and $asphaltene_content == 3 and $resins_content == 1 and $aromatic_content == 1) #6'
             {
                 $sara_conclusion_1 = "<b>Problems:</b> low high";
                 $sara_conclusion_2 = "Some asphaltenes could precipitate";
                 $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>17%</b> or less";
-                $sara_type = 1;
+                $sara_type = 2;
                 $sara_probability = 17;
             } else if ($saturated_content == 2 and $asphaltene_content == 3 and $resins_content == 2 and $aromatic_content == 1) {
                 $sara_conclusion_1 = "<b>Problems:</b> medium low";

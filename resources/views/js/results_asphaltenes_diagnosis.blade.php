@@ -35,6 +35,10 @@ $.get("{{url('asphaltenes_d_diagnosis_results_skin')}}",
 
         damage_radius_serie_data = [{"name": "Damage Radius [ft]", "data":damage_radius_serie}];
         skin_serie_data = [{"name": "Skin", "data":skin_serie}];
+        console.log('damage_radius_serie_data');
+        console.log(damage_radius_serie_data);
+        console.log('skin_serie_data');
+        console.log(skin_serie_data);
         plot_damage_radius_results("damage_radius_chart", damage_radius_serie_data, "Damage Radius", "Damage Radius [ft]");
         plot_damage_radius_results("skin_chart", skin_serie_data, "Skin", "Skin");
     });
@@ -63,6 +67,8 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 contador = 0;
 
                 date_aux = date[0].date;
+                console.log('esta es la fecha');
+                console.log(date_aux);
                 $.each(date, function(index, value)
                 {
                     porosity_radius_row.push([value.radius, value.porosity]);
@@ -71,10 +77,15 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                     soluble_asphaltenes_radius_row.push([value.radius, value.soluble_asphaltenes]);
                 });
 
+
+
                 porosity_radius.shift();
                 permeability_radius.shift();
                 deposited_asphaltenes_radius.shift();
                 soluble_asphaltenes_radius.shift();
+
+                porosity_radius.reverse();
+                permeability_radius.reverse();
 
                 porosity_radius.push({"name":"Porosity on date: "+date_aux, "data":porosity_radius_row});
                 permeability_radius.push({"name":"Permeability on date: "+date_aux, "data":permeability_radius_row});
@@ -83,6 +94,15 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
 
                 contador =+ 1;
             });
+
+            console.log('porosity_radius');
+            console.log(porosity_radius);
+            console.log('permeability_radius');
+            console.log(permeability_radius);
+            console.log('deposited_asphaltenes_radius');
+            console.log(deposited_asphaltenes_radius);
+            console.log('soluble_asphaltenes_radius');
+            console.log(soluble_asphaltenes_radius);
 
             plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [-]", data[1]);
             plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", data[1]);

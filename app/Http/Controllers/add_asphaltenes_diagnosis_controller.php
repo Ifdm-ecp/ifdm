@@ -627,12 +627,12 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $y = 0;
         $aux_i = 1;
         if ($x < $xt[1]) {
-            $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            $extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
         if ($x > $xt[$n]) {
-            $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            $extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
@@ -875,7 +875,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $r_damage = [];
+        $radio_dam = 0;
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);
@@ -969,6 +969,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $rl = array_fill(1, 100, 0);
         $coc = array_fill(1, $nr, 0);
         $tiempo = array_fill(1, $nh, 0);
+        $radio_dam = array_fill(1, $nr, 0);
+        $skin_array = array_fill(1, $nr, 0);
 
         $n = 0.5;
         $dt = 10;
@@ -1018,7 +1020,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
                 }
 
-                for ($i = $x + 1; $i <= $nr; $i++) {
+                for ($i = $x + 1; $i < $nr; $i++) {
                     $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
                     $f[$i] = $g2 / $dt;
                 }
@@ -1128,23 +1130,51 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
 
             #Radio de daño
+            for ($i = 2; $i <= $nr; $i++) {
+                if (($ko - $kc[$i]) > 0.05) {
+                    $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
+                }
+            }
+            
+            #Cambios cálculos de skin  
+            $skin = 0;
+            $skin_array = [];
+            for ($i = 1; $i <= $nr; $i++) 
+            {
+                if ($radio_dam != 0) 
+                {
+                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                }
+                else
+                {
+                    $skin = 0;
+                }
+                array_push($skin_array, $skin);
+            }
+            
+            $max_skin = max($skin_array);                    
+            
+
+            /*
+            CAMBIOS DE ANDRES
+            #Radio de daño
             for ($i = 1; $i <= $nr; $i++) {
                 if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
-                    $r_damage[$i] = $r[$i];
+                    $radio_dam[$i] = $r[$i];
                 }else{
-                    $r_damage[$i] = 0;
+                    $radio_dam[$i] = 0;
                 }
             }
 
-            $radio_dam = max($r_damage);
+            $r_damage = max($radio_dam);
             
             #Cambios cálculos de skin  
             $skin = [];
             for ($i = 1; $i <= $nr; $i++) 
             {
-                if ($r_damage[$i] != 0) 
+                if ($radio_dam[$i] != 0) 
                 {
-                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
                 }
                 else
                 {
@@ -1152,7 +1182,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 }
             }
             
-            $max_skin = max($skin);                     
+            $max_skin = max($skin); */                   
 
             for ($i = 1; $i <= $nr; $i++) 
             {

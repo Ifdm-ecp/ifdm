@@ -1129,7 +1129,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             #Radio de daño
             for ($i = 2; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05) {
+                if (($ko - $kc[$i]) > $ko) {
                     $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
                 }
             }

@@ -875,7 +875,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $radio_dam = 0;
+        $radio_dam = [];
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);

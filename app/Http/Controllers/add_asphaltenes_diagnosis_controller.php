@@ -969,8 +969,6 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $rl = array_fill(1, 100, 0);
         $coc = array_fill(1, $nr, 0);
         $tiempo = array_fill(1, $nh, 0);
-        $radio_dam = array_fill(1, $nr, 0);
-        $skin_array = array_fill(1, $nr, 0);
 
         $n = 0.5;
         $dt = 10;

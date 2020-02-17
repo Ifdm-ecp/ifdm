@@ -875,7 +875,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $radio_dam = [];
+        $radio_dam = 1;
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);
@@ -1018,7 +1018,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
                 }
 
-                for ($i = $x + 1; $i < $nr; $i++) {
+                for ($i = $x + 1; $i <= $nr; $i++) {
                     $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
                     $f[$i] = $g2 / $dt;
                 }
@@ -1150,37 +1150,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 array_push($skin_array, $skin);
             }
             
-            $max_skin = max($skin_array);                    
-            
-
-            /*
-            CAMBIOS DE ANDRES
-            #Radio de daño
-            for ($i = 1; $i <= $nr; $i++) {
-                if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
-                    $radio_dam[$i] = $r[$i];
-                }else{
-                    $radio_dam[$i] = 0;
-                }
-            }
-
-            $r_damage = max($radio_dam);
-            
-            #Cambios cálculos de skin  
-            $skin = [];
-            for ($i = 1; $i <= $nr; $i++) 
-            {
-                if ($radio_dam[$i] != 0) 
-                {
-                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
-                }
-                else
-                {
-                    $skin[$i] = 0;
-                }
-            }
-            
-            $max_skin = max($skin); */                   
+            $max_skin = max($skin_array);                     
 
             for ($i = 1; $i <= $nr; $i++) 
             {

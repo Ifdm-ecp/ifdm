@@ -875,7 +875,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $radio_dam = 1;
+        $radio_dam = 0;
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);
@@ -1129,7 +1129,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             #Radio de daño
             for ($i = 2; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05) {
+                if (($ko - $kc[$i]) > 0.05 * $ko) {
                     $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
                 }
             }

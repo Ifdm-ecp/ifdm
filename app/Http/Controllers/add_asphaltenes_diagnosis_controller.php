@@ -1134,6 +1134,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 }
             }
             
+            
             #Cambios cálculos de skin  
             $skin = 0;
             $skin_array = [];

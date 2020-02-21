@@ -44,7 +44,7 @@
             </div>
 
             <div class="panel panel-success">
-              <div class="panel-heading"><b>Colloidal Stability Index Analysis</b></div>
+              <div class="panel-heading"><b>Colloidal Instability Index Analysis</b></div>
               <div class="panel-body">
                   <div id = "colloidal_analysis_problem_level"></div>
                   <div id = "colloidal_analysis_conclusion"></div>

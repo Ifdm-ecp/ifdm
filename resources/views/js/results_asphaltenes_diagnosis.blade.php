@@ -77,13 +77,6 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                     soluble_asphaltenes_radius_row.push([value.radius, value.soluble_asphaltenes]);
                 });
 
-
-
-                porosity_radius.shift();
-                permeability_radius.shift();
-                deposited_asphaltenes_radius.shift();
-                soluble_asphaltenes_radius.shift();
-
                 porosity_radius.reverse();
                 permeability_radius.reverse();
 

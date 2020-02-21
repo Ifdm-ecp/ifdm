@@ -363,13 +363,19 @@ class add_asphaltene_stability_analysis_controller extends Controller
             $conclusions = $calculate_boer_stability_criteria_results[0];
             $risk_level_conclusion = $calculate_boer_stability_criteria_results[1];
             $analysis_type = $calculate_boer_stability_criteria_results[2];
+            //dd('pasa por aqui');
         } else {
             $conclusions = [];
             $analysis_type = [];
             $risk_level_conclusion = 0;
         }
 
+        $asphaltenes_d_stability_analysis_results = DB::table('asphaltenes_d_stability_analysis_results')->where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->first();
+        if (!is_null($asphaltenes_d_stability_analysis_results)) {
+            DB::table('asphaltenes_d_stability_analysis_results')->where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->delete();
+        }
         $asphaltenes_d_stability_analysis_results = new asphaltenes_d_stability_analysis_results;
+
         $asphaltenes_d_stability_analysis_results->asphaltenes_d_stability_analysis_id = $asphaltenes_d_stability_analysis->id;
         if (!empty($conclusions) && !empty($analysis_type)) {
 

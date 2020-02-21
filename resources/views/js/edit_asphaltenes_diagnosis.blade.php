@@ -129,9 +129,9 @@
             var oil_formation_volume_factor = [];
             for (var i = 0; i < data.length; i++){
                 pressure.push(parseFloat(data[i][0]));
-                density.push(parseFloat(data[i][1]));
-                oil_viscosity.push(parseFloat(data[i][2]));
-                oil_formation_volume_factor.push(parseFloat(data[i][3]));
+                density.push([parseFloat(data[i][0]), parseFloat(data[i][1])]);
+                oil_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][2])]);
+                oil_formation_volume_factor.push([parseFloat(data[i][0]), parseFloat(data[i][3])]);
             }
 
             plot_line_chart("pvt_density_chart", density, "Oil Density [g/cc]", "Oil Density");

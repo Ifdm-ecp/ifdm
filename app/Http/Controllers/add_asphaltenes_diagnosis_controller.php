@@ -1127,6 +1127,42 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             }
 
+
+            $radioo = array_fill(1, $nr, 0);
+
+            #Radio de daño
+            for ($i = 1; $i <= $nr; $i++) {
+                if (($ko - $kc[$i]) > 0.05 * $ko) {
+                    $radioo[$i] = $r[$i];
+                }else{
+                    $radioo[$i] = 0;
+                }
+            }
+
+            $radio_dam = max($radioo);
+            
+            #Cambios cálculos de skin  
+            $skin = 0;
+            $skin_array = [];
+            for ($i = 1; $i <= $nr; $i++) 
+            {
+                if ($radioo[$i] != 0) 
+                {
+                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                }
+                else
+                {
+                    $skin = 0;
+                }
+                array_push($skin_array, $skin);
+            }
+            
+            $max_skin = max($skin_array);
+
+
+            /*
+            VERSION PARA PRUEBAS ELIANA
+    
             #Radio de daño
             for ($i = 2; $i <= $nr; $i++) {
                 if (($ko - $kc[$i]) > 0.05 * $ko) {
@@ -1151,7 +1187,36 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 array_push($skin_array, $skin);
             }
             
-            $max_skin = max($skin_array);                     
+            $max_skin = max($skin_array); /*  
+
+            /*
+            CAMBIOS DE ANDRES
+            #Radio de daño
+            for ($i = 1; $i <= $nr; $i++) {
+                if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
+                    $radio_dam[$i] = $r[$i];
+                }else{
+                    $radio_dam[$i] = 0;
+                }
+            }
+
+            $r_damage = max($radio_dam);
+            
+            #Cambios cálculos de skin  
+            $skin = [];
+            for ($i = 1; $i <= $nr; $i++) 
+            {
+                if ($radio_dam[$i] != 0) 
+                {
+                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
+                }
+                else
+                {
+                    $skin[$i] = 0;
+                }
+            }
+            
+            $max_skin = max($skin); */                 
 
             for ($i = 1; $i <= $nr; $i++) 
             {

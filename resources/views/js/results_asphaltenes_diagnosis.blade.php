@@ -97,8 +97,8 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
             console.log('soluble_asphaltenes_radius');
             console.log(soluble_asphaltenes_radius);
 
-            plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [-]", 500);
-            plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", 500);
+            plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [-]", 50);
+            plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", 50);
             plot_results("deposited_asphaltenes_chart", deposited_asphaltenes_radius, "Deposited Asphaltenes", "Radius [ft]", "Deposited Asphaltenes [%wt]", 500);
             plot_results("soluble_asphaltenes_chart", soluble_asphaltenes_radius, "Soluble Asphaltenes", "Radius [ft]", "Soluble Asphaltenes [ppm]", 500);
         });

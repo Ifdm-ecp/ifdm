@@ -328,7 +328,12 @@ class add_asphaltene_stability_analysis_controller extends Controller
 
         $components_table = is_null($components_table) ? [] : $components_table;
         foreach ($components_table as $value) {
-            $asphaltenes_d_stability_analysis_components = new asphaltenes_d_stability_analysis_components;
+            //try {
+                $asphaltenes_d_stability_analysis_components = new asphaltenes_d_stability_analysis_components;
+            //} catch ($e) {
+            //    dd('la vaca de lola');
+            //    return Redirect::back()->with('errorCalculos', 'Los datos introducidos no son válidos.');
+            //}
             $asphaltenes_d_stability_analysis_components->asphaltenes_d_stability_analysis_id = $asphaltenes_d_stability_analysis->id;
             $asphaltenes_d_stability_analysis_components->component = str_replace(",", ".", $value[0]);
             $asphaltenes_d_stability_analysis_components->mole_fraction = str_replace(",", ".", $value[1]);

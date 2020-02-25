@@ -264,8 +264,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     array_push($asphaltenes_d_diagnosis_results_skin_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'date' => $value[0], 'damage_radius' => round($value[1], 3), 'skin' => round($value[2], 3)));
                     $properties_value = $properties_results[$key - 1];
 
-                    array_shift($properties_value);
-                    array_pop($properties_value);
+                    //array_shift($properties_value);
+                    //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
                         array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
@@ -570,8 +570,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     array_push($asphaltenes_d_diagnosis_results_skin_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'date' => $value[0], 'damage_radius' => round($value[1], 3), 'skin' => round($value[2], 3)));
                     $properties_value = $properties_results[$key - 1];
 
-                    array_shift($properties_value);
-                    array_pop($properties_value);
+                    //array_shift($properties_value);
+                    //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
                         array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));

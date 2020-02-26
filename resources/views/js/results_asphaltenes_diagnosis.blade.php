@@ -30,9 +30,6 @@ $.get("{{url('asphaltenes_d_diagnosis_results_skin')}}",
             skin_serie.push([date_value, value.skin]);
         });
 
-        damage_radius_serie.shift();
-        skin_serie.shift();
-
         damage_radius_serie_data = [{"name": "Damage Radius [ft]", "data":damage_radius_serie}];
         skin_serie_data = [{"name": "Skin", "data":skin_serie}];
         console.log('damage_radius_serie_data');

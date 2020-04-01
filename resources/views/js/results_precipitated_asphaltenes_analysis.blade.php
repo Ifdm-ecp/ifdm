@@ -11,10 +11,16 @@ $(document).ready(function()
     //Trayendo datos para gráfico de saturation data desde bd
     var reservoir_temperature = {!! !empty($asphaltenes_d_precipitated_analysis->reservoir_temperature) ? $asphaltenes_d_precipitated_analysis->reservoir_temperature : null !!};
     var current_reservoir_pressure = {!! !empty($asphaltenes_d_precipitated_analysis->current_reservoir_pressure) ? $asphaltenes_d_precipitated_analysis->current_reservoir_pressure : null !!};
+    var initial_reservoir_pressure = {!! !empty($asphaltenes_d_precipitated_analysis->initial_reservoir_pressure) ? $asphaltenes_d_precipitated_analysis->initial_reservoir_pressure : null !!};
     var current_reservoir_conditions = [];
     if (reservoir_temperature !== null && current_reservoir_pressure !== null) {
         current_reservoir_conditions.push([reservoir_temperature, current_reservoir_pressure]);
     }
+    var initial_reservoir_conditions = [];
+    if (reservoir_temperature !== null && initial_reservoir_pressure !== null) {
+        initial_reservoir_conditions.push([reservoir_temperature, initial_reservoir_pressure]);
+    }
+    
 
     var asphaltenes_d_precipitated_analysis_id = <?php 
         if($asphaltenes_d_precipitated_analysis_id){
@@ -81,7 +87,7 @@ $(document).ready(function()
                     }
                     bubble_pressure_serie.push([value.temperature, value.bubble_pressure]);
                 });
-                onset_series_data = [{"name":"Onset Pressure [psi]","data":onset_pressure_serie}, {"name":"Corrected Onset Pressure [psi]","data":corrected_onset_pressure_serie},{"name":"Bubble Pressure [psi]","data":bubble_pressure_serie}, {"name" : "Current Reservoir Conditions", "data" : current_reservoir_conditions}];
+                onset_series_data = [{"name":"Onset Pressure [psi]","data":onset_pressure_serie}, {"name":"Corrected Onset Pressure [psi]","data":corrected_onset_pressure_serie},{"name":"Bubble Pressure [psi]","data":bubble_pressure_serie}, {"name" : "Current Reservoir Conditions", "data" : current_reservoir_conditions}, {"name" : "Initial Reservoir Conditions", "data" : initial_reservoir_conditions}];
                 asphaltenes_soluble_fraction_series_data = [{"name":"A [psi]","data":onset_a_serie}];
                 plot_results("onset_pressure_chart", onset_series_data, "Asphaltene Onset Pressure", "Temperature [F]", "Pressure [psi]");
                 plot_results("asphaltenes_soluble_fraction_chart", asphaltenes_soluble_fraction_series_data, "Asphaltenes Soluble Fraction", "Temperature [F]", "Soluble Asphaltenes [-]");

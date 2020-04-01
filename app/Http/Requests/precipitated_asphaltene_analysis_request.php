@@ -62,6 +62,7 @@ class precipitated_asphaltene_analysis_request extends Request
             'density_at_atmospheric_pressure' => 'required|numeric|between:0.5,2',
             'reservoir_temperature' => 'required|numeric|min:0|not_in:0',
             'current_reservoir_pressure' => 'required|numeric|min:0|not_in:0',
+            'initial_reservoir_pressure' => 'required|numeric|min:0|not_in:0',
             'fluid_api_gravity' => 'required|numeric|between:5,70',
             'number_of_temperatures' => 'required|numeric|between:5,20',
             'temperature_delta' => 'required|numeric|between:20,100',
@@ -138,6 +139,7 @@ class precipitated_asphaltene_analysis_request extends Request
             $rules["density_at_bubble_pressure"] = str_replace("required|", "", $rules["density_at_bubble_pressure"]);
             $rules["density_at_atmospheric_pressure"] = str_replace("required|", "", $rules["density_at_atmospheric_pressure"]);
             $rules["reservoir_temperature"] = str_replace("required|", "", $rules["reservoir_temperature"]);
+            $rules["initial_reservoir_pressure"] = str_replace("required|", "", $rules["initial_reservoir_pressure"]);
             $rules["current_reservoir_pressure"] = str_replace("required|", "", $rules["current_reservoir_pressure"]);
             $rules["fluid_api_gravity"] = str_replace("required|", "", $rules["fluid_api_gravity"]);
             $rules["number_of_temperatures"] = str_replace("required|", "", $rules["number_of_temperatures"]);
@@ -188,6 +190,7 @@ class precipitated_asphaltene_analysis_request extends Request
             'density_at_bubble_pressure.required' => 'The density at bubble pressure is required.',
             'density_at_atmospheric_pressure.required' => 'The density at atmospheric pressure is required.',
             'reservoir_temperature.required' => 'The reservoir temperature is required.',
+            'initial_reservoir_pressure.required' => 'The initial reservoir pressure is required.',
             'current_reservoir_pressure.required' => 'The current reservoir pressure is required.',
             'fluid_api_gravity.required' => 'The fluid API gravity is required.',
             'number_of_temperatures.required' => 'The number of temperatures is required.',
@@ -218,6 +221,7 @@ class precipitated_asphaltene_analysis_request extends Request
             'density_at_bubble_pressure.numeric' => 'The censity at bubble pressure must be a number.',
             'density_at_atmospheric_pressure.numeric' => 'The density at atmospheric pressure must be a number.',
             'reservoir_temperature.numeric' => 'The reservoir temperature must be a number.',
+            'initial_reservoir_pressure.numeric' => 'The initial reservoir pressure must be a number.',
             'current_reservoir_pressure.numeric' => 'The current reservoir pressure must be a number.',
             'fluid_api_gravity.numeric' => 'The fluid API gravity must be a number.',
             'number_of_temperatures.numeric' => 'The number of temperatures must be a number.',
@@ -255,6 +259,8 @@ class precipitated_asphaltene_analysis_request extends Request
             'density_at_atmospheric_pressure.between' => 'The density at atmospheric pressure must be between 0.5 and 1.5.',
             'reservoir_temperature.min' => 'The reservoir temperature must be greater than 0.',
             'reservoir_temperature.not_in' => 'The reservoir temperature must be greater than 0.',
+            'initial_reservoir_pressure.min' => 'The intitial reservoir pressure must be greater than 0.',
+            'initial_reservoir_pressure.not_in' => 'The initial reservoir pressure must be greater than 0.',
             'current_reservoir_pressure.min' => 'The current reservoir pressure must be greater than 0.',
             'current_reservoir_pressure.not_in' => 'The current reservoir pressure must be greater than 0.',
             'fluid_api_gravity.between' => 'The fluid API gravity must be between 5 and 70.',

@@ -372,6 +372,21 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
+                           {!! Form::label('initial_reservoir_pressure_label', 'Initial Reservoir Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                           <div class="input-group {{$errors->has('initial_reservoir_pressure') ? 'has-error' : ''}}">
+                              @if($advisor === "true")
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                 </span>
+                              @endif
+                              {!! Form::text('initial_reservoir_pressure',null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'initial_reservoir_pressure']) !!}
+                              <span class="input-group-addon" id="basic-addon2">psi</span>
+                           </div>
+                           {!! $errors->first('initial_reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
                            {!! Form::label('current_reservoir_pressure_label', 'Current Reservoir Pressure') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('current_reservoir_pressure') ? 'has-error' : ''}}">
                               @if($advisor === "true")
@@ -385,6 +400,8 @@
                            {!! $errors->first('current_reservoir_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
                      </div>
+                  </div>
+                  <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
                            {!! Form::label('fluid_api_gravity_label', 'Fluid API Gravity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}

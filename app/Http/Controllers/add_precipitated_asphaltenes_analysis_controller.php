@@ -124,6 +124,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->density_at_bubble_pressure !== "" ? $request->density_at_bubble_pressure : null;
         $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->density_at_atmospheric_pressure !== "" ? $request->density_at_atmospheric_pressure : null;
         $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->reservoir_temperature !== "" ? $request->reservoir_temperature : null;
+        $asphaltenes_d_precipitated_analysis->initial_reservoir_pressure = $request->initial_reservoir_pressure !== "" ? $request->initial_reservoir_pressure : null;
         $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->current_reservoir_pressure !== "" ? $request->current_reservoir_pressure : null;
         $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->fluid_api_gravity !== "" ? $request->fluid_api_gravity : null;
 
@@ -453,6 +454,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis->density_at_bubble_pressure = $request->density_at_bubble_pressure !== "" ? $request->density_at_bubble_pressure : null;
         $asphaltenes_d_precipitated_analysis->density_at_atmospheric_pressure = $request->density_at_atmospheric_pressure !== "" ? $request->density_at_atmospheric_pressure : null;
         $asphaltenes_d_precipitated_analysis->reservoir_temperature = $request->reservoir_temperature !== "" ? $request->reservoir_temperature : null;
+        $asphaltenes_d_precipitated_analysis->initial_reservoir_pressure = $request->initial_reservoir_pressure !== "" ? $request->initial_reservoir_pressure : null;
         $asphaltenes_d_precipitated_analysis->current_reservoir_pressure = $request->current_reservoir_pressure !== "" ? $request->current_reservoir_pressure : null;
         $asphaltenes_d_precipitated_analysis->fluid_api_gravity = $request->fluid_api_gravity !== "" ? $request->fluid_api_gravity : null;
 

@@ -57,8 +57,8 @@
                 },
                 legend: {
                     layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
+                    align: 'center',
+                    verticalAlign: 'bottom',
                     borderWidth: 0
                 },
                 series: [{
@@ -98,8 +98,8 @@
                 },
                 legend: {
                     layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
+                    align: 'center',
+                    verticalAlign: 'bottom',
                     borderWidth: 0
                 },
                 series: [{
@@ -210,8 +210,8 @@
          },
          legend: {
              layout: 'vertical',
-             align: 'right',
-             verticalAlign: 'middle',
+             align: 'center',
+             verticalAlign: 'bottom',
              borderWidth: 0
          },
          series: [{

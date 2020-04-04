@@ -11,6 +11,7 @@
     if ($('#fluid_of_interest').val() == 1) { $("#hidden_oil").show(); }
     if ($('#fluid_of_interest').val() == 2) { $("#hidden_gas").show(); }
     if ($('#fluid_of_interest').val() == 3) { $("#hidden_water").show(); }
+    if ($('#fluid_of_interest').val() == 4) { $("#hidden_mixture").show(); }
 
     /** Modales de error formulario */
     $("#myModal").modal('show');
@@ -788,5 +789,14 @@
       document.getElementById('hidden_gas').style.display = style;
       var style = this.value == 3 ? 'block' : 'none';
       document.getElementById('hidden_water').style.display = style;
+      var style = this.value == 4 ? 'block' : 'none';
+      document.getElementById('hidden_mixture').style.display = style;
+  });
+
+  document.getElementById('characterized_mixture').addEventListener('change', function () {
+      var style = this.value == 1 && $("#fluid_of_interest").val() == 4  ? 'block' : 'none';
+      document.getElementById('hidden_has_characterized_mixture').style.display = style;
+      var style = this.value == 2  && $("#fluid_of_interest").val() == 4 ? 'block' : 'none';
+      document.getElementById('hidden_hasnt_characterized_mixture').style.display = style;
   });
 </script>

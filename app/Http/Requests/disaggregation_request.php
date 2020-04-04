@@ -47,7 +47,7 @@ class disaggregation_request extends Request
             'production_formation_thickness' => 'required_if:well_completitions,3|numeric|between:0,1000',
             'horizontal_vertical_permeability_ratio' => 'required_if:well_completitions,3|numeric|between:0,100',
             'drainage_area_shape' => 'required_if:well_completitions,3|integer|in:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16',
-            'fluid_of_interest' => 'required|in:1,2,3',
+            'fluid_of_interest' => 'required|in:1,2,3,4',
             'oil_rate' => 'required_if:fluid_of_interest,1|numeric|between:0,10000',
             'oil_bottomhole_flowing_pressure' => 'required_if:fluid_of_interest,1|numeric|between:0,10000',
             'oil_viscosity' => 'required_if:fluid_of_interest,1|numeric|between:0,100000',
@@ -63,7 +63,7 @@ class disaggregation_request extends Request
             'skin' => 'required|numeric|between:0,1000',
             'permeability' => 'required|numeric|between:0,1000000',
             'rock_type' => 'required|in:poco consolidada,consolidada,microfracturada',
-            'porosity' => 'required|numeric|between:0,1',
+            'porosity' => 'required|numeric|between:0,0.467',
             'array_hydraulic_units_data' => 'required|array|min:1',
             'only_s' => 'required|in:run,save',
         ];

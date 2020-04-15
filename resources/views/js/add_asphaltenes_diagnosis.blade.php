@@ -271,7 +271,7 @@
                 },
                 series: [{
                     name: 'Asphaltene Soluble Fraction [Fraction]',
-                    data: asphaltene_soluble_fraction
+                    data: data
                 }
                 ]
             });

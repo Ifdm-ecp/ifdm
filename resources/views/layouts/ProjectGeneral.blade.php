@@ -476,7 +476,7 @@ $.get("{!! url('arbol') !!}",
                         });
                     } else {
                         esc.push({
-                            text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
+                            text: "<span title='"+nnombre+"'>" + "nnombre_subs" + "</span>",
                             href: as,
                             color: color,
                             tags: ['0'],

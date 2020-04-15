@@ -197,15 +197,15 @@ class add_asphaltenes_diagnosis_controller extends Controller
         /*Escenario completo*/
         $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
-        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->select('id')->first();
+        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-        if ($asphaltenes_d_stability_analysis and $asphaltenes_d_diagnosis and $asphaltenes_d_precipitated_analysis) {
+        if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
             $scenary = escenario::find($scenary->id);
-            $scenary->completo = 1;
+            $scenary->completo = 0;
             $scenary->save();
         } else {
             $scenary = escenario::find($scenary->id);
-            $scenary->completo = 0;
+            $scenary->completo = 1;
             $scenary->save();
         }
 
@@ -304,6 +304,21 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 }
             }
             */
+
+            /*Escenario completo*/
+            $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
+
+            if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 0;
+                $scenary->save();
+            } else {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 1;
+                $scenary->save();
+            }
 
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'dates_data', 'asphaltenes_d_diagnosis']));
         } catch (Exception $e) {
@@ -583,6 +598,21 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
 
             unset($_SESSION['scenary_id_dup']);
+
+            /*Escenario completo*/
+            $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
+
+            if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 0;
+                $scenary->save();
+            } else {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 1;
+                $scenary->save();
+            }
 
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis']));
         } catch (Exception $e) {

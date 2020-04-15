@@ -194,10 +194,10 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
         if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
-            $scenary->completo = 1;
+            $scenary->completo = 0;
             $scenary->save();
         } else {
-            $scenary->completo = 0;
+            $scenary->completo = 1;
             $scenary->save();
         }
 
@@ -427,10 +427,10 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
         if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
-            $scenary->completo = 1;
+            $scenary->completo = 0;
             $scenary->save();
         } else {
-            $scenary->completo = 0;
+            $scenary->completo = 1;
             $scenary->save();
         }
 

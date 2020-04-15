@@ -730,7 +730,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             #Depositación superficial
             if ($muo[$i] > 300) {
-                $param1 = 0;
+                $pm1 = 0;
             }
             if ($muo[$i] > 100 and $muo[$i] <= 300) {
                 $pm1 = 0.01;

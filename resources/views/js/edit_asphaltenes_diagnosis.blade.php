@@ -237,7 +237,6 @@
                     asphaltene_soluble_fraction.push(data[i][1]);
                 }
             }
-            
 
             $('#graphic_asphaltene_table').highcharts({
                 title: {
@@ -270,7 +269,7 @@
                 },
                 series: [{
                         name: 'Asphaltene Soluble Fraction [Fraction]',
-                        data: asphaltene_soluble_fraction
+                        data: data
                     }
                 ]
             });

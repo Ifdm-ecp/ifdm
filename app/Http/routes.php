@@ -322,6 +322,8 @@ Route::group(['middleware' => 'auth'], function(){
 
             $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - $temperatura);
 
+            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature;
+
             foreach ($asphaltenes_d_precipitated_analysis_solid_a_results as $value){
                 $aux_diferencia = abs($value->temperature - $temperatura);
 
@@ -330,29 +332,6 @@ Route::group(['middleware' => 'auth'], function(){
                     $temperature = $value->temperature;
                 }
             }
-
-
-
-
-             /*
-            $asphaltenes_d_precipitated_analysis_solid_a_results = DB::table('asphaltenes_d_precipitated_analysis_solid_a_results')->where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->select('temperature')->get();
-
-            $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - ($asphaltenes_d_precipitated_analysis->reservoir_temperature));
-
-            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[$asphaltenes_d_precipitated_analysis->reservoir_temperature]->temperature;
-
-            foreach ($asphaltenes_d_precipitated_analysis_solid_a_results as $value){
-                $aux_diferencia = abs($value->temperature - ($asphaltenes_d_precipitated_analysis->reservoir_temperature));
-
-                if($aux_diferencia < $diferencia){
-                    $diferencia = $aux_diferencia;
-                    $temperature = $value->temperature;
-                }
-            }
-
-            */
-
-
 
             $asphaltenes_d_precipitated_analysis_solid_a_results = DB::table('asphaltenes_d_precipitated_analysis_solid_a_results')->where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->where('temperature',$temperature)->select('pressure', 'a')->orderBy('id', 'asc')->get();
         }

@@ -865,9 +865,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
     function simulate_deposited_asphaltenes($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $pvt_data, $historical_data, $asphaltenes_data)
     {
 
-        ini_set('max_execution_time', 300);
+        ini_set('max_execution_time', 900);
         ini_set('memory_limit', '-1');
-        set_time_limit(300);
+        set_time_limit(900);
 
         $complete_simulated_results = [];
         $complete_damage_results = [];

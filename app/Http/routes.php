@@ -317,12 +317,12 @@ Route::group(['middleware' => 'auth'], function(){
         if($asphaltenes_d_precipitated_analysis){
             $asphaltenes_d_precipitated_analysis_solid_a_results = DB::table('asphaltenes_d_precipitated_analysis_solid_a_results')->where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->select('temperature')->get();
 
-            $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);
+            $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - ($asphaltenes_d_precipitated_analysis->reservoir_temperature + 460));
 
-            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[$asphaltenes_d_precipitated_analysis->reservoir_temperature]->temperature;
+            $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[$asphaltenes_d_precipitated_analysis->reservoir_temperature + 460]->temperature;
 
             foreach ($asphaltenes_d_precipitated_analysis_solid_a_results as $value){
-                $aux_diferencia = abs($value->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);
+                $aux_diferencia = abs($value->temperature - ($asphaltenes_d_precipitated_analysis->reservoir_temperature + 460));
 
                 if($aux_diferencia < $diferencia){
                     $diferencia = $aux_diferencia;

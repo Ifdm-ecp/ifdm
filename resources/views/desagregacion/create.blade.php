@@ -608,7 +608,7 @@
                                  <div class="form-group {{$errors->has('oil_viscosity') ? 'has-error' : ''}}">
                                     {!! Form::label('viscosidad del aceite', 'Oil Viscosity ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('oil_viscosity', $disaggregation->oil_viscosity, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'oil_viscosity']) !!}
+                                       {!! Form::text('oil_viscosity', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'oil_viscosity']) !!}
                                        <span class="input-group-addon" id="basic-addon2">cp</span>
                                     </div>
                                     {!! $errors->first('oil_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
@@ -630,7 +630,7 @@
                                  <div class="form-group {{$errors->has('water_viscosity') ? 'has-error' : ''}}">
                                     {!! Form::label('viscosidad del agua', 'Water Viscosity ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('water_viscosity', $disaggregation->water_viscosity, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'water_viscosity']) !!}
+                                       {!! Form::text('water_viscosity', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'water_viscosity']) !!}
                                        <span class="input-group-addon" id="basic-addon2">cp</span>
                                     </div>
                                     {!! $errors->first('water_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}

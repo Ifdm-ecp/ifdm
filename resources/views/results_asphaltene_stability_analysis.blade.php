@@ -149,8 +149,8 @@
    <div class="col-xs-12">
       <p class="pull-right">
         @if(!$asphaltenes_d_stability_analysis->status_wr)
-        <a href="{!! url('run_asphaltene_diagnosis',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Diagnosis</a>
         <a href="{!! url('run_precipitated_asphaltene',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Precipitated Asphaltene Analysis</a>
+        <a href="{!! url('run_asphaltene_diagnosis',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Diagnosis</a>
         @endif
         <a href="{!! url('run_asphaltene_stability',array('id'=>$scenaryId)) !!}" class="maximize btn btn-warning" role="button">Edit</a>
       </p>

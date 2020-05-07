@@ -60,6 +60,23 @@ class disaggregation_request extends Request
             'water_bottomhole_flowing_pressure' => 'required_if:fluid_of_interest,3|numeric|between:0,10000',
             'water_viscosity' => 'required_if:fluid_of_interest,3|numeric|between:0,100000',
             'water_volumetric_factor' => 'required_if:fluid_of_interest,3|numeric|between:0,10',
+            'emulsion' => 'required_if:fluid_of_interest,4|in:1,2',
+            'characterized_mixture' => 'required_if:fluid_of_interest,4|in:1,2',
+            //if in:1
+            'mixture_rate' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
+            'mixture_bottomhole_flowing_pressure' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
+            'mixture_viscosity' => 'required_if:characterized_mixture,1|numeric|between:0,100000',
+            'mixture_volumetric_factor' => 'required_if:characterized_mixture,1|numeric|between:0,10',
+            //if in:2
+            'mixture_rate_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
+            'mixture_bottomhole_flowing_pressure_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
+            'mixture_oil_viscosity' => 'required_if:characterized_mixture,2|numeric|between:0,100000',
+            'mixture_oil_fraction' => 'required_if:characterized_mixture,2|numeric|between:0,1',
+            'mixture_water_viscosity' => 'required_if:characterized_mixture,2|numeric|between:0,100000',
+            'mixture_water_fraction' => 'required_if:characterized_mixture,2|numeric|between:0,1',
+            'mixture_oil_volumetric_factor' => 'required_if:characterized_mixture,2|numeric|between:0,10',
+            'mixture_water_volumetric_factor' => 'required_if:characterized_mixture,2|numeric|between:0,10',
+            //
             'skin' => 'required|numeric|between:0,1000',
             'permeability' => 'required|numeric|between:0,1000000',
             'rock_type' => 'required|in:poco consolidada,consolidada,microfracturada',
@@ -103,6 +120,20 @@ class disaggregation_request extends Request
             $rules["water_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["water_bottomhole_flowing_pressure"]);
             $rules["water_viscosity"] = str_replace("required_if|", "", $rules["water_viscosity"]);
             $rules["water_volumetric_factor"] = str_replace("required_if|", "", $rules["water_volumetric_factor"]);
+            $rules["emulsion"] = str_replace("required_if|", "", $rules["emulsion"]);
+            $rules["characterized_mixture"] = str_replace("required_if|", "", $rules["characterized_mixture"]);
+            $rules["mixture_rate"] = str_replace("required_if|", "", $rules["mixture_rate"]);
+            $rules["mixture_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure"]);
+            $rules["mixture_viscosity"] = str_replace("required_if|", "", $rules["mixture_viscosity"]);
+            $rules["mixture_volumetric_factor"] = str_replace("required_if|", "", $rules["mixture_volumetric_factor"]);
+            $rules["mixture_rate_2"] = str_replace("required_if|", "", $rules["mixture_rate_2"]);
+            $rules["mixture_bottomhole_flowing_pressure_2"] = str_replace("required_if", "", $rules["mixture_bottomhole_flowing_pressure_2"]);
+            $rules["mixture_oil_viscosity"] = str_replace("required_if", "", $rules["mixture_oil_viscosity"]);
+            $rules["mixture_oil_fraction"] = str_replace("required_if", "", $rules["mixture_oil_fraction"]);
+            $rules["mixture_water_viscosity"] = str_replace("required_if", "", $rules["mixture_water_viscosity"]);
+            $rules["mixture_water_fraction"] = str_replace("required_if", "", $rules["mixture_water_fraction"]);
+            $rules["mixture_oil_volumetric_factor"] = str_replace("required_if", "", $rules["mixture_oil_volumetric_factor"]);
+            $rules["mixture_water_volumetric_factor"] = str_replace("required_if", "", $rules["mixture_water_volumetric_factor"]);
             $rules["skin"] = str_replace("required|", "", $rules["skin"]);
             $rules["permeability"] = str_replace("required|", "", $rules["permeability"]);
             $rules["rock_type"] = str_replace("required|", "", $rules["rock_type"]);
@@ -166,6 +197,18 @@ class disaggregation_request extends Request
             'water_bottomhole_flowing_pressure.numeric' => 'The bottomhole flowing pressure must be a number.',
             'water_viscosity.numeric' => 'The water viscosity must be a number.',
             'water_volumetric_factor.numeric' => 'The water volumetric factor must be a number.',
+            'mixture_rate.numeric' => 'The mixture rate must be a number.',
+            'mixture_bottomhole_flowing_pressure.numeric' => 'The bottomhole flowing pressure must be a number.',
+            'mixture_viscosity.numeric' => 'The mixture viscosity must be a number.',
+            'mixture_volumetric_factor.numeric' => 'The mixture volumetric factor must be a number.',
+            'mixture_rate_2.numeric' => 'The mixture rate must be a number.',
+            'mixture_bottomhole_flowing_pressure_2.numeric' => 'The bottomhole flowing pressure must be a number.',
+            'mixture_oil_viscosity.numeric' => 'The oil viscosity must be a number.',
+            'mixture_oil_fraction.numeric' => 'The oil fraction must be a number.',
+            'mixture_water_viscosity.numeric' => 'The water viscosity must be a number.',
+            'mixture_water_fraction.numeric' => 'The water fraction must be a number.',
+            'mixture_oil_volumetric_factor.numeric' => 'The mixture oil volumetric factor must be a number.',
+            'mixture_water_volumetric_factor.numeric' => 'The mixture water volumetric factor must be a number.',
             'skin.numeric' => 'The skin must be a number.',
             'permeability.numeric' => 'The permeabibility must be a number.',
             'porosity.numeric' => 'The porosity must be a number.',

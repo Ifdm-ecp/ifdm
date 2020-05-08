@@ -434,12 +434,12 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-        if ($asphaltenes_d_stability_analysis) {$a = true}
-        if ($asphaltenes_d_diagnosis) {$b = true}
-        if ($asphaltenes_d_precipitated_analysis) {$c = true}
-        if ($asphaltenes_d_stability_analysis->status_wr) {$d = true}
-        if ($asphaltenes_d_diagnosis->status_wr) {$e = true}
-        if ($asphaltenes_d_precipitated_analysis->status_wr) {$f = true}
+        if ($asphaltenes_d_stability_analysis) {$a = true;}
+        if ($asphaltenes_d_diagnosis) {$b = true;}
+        if ($asphaltenes_d_precipitated_analysis) {$c = true;}
+        if ($asphaltenes_d_stability_analysis->status_wr) {$d = true;}
+        if ($asphaltenes_d_diagnosis->status_wr) {$e = true;}
+        if ($asphaltenes_d_precipitated_analysis->status_wr) {$f = true;}
         dd($a,$b,$c,$d,$e,$f);
 
         if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {

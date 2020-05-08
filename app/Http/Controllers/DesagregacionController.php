@@ -1183,6 +1183,8 @@ class desagregacionController extends Controller
             }
         }
 
+        //dd('fluid viscosity', $fluid_viscosity, 'fluid volumetric factor', $fluid_volumetric_factor);
+
         /* HIDRAULC UNITS DATA */
 
         //REVISADO 1

@@ -94,7 +94,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
-        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 0 : 1;
+        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
         $asphaltenes_d_stability_analysis->save();
 
         #Tabla componentes
@@ -316,7 +316,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
-        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 0 : 1;
+        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
         $asphaltenes_d_stability_analysis->save();
 
         #Tabla componentes

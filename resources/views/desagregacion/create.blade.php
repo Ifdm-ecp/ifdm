@@ -413,7 +413,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('oil_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('volumetric oil factor', 'Oil Volumetric Factor ', array('class' => 'required')) !!}
+                                 {!! Form::label('volumetric oil factor', 'Oil Volume Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('oil_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'oil_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -459,7 +459,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('gas_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('factor volumetrico del gas', 'Gas Volumetric Factor ', array('class' => 'required')) !!}
+                                 {!! Form::label('factor volumetrico del gas', 'Gas Volume Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('gas_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gas_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -505,7 +505,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('water_volumetric_factor') ? 'has-error' : ''}}">
-                                 {!! Form::label('volumetric water factor', 'Water Volumetric Factor ', array('class' => 'required')) !!}
+                                 {!! Form::label('volumetric water factor', 'Water Volume Factor ', array('class' => 'required')) !!}
                                  <div class="input-group">
                                     {!! Form::text('water_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'water_volumetric_factor']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
@@ -569,7 +569,7 @@
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group {{$errors->has('mixture_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture volumetric factor', 'Mixture Volumetric Factor ', array('class' => 'required')) !!}
+                                    {!! Form::label('mixture volumetric factor', 'Mixture Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
                                        {!! Form::text('mixture_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_volumetric_factor']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>
@@ -650,7 +650,7 @@
                            <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group {{$errors->has('mixture_oil_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture oil volumetric factor', 'Mixture Oil Volumetric Factor ', array('class' => 'required')) !!}
+                                    {!! Form::label('mixture oil volumetric factor', 'Oil Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
                                        {!! Form::text('mixture_oil_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_volumetric_factor']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>
@@ -660,7 +660,7 @@
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group {{$errors->has('mixture_water_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture water volumetric factor', 'Mixture Water Volumetric Factor ', array('class' => 'required')) !!}
+                                    {!! Form::label('mixture water volumetric factor', 'Water Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
                                        {!! Form::text('mixture_water_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_volumetric_factor']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>

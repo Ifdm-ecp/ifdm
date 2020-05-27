@@ -245,7 +245,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Rate",
+    column: "Flow Rate",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -253,7 +253,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Bottomhole Flowing Pressure",
+    column: "Bottomhole Flowing Pressure",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -261,7 +261,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Viscosity",
+    column: "Emulsion Viscosity",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -269,7 +269,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Volumetric Factor",
+    column: "Oil Volume Factor",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -277,55 +277,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Rate",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000}
-    ]
-  },
-  {
-    column: "Mixture Bottomhole Flowing Pressure",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000}
-    ]
-  },
-  {
-    column: "Mixture Oil Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000}
-    ]
-  },
-  {
-    column: "Mixture Oil Fraction",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1}
-    ]
-  },
-  {
-    column: "Mixture Water Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000}
-    ]
-  },
-  {
-    column: "Mixture Water Fraction",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1}
-    ]
-  },
-  {
-    column: "Mixture Oil Volumetric Factor",
+    column: "Water Volume Factor",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -333,7 +285,143 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Mixture Water Volumetric Factor",
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Oil Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Water Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Oil Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Water Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
     rules: [
       {rule: "required"},
       {rule: "numeric"},

@@ -372,7 +372,7 @@
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('fluid_of_interest') ? 'has-error' : ''}}">
                               {!! Form::label('fluid of interest', 'Fluid of Interest ', array('class' => 'required')) !!}
-                              {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water', 4 => 'Mixture'), 'select', ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
+                              {!! Form::select('fluid_of_interest', array(1 => 'Oil', 2 => 'Gas', 3 => 'Water', 4 => 'Liquid (Oil + Water)'), 'select', ['class' => 'form-control', 'id'=>'fluid_of_interest', 'placeholder' => 'Select a fluid']) !!}
                            </div>
                            {!! $errors->first('fluid_of_interest', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                         </div>
@@ -519,77 +519,202 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group {{$errors->has('emulsion') ? 'has-error' : ''}}">
-                                 {!! Form::label('emulsion', 'Emulsion', array('class' => 'required')) !!}
+                                 {!! Form::label('emulsion', 'Emulsion ', array('class' => 'required')) !!}
                                  {!! Form::select('emulsion', array(1 => 'Yes', 2 => 'No'), null, ['class' => 'form-control', 'id'=>'emulsion', 'placeholder' => 'Select an option']) !!}
                               </div>
                               {!! $errors->first('emulsion', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" id="characterized_mixture_group">
                               <div class="form-group {{$errors->has('characterized_mixture') ? 'has-error' : ''}}">
-                                 {!! Form::label('characterized mixture', 'Characterized Mixture', array('class' => 'required')) !!}
+                                 {!! Form::label('characterized mixture', 'Characterized Mixture ', array('class' => 'required')) !!}
                                  {!! Form::select('characterized_mixture', array(1 => 'Yes', 2 => 'No'), null, ['class' => 'form-control', 'id'=>'characterized_mixture', 'placeholder' => 'Select an option']) !!}
                               </div>
                               {!! $errors->first('characterized_mixture', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
-                        <div id="hidden_has_characterized_mixture" style="display: none;">
+                        <div id="hidden_has_emulsion_has_characterized_mixture" style="display: none;">
                            <hr>
                            <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group">
-                                    {!! Form::label('mixture rate', 'Mixture Rate ', array('class' => 'required')) !!}
-                                    <div class="input-group {{$errors->has('mixture_rate') ? 'has-error' : ''}}">
-                                       {!! Form::text('mixture_rate', null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'mixture_rate']) !!}
+                                    {!! Form::label('flow rate 1 1', 'Flow Rate ', array('class' => 'required')) !!}
+                                    <div class="input-group {{$errors->has('flow_rate_1_1') ? 'has-error' : ''}}">
+                                       {!! Form::text('flow_rate_1_1', null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'flow_rate_1_1']) !!}
                                        <span class="input-group-addon" id="basic-addon2">bbls/day</span>
                                     </div>
-                                    {!! $errors->first('mixture_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('flow_rate_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
                                  <div class="form-group">
-                                    {!! Form::label('flowing pressure', 'Mixture Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
-                                    <div class="input-group {{$errors->has('mixture_bottomhole_flowing_pressure') ? 'has-error' : ''}}">
-                                       {!! Form::text('mixture_bottomhole_flowing_pressure', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'mixture_bottomhole_flowing_pressure']) !!}
+                                    {!! Form::label('flowing pressure 1 1', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
+                                    <div class="input-group {{$errors->has('mixture_bottomhole_flowing_pressure_1_1') ? 'has-error' : ''}}">
+                                       {!! Form::text('mixture_bottomhole_flowing_pressure_1_1', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'mixture_bottomhole_flowing_pressure_1_1']) !!}
                                        <span class="input-group-addon" id="basic-addon2">psi</span>
                                     </div>
-                                    {!! $errors->first('mixture_bottomhole_flowing_pressure', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_bottomhole_flowing_pressure_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_viscosity') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture viscosity', 'Mixture Viscosity ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_viscosity_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture viscosity 1 1', 'Emulsion Viscosity ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_viscosity', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_viscosity']) !!}
+                                       {!! Form::text('mixture_viscosity_1_1', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_viscosity_1_1']) !!}
                                        <span class="input-group-addon" id="basic-addon2">cp</span>
                                     </div>
-                                    {!! $errors->first('mixture_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_viscosity_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture volumetric factor', 'Mixture Volume Factor ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_oil_volumetric_factor_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil volumetric factor 1 1', 'Oil Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_volumetric_factor']) !!}
+                                       {!! Form::text('mixture_oil_volumetric_factor_1_1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_volumetric_factor_1_1']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>
                                     </div>
-                                    {!! $errors->first('mixture_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_oil_volumetric_factor_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_volumetric_factor_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water volumetric factor 1 1', 'Water Volume Factor ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_volumetric_factor_1_1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_volumetric_factor_1_1']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_volumetric_factor_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_fraction_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil fraction 1 1', 'Oil Fraction ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_fraction_1_1', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_oil_fraction_1_1']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_fraction_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_fraction_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water fraction 1 1', 'Water Fraction ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_fraction_1_1', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_water_fraction_1_1']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_fraction_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div id="hidden_hasnt_characterized_mixture" style="display: none;">
+                        <div id="hidden_has_emulsion_hasnt_characterized_mixture" style="display: none;">
                            <hr>
                            <div class="row">
                               <div class="col-md-6">
                                  <div class="form-group">
-                                    {!! Form::label('mixture rate 2', 'Mixture Rate ', array('class' => 'required')) !!}
-                                    <div class="input-group {{$errors->has('mixture_rate_2') ? 'has-error' : ''}}">
-                                       {!! Form::text('mixture_rate_2', null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'mixture_rate_2']) !!}
+                                    {!! Form::label('flow rate 1 2', 'Flow Rate ', array('class' => 'required')) !!}
+                                    <div class="input-group {{$errors->has('flow_rate_1_2') ? 'has-error' : ''}}">
+                                       {!! Form::text('flow_rate_1_2', null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'flow_rate_1_2']) !!}
                                        <span class="input-group-addon" id="basic-addon2">bbls/day</span>
                                     </div>
-                                    {!! $errors->first('mixture_rate_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('flow_rate_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    {!! Form::label('flowing pressure 1 2', 'Bottomhole Flowing Pressure ', array('class' => 'required')) !!}
+                                    <div class="input-group {{$errors->has('mixture_bottomhole_flowing_pressure_1_2') ? 'has-error' : ''}}">
+                                       {!! Form::text('mixture_bottomhole_flowing_pressure_1_2', null, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'mixture_bottomhole_flowing_pressure_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">psi</span>
+                                    </div>
+                                    {!! $errors->first('mixture_bottomhole_flowing_pressure_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_viscosity_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('viscosidad del aceite 1 2', 'Oil Viscosity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_viscosity_1_2', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_oil_viscosity_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">cp</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_viscosity_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_viscosity_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water viscosity 1 2', 'Water Viscosity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_viscosity_1_2', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_water_viscosity_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">cp</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_viscosity_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_fraction_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil fraction 1 2', 'Oil Fraction ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_fraction_1_2', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_oil_fraction_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_fraction_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_fraction_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water fraction 1 2', 'Water Fraction ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_fraction_1_2', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_water_fraction_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_fraction_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_volumetric_factor_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil volumetric factor 1 2', 'Oil Volume Factor ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_volumetric_factor_1_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_volumetric_factor_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_volumetric_factor_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_volumetric_factor_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water volumetric factor 1 2', 'Water Volume Factor ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_volumetric_factor_1_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_volumetric_factor_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_volumetric_factor_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div id="hidden_hasnt_emulsion" style="display: none;">
+                           <hr>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group">
+                                    {!! Form::label('flow rate 2', 'Flow Rate ', array('class' => 'required')) !!}
+                                    <div class="input-group {{$errors->has('flow_rate_2') ? 'has-error' : ''}}">
+                                       {!! Form::text('flow_rate_2', null, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'flow_rate_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                                    </div>
+                                    {!! $errors->first('flow_rate_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
@@ -605,67 +730,67 @@
                            </div>
                            <div class="row">
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_oil_viscosity') ? 'has-error' : ''}}">
-                                    {!! Form::label('viscosidad del aceite', 'Oil Viscosity ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_oil_viscosity_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('viscosidad del aceite 2', 'Oil Viscosity ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_oil_viscosity', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_oil_viscosity']) !!}
+                                       {!! Form::text('mixture_oil_viscosity_2', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_oil_viscosity_2']) !!}
                                        <span class="input-group-addon" id="basic-addon2">cp</span>
                                     </div>
-                                    {!! $errors->first('mixture_oil_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_oil_viscosity_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_oil_fraction') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture oil fraction', 'Oil Fraction ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_water_viscosity_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water viscosity 2', 'Water Viscosity ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_oil_fraction', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_oil_fraction']) !!}
-                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
+                                       {!! Form::text('mixture_water_viscosity_2', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_water_viscosity_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">cp</span>
                                     </div>
-                                    {!! $errors->first('mixture_oil_fraction', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_water_viscosity_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_water_viscosity') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture water viscosity', 'Water Viscosity ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_oil_fraction_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil fraction 2', 'Oil Fraction ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_water_viscosity', null, ['placeholder' => 'cp', 'class' =>'form-control', 'id' => 'mixture_water_viscosity']) !!}
-                                       <span class="input-group-addon" id="basic-addon2">cp</span>
+                                       {!! Form::text('mixture_oil_fraction_2', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_oil_fraction_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                                     </div>
-                                    {!! $errors->first('mixture_water_viscosity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_oil_fraction_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_water_fraction') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture water fraction', 'Water Fraction', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_water_fraction_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water fraction 2', 'Water Fraction ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_water_fraction', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_water_fraction']) !!}
+                                       {!! Form::text('mixture_water_fraction_2', null, ['placeholder' => '[0-1]', 'class' =>'form-control', 'id' => 'mixture_water_fraction_2']) !!}
                                        <span class="input-group-addon" id="basic-addon2">[0-1]</span>
                                     </div>
-                                    {!! $errors->first('mixture_water_fraction', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_water_fraction_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>
                            <div class="row">
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_oil_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture oil volumetric factor', 'Oil Volume Factor ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_oil_volumetric_factor_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil volumetric factor 2', 'Oil Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_oil_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_volumetric_factor']) !!}
+                                       {!! Form::text('mixture_oil_volumetric_factor_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_volumetric_factor_2']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>
                                     </div>
-                                    {!! $errors->first('mixture_oil_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_oil_volumetric_factor_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                               <div class="col-md-6">
-                                 <div class="form-group {{$errors->has('mixture_water_volumetric_factor') ? 'has-error' : ''}}">
-                                    {!! Form::label('mixture water volumetric factor', 'Water Volume Factor ', array('class' => 'required')) !!}
+                                 <div class="form-group {{$errors->has('mixture_water_volumetric_factor_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water volumetric factor 2', 'Water Volume Factor ', array('class' => 'required')) !!}
                                     <div class="input-group">
-                                       {!! Form::text('mixture_water_volumetric_factor', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_volumetric_factor']) !!}
+                                       {!! Form::text('mixture_water_volumetric_factor_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_volumetric_factor_2']) !!}
                                        <span class="input-group-addon" id="basic-addon2">-</span>
                                     </div>
-                                    {!! $errors->first('mixture_water_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                    {!! $errors->first('mixture_water_volumetric_factor_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>

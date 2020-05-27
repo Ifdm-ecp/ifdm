@@ -61,21 +61,33 @@ class disaggregation_request extends Request
             'water_viscosity' => 'required_if:fluid_of_interest,3|numeric|between:0,100000',
             'water_volumetric_factor' => 'required_if:fluid_of_interest,3|numeric|between:0,10',
             'emulsion' => 'required_if:fluid_of_interest,4|in:1,2',
-            'characterized_mixture' => 'required_if:fluid_of_interest,4|in:1,2',
-            //if in:1
-            'mixture_rate' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
-            'mixture_bottomhole_flowing_pressure' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
-            'mixture_viscosity' => 'required_if:characterized_mixture,1|numeric|between:0,100000',
-            'mixture_volumetric_factor' => 'required_if:characterized_mixture,1|numeric|between:0,10',
+            'characterized_mixture' => 'required_if:emulsion,1|in:1,2',
+            //if in:1_1
+            'flow_rate_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
+            'mixture_bottomhole_flowing_pressure_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,10000',
+            'mixture_viscosity_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,100000',
+            'mixture_oil_volumetric_factor_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,10',
+            'mixture_water_volumetric_factor_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,10',
+            'mixture_oil_fraction_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,1',
+            'mixture_water_fraction_1_1' => 'required_if:characterized_mixture,1|numeric|between:0,1',
+            //if in:1_2
+            'flow_rate_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
+            'mixture_bottomhole_flowing_pressure_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
+            'mixture_oil_viscosity_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,100000',
+            'mixture_water_viscosity_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,10',
+            'mixture_oil_fraction_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,1',
+            'mixture_water_fraction_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,1',
+            'mixture_oil_volumetric_factor_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,10',
+            'mixture_water_volumetric_factor_1_2' => 'required_if:characterized_mixture,2|numeric|between:0,10',
             //if in:2
-            'mixture_rate_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
-            'mixture_bottomhole_flowing_pressure_2' => 'required_if:characterized_mixture,2|numeric|between:0,10000',
-            'mixture_oil_viscosity' => 'required_if:characterized_mixture,2|numeric|between:0,100000',
-            'mixture_oil_fraction' => 'required_if:characterized_mixture,2|numeric|between:0,1',
-            'mixture_water_viscosity' => 'required_if:characterized_mixture,2|numeric|between:0,100000',
-            'mixture_water_fraction' => 'required_if:characterized_mixture,2|numeric|between:0,1',
-            'mixture_oil_volumetric_factor' => 'required_if:characterized_mixture,2|numeric|between:0,10',
-            'mixture_water_volumetric_factor' => 'required_if:characterized_mixture,2|numeric|between:0,10',
+            'flow_rate_2' => 'required_if:emulsion,2|numeric|between:0,10000',
+            'mixture_bottomhole_flowing_pressure_2' => 'required_if:emulsion,2|numeric|between:0,10000',
+            'mixture_oil_viscosity_2' => 'required_if:emulsion,2|numeric|between:0,100000',
+            'mixture_water_viscosity_2' => 'required_if:emulsion,2|numeric|between:0,100000',
+            'mixture_oil_fraction_2' => 'required_if:emulsion,2|numeric|between:0,1',
+            'mixture_water_fraction_2' => 'required_if:emulsion,2|numeric|between:0,1',
+            'mixture_oil_volumetric_factor_2' => 'required_if:emulsion,2|numeric|between:0,10',
+            'mixture_water_volumetric_factor_2' => 'required_if:emulsion,2|numeric|between:0,10',
             //
             'skin' => 'required|numeric|between:0,1000',
             'permeability' => 'required|numeric|between:0,1000000',
@@ -122,6 +134,33 @@ class disaggregation_request extends Request
             $rules["water_volumetric_factor"] = str_replace("required_if|", "", $rules["water_volumetric_factor"]);
             $rules["emulsion"] = str_replace("required_if|", "", $rules["emulsion"]);
             $rules["characterized_mixture"] = str_replace("required_if|", "", $rules["characterized_mixture"]);
+            //if in:1_1
+            $rules["flow_rate_1_1"] = str_replace("required_if|", "", $rules["flow_rate_1_1"]);
+            $rules["mixture_bottomhole_flowing_pressure_1_1"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure_1_1"]);
+            $rules["mixture_viscosity_1_1"] = str_replace("required_if|", "", $rules["mixture_viscosity_1_1"]);
+            $rules["mixture_oil_volumetric_factor_1_1"] = str_replace("required_if|", "", $rules["mixture_oil_volumetric_factor_1_1"]);
+            $rules["mixture_water_volumetric_factor_1_1"] = str_replace("required_if|", "", $rules["mixture_water_volumetric_factor_1_1"]);
+            $rules["mixture_oil_fraction_1_1"] = str_replace("required_if|", "", $rules["mixture_oil_fraction_1_1"]);
+            $rules["mixture_water_fraction_1_1"] = str_replace("required_if|", "", $rules["mixture_water_fraction_1_1"]);
+            //if in:1_2
+            $rules["flow_rate_1_2"] = str_replace("required_if|", "", $rules["flow_rate_1_2"]);
+            $rules["mixture_bottomhole_flowing_pressure_1_1"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure_1_1"]);
+            $rules["mixture_oil_viscosity_1_2"] = str_replace("required_if|", "", $rules["mixture_oil_viscosity_1_2"]);
+            $rules["mixture_water_viscosity_1_2"] = str_replace("required_if|", "", $rules["mixture_water_viscosity_1_2"]);
+            $rules["mixture_oil_fraction_1_2"] = str_replace("required_if|", "", $rules["mixture_oil_fraction_1_2"]);
+            $rules["mixture_water_fraction_1_2"] = str_replace("required_if|", "", $rules["mixture_water_fraction_1_2"]);
+            $rules["mixture_oil_volumetric_factor_1_2"] = str_replace("required_if|", "", $rules["mixture_oil_volumetric_factor_1_2"]);
+            $rules["mixture_water_volumetric_factor_1_2"] = str_replace("required_if|", "", $rules["mixture_water_volumetric_factor_1_2"]);
+            //if in:2
+            $rules["flow_rate_2"] = str_replace("required_if|", "", $rules["flow_rate_2"]);
+            $rules["mixture_bottomhole_flowing_pressure_2"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure_2"]);
+            $rules["mixture_oil_viscosity_2"] = str_replace("required_if|", "", $rules["mixture_oil_viscosity_2"]);
+            $rules["mixture_water_viscosity_2"] = str_replace("required_if|", "", $rules["mixture_water_viscosity_2"]);
+            $rules["mixture_oil_fraction_2"] = str_replace("required_if|", "", $rules["mixture_oil_fraction_2"]);
+            $rules["mixture_water_fraction_2"] = str_replace("required_if|", "", $rules["mixture_water_fraction_2"]);
+            $rules["mixture_oil_volumetric_factor_2"] = str_replace("required_if|", "", $rules["mixture_oil_volumetric_factor_2"]);
+            $rules["mixture_water_volumetric_factor_2"] = str_replace("required_if|", "", $rules["mixture_water_volumetric_factor_2"]);
+            //
             $rules["mixture_rate"] = str_replace("required_if|", "", $rules["mixture_rate"]);
             $rules["mixture_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure"]);
             $rules["mixture_viscosity"] = str_replace("required_if|", "", $rules["mixture_viscosity"]);
@@ -197,18 +236,33 @@ class disaggregation_request extends Request
             'water_bottomhole_flowing_pressure.numeric' => 'The bottomhole flowing pressure must be a number.',
             'water_viscosity.numeric' => 'The water viscosity must be a number.',
             'water_volumetric_factor.numeric' => 'The water volumetric factor must be a number.',
-            'mixture_rate.numeric' => 'The mixture rate must be a number.',
-            'mixture_bottomhole_flowing_pressure.numeric' => 'The bottomhole flowing pressure must be a number.',
-            'mixture_viscosity.numeric' => 'The mixture viscosity must be a number.',
-            'mixture_volumetric_factor.numeric' => 'The mixture volumetric factor must be a number.',
-            'mixture_rate_2.numeric' => 'The mixture rate must be a number.',
+            //if in:1_1
+            'flow_rate_1_1.numeric' => 'The flow rate must be a number.',
+            'mixture_bottomhole_flowing_pressure_1_1.numeric' => 'The bottomhole flowing pressure must be a number.',
+            'mixture_viscosity_1_1.numeric' => 'The viscosity must be a number.',
+            'mixture_oil_volumetric_factor_1_1.numeric' => 'the oil volume factor must be a number.',
+            'mixture_water_volumetric_factor_1_1.numeric' => 'The water volume factor must be a number.',
+            'mixture_oil_fraction_1_1.numeric' => 'The oil fraction must be a number.',
+            'mixture_water_fraction_1_1.numeric' => 'The water fraction must be a number.',
+            //if in:1_2
+            'flow_rate_1_2.numeric' => 'The flow rate must be a number.',
+            'mixture_bottomhole_flowing_pressure_1_2.numeric' => 'The bottomhole flowing pressure must be a number.',
+            'mixture_oil_viscosity_1_2.numeric' => 'The oil viscosity must be a number.',
+            'mixture_water_viscosity_1_2.numeric' => 'The water viscosity must be a number.',
+            'mixture_oil_fraction_1_2.numeric' => 'The oil fraction must be a number.',
+            'mixture_water_fraction_1_2.numeric' => 'The water fraction must be a number.',
+            'mixture_oil_volumetric_factor_1_2.numeric' => 'The oil volume factor must be a number.',
+            'mixture_water_volumetric_factor_1_2.numeric' => 'The water volume factor must be a number.',
+            //if in:2
+            'flow_rate_2.numeric' => 'The flow rate must be a number.',
             'mixture_bottomhole_flowing_pressure_2.numeric' => 'The bottomhole flowing pressure must be a number.',
-            'mixture_oil_viscosity.numeric' => 'The oil viscosity must be a number.',
-            'mixture_oil_fraction.numeric' => 'The oil fraction must be a number.',
-            'mixture_water_viscosity.numeric' => 'The water viscosity must be a number.',
-            'mixture_water_fraction.numeric' => 'The water fraction must be a number.',
-            'mixture_oil_volumetric_factor.numeric' => 'The mixture oil volumetric factor must be a number.',
-            'mixture_water_volumetric_factor.numeric' => 'The mixture water volumetric factor must be a number.',
+            'mixture_oil_viscosity_2.numeric' => 'The oil viscosity must be a number.',
+            'mixture_water_viscosity_2.numeric' => 'The water viscosity must be a number.',
+            'mixture_oil_fraction_2.numeric' => 'The oil fraction must be a number.',
+            'mixture_water_fraction_2.numeric' => 'The water fraction must be a number.',
+            'mixture_oil_volumetric_factor_2.numeric' => 'The oil volume factor must be a number.',
+            'mixture_water_volumetric_factor_2.numeric' => 'The water volume factor must be a number.',
+            //
             'skin.numeric' => 'The skin must be a number.',
             'permeability.numeric' => 'The permeabibility must be a number.',
             'porosity.numeric' => 'The porosity must be a number.',

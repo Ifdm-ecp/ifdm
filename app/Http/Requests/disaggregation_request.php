@@ -161,18 +161,6 @@ class disaggregation_request extends Request
             $rules["mixture_oil_volumetric_factor_2"] = str_replace("required_if|", "", $rules["mixture_oil_volumetric_factor_2"]);
             $rules["mixture_water_volumetric_factor_2"] = str_replace("required_if|", "", $rules["mixture_water_volumetric_factor_2"]);
             //
-            $rules["mixture_rate"] = str_replace("required_if|", "", $rules["mixture_rate"]);
-            $rules["mixture_bottomhole_flowing_pressure"] = str_replace("required_if|", "", $rules["mixture_bottomhole_flowing_pressure"]);
-            $rules["mixture_viscosity"] = str_replace("required_if|", "", $rules["mixture_viscosity"]);
-            $rules["mixture_volumetric_factor"] = str_replace("required_if|", "", $rules["mixture_volumetric_factor"]);
-            $rules["mixture_rate_2"] = str_replace("required_if|", "", $rules["mixture_rate_2"]);
-            $rules["mixture_bottomhole_flowing_pressure_2"] = str_replace("required_if", "", $rules["mixture_bottomhole_flowing_pressure_2"]);
-            $rules["mixture_oil_viscosity"] = str_replace("required_if", "", $rules["mixture_oil_viscosity"]);
-            $rules["mixture_oil_fraction"] = str_replace("required_if", "", $rules["mixture_oil_fraction"]);
-            $rules["mixture_water_viscosity"] = str_replace("required_if", "", $rules["mixture_water_viscosity"]);
-            $rules["mixture_water_fraction"] = str_replace("required_if", "", $rules["mixture_water_fraction"]);
-            $rules["mixture_oil_volumetric_factor"] = str_replace("required_if", "", $rules["mixture_oil_volumetric_factor"]);
-            $rules["mixture_water_volumetric_factor"] = str_replace("required_if", "", $rules["mixture_water_volumetric_factor"]);
             $rules["skin"] = str_replace("required|", "", $rules["skin"]);
             $rules["permeability"] = str_replace("required|", "", $rules["permeability"]);
             $rules["rock_type"] = str_replace("required|", "", $rules["rock_type"]);

@@ -526,7 +526,7 @@
                            </div>
                            <div class="col-md-6" id="characterized_mixture_group">
                               <div class="form-group {{$errors->has('characterized_mixture') ? 'has-error' : ''}}">
-                                 {!! Form::label('characterized mixture', 'Characterized Mixture ', array('class' => 'required')) !!}
+                                 {!! Form::label('characterized mixture', 'Characterized Emulsion ', array('class' => 'required')) !!}
                                  {!! Form::select('characterized_mixture', array(1 => 'Yes', 2 => 'No'), $disaggregation->characterized_mixture, ['class' => 'form-control', 'id'=>'characterized_mixture', 'placeholder' => 'Select an option']) !!}
                               </div>
                               {!! $errors->first('characterized_mixture', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}

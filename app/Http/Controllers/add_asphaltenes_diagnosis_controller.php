@@ -905,6 +905,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $simulated_results = [];
         $damage_results = [];
 
+        $dpart = $dpart * 10;
+
         $pi = 3.14159265359;
         $x = 0;
         $radio_dam = 0;
@@ -974,7 +976,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
         {
             $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
             $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
-            $co[$i] = $wtasf[1] * 10000 / $rho * $coi;
+            if ( ($rho) < 0.00000000001 ) {
+                $co[$i] = 0;
+            } else {
+                $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / ($rho);
+            }
             $ea[$i] = 0;
         }
 
@@ -1000,6 +1006,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $cocal = array_fill(1, 100, 0);
         $rl = array_fill(1, 100, 0);
         $coc = array_fill(1, $nr, 0);
+        $cocs = array_fill(1, $nr, 0);
         $tiempo = array_fill(1, $nh, 0);
 
         $n = 0.5;
@@ -1079,6 +1086,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                         $d[$i] = -$f[$i] * $pn[$i];
                     }
                 }
+                
                 $qq[1] = $a[1] / $c[1];
                 $gg[1] = $d[1] / $c[1];
 
@@ -1088,6 +1096,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     $qq[$j] = $a[$j] / $w[$j];
                 }
 
+                //if ($kk == 6) {
+                //    dd($gg, $qq, $co);
+                //}
+
                 $pcal[$nr] = $gg[$nr];
                 for ($j = $nr - 1; $j >= 1; $j--) {
                     $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
@@ -1096,7 +1108,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 for ($i = 1; $i <= $nr; $i++) {
                     $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
                     $coi = $this->interpolation($pcal[$i], $ns, $pasf, $sasf);
-                    $co[$i] = $wtasf[$kk] * 10000 / $rho * $coi;
+                    if ( ($rho) < 0.00000000001 ) {
+                        $co[$i] = 0;
+                    } else {
+                        $co[$i] = ($wtasf[$kk] * 10000 * (1 - $coi)) / ($rho);
+                    }
                 }
 
                 #Cálculo del flux
@@ -1108,7 +1124,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                 for ($i = 2; $i <= $nr; $i++) {
                     $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
-                    $u[$i] = -$kn[$i] * $dpre[$i] / $mu;
+                    //if( $mu == 0) {
+                    //    dd($kn[$i], $dpre[$i], $mu, $pcal, $kk);
+                    //}
+                    $u[$i] = ((-$kn[$i]) * $dpre[$i]) / $mu;
                     if ($u[$i] < 0.000001) {
                         $u[$i] = 0;
                     }
@@ -1155,6 +1174,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     $phin[$i] = $phic[$i];
                     $kn[$i] = $kc[$i];
                     $co[$i] = $coc[$i];
+                    $coi = $this->interpolation($pn[$i], $ns, $pasf, $sasf);
+                    $cocs[$i] = (($wtasf[$kk] * 10000 * $coi) / ($rho)) - $co[$i];
                 }
 
             }
@@ -1164,7 +1185,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             #Radio de daño
             for ($i = 1; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05 * $ko) {
+                if (($ko - $kc[$i]) > 0.01 * $ko) {
                     $radioo[$i] = $r[$i];
                 }else{
                     $radioo[$i] = 0;
@@ -1252,7 +1273,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             for ($i = 1; $i <= $nr; $i++) 
             {
-                $simulated_results[$i] = [$r[$i], $pcal[$i], $phic[$i], $kc[$i], $ea[$i], $co[$i]];
+                $simulated_results[$i] = [$r[$i], $pcal[$i], $phic[$i], $kc[$i], $ea[$i], $cocs[$i]];
             }
 
             $damage_results[$kk] = [$hist[$kk], $radio_dam, $max_skin];

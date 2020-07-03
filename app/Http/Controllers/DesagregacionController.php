@@ -252,7 +252,7 @@ class desagregacionController extends Controller
                             $mixture_water_volumetric_factor_1_2 = $request->get('mixture_water_volumetric_factor_1_2');
                             $fluid_rate = $bottomhole_flowing_pressure = $fluid_viscosity = $fluid_volumetric_factor = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                         }
-                    }elseif ($request->input('emulsion') === 2) {
+                    }elseif ($request->input('emulsion') == 2) {
                         $emulsion = $request->get('emulsion');
                         $flow_rate_2 = $request->get('flow_rate_2');
                         $mixture_bottomhole_flowing_pressure_2 = $request->get('mixture_bottomhole_flowing_pressure_2');

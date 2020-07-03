@@ -234,7 +234,6 @@
         emptyValues = (emptyValues === false && (characterized_mixture === null || characterized_mixture === "")) ? true: emptyValues;
 
         if (characterized_mixture == "1") {
-          console.log('1 1');
 
           var flow_rate_1_1 = $("#flow_rate_1_1").val();
           validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_1, production_data_ruleset[15]);
@@ -279,7 +278,6 @@
           emptyValues = (emptyValues === false && (mixture_water_fraction_1_1 === null || mixture_water_fraction_1_1 === "")) ? true: emptyValues;
 
         } else if (characterized_mixture == "2") {
-          console.log('1 2');
 
           var flow_rate_1_2 = $("#flow_rate_1_2").val();
           validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_2, production_data_ruleset[22]);
@@ -332,7 +330,7 @@
         }
 
       } else if (emulsion == "2") {
-        console.log('2');
+
         var flow_rate_2 = $("#flow_rate_2").val();
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_2, production_data_ruleset[30]);
         titleTab = validationFunctionResult[0];
@@ -428,6 +426,8 @@
     }
 
     if (validationMessages.length < 1) {
+      console.log(validationMessages);
+      throw new Error(validationMessages);
       $("#hidraulic_units_data_table").val(JSON.stringify(hidraulic_units_data_table));
 
       if (emptyValues) {

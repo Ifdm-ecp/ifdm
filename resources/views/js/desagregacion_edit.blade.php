@@ -427,6 +427,7 @@
 
     if (validationMessages.length < 1) {
       console.log(validationMessages);
+      console.log(emptyValues);
       throw new Error(validationMessages);
       $("#hidraulic_units_data_table").val(JSON.stringify(hidraulic_units_data_table));
 

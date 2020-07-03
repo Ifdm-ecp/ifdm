@@ -10,7 +10,6 @@
     $components_table = $('#components_table');
 
     $(document).ready(function () {
-
         //Calcular y pintar label Total SARA
         calculate_total_sara();
 
@@ -22,22 +21,44 @@
             viewportColumnRenderingOffset: 10,
             rowHeaders: true,
             stretchH: 'all',
-
             colWidths: [150, 150],
+            afterChange: function(changes, source) {
+                var components_table = clean_table_data("components_table");
+                var sumZi = 0;
+
+                for (var i = 0; i < components_table.length; i++) {
+                    if (components_table[i] != undefined) {
+                        if (components_table[i][1] != "" && components_table[i][1] != undefined && components_table[i][1] != null && $.isNumeric(components_table[i][1])) {
+                            sumZi += components_table[i][1];
+                        }
+                    }
+                }
+
+                sumZi = parseFloat(sumZi.toFixed(2));
+
+                if (sumZi >= 0.9 && sumZi <= 1.1) {
+                    $("#total_zi").attr('class', 'label label-success');
+                } else {
+                    $("#total_zi").attr('class', 'label label-danger');
+                }
+
+                $("#total_zi").html(sumZi);
+            },
             columns: [{
-                title: "Component",
+                title: components_table_ruleset[0].column,
                 data: 0,
                 type: 'text',
-                readOnly: true
+                readOnly: true,
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[0])); }
             },
-                {
-                    title: "Zi [0-1]",
-                    data: 1,
-                    type: 'numeric',
-                    format: '0[.]0000000'
-                },
+            {
+                title: components_table_ruleset[1].column,
+                data: 1,
+                type: 'numeric',
+                format: '0[.]0000000',
+                validator: function(value, callback) { callback(multiValidatorHandsonTable(value, components_table_ruleset[1])); }
+            },
             ]
-
         });
 
         $('.save_table').on('click', function () {
@@ -73,9 +94,7 @@
             calculate_total_sara();
         });
 
-        
         //Cuando el selector de componentes cambia, se debe actualizar la tabla compoentnes en la primera columna.
-
         $("#components").change(function (e) {
             var hot = $('#components_table').handsontable('getInstance');
             dataComponents = [];
@@ -96,7 +115,7 @@
                 for (i = 0; i < components.length; i++) {
                     item = {};
                     item [0] = components[i];
-                    item [1] = items[components[i]];
+                    item [1] = items[components[i]] !== undefined ? items[components[i]] : "";
 
                     dataComponents.push(item);
                 }
@@ -167,8 +186,6 @@
             });
             hot_components_table.render();
         }
-
-
     });
 
     //Llamarla antes de guardar todos los datos de tablas - elmina nulos
@@ -263,6 +280,142 @@
 
         $("#sum_zi_components_table").val(sum_zi);
         $("#zi_range_flag_components_table").val(zi_range_flag);
+    }
 
+    function verifyAsphaltene(action) {
+        // Loading
+        $("#loading_icon").show();
+
+        // Boolean for empty values for the save button
+        var emptyValues = false;
+        // Title tab for modal errors
+        var titleTab = "";
+        var tabTitle = "";
+        //Saving tables...
+        var validationMessages = [];
+        var validationFunctionResult = [];
+
+        // Validating Components data
+        tabTitle = "Section: Components Data";
+
+        var select_components_data = $("#components").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_components_data, components_select_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (select_components_data === null || select_components_data === "")) ? true: emptyValues;
+
+        var passedSelector = false;
+
+        if (titleTab === "" && select_components_data !== null) {
+            passedSelector = true;
+        }
+
+        var components_data = clean_table_data("components_table");
+        tableValidator = validateTable("Components Data", components_data, components_table_ruleset, action);
+        if (tableValidator.length > 0) {
+            if (titleTab == "") {
+                titleTab = "Section: Components Data";
+                validationMessages = validationMessages.concat(titleTab);
+            }
+            validationMessages = validationMessages.concat(tableValidator);
+        } else if (components_data.length > 0) {
+            var sumZi = 0;
+
+            for (var i = 0; i < components_data.length; i++) {
+                sumZi += components_data[i][1];
+            }
+
+            sumZi = parseFloat(sumZi.toFixed(2));
+
+            if (sumZi < 0.9 || sumZi > 1.1) {
+                if (titleTab == "") {
+                    titleTab = "Section: Components Data";
+                    validationMessages = validationMessages.concat(titleTab);
+                }
+                validationMessages = validationMessages.concat("The total sum for the Zi in the Components Data table is out of the numeric range [0.9, 1.1]");
+            }
+        }
+
+        // Validating SARA analysis
+        titleTab = "";
+        tabTitle = "Section: SARA Analysis";
+
+        var saturate = $("#saturated").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, saturate, sara_section_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (saturate === null || saturate === "")) ? true: emptyValues;
+
+        var aromatic = $("#aromatics").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, aromatic, sara_section_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (aromatic === null || aromatic === "")) ? true: emptyValues;
+
+        var resine = $("#resines").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, resine, sara_section_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (resine === null || resine === "")) ? true: emptyValues;
+
+        var asphaltene = $("#asphaltenes").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, asphaltene, sara_section_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (asphaltene === null || asphaltene === "")) ? true: emptyValues;
+    
+        // Validating Saturation data
+        titleTab = "";
+        tabTitle = "Section: Saturation Data";
+
+        var reservoir_initial_pressure = $("#reservoir_initial_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, reservoir_initial_pressure, saturate_section_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (reservoir_initial_pressure === null || reservoir_initial_pressure === "")) ? true: emptyValues;
+
+        var bubble_pressure = $("#bubble_pressure").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, bubble_pressure, saturate_section_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (bubble_pressure === null || bubble_pressure === "")) ? true: emptyValues;
+
+        var density_at_reservoir_temperature = $("#density_at_reservoir_temperature").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, density_at_reservoir_temperature, saturate_section_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (density_at_reservoir_temperature === null || density_at_reservoir_temperature === "")) ? true: emptyValues;
+
+        var api_gravity = $("#api_gravity").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, api_gravity, saturate_section_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (api_gravity === null || api_gravity === "")) ? true: emptyValues;
+
+        if (validationMessages.length < 1) {
+            $("#value_components_table").val(JSON.stringify(components_data));
+            validate_components_data(components_data);
+
+            if (emptyValues) {
+                $("#loading_icon").hide();
+                validationMessages.push(true);
+                showFrontendErrors(validationMessages);
+            } else {
+                $("#only_s").val("run");
+                $("#asphalteneForm").submit();
+            }
+        } else {
+            $("#loading_icon").hide();
+            showFrontendErrors(validationMessages);
+        }
+    }
+
+    /* saveForm
+    * Submits the form when the confirmation button from the modal is clicked
+    */
+    function saveForm() {
+        $("#loading_icon").show();
+        $("#only_s").val("save");
+        $("#asphalteneForm").submit();
     }
 </script>

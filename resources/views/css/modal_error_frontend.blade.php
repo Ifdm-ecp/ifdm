@@ -10,4 +10,9 @@
       max-height: 250px;
       overflow-y: auto;
    }
+
+   .scenario-buttons {
+      display: flex;
+      justify-content: space-between;
+   }
 </style>

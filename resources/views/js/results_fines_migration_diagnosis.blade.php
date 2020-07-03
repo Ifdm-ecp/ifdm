@@ -4,6 +4,8 @@
 
 <script type="text/javascript">
 
+
+
     $("#date_select").change(function()
     {
         selected_dates = $("#date_select").val();
@@ -18,7 +20,6 @@
         {fines_d_diagnosis_id : fines_d_diagnosis_id},
         function(data)
         {   
-            console.log(data);
             damage_radius_serie = [];
             skin_serie = [];
             $.each(data, function(index, value)
@@ -202,8 +203,9 @@
 
         //Mostrando los resultados de la última fecha por defecto. El usuario puede modificar qué fechas quiere desde la vista.
         fines_d_diagnosis_id = {!!json_encode($fines_d_diagnosis->id)!!};
-        final_date = {!!json_encode($dates_data)!!}.slice(-1);
-        on_change_date_select_plot(fines_d_diagnosis_id, final_date);
+        final_date = {!!json_encode($dates_data)!!}.slice(-3);
+        final_date = final_date[0];
+        on_change_date_select_plot(fines_d_diagnosis_id, [final_date]);
 
     });
 </script>

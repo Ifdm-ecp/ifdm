@@ -15,13 +15,10 @@
 			<li><a href="#" onclick="window.open('{!! asset('manual.pdf') !!}')"><h4>User Manual</h4></a></li>
 			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/ipr.pdf') !!}')"><h4>IPR</h4></a></li>
 			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/asphaltenes.pdf') !!}')"><h4>Asphaltenes</h4></a></li>
-			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/asphaltenes_remediation.pdf') !!}')"><h4>Asphaltenes Remediation</h4></a></li>
 			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/dissagregation.pdf') !!}')"><h4>Skin Dissagregation</h4></a></li>
 			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/geomechanics.pdf') !!}')"><h4>Geomechanics</h4></a></li>
 			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/drilling.pdf') !!}')"><h4>Drilling & Completion</h4></a></li>
-			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/fines.pdf') !!}')"><h4>Fines Migration</h4></a></li>
-			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/fines_treatment_selection.pdf') !!}')"><h4>Fines Treatment Selection</h4></a></li>
-			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/fines_remediation.pdf') !!}')"><h4>Fines Remediation</h4></a></li>    
+			<li><a href="#" onclick="window.open('{!! asset('general_manuals/user_manual/fines.pdf') !!}')"><h4>Fines Migration</h4></a></li>  
 		</ul>
 		</div>
 	</div>

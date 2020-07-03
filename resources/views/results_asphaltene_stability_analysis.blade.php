@@ -24,101 +24,101 @@
 
       <div class="tab-content">
          <div class="tab-pane active" id="conclusions">
-            <div class="panel-body">
-               <div class="panel panel-danger">
-                  <div class="panel-heading"><b>Light Components And Precipitated Asphaltenes</b></div>
-                  <div class="panel-body">
-                      <div id = "light_analysis_problem_level"></div>
-                      <div id = "light_analysis_conclusion"></div>
-                      <div id = "light_analysis_probability"></div>
-                  </div>
-               </div>
+            <br>
+            <div class="panel panel-danger">
+              <div class="panel-heading"><b>Light Components And Precipitated Asphaltenes</b></div>
+              <div class="panel-body">
+                  <div id = "light_analysis_problem_level"></div>
+                  <div id = "light_analysis_conclusion"></div>
+                  <div id = "light_analysis_probability"></div>
+              </div>
+            </div>
 
-               <div class="panel panel-warning">
-                  <div class="panel-heading"><b>SARA Stability Analysis</b></div>
-                  <div class="panel-body">
-                      <div id = "sara_analysis_problem_level"></div>
-                      <div id = "sara_analysis_conclusion"></div>
-                      <div id = "sara_analysis_probability"></div>
-                  </div>
-               </div>
+            <div class="panel panel-warning">
+              <div class="panel-heading"><b>SARA Stability Analysis</b></div>
+              <div class="panel-body">
+                  <div id = "sara_analysis_problem_level"></div>
+                  <div id = "sara_analysis_conclusion"></div>
+                  <div id = "sara_analysis_probability"></div>
+              </div>
+            </div>
 
-               <div class="panel panel-success">
-                  <div class="panel-heading"><b>Colloidal Stability Index Analysis</b></div>
-                  <div class="panel-body">
-                      <div id = "colloidal_analysis_problem_level"></div>
-                      <div id = "colloidal_analysis_conclusion"></div>
-                      <div id = "colloidal_analysis_probability"></div>
-                  </div>
-               </div>
+            <div class="panel panel-success">
+              <div class="panel-heading"><b>Colloidal Instability Index Analysis</b></div>
+              <div class="panel-body">
+                  <div id = "colloidal_analysis_problem_level"></div>
+                  <div id = "colloidal_analysis_conclusion"></div>
+                  <div id = "colloidal_analysis_probability"></div>
+              </div>
+            </div>
 
-               <div class="panel panel-default">
-                 <div class="panel-heading"><b>Risk Analysis</b></div>
-                 <div class="panel-body">
-                   <div class="row">
-                     <div class="col-md-8">
-                        <p></p>
-                        <div id = "precipitation_risk_light"></div>
-                        <div id = "precipitation_risk_sara"></div>
-                        <div id = "precipitation_risk_colloidal"></div>
-                        <div class="well well-sm" id = "precipitation_risk_fluid"></div>
-                     </div>
-                     <div class="col-md-4">
-                       <table class="table table-striped">
-                         <thead>
-                           <tr>
-                             <th>Risk</th>
-                             <th>Level</th>
-                           </tr>
-                         </thead>
-                         <tbody>
-                            <tr class="success">
-                              <td>0</td>
-                              <td>None</td>
-                            </tr>
-                            <tr class="success">
-                              <td>1</td>
-                              <td>Low-low</td>
-                            </tr>
-                            <tr class="success">
-                              <td>2</td>
-                              <td>Low-high</td>
-                            </tr>
-                            <tr class="warning">
-                              <td>3</td>
-                              <td>Medium-low</td>
-                            </tr>
-                            <tr class="warning">
-                              <td>4</td>
-                              <td>Medium-high</td>
-                            </tr>
-                            <tr class="danger">
-                              <td>5</td>
-                              <td>High-low</td>
-                            </tr>
-                            <tr class="danger">
-                              <td>6</td>
-                              <td>High-high</td>
-                            </tr>
-                            <tr class="danger">
-                              <td>7</td>
-                              <td>Severe</td>
-                            </tr>
-                         </tbody>
-                       </table>
-                     </div>
-                   </div>
-                 </div>
-               </div>
+            <div class="panel panel-default">
+              <div class="panel-heading"><b>Risk Analysis</b></div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <p></p>
+                    <div id = "precipitation_risk_light"></div>
+                    <div id = "precipitation_risk_sara"></div>
+                    <div id = "precipitation_risk_colloidal"></div>
+                    <div class="well well-sm" id = "precipitation_risk_fluid"></div>
+                  </div>
+                  <div class="col-md-4">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Risk</th>
+                          <th>Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="success">
+                          <td>0</td>
+                          <td>None</td>
+                        </tr>
+                        <tr class="success">
+                          <td>1</td>
+                          <td>Low-low</td>
+                        </tr>
+                        <tr class="success">
+                          <td>2</td>
+                          <td>Low-high</td>
+                        </tr>
+                        <tr class="warning">
+                          <td>3</td>
+                          <td>Medium-low</td>
+                        </tr>
+                        <tr class="warning">
+                          <td>4</td>
+                          <td>Medium-high</td>
+                        </tr>
+                        <tr class="danger">
+                          <td>5</td>
+                          <td>High-low</td>
+                        </tr>
+                        <tr class="danger">
+                          <td>6</td>
+                          <td>High-high</td>
+                        </tr>
+                        <tr class="danger">
+                          <td>7</td>
+                          <td>Severe</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
          </div>
 
          <div class="tab-pane" id="boer_stability_analysis">
-            <p></p>
+            <br>
             <div id="boer_chart"></div>
          </div>
 
          <div class="tab-pane" id="cii_analysis">
+            <br>
             <div class="panel panel-default">
               <div class="panel-heading"><b>Colloidal Instability Index Analysis</b></div>
               <div class="panel-body">
@@ -149,8 +149,8 @@
    <div class="col-xs-12">
       <p class="pull-right">
         @if(!$asphaltenes_d_stability_analysis->status_wr)
-        <a href="{!! url('run_asphaltene_diagnosis',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Diagnosis</a>
         <a href="{!! url('run_precipitated_asphaltene',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Precipitated Asphaltene Analysis</a>
+        <a href="{!! url('run_asphaltene_diagnosis',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Diagnosis</a>
         @endif
         <a href="{!! url('run_asphaltene_stability',array('id'=>$scenaryId)) !!}" class="maximize btn btn-warning" role="button">Edit</a>
       </p>

@@ -70,7 +70,7 @@
 
 
 		<div id="advisor_asphaltene_particle_diameter"><br>
-			Asphaltene molecules can self-associate to aggregation particles due to several interactions. The particles are most commonly described as “nanoaggregrates” with their dimensions of 2–10 nm. The asphaltene nanoaggregates can further cluster in crude oils and toluene. At higher concentrations than the CNAC (critical nanoaggregate concentration), a secondary aggregation process known as the clustering of nanoaggregates takes place. These clusters can have a length scale of several nanometers. [5] It can be calculated through optical microscopy and high pressure SEM(Scanning Electron Microscope). It can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
+			Asphaltene molecules can self-associate to aggregation particles due to several interactions. The particles are most commonly described as “nanoaggregrates” with their dimensions of 2–20 nm. The asphaltene nanoaggregates can further cluster in crude oils and toluene. At higher concentrations than the CNAC (critical nanoaggregate concentration), a secondary aggregation process known as the clustering of nanoaggregates takes place. These clusters can have a length scale of several nanometers. [5] It can be calculated through optical microscopy and high pressure SEM(Scanning Electron Microscope). It can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
 		</div>
 
 		<div id="advisor_ref_asphaltene_particle_diameter">

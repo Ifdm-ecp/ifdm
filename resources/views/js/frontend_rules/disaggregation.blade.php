@@ -10,7 +10,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 5},
+      {rule: "range", min: 0, max: 5}
     ]
   },
   {
@@ -18,7 +18,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -26,7 +26,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 30000},
+      {rule: "range", min: 0, max: 30000}
     ]
   },
   {
@@ -34,7 +34,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 30000},
+      {rule: "range", min: 0, max: 30000}
     ]
   },
   {
@@ -42,7 +42,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
@@ -50,7 +50,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
@@ -68,7 +68,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 50},
+      {rule: "range", min: 0, max: 50}
     ]
   },
   {
@@ -86,7 +86,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -94,7 +94,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
@@ -102,7 +102,7 @@ well_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -124,7 +124,7 @@ production_data_ruleset = [
       {rule: "requiredselect"},
       {
         rule: "selection",
-        selections: ["1", "2", "3"]
+        selections: ["1", "2", "3", "4"]
       }
     ]
   },
@@ -133,7 +133,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -141,7 +141,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -149,7 +149,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000},
+      {rule: "range", min: 0, max: 100000}
     ]
   },
   {
@@ -157,7 +157,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -165,7 +165,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -173,7 +173,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -181,7 +181,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000},
+      {rule: "range", min: 0, max: 100000}
     ]
   },
   {
@@ -189,7 +189,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -197,7 +197,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -205,7 +205,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -213,7 +213,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000},
+      {rule: "range", min: 0, max: 100000}
     ]
   },
   {
@@ -221,7 +221,211 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 10},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Emulsion",
+    rules: [
+      {rule: "requiredselect"},
+      {
+        rule: "selection",
+        selections: ["1", "2"]
+      }
+    ]
+  },
+  {
+    column: "Characterized Mixture",
+    rules: [
+      {rule: "requiredselect"},
+      {
+        rule: "selection",
+        selections: ["1", "2"]
+      }
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Emulsion Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Oil Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Water Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Oil Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Water Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
     ]
   },
 ];
@@ -232,7 +436,7 @@ damage_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   }
 ];
@@ -243,7 +447,7 @@ basic_petrophysics_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000000},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -261,7 +465,7 @@ basic_petrophysics_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
+      {rule: "range", min: 0, max: 1}
     ]
   }
 ];
@@ -272,7 +476,7 @@ hydraulic_units_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000},
+      {rule: "range", min: 0, max: 1000}
     ]
   },
   {
@@ -280,7 +484,7 @@ hydraulic_units_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {
@@ -288,7 +492,7 @@ hydraulic_units_data_table_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 1000000},
+      {rule: "range", min: 0, max: 1000000}
     ]
   }
 ];

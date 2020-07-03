@@ -65,9 +65,8 @@ class add_asphaltene_stability_analysis_controller extends Controller
      */
     public function store(asphaltene_stability_analysis_request $request)
     {
-        $button_wr = isset($_POST['button_wr']);
         $scenaryId = $request->input('scenaryId');
-        $scenary = DB::table('escenarios')->where('id', $scenaryId)->first();
+        $scenary = escenario::find($scenaryId);
 
         #Variables para barra de información
         $pozo = DB::table('pozos')->where('id', $scenary->pozo_id)->first();
@@ -95,7 +94,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
-        $asphaltenes_d_stability_analysis->status_wr = $button_wr;
+        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
         $asphaltenes_d_stability_analysis->save();
 
         #Tabla componentes
@@ -135,7 +134,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $input_api_gravity = $asphaltenes_d_stability_analysis->api_gravity;
         $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, 0, $input_api_gravity];
 
-        if (!$button_wr) {
+        if (!$asphaltenes_d_stability_analysis->status_wr) {
             $calculate_boer_stability_criteria_results = $this->calculate_boer_stability_criteria($components, $input_sara, $input_saturation);
             $conclusions = $calculate_boer_stability_criteria_results[0];
             $risk_level_conclusion = $calculate_boer_stability_criteria_results[1];
@@ -192,14 +191,12 @@ class add_asphaltene_stability_analysis_controller extends Controller
         /*Escenario completo*/
         $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
-        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->select('id')->first();
+        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-        if ($asphaltenes_d_stability_analysis and $asphaltenes_d_diagnosis and $asphaltenes_d_precipitated_analysis) {
-            $scenary = escenario::find($scenary->id);
+        if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && !$asphaltenes_d_precipitated_analysis->status_wr) {
             $scenary->completo = 1;
             $scenary->save();
         } else {
-            $scenary = escenario::find($scenary->id);
             $scenary->completo = 0;
             $scenary->save();
         }
@@ -292,7 +289,6 @@ class add_asphaltene_stability_analysis_controller extends Controller
      */
     public function update(asphaltene_stability_analysis_request $request, $id)
     {
-        $button_wr = isset($_POST['button_wr']);
         if (isset($_SESSION['scenary_id_dup'])) {
             $asphaltenes_d_stability_analysis = new asphaltenes_d_stability_analysis();
         } else {
@@ -301,7 +297,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
 
         #Variables para barra de información
         $scenaryId = $request->id_scenary;
-        $scenary = DB::table('escenarios')->where('id', $scenaryId)->first();
+        $scenary = escenario::find($scenaryId);
         $pozo = DB::table('pozos')->where('id', $scenary->pozo_id)->first();
         $formacion = DB::table('formacionxpozos')->where('id', $scenary->formacion_id)->select('nombre')->first();
         $campo = DB::table('campos')->where('id', $scenary->campo_id)->select('nombre')->first();
@@ -320,25 +316,24 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $asphaltenes_d_stability_analysis->bubble_pressure = $request->input('bubble_pressure');
         $asphaltenes_d_stability_analysis->density_at_reservoir_temperature = $request->input('density_at_reservoir_temperature');
         $asphaltenes_d_stability_analysis->api_gravity = $request->input('api_gravity');
-        $asphaltenes_d_stability_analysis->status_wr = $button_wr;
+        $asphaltenes_d_stability_analysis->status_wr = $request->only_s == "save" ? 1 : 0;
         $asphaltenes_d_stability_analysis->save();
 
         #Tabla componentes
         asphaltenes_d_stability_analysis_components::where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->delete();
         $components_table = json_decode($request->input("value_components_table"));
 
-
-
-
-
-
-
         $components_data = [];
         $molar_fraction_data = [];
 
         $components_table = is_null($components_table) ? [] : $components_table;
         foreach ($components_table as $value) {
-            $asphaltenes_d_stability_analysis_components = new asphaltenes_d_stability_analysis_components;
+            //try {
+                $asphaltenes_d_stability_analysis_components = new asphaltenes_d_stability_analysis_components;
+            //} catch ($e) {
+            //    dd('la vaca de lola');
+            //    return Redirect::back()->with('errorCalculos', 'Los datos introducidos no son válidos.');
+            //}
             $asphaltenes_d_stability_analysis_components->asphaltenes_d_stability_analysis_id = $asphaltenes_d_stability_analysis->id;
             $asphaltenes_d_stability_analysis_components->component = str_replace(",", ".", $value[0]);
             $asphaltenes_d_stability_analysis_components->mole_fraction = str_replace(",", ".", $value[1]);
@@ -368,18 +363,24 @@ class add_asphaltene_stability_analysis_controller extends Controller
         $input_api_gravity = $asphaltenes_d_stability_analysis->api_gravity;
         $input_saturation = [$input_field, $input_reservoir_initial_pressure, $input_bubble_pressure, $input_reservoir_density_at_t, 0, $input_api_gravity];
 
-        if (!$button_wr) {
+        if (!$asphaltenes_d_stability_analysis->status_wr) {
             $calculate_boer_stability_criteria_results = $this->calculate_boer_stability_criteria($components, $input_sara, $input_saturation);
             $conclusions = $calculate_boer_stability_criteria_results[0];
             $risk_level_conclusion = $calculate_boer_stability_criteria_results[1];
             $analysis_type = $calculate_boer_stability_criteria_results[2];
+            //dd('pasa por aqui');
         } else {
             $conclusions = [];
             $analysis_type = [];
             $risk_level_conclusion = 0;
         }
 
+        $asphaltenes_d_stability_analysis_results = DB::table('asphaltenes_d_stability_analysis_results')->where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->first();
+        if (!is_null($asphaltenes_d_stability_analysis_results)) {
+            DB::table('asphaltenes_d_stability_analysis_results')->where('asphaltenes_d_stability_analysis_id', $asphaltenes_d_stability_analysis->id)->delete();
+        }
         $asphaltenes_d_stability_analysis_results = new asphaltenes_d_stability_analysis_results;
+
         $asphaltenes_d_stability_analysis_results->asphaltenes_d_stability_analysis_id = $asphaltenes_d_stability_analysis->id;
         if (!empty($conclusions) && !empty($analysis_type)) {
 
@@ -423,14 +424,12 @@ class add_asphaltene_stability_analysis_controller extends Controller
         /*Escenario completo*/
         $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
-        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->select('id')->first();
+        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-        if ($asphaltenes_d_stability_analysis and $asphaltenes_d_diagnosis and $asphaltenes_d_precipitated_analysis) {
-            $scenary = escenario::find($scenary->id);
+        if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && !$asphaltenes_d_precipitated_analysis->status_wr) {
             $scenary->completo = 1;
             $scenary->save();
         } else {
-            $scenary = escenario::find($scenary->id);
             $scenary->completo = 0;
             $scenary->save();
         }
@@ -908,14 +907,14 @@ class add_asphaltene_stability_analysis_controller extends Controller
                 $sara_conclusion_1 = "<b>Problems:</b> medium high";
                 $sara_conclusion_2 = "<b>High</b> content of asphaltenes, <b>low</b> content of aromatics";
                 $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>50%</b> or less";
-                $sara_type = 4;
-                $sara_probability = 60;
+                $sara_type = 3;
+                $sara_probability = 50;
             } else if ($saturated_content == 2 and $asphaltene_content == 3 and $resins_content == 1 and $aromatic_content == 1) #6'
             {
                 $sara_conclusion_1 = "<b>Problems:</b> low high";
                 $sara_conclusion_2 = "Some asphaltenes could precipitate";
                 $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>17%</b> or less";
-                $sara_type = 1;
+                $sara_type = 2;
                 $sara_probability = 17;
             } else if ($saturated_content == 2 and $asphaltene_content == 3 and $resins_content == 2 and $aromatic_content == 1) {
                 $sara_conclusion_1 = "<b>Problems:</b> medium low";

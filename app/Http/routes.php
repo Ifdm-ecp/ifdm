@@ -315,14 +315,17 @@ Route::group(['middleware' => 'auth'], function(){
 
         $asphaltenes_d_precipitated_analysis_solid_a_results = [];
         if($asphaltenes_d_precipitated_analysis){
-            $asphaltenes_d_precipitated_analysis_solid_a_results = DB::table('asphaltenes_d_precipitated_analysis_solid_a_results')->where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->select('temperature')->get();
 
-            $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);
+            $temperatura = $asphaltenes_d_precipitated_analysis->reservoir_temperature + 460;
+
+            $asphaltenes_d_precipitated_analysis_solid_a_results = DB::table('asphaltenes_d_precipitated_analysis_solid_a_results')->where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->select('temperature')->distinct('temperature')->get();
+
+            $diferencia = abs($asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature - $temperatura);
 
             $temperature = $asphaltenes_d_precipitated_analysis_solid_a_results[0]->temperature;
 
             foreach ($asphaltenes_d_precipitated_analysis_solid_a_results as $value){
-                $aux_diferencia = abs($value->temperature - $asphaltenes_d_precipitated_analysis->reservoir_temperature);
+                $aux_diferencia = abs($value->temperature - $temperatura);
 
                 if($aux_diferencia < $diferencia){
                     $diferencia = $aux_diferencia;
@@ -3457,14 +3460,6 @@ Route::group(['middleware' => 'auth'], function(){
                         }
                         $respuesta_as = ($resp_asphaltenes_d_stability_analysis) ? 0 : 1;
 
-                        $resp_asphaltenes_d_diagnosis = App\asphaltenes_d_diagnosis::where('scenario_id',$id)->first();
-                        if ($resp_asphaltenes_d_diagnosis) {
-                            $resp_asphaltenes_d_diagnosis->nombre = '[A_D]';
-                            $resp_asphaltenes_d_diagnosis->route = route("asd.result",$id);
-                            $scenarios_extras[] = $resp_asphaltenes_d_diagnosis;
-                        }
-                        $respuesta_ad = ($resp_asphaltenes_d_diagnosis) ? 0 : 1;
-
 
                         $resp_asphaltenes_d_precipitated_analysis = App\asphaltenes_d_precipitated_analysis::where('scenario_id',$id)->first();
                         if ($resp_asphaltenes_d_precipitated_analysis) {
@@ -3473,6 +3468,15 @@ Route::group(['middleware' => 'auth'], function(){
                             $scenarios_extras[] = $resp_asphaltenes_d_precipitated_analysis;
                         }
                         $respuesta_ap = ($resp_asphaltenes_d_precipitated_analysis) ? 0 : 1;
+
+
+                        $resp_asphaltenes_d_diagnosis = App\asphaltenes_d_diagnosis::where('scenario_id',$id)->first();
+                        if ($resp_asphaltenes_d_diagnosis) {
+                            $resp_asphaltenes_d_diagnosis->nombre = '[A_D]';
+                            $resp_asphaltenes_d_diagnosis->route = route("asd.result",$id);
+                            $scenarios_extras[] = $resp_asphaltenes_d_diagnosis;
+                        }
+                        $respuesta_ad = ($resp_asphaltenes_d_diagnosis) ? 0 : 1;
 
                         $escenarios[$ke]->extra_ = $scenarios_extras;
 

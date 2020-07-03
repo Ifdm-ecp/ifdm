@@ -79,6 +79,15 @@
 		</div>
 
 
+		<div id="advisor_initial_reservoir_pressure"><br>
+			The force exerted by fluids in a formation, recorded in the hole at the level of the formation with the well shut in. [3]
+		</div>
+
+		<div id="advisor_ref_initial_reservoir_pressure">
+			[3] Rodrigues, C. (2011). A Dictionary for the Petroleum Industry, 55(16), 3202.
+		</div>
+
+
 		<div id="advisor_current_reservoir_pressure"><br>
 			The force exerted by fluids in a formation, recorded in the hole at the level of the formation with the well shut in. [3]
 		</div>
@@ -126,7 +135,7 @@
 
 		<div id="advisor_asphaltene_particle_diameter"><br>
 			<b>Asphaltene Particle Diameter:</b> NmaxA <br><br>
-			Asphaltene molecules can self-associate to aggregation particles due to several interactions. The particles are most commonly described as “nanoaggregrates” with their dimensions of 2–10 nm. The asphaltene nanoaggregates can further cluster in crude oils and toluene. At higher concentrations than the CNAC (critical nanoaggregate concentration), a secondary aggregation process known as the clustering of nanoaggregates takes place. These clusters can form with a length scale of several nanometers. [5] It can be calculated through optical microscopy and high pressure SEM(Scanning Electron Microscope). Also it can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
+			Asphaltene molecules can self-associate to aggregation particles due to several interactions. The particles are most commonly described as “nanoaggregrates” with their dimensions of 2–20 nm. The asphaltene nanoaggregates can further cluster in crude oils and toluene. At higher concentrations than the CNAC (critical nanoaggregate concentration), a secondary aggregation process known as the clustering of nanoaggregates takes place. These clusters can form with a length scale of several nanometers. [5] It can be calculated through optical microscopy and high pressure SEM(Scanning Electron Microscope). Also it can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
 		</div>
 
 		<div id="advisor_ref_asphaltene_particle_diameter">
@@ -136,7 +145,7 @@
 
 		<div id="advisor_asphaltene_molecular_weight"><br>
 			<b>Asphaltene Molecular Weight:</b> MWA<br><br>
-			Default value: 750 - 3000 lb/lbmole. It can be calculated through optical microscopy and high pressure SEM (Scanning Electron Microscope). It also can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
+			Default value: 300 - 2000 lb/lbmole. It can be calculated through optical microscopy and high pressure SEM (Scanning Electron Microscope). It also can be estimated with simulation by the "Yacimientos de hidrocarburos" group from the "Universidad Nacional sede Medellin"
 		</div>
 
 

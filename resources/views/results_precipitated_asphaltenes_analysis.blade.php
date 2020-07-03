@@ -42,7 +42,7 @@
             <div class="panel panel-default">
                <div class="panel-heading"><b>Solid Results</b></div>
                <div class="panel-body">
-                 <div id="solid_a_results_chart"></div>
+                <div id="solid_a_results_chart"></div> 
                </div>
             </div>
           </div>
@@ -86,8 +86,8 @@
    <div class="col-xs-12">
       <p class="pull-right">
         @if(!$asphaltenes_d_precipitated_analysis->status_wr)
+          <a href="{!! url('run_asphaltene_stability',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Stability Analysis</a>
           <a href="{!! url('run_asphaltene_diagnosis',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Diagnosis</a>
-         <a href="{!! url('run_asphaltene_stability',array('id'=>$scenaryId)) !!}" class="maximize btn btn-primary" role="button">Run Asphaltene Stability Analysis</a>
          @endif
          <a href="{!! action('add_precipitated_asphaltenes_analysis_controller@edit',$scenaryId) !!}" class="maximize btn btn-warning" role="button">Edit</a>
       </p>

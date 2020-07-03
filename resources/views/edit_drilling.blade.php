@@ -39,6 +39,7 @@
                            <div class="form-group {{$errors->has('array_select_interval_general_data') ? 'has-error' : ''}}">
                               {!! Form::label('interval', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('intervalSelect', $scenario->pozo->formacionesxpozo->pluck('nombre', 'id'), null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'intervalSelect', 'multiple']) !!}
+                              {!! $errors->first('array_select_interval_general_data', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -61,6 +62,7 @@
                            <div class="form-group {{$errors->has('inputDataMethodSelect') ? 'has-error' : ''}}">
                               {!! Form::label('inputDataMethod', 'Input Data Method') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('inputDataMethodSelect', ['1'=>'Profile'], null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}
+                              {!! $errors->first('inputDataMethodSelect', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               {{--{!! Form::select('inputDataMethodSelect', ['1'=>'Profile','2'=>'By Intervals'],null, ['class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'inputDataMethodSelect']) !!}--}}
                            </div>
                         </div>
@@ -109,6 +111,7 @@
                            <div class="form-group {{$errors->has('select_filtration_function') ? 'has-error' : ''}}">
                               {!! Form::label('filtration_function_l', 'Filtration Function') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               {!! Form::select('filtration_function_select', [], null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'filtration_function_select')) !!}
+                              {!! $errors->first('select_filtration_function', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -120,6 +123,7 @@
                                  {!! Form::text('a_factor_t', $drilling_scenario->a_factor, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'a_factor_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
+                              {!! $errors->first('a_factor_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -129,6 +133,7 @@
                                  {!! Form::text('b_factor_t', $drilling_scenario->b_factor, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'b_factor_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
                               </div>
+                              {!! $errors->first('b_factor_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -152,6 +157,7 @@
                                  {!! Form::text('d_total_exposure_time_t', $drilling_scenario->d_total_exposure_time, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'd_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>
                               </div>
+                              {!! $errors->first('d_total_exposure_time_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -161,6 +167,7 @@
                                  {!! Form::text('d_pump_rate_t', $drilling_scenario->d_pump_rate, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_pump_rate_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
+                              {!! $errors->first('d_pump_rate_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -172,6 +179,7 @@
                                  {!! Form::text('d_mud_density_t', $drilling_scenario->d_mud_density, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'd_mud_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">lb/gal</span>
                               </div>
+                              {!! $errors->first('d_mud_density_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -181,6 +189,7 @@
                                  {!! Form::text('d_plastic_viscosity_t', $drilling_scenario->d_plastic_viscosity, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'd_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">cP</span>
                               </div>
+                              {!! $errors->first('d_plastic_viscosity_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -190,6 +199,7 @@
                                  {!! Form::text('d_yield_point_t', $drilling_scenario->d_yield_point, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'd_yield_point_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">bf/100ft²</span>
                               </div>
+                              {!! $errors->first('d_yield_point_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -199,6 +209,7 @@
                                  {!! Form::text('d_rop_t', $drilling_scenario->d_rop, ['placeholder' => 'ft/h', 'class' =>'form-control', 'id' => 'd_rop_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft/h</span>
                               </div>
+                              {!! $errors->first('d_rop_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -210,6 +221,7 @@
                                  {!! Form::text('d_equivalent_circulating_density_t', $drilling_scenario->d_equivalent_circulating_density, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'd_equivalent_circulating_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
+                              {!! $errors->first('d_equivalent_circulating_density_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               <br>
                               <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Mud Density, and Pump Rate." onclick="calculate_ecd(0)">Calculate ECD</button>
                            </div>
@@ -226,8 +238,8 @@
                   <h4>
                      Completion Data
                      <div class="pull-right">
-                     {!! Form::checkbox('cementingAvailable',null,true, array('id' => 'check_available')) !!}
-                     {!! Form::label('available', 'Available') !!}
+                        {!! Form::checkbox('cementingAvailable',null,true, array('id' => 'check_available')) !!}
+                        {!! Form::label('available', 'Available') !!}
                      </div>
                   </h4>
                </div>
@@ -241,6 +253,7 @@
                                  {!! Form::text('c_total_exposure_time_t', $drilling_scenario->c_total_exposure_time, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'c_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>
                               </div>
+                              {!! $errors->first('c_total_exposure_time_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -250,6 +263,7 @@
                                  {!! Form::text('c_pump_rate_t', $drilling_scenario->c_pump_rate, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_pump_rate_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
+                              {!! $errors->first('c_pump_rate_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                      </div>
@@ -261,6 +275,7 @@
                                  {!! Form::text('c_cement_slurry_density_t', $drilling_scenario->c_cement_slurry, ['placeholder' => 'lb/gal', 'class' =>'form-control', 'id' => 'c_cement_slurry_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">lb/gal</span>
                               </div>
+                              {!! $errors->first('c_cement_slurry_density_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -270,6 +285,7 @@
                                  {!! Form::text('c_plastic_viscosity_t', $drilling_scenario->c_plastic_viscosity, ['placeholder' => 'cP', 'class' =>'form-control', 'id' => 'c_plastic_viscosity_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">cP</span>
                               </div>
+                              {!! $errors->first('c_plastic_viscosity_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -279,6 +295,7 @@
                                  {!! Form::text('c_yield_point_t', $drilling_scenario->c_yield_point, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'c_yield_point_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">bf/100ft²</span>
                               </div>
+                              {!! $errors->first('c_yield_point_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>
                         </div>
                         <div class="col-md-6">
@@ -288,6 +305,7 @@
                                  {!! Form::text('c_equivalent_circulating_density_t', $drilling_scenario->c_equivalent_circulating_density, ['placeholder' => 'gpm', 'class' =>'form-control', 'id' => 'c_equivalent_circulating_density_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">gpm</span>
                               </div>
+                              {!! $errors->first('c_equivalent_circulating_density_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               <br>
                               <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="For calculating the ECD you'll need several data: Hole Diameter and Drill Pipe Diameter (General Data Table), Cement Slurry Density, and Pump Rate." onclick="calculate_ecd(1)">Calculate ECD</button>
                            </div>
@@ -301,25 +319,27 @@
    </div>
 </div>
 <div class="row">
-   <div class="col-md-6" align="left">
-      <button type="button" class="btn btn-success" onclick="verifyDrilling('save');">Save</button>
-      <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
-   </div>
-   <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
-      <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-      <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
+   <div class="col-md-12 scenario-buttons">
+      <div align="left">
+         <button type="button" class="btn btn-success" onclick="verifyDrilling('save');">Save</button>
+         <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+      </div>
+      <div align="right">
+         <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+         <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+         <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDrilling('run');" id="run_calc">Run</button>
+      </div>
    </div>
 </div>
 {!! Form::Close() !!}
 @endsection
 @section('Scripts')
-@include('js/regresion')
-@include('js/frontend_validator')
-@include('js/frontend_rules/drilling')
-@include('js/edit_drilling')
-@include('css/edit_drilling')
-@include('js/modal_error')
-@include('js/modal_error_frontend')
-@include('css/modal_error_frontend')
+   @include('js/regresion')
+   @include('js/frontend_validator')
+   @include('js/frontend_rules/drilling')
+   @include('js/edit_drilling')
+   @include('css/edit_drilling')
+   @include('js/modal_error')
+   @include('js/modal_error_frontend')
+   @include('css/modal_error_frontend')
 @endsection

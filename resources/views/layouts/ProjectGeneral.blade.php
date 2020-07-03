@@ -141,17 +141,17 @@
                         as = as.replace("xxxxxx", value.id);
                         var color = "#ff1b00";
                     }
-                    
-                    if(value.asphaltene_type == "Precipitated asphaltene analysis") {
+
+                    if(value.asphaltene_type == "Asphaltene stability analysis") {
                         esc.push({
-                            text: "[A_P]  " + value.nombre,
+                            text: "[A_S]  " + value.nombre,
                             href: as,
                             color: color,
                             tags: ['0']
                         });
-                    } else if(value.asphaltene_type == "Asphaltene stability analysis") {
+                    } else if(value.asphaltene_type == "Precipitated asphaltene analysis") {
                         esc.push({
-                            text: "[A_S]  " + value.nombre,
+                            text: "[A_P]  " + value.nombre,
                             href: as,
                             color: color,
                             tags: ['0']
@@ -461,7 +461,7 @@ $.get("{!! url('arbol') !!}",
                         nodes_child.push({
                             text: val.nombre + " <span title='"+nnombre+"'>" + nnombre_subs + "</span>",
                             href: val.route,
-                            color: color,
+                            color: val.status_wr == 0 ? "#000000" : "#ff1b00",
                             tags: ['0'],
                         });
                     });
@@ -470,7 +470,7 @@ $.get("{!! url('arbol') !!}",
 
                         esc.push({
                             text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
-                            color: color,
+                            color: value.completo == 1 ? "#000000" : "#ff1b00",
                             tags: ['0'],
                             nodes: nodes_child
                         });

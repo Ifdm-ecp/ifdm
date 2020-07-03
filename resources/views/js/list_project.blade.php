@@ -20,6 +20,10 @@
         });
     }
 
+    function EscenarioError() {
+        $('#scenarioError').modal('show');
+    }
+
     $(document).ready(function() {
         $("#myModal").modal('show');
         //Fecha actual
@@ -83,12 +87,11 @@
                         var k = "";
                         $.each(data, function(index, value) {
                             var aux = value.id;
-                            k = k.concat("<tr> <td>" + value.nombre + "</td><td>" + value.fecha + "</td><td>  <form method=\"POST\" action=\"{{ URL::route('DeleteProject.destroy', "xxx") }}\"   id=\"form" + aux + "\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"<?php echo csrf_token() ?>\"> <div class=\"form-inline\"><a href=\"{{ URL::route('DeleteProject.edit', "xxx") }}\" class=\"btn btn-info\">View</a> <a href=\"{{ URL::route('ProjectC.edit', "yyy") }}\" class=\"btn btn-warning\">Manage</a> <button class=\"btn btn-danger\" type=\"button\" data-toggle=\"modal\" OnClick=\"javascript: Mostrar(" + aux + ");\">Delete</button></div></form></td></tr>");
-
-                            k = k.replace("xxx", aux);
-                            k = k.replace("yyy", aux);
-
+                            var currentString = "<tr> <td>" + value.nombre + "</td><td>" + value.fecha + "</td><td>  <form method=\"POST\" action=\"{{ URL::route('DeleteProject.destroy', "yyy") }}\"   id=\"form" + aux + "\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"<?php echo csrf_token() ?>\"> <div class=\"form-inline\"><a href=\"{{ URL::route('DeleteProject.edit', "yyy") }}\" class=\"btn btn-info\">View</a> <a href=\"{{ URL::route('ProjectC.edit', "yyy") }}\" class=\"btn btn-warning\">Manage</a> <button class=\"btn btn-danger\" type=\"button\" data-toggle=\"modal\" OnClick=\"javascript: Mostrar(" + aux + ");\">Delete</button></div></form></td></tr>"
+                            currentString = currentString.replace(/yyy/g, aux);
+                            k += currentString;
                         });
+                        
                         $('#proyectos').html("<table class=\"table table-striped\"><thead><tr><th>Name</th><th>Date</th><th>Actions</th></tr></thead>" + k + "</table>");
                         $("#proyectos").show();
                     });

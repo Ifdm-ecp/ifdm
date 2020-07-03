@@ -13,6 +13,7 @@ use App\asphaltenes_d_diagnosis;
 use App\escenario;
 use App\asphaltenes_d_diagnosis_pvt;//se guardan los pvt
 use App\asphaltenes_d_diagnosis_historical_data;//historical data
+use App\asphaltenes_d_diagnosis_historical_projection_data;//historical projection data
 use App\asphaltenes_d_diagnosis_soluble_asphaltenes;//asphaltenes data
 use App\asphaltenes_d_diagnosis_results;
 use App\asphaltenes_d_diagnosis_results_skin;
@@ -156,6 +157,26 @@ class add_asphaltenes_diagnosis_controller extends Controller
         }
 
 
+        if ( $request->input('perform_historical_projection_oil') != 'without' ) {
+            $value_historical_projection_table = json_decode($request->input("value_historical_projection_data"));
+            $value_historical_projection_table = is_null($value_historical_projection_table) ? [] : $value_historical_projection_table;
+
+            /* Arreglos para guardar los datos organizados - módulo de cálculo */
+            foreach ($value_historical_projection_table as $value) {
+                $asphaltenes_d_diagnosis_historical_projection_data = new asphaltenes_d_diagnosis_historical_projection_data;
+                $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes_d_diagnosis_id = $asphaltenes_d_diagnosis->id;
+                $asphaltenes_d_diagnosis_historical_projection_data->date = date("Y/m/d", strtotime($value[0]));
+                $asphaltenes_d_diagnosis_historical_projection_data->bopd = str_replace(",", ".", $value[1]);
+                $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes = str_replace(",", ".", $value[2]);
+                $asphaltenes_d_diagnosis_historical_projection_data->save();
+
+                array_push($dates_data, $value[0]);
+                array_push($bopd_data, $asphaltenes_d_diagnosis_historical_projection_data->bopd);
+                array_push($asphaltenes_wt_data, $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes);
+            }
+        }
+
+
         $value_asphaltenes_table = json_decode($request->input("value_asphaltenes_table"));
         $value_asphaltenes_table = is_null($value_asphaltenes_table) ? [] : $value_asphaltenes_table;
 
@@ -176,15 +197,15 @@ class add_asphaltenes_diagnosis_controller extends Controller
         /*Escenario completo*/
         $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
-        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->select('id')->first();
+        $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
 
-        if ($asphaltenes_d_stability_analysis and $asphaltenes_d_diagnosis and $asphaltenes_d_precipitated_analysis) {
+        if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && $asphaltenes_d_precipitated_analysis->status_wr) {
             $scenary = escenario::find($scenary->id);
-            $scenary->completo = 1;
+            $scenary->completo = 0;
             $scenary->save();
         } else {
             $scenary = escenario::find($scenary->id);
-            $scenary->completo = 0;
+            $scenary->completo = 1;
             $scenary->save();
         }
 
@@ -235,7 +256,6 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $properties_results = $simulation_results[0];
                 $skin_results = $simulation_results[1];
 
-
                 /* Optimizando consultas */
                 foreach ($skin_results as $key => $value) {
                     $asphaltenes_d_diagnosis_results_inserts = [];
@@ -244,8 +264,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     array_push($asphaltenes_d_diagnosis_results_skin_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'date' => $value[0], 'damage_radius' => round($value[1], 3), 'skin' => round($value[2], 3)));
                     $properties_value = $properties_results[$key - 1];
 
+                    //array_shift($properties_value);
+                    //array_pop($properties_value);
+
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 3), 'permeability' => round($value_aux[3], 3), 'deposited_asphaltenes' => round($value_aux[4], 3), 'soluble_asphaltenes' => round($value_aux[5], 3), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);
@@ -281,6 +304,21 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 }
             }
             */
+
+            /*Escenario completo*/
+            $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
+
+            if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && !$asphaltenes_d_precipitated_analysis->status_wr) {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 1;
+                $scenary->save();
+            } else {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 0;
+                $scenary->save();
+            }
 
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'dates_data', 'asphaltenes_d_diagnosis']));
         } catch (Exception $e) {
@@ -465,6 +503,29 @@ class add_asphaltenes_diagnosis_controller extends Controller
             array_push($asphaltenes_wt_data, $asphaltenes_d_diagnosis_historical_data->asphaltenes);
         }
 
+
+        asphaltenes_d_diagnosis_historical_projection_data::where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->delete();
+
+        if ( $request->input('perform_historical_projection_oil') != 'without') {
+            $value_historical_projection_table = json_decode($request->input("value_historical_projection_data"));
+            $value_historical_projection_table = is_null($value_historical_projection_table) ? [] : $value_historical_projection_table;
+
+            /* Arreglos para guardar los datos organizados - módulo de cálculo */
+            foreach ($value_historical_projection_table as $value) {
+                $asphaltenes_d_diagnosis_historical_projection_data = new asphaltenes_d_diagnosis_historical_projection_data;
+                $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes_d_diagnosis_id = $asphaltenes_d_diagnosis->id;
+                $asphaltenes_d_diagnosis_historical_projection_data->date = date("Y/m/d", strtotime($value[0]));
+                $asphaltenes_d_diagnosis_historical_projection_data->bopd = str_replace(",", ".", $value[1]);
+                $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes = str_replace(",", ".", $value[2]);
+                $asphaltenes_d_diagnosis_historical_projection_data->save();
+
+                array_push($dates_data, $value[0]);
+                array_push($bopd_data, $asphaltenes_d_diagnosis_historical_projection_data->bopd);
+                array_push($asphaltenes_wt_data, $asphaltenes_d_diagnosis_historical_projection_data->asphaltenes);
+            }
+        }
+
+
         asphaltenes_d_diagnosis_soluble_asphaltenes::where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->delete();
         $value_asphaltenes_table = json_decode($request->input("value_asphaltenes_table"));
         $value_asphaltenes_table = is_null($value_asphaltenes_table) ? [] : $value_asphaltenes_table;
@@ -513,7 +574,6 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $properties_results = $simulation_results[0];
                 $skin_results = $simulation_results[1];
 
-
                 /* Eliminando resultados anteriores */
                 asphaltenes_d_diagnosis_results::where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->delete();
                 asphaltenes_d_diagnosis_results_skin::where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->delete();
@@ -525,8 +585,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     array_push($asphaltenes_d_diagnosis_results_skin_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'date' => $value[0], 'damage_radius' => round($value[1], 3), 'skin' => round($value[2], 3)));
                     $properties_value = $properties_results[$key - 1];
 
+                    //array_shift($properties_value);
+                    //array_pop($properties_value);
+
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 3), 'permeability' => round($value_aux[3], 3), 'deposited_asphaltenes' => round($value_aux[4], 3), 'soluble_asphaltenes' => round($value_aux[5], 3), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);
@@ -535,6 +598,21 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
 
             unset($_SESSION['scenary_id_dup']);
+
+            /*Escenario completo*/
+            $asphaltenes_d_stability_analysis = DB::table('asphaltenes_d_stability_analysis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_diagnosis = DB::table('asphaltenes_d_diagnosis')->where('scenario_id', $scenary->id)->first();
+            $asphaltenes_d_precipitated_analysis = DB::table('asphaltenes_d_precipitated_analysis')->where('scenario_id', $scenary->id)->first();
+
+            if ($asphaltenes_d_stability_analysis && $asphaltenes_d_diagnosis && $asphaltenes_d_precipitated_analysis && !$asphaltenes_d_stability_analysis->status_wr && !$asphaltenes_d_diagnosis->status_wr && !$asphaltenes_d_precipitated_analysis->status_wr) {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 1;
+                $scenary->save();
+            } else {
+                $scenary = escenario::find($scenary->id);
+                $scenary->completo = 0;
+                $scenary->save();
+            }
 
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis']));
         } catch (Exception $e) {
@@ -579,12 +657,12 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $y = 0;
         $aux_i = 1;
         if ($x < $xt[1]) {
-            $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            $extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
         if ($x > $xt[$n]) {
-            $extrapolation_result = $this->extrapolation($xt, $yt, 100, $x, $y);
+            $extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             //$extrapolation_result = $this->extrapolation($xt, $yt, $n, $x, $y);
             $y = $extrapolation_result[0];
         }
@@ -682,7 +760,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             #Depositación superficial
             if ($muo[$i] > 300) {
-                $param1 = 0;
+                $pm1 = 0;
             }
             if ($muo[$i] > 100 and $muo[$i] <= 300) {
                 $pm1 = 0.01;
@@ -816,8 +894,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
     function simulate_deposited_asphaltenes($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $pvt_data, $historical_data, $asphaltenes_data)
     {
+
+        ini_set('max_execution_time', 900);
         ini_set('memory_limit', '-1');
-        set_time_limit(0);
+        set_time_limit(900);
 
         $complete_simulated_results = [];
         $complete_damage_results = [];
@@ -827,7 +907,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $pi = 3.14159265359;
         $x = 0;
-        $radio_dam = 1;
+        $radio_dam = 0;
         #Datos pvt
         $nv = count($pvt_data[0]);
         $ppvt = $this->set_array($pvt_data[0], $nv);
@@ -1079,12 +1159,49 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
             }
 
+
+            $radioo = array_fill(1, $nr, 0);
+
+            #Radio de daño
+            for ($i = 1; $i <= $nr; $i++) {
+                if (($ko - $kc[$i]) > 0.05 * $ko) {
+                    $radioo[$i] = $r[$i];
+                }else{
+                    $radioo[$i] = 0;
+                }
+            }
+
+            $radio_dam = max($radioo);
+            
+            #Cambios cálculos de skin  
+            $skin = 0;
+            $skin_array = [];
+            for ($i = 1; $i <= $nr; $i++) 
+            {
+                if ($radioo[$i] != 0) 
+                {
+                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                }
+                else
+                {
+                    $skin = 0;
+                }
+                array_push($skin_array, $skin);
+            }
+            
+            $max_skin = max($skin_array);
+
+
+            /*
+            VERSION PARA PRUEBAS ELIANA
+    
             #Radio de daño
             for ($i = 2; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05) {
+                if (($ko - $kc[$i]) > 0.05 * $ko) {
                     $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
                 }
             }
+            
             
             #Cambios cálculos de skin  
             $skin = 0;
@@ -1102,7 +1219,36 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 array_push($skin_array, $skin);
             }
             
-            $max_skin = max($skin_array);                     
+            $max_skin = max($skin_array); /*  
+
+            /*
+            CAMBIOS DE ANDRES
+            #Radio de daño
+            for ($i = 1; $i <= $nr; $i++) {
+                if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
+                    $radio_dam[$i] = $r[$i];
+                }else{
+                    $radio_dam[$i] = 0;
+                }
+            }
+
+            $r_damage = max($radio_dam);
+            
+            #Cambios cálculos de skin  
+            $skin = [];
+            for ($i = 1; $i <= $nr; $i++) 
+            {
+                if ($radio_dam[$i] != 0) 
+                {
+                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
+                }
+                else
+                {
+                    $skin[$i] = 0;
+                }
+            }
+            
+            $max_skin = max($skin); */                 
 
             for ($i = 1; $i <= $nr; $i++) 
             {

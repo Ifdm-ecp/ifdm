@@ -11,6 +11,12 @@
     if ($('#fluid_of_interest').val() == 1) { $("#hidden_oil").show(); }
     if ($('#fluid_of_interest').val() == 2) { $("#hidden_gas").show(); }
     if ($('#fluid_of_interest').val() == 3) { $("#hidden_water").show(); }
+    if ($('#fluid_of_interest').val() == 4) { $("#hidden_mixture").show(); }
+    if (($('#fluid_of_interest').val() == 4) && ($('#emulsion').val() == 1) && ($('#characterized_mixture').val() == 1)) { $("#hidden_has_emulsion_has_characterized_mixture").show(); $("#characterized_mixture_group").show(); $("#hidden_has_emulsion_hasnt_characterized_mixture").hide(); $("#hidden_hasnt_emulsion").hide(); }
+    if (($('#fluid_of_interest').val() == 4) && ($('#emulsion').val() == 1) && ($('#characterized_mixture').val() == 2)) { $("#hidden_has_emulsion_hasnt_characterized_mixture").show(); $("#characterized_mixture_group").show(); $("#hidden_has_emulsion_has_characterized_mixture").hide(); $("#hidden_hasnt_emulsion").hide(); }
+    if (($('#fluid_of_interest').val() == 4) && ($('#emulsion').val() == 2)) { $("#hidden_hasnt_emulsion").show(); $("#characterized_mixture_group").hide(); $("#hidden_has_emulsion_has_characterized_mixture").hide(); $("#hidden_has_emulsion_hasnt_characterized_mixture").hide(); }
+    if (($('#fluid_of_interest').val() == 4) && ($('#emulsion').val() == 1)  && (!$('#characterized_mixture').val())) { $("#hidden_hasnt_emulsion").hide(); $("#hidden_has_emulsion_has_characterized_mixture").hide(); $("#hidden_has_emulsion_hasnt_characterized_mixture").hide(); }
+    if (($('#fluid_of_interest').val() == 4) && !$('#emulsion').val()) { $("#hidden_hasnt_emulsion").hide(); $("#characterized_mixture_group").hide(); $("#hidden_has_emulsion_has_characterized_mixture").hide(); $("#hidden_has_emulsion_hasnt_characterized_mixture").hide(); }
 
     /** Modales de error formulario */
     $("#myModal").modal('show');
@@ -206,6 +212,170 @@
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (water_volumetric_factor === null || water_volumetric_factor === "")) ? true: emptyValues;
+    }
+
+    if (fluid_of_interest == "4") {
+      var emulsion = $("#emulsion").val();
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, emulsion, production_data_ruleset[13]);
+      titleTab = validationFunctionResult[0];
+      validationMessages = validationFunctionResult[1];
+      emptyValues = (emptyValues === false && (emulsion === null || emulsion === "")) ? true: emptyValues;
+
+      if (emulsion == "1") {
+
+        var characterized_mixture = $("#characterized_mixture").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, characterized_mixture, production_data_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (characterized_mixture === null || characterized_mixture === "")) ? true: emptyValues;
+
+        if (characterized_mixture == "1") {
+
+          var flow_rate_1_1 = $("#flow_rate_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_1, production_data_ruleset[15]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (flow_rate_1_1 === null || flow_rate_1_1 === "")) ? true: emptyValues;
+
+          var mixture_bottomhole_flowing_pressure_1_1 = $("#mixture_bottomhole_flowing_pressure_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_1, production_data_ruleset[16]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_1_1 === null || mixture_bottomhole_flowing_pressure_1_1 === "")) ? true: emptyValues;
+
+          var mixture_viscosity_1_1 = $("#mixture_viscosity_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_viscosity_1_1, production_data_ruleset[17]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_viscosity_1_1 === null || mixture_viscosity_1_1 === "")) ? true: emptyValues;
+
+          var mixture_oil_volumetric_factor_1_1 = $("#mixture_oil_volumetric_factor_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_1, production_data_ruleset[18]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_1_1 === null || mixture_oil_volumetric_factor_1_1 === "")) ? true: emptyValues;
+
+          var mixture_water_volumetric_factor_1_1 = $("#mixture_water_volumetric_factor_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_1, production_data_ruleset[19]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_1_1 === null || mixture_water_volumetric_factor_1_1 === "")) ? true: emptyValues;
+
+          var mixture_oil_fraction_1_1 = $("#mixture_oil_fraction_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_1, production_data_ruleset[20]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_oil_fraction_1_1 === null || mixture_oil_fraction_1_1 === "")) ? true: emptyValues;
+
+          var mixture_water_fraction_1_1 = $("#mixture_water_fraction_1_1").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_1, production_data_ruleset[21]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_water_fraction_1_1 === null || mixture_water_fraction_1_1 === "")) ? true: emptyValues;
+
+        } else if (characterized_mixture == "2") {
+
+          var flow_rate_1_2 = $("#flow_rate_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_2, production_data_ruleset[22]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (flow_rate_1_2 === null || flow_rate_1_2 === "")) ? true: emptyValues;
+
+          var mixture_bottomhole_flowing_pressure_1_2 = $("#mixture_bottomhole_flowing_pressure_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_2, production_data_ruleset[23]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_1_2 === null || mixture_bottomhole_flowing_pressure_1_2 === "")) ? true: emptyValues;
+
+          var mixture_oil_viscosity_1_2 = $("#mixture_oil_viscosity_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_1_2, production_data_ruleset[24]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_oil_viscosity_1_2 === null || mixture_oil_viscosity_1_2 === "")) ? true: emptyValues;
+
+          var mixture_water_viscosity_1_2 = $("#mixture_water_viscosity_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_1_2, production_data_ruleset[25]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_water_viscosity_1_2 === null || mixture_water_viscosity_1_2 === "")) ? true: emptyValues;
+
+          var mixture_oil_fraction_1_2 = $("#mixture_oil_fraction_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_2, production_data_ruleset[26]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_oil_fraction_1_2 === null || mixture_oil_fraction_1_2 === "")) ? true: emptyValues;
+
+          var mixture_water_fraction_1_2 = $("#mixture_water_fraction_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_2, production_data_ruleset[27]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_water_fraction_1_2 === null || mixture_water_fraction_1_2 === "")) ? true: emptyValues;
+
+          var mixture_oil_volumetric_factor_1_2 = $("#mixture_oil_volumetric_factor_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_2, production_data_ruleset[28]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_1_2 === null || mixture_oil_volumetric_factor_1_2 === "")) ? true: emptyValues;
+
+          var mixture_water_volumetric_factor_1_2 = $("#mixture_water_volumetric_factor_1_2").val();
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_2, production_data_ruleset[29]);
+          titleTab = validationFunctionResult[0];
+          validationMessages = validationFunctionResult[1];
+          emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_1_2 === null || mixture_water_volumetric_factor_1_2 === "")) ? true: emptyValues;
+
+        }
+
+      } else if (emulsion == "2") {
+
+        var flow_rate_2 = $("#flow_rate_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_2, production_data_ruleset[30]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (flow_rate_2 === null || flow_rate_2 === "")) ? true: emptyValues;
+
+        var mixture_bottomhole_flowing_pressure_2 = $("#mixture_bottomhole_flowing_pressure_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_2, production_data_ruleset[31]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_2 === null || mixture_bottomhole_flowing_pressure_2 === "")) ? true: emptyValues;
+
+        var mixture_oil_viscosity_2 = $("#mixture_oil_viscosity_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_2, production_data_ruleset[32]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_oil_viscosity_2 === null || mixture_oil_viscosity_2 === "")) ? true: emptyValues;
+
+        var mixture_water_viscosity_2 = $("#mixture_water_viscosity_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_2, production_data_ruleset[33]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_water_viscosity_2 === null || mixture_water_viscosity_2 === "")) ? true: emptyValues;
+
+        var mixture_oil_fraction_2 = $("#mixture_oil_fraction_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_2, production_data_ruleset[34]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_oil_fraction_2 === null || mixture_oil_fraction_2 === "")) ? true: emptyValues;
+
+        var mixture_water_fraction_2 = $("#mixture_water_fraction_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_2, production_data_ruleset[35]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_water_fraction_2 === null || mixture_water_fraction_2 === "")) ? true: emptyValues;
+
+        var mixture_oil_volumetric_factor_2 = $("#mixture_oil_volumetric_factor_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_2, production_data_ruleset[36]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_2 === null || mixture_oil_volumetric_factor_2 === "")) ? true: emptyValues;
+
+        var mixture_water_volumetric_factor_2 = $("#mixture_water_volumetric_factor_2").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_2, production_data_ruleset[37]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_2 === null || mixture_water_volumetric_factor_2 === "")) ? true: emptyValues;
+      }
+
     }
 
     // Damage data section
@@ -788,5 +958,44 @@
       document.getElementById('hidden_gas').style.display = style;
       var style = this.value == 3 ? 'block' : 'none';
       document.getElementById('hidden_water').style.display = style;
+      var style = this.value == 4 ? 'block' : 'none';
+      document.getElementById('hidden_mixture').style.display = style;
+      document.getElementById('characterized_mixture_group').style.display = 'none';
+  });
+
+  document.getElementById('emulsion').addEventListener('change', function () {
+      if ($("#emulsion").val() == 1 && $("#fluid_of_interest").val() == 4 && $("#characterized_mixture").val() == 1) {
+        document.getElementById('characterized_mixture_group').style.display = 'block';
+        document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = 'block';
+        document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_hasnt_emulsion').style.display = 'none';
+      } else if ($("#emulsion").val() == 1 && $("#fluid_of_interest").val() == 4 && $("#characterized_mixture").val() == 2) {
+        document.getElementById('characterized_mixture_group').style.display = 'block';
+        document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = 'block';
+        document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_hasnt_emulsion').style.display = 'none';
+      } else if ($("#emulsion").val() == 2  && $("#fluid_of_interest").val() == 4) {
+        document.getElementById('hidden_hasnt_emulsion').style.display = 'block';
+        document.getElementById('characterized_mixture_group').style.display = 'none';
+        document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = 'none';
+      } else if ($("#emulsion").val() == 1  && $("#fluid_of_interest").val() == 4 && !$("#characterized_mixture").val()) {
+        document.getElementById('characterized_mixture_group').style.display = 'block';
+        document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_hasnt_emulsion').style.display = 'none';
+      } else if (!$("#emulsion").val()  && $("#fluid_of_interest").val() == 4) {
+        document.getElementById('characterized_mixture_group').style.display = 'none';
+        document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = 'none';
+        document.getElementById('hidden_hasnt_emulsion').style.display = 'none';
+      }
+  });
+
+  document.getElementById('characterized_mixture').addEventListener('change', function () {
+      var style = this.value == 1 && $("#fluid_of_interest").val() == 4  ? 'block' : 'none';
+      document.getElementById('hidden_has_emulsion_has_characterized_mixture').style.display = style;
+      var style = this.value == 2  && $("#fluid_of_interest").val() == 4 ? 'block' : 'none';
+      document.getElementById('hidden_has_emulsion_hasnt_characterized_mixture').style.display = style;
   });
 </script>

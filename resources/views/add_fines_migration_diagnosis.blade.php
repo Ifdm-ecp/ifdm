@@ -323,7 +323,13 @@
                         </div>
                      </div>
                     <div class="row">
-                      <div id="graphic_pvt_table"></div>
+                      <div id="graphic_pvt_table_density"></div>
+                    </div>
+                    <div class="row">
+                      <div id="graphic_pvt_table_viscosity"></div>
+                    </div>
+                    <div class="row">
+                      <div id="graphic_pvt_table_volumetric"></div>
                     </div>
                   </div>
                </div>   
@@ -362,13 +368,12 @@
                            <div id="historical_data_table"></div>
                            {!! Form::hidden('value_historical_data', '', array('class' => 'form-control', 'id' => 'value_historical_data')) !!}
                         </div>
-                     </div>
-                     <div class="row col-md-12">
-                        <div>
-                          <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button> 
-                       </div>
+                     </div><br>
+                     <div class="row">
+                       <div class="col-md-12">
+                          <button class="btn btn-primary plot_historical_data_table pull-right" type="button">Plot</button>
+                      </div>
                     </div>
-                     <br>
                     <div class="row col-md-12">
                       <div id="graphic_historical_data_table"></div>
                     </div>
@@ -378,7 +383,7 @@
                   <div class="panel-heading"><b>Production Projection</b></div>
                   <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                            <div class="form-group" id="historical_oil">
                               <div class="form-group {{$errors->has('perform_historical_projection_oil') ? 'has-error' : ''}}">
                                  {!! Form::label('historical_projection_label', 'Please, choose a projection data if required') !!}
@@ -386,7 +391,11 @@
                               </div>
                            </div>
                         </div>
-
+                      </div>
+                        <div class="row" id="final_dates">
+                          <div class="col-md-12">
+                            <hr />
+                          </div> 
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('final_date_label', 'Final Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -410,14 +419,23 @@
                                 </div>
                               @endif
                            </div>
-                        </div>  
+                        </div> 
+                        <div class="col-md-6">
+                          <br>
+                          <button class="btn btn-primary calculate_historical_projection btn-block" style="margin-top: 5px" type="button">Calculate Projection</button>
+                        </div> 
                       </div>
-                      <div id="historical_projection_table">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div id="historical_projection_table">
                            {!! Form::hidden('value_historical_projection_data', '', array('class' => 'form-control', 'id' => 'value_historical_projection_data')) !!}
+                          </div>
+                        </div>
                       </div>
-                      <br>
-                      <div class="row col-md-12">
-                        <div id="oil_projection_chart"></div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div id="oil_projection_chart"></div>
+                        </div>
                       </div>
                   </div>
                </div>

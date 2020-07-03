@@ -425,16 +425,19 @@
       validationMessages = validationMessages.concat(generalValidator);
     }
 
-    if (validationMessages.length < 1) {
+    if (validationMessages.length < 1) {      
       $("#hidraulic_units_data_table").val(JSON.stringify(hidraulic_units_data_table));
 
       if (emptyValues) {
         validationMessages.push(true);
         showFrontendErrors(validationMessages);
       } else {
+        console.log('porarararara');
+        throw new Error(validationMessages);
         enviar();
         $("#only_s").val("run");
         $("#disaggregationForm").submit();
+
       }
     } else {
       showFrontendErrors(validationMessages);

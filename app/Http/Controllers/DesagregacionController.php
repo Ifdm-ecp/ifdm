@@ -252,7 +252,7 @@ class desagregacionController extends Controller
                             $mixture_water_volumetric_factor_1_2 = $request->get('mixture_water_volumetric_factor_1_2');
                             $fluid_rate = $bottomhole_flowing_pressure = $fluid_viscosity = $fluid_volumetric_factor = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                         }
-                    }elseif ($request->input('emulsion') === 2) {
+                    }elseif ($request->input('emulsion') == 2) {
                         $emulsion = $request->get('emulsion');
                         $flow_rate_2 = $request->get('flow_rate_2');
                         $mixture_bottomhole_flowing_pressure_2 = $request->get('mixture_bottomhole_flowing_pressure_2');
@@ -842,7 +842,9 @@ class desagregacionController extends Controller
         foreach ($well_point_i_distance as $key => $pressure) {
             $pressure = $bottomhole_flowing_pressure + ((141.2 * $fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness) * (log($well_point_i_distance[$key] / $well_radius) - (0.5 * pow($well_point_i_distance[$key] / 10, 2))));
 
-            //dd($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $formation_thickness, $well_point_i_distance[$key] ,$well_radius, 'ri');
+            //dd($fluid_viscosity);
+
+            //dd($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $formation_thickness, $well_point_i_distance[$key] ,$well_radius, $pressure);
 
             /** Si la presión calculada es igual o superior a la presión promedio,se ignora la calculada y se coloca en su lugar la promedio */
 
@@ -1231,6 +1233,7 @@ class desagregacionController extends Controller
                 } else {
                     $fluid_viscosity = ( 1 + (2.5 * $mixture_oil_fraction_1_2) + (10 * sqrt($mixture_oil_fraction_1_2)) ) * $mixture_water_viscosity_1_2;
                 }
+                $fluid_viscosity=19;
                 // FACTOR VOLUMÉTRICO
                 if ( $mixture_water_fraction_1_2 >= 0 && $mixture_water_fraction_1_2 <= 0.7 ) {
                     $fluid_volumetric_factor = $mixture_oil_volumetric_factor_1_2;

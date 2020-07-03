@@ -312,59 +312,211 @@
 
     });
 
-    window.addEventListener('load', MS, false);
-//Mostrar y ocultar valores de pestañas
-    function MS() {
-        document.getElementById('MS').style.display = 'block';
-        document.getElementById('FB').style.display = 'none';
-        document.getElementById('OS').style.display = 'none';
-        document.getElementById('RP').style.display = 'none';
-        document.getElementById('ID').style.display = 'none';
-        document.getElementById('GD').style.display = 'none';
+    /* verifyDrilling
+    * Validates the form entirely
+    * params {action: string}
+    */
+    function verifyDamage(action) {
+        // // Boolean for empty values for the save button
+        // var emptyValues = false;
+        // // Title tab for modal errors
+        // var titleTab = "";
+        // var tabTitle = "";
+        // //Saving tables...
+        // var validationMessages = [];
+        // var validationFunctionResult = [];
+
+        // // Validating General Data
+        // tabTitle = "Tab: General Data";
+
+        // var select_interval_general_data = $("#intervalSelect").val();
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && (select_interval_general_data === null || select_interval_general_data === "")) ? true: emptyValues;
+
+        // var generaldata_table = clean_table_data("intervalsGeneral_t");
+        // var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
+        // if (generalValidator.length > 0) {
+        //     if (titleTab == "") {
+        //         titleTab = "Tab: General Data";
+        //         validationMessages = validationMessages.concat(titleTab);
+        //     }
+        //     validationMessages = validationMessages.concat(generalValidator);
+        // }
+
+        // var select_input_data = $("#inputDataMethodSelect").val();
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && (select_input_data === null || select_input_data === "")) ? true: emptyValues;
+
+        // if (select_input_data == "1") {
+        //     //Limpiando datos de tablas
+        //     var inputdata_profile_table = clean_table_data("profileInput_t");
+        //     var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
+        //     if (generalValidator.length > 0) {
+        //     if (titleTab == "") {
+        //         titleTab = "Tab: General Data";
+        //         validationMessages = validationMessages.concat(titleTab);
+        //     }
+        //     validationMessages = validationMessages.concat(generalValidator);
+        //     }
+        // } else if (select_input_data == "2") {
+        //     // This condition is never met, pending future developments
+        //     // Limpiando datos de tablas
+        //     var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
+        // }
+
+        // // Validating Filtration Function data
+        // titleTab = "";
+        // tabTitle = "Tab: Filtration Functions";
+
+        // // Guardando los valores de los selectores
+        // var select_filtration_function = $("#filtration_function_select").val();
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && (select_filtration_function === null || select_filtration_function === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#a_factor_t").val() === null || $("#a_factor_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#b_factor_t").val() === null || $("#b_factor_t").val() === "")) ? true: emptyValues;
+
+        // // Validating Drilling Data
+        // titleTab = "";
+        // tabTitle = "Tab: Drilling Data";
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_total_exposure_time_t").val() === null || $("#d_total_exposure_time_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_pump_rate_t").val() === null || $("#d_pump_rate_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_mud_density_t").val() === null || $("#d_mud_density_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_plastic_viscosity_t").val() === null || $("#d_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_yield_point_t").val() === null || $("#d_yield_point_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_rop_t").val() === null || $("#d_rop_t").val() === "")) ? true: emptyValues;
+
+        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
+        // titleTab = validationFunctionResult[0];
+        // validationMessages = validationFunctionResult[1];
+        // emptyValues = (emptyValues === false && ($("#d_equivalent_circulating_density_t").val() === null || $("#d_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+
+        // // Validating Completion Data
+        // if ($("#check_available").prop("checked")) {
+        //     titleTab = "";
+        //     tabTitle = "Tab: Completion Data";
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_total_exposure_time_t").val() === null || $("#c_total_exposure_time_t").val() === "")) ? true: emptyValues;
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_pump_rate_t").val() === null || $("#c_pump_rate_t").val() === "")) ? true: emptyValues;
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_cement_slurry_density_t").val() === null || $("#c_cement_slurry_density_t").val() === "")) ? true: emptyValues;
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_plastic_viscosity_t").val() === null || $("#c_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_yield_point_t").val() === null || $("#c_yield_point_t").val() === "")) ? true: emptyValues;
+
+        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
+        //     titleTab = validationFunctionResult[0];
+        //     validationMessages = validationFunctionResult[1];
+        //     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+        // }
+
+        // if (validationMessages.length < 1) {
+        //     // Guardando los datos de tablas validadas y limpiadas en formulario
+        //     $("#generaldata_table").val(JSON.stringify(generaldata_table));
+        //     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
+        //     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
+        //     $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
+        //     $("#select_input_data").val(select_input_data);
+        //     $("#select_filtration_function").val($("#filtration_function_select").val());
+
+        //     if (emptyValues) {
+        //     validationMessages.push(true);
+        //     showFrontendErrors(validationMessages);
+        //     } else {
+        //     $("#only_s").val("run");
+        //     $("#drillingForm").submit();
+        //     }
+        // } else {
+        //     showFrontendErrors(validationMessages);
+        // }
     }
 
-    function FB() {
-        document.getElementById('MS').style.display = 'none';
-        document.getElementById('FB').style.display = 'block';
-        document.getElementById('OS').style.display = 'none';
-        document.getElementById('RP').style.display = 'none';
-        document.getElementById('ID').style.display = 'none';
-        document.getElementById('GD').style.display = 'none';
+    /* tabStep
+    * After validating the current tab, it is changed to the next or previous tab depending on the
+    * entry value
+    * params {direction: string}
+    */
+    function tabStep(direction) {
+        var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+        if (direction == "prev") {
+            $(".nav.nav-tabs li.active").prev().children().click();
+        } else {
+            $(".nav.nav-tabs li.active").next().children().click();
+        }
+
+        $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+        $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+        $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
     }
 
-    function OS() {
-        document.getElementById('MS').style.display = 'none';
-        document.getElementById('FB').style.display = 'none';
-        document.getElementById('OS').style.display = 'block';
-        document.getElementById('RP').style.display = 'none';
-        document.getElementById('ID').style.display = 'none';
-        document.getElementById('GD').style.display = 'none';
-    }
+    /* switchTab
+    * Captures the tab clicking event to determine if a previous or next button has to be shown
+    * and also the run button
+    */
+    function switchTab() {
+        var event = window.event || arguments.callee.caller.arguments[0];
+        var tabActiveElement = $(".nav.nav-tabs li.active");
+        var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+        console.log(nextPrevElement);
 
-    function RP() {
-        document.getElementById('MS').style.display = 'none';
-        document.getElementById('FB').style.display = 'none';
-        document.getElementById('OS').style.display = 'none';
-        document.getElementById('RP').style.display = 'block';
-        document.getElementById('ID').style.display = 'none';
-        document.getElementById('GD').style.display = 'none';
-    }
-
-    function ID() {
-        document.getElementById('MS').style.display = 'none';
-        document.getElementById('FB').style.display = 'none';
-        document.getElementById('OS').style.display = 'none';
-        document.getElementById('RP').style.display = 'none';
-        document.getElementById('ID').style.display = 'block';
-        document.getElementById('GD').style.display = 'none';
-    }
-
-    function GD() {
-        document.getElementById('MS').style.display = 'none';
-        document.getElementById('FB').style.display = 'none';
-        document.getElementById('OS').style.display = 'none';
-        document.getElementById('RP').style.display = 'none';
-        document.getElementById('ID').style.display = 'none';
-        document.getElementById('GD').style.display = 'block';
+        $("#next_button").toggle(nextPrevElement.next().is("li"));
+        $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+        $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+        console.log('im called')
     }
 </script>

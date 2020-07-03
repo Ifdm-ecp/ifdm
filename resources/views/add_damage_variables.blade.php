@@ -63,7 +63,7 @@
                      <div class="form-group {{$errors->has('MS1') ? 'has-error' : ''}}">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group">
-                           {!! Form::text('MS1',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'MS1']) !!} 
+                           {!! Form::text('MS1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'MS1']) !!} 
                            <span class="input-group-addon" id="basic-addon2">-</span>
                         </div>
                      </div>
@@ -153,7 +153,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', '[Ca]: Calcium Concentration On Backflow Samples') !!}
+                     {!! Form::label('', 'Backflow [Ca] (ppm)') !!}
                   </div>
                </div>
       
@@ -187,7 +187,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', '[Ba]: Barium Concentration On Backflow Samples') !!}
+                     {!! Form::label('', 'Backflow [Ba] (ppm)') !!}
                   </div>
                </div>
       
@@ -230,7 +230,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('ACW', '[Al]: Aluminum Concentration On Produced Water') !!}
+                     {!! Form::label('ACW', '[Al] on Produced Water (ppm)') !!}
                   </div>
                </div>
       
@@ -264,7 +264,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('SCW', '[Si]: Silicon Concentration On Produced Water') !!}
+                     {!! Form::label('SCW', '[Si] on produced water') !!}
                   </div>
                </div>
       
@@ -298,7 +298,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('CRF', 'Critical Radius Factor Rc') !!}
+                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc (ft)') !!}
                   </div>
                </div>
       
@@ -332,7 +332,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('MF', 'Mineralogic Factor') !!}
+                     {!! Form::label('MF', 'Mineralogy Factor') !!}
                   </div>
                </div>
       
@@ -366,7 +366,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('CPF', 'Crushed Proppant Factor') !!}
+                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures (lbs)') !!}
                   </div>
                </div>
       
@@ -439,10 +439,10 @@
                </div>
       
                <hr>
-      
+
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Compositional Factor: Cumulative Gas Produced') !!}
+                     {!! Form::label('', 'Volume of HCL pumped into the formation (bbl)') !!}
                   </div>
                </div>
       
@@ -453,8 +453,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('OS2') ? 'has-error' : ''}}">
-                           {!! Form::text('OS2',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control', 'id' => 'OS2']) !!} 
-                           <span class="input-group-addon" id="basic-addon2">mMMSCF</span>
+                           {!! Form::text('OS2',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'OS2']) !!}
+                           <span class="input-group-addon" id="basic-addon2">-</span>
                         </div>
                      </div>
                   </div>
@@ -467,15 +467,16 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS2comment',null, ['class' =>'form-control', 'id' => 'OS2comment']) !!}
+                        {!! Form::text('OS2comment',null, ['class' =>'form-control', 'id' => 'OS2comment']) !!}    
                      </div>
                   </div>
                </div>
       
                <hr>
+      
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Pressure Factor: Number Of Days Below Saturation Pressure') !!}
+                     {!! Form::label('', 'Cumulative Gas Produced') !!}
                   </div>
                </div>
       
@@ -486,8 +487,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('OS3') ? 'has-error' : ''}}">
-                           {!! Form::text('OS3',null, ['placeholder' => 'Days', 'class' =>'form-control', 'id' => 'OS3']) !!}
-                           <span class="input-group-addon" id="basic-addon2">Days</span>
+                           {!! Form::text('OS3',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control', 'id' => 'OS3']) !!} 
+                           <span class="input-group-addon" id="basic-addon2">mMMSCF</span>
                         </div>
                      </div>
                   </div>
@@ -500,16 +501,16 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS3comment',null, ['class' =>'form-control', 'id' => 'OS3comment']) !!}    
+                        {!! Form::text('OS3comment',null, ['class' =>'form-control', 'id' => 'OS3comment']) !!}
                      </div>
                   </div>
                </div>
       
                <hr>
-      
+
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'High Impact Factor: De Boer Criteria') !!}
+                     {!! Form::label('', 'Number Of Days Below Saturation Pressure') !!}
                   </div>
                </div>
       
@@ -520,8 +521,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('OS4') ? 'has-error' : ''}}">
-                           {!! Form::text('OS4',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'OS4']) !!}
-                           <span class="input-group-addon" id="basic-addon2">-</span>
+                           {!! Form::text('OS4',null, ['placeholder' => 'Days', 'class' =>'form-control', 'id' => 'OS4']) !!}
+                           <span class="input-group-addon" id="basic-addon2">Days</span>
                         </div>
                      </div>
                   </div>
@@ -534,7 +535,41 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS4comment',null, ['class' =>'form-control', 'id' => 'OS4comment']) !!} 
+                        {!! Form::text('OS4comment',null, ['class' =>'form-control', 'id' => 'OS4comment']) !!}    
+                     </div>
+                  </div>
+               </div>
+      
+               <hr>
+      
+               <div class="row">
+                  <div class="col-md-12">
+                     {!! Form::label('', 'De Boer Criteria') !!}
+                  </div>
+               </div>
+      
+               <br>
+      
+               <div class="row">
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        {!! Form::label('value', 'Value') !!}
+                        <div class="input-group {{$errors->has('OS5') ? 'has-error' : ''}}">
+                           {!! Form::text('OS5',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'OS5']) !!}
+                           <span class="input-group-addon" id="basic-addon2">-</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group {{$errors->has('dateOS5') ? 'has-error' : ''}}">
+                        {!! Form::label('date', 'Monitoring Date') !!}
+                        {!! Form::date('dateOS5', null, ['class' =>'form-control', 'id' => 'dateOS5']); !!}
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group {{$errors->has('OS5comment') ? 'has-error' : ''}}">
+                        {!! Form::label('comment', 'Comment') !!}
+                        {!! Form::text('OS5comment',null, ['class' =>'form-control', 'id' => 'OS5comment']) !!} 
                      </div>
                   </div>
                </div>
@@ -617,7 +652,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Water Intrusion: Cumulative Water Produced') !!}
+                     {!! Form::label('', 'Cumulative Water Produced') !!}
                   </div>
                </div>
       
@@ -650,7 +685,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'High Impact Factor:Pore Size Diameter Approximation By Katz And Thompson Correlation') !!}
+                     {!! Form::label('', 'Pore Size Diameter Approximation By Katz And Thompson Correlation') !!}
                   </div>
                </div>
       
@@ -692,7 +727,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('MDF', 'Invasion Radius') !!}
+                     {!! Form::label('MDF', 'Gross Pay (ft)') !!}
                   </div>
                </div>
       
@@ -726,7 +761,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('PDF', 'Polymer Damage Factor') !!}
+                     {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing (lbs)') !!}
                   </div>
                </div>
       
@@ -760,7 +795,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('IFF', 'Induced Skin') !!}
+                     {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well (bbl)') !!}
                   </div>
                </div>
       
@@ -794,7 +829,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('ML', 'Mud Damage Factor: Mud Losses') !!}
+                     {!! Form::label('ML', 'Mud Losses') !!}
                   </div>
                </div>
       
@@ -836,7 +871,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('PNP', 'Natural Fractures Index') !!}
+                     {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural (fraction)') !!}
                   </div>
                </div>
       
@@ -869,7 +904,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('BHFP', 'Drawdown') !!}
+                     {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP (psi)') !!}
                   </div>
                </div>
       
@@ -902,7 +937,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('KH', 'Ratio Of KH + Fracture / KH') !!}
+                     {!! Form::label('KH', 'Ratio of KH)matrix + fracture / KH)matrix') !!}
                   </div>
                </div>
       

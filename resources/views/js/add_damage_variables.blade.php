@@ -316,173 +316,402 @@
     * Validates the form entirely
     * params {action: string}
     */
-    function verifyDamage(action) {
-        // // Boolean for empty values for the save button
-        // var emptyValues = false;
-        // // Title tab for modal errors
-        // var titleTab = "";
-        // var tabTitle = "";
-        // //Saving tables...
-        // var validationMessages = [];
-        // var validationFunctionResult = [];
+    function verifyDamage() {
+        // An action is mandatory for the validations in this case action = run to validate against required fields
+        var action = "run";
+        // Title tab for modal errors
+        var titleTab = "";
+        var tabTitle = "";
+        //Saving tables...
+        var validationMessages = [];
+        var validationFunctionResult = [];
 
-        // // Validating General Data
-        // tabTitle = "Tab: General Data";
+        tabTitle = "Tab: General error";
 
-        // var select_interval_general_data = $("#intervalSelect").val();
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_interval_general_data, general_data_select_ruleset[0]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && (select_interval_general_data === null || select_interval_general_data === "")) ? true: emptyValues;
+        var select_well_data = $("#well").val();
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_well_data, well_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // var generaldata_table = clean_table_data("intervalsGeneral_t");
-        // var generalValidator = validateTable("General Data", generaldata_table, general_data_table_ruleset);
-        // if (generalValidator.length > 0) {
-        //     if (titleTab == "") {
-        //         titleTab = "Tab: General Data";
-        //         validationMessages = validationMessages.concat(titleTab);
-        //     }
-        //     validationMessages = validationMessages.concat(generalValidator);
-        // }
+        // Validating Mineral Scales
+        tabTitle = "Tab: Mineral Scales";
 
-        // var select_input_data = $("#inputDataMethodSelect").val();
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_input_data, profile_select_ruleset[0]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && (select_input_data === null || select_input_data === "")) ? true: emptyValues;
+        // Scale Index Of CaCO3
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS1").val(), mineral_scales_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // if (select_input_data == "1") {
-        //     //Limpiando datos de tablas
-        //     var inputdata_profile_table = clean_table_data("profileInput_t");
-        //     var generalValidator = validateTable("Input Data", inputdata_profile_table, profile_table_ruleset);
-        //     if (generalValidator.length > 0) {
-        //     if (titleTab == "") {
-        //         titleTab = "Tab: General Data";
-        //         validationMessages = validationMessages.concat(titleTab);
-        //     }
-        //     validationMessages = validationMessages.concat(generalValidator);
-        //     }
-        // } else if (select_input_data == "2") {
-        //     // This condition is never met, pending future developments
-        //     // Limpiando datos de tablas
-        //     var inputdata_intervals_table = clean_table_data("byIntervalsInput_t");
-        // }
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateMS1").val(), mineral_scales_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS1comment").val(), mineral_scales_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // // Validating Filtration Function data
-        // titleTab = "";
-        // tabTitle = "Tab: Filtration Functions";
+        // Scale Index Of BaSO4
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS2").val(), mineral_scales_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // // Guardando los valores de los selectores
-        // var select_filtration_function = $("#filtration_function_select").val();
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, select_filtration_function, filtration_function_tab_ruleset[0]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && (select_filtration_function === null || select_filtration_function === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateMS2").val(), mineral_scales_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS2comment").val(), mineral_scales_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#a_factor_t").val(), filtration_function_tab_ruleset[1]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#a_factor_t").val() === null || $("#a_factor_t").val() === "")) ? true: emptyValues;
+        // Scale Index Of Iron Scales
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS3").val(), mineral_scales_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#b_factor_t").val(), filtration_function_tab_ruleset[2]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#b_factor_t").val() === null || $("#b_factor_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateMS3").val(), mineral_scales_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS3comment").val(), mineral_scales_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // // Validating Drilling Data
-        // titleTab = "";
-        // tabTitle = "Tab: Drilling Data";
+        // Backflow [Ca] (ppm)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS4").val(), mineral_scales_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_total_exposure_time_t").val(), drilling_data_tab_ruleset[0]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_total_exposure_time_t").val() === null || $("#d_total_exposure_time_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateMS4").val(), mineral_scales_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS4comment").val(), mineral_scales_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // Backflow [Ba] (ppm)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS5").val(), mineral_scales_tab_ruleset[12]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_pump_rate_t").val(), drilling_data_tab_ruleset[1]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_pump_rate_t").val() === null || $("#d_pump_rate_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateMS5").val(), mineral_scales_tab_ruleset[13]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS5comment").val(), mineral_scales_tab_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_mud_density_t").val(), drilling_data_tab_ruleset[2]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_mud_density_t").val() === null || $("#d_mud_density_t").val() === "")) ? true: emptyValues;
+        // Validating Fine Blockage
+        titleTab = "";
+        tabTitle = "Tab: Fine Blockage";
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_plastic_viscosity_t").val(), drilling_data_tab_ruleset[3]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_plastic_viscosity_t").val() === null || $("#d_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+        // [Al] on Produced Water (ppm)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB1").val(), fine_blockage_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_yield_point_t").val(), drilling_data_tab_ruleset[4]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_yield_point_t").val() === null || $("#d_yield_point_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateFB1").val(), fine_blockage_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB1comment").val(), fine_blockage_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_rop_t").val(), drilling_data_tab_ruleset[5]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_rop_t").val() === null || $("#d_rop_t").val() === "")) ? true: emptyValues;
+        // [Si] on produced water
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB2").val(), fine_blockage_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#d_equivalent_circulating_density_t").val(), drilling_data_tab_ruleset[6]);
-        // titleTab = validationFunctionResult[0];
-        // validationMessages = validationFunctionResult[1];
-        // emptyValues = (emptyValues === false && ($("#d_equivalent_circulating_density_t").val() === null || $("#d_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateFB2").val(), fine_blockage_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB2comment").val(), fine_blockage_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // // Validating Completion Data
-        // if ($("#check_available").prop("checked")) {
-        //     titleTab = "";
-        //     tabTitle = "Tab: Completion Data";
+        // Critical Radius derived from maximum critical velocity, Vc (ft)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB3").val(), fine_blockage_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_total_exposure_time_t").val() === null || $("#c_total_exposure_time_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateFB3").val(), fine_blockage_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB3comment").val(), fine_blockage_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_pump_rate_t").val(), completion_data_tab_ruleset[1]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_pump_rate_t").val() === null || $("#c_pump_rate_t").val() === "")) ? true: emptyValues;
+        // Mineralogy Factor
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB4").val(), fine_blockage_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_cement_slurry_density_t").val(), completion_data_tab_ruleset[2]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_cement_slurry_density_t").val() === null || $("#c_cement_slurry_density_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateFB4").val(), fine_blockage_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB4comment").val(), fine_blockage_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // Mass of crushed proppant inside Hydraulic Fractures (lbs)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB5").val(), fine_blockage_tab_ruleset[12]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_plastic_viscosity_t").val(), completion_data_tab_ruleset[3]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_plastic_viscosity_t").val() === null || $("#c_plastic_viscosity_t").val() === "")) ? true: emptyValues;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateFB5").val(), fine_blockage_tab_ruleset[13]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB5comment").val(), fine_blockage_tab_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_yield_point_t").val(), completion_data_tab_ruleset[4]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_yield_point_t").val() === null || $("#c_yield_point_t").val() === "")) ? true: emptyValues;
+        // Validating Organic Scales
+        titleTab = "";
+        tabTitle = "Tab: Organic Scales";
 
-        //     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_equivalent_circulating_density_t").val(), completion_data_tab_ruleset[5]);
-        //     titleTab = validationFunctionResult[0];
-        //     validationMessages = validationFunctionResult[1];
-        //     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
-        // }
+        // CII Factor: Colloidal Instability Index
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS1").val(), organic_scales_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        // if (validationMessages.length < 1) {
-        //     // Guardando los datos de tablas validadas y limpiadas en formulario
-        //     $("#generaldata_table").val(JSON.stringify(generaldata_table));
-        //     $("#inputdata_intervals_table").val(JSON.stringify(inputdata_intervals_table));
-        //     $("#inputdata_profile_table").val(JSON.stringify(inputdata_profile_table));
-        //     $("#select_interval_general_data").val(JSON.stringify(remove_nulls(select_interval_general_data)));
-        //     $("#select_input_data").val(select_input_data);
-        //     $("#select_filtration_function").val($("#filtration_function_select").val());
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateOS1").val(), organic_scales_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS1comment").val(), organic_scales_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
 
-        //     if (emptyValues) {
-        //     validationMessages.push(true);
-        //     showFrontendErrors(validationMessages);
-        //     } else {
-        //     $("#only_s").val("run");
-        //     $("#drillingForm").submit();
-        //     }
-        // } else {
-        //     showFrontendErrors(validationMessages);
-        // }
+        // Volume of HCL pumped into the formation (bbl)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS2").val(), organic_scales_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateOS2").val(), organic_scales_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS2comment").val(), organic_scales_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Cumulative Gas Produced
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS3").val(), organic_scales_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateOS3").val(), organic_scales_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS3comment").val(), organic_scales_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Number Of Days Below Saturation Pressure
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS4").val(), organic_scales_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateOS4").val(), organic_scales_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS4comment").val(), organic_scales_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // De Boer Criteria
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS5").val(), organic_scales_tab_ruleset[12]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateOS5").val(), organic_scales_tab_ruleset[13]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS5comment").val(), organic_scales_tab_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // Validating Relative Permeability
+        titleTab = "";
+        tabTitle = "Tab: Relative Permeability";
+
+        // Number Of Days Below Saturation Pressure
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP1").val(), relative_permeability_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP1").val(), relative_permeability_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP1comment").val(), relative_permeability_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Delta Pressure From Saturation Pressure
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2").val(), relative_permeability_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP2").val(), relative_permeability_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2comment").val(), relative_permeability_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Cumulative Water Produced
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP3").val(), relative_permeability_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP3").val(), relative_permeability_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP3comment").val(), relative_permeability_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Pore Size Diameter Approximation By Katz And Thompson Correlation
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4").val(), relative_permeability_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP4").val(), relative_permeability_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4comment").val(), relative_permeability_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // Validating Induce Damage
+        titleTab = "";
+        tabTitle = "Tab: Induce Damage";
+
+        // Gross Pay (ft)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID1").val(), induce_damage_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateID1").val(), induce_damage_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID1comment").val(), induce_damage_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Total polymer pumped during Hydraulic Fracturing (lbs)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID2").val(), induce_damage_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateID2").val(), induce_damage_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID2comment").val(), induce_damage_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Total volume of water based fluids pumped into the well (bbl)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID3").val(), induce_damage_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateID3").val(), induce_damage_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID3comment").val(), induce_damage_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Mud Losses
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID4").val(), induce_damage_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateID4").val(), induce_damage_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID4comment").val(), induce_damage_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        // Validating Geomechanical Damage
+        titleTab = "";
+        tabTitle = "Tab: Geomechanical Damage";
+
+        // Percentage of Net Pay exihibiting Natural (fraction)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD1").val(), geomechanical_damage_tab_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateGD1").val(), geomechanical_damage_tab_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD1comment").val(), geomechanical_damage_tab_ruleset[2]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Drawdown, i.e, reservoir pressure minus BHFP (psi)
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD2").val(), geomechanical_damage_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateGD2").val(), geomechanical_damage_tab_ruleset[4]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD2comment").val(), geomechanical_damage_tab_ruleset[5]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Ratio of KH)matrix + fracture / KH)matrix
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD3").val(), geomechanical_damage_tab_ruleset[6]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateGD3").val(), geomechanical_damage_tab_ruleset[7]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD3comment").val(), geomechanical_damage_tab_ruleset[8]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        // Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD4").val(), geomechanical_damage_tab_ruleset[9]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateGD4").val(), geomechanical_damage_tab_ruleset[10]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD4comment").val(), geomechanical_damage_tab_ruleset[11]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        if (validationMessages.length > 0) {
+            var evt = window.event || arguments.callee.caller.arguments[0];
+            evt.preventDefault();
+            showFrontendErrors(validationMessages);
+        }
     }
 
     /* tabStep
@@ -501,7 +730,6 @@
 
         $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
         $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
-        $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
     }
 
     /* switchTab
@@ -512,11 +740,8 @@
         var event = window.event || arguments.callee.caller.arguments[0];
         var tabActiveElement = $(".nav.nav-tabs li.active");
         var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
-        console.log(nextPrevElement);
 
         $("#next_button").toggle(nextPrevElement.next().is("li"));
         $("#prev_button").toggle(nextPrevElement.prev().is("li"));
-        $("#run_calc").toggle(!nextPrevElement.next().is("li"));
-        console.log('im called')
     }
 </script>

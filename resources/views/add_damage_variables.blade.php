@@ -355,9 +355,9 @@
                      </div>
                   </div>
                   <div class="col-md-4">
-                     <div class="form-group {{$errors->has('FB3comment') ? 'has-error' : ''}}">
+                     <div class="form-group {{$errors->has('FB4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB3comment',null, ['class' =>'form-control', 'id' => 'FB4comment']) !!}    
+                        {!! Form::text('FB4comment',null, ['class' =>'form-control', 'id' => 'FB4comment']) !!}    
                      </div>
                   </div>
                </div>
@@ -675,7 +675,7 @@
                      </div>
                   </div>
                   <div class="col-md-4">
-                     <div class="form-group {{$errors->has('RP2comment') ? 'has-error' : ''}}">
+                     <div class="form-group {{$errors->has('RP3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
                         {!! Form::text('RP3comment',null, ['class' =>'form-control', 'id' => 'RP3comment']) !!}  
                      </div>
@@ -1007,13 +1007,12 @@
 
 <div class="row">
    <div class="col-md-6" align="left">
-      <button type="button" class="btn btn-success" onclick="verifyDamage('save');">Save</button>
+      {!! Form::submit('Save' , array('class' => 'btn btn-success', 'onclick' => 'verifyDamage();', 'name' => 'accion')) !!}
       <a href="{!! url('database') !!}" class="btn btn-danger">Cancel</a>
    </div>
    <div class="col-md-6" align="right">
       <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
       <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-      <button type="button" class="btn btn-primary" style="display: none" onclick="verifyDamage('run');" id="run_calc">Run</button>
    </div>
 </div>
 {!! Form::Close() !!}
@@ -1044,6 +1043,7 @@
 @section('Scripts')
    @include('js/add_damage_variables')
    @include('js/frontend_validator')
+   @include('js/frontend_rules/damage_variables')
    @include('js/modal_error')
    @include('js/modal_error_frontend')
    @include('css/modal_error_frontend')

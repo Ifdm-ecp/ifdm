@@ -155,6 +155,25 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
+        case "textmaxw":
+          if (value.length > set.maxw) {
+            isValid = [false, "The field " + ruleset.column + " can't be longer than " + set.maxw + " characters"];
+            return false;
+          }
+          break;
+        case "date":
+          var isValidBool = true;
+          if (!value.match(set.regEx)) { isValidBool = false; }
+          var d = new Date(value);
+          var dNum = d.getTime();
+          if (!dNum && dNum !== 0) { isValidBool = false; }
+          isValidBool = d.toISOString().slice(0, 10) === value;
+
+          if (!isValidBool) {
+            isValid = [false, "The field " + ruleset.column + " must have a correct format (" + set.formatRead + ")"];
+            return false;
+          }
+          break;
         case "selection":
           if (!set.selections.includes(value)) {
             isValid = [false, "The field " + ruleset.column + " has a value that is not part of the allowed selection"];

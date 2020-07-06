@@ -251,7 +251,7 @@ class add_damage_variables_controller extends Controller
                         $measurement->comentario = $request->input('OS2comment');
                         $measurement->formacion_id = null;
                         $measurement->pozo_id = $request->input('well');
-                        $measurement->subparametro_id = 12;
+                        $measurement->subparametro_id = 30;
                         $measurement->save();
                     }
 
@@ -262,7 +262,7 @@ class add_damage_variables_controller extends Controller
                         $measurement->comentario = $request->input('OS3comment');
                         $measurement->formacion_id = null;
                         $measurement->pozo_id = $request->input('well');
-                        $measurement->subparametro_id = 13;
+                        $measurement->subparametro_id = 12;
                         $measurement->save();
                     }
 
@@ -271,6 +271,17 @@ class add_damage_variables_controller extends Controller
                         $measurement->valor = $request->input('OS4');
                         $measurement->fecha = $request->input('dateOS4');
                         $measurement->comentario = $request->input('OS4comment');
+                        $measurement->formacion_id = null;
+                        $measurement->pozo_id = $request->input('well');
+                        $measurement->subparametro_id = 13;
+                        $measurement->save();
+                    }
+
+                    if($request->input('OS5')){
+                        $measurement=new medicion;
+                        $measurement->valor = $request->input('OS5');
+                        $measurement->fecha = $request->input('dateOS5');
+                        $measurement->comentario = $request->input('OS5comment');
                         $measurement->formacion_id = null;
                         $measurement->pozo_id = $request->input('well');
                         $measurement->subparametro_id = 14;
@@ -410,9 +421,9 @@ class add_damage_variables_controller extends Controller
                     }
                 }
                     
-                    $request->session()->flash('mensaje', 'Record successfully entered.');
+                $request->session()->flash('mensaje', 'Record successfully entered.');
 
-                    return view('database');
+                return view('database');
             }else{
                 return view('permission');
             }

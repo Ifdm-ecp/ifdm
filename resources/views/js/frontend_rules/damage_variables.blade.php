@@ -69,37 +69,37 @@ mineral_scales_tab_ruleset = [
     ]
   },
   {
-    column: "Backflow [Ca] (ppm) value",
+    column: "Backflow [Ca] value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Backflow [Ca] (ppm) monitoring date",
+    column: "Backflow [Ca] monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Backflow [Ca] (ppm) comment",
+    column: "Backflow [Ca] comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
   },
   {
-    column: "Backflow [Ba] (ppm) value",
+    column: "Backflow [Ba] value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Backflow [Ba] (ppm) monitoring date",
+    column: "Backflow [Ba] monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Backflow [Ba] (ppm) comment",
+    column: "Backflow [Ba] comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -108,19 +108,19 @@ mineral_scales_tab_ruleset = [
 
 fine_blockage_tab_ruleset = [
   {
-    column: "[Al] on Produced Water (ppm) value",
+    column: "[Al] on Produced Water value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "[Al] on Produced Water (ppm) monitoring date",
+    column: "[Al] on Produced Water monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "[Al] on Produced Water (ppm) comment",
+    column: "[Al] on Produced Water comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -144,19 +144,19 @@ fine_blockage_tab_ruleset = [
     ]
   },
   {
-    column: "Critical Radius derived from maximum critical velocity, Vc (ft) value",
+    column: "Critical Radius derived from maximum critical velocity, Vc value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Critical Radius derived from maximum critical velocity, Vc (ft) monitoring date",
+    column: "Critical Radius derived from maximum critical velocity, Vc monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Critical Radius derived from maximum critical velocity, Vc (ft) comment",
+    column: "Critical Radius derived from maximum critical velocity, Vc comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -180,19 +180,19 @@ fine_blockage_tab_ruleset = [
     ]
   },
   {
-    column: "Mass of crushed proppant inside Hydraulic Fractures (lbs) value",
+    column: "Mass of crushed proppant inside Hydraulic Fractures value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Mass of crushed proppant inside Hydraulic Fractures (lbs) date",
+    column: "Mass of crushed proppant inside Hydraulic Fractures date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Mass of crushed proppant inside Hydraulic Fractures (lbs) comment",
+    column: "Mass of crushed proppant inside Hydraulic Fractures comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -219,19 +219,19 @@ organic_scales_tab_ruleset = [
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation (bbl) value",
+    column: "Volume of HCL pumped into the formation value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation (bbl) monitoring date",
+    column: "Volume of HCL pumped into the formation monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation (bbl) comment",
+    column: "Volume of HCL pumped into the formation comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -369,55 +369,55 @@ relative_permeability_tab_ruleset = [
 
 induce_damage_tab_ruleset = [
   {
-    column: "Gross Pay (ft) value",
+    column: "Gross Pay value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Gross Pay (ft) monitoring date",
+    column: "Gross Pay monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Gross Pay (ft) comment",
+    column: "Gross Pay comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
   },
   {
-    column: "Total polymer pumped during Hydraulic Fracturing (lbs) value",
+    column: "Total polymer pumped during Hydraulic Fracturing value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Total polymer pumped during Hydraulic Fracturing (lbs) monitoring date",
+    column: "Total polymer pumped during Hydraulic Fracturing monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Total polymer pumped during Hydraulic Fracturing (lbs) comment",
+    column: "Total polymer pumped during Hydraulic Fracturing comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
   },
   {
-    column: "Total volume of water based fluids pumped into the well (bbl) value",
+    column: "Total volume of water based fluids pumped into the well value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Total volume of water based fluids pumped into the well (bbl) monitoring date",
+    column: "Total volume of water based fluids pumped into the well monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Total volume of water based fluids pumped into the well (bbl) comment",
+    column: "Total volume of water based fluids pumped into the well comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -444,37 +444,37 @@ induce_damage_tab_ruleset = [
 
 geomechanical_damage_tab_ruleset = [
   {
-    column: "Percentage of Net Pay exihibiting Natural (fraction) value",
+    column: "Percentage of Net Pay exihibiting Natural value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Percentage of Net Pay exihibiting Natural (fraction) monitoring date",
+    column: "Percentage of Net Pay exihibiting Natural monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Percentage of Net Pay exihibiting Natural (fraction) comment",
+    column: "Percentage of Net Pay exihibiting Natural comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
   },
   {
-    column: "Drawdown, i.e, reservoir pressure minus BHFP (psi) value",
+    column: "Drawdown, i.e, reservoir pressure minus BHFP value",
     rules: [
       {rule: "numeric"}
     ]
   },
   {
-    column: "Drawdown, i.e, reservoir pressure minus BHFP (psi) monitoring date",
+    column: "Drawdown, i.e, reservoir pressure minus BHFP monitoring date",
     rules: [
       {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Drawdown, i.e, reservoir pressure minus BHFP (psi) comment",
+    column: "Drawdown, i.e, reservoir pressure minus BHFP comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]

@@ -153,7 +153,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Backflow [Ca] (ppm)') !!}
+                     {!! Form::label('', 'Backflow [Ca]') !!}
                   </div>
                </div>
       
@@ -187,7 +187,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Backflow [Ba] (ppm)') !!}
+                     {!! Form::label('', 'Backflow [Ba]') !!}
                   </div>
                </div>
       
@@ -230,7 +230,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('ACW', '[Al] on Produced Water (ppm)') !!}
+                     {!! Form::label('ACW', '[Al] on Produced Water') !!}
                   </div>
                </div>
       
@@ -298,7 +298,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc (ft)') !!}
+                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc') !!}
                   </div>
                </div>
       
@@ -366,7 +366,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures (lbs)') !!}
+                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures') !!}
                   </div>
                </div>
       
@@ -442,7 +442,7 @@
 
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Volume of HCL pumped into the formation (bbl)') !!}
+                     {!! Form::label('', 'Volume of HCL pumped into the formation') !!}
                   </div>
                </div>
       
@@ -453,8 +453,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('OS2') ? 'has-error' : ''}}">
-                           {!! Form::text('OS2',null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'OS2']) !!}
-                           <span class="input-group-addon" id="basic-addon2">-</span>
+                           {!! Form::text('OS2',null, ['placeholder' => 'bbl', 'class' =>'form-control', 'id' => 'OS2']) !!}
+                           <span class="input-group-addon" id="basic-addon2">bbl</span>
                         </div>
                      </div>
                   </div>
@@ -727,7 +727,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('MDF', 'Gross Pay (ft)') !!}
+                     {!! Form::label('MDF', 'Gross Pay') !!}
                   </div>
                </div>
       
@@ -761,7 +761,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing (lbs)') !!}
+                     {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing') !!}
                   </div>
                </div>
       
@@ -795,7 +795,7 @@
       
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well (bbl)') !!}
+                     {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well') !!}
                   </div>
                </div>
       
@@ -806,8 +806,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('ID3') ? 'has-error' : ''}}">
-                           {!! Form::text('ID3',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'ID3']) !!}    
-                           <span class="input-group-addon" id="basic-addon2">-</span>
+                           {!! Form::text('ID3',null, ['placeholder' => 'bbl', 'class' =>'form-control pull-right', 'id' => 'ID3']) !!}    
+                           <span class="input-group-addon" id="basic-addon2">bbl</span>
                         </div>
                      </div>
                   </div>
@@ -871,7 +871,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural (fraction)') !!}
+                     {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural') !!}
                   </div>
                </div>
       
@@ -882,8 +882,8 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('GD1') ? 'has-error' : ''}}">
-                           {!! Form::text('GD1',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'GD1']) !!}
-                           <span class="input-group-addon" id="basic-addon2">-</span>
+                           {!! Form::text('GD1',null, ['placeholder' => 'fraction', 'class' =>'form-control pull-right', 'id' => 'GD1']) !!}
+                           <span class="input-group-addon" id="basic-addon2">fraction</span>
                         </div>
                      </div>
                   </div>
@@ -904,7 +904,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP (psi)') !!}
+                     {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP') !!}
                   </div>
                </div>
       

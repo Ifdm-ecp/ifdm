@@ -163,11 +163,18 @@ function multiValidatorGeneral(action, value, ruleset)
           break;
         case "date":
           var isValidBool = true;
-          if (!value.match(set.regEx)) { isValidBool = false; }
-          var d = new Date(value);
-          var dNum = d.getTime();
-          if (!dNum && dNum !== 0) { isValidBool = false; }
-          isValidBool = d.toISOString().slice(0, 10) === value;
+          if (!moment(value, set.format, true).isValid()) {
+            isValidBool = false; 
+          } else {
+            value = moment(value, "DD-MM-YYYY").format("YYYY-MM-DD");
+            var d = new Date(value);
+            var dNum = d.getTime();
+            if (!dNum && dNum !== 0) {
+              isValidBool = false;
+            } else {
+              isValidBool = d.toISOString().slice(0, 10) === value;
+            }
+          }
 
           if (!isValidBool) {
             isValid = [false, "The field " + ruleset.column + " must have a correct format (" + set.formatRead + ")"];

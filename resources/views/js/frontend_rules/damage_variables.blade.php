@@ -23,7 +23,7 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of CaCO3 monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -41,7 +41,7 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of BaSO4 monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -59,7 +59,7 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of Iron Scales monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -77,7 +77,7 @@ mineral_scales_tab_ruleset = [
   {
     column: "Backflow [Ca] monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -95,7 +95,7 @@ mineral_scales_tab_ruleset = [
   {
     column: "Backflow [Ba] monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -116,7 +116,7 @@ fine_blockage_tab_ruleset = [
   {
     column: "[Al] on Produced Water monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -134,7 +134,7 @@ fine_blockage_tab_ruleset = [
   {
     column: "[Si] on produced water monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -152,7 +152,7 @@ fine_blockage_tab_ruleset = [
   {
     column: "Critical Radius derived from maximum critical velocity, Vc monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -170,7 +170,7 @@ fine_blockage_tab_ruleset = [
   {
     column: "Mineralogy Factor monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -188,7 +188,7 @@ fine_blockage_tab_ruleset = [
   {
     column: "Mass of crushed proppant inside Hydraulic Fractures date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -209,7 +209,7 @@ organic_scales_tab_ruleset = [
   {
     column: "CII Factor: Colloidal Instability Index monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -227,7 +227,7 @@ organic_scales_tab_ruleset = [
   {
     column: "Volume of HCL pumped into the formation monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -245,7 +245,7 @@ organic_scales_tab_ruleset = [
   {
     column: "Cumulative Gas Produced monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -263,7 +263,7 @@ organic_scales_tab_ruleset = [
   {
     column: "Number Of Days Below Saturation Pressure monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -281,7 +281,7 @@ organic_scales_tab_ruleset = [
   {
     column: "De Boer Criteria monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -302,7 +302,7 @@ relative_permeability_tab_ruleset = [
   {
     column: "Number Of Days Below Saturation Pressure monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -320,7 +320,7 @@ relative_permeability_tab_ruleset = [
   {
     column: "Delta Pressure From Saturation Pressure monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -338,7 +338,7 @@ relative_permeability_tab_ruleset = [
   {
     column: "Cumulative Water Produced monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -356,7 +356,7 @@ relative_permeability_tab_ruleset = [
   {
     column: "Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -377,7 +377,7 @@ induce_damage_tab_ruleset = [
   {
     column: "Gross Pay monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -395,7 +395,7 @@ induce_damage_tab_ruleset = [
   {
     column: "Total polymer pumped during Hydraulic Fracturing monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -413,7 +413,7 @@ induce_damage_tab_ruleset = [
   {
     column: "Total volume of water based fluids pumped into the well monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -431,7 +431,7 @@ induce_damage_tab_ruleset = [
   {
     column: "Mud Losses monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -452,7 +452,7 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Percentage of Net Pay exihibiting Natural monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -470,7 +470,7 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Drawdown, i.e, reservoir pressure minus BHFP monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -488,7 +488,7 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Ratio of KH)matrix + fracture / KH)matrix monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
@@ -506,7 +506,7 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP monitoring date",
     rules: [
-      {rule: "date", format: !/^\d{2}\/\d{2}\/\d{4}$/, formatRead: "dd/mm/yyyy"}
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {

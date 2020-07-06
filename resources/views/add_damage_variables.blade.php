@@ -63,7 +63,7 @@
                      <div class="form-group {{$errors->has('MS1') ? 'has-error' : ''}}">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group">
-                           {!! Form::text('MS1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'MS1']) !!} 
+                           {!! Form::text('MS1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'MS1']) !!}
                            <span class="input-group-addon" id="basic-addon2">-</span>
                         </div>
                      </div>
@@ -71,13 +71,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateMS1', null, ['class' =>'form-control', 'id' => 'dateMS1']); !!}
+                        {!! Form::text('dateMS1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('MS1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('MS1comment',null, ['class' =>'form-control', 'id' => 'MS1comment']) !!}   
+                        {!! Form::text('MS1comment',null, ['class' =>'form-control', 'id' => 'MS1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -97,7 +97,7 @@
                      <div class="form-group {{$errors->has('MS2') ? 'has-error' : ''}}">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group">
-                           {!! Form::text('MS2',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'MS2']) !!}  
+                           {!! Form::text('MS2',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'MS2']) !!}
                            <span class="input-group-addon" id="basic-addon2">-</span>
                         </div>
                      </div>
@@ -105,13 +105,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateMS2', null, ['class' =>'form-control', 'id' => 'dateMS2']); !!}
+                        {!! Form::text('dateMS2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('MS2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('MS2comment',null, ['class' =>'form-control', 'id' => 'MS2comment']) !!}    
+                        {!! Form::text('MS2comment',null, ['class' =>'form-control', 'id' => 'MS2comment']) !!}
                      </div>
                   </div>
                </div>
@@ -130,7 +130,7 @@
                      <div class="form-group {{$errors->has('MS3') ? 'has-error' : ''}}">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group">
-                           {!! Form::text('MS3',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'MS3']) !!} 
+                           {!! Form::text('MS3',null, ['placeholder' => '-', 'class' =>'form-control pull-right', 'id' => 'MS3']) !!}
                            <span class="input-group-addon" id="basic-addon2">-</span>
                         </div>
                      </div>
@@ -138,13 +138,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateMS3', null, ['class' =>'form-control', 'id' => 'dateMS3']); !!}
+                        {!! Form::text('dateMS3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('MS3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('MS3comment',null, ['class' =>'form-control', 'id' => 'MS3comment']) !!}  
+                        {!! Form::text('MS3comment',null, ['class' =>'form-control', 'id' => 'MS3comment']) !!}
                      </div>
                   </div>
                </div>
@@ -164,7 +164,7 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('MS4') ? 'has-error' : ''}}">
-                           {!! Form::text('MS4',null, ['placeholder' => 'ppm', 'class' =>'form-control pull-right', 'id' => 'MS4']) !!}   
+                           {!! Form::text('MS4',null, ['placeholder' => 'ppm', 'class' =>'form-control pull-right', 'id' => 'MS4']) !!}
                            <span class="input-group-addon" id="basic-addon2">ppm</span>
                         </div>
                      </div>
@@ -172,13 +172,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateMS4', null, ['class' =>'form-control', 'id' => 'dateMS4']); !!}
+                        {!! Form::text('dateMS4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('MS4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('MS4comment',null, ['class' =>'form-control', 'id' => 'MS4comment']) !!}   
+                        {!! Form::text('MS4comment',null, ['class' =>'form-control', 'id' => 'MS4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -198,7 +198,7 @@
                      <div class="form-group {{$errors->has('MS5') ? 'has-error' : ''}}">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group">
-                           {!! Form::text('MS5',null, ['placeholder' => 'ppm', 'class' =>'form-control pull-right', 'id' => 'MS5']) !!}  
+                           {!! Form::text('MS5',null, ['placeholder' => 'ppm', 'class' =>'form-control pull-right', 'id' => 'MS5']) !!}
                            <span class="input-group-addon" id="basic-addon2">ppm</span>
                         </div>
                      </div>
@@ -206,13 +206,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateMS5', null, ['class' =>'form-control', 'id' => 'dateMS5']); !!}
+                        {!! Form::text('dateMS5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('MS5comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('MS5comment',null, ['class' =>'form-control', 'id' => 'MS5comment']) !!}   
+                        {!! Form::text('MS5comment',null, ['class' =>'form-control', 'id' => 'MS5comment']) !!}
                      </div>
                   </div>
                </div>
@@ -249,13 +249,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateFB1', null, ['class' =>'form-control', 'id' => 'dateFB1']); !!}
+                        {!! Form::text('dateFB1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('FB1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB1comment',null, ['class' =>'form-control', 'id' => 'FB1comment']) !!}    
+                        {!! Form::text('FB1comment',null, ['class' =>'form-control', 'id' => 'FB1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -283,13 +283,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateFB2',null, ['class' =>'form-control', 'id' => 'dateFB2']); !!}
+                        {!! Form::text('dateFB2',null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('FB2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB2comment',null, ['class' =>'form-control', 'id' => 'FB2comment']) !!}    
+                        {!! Form::text('FB2comment',null, ['class' =>'form-control', 'id' => 'FB2comment']) !!}
                      </div>
                   </div>
                </div>
@@ -309,7 +309,7 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('FB3') ? 'has-error' : ''}}">
-                           {!! Form::text('FB3',null, ['placeholder' => 'ft', 'class' =>'form-control pull-right', 'id' => 'FB3']) !!} 
+                           {!! Form::text('FB3',null, ['placeholder' => 'ft', 'class' =>'form-control pull-right', 'id' => 'FB3']) !!}
                            <span class="input-group-addon" id="basic-addon2">ft</span>
                         </div>
                      </div>
@@ -317,13 +317,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateFB3', null, ['class' =>'form-control', 'id' => 'dateFB3']); !!}
+                        {!! Form::text('dateFB3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('FB3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB3comment',null, ['class' =>'form-control', 'id' => 'FB3comment']) !!}  
+                        {!! Form::text('FB3comment',null, ['class' =>'form-control', 'id' => 'FB3comment']) !!}
                      </div>
                   </div>
                </div>
@@ -351,13 +351,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateFB4', null, ['class' =>'form-control', 'id' => 'dateFB4']); !!}
+                        {!! Form::text('dateFB4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('FB4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB4comment',null, ['class' =>'form-control', 'id' => 'FB4comment']) !!}    
+                        {!! Form::text('FB4comment',null, ['class' =>'form-control', 'id' => 'FB4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -385,13 +385,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateFB5', null, ['class' =>'form-control', 'id' => 'dateFB5']); !!}
+                        {!! Form::text('dateFB5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('FB5comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('FB5comment',null, ['class' =>'form-control', 'id' => 'FB5comment']) !!}    
+                        {!! Form::text('FB5comment',null, ['class' =>'form-control', 'id' => 'FB5comment']) !!}
                      </div>
                   </div>
                </div>
@@ -427,13 +427,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateOS1', null, ['class' =>'form-control', 'id' => 'dateOS1']); !!}
+                        {!! Form::text('dateOS1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS1comment',null, ['class' =>'form-control', 'id' => 'OS1comment']) !!}    
+                        {!! Form::text('OS1comment',null, ['class' =>'form-control', 'id' => 'OS1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -461,13 +461,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateOS2', null, ['class' =>'form-control', 'id' => 'dateOS2']); !!}
+                        {!! Form::text('dateOS2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS2comment',null, ['class' =>'form-control', 'id' => 'OS2comment']) !!}    
+                        {!! Form::text('OS2comment',null, ['class' =>'form-control', 'id' => 'OS2comment']) !!}
                      </div>
                   </div>
                </div>
@@ -487,7 +487,7 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('OS3') ? 'has-error' : ''}}">
-                           {!! Form::text('OS3',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control', 'id' => 'OS3']) !!} 
+                           {!! Form::text('OS3',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control', 'id' => 'OS3']) !!}
                            <span class="input-group-addon" id="basic-addon2">mMMSCF</span>
                         </div>
                      </div>
@@ -495,7 +495,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateOS3', null, ['class' =>'form-control', 'id' => 'dateOS3']); !!}
+                        {!! Form::text('dateOS3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -529,13 +529,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateOS4', null, ['class' =>'form-control', 'id' => 'dateOS4']); !!}
+                        {!! Form::text('dateOS4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS4comment',null, ['class' =>'form-control', 'id' => 'OS4comment']) !!}    
+                        {!! Form::text('OS4comment',null, ['class' =>'form-control', 'id' => 'OS4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -563,13 +563,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateOS5', null, ['class' =>'form-control', 'id' => 'dateOS5']); !!}
+                        {!! Form::text('dateOS5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('OS5comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('OS5comment',null, ['class' =>'form-control', 'id' => 'OS5comment']) !!} 
+                        {!! Form::text('OS5comment',null, ['class' =>'form-control', 'id' => 'OS5comment']) !!}
                      </div>
                   </div>
                </div>
@@ -605,13 +605,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateRP1', null, ['class' =>'form-control', 'id' => 'dateRP1']); !!}
+                        {!! Form::text('dateRP1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('RP1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('RP1comment',null, ['class' =>'form-control', 'id' => 'RP1comment']) !!}    
+                        {!! Form::text('RP1comment',null, ['class' =>'form-control', 'id' => 'RP1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -638,13 +638,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateRP2', null, ['class' =>'form-control', 'id' => 'dateRP2']); !!}
+                        {!! Form::text('dateRP2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('RP2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('RP2comment',null, ['class' =>'form-control', 'id' => 'RP2comment']) !!}  
+                        {!! Form::text('RP2comment',null, ['class' =>'form-control', 'id' => 'RP2comment']) !!}
                      </div>
                   </div>
                </div>
@@ -671,13 +671,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateRP3', null, ['class' =>'form-control', 'id' => 'dateRP3']); !!}
+                        {!! Form::text('dateRP3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('RP3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('RP3comment',null, ['class' =>'form-control', 'id' => 'RP3comment']) !!}  
+                        {!! Form::text('RP3comment',null, ['class' =>'form-control', 'id' => 'RP3comment']) !!}
                      </div>
                   </div>
                </div>
@@ -704,13 +704,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateRP4', null, ['class' =>'form-control', 'id' => 'dateRP4']); !!}
+                        {!! Form::text('dateRP4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('RP4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('RP4comment',null, ['class' =>'form-control', 'id' => 'RP4comment']) !!}    
+                        {!! Form::text('RP4comment',null, ['class' =>'form-control', 'id' => 'RP4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -746,13 +746,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateID1', null, ['class' =>'form-control', 'id' => 'dateID1']); !!}
+                        {!! Form::text('dateID1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('ID1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('ID1comment',null, ['class' =>'form-control', 'id' => 'ID1comment']) !!}    
+                        {!! Form::text('ID1comment',null, ['class' =>'form-control', 'id' => 'ID1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -772,7 +772,7 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('ID2') ? 'has-error' : ''}}">
-                           {!! Form::text('ID2',null, ['placeholder' => 'lbs', 'class' =>'form-control pull-right', 'id' => 'ID2']) !!}  
+                           {!! Form::text('ID2',null, ['placeholder' => 'lbs', 'class' =>'form-control pull-right', 'id' => 'ID2']) !!}
                            <span class="input-group-addon" id="basic-addon2">lbs</span>
                         </div>
                      </div>
@@ -780,7 +780,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateID2', null, ['class' =>'form-control', 'id' => 'dateID2']); !!}
+                        {!! Form::text('dateID2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -806,7 +806,7 @@
                      <div class="form-group">
                         {!! Form::label('value', 'Value') !!}
                         <div class="input-group {{$errors->has('ID3') ? 'has-error' : ''}}">
-                           {!! Form::text('ID3',null, ['placeholder' => 'bbl', 'class' =>'form-control pull-right', 'id' => 'ID3']) !!}    
+                           {!! Form::text('ID3',null, ['placeholder' => 'bbl', 'class' =>'form-control pull-right', 'id' => 'ID3']) !!}
                            <span class="input-group-addon" id="basic-addon2">bbl</span>
                         </div>
                      </div>
@@ -814,13 +814,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateID3', null, ['class' =>'form-control', 'id' => 'dateID3']); !!}
+                        {!! Form::text('dateID3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('ID3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('ID3comment',null, ['class' =>'form-control', 'id' => 'ID3comment']) !!}    
+                        {!! Form::text('ID3comment',null, ['class' =>'form-control', 'id' => 'ID3comment']) !!}
                      </div>
                   </div>
                </div>
@@ -848,13 +848,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateID4', null, ['class' =>'form-control', 'id' => 'dateID4']); !!}
+                        {!! Form::text('dateID4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('ID4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('ID4comment',null, ['class' =>'form-control', 'id' => 'ID4comment']) !!}    
+                        {!! Form::text('ID4comment',null, ['class' =>'form-control', 'id' => 'ID4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -890,13 +890,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateGD1', null, ['class' =>'form-control', 'id' => 'dateGD1']); !!}
+                        {!! Form::text('dateGD1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('GD1comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('GD1comment',null, ['class' =>'form-control', 'id' => 'GD1comment']) !!}    
+                        {!! Form::text('GD1comment',null, ['class' =>'form-control', 'id' => 'GD1comment']) !!}
                      </div>
                   </div>
                </div>
@@ -923,13 +923,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateGD2', null, ['class' =>'form-control', 'id' => 'dateGD2']); !!}
+                        {!! Form::text('dateGD2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('GD2comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('GD2comment',null, ['class' =>'form-control', 'id' => 'GD2comment']) !!}    
+                        {!! Form::text('GD2comment',null, ['class' =>'form-control', 'id' => 'GD2comment']) !!}
                      </div>
                   </div>
                </div>
@@ -956,13 +956,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateGD3', null, ['class' =>'form-control', 'id' => 'dateGD3']); !!}
+                        {!! Form::text('dateGD3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('GD3comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('GD3comment',null, ['class' =>'form-control', 'id' => 'GD3comment']) !!}    
+                        {!! Form::text('GD3comment',null, ['class' =>'form-control', 'id' => 'GD3comment']) !!}
                      </div>
                   </div>
                </div>
@@ -989,13 +989,13 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::date('dateGD4', null, ['class' =>'form-control', 'id' => 'dateGD4']); !!}
+                        {!! Form::text('dateGD4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('GD4comment') ? 'has-error' : ''}}">
                         {!! Form::label('comment', 'Comment') !!}
-                        {!! Form::text('GD4comment',null, ['class' =>'form-control', 'id' => 'GD4comment']) !!}    
+                        {!! Form::text('GD4comment',null, ['class' =>'form-control', 'id' => 'GD4comment']) !!}
                      </div>
                   </div>
                </div>
@@ -1017,30 +1017,12 @@
 </div>
 {!! Form::Close() !!}
 
-<div id="date" class="modal fade">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Error</h4>
-         </div>
-         <div class="modal-body">
-            <p class="text-danger">
-               <small>
-            <p>Date Should Not Exceed The Current Date.</p>
-            </small>
-            </p>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-         </div>
-      </div>
-   </div>
-</div>
-
 @endsection
 
 @section('Scripts')
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
    @include('js/add_damage_variables')
    @include('js/frontend_validator')
    @include('js/frontend_rules/damage_variables')

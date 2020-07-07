@@ -71,7 +71,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateMS1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS1']); !!}
+                        {!! Form::text('dateMS1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateMS1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -105,7 +105,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateMS2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS2']); !!}
+                        {!! Form::text('dateMS2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateMS2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -138,7 +138,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateMS3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS3']); !!}
+                        {!! Form::text('dateMS3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateMS3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -172,7 +172,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateMS4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS4']); !!}
+                        {!! Form::text('dateMS4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateMS4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -206,7 +206,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateMS5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateMS5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateMS5']); !!}
+                        {!! Form::text('dateMS5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateMS5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -249,7 +249,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateFB1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB1']); !!}
+                        {!! Form::text('dateFB1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateFB1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -283,7 +283,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateFB2',null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB2']); !!}
+                        {!! Form::text('dateFB2',null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateFB2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -317,7 +317,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateFB3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB3']); !!}
+                        {!! Form::text('dateFB3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateFB3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -351,7 +351,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateFB4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB4']); !!}
+                        {!! Form::text('dateFB4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateFB4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -385,7 +385,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateFB5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateFB5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateFB5']); !!}
+                        {!! Form::text('dateFB5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateFB5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -427,7 +427,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateOS1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS1']); !!}
+                        {!! Form::text('dateOS1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateOS1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -461,7 +461,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateOS2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS2']); !!}
+                        {!! Form::text('dateOS2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateOS2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -495,7 +495,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateOS3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS3']); !!}
+                        {!! Form::text('dateOS3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateOS3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -529,7 +529,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateOS4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS4']); !!}
+                        {!! Form::text('dateOS4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateOS4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -563,7 +563,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateOS5') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateOS5', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateOS5']); !!}
+                        {!! Form::text('dateOS5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateOS5']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -605,7 +605,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateRP1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP1']); !!}
+                        {!! Form::text('dateRP1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateRP1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -638,7 +638,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateRP2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP2']); !!}
+                        {!! Form::text('dateRP2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateRP2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -671,7 +671,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateRP3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP3']); !!}
+                        {!! Form::text('dateRP3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateRP3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -704,7 +704,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateRP4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateRP4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateRP4']); !!}
+                        {!! Form::text('dateRP4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateRP4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -746,7 +746,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateID1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID1']); !!}
+                        {!! Form::text('dateID1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateID1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -780,7 +780,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateID2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID2']); !!}
+                        {!! Form::text('dateID2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateID2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -814,7 +814,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateID3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID3']); !!}
+                        {!! Form::text('dateID3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateID3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -848,7 +848,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateID4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateID4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateID4']); !!}
+                        {!! Form::text('dateID4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateID4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -890,7 +890,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD1') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateGD1', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD1']); !!}
+                        {!! Form::text('dateGD1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateGD1']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -923,7 +923,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD2') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateGD2', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD2']); !!}
+                        {!! Form::text('dateGD2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateGD2']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -956,7 +956,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD3') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateGD3', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD3']); !!}
+                        {!! Form::text('dateGD3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateGD3']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -989,7 +989,7 @@
                   <div class="col-md-4">
                      <div class="form-group {{$errors->has('dateGD4') ? 'has-error' : ''}}">
                         {!! Form::label('date', 'Monitoring Date') !!}
-                        {!! Form::text('dateGD4', null, ['class' =>'form-control jquery-datepicker', 'id' => 'dateGD4']); !!}
+                        {!! Form::text('dateGD4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateGD4']); !!}
                      </div>
                   </div>
                   <div class="col-md-4">

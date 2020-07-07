@@ -432,8 +432,6 @@
         validationMessages.push(true);
         showFrontendErrors(validationMessages);
       } else {
-        console.log('porarararara');
-        throw new Error(validationMessages);
         enviar();
         $("#only_s").val("run");
         $("#disaggregationForm").submit();

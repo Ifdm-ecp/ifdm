@@ -9,13 +9,13 @@
 {!!Form::open(array('url' => 'AddMeasurementCS', 'method' => 'post'))!!}
 <div class="row">
    <div class="col-md-4">
-      <div class="form-group">
+      <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
          {!! Form::label('basin', 'Basin') !!}
          {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'basin', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
    <div class="col-md-4">
-      <div class="form-group">
+      <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
          {!! Form::label('Field', 'Field') !!}
          {!! Form::select('field', array(),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'field', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>

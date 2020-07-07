@@ -367,6 +367,10 @@ $(document).ready(function() {
             $("#div_Dformation").hide();
         }
 
+        if (type == "Multiparametric") {
+            $('#div_formation_wipr').hide();
+        }
+
         $('.selectpicker').selectpicker('refresh');
 
         update_duplicate_modal();

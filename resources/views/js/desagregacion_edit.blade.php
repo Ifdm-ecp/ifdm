@@ -279,6 +279,8 @@
 
         } else if (characterized_mixture == "2") {
 
+          console.log('manolo');
+
           var flow_rate_1_2 = $("#flow_rate_1_2").val();
           validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_2, production_data_ruleset[22]);
           titleTab = validationFunctionResult[0];
@@ -330,6 +332,8 @@
         }
 
       } else if (emulsion == "2") {
+
+        console.log('guandolo');
 
         var flow_rate_2 = $("#flow_rate_2").val();
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_2, production_data_ruleset[30]);
@@ -432,8 +436,6 @@
         validationMessages.push(true);
         showFrontendErrors(validationMessages);
       } else {
-        console.log('porarararara');
-        throw new Error(validationMessages);
         enviar();
         $("#only_s").val("run");
         $("#disaggregationForm").submit();

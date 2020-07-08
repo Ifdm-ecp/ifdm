@@ -15,19 +15,19 @@
 </div>
 
 </br>
-   <div class="nav">
-      <div class="tab">
-         <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" id="ocultarSave" href="#SB">Statistical DataBase</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#MS">Mineral Scale</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#FB">Fine Blockage</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#OS">Organic Scales</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#RP">Relative Permeability</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#ID">Induced Damage</a></li>
-            <li><a data-toggle="tab" class="ocultarCalculate" href="#GD">Geomechanical Damage</a></li>
-         </ul>
-      </div>
+<div class="nav">
+   <div class="tab">
+      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+         <li class="active"><a data-toggle="tab" id="ocultarSave" href="#SB" onclick="switchTab()">Statistical DataBase</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#MS" id="MS_C" onclick="switchTab()">Mineral Scales</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#FB" id="FB_C" onclick="switchTab()">Fine Blockage</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#OS" id="OS_C" onclick="switchTab()">Organic Scales</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#RP" id="RP_C" onclick="switchTab()">Relative Permeability</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#ID" id="ID_C" onclick="switchTab()">Induced Damage</a></li>
+         <li><a data-toggle="tab" class="ocultarCalculate" href="#GD" id="GD_C" onclick="switchTab()">Geomechanical Damage</a></li>
+      </ul>
    </div>
+</div>
 {!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST'])!!}
   <input type="hidden" name="id_scenary" id="id_scenary" value="{{ !empty($duplicateFrom) ? $duplicateFrom : $statistical->escenario->id }}">
   <input type="hidden" name="calculate" value="false">
@@ -41,7 +41,20 @@
          @include('multiparametricAnalysis.statistical.cuerpo.id')
          @include('multiparametricAnalysis.statistical.cuerpo.gd')
    </div>
-   <br>
+   <div class="row">
+      <div class="col-md-12 scenario-buttons">
+         <div align="left">
+            <button type="button" class="btn btn-success" onclick="verifyMultiparametric('save');">Save</button>
+            <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+         </div>
+         <div align="right">
+            <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+            <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+            <button type="button" class="btn btn-primary" style="display: none" onclick="verifyMultiparametric('run');" id="run_calc">Run</button>
+         </div>
+      </div>
+   </div>
+   {{-- <br>
    <br>
    <div class="row">
       <div class="col-xs-12">
@@ -52,7 +65,7 @@
             <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
          </p>
       </div>
-   </div>
+   </div> --}}
 {!! Form::Close() !!}
 
 <div class="modal fade" id="errors" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
@@ -77,11 +90,18 @@
 @include('css/add_multiparametric')
 
 @section('Scripts')
-    @include('multiparametricAnalysis.statistical.cuerpo.createJs')
-    @include('multiparametricAnalysis.statistical.cuerpo.editJs')
-    @include('js/modal_error')
-    <script type="text/javascript">
-       $(document).ready(function(){
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
+   @include('multiparametricAnalysis.statistical.cuerpo.createJs')
+   @include('multiparametricAnalysis.statistical.cuerpo.editJs')
+   @include('js/frontend_validator')
+   @include('js/frontend_rules/drilling')
+   @include('js/modal_error')
+   @include('js/modal_error_frontend')
+   @include('css/modal_error_frontend')
+   <script type="text/javascript">
+      $(document).ready(function() {
          validationFields();
          @if($statistical->p10_ms1 == null || $statistical->p10_fb1 == null || $statistical->p10_os1 == null || $statistical->p10_id1 == null || $statistical->p10_gd1 == null)
          multiparametricoStatistical();
@@ -89,5 +109,5 @@
          cargarCamposBBDD();
          cargarAvailables();
       });
-    </script>
+   </script>
 @endsection

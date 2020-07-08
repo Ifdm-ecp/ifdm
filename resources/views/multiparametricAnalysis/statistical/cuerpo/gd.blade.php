@@ -9,19 +9,19 @@
                   <div class="col-md-12">
                      <div class="form-inline" role="form">
                         <div class="form-group">
-                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 25, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 23, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
                            </button></a>
-                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 25, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 23, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/est.png')}}" width="25" height="25"/>
                            </button></a>
                            <button type="button" class="btn btn-default" aria-label="Left Align" id="popover23">
                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                            </button>
-                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 25, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 23, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                            </button></a>&nbsp&nbsp&nbsp
-                           {!! Form::label('PNP', 'Fraction Of NetPay Exhibiting Natural Fractures') !!}
+                           {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural') !!}
                         </div>
                         <div class="pull-right">
                            {!! Form::checkbox('gdAvailable[]',1,false, array('id'=>'weight_23', 'class' => 'check_weight')) !!}
@@ -41,11 +41,11 @@
                            {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                            <div class="input-group {{$errors->has('GD1') ? 'has-error' : ''}}">
                               @if (Session::has('GD1'))
-                              {!! Form::text('gd1',Session::get('GD1')->valor, ['placeholder' => '-', 'class' =>'form-control pull-right value_edit', 'id' => 'GD1']) !!}
+                              {!! Form::text('gd1',Session::get('GD1')->valor, ['placeholder' => 'fraction', 'class' =>'form-control pull-right value_edit', 'id' => 'GD1']) !!}
                               @else
-                              {!! Form::text('gd1',null, ['placeholder' => '-', 'class' =>'form-control pull-right value_edit', 'id' => 'GD1']) !!}
+                              {!! Form::text('gd1',null, ['placeholder' => 'fraction', 'class' =>'form-control pull-right value_edit', 'id' => 'GD1']) !!}
                               @endif
-                              <span class="input-group-addon" id="basic-addon2">-</span>
+                              <span class="input-group-addon" id="basic-addon2">fraction</span>
                            </div>
                         </div>
                      </div>
@@ -53,9 +53,9 @@
                         <div class="form-group {{$errors->has('dateGD1') ? 'has-error' : ''}}">
                            {!! Form::label('date', 'Monitoring Date') !!}
                            @if (Session::has('GD1'))
-                           {!! Form::date('date_gd1', Session::get('GD1')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateGD1']); !!}
+                           {!! Form::text('date_gd1', Session::get('GD1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD1']); !!}
                            @else
-                           {!! Form::date('date_gd1',null, ['class' =>'form-control value_edit', 'id' => 'dateGD1']); !!}
+                           {!! Form::text('date_gd1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD1']); !!}
                            @endif
                         </div>
                      </div>
@@ -98,19 +98,19 @@
                   <div class="col-md-12">
                      <div class="form-inline" role="form">
                         <div class="form-group">
-                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 26, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 24, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
                            </button></a>
-                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 26, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 24, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/est.png')}}" width="25" height="25"/>
                            </button></a>
                            <button type="button" class="btn btn-default" aria-label="Left Align" id="popover24">
                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                            </button>
-                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 26, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 24, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                            </button></a>&nbsp&nbsp&nbsp
-                           {!! Form::label('BHFP', 'Drawdown') !!}
+                           {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP') !!}
                         </div>
                         <div class="pull-right">
                            {!! Form::checkbox('gdAvailable[]',2,false, array('id'=>'weight_24', 'class' => 'check_weight')) !!}
@@ -142,9 +142,9 @@
                         <div class="form-group {{$errors->has('dateGD2') ? 'has-error' : ''}}">
                            {!! Form::label('date', 'Monitoring Date') !!}
                            @if (Session::has('GD2'))
-                           {!! Form::date('date_gd2', Session::get('GD2')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateGD2']); !!}
+                           {!! Form::text('date_gd2', Session::get('GD2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD2']); !!}
                            @else
-                           {!! Form::date('date_gd2',null, ['class' =>'form-control value_edit', 'id' => 'dateGD2']); !!}
+                           {!! Form::text('date_gd2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD2']); !!}
                            @endif
                         </div>
                      </div>
@@ -187,19 +187,19 @@
                   <div class="col-md-12">
                      <div class="form-inline" role="form">
                         <div class="form-group">
-                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 27, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 25, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
                            </button></a>
-                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 27, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 25, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/est.png')}}" width="25" height="25"/>
                            </button></a>
                            <button type="button" class="btn btn-default" aria-label="Left Align" id="popover25">
                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                            </button>
-                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 27, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 25, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                            </button></a>&nbsp&nbsp&nbsp
-                           {!! Form::label('KH', 'Ratio Of KH + Fracture / KH') !!}
+                           {!! Form::label('KH', 'Ratio of KH)matrix + fracture / KH)matrix') !!}
                         </div>
                         <div class="pull-right">
                            {!! Form::checkbox('gdAvailable[]',3,false, array('id'=>'weight_25', 'class' => 'check_weight')) !!}
@@ -231,9 +231,9 @@
                         <div class="form-group {{$errors->has('dateGD3') ? 'has-error' : ''}}">
                            {!! Form::label('date', 'Monitoring Date') !!}
                            @if (Session::has('GD3'))
-                           {!! Form::date('date_gd3', Session::get('GD3')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateGD3']); !!}
+                           {!! Form::text('date_gd3', Session::get('GD3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD3']); !!}
                            @else
-                           {!! Form::date('date_gd3',null, ['class' =>'form-control value_edit', 'id' => 'dateGD3']); !!}
+                           {!! Form::text('date_gd3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD3']); !!}
                            @endif
                         </div>
                      </div>
@@ -276,16 +276,16 @@
                   <div class="col-md-12">
                      <div class="form-inline" role="form">
                         <div class="form-group">
-                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 28, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('histo', ['subp' => 26, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
                            </button></a>
-                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 28, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('freq', ['subp' => 26, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
                            <img src="{{asset('images/est.png')}}" width="25" height="25"/>
                            </button></a>
                            <button type="button" class="btn btn-default" aria-label="Left Align" id="popover26">
                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                            </button>
-                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 28, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
+                           <a target="_blank" href="{{ URL::route('Geor', ['subp' => 26, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                            </button></a>&nbsp&nbsp&nbsp
                            {!! Form::label('KH', 'Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP') !!}
@@ -318,9 +318,9 @@
                         <div class="form-group {{$errors->has('dateGD4') ? 'has-error' : ''}}">
                            {!! Form::label('date', 'Monitoring Date') !!}
                            @if (Session::has('GD4'))
-                           {!! Form::date('date_gd4', Session::get('GD4')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateGD4']); !!}
+                           {!! Form::text('date_gd4', Session::get('GD4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD4']); !!}
                            @else
-                           {!! Form::date('date_gd4',null, ['class' =>'form-control value_edit', 'id' => 'dateGD4']); !!}
+                           {!! Form::text('date_gd4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateGD4']); !!}
                            @endif
                         </div>
                      </div>

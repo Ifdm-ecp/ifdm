@@ -21,7 +21,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 6, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('ACW', '[Al]: Aluminum Concentration On Produced Water') !!}
+                     {!! Form::label('ACW', '[Al] on Produced Water') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('fbAvailable[]',1,false, array('id'=>'weight_6', 'class' => 'check_weight')) !!}
@@ -53,9 +53,9 @@
                   <div class="form-group {{$errors->has('dateFB1') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('FB1'))
-                     {!! Form::date('date_fb1', Session::get('FB1')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateFB1']); !!}
+                     {!! Form::text('date_fb1', Session::get('FB1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB1']); !!}
                      @else
-                     {!! Form::date('date_fb1',null, ['class' =>'form-control value_edit', 'id' => 'dateFB1']); !!}
+                     {!! Form::text('date_fb1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB1']); !!}
                      @endif
                   </div>
                </div>
@@ -110,7 +110,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 7, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('SCW', '[Si]: Silicon Concentration On Produced Water') !!}
+                     {!! Form::label('SCW', '[Si] on produced water') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('fbAvailable[]',2,false, array('id'=>'weight_7', 'class' => 'check_weight')) !!}
@@ -142,9 +142,9 @@
                   <div class="form-group {{$errors->has('dateFB2') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('FB2'))
-                     {!! Form::date('date_fb2', Session::get('FB2')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateFB2']); !!}
+                     {!! Form::text('date_fb2', Session::get('FB2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB2']); !!}
                      @else
-                     {!! Form::date('date_fb2',null, ['class' =>'form-control value_edit', 'id' => 'dateFB2']); !!}
+                     {!! Form::text('date_fb2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB2']); !!}
                      @endif
                   </div>
                </div>
@@ -199,7 +199,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 8, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('CRF', 'Critical Radius Factor Rc') !!}
+                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('fbAvailable[]',3,false, array('id'=>'weight_8', 'class' => 'check_weight')) !!}
@@ -231,9 +231,9 @@
                   <div class="form-group {{$errors->has('dateFB3') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('FB3'))
-                     {!! Form::date('date_fb3', Session::get('FB3')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateFB3']); !!}
+                     {!! Form::text('date_fb3', Session::get('FB3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB3']); !!}
                      @else
-                     {!! Form::date('date_fb3',null, ['class' =>'form-control value_edit', 'id' => 'dateFB3']); !!}
+                     {!! Form::text('date_fb3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB3']); !!}
                      @endif
                   </div>
                </div>
@@ -288,7 +288,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 9, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('MF', 'Mineralogic Factor') !!}
+                     {!! Form::label('MF', 'Mineralogy Factor') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('fbAvailable[]',4,false, array('id'=>'weight_9', 'class' => 'check_weight')) !!}
@@ -320,9 +320,9 @@
                   <div class="form-group {{$errors->has('dateFB4') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('FB4'))
-                     {!! Form::date('date_fb4', Session::get('FB4')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateFB4']); !!}
+                     {!! Form::text('date_fb4', Session::get('FB4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB4']); !!}
                      @else
-                     {!! Form::date('date_fb4',null, ['class' =>'form-control value_edit', 'id' => 'dateFB4']); !!}
+                     {!! Form::text('date_fb4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB4']); !!}
                      @endif
                   </div>
                </div>
@@ -377,7 +377,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 10, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('CPF', 'Crushed Proppant Factor') !!}
+                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('fbAvailable[]',5,false, array('id'=>'weight_10', 'class' => 'check_weight')) !!}
@@ -409,9 +409,9 @@
                   <div class="form-group {{$errors->has('dateFB5') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('FB5'))
-                     {!! Form::date('date_fb5', Session::get('FB5')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateFB5']); !!}
+                     {!! Form::text('date_fb5', Session::get('FB5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB5']); !!}
                      @else
-                     {!! Form::date('date_fb5',null, ['class' =>'form-control value_edit', 'id' => 'dateFB5']); !!}
+                     {!! Form::text('date_fb5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB5']); !!}
                      @endif
                   </div>
                </div>

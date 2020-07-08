@@ -5,8 +5,6 @@
       </div>
 
        <div class="panel-body">
-         
-
          <div class="row">
             <div class="col-md-12">
                <div class="form-inline" role="form">
@@ -54,17 +52,17 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateMS1') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
-                     @if (Session::has('$MS1'))
-                     {!! Form::date('date_ms1', Session::get('MS1')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateMS1']); !!}
+                     @if (Session::has('MS1'))
+                     {!! Form::text('date_ms1', Session::get('MS1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS1']); !!}
                      @else
-                     {!! Form::date('date_ms1', null, ['class' =>'form-control value_edit', 'id' => 'dateMS1']); !!}
+                     {!! Form::text('date_ms1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS1']); !!}
                      @endif
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS1comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
-                     @if (Session::has('$MS1'))
+                     @if (Session::has('MS1'))
                      {!! Form::text('comment_ms1',Session::get('MS1')->comentario, ['class' =>'form-control validate', 'id' => 'MS1comment']) !!}    
                      @else 
                      {!! Form::text('comment_ms1',null, ['class' =>'form-control validate', 'id' => 'MS1comment']) !!}
@@ -145,9 +143,9 @@
                   <div class="form-group {{$errors->has('dateMS2') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('MS2'))
-                     {!! Form::date('date_ms2', Session::get('MS2')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateMS2']); !!}
+                     {!! Form::text('date_ms2', Session::get('MS2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS2']); !!}
                      @else
-                     {!! Form::date('date_ms2', null, ['class' =>'form-control value_edit', 'id' => 'dateMS2']); !!}
+                     {!! Form::text('date_ms2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS2']); !!}
                      @endif
                   </div>
                </div>
@@ -234,9 +232,9 @@
                   <div class="form-group {{$errors->has('dateMS3') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('MS3'))
-                     {!! Form::date('date_ms3', Session::get('MS3')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateMS3']); !!}
+                     {!! Form::text('date_ms3', Session::get('MS3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS3']); !!}
                      @else
-                     {!! Form::date('date_ms3', null, ['class' =>'form-control value_edit', 'id' => 'dateMS3']); !!}
+                     {!! Form::text('date_ms3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS3']); !!}
                      @endif
                   </div>
                </div>
@@ -291,7 +289,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 4, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', '[Ca]: Calcium Concentration On Backflow Samples') !!}
+                     {!! Form::label('', 'Backflow [Ca]') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('msAvailable[]',4,false, array('id'=>'weight_4', 'class' => 'check_weight')) !!}
@@ -323,9 +321,9 @@
                   <div class="form-group {{$errors->has('dateMS4') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('MS4'))
-                     {!! Form::date('date_ms4', Session::get('MS4')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateMS4']); !!}
+                     {!! Form::text('date_ms4', Session::get('MS4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS4']); !!}
                      @else
-                     {!! Form::date('date_ms4',null, ['class' =>'form-control value_edit', 'id' => 'dateMS4']); !!}
+                     {!! Form::text('date_ms4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS4']); !!}
                      @endif
                   </div>
                </div>
@@ -380,7 +378,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 5, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', '[Ba]: Barium Concentration On Backflow Samples') !!}
+                     {!! Form::label('', 'Backflow [Ba]') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('msAvailable[]',5,false, array('id'=>'weight_5', 'class' => 'check_weight')) !!}
@@ -412,9 +410,9 @@
                   <div class="form-group {{$errors->has('dateMS5') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('MS5'))
-                     {!! Form::date('date_ms5', Session::get('MS5')->fecha, ['class' =>'form-control value_edit', 'id' => 'dateMS5']); !!}
+                     {!! Form::text('date_ms5', Session::get('MS5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS5']); !!}
                      @else
-                     {!! Form::date('date_ms5', null, ['class' =>'form-control value_edit', 'id' => 'dateMS5']); !!}
+                     {!! Form::text('date_ms5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateMS5']); !!}
                      @endif
                   </div>
                </div>

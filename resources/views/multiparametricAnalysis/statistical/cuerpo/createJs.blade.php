@@ -1,4 +1,11 @@
-<script type="text/javascript">    
+<script type="text/javascript">
+    $(function() {
+        $(".jquery-datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"
+        });
+    });
 
     //alert de seccion statistical database incompleta
     $('.sectionDeactivated').click(function(){
@@ -58,7 +65,37 @@
             $("#field").selectpicker('refresh');
         }
     }
-    
 
-    
+    /* tabStep
+    * After validating the current tab, it is changed to the next or previous tab depending on the
+    * entry value
+    * params {direction: string}
+    */
+    function tabStep(direction) {
+        var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+
+        if (direction == "prev") {
+            $(".nav.nav-tabs li.active").prev().children().click();
+        } else {
+            $(".nav.nav-tabs li.active").next().children().click();
+        }
+
+        $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
+        $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
+        $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+    }
+
+    /* switchTab
+    * Captures the tab clicking event to determine if a previous or next button has to be shown
+    * and also the run button
+    */
+    function switchTab() {
+        var event = window.event || arguments.callee.caller.arguments[0];
+        var tabActiveElement = $(".nav.nav-tabs li.active");
+        var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+
+        $("#next_button").toggle(nextPrevElement.next().is("li"));
+        $("#prev_button").toggle(nextPrevElement.prev().is("li"));
+        $("#run_calc").toggle(!nextPrevElement.next().is("li"));
+    }
 </script>

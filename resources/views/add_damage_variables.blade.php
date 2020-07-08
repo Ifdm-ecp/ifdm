@@ -1006,13 +1006,15 @@
 </div>
 
 <div class="row">
-   <div class="col-md-6" align="left">
-      {!! Form::submit('Save' , array('class' => 'btn btn-success', 'onclick' => 'verifyDamage();', 'name' => 'accion')) !!}
-      <a href="{!! url('database') !!}" class="btn btn-danger">Cancel</a>
-   </div>
-   <div class="col-md-6" align="right">
-      <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
-      <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+   <div class="col-md-12 scenario-buttons">
+      <div align="left">
+         {!! Form::submit('Save' , array('class' => 'btn btn-success', 'onclick' => 'verifyDamage();', 'name' => 'accion')) !!}
+         <a href="{!! url('database') !!}" class="btn btn-danger">Cancel</a>
+      </div>
+      <div align="right">
+         <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
+         <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
+      </div>
    </div>
 </div>
 {!! Form::Close() !!}

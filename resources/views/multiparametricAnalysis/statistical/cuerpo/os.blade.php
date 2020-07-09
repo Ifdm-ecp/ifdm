@@ -41,9 +41,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('OS1') ? 'has-error' : ''}}">
                         @if (Session::has('OS1'))
-                        {!! Form::text('os1',Session::get('OS1')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS1']) !!}
+                        {!! Form::text('OS1',Session::get('OS1')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS1']) !!}
                         @else
-                        {!! Form::text('os1',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS1']) !!}
+                        {!! Form::text('OS1',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS1']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">-</span>
                      </div>
@@ -53,9 +53,9 @@
                   <div class="form-group {{$errors->has('dateOS1') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('OS1'))
-                     {!! Form::text('date_os1', Session::get('OS1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS1']); !!}
+                     {!! Form::text('dateOS1', Session::get('OS1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS1']); !!}
                      @else
-                     {!! Form::text('date_os1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS1']); !!}
+                     {!! Form::text('dateOS1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS1']); !!}
                      @endif
                   </div>
                </div>
@@ -63,24 +63,24 @@
                   <div class="form-group {{$errors->has('OS1comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('OS1'))
-                     {!! Form::text('comment_os1', Session::get('OS1')->comentario, ['class' =>'form-control validate', 'id' => 'OS1comment']) !!}    
+                     {!! Form::text('OS1comment', Session::get('OS1')->comentario, ['class' =>'form-control validate', 'id' => 'OS1comment']) !!}    
                      @else 
-                     {!! Form::text('comment_os1',null, ['class' =>'form-control validate', 'id' => 'OS1comment']) !!}
+                     {!! Form::text('OS1comment',null, ['class' =>'form-control validate', 'id' => 'OS1comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_os1') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_OS1') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_os1',null, ['class' =>'form-control validate', 'id' => 'p10_11']) !!}   
+                     {!! Form::text('p10_OS1',null, ['class' =>'form-control validate', 'id' => 'p10_11']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_os1') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_OS1') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_os1',null, ['class' =>'form-control validate', 'id' => 'p90_11']) !!}   
+                     {!! Form::text('p90_OS1',null, ['class' =>'form-control validate', 'id' => 'p90_11']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -130,9 +130,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('OS2') ? 'has-error' : ''}}">
                         @if (Session::has('OS2'))
-                        {!! Form::text('os2',Session::get('OS2')->valor, ['placeholder' => 'bbl', 'class' =>'form-control value_edit', 'id' => 'OS2']) !!} 
+                        {!! Form::text('OS2',Session::get('OS2')->valor, ['placeholder' => 'bbl', 'class' =>'form-control value_edit', 'id' => 'OS2']) !!} 
                         @else
-                        {!! Form::text('os2',null, ['placeholder' => 'bbl', 'class' =>'form-control value_edit', 'id' => 'OS2']) !!}
+                        {!! Form::text('OS2',null, ['placeholder' => 'bbl', 'class' =>'form-control value_edit', 'id' => 'OS2']) !!}
                         @endif 
                         <span class="input-group-addon" id="basic-addon2">bbl</span>
                      </div>
@@ -142,9 +142,9 @@
                   <div class="form-group {{$errors->has('dateOS2') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('OS2'))
-                     {!! Form::text('date_os2', Session::get('OS2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS2']); !!}
+                     {!! Form::text('dateOS2', Session::get('OS2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS2']); !!}
                      @else
-                     {!! Form::text('date_os2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS2']); !!}
+                     {!! Form::text('dateOS2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS2']); !!}
                      @endif
                   </div>
                </div>
@@ -152,24 +152,24 @@
                   <div class="form-group {{$errors->has('OS2comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('OS2'))
-                     {!! Form::text('comment_os2',Session::get('OS2')->comentario, ['class' =>'form-control validate', 'id' => 'OS2comment']) !!}    
+                     {!! Form::text('OS2comment',Session::get('OS2')->comentario, ['class' =>'form-control validate', 'id' => 'OS2comment']) !!}    
                      @else 
-                     {!! Form::text('comment_os2',null, ['class' =>'form-control validate', 'id' => 'OS2comment']) !!}
+                     {!! Form::text('OS2comment',null, ['class' =>'form-control validate', 'id' => 'OS2comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_os2') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_OS2') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_os2',null, ['class' =>'form-control validate', 'id' => 'p10_30']) !!}   
+                     {!! Form::text('p10_OS2',null, ['class' =>'form-control validate', 'id' => 'p10_30']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_os2') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_OS2') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_os2',null, ['class' =>'form-control validate', 'id' => 'p90_30']) !!}   
+                     {!! Form::text('p90_OS2',null, ['class' =>'form-control validate', 'id' => 'p90_30']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -219,9 +219,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('OS3') ? 'has-error' : ''}}">
                         @if (Session::has('OS3'))
-                        {!! Form::text('os3',Session::get('OS3')->valor, ['placeholder' => 'mMMSCF', 'class' =>'form-control value_edit', 'id' => 'OS3']) !!} 
+                        {!! Form::text('OS3',Session::get('OS3')->valor, ['placeholder' => 'mMMSCF', 'class' =>'form-control value_edit', 'id' => 'OS3']) !!} 
                         @else
-                        {!! Form::text('os3',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control value_edit', 'id' => 'OS3']) !!}
+                        {!! Form::text('OS3',null, ['placeholder' => 'mMMSCF', 'class' =>'form-control value_edit', 'id' => 'OS3']) !!}
                         @endif 
                         <span class="input-group-addon" id="basic-addon2">mMMSCF</span>
                      </div>
@@ -231,9 +231,9 @@
                   <div class="form-group {{$errors->has('dateOS3') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('OS3'))
-                     {!! Form::text('date_os3', Session::get('OS3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS3']); !!}
+                     {!! Form::text('dateOS3', Session::get('OS3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS3']); !!}
                      @else
-                     {!! Form::text('date_os3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS3']); !!}
+                     {!! Form::text('dateOS3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS3']); !!}
                      @endif
                   </div>
                </div>
@@ -241,24 +241,24 @@
                   <div class="form-group {{$errors->has('OS3comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('OS3'))
-                     {!! Form::text('comment_os3',Session::get('OS3')->comentario, ['class' =>'form-control validate', 'id' => 'OS3comment']) !!}    
+                     {!! Form::text('OS3comment',Session::get('OS3')->comentario, ['class' =>'form-control validate', 'id' => 'OS3comment']) !!}    
                      @else 
-                     {!! Form::text('comment_os3',null, ['class' =>'form-control validate', 'id' => 'OS3comment']) !!}
+                     {!! Form::text('OS3comment',null, ['class' =>'form-control validate', 'id' => 'OS3comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_os3') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_OS3') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_os3',null, ['class' =>'form-control validate', 'id' => 'p10_12']) !!}   
+                     {!! Form::text('p10_OS3',null, ['class' =>'form-control validate', 'id' => 'p10_12']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_os2') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_OS3') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_os3',null, ['class' =>'form-control validate', 'id' => 'p90_12']) !!}   
+                     {!! Form::text('p90_OS3',null, ['class' =>'form-control validate', 'id' => 'p90_12']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -308,9 +308,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('OS4') ? 'has-error' : ''}}">
                         @if (Session::has('OS4'))
-                        {!! Form::text('os4',Session::get('OS4')->valor, ['placeholder' => 'Days', 'class' =>'form-control value_edit', 'id' => 'OS4']) !!}
+                        {!! Form::text('OS4',Session::get('OS4')->valor, ['placeholder' => 'Days', 'class' =>'form-control value_edit', 'id' => 'OS4']) !!}
                         @else
-                        {!! Form::text('os4',null, ['placeholder' => 'Days', 'class' =>'form-control value_edit', 'id' => 'OS4']) !!}
+                        {!! Form::text('OS4',null, ['placeholder' => 'Days', 'class' =>'form-control value_edit', 'id' => 'OS4']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">Days</span>
                      </div>
@@ -320,9 +320,9 @@
                   <div class="form-group {{$errors->has('dateOS4') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('OS4'))
-                     {!! Form::text('date_os4', Session::get('OS4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS4']); !!}
+                     {!! Form::text('dateOS4', Session::get('OS4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS4']); !!}
                      @else
-                     {!! Form::text('date_os4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS4']); !!}
+                     {!! Form::text('dateOS4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS4']); !!}
                      @endif
                   </div>
                </div>
@@ -330,24 +330,24 @@
                   <div class="form-group {{$errors->has('OS4comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('OS4'))
-                     {!! Form::text('comment_os4',Session::get('OS4')->comentario, ['class' =>'form-control validate', 'id' => 'OS4comment']) !!}    
+                     {!! Form::text('OS4comment',Session::get('OS4')->comentario, ['class' =>'form-control validate', 'id' => 'OS4comment']) !!}    
                      @else 
-                     {!! Form::text('comment_os4',null, ['class' =>'form-control validate', 'id' => 'OS4comment']) !!}
+                     {!! Form::text('OS4comment',null, ['class' =>'form-control validate', 'id' => 'OS4comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_os4') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_OS4') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_os4',null, ['class' =>'form-control validate', 'id' => 'p10_13']) !!}   
+                     {!! Form::text('p10_OS4',null, ['class' =>'form-control validate', 'id' => 'p10_13']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_os4') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_OS4') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_os4',null, ['class' =>'form-control validate', 'id' => 'p90_13']) !!}   
+                     {!! Form::text('p90_OS4',null, ['class' =>'form-control validate', 'id' => 'p90_13']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -397,9 +397,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('OS5') ? 'has-error' : ''}}">
                         @if (Session::get('OS5'))
-                        {!! Form::text('os5',Session::get('OS5')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS5']) !!}
+                        {!! Form::text('OS5',Session::get('OS5')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS5']) !!}
                         @else
-                        {!! Form::text('os5',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS5']) !!}
+                        {!! Form::text('OS5',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'OS5']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">-</span>
                      </div>
@@ -409,9 +409,9 @@
                   <div class="form-group {{$errors->has('dateOS5') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('OS5'))
-                     {!! Form::text('date_os5', Session::get('OS5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS5']); !!}
+                     {!! Form::text('dateOS5', Session::get('OS5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS5']); !!}
                      @else
-                     {!! Form::text('date_os5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS5']); !!}
+                     {!! Form::text('dateOS5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS5']); !!}
                      @endif
                   </div>
                </div>
@@ -419,24 +419,24 @@
                   <div class="form-group {{$errors->has('OS5comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::get('OS5'))
-                     {!! Form::text('comment_os5',Session::get('OS5')->comentario, ['class' =>'form-control validate', 'id' => 'OS5comment']) !!}    
+                     {!! Form::text('OS5comment',Session::get('OS5')->comentario, ['class' =>'form-control validate', 'id' => 'OS5comment']) !!}    
                      @else 
-                     {!! Form::text('comment_os5',null, ['class' =>'form-control validate', 'id' => 'OS5comment']) !!}
+                     {!! Form::text('OS5comment',null, ['class' =>'form-control validate', 'id' => 'OS5comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_os5') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_OS5') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_os5',null, ['class' =>'form-control validate', 'id' => 'p10_14']) !!}   
+                     {!! Form::text('p10_OS5',null, ['class' =>'form-control validate', 'id' => 'p10_14']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_os5') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_OS5') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_os5',null, ['class' =>'form-control validate', 'id' => 'p90_14']) !!}   
+                     {!! Form::text('p90_OS5',null, ['class' =>'form-control validate', 'id' => 'p90_14']) !!}   
                   </div>
                </div>
                <div class="col-md-4">

@@ -41,9 +41,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('RP1') ? 'has-error' : ''}}">
                         @if (Session::has('RP1'))
-                        {!! Form::text('rp1',Session::get('RP1')->valor, ['placeholder' => 'days', 'class' =>'form-control value_edit', 'id' => 'RP1']) !!}
+                        {!! Form::text('RP1',Session::get('RP1')->valor, ['placeholder' => 'days', 'class' =>'form-control value_edit', 'id' => 'RP1']) !!}
                         @else
-                        {!! Form::text('rp1',null, ['placeholder' => 'days', 'class' =>'form-control value_edit', 'id' => 'RP1']) !!}
+                        {!! Form::text('RP1',null, ['placeholder' => 'days', 'class' =>'form-control value_edit', 'id' => 'RP1']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">days</span>
                      </div>
@@ -53,9 +53,9 @@
                   <div class="form-group {{$errors->has('dateRP1') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('RP1'))
-                     {!! Form::text('date_rp1', Session::get('RP1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP1']); !!}
+                     {!! Form::text('dateRP1', Session::get('RP1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP1']); !!}
                      @else
-                     {!! Form::text('date_rp1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP1']); !!}
+                     {!! Form::text('dateRP1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP1']); !!}
                      @endif
                   </div>
                </div>
@@ -63,24 +63,24 @@
                   <div class="form-group {{$errors->has('RP1comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('RP1'))
-                     {!! Form::text('comment_rp1',Session::get('RP1')->comentario, ['class' =>'form-control validate', 'id' => 'RP1comment']) !!}    
+                     {!! Form::text('RP1comment',Session::get('RP1')->comentario, ['class' =>'form-control validate', 'id' => 'RP1comment']) !!}    
                      @else 
-                     {!! Form::text('comment_rp1',null, ['class' =>'form-control validate', 'id' => 'RP1comment']) !!}
+                     {!! Form::text('RP1comment',null, ['class' =>'form-control validate', 'id' => 'RP1comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_rp1') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_RP1') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_rp1',null, ['class' =>'form-control validate', 'id' => 'p10_15']) !!}   
+                     {!! Form::text('p10_RP1',null, ['class' =>'form-control validate', 'id' => 'p10_15']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_rp1') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_RP1') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_rp1',null, ['class' =>'form-control validate', 'id' => 'p90_15']) !!}   
+                     {!! Form::text('p90_RP1',null, ['class' =>'form-control validate', 'id' => 'p90_15']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -130,9 +130,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('RP2') ? 'has-error' : ''}}">
                         @if (Session::has('RP2'))
-                        {!! Form::text('rp2',Session::get('RP2')->valor, ['placeholder' => 'psi', 'class' =>'form-control value_edit', 'id' => 'RP2']) !!}
+                        {!! Form::text('RP2',Session::get('RP2')->valor, ['placeholder' => 'psi', 'class' =>'form-control value_edit', 'id' => 'RP2']) !!}
                         @else
-                        {!! Form::text('rp2',null, ['placeholder' => 'psi', 'class' =>'form-control value_edit', 'id' => 'RP2']) !!}
+                        {!! Form::text('RP2',null, ['placeholder' => 'psi', 'class' =>'form-control value_edit', 'id' => 'RP2']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">psi</span>
                      </div>
@@ -142,9 +142,9 @@
                   <div class="form-group {{$errors->has('dateRP2') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('RP2'))
-                     {!! Form::text('date_rp2', Session::get('RP2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP2']); !!}
+                     {!! Form::text('dateRP2', Session::get('RP2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP2']); !!}
                      @else
-                     {!! Form::text('date_rp2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP2']); !!}
+                     {!! Form::text('dateRP2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP2']); !!}
                      @endif
                   </div>
                </div>
@@ -152,24 +152,24 @@
                   <div class="form-group {{$errors->has('RP2comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('RP2'))
-                     {!! Form::text('comment_rp2',Session::get('RP2')->comentario, ['class' =>'form-control validate', 'id' => 'RP2comment']) !!}    
+                     {!! Form::text('RP2comment',Session::get('RP2')->comentario, ['class' =>'form-control validate', 'id' => 'RP2comment']) !!}    
                      @else 
-                     {!! Form::text('comment_rp2',null, ['class' =>'form-control validate', 'id' => 'RP2comment']) !!}
+                     {!! Form::text('RP2comment',null, ['class' =>'form-control validate', 'id' => 'RP2comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_rp2') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_RP2') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_rp2',null, ['class' =>'form-control validate', 'id' => 'p10_16']) !!}   
+                     {!! Form::text('p10_RP2',null, ['class' =>'form-control validate', 'id' => 'p10_16']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_rp2') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_RP2') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_rp2',null, ['class' =>'form-control validate', 'id' => 'p90_16']) !!}   
+                     {!! Form::text('p90_RP2',null, ['class' =>'form-control validate', 'id' => 'p90_16']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -219,9 +219,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('RP3') ? 'has-error' : ''}}">
                         @if (Session::has('RP3'))
-                        {!! Form::text('rp3',Session::get('RP3')->valor, ['placeholder' => 'MMbbl', 'class' =>'form-control value_edit', 'id' => 'RP3']) !!}
+                        {!! Form::text('RP3',Session::get('RP3')->valor, ['placeholder' => 'MMbbl', 'class' =>'form-control value_edit', 'id' => 'RP3']) !!}
                         @else
-                        {!! Form::text('rp3',null, ['placeholder' => 'MMbbl', 'class' =>'form-control value_edit', 'id' => 'RP3']) !!}
+                        {!! Form::text('RP3',null, ['placeholder' => 'MMbbl', 'class' =>'form-control value_edit', 'id' => 'RP3']) !!}
                         @endif       
                         <span class="input-group-addon" id="basic-addon2">MMbbl</span>
                      </div>
@@ -231,9 +231,9 @@
                   <div class="form-group {{$errors->has('dateRP3') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('RP3'))
-                     {!! Form::text('date_rp3', Session::get('RP3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP3']); !!}
+                     {!! Form::text('dateRP3', Session::get('RP3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP3']); !!}
                      @else
-                     {!! Form::text('date_rp3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP3']); !!}
+                     {!! Form::text('dateRP3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP3']); !!}
                      @endif
                   </div>
                </div>
@@ -241,24 +241,24 @@
                   <div class="form-group {{$errors->has('RP3comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('RP3'))
-                     {!! Form::text('comment_rp3',Session::get('RP3')->comentario, ['class' =>'form-control validate', 'id' => 'RP3comment']) !!}    
+                     {!! Form::text('RP3comment',Session::get('RP3')->comentario, ['class' =>'form-control validate', 'id' => 'RP3comment']) !!}    
                      @else 
-                     {!! Form::text('comment_rp3',null, ['class' =>'form-control validate', 'id' => 'RP3comment']) !!}
+                     {!! Form::text('RP3comment',null, ['class' =>'form-control validate', 'id' => 'RP3comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_rp3') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_RP3') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_rp3',null, ['class' =>'form-control validate', 'id' => 'p10_17']) !!}   
+                     {!! Form::text('p10_RP3',null, ['class' =>'form-control validate', 'id' => 'p10_17']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_rp3') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_RP3') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_rp3',null, ['class' =>'form-control validate', 'id' => 'p90_17']) !!}   
+                     {!! Form::text('p90_RP3',null, ['class' =>'form-control validate', 'id' => 'p90_17']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
@@ -308,9 +308,9 @@
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('RP4') ? 'has-error' : ''}}">
                         @if (Session::has('RP4'))
-                        {!! Form::text('rp4',Session::get('RP4')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'RP4']) !!}
+                        {!! Form::text('RP4',Session::get('RP4')->valor, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'RP4']) !!}
                         @else
-                        {!! Form::text('rp4',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'RP4']) !!}
+                        {!! Form::text('RP4',null, ['placeholder' => '-', 'class' =>'form-control value_edit', 'id' => 'RP4']) !!}
                         @endif
                         <span class="input-group-addon" id="basic-addon2">-</span>
                      </div>
@@ -320,9 +320,9 @@
                   <div class="form-group {{$errors->has('dateRP4') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}
                      @if (Session::has('RP4'))
-                     {!! Form::text('date_rp4', Session::get('RP4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP4']); !!}
+                     {!! Form::text('dateRP4', Session::get('RP4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP4']); !!}
                      @else
-                     {!! Form::text('date_rp4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP4']); !!}
+                     {!! Form::text('dateRP4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP4']); !!}
                      @endif
                   </div>
                </div>
@@ -330,24 +330,24 @@
                   <div class="form-group {{$errors->has('RP4comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
                      @if (Session::has('RP4'))
-                     {!! Form::text('comment_rp4',Session::get('RP4')->comentario, ['class' =>'form-control validate', 'id' => 'RP4comment']) !!}    
+                     {!! Form::text('RP4comment',Session::get('RP4')->comentario, ['class' =>'form-control validate', 'id' => 'RP4comment']) !!}    
                      @else 
-                     {!! Form::text('comment_rp4',null, ['class' =>'form-control validate', 'id' => 'RP4comment']) !!}
+                     {!! Form::text('RP4comment',null, ['class' =>'form-control validate', 'id' => 'RP4comment']) !!}
                      @endif
                   </div>
                </div>
             </div>
             <div class="row">
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p10_rp4') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p10_RP4') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_rp4',null, ['class' =>'form-control validate', 'id' => 'p10_18']) !!}   
+                     {!! Form::text('p10_RP4',null, ['class' =>'form-control validate', 'id' => 'p10_18']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('p90_rp4') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('p90_RP4') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_rp4',null, ['class' =>'form-control validate', 'id' => 'p90_18']) !!}   
+                     {!! Form::text('p90_RP4',null, ['class' =>'form-control validate', 'id' => 'p90_18']) !!}   
                   </div>
                </div>
                <div class="col-md-4">

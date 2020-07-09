@@ -51,7 +51,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateFB1') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('FB1'))
                      {!! Form::text('dateFB1', Session::get('FB1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB1']); !!}
                      @else
@@ -140,7 +140,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateFB2') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('FB2'))
                      {!! Form::text('dateFB2', Session::get('FB2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB2']); !!}
                      @else
@@ -229,7 +229,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateFB3') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('FB3'))
                      {!! Form::text('dateFB3', Session::get('FB3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB3']); !!}
                      @else
@@ -318,7 +318,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateFB4') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('FB4'))
                      {!! Form::text('dateFB4', Session::get('FB4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB4']); !!}
                      @else
@@ -407,7 +407,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateFB5') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('FB5'))
                      {!! Form::text('dateFB5', Session::get('FB5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateFB5']); !!}
                      @else

@@ -51,7 +51,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateOS1') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('OS1'))
                      {!! Form::text('dateOS1', Session::get('OS1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS1']); !!}
                      @else
@@ -140,7 +140,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateOS2') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('OS2'))
                      {!! Form::text('dateOS2', Session::get('OS2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS2']); !!}
                      @else
@@ -173,9 +173,9 @@
                   </div>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('os_compositional_factor') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('os_volume_of_hcl') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('os_compositional_factor',$statistical->subparameters->os_compositional_factor ? $statistical->subparameters->os_compositional_factor : 0.2, ['class' =>'form-control weight_count', 'id' => 'weight_30_value']) !!}
+                     {!! Form::text('os_volume_of_hcl',$statistical->subparameters->os_volume_of_hcl ? $statistical->subparameters->os_volume_of_hcl : 0.2, ['class' =>'form-control weight_count', 'id' => 'weight_30_value']) !!}
                   </div>
                </div>
             </div>
@@ -229,7 +229,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateOS3') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('OS3'))
                      {!! Form::text('dateOS3', Session::get('OS3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS3']); !!}
                      @else
@@ -318,7 +318,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateOS4') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('OS4'))
                      {!! Form::text('dateOS4', Session::get('OS4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS4']); !!}
                      @else
@@ -407,7 +407,7 @@
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateOS5') ? 'has-error' : ''}}">
-                     {!! Form::label('date', 'Monitoring Date') !!}
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      @if (Session::has('OS5'))
                      {!! Form::text('dateOS5', Session::get('OS5')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateOS5']); !!}
                      @else

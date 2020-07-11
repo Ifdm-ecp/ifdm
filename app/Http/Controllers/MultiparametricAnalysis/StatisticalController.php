@@ -1,23 +1,19 @@
 <?php
 
-
 namespace App\Http\Controllers\MultiparametricAnalysis;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MultiparametricAnalysis\StatisticalRequest;
-use App\Models\MultiparametricAnalysis\Statistical;
-use App\escenario;
 use App\cuenca;
-use Session;
-use App\Traits\StatisticalTrait;
+use App\escenario;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MultiparametricAnalyticalRequest;
+use App\Models\MultiparametricAnalysis\Statistical;
+use App\Traits\StatisticalTrait;
+use Illuminate\Http\Request;
+use Session;
 
 class StatisticalController extends Controller
 {
-   use StatisticalTrait;
+    use StatisticalTrait;
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +21,7 @@ class StatisticalController extends Controller
      */
     public function index()
     {
-       //dd(MultiparametricTrait::demo());
+        //dd(MultiparametricTrait::demo());
     }
 
     /**
@@ -35,14 +31,14 @@ class StatisticalController extends Controller
      */
     public function create()
     {
-        if (\Auth::check()){
+        if (\Auth::check()) {
             $scenary = escenario::find(\Request::get('scenaryId'));
             $user = $scenary->user;
             $advisor = $scenary->enable_advisor;
             $cuencas = cuenca::all();
             $complete = false;
 
-            return view('multiparametricAnalysis.statistical.create', compact(['scenary','user', 'advisor', 'cuencas', 'complete']));
+            return view('multiparametricAnalysis.statistical.create', compact(['scenary', 'user', 'advisor', 'cuencas', 'complete']));
         }
     }
 
@@ -53,7 +49,7 @@ class StatisticalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $statistical = $this->storeStatistical($request);
 
         //se redirecciona a la vista edit de statistical
@@ -86,7 +82,7 @@ class StatisticalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    { 
+    {
         $statistical = $this->editStatistical($id);
 
         //se trae todas las cuencas existentes
@@ -95,7 +91,7 @@ class StatisticalController extends Controller
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
         //dd(Session::get('GD4'));
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete','duplicateFrom']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'duplicateFrom']));
     }
 
     /**
@@ -107,7 +103,7 @@ class StatisticalController extends Controller
      */
     public function update(MultiparametricAnalyticalRequest $request, $id)
     {
-        if (\Auth::check()){
+        if (\Auth::check()) {
             if ($request->calculate == "true") {
                 //se modifica el array del campo field_statistical con implode
                 if ($request->field_statistical) {
@@ -135,45 +131,39 @@ class StatisticalController extends Controller
                 $scenario = escenario::find($request->id_scenary);
 
                 //se conviertelos arrays en cadenas
-                if($request->msAvailable)
-                {
-                    $input['msAvailable'] = implode(",",$request->msAvailable);
-                }else{
+                if ($request->msAvailable) {
+                    $input['msAvailable'] = implode(",", $request->msAvailable);
+                } else {
                     $input['msAvailable'] = null;
                 }
 
-                if($request->fbAvailable)
-                {
-                    $input['fbAvailable'] = implode(",",$request->fbAvailable);
-                }else{
+                if ($request->fbAvailable) {
+                    $input['fbAvailable'] = implode(",", $request->fbAvailable);
+                } else {
                     $input['fbAvailable'] = null;
                 }
 
-                if($request->osAvailable)
-                {
-                    $input['osAvailable'] = implode(",",$request->osAvailable);
-                }else{
+                if ($request->osAvailable) {
+                    $input['osAvailable'] = implode(",", $request->osAvailable);
+                } else {
                     $input['osAvailable'] = null;
                 }
 
-                if($request->rpAvailable)
-                {
-                    $input['rpAvailable'] = implode(",",$request->rpAvailable);
-                }else{
+                if ($request->rpAvailable) {
+                    $input['rpAvailable'] = implode(",", $request->rpAvailable);
+                } else {
                     $input['rpAvailable'] = null;
                 }
 
-                if($request->idAvailable)
-                {
-                    $input['idAvailable'] = implode(",",$request->idAvailable);
-                }else{
+                if ($request->idAvailable) {
+                    $input['idAvailable'] = implode(",", $request->idAvailable);
+                } else {
                     $input['idAvailable'] = null;
                 }
 
-                if($request->gdAvailable)
-                {
-                    $input['gdAvailable'] = implode(",",$request->gdAvailable);
-                }else{
+                if ($request->gdAvailable) {
+                    $input['gdAvailable'] = implode(",", $request->gdAvailable);
+                } else {
                     $input['gdAvailable'] = null;
                 }
 
@@ -343,7 +333,7 @@ class StatisticalController extends Controller
         // $button_wr = (bool) isset($_POST['button_wr']);
         // $request->button_wr = $button_wr;
 
-        // $update = $this->updateStatistical($request, $id);  
+        // $update = $this->updateStatistical($request, $id);
         // $statistical = $update['statistical'];
         // unset($_SESSION['scenary_id_dup']);
 
@@ -358,8 +348,8 @@ class StatisticalController extends Controller
         // }
     }
 
-    /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */    
-    public function duplicate($id,$duplicateFrom)
+    /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */
+    public function duplicate($id, $duplicateFrom)
     {
         $_SESSION['scenary_id_dup'] = $id;
         return $this->edit($duplicateFrom);

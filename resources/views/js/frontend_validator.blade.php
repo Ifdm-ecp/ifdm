@@ -181,6 +181,12 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
+        case "differentnumber":
+          if (value == set.otherValue) {
+            isValid = [false, "The field " + ruleset.column + " and " + set.otherField + " can't have the same value"];
+            return false;
+          }
+          break;
         case "selection":
           if (!set.selections.includes(value)) {
             isValid = [false, "The field " + ruleset.column + " has a value that is not part of the allowed selection"];

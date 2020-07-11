@@ -24,191 +24,322 @@ class MultiparametricAnalyticalRequest extends Request
      */
     public function rules()
     {
-        return [
-            'basin' => 'required|exists:cuencas,id',
-            'field' => 'required|exists:campos,id',
-            'well' => 'required|exists:pozos,id',
+        if (request()->calculate == true) {
+            if (request()->statistical == 'Colombia') {
+                return [
+                    'statistical' => 'required|in:Colombia',
+                ];
+            } else {
+                return [
+                    'basin_statistical' => 'required|exists:cuencas,id',
+                    'field_statistical' => 'required|exists:campos,id',
+                ];
+            }
+        } else {
+            $rules = [
+                'basin_statistical' => 'exists:cuencas,id',
+                'field_statistical' => 'exists:campos,id',
+            ];
 
-            'MS1' => 'numeric|required_with:dateMS1',
-            'MS2' => 'numeric|required_with:dateMS2',
-            'MS3' => 'numeric|required_with:dateMS3',
-            'MS4' => 'numeric|required_with:dateMS4',
-            'MS5' => 'numeric|required_with:dateMS5',
-            'FB1' => 'numeric|required_with:dateFB1',
-            'FB2' => 'numeric|required_with:dateFB2',
-            'FB3' => 'numeric|required_with:dateFB3',
-            'FB4' => 'numeric|required_with:dateFB4',
-            'FB5' => 'numeric|required_with:dateFB5',
-            'OS1' => 'numeric|required_with:dateOS1',
-            'OS2' => 'numeric|required_with:dateOS2',
-            'OS3' => 'numeric|required_with:dateOS3',
-            'OS4' => 'numeric|required_with:dateOS4',
-            'OS5' => 'numeric|required_with:dateOS5',
-            'RP1' => 'numeric|required_with:dateRP1',
-            'RP2' => 'numeric|required_with:dateRP2',
-            'RP3' => 'numeric|required_with:dateRP3',
-            'RP4' => 'numeric|required_with:dateRP4',
-            'ID1' => 'numeric|required_with:dateID1',
-            'ID2' => 'numeric|required_with:dateID2',
-            'ID3' => 'numeric|required_with:dateID3',
-            'ID4' => 'numeric|required_with:dateID4',
-            'GD1' => 'numeric|required_with:dateGD1',
-            'GD2' => 'numeric|required_with:dateGD2',
-            'GD3' => 'numeric|required_with:dateGD3',
-            'GD4' => 'numeric|required_with:dateGD4',
+            if ($request->msAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->msAvailable);
 
-            'dateMS1' => 'required_with:MS1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateMS2' => 'required_with:MS2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateMS3' => 'required_with:MS3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateMS4' => 'required_with:MS4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateMS5' => 'required_with:MS5|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateFB1' => 'required_with:FB1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateFB2' => 'required_with:FB2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateFB3' => 'required_with:FB3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateFB4' => 'required_with:FB4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateFB5' => 'required_with:FB5|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateOS1' => 'required_with:OS1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateOS2' => 'required_with:OS2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateOS3' => 'required_with:OS3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateOS4' => 'required_with:OS4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateOS5' => 'required_with:OS5|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateRP1' => 'required_with:RP1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateRP2' => 'required_with:RP2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateRP3' => 'required_with:RP3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateRP4' => 'required_with:RP4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateID1' => 'required_with:ID1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateID2' => 'required_with:ID2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateID3' => 'required_with:ID3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateID4' => 'required_with:ID4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateGD1' => 'required_with:GD1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateGD2' => 'required_with:GD2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateGD3' => 'required_with:GD3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
-            'dateGD4' => 'required_with:GD4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['MS1'] = 'required|numeric';
+                    $rulesSpecial['dateMS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['MS1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_MS1'] = 'required|numeric|not_in:' . request()->p90_MS1;
+                    $rulesSpecial['p90_MS1'] = 'required|numeric';
+                    $rulesSpecial['ms_scale_index_caco3'] = 'numeric';
+                }
 
-            'MS1comment' => 'string|max:100',
-            'MS2comment' => 'string|max:100',
-            'MS3comment' => 'string|max:100',
-            'MS4comment' => 'string|max:100',
-            'MS5comment' => 'string|max:100',
-            'FB1comment' => 'string|max:100',
-            'FB2comment' => 'string|max:100',
-            'FB3comment' => 'string|max:100',
-            'FB4comment' => 'string|max:100',
-            'FB5comment' => 'string|max:100',
-            'OS1comment' => 'string|max:100',
-            'OS2comment' => 'string|max:100',
-            'OS3comment' => 'string|max:100',
-            'OS4comment' => 'string|max:100',
-            'OS5comment' => 'string|max:100',
-            'RP1comment' => 'string|max:100',
-            'RP2comment' => 'string|max:100',
-            'RP3comment' => 'string|max:100',
-            'RP4comment' => 'string|max:100',
-            'ID1comment' => 'string|max:100',
-            'ID2comment' => 'string|max:100',
-            'ID3comment' => 'string|max:100',
-            'ID4comment' => 'string|max:100',
-            'GD1comment' => 'string|max:100',
-            'GD2comment' => 'string|max:100',
-            'GD3comment' => 'string|max:100',
-            'GD4comment' => 'string|max:100',
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['MS2'] = 'required|numeric';
+                    $rulesSpecial['dateMS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['MS2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_MS2'] = 'required|numeric|not_in:' . request()->p90_MS2;
+                    $rulesSpecial['p90_MS2'] = 'required|numeric';
+                    $rulesSpecial['ms_scale_index_baso4'] = 'numeric';
+                }
 
-            'p10_MS1' => 'numeric',
-            'p10_MS2' => 'numeric',
-            'p10_MS3' => 'numeric',
-            'p10_MS4' => 'numeric',
-            'p10_MS5' => 'numeric',
-            'p10_FB1' => 'numeric',
-            'p10_FB2' => 'numeric',
-            'p10_FB3' => 'numeric',
-            'p10_FB4' => 'numeric',
-            'p10_FB5' => 'numeric',
-            'p10_OS1' => 'numeric',
-            'p10_OS2' => 'numeric',
-            'p10_OS3' => 'numeric',
-            'p10_OS4' => 'numeric',
-            'p10_OS5' => 'numeric',
-            'p10_RP1' => 'numeric',
-            'p10_RP2' => 'numeric',
-            'p10_RP3' => 'numeric',
-            'p10_RP4' => 'numeric',
-            'p10_ID1' => 'numeric',
-            'p10_ID2' => 'numeric',
-            'p10_ID3' => 'numeric',
-            'p10_ID4' => 'numeric',
-            'p10_GD1' => 'numeric',
-            'p10_GD2' => 'numeric',
-            'p10_GD3' => 'numeric',
-            'p10_GD4' => 'numeric',
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['MS3'] = 'required|numeric';
+                    $rulesSpecial['dateMS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['MS3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_MS3'] = 'required|numeric|not_in:' . request()->p90_MS3;
+                    $rulesSpecial['p90_MS3'] = 'required|numeric';
+                    $rulesSpecial['ms_scale_index_iron_scales'] = 'numeric';
+                }
 
-            'p90_MS1' => 'numeric',
-            'p90_MS2' => 'numeric',
-            'p90_MS3' => 'numeric',
-            'p90_MS4' => 'numeric',
-            'p90_MS5' => 'numeric',
-            'p90_FB1' => 'numeric',
-            'p90_FB2' => 'numeric',
-            'p90_FB3' => 'numeric',
-            'p90_FB4' => 'numeric',
-            'p90_FB5' => 'numeric',
-            'p90_OS1' => 'numeric',
-            'p90_OS2' => 'numeric',
-            'p90_OS3' => 'numeric',
-            'p90_OS4' => 'numeric',
-            'p90_OS5' => 'numeric',
-            'p90_RP1' => 'numeric',
-            'p90_RP2' => 'numeric',
-            'p90_RP3' => 'numeric',
-            'p90_RP4' => 'numeric',
-            'p90_ID1' => 'numeric',
-            'p90_ID2' => 'numeric',
-            'p90_ID3' => 'numeric',
-            'p90_ID4' => 'numeric',
-            'p90_GD1' => 'numeric',
-            'p90_GD2' => 'numeric',
-            'p90_GD3' => 'numeric',
-            'p90_GD4' => 'numeric',
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['MS4'] = 'required|numeric';
+                    $rulesSpecial['dateMS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['MS4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_MS4'] = 'required|numeric|not_in:' . request()->p90_MS4;
+                    $rulesSpecial['p90_MS4'] = 'required|numeric';
+                    $rulesSpecial['ms_calcium_concentration'] = 'numeric';
+                }
 
-            'ms_scale_index_caco3' => 'numeric',
-            'ms_scale_index_baso4' => 'numeric',
-            'ms_scale_index_iron_scales' => 'numeric',
-            'ms_calcium_concentration' => 'numeric',
-            'ms_barium_concentration' => 'numeric',
-            'fb_aluminum_concentration' => 'numeric',
-            'fb_silicon_concentration' => 'numeric',
-            'fb_critical_radius_factor' => 'numeric',
-            'fb_mineralogic_factor' => 'numeric',
-            'fb_crushed_proppant_factor' => 'numeric',
-            'os_cll_factor' => 'numeric',
-            'os_volume_of_hcl' => 'numeric',
-            'os_compositional_factor' => 'numeric',
-            'os_pressure_factor' => 'numeric',
-            'os_high_impact_factor' => 'numeric',
-            'rp_days_below_saturation_pressure' => 'numeric',
-            'rp_delta_pressure_saturation' => 'numeric',
-            'rp_water_intrusion' => 'numeric',
-            'rp_high_impact_factor' => 'numeric',
-            'id_gross_pay' => 'numeric',
-            'id_polymer_damage_factor' => 'numeric',
-            'id_total_volume_water' => 'numeric',
-            'id_mud_damage_factor' => 'numeric',
-            'gd_fraction_netpay' => 'numeric',
-            'gd_drawdown' => 'numeric',
-            'gd_ratio_kh_fracture' => 'numeric',
-            'gd_geomechanical_damage_fraction' => 'numeric',
-        ];
+                if (in_array('5', $implodedArray)) {
+                    $rulesSpecial['MS5'] = 'required|numeric';
+                    $rulesSpecial['dateMS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['MS5comment'] = 'string|max:100';
+                    $rulesSpecial['p10_MS5'] = 'required|numeric|not_in:' . request()->p90_MS5;
+                    $rulesSpecial['p90_MS5'] = 'required|numeric';
+                    $rulesSpecial['ms_barium_concentration'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            if ($request->fbAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->fbAvailable);
+
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['FB1'] = 'required|numeric';
+                    $rulesSpecial['dateFB1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['FB1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_FB1'] = 'required|numeric|not_in:' . request()->p90_FB1;
+                    $rulesSpecial['p90_FB1'] = 'required|numeric';
+                    $rulesSpecial['fb_aluminum_concentration'] = 'numeric';
+                }
+
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['FB2'] = 'required|numeric';
+                    $rulesSpecial['dateFB2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['FB2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_FB2'] = 'required|numeric|not_in:' . request()->p90_FB2;
+                    $rulesSpecial['p90_FB2'] = 'required|numeric';
+                    $rulesSpecial['fb_silicon_concentration'] = 'numeric';
+                }
+
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['FB3'] = 'required|numeric';
+                    $rulesSpecial['dateFB3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['FB3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_FB3'] = 'required|numeric|not_in:' . request()->p90_FB3;
+                    $rulesSpecial['p90_FB3'] = 'required|numeric';
+                    $rulesSpecial['fb_critical_radius_factor'] = 'numeric';
+                }
+
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['FB4'] = 'required|numeric';
+                    $rulesSpecial['dateFB4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['FB4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_FB4'] = 'required|numeric|not_in:' . request()->p90_FB4;
+                    $rulesSpecial['p90_FB4'] = 'required|numeric';
+                    $rulesSpecial['fb_mineralogic_factor'] = 'numeric';
+                }
+
+                if (in_array('5', $implodedArray)) {
+                    $rulesSpecial['FB5'] = 'required|numeric';
+                    $rulesSpecial['dateFB5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['FB5comment'] = 'string|max:100';
+                    $rulesSpecial['p10_FB5'] = 'required|numeric|not_in:' . request()->p90_FB5;
+                    $rulesSpecial['p90_FB5'] = 'required|numeric';
+                    $rulesSpecial['fb_crushed_proppant_factor'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            if ($request->osAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->osAvailable);
+
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['OS1'] = 'required|numeric';
+                    $rulesSpecial['dateOS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['OS1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_OS1'] = 'required|numeric|not_in:' . request()->p90_OS1;
+                    $rulesSpecial['p90_OS1'] = 'required|numeric';
+                    $rulesSpecial['os_cll_factor'] = 'numeric';
+                }
+
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['OS2'] = 'required|numeric';
+                    $rulesSpecial['dateOS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['OS2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_OS2'] = 'required|numeric|not_in:' . request()->p90_OS2;
+                    $rulesSpecial['p90_OS2'] = 'required|numeric';
+                    $rulesSpecial['os_volume_of_hcl'] = 'numeric';
+                }
+
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['OS3'] = 'required|numeric';
+                    $rulesSpecial['dateOS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['OS3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_OS3'] = 'required|numeric|not_in:' . request()->p90_OS3;
+                    $rulesSpecial['p90_OS3'] = 'required|numeric';
+                    $rulesSpecial['os_compositional_factor'] = 'numeric';
+                }
+
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['OS4'] = 'required|numeric';
+                    $rulesSpecial['dateOS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['OS4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_OS4'] = 'required|numeric|not_in:' . request()->p90_OS4;
+                    $rulesSpecial['p90_OS4'] = 'required|numeric';
+                    $rulesSpecial['os_pressure_factor'] = 'numeric';
+                }
+
+                if (in_array('5', $implodedArray)) {
+                    $rulesSpecial['OS5'] = 'required|numeric';
+                    $rulesSpecial['dateOS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['OS5comment'] = 'string|max:100';
+                    $rulesSpecial['p10_OS5'] = 'required|numeric|not_in:' . request()->p90_OS5;
+                    $rulesSpecial['p90_OS5'] = 'required|numeric';
+                    $rulesSpecial['os_high_impact_factor'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            if ($request->rpAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->rpAvailable);
+
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['RP1'] = 'required|numeric';
+                    $rulesSpecial['dateRP1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['RP1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_RP1'] = 'required|numeric|not_in:' . request()->p90_RP1;
+                    $rulesSpecial['p90_RP1'] = 'required|numeric';
+                    $rulesSpecial['rp_days_below_saturation_pressure'] = 'numeric';
+                }
+
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['RP2'] = 'required|numeric';
+                    $rulesSpecial['dateRP2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['RP2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_RP2'] = 'required|numeric|not_in:' . request()->p90_RP2;
+                    $rulesSpecial['p90_RP2'] = 'required|numeric';
+                    $rulesSpecial['rp_delta_pressure_saturation'] = 'numeric';
+                }
+
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['RP3'] = 'required|numeric';
+                    $rulesSpecial['dateRP3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['RP3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_RP3'] = 'required|numeric|not_in:' . request()->p90_RP3;
+                    $rulesSpecial['p90_RP3'] = 'required|numeric';
+                    $rulesSpecial['rp_water_intrusion'] = 'numeric';
+                }
+
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['RP4'] = 'required|numeric';
+                    $rulesSpecial['dateRP4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['RP4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_RP4'] = 'required|numeric|not_in:' . request()->p90_RP4;
+                    $rulesSpecial['p90_RP4'] = 'required|numeric';
+                    $rulesSpecial['rp_high_impact_factor'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            if ($request->idAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->idAvailable);
+
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['ID1'] = 'required|numeric';
+                    $rulesSpecial['dateID1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['ID1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_ID1'] = 'required|numeric|not_in:' . request()->p90_ID1;
+                    $rulesSpecial['p90_ID1'] = 'required|numeric';
+                    $rulesSpecial['id_gross_pay'] = 'numeric';
+                }
+
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['ID2'] = 'required|numeric';
+                    $rulesSpecial['dateID2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['ID2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_ID2'] = 'required|numeric|not_in:' . request()->p90_ID2;
+                    $rulesSpecial['p90_ID2'] = 'required|numeric';
+                    $rulesSpecial['id_polymer_damage_factor'] = 'numeric';
+                }
+
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['ID3'] = 'required|numeric';
+                    $rulesSpecial['dateID3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['ID3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_ID3'] = 'required|numeric|not_in:' . request()->p90_ID3;
+                    $rulesSpecial['p90_ID3'] = 'required|numeric';
+                    $rulesSpecial['id_total_volume_water'] = 'numeric';
+                }
+
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['ID4'] = 'required|numeric';
+                    $rulesSpecial['dateID4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['ID4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_ID4'] = 'required|numeric|not_in:' . request()->p90_ID4;
+                    $rulesSpecial['p90_ID4'] = 'required|numeric';
+                    $rulesSpecial['id_mud_damage_factor'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            if ($request->gdAvailable) {
+                $rulesSpecial = array();
+                $implodedArray = implode(",", $request->gdAvailable);
+
+                if (in_array('1', $implodedArray)) {
+                    $rulesSpecial['GD1'] = 'required|numeric';
+                    $rulesSpecial['dateGD1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['GD1comment'] = 'string|max:100';
+                    $rulesSpecial['p10_GD1'] = 'required|numeric|not_in:' . request()->p90_GD1;
+                    $rulesSpecial['p90_GD1'] = 'required|numeric';
+                    $rulesSpecial['gd_fraction_netpay'] = 'numeric';
+                }
+
+                if (in_array('2', $implodedArray)) {
+                    $rulesSpecial['GD2'] = 'required|numeric';
+                    $rulesSpecial['dateGD2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['GD2comment'] = 'string|max:100';
+                    $rulesSpecial['p10_GD2'] = 'required|numeric|not_in:' . request()->p90_GD2;
+                    $rulesSpecial['p90_GD2'] = 'required|numeric';
+                    $rulesSpecial['gd_drawdown'] = 'numeric';
+                }
+
+                if (in_array('3', $implodedArray)) {
+                    $rulesSpecial['GD3'] = 'required|numeric';
+                    $rulesSpecial['dateGD3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['GD3comment'] = 'string|max:100';
+                    $rulesSpecial['p10_GD3'] = 'required|numeric|not_in:' . request()->p90_GD3;
+                    $rulesSpecial['p90_GD3'] = 'required|numeric';
+                    $rulesSpecial['gd_ratio_kh_fracture'] = 'numeric';
+                }
+
+                if (in_array('4', $implodedArray)) {
+                    $rulesSpecial['GD4'] = 'required|numeric';
+                    $rulesSpecial['dateGD4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
+                    $rulesSpecial['GD4comment'] = 'string|max:100';
+                    $rulesSpecial['p10_GD4'] = 'required|numeric|not_in:' . request()->p90_GD4;
+                    $rulesSpecial['p90_GD4'] = 'required|numeric';
+                    $rulesSpecial['gd_geomechanical_damage_fraction'] = 'numeric';
+                }
+
+                $rules = array_merge($rules, $rulesSpecial);
+            }
+
+            return $rules;
+        }
     }
 
     public function messages()
     {
         return [
-            'basin.required' => 'Basin is required.',
-            'field.required' => 'Field is required.',
-            'well.required' => 'Well is required.',
+            'statistical.required' => 'The checkbox needs to be checked.',
+            'statistical.in' => 'The data provided by the checkbox is not correct.',
+            'basin_statistical.required' => 'Basin is required.',
+            'field_statistical.required' => 'Field is required.',
 
-            'basin.exists' => "This Basin doesn't exist.",
-            'field.exists' => "This Field doesn't exist.",
-            'well.exists' => "This Well doesn't exist.",
+            'basin_statistical.exists' => "This Basin doesn't exist.",
+            'field_statistical.exists' => "This Field doesn't exist.",
 
             'MS1.numeric' => 'Scale index of CaCO3 value must be numeric.',
             'MS2.numeric' => 'Scale index of BaSO4 value must be numeric.',
@@ -506,6 +637,39 @@ class MultiparametricAnalyticalRequest extends Request
             'p90_GD2.numeric' => 'Drawdown p90 must be numeric.',
             'p90_GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be numeric.',
             'p90_GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be numeric.',
+
+            'p10_MS1.not_in' => "Scale index of CaCO3 p10 and p90 can't have the same value.",
+            'p10_MS2.not_in' => "Scale index of BaSO4 p10 and p90 can't have the same value.",
+            'p10_MS3.not_in' => "Scale index of iron scales p10 and p90 can't have the same value.",
+            'p10_MS4.not_in' => "Backflow [Ca] p10 and p90 can't have the same value.",
+            'p10_MS5.not_in' => "Backflow [Ba] p10 and p90 can't have the same value.",
+
+            'p10_FB1.not_in' => "[Al] on Produced Water p10 and p90 can't have the same value.",
+            'p10_FB2.not_in' => "[Si] on produced water p10 and p90 can't have the same value.",
+            'p10_FB3.not_in' => "Critical Radius derived from maximum critical velocity, Vc p10 and p90 can't have the same value.",
+            'p10_FB4.not_in' => "Mineralogy Factor p10 and p90 can't have the same value.",
+            'p10_FB5.not_in' => "Mass of crushed proppant inside Hydraulic Fractures p10 and p90 can't have the same value.",
+
+            'p10_OS1.not_in' => "CII Factor: Colloidal Instability Index p10 and p90 can't have the same value.",
+            'p10_OS2.not_in' => "Volume of HCL pumped into the formation p10 and p90 can't have the same value.",
+            'p10_OS3.not_in' => "Cumulative Gas Produced p10 and p90 can't have the same value.",
+            'p10_OS4.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
+            'p10_OS5.not_in' => "De Boer Criteria p10 and p90 can't have the same value.",
+
+            'p10_RP1.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
+            'p10_RP2.not_in' => "Delta Pressure From Saturation Pressure p10 and p90 can't have the same value.",
+            'p10_RP3.not_in' => "Cumulative Water Produced p10 and p90 can't have the same value.",
+            'p10_RP4.not_in' => "Pore Size Diameter Approximation By Katz And Thompson Correlation p10 and p90 can't have the same value.",
+
+            'p10_ID1.not_in' => "Gross Pay p10 and p90 can't have the same value.",
+            'p10_ID2.not_in' => "Total polymer pumped during Hydraulic Fracturing p10 and p90 can't have the same value.",
+            'p10_ID3.not_in' => "Total volume of water based fluids pumped into the well p10 and p90 can't have the same value.",
+            'p10_ID4.not_in' => "Mud Losses p10 and p90 can't have the same value.",
+
+            'p10_GD1.not_in' => "Percentage of Net Pay exihibiting Natural p10 and p90 can't have the same value.",
+            'p10_GD2.not_in' => "Drawdown p10 and p90 can't have the same value.",
+            'p10_GD3.not_in' => "Ratio of KH)matrix + fracture / KH)matrix p10 and p90 can't have the same value.",
+            'p10_GD4.not_in' => "Geomechanical damage expressed as fraction of base permeability at BHFP p10 and p90 can't have the same value.",
 
             'ms_scale_index_caco3.numeric' => 'Scale index of CaCO3 p90 must be numeric.',
             'ms_scale_index_baso4.numeric' => 'Scale index of BaSO4 p90 must be numeric.',

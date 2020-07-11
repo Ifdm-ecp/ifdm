@@ -28,7 +28,7 @@
       </ul>
    </div>
 </div>
-{!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST'])!!}
+{!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST', 'id' => 'multiparametricStatisticalForm'])!!}
   <input type="hidden" name="id_scenary" id="id_scenary" value="{{ !empty($duplicateFrom) ? $duplicateFrom : $statistical->escenario->id }}">
   <input type="hidden" name="calculate" value="false">
     <div class="tab-content">
@@ -42,9 +42,10 @@
          @include('multiparametricAnalysis.statistical.cuerpo.gd')
    </div>
    <div class="row">
+      {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
       <div class="col-md-12 scenario-buttons">
          <div align="left">
-            <button type="button" class="btn btn-success" onclick="verifyMultiparametric('save');">Save</button>
+            <button type="button" class="btn btn-success" onclick="verifyMultiparametric('save');" id="save_calc">Save</button>
             <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
          </div>
          <div align="right">
@@ -96,7 +97,7 @@
    @include('multiparametricAnalysis.statistical.cuerpo.createJs')
    @include('multiparametricAnalysis.statistical.cuerpo.editJs')
    @include('js/frontend_validator')
-   @include('js/frontend_rules/drilling')
+   @include('js/frontend_rules/multiparametric_statistical')
    @include('js/modal_error')
    @include('js/modal_error_frontend')
    @include('css/modal_error_frontend')

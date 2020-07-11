@@ -51,14 +51,14 @@ class Statistical extends Model
         }
         //se guardan solo los campos field_statistical y statistical en la bbdd;
         $statistical = Statistical::find($id);
-        $statistical->escenario_id = $input['id_scenary'];
+        $statistical->escenario_id = $request->id_scenary;
         $statistical->field_statistical = $input['field_statistical'];
         $statistical->basin_statistical = $request->basin_statistical;
         $statistical->statistical = $request->statistical;
         $statistical->status_wr = $request->status_wr;
         $statistical->save();
+
         return $statistical;
-            
     }
 
     static function updateTodos($request, $id){

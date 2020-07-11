@@ -89,9 +89,8 @@
 
     });
 
-    /* verifyDrilling
+    /* verifyDamage
     * Validates the form entirely
-    * params {action: string}
     */
     function verifyDamage() {
         // An action is mandatory for the validations in this case action = run to validate against required fields

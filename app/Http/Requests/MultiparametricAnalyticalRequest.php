@@ -49,8 +49,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['MS1'] = 'required|numeric';
                     $rulesSpecial['dateMS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS1'] = 'required|numeric|not_in:' . request()->p90_MS1;
-                    $rulesSpecial['p90_MS1'] = 'required|numeric';
+                    $rulesSpecial['p10_MS1'] = 'required|numeric';
+                    $rulesSpecial['p90_MS1'] = 'required|numeric|not_in:' . request()->p10_MS1;
                     $rulesSpecial['ms_scale_index_caco3'] = 'numeric';
                 }
 
@@ -58,8 +58,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['MS2'] = 'required|numeric';
                     $rulesSpecial['dateMS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS2'] = 'required|numeric|not_in:' . request()->p90_MS2;
-                    $rulesSpecial['p90_MS2'] = 'required|numeric';
+                    $rulesSpecial['p10_MS2'] = 'required|numeric';
+                    $rulesSpecial['p90_MS2'] = 'required|numeric|not_in:' . request()->p10_MS2;
                     $rulesSpecial['ms_scale_index_baso4'] = 'numeric';
                 }
 
@@ -67,8 +67,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['MS3'] = 'required|numeric';
                     $rulesSpecial['dateMS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS3'] = 'required|numeric|not_in:' . request()->p90_MS3;
-                    $rulesSpecial['p90_MS3'] = 'required|numeric';
+                    $rulesSpecial['p10_MS3'] = 'required|numeric';
+                    $rulesSpecial['p90_MS3'] = 'required|numeric|not_in:' . request()->p10_MS3;
                     $rulesSpecial['ms_scale_index_iron_scales'] = 'numeric';
                 }
 
@@ -76,8 +76,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['MS4'] = 'required|numeric';
                     $rulesSpecial['dateMS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS4'] = 'required|numeric|not_in:' . request()->p90_MS4;
-                    $rulesSpecial['p90_MS4'] = 'required|numeric';
+                    $rulesSpecial['p10_MS4'] = 'required|numeric';
+                    $rulesSpecial['p90_MS4'] = 'required|numeric|not_in:' . request()->p10_MS4;
                     $rulesSpecial['ms_calcium_concentration'] = 'numeric';
                 }
 
@@ -85,8 +85,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['MS5'] = 'required|numeric';
                     $rulesSpecial['dateMS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS5'] = 'required|numeric|not_in:' . request()->p90_MS5;
-                    $rulesSpecial['p90_MS5'] = 'required|numeric';
+                    $rulesSpecial['p10_MS5'] = 'required|numeric';
+                    $rulesSpecial['p90_MS5'] = 'required|numeric|not_in:' . request()->p10_MS5;
                     $rulesSpecial['ms_barium_concentration'] = 'numeric';
                 }
 
@@ -101,8 +101,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['FB1'] = 'required|numeric';
                     $rulesSpecial['dateFB1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB1'] = 'required|numeric|not_in:' . request()->p90_FB1;
-                    $rulesSpecial['p90_FB1'] = 'required|numeric';
+                    $rulesSpecial['p10_FB1'] = 'required|numeric';
+                    $rulesSpecial['p90_FB1'] = 'required|numeric|not_in:' . request()->p10_FB1;
                     $rulesSpecial['fb_aluminum_concentration'] = 'numeric';
                 }
 
@@ -110,8 +110,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['FB2'] = 'required|numeric';
                     $rulesSpecial['dateFB2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB2'] = 'required|numeric|not_in:' . request()->p90_FB2;
-                    $rulesSpecial['p90_FB2'] = 'required|numeric';
+                    $rulesSpecial['p10_FB2'] = 'required|numeric';
+                    $rulesSpecial['p90_FB2'] = 'required|numeric|not_in:' . request()->p10_FB2;
                     $rulesSpecial['fb_silicon_concentration'] = 'numeric';
                 }
 
@@ -119,8 +119,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['FB3'] = 'required|numeric';
                     $rulesSpecial['dateFB3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB3'] = 'required|numeric|not_in:' . request()->p90_FB3;
-                    $rulesSpecial['p90_FB3'] = 'required|numeric';
+                    $rulesSpecial['p10_FB3'] = 'required|numeric';
+                    $rulesSpecial['p90_FB3'] = 'required|numeric|not_in:' . request()->p10_FB3;
                     $rulesSpecial['fb_critical_radius_factor'] = 'numeric';
                 }
 
@@ -128,8 +128,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['FB4'] = 'required|numeric';
                     $rulesSpecial['dateFB4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB4'] = 'required|numeric|not_in:' . request()->p90_FB4;
-                    $rulesSpecial['p90_FB4'] = 'required|numeric';
+                    $rulesSpecial['p10_FB4'] = 'required|numeric';
+                    $rulesSpecial['p90_FB4'] = 'required|numeric|not_in:' . request()->p10_FB4;
                     $rulesSpecial['fb_mineralogic_factor'] = 'numeric';
                 }
 
@@ -137,8 +137,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['FB5'] = 'required|numeric';
                     $rulesSpecial['dateFB5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB5'] = 'required|numeric|not_in:' . request()->p90_FB5;
-                    $rulesSpecial['p90_FB5'] = 'required|numeric';
+                    $rulesSpecial['p10_FB5'] = 'required|numeric';
+                    $rulesSpecial['p90_FB5'] = 'required|numeric|not_in:' . request()->p10_FB5;
                     $rulesSpecial['fb_crushed_proppant_factor'] = 'numeric';
                 }
 
@@ -153,8 +153,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['OS1'] = 'required|numeric';
                     $rulesSpecial['dateOS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS1'] = 'required|numeric|not_in:' . request()->p90_OS1;
-                    $rulesSpecial['p90_OS1'] = 'required|numeric';
+                    $rulesSpecial['p10_OS1'] = 'required|numeric';
+                    $rulesSpecial['p90_OS1'] = 'required|numeric|not_in:' . request()->p10_OS1;
                     $rulesSpecial['os_cll_factor'] = 'numeric';
                 }
 
@@ -162,8 +162,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['OS2'] = 'required|numeric';
                     $rulesSpecial['dateOS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS2'] = 'required|numeric|not_in:' . request()->p90_OS2;
-                    $rulesSpecial['p90_OS2'] = 'required|numeric';
+                    $rulesSpecial['p10_OS2'] = 'required|numeric';
+                    $rulesSpecial['p90_OS2'] = 'required|numeric|not_in:' . request()->p10_OS2;
                     $rulesSpecial['os_volume_of_hcl'] = 'numeric';
                 }
 
@@ -171,8 +171,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['OS3'] = 'required|numeric';
                     $rulesSpecial['dateOS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS3'] = 'required|numeric|not_in:' . request()->p90_OS3;
-                    $rulesSpecial['p90_OS3'] = 'required|numeric';
+                    $rulesSpecial['p10_OS3'] = 'required|numeric';
+                    $rulesSpecial['p90_OS3'] = 'required|numeric|not_in:' . request()->p10_OS3;
                     $rulesSpecial['os_compositional_factor'] = 'numeric';
                 }
 
@@ -180,8 +180,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['OS4'] = 'required|numeric';
                     $rulesSpecial['dateOS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS4'] = 'required|numeric|not_in:' . request()->p90_OS4;
-                    $rulesSpecial['p90_OS4'] = 'required|numeric';
+                    $rulesSpecial['p10_OS4'] = 'required|numeric';
+                    $rulesSpecial['p90_OS4'] = 'required|numeric|not_in:' . request()->p10_OS4;
                     $rulesSpecial['os_pressure_factor'] = 'numeric';
                 }
 
@@ -189,8 +189,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['OS5'] = 'required|numeric';
                     $rulesSpecial['dateOS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS5'] = 'required|numeric|not_in:' . request()->p90_OS5;
-                    $rulesSpecial['p90_OS5'] = 'required|numeric';
+                    $rulesSpecial['p10_OS5'] = 'required|numeric';
+                    $rulesSpecial['p90_OS5'] = 'required|numeric|not_in:' . request()->p10_OS5;
                     $rulesSpecial['os_high_impact_factor'] = 'numeric';
                 }
 
@@ -205,8 +205,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['RP1'] = 'required|numeric';
                     $rulesSpecial['dateRP1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP1'] = 'required|numeric|not_in:' . request()->p90_RP1;
-                    $rulesSpecial['p90_RP1'] = 'required|numeric';
+                    $rulesSpecial['p10_RP1'] = 'required|numeric';
+                    $rulesSpecial['p90_RP1'] = 'required|numeric|not_in:' . request()->p10_RP1;
                     $rulesSpecial['rp_days_below_saturation_pressure'] = 'numeric';
                 }
 
@@ -214,8 +214,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['RP2'] = 'required|numeric';
                     $rulesSpecial['dateRP2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP2'] = 'required|numeric|not_in:' . request()->p90_RP2;
-                    $rulesSpecial['p90_RP2'] = 'required|numeric';
+                    $rulesSpecial['p10_RP2'] = 'required|numeric';
+                    $rulesSpecial['p90_RP2'] = 'required|numeric|not_in:' . request()->p10_RP2;
                     $rulesSpecial['rp_delta_pressure_saturation'] = 'numeric';
                 }
 
@@ -223,8 +223,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['RP3'] = 'required|numeric';
                     $rulesSpecial['dateRP3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP3'] = 'required|numeric|not_in:' . request()->p90_RP3;
-                    $rulesSpecial['p90_RP3'] = 'required|numeric';
+                    $rulesSpecial['p10_RP3'] = 'required|numeric';
+                    $rulesSpecial['p90_RP3'] = 'required|numeric|not_in:' . request()->p10_RP3;
                     $rulesSpecial['rp_water_intrusion'] = 'numeric';
                 }
 
@@ -232,8 +232,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['RP4'] = 'required|numeric';
                     $rulesSpecial['dateRP4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP4'] = 'required|numeric|not_in:' . request()->p90_RP4;
-                    $rulesSpecial['p90_RP4'] = 'required|numeric';
+                    $rulesSpecial['p10_RP4'] = 'required|numeric';
+                    $rulesSpecial['p90_RP4'] = 'required|numeric|not_in:' . request()->p10_RP4;
                     $rulesSpecial['rp_high_impact_factor'] = 'numeric';
                 }
 
@@ -248,8 +248,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['ID1'] = 'required|numeric';
                     $rulesSpecial['dateID1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID1'] = 'required|numeric|not_in:' . request()->p90_ID1;
-                    $rulesSpecial['p90_ID1'] = 'required|numeric';
+                    $rulesSpecial['p10_ID1'] = 'required|numeric';
+                    $rulesSpecial['p90_ID1'] = 'required|numeric|not_in:' . request()->p10_ID1;
                     $rulesSpecial['id_gross_pay'] = 'numeric';
                 }
 
@@ -257,8 +257,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['ID2'] = 'required|numeric';
                     $rulesSpecial['dateID2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID2'] = 'required|numeric|not_in:' . request()->p90_ID2;
-                    $rulesSpecial['p90_ID2'] = 'required|numeric';
+                    $rulesSpecial['p10_ID2'] = 'required|numeric';
+                    $rulesSpecial['p90_ID2'] = 'required|numeric|not_in:' . request()->p10_ID2;
                     $rulesSpecial['id_polymer_damage_factor'] = 'numeric';
                 }
 
@@ -266,8 +266,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['ID3'] = 'required|numeric';
                     $rulesSpecial['dateID3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID3'] = 'required|numeric|not_in:' . request()->p90_ID3;
-                    $rulesSpecial['p90_ID3'] = 'required|numeric';
+                    $rulesSpecial['p10_ID3'] = 'required|numeric';
+                    $rulesSpecial['p90_ID3'] = 'required|numeric|not_in:' . request()->p10_ID3;
                     $rulesSpecial['id_total_volume_water'] = 'numeric';
                 }
 
@@ -275,8 +275,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['ID4'] = 'required|numeric';
                     $rulesSpecial['dateID4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID4'] = 'required|numeric|not_in:' . request()->p90_ID4;
-                    $rulesSpecial['p90_ID4'] = 'required|numeric';
+                    $rulesSpecial['p10_ID4'] = 'required|numeric';
+                    $rulesSpecial['p90_ID4'] = 'required|numeric|not_in:' . request()->p10_ID4;
                     $rulesSpecial['id_mud_damage_factor'] = 'numeric';
                 }
 
@@ -291,8 +291,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['GD1'] = 'required|numeric';
                     $rulesSpecial['dateGD1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD1'] = 'required|numeric|not_in:' . request()->p90_GD1;
-                    $rulesSpecial['p90_GD1'] = 'required|numeric';
+                    $rulesSpecial['p10_GD1'] = 'required|numeric';
+                    $rulesSpecial['p90_GD1'] = 'required|numeric|not_in:' . request()->p10_GD1;
                     $rulesSpecial['gd_fraction_netpay'] = 'numeric';
                 }
 
@@ -300,8 +300,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['GD2'] = 'required|numeric';
                     $rulesSpecial['dateGD2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD2'] = 'required|numeric|not_in:' . request()->p90_GD2;
-                    $rulesSpecial['p90_GD2'] = 'required|numeric';
+                    $rulesSpecial['p10_GD2'] = 'required|numeric';
+                    $rulesSpecial['p90_GD2'] = 'required|numeric|not_in:' . request()->p10_GD2;
                     $rulesSpecial['gd_drawdown'] = 'numeric';
                 }
 
@@ -309,8 +309,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['GD3'] = 'required|numeric';
                     $rulesSpecial['dateGD3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD3'] = 'required|numeric|not_in:' . request()->p90_GD3;
-                    $rulesSpecial['p90_GD3'] = 'required|numeric';
+                    $rulesSpecial['p10_GD3'] = 'required|numeric';
+                    $rulesSpecial['p90_GD3'] = 'required|numeric|not_in:' . request()->p10_GD3;
                     $rulesSpecial['gd_ratio_kh_fracture'] = 'numeric';
                 }
 
@@ -318,8 +318,8 @@ class MultiparametricAnalyticalRequest extends Request
                     $rulesSpecial['GD4'] = 'required|numeric';
                     $rulesSpecial['dateGD4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD4'] = 'required|numeric|not_in:' . request()->p90_GD4;
-                    $rulesSpecial['p90_GD4'] = 'required|numeric';
+                    $rulesSpecial['p10_GD4'] = 'required|numeric';
+                    $rulesSpecial['p90_GD4'] = 'required|numeric|not_in:' . request()->p10_GD4;
                     $rulesSpecial['gd_geomechanical_damage_fraction'] = 'numeric';
                 }
 
@@ -638,38 +638,38 @@ class MultiparametricAnalyticalRequest extends Request
             'p90_GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be numeric.',
             'p90_GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be numeric.',
 
-            'p10_MS1.not_in' => "Scale index of CaCO3 p10 and p90 can't have the same value.",
-            'p10_MS2.not_in' => "Scale index of BaSO4 p10 and p90 can't have the same value.",
-            'p10_MS3.not_in' => "Scale index of iron scales p10 and p90 can't have the same value.",
-            'p10_MS4.not_in' => "Backflow [Ca] p10 and p90 can't have the same value.",
-            'p10_MS5.not_in' => "Backflow [Ba] p10 and p90 can't have the same value.",
+            'p90_MS1.not_in' => "Scale index of CaCO3 p10 and p90 can't have the same value.",
+            'p90_MS2.not_in' => "Scale index of BaSO4 p10 and p90 can't have the same value.",
+            'p90_MS3.not_in' => "Scale index of iron scales p10 and p90 can't have the same value.",
+            'p90_MS4.not_in' => "Backflow [Ca] p10 and p90 can't have the same value.",
+            'p90_MS5.not_in' => "Backflow [Ba] p10 and p90 can't have the same value.",
 
-            'p10_FB1.not_in' => "[Al] on Produced Water p10 and p90 can't have the same value.",
-            'p10_FB2.not_in' => "[Si] on produced water p10 and p90 can't have the same value.",
-            'p10_FB3.not_in' => "Critical Radius derived from maximum critical velocity, Vc p10 and p90 can't have the same value.",
-            'p10_FB4.not_in' => "Mineralogy Factor p10 and p90 can't have the same value.",
-            'p10_FB5.not_in' => "Mass of crushed proppant inside Hydraulic Fractures p10 and p90 can't have the same value.",
+            'p90_FB1.not_in' => "[Al] on Produced Water p10 and p90 can't have the same value.",
+            'p90_FB2.not_in' => "[Si] on produced water p10 and p90 can't have the same value.",
+            'p90_FB3.not_in' => "Critical Radius derived from maximum critical velocity, Vc p10 and p90 can't have the same value.",
+            'p90_FB4.not_in' => "Mineralogy Factor p10 and p90 can't have the same value.",
+            'p90_FB5.not_in' => "Mass of crushed proppant inside Hydraulic Fractures p10 and p90 can't have the same value.",
 
-            'p10_OS1.not_in' => "CII Factor: Colloidal Instability Index p10 and p90 can't have the same value.",
-            'p10_OS2.not_in' => "Volume of HCL pumped into the formation p10 and p90 can't have the same value.",
-            'p10_OS3.not_in' => "Cumulative Gas Produced p10 and p90 can't have the same value.",
-            'p10_OS4.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
-            'p10_OS5.not_in' => "De Boer Criteria p10 and p90 can't have the same value.",
+            'p90_OS1.not_in' => "CII Factor: Colloidal Instability Index p10 and p90 can't have the same value.",
+            'p90_OS2.not_in' => "Volume of HCL pumped into the formation p10 and p90 can't have the same value.",
+            'p90_OS3.not_in' => "Cumulative Gas Produced p10 and p90 can't have the same value.",
+            'p90_OS4.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
+            'p90_OS5.not_in' => "De Boer Criteria p10 and p90 can't have the same value.",
 
-            'p10_RP1.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
-            'p10_RP2.not_in' => "Delta Pressure From Saturation Pressure p10 and p90 can't have the same value.",
-            'p10_RP3.not_in' => "Cumulative Water Produced p10 and p90 can't have the same value.",
-            'p10_RP4.not_in' => "Pore Size Diameter Approximation By Katz And Thompson Correlation p10 and p90 can't have the same value.",
+            'p90_RP1.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
+            'p90_RP2.not_in' => "Delta Pressure From Saturation Pressure p10 and p90 can't have the same value.",
+            'p90_RP3.not_in' => "Cumulative Water Produced p10 and p90 can't have the same value.",
+            'p90_RP4.not_in' => "Pore Size Diameter Approximation By Katz And Thompson Correlation p10 and p90 can't have the same value.",
 
-            'p10_ID1.not_in' => "Gross Pay p10 and p90 can't have the same value.",
-            'p10_ID2.not_in' => "Total polymer pumped during Hydraulic Fracturing p10 and p90 can't have the same value.",
-            'p10_ID3.not_in' => "Total volume of water based fluids pumped into the well p10 and p90 can't have the same value.",
-            'p10_ID4.not_in' => "Mud Losses p10 and p90 can't have the same value.",
+            'p90_ID1.not_in' => "Gross Pay p10 and p90 can't have the same value.",
+            'p90_ID2.not_in' => "Total polymer pumped during Hydraulic Fracturing p10 and p90 can't have the same value.",
+            'p90_ID3.not_in' => "Total volume of water based fluids pumped into the well p10 and p90 can't have the same value.",
+            'p90_ID4.not_in' => "Mud Losses p10 and p90 can't have the same value.",
 
-            'p10_GD1.not_in' => "Percentage of Net Pay exihibiting Natural p10 and p90 can't have the same value.",
-            'p10_GD2.not_in' => "Drawdown p10 and p90 can't have the same value.",
-            'p10_GD3.not_in' => "Ratio of KH)matrix + fracture / KH)matrix p10 and p90 can't have the same value.",
-            'p10_GD4.not_in' => "Geomechanical damage expressed as fraction of base permeability at BHFP p10 and p90 can't have the same value.",
+            'p90_GD1.not_in' => "Percentage of Net Pay exihibiting Natural p10 and p90 can't have the same value.",
+            'p90_GD2.not_in' => "Drawdown p10 and p90 can't have the same value.",
+            'p90_GD3.not_in' => "Ratio of KH)matrix + fracture / KH)matrix p10 and p90 can't have the same value.",
+            'p90_GD4.not_in' => "Geomechanical damage expressed as fraction of base permeability at BHFP p10 and p90 can't have the same value.",
 
             'ms_scale_index_caco3.numeric' => 'Scale index of CaCO3 p90 must be numeric.',
             'ms_scale_index_baso4.numeric' => 'Scale index of BaSO4 p90 must be numeric.',

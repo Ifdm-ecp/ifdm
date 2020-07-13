@@ -24,9 +24,9 @@
                      {!! Form::label('MDF', 'Gross Pay') !!}
                   </div>
                   <div class="pull-right">
-                     {!! Form::checkbox('idAvailable[]',1,false, array('id'=>'weight_19', 'class' => 'check_weight')) !!}
+                     {!! Form::checkbox('idAvailable[]',1,false, array('id'=>'weight_id_1', 'class' => 'check_weight')) !!}
                      {!! Form::label('available', 'Available') !!}
-                     {!! Form::hidden('weight_19_hidden', '', array('class' => 'form-control', 'id' => 'weight_19_hidden')) !!}
+                     {!! Form::hidden('weight_id_1_hidden', '', array('class' => 'form-control', 'id' => 'weight_id_1_hidden')) !!}
                   </div>
                </div>
             </div>
@@ -34,17 +34,13 @@
 
          <br>
 
-         <div id="weight_19_div">
+         <div id="weight_id_1_div">
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('ID1') ? 'has-error' : ''}}">
-                        @if (Session::has('ID1'))
-                        {!! Form::text('ID1',Session::get('ID1')->valor, ['placeholder' => 'ft', 'class' =>'form-control pull-right value_edit', 'id' => 'ID1']) !!}
-                        @else
-                        {!! Form::text('ID1',null, ['placeholder' => 'ft', 'class' =>'form-control pull-right value_edit', 'id' => 'ID1']) !!}
-                        @endif
+                        {!! Form::text('ID1', $statistical->id1, ['placeholder' => 'ft', 'class' =>'form-control pull-right value_edit', 'id' => 'ID1']) !!}
                         <span class="input-group-addon" id="basic-addon2">ft</span>
                      </div>
                   </div>
@@ -52,21 +48,13 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateID1') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     @if (Session::has('ID1'))
-                     {!! Form::text('dateID1', Session::get('ID1')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID1']); !!}
-                     @else
-                     {!! Form::text('dateID1', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID1']); !!}
-                     @endif
+                     {!! Form::text('dateID1', $statistical->date_id1, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID1']); !!}
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('ID1comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
-                     @if (Session::has('ID1'))
-                     {!! Form::text('ID1comment',Session::get('ID1')->comentario, ['class' =>'form-control validate', 'id' => 'ID1comment']) !!}    
-                     @else 
-                     {!! Form::text('ID1comment',null, ['class' =>'form-control validate', 'id' => 'ID1comment']) !!}
-                     @endif
+                     {!! Form::text('ID1comment', $statistical->comment_id1, ['class' =>'form-control validate', 'id' => 'ID1comment']) !!}
                   </div>
                </div>
             </div>
@@ -74,19 +62,19 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p10_ID1') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_ID1',null, ['class' =>'form-control validate', 'id' => 'p10_19']) !!}   
+                     {!! Form::text('p10_ID1', $statistical->p10_id1, ['class' =>'form-control validate', 'id' => 'p10_19']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p90_ID1') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_ID1',null, ['class' =>'form-control validate', 'id' => 'p90_19']) !!}   
+                     {!! Form::text('p90_ID1', $statistical->p90_id1, ['class' =>'form-control validate', 'id' => 'p90_19']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('id_gross_pay') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('id_gross_pay',$statistical->subparameters->id_gross_pay ? $statistical->subparameters->id_gross_pay : 0.25, ['class' =>'form-control weight_count', 'id' => 'weight_19_value']) !!} 
+                     {!! Form::text('id_gross_pay', $statistical->subparameters->id_gross_pay ? $statistical->subparameters->id_gross_pay : 0.25, ['class' =>'form-control weight_id_count', 'id' => 'weight_id_1_value']) !!} 
                   </div>
                </div>
             </div>
@@ -113,9 +101,9 @@
                      {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing') !!}
                   </div>
                   <div class="pull-right">
-                     {!! Form::checkbox('idAvailable[]',2,false, array('id'=>'weight_20', 'class' => 'check_weight')) !!}
+                     {!! Form::checkbox('idAvailable[]',2,false, array('id'=>'weight_id_2', 'class' => 'check_weight')) !!}
                      {!! Form::label('available', 'Available') !!}
-                     {!! Form::hidden('weight_20_hidden', '', array('class' => 'form-control', 'id' => 'weight_20_hidden')) !!}
+                     {!! Form::hidden('weight_id_2_hidden', '', array('class' => 'form-control', 'id' => 'weight_id_2_hidden')) !!}
                   </div>
                </div>
             </div>
@@ -123,17 +111,13 @@
 
          <br>
 
-         <div id="weight_20_div">
+         <div id="weight_id_2_div">
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('ID2') ? 'has-error' : ''}}">
-                        @if (Session::has('ID2'))
-                        {!! Form::text('ID2',Session::get('ID2')->valor, ['placeholder' => 'lbs', 'class' =>'form-control pull-right value_edit', 'id' => 'ID2']) !!}  
-                        @else
-                        {!! Form::text('ID2',null, ['placeholder' => 'lbs', 'class' =>'form-control pull-right value_edit', 'id' => 'ID2']) !!} 
-                        @endif 
+                        {!! Form::text('ID2', $statistical->id2, ['placeholder' => 'lbs', 'class' =>'form-control pull-right value_edit', 'id' => 'ID2']) !!} 
                         <span class="input-group-addon" id="basic-addon2">lbs</span>
                      </div>
                   </div>
@@ -141,21 +125,13 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateID2') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     @if (Session::has('ID2'))
-                     {!! Form::text('dateID2', Session::get('ID2')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID2']); !!}
-                     @else
-                     {!! Form::text('dateID2', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID2']); !!}
-                     @endif
+                     {!! Form::text('dateID2', $statistical->date_id2, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID2']); !!}
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('ID2comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
-                     @if (Session::has('ID2'))
-                     {!! Form::text('ID2comment',Session::get('ID2')->comentario, ['class' =>'form-control validate', 'id' => 'ID2comment']) !!}    
-                     @else 
-                     {!! Form::text('ID2comment',null, ['class' =>'form-control validate', 'id' => 'ID2comment']) !!}
-                     @endif
+                     {!! Form::text('ID2comment', $statistical->comment_id2, ['class' =>'form-control validate', 'id' => 'ID2comment']) !!}
                   </div>
                </div>
             </div>
@@ -163,19 +139,19 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p10_ID2') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_ID2',null, ['class' =>'form-control validate', 'id' => 'p10_20']) !!}   
+                     {!! Form::text('p10_ID2', $statistical->p10_id2, ['class' =>'form-control validate', 'id' => 'p10_20']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p90_ID2') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_ID2',null, ['class' =>'form-control validate', 'id' => 'p90_20']) !!}   
+                     {!! Form::text('p90_ID2', $statistical->p90_id2, ['class' =>'form-control validate', 'id' => 'p90_20']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('id_polymer_damage_factor') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('id_polymer_damage_factor',$statistical->subparameters->id_polymer_damage_factor ? $statistical->subparameters->id_polymer_damage_factor : 0.25, ['class' =>'form-control weight_count', 'id' => 'weight_20_value']) !!}  
+                     {!! Form::text('id_polymer_damage_factor', $statistical->subparameters->id_polymer_damage_factor ? $statistical->subparameters->id_polymer_damage_factor : 0.25, ['class' =>'form-control weight_id_count', 'id' => 'weight_id_2_value']) !!}  
                   </div>
                </div>
             </div>
@@ -202,9 +178,9 @@
                      {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well') !!}
                   </div>
                   <div class="pull-right">
-                     {!! Form::checkbox('idAvailable[]',3,false, array('id'=>'weight_21', 'class' => 'check_weight')) !!}
+                     {!! Form::checkbox('idAvailable[]',3,false, array('id'=>'weight_id_3', 'class' => 'check_weight')) !!}
                      {!! Form::label('available', 'Available') !!}
-                     {!! Form::hidden('weight_21_hidden', '', array('class' => 'form-control', 'id' => 'weight_21_hidden')) !!}
+                     {!! Form::hidden('weight_id_3_hidden', '', array('class' => 'form-control', 'id' => 'weight_id_3_hidden')) !!}
                   </div>
                </div>
             </div>
@@ -212,17 +188,13 @@
 
          <br>
 
-         <div id="weight_21_div">
+         <div id="weight_id_3_div">
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('ID3') ? 'has-error' : ''}}">
-                        @if (Session::has('ID3'))
-                        {!! Form::text('ID3',Session::get('ID3')->valor, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID3']) !!}    
-                        @else
-                        {!! Form::text('ID3',null, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID3']) !!}    
-                        @endif
+                        {!! Form::text('ID3', $statistical->id3, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID3']) !!}    
                         <span class="input-group-addon" id="basic-addon2">bbl</span>
                      </div>
                   </div>
@@ -230,21 +202,13 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateID3') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     @if (Session::has('ID3'))
-                     {!! Form::text('dateID3', Session::get('ID3')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID3']); !!}
-                     @else
-                     {!! Form::text('dateID3', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID3']); !!}
-                     @endif
+                     {!! Form::text('dateID3', $statistical->date_id3, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID3']); !!}
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('ID3comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
-                     @if (Session::has('ID3'))
-                     {!! Form::text('ID3comment',Session::get('ID3')->comentario, ['class' =>'form-control validate', 'id' => 'ID3comment']) !!}    
-                     @else 
-                     {!! Form::text('ID3comment',null, ['class' =>'form-control validate', 'id' => 'ID3comment']) !!}
-                     @endif
+                     {!! Form::text('ID3comment', $statistical->comment_id3, ['class' =>'form-control validate', 'id' => 'ID3comment']) !!}
                   </div>
                </div>
             </div>
@@ -252,19 +216,19 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p10_ID3') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_ID3',null, ['class' =>'form-control validate', 'id' => 'p10_21']) !!}   
+                     {!! Form::text('p10_ID3', $statistical->p10_id3, ['class' =>'form-control validate', 'id' => 'p10_21']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p90_ID3') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_ID3',null, ['class' =>'form-control validate', 'id' => 'p90_21']) !!}   
+                     {!! Form::text('p90_ID3', $statistical->p90_id3, ['class' =>'form-control validate', 'id' => 'p90_21']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('id_total_volume_water') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('id_total_volume_water',$statistical->subparameters->id_total_volume_water ? $statistical->subparameters->id_total_volume_water : 0.25, ['class' =>'form-control weight_count', 'id' => 'weight_21_value']) !!}
+                     {!! Form::text('id_total_volume_water', $statistical->subparameters->id_total_volume_water ? $statistical->subparameters->id_total_volume_water : 0.25, ['class' =>'form-control weight_id_count', 'id' => 'weight_id_3_value']) !!}
                   </div>
                </div>
             </div>
@@ -291,9 +255,9 @@
                      {!! Form::label('ML', 'Mud Losses') !!}
                   </div>
                   <div class="pull-right">
-                     {!! Form::checkbox('idAvailable[]',4,false, array('id'=>'weight_22', 'class' => 'check_weight')) !!}
+                     {!! Form::checkbox('idAvailable[]',4,false, array('id'=>'weight_id_4', 'class' => 'check_weight')) !!}
                      {!! Form::label('available', 'Available') !!}
-                     {!! Form::hidden('weight_22_hidden', '', array('class' => 'form-control', 'id' => 'weight_22_hidden')) !!}
+                     {!! Form::hidden('weight_id_4_hidden', '', array('class' => 'form-control', 'id' => 'weight_id_4_hidden')) !!}
                   </div>
                </div>
             </div>
@@ -301,17 +265,13 @@
 
          <br>
 
-         <div id="weight_22_div">
+         <div id="weight_id_4_div">
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group {{$errors->has('ID4') ? 'has-error' : ''}}">
-                        @if (Session::has('ID4'))
-                        {!! Form::text('ID4',Session::get('ID4')->valor, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID4']) !!}
-                        @else
-                        {!! Form::text('ID4',null, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID4']) !!}
-                        @endif
+                        {!! Form::text('ID4', $statistical->id4, ['placeholder' => 'bbl', 'class' =>'form-control pull-right value_edit', 'id' => 'ID4']) !!}
                         <span class="input-group-addon" id="basic-addon2">bbl</span>
                      </div>
                   </div>
@@ -319,21 +279,13 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('dateID4') ? 'has-error' : ''}}">
                      {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     @if (Session::has('ID4'))
-                     {!! Form::text('dateID4', Session::get('ID4')->fecha, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID4']); !!}
-                     @else
-                     {!! Form::text('dateID4', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID4']); !!}
-                     @endif
+                     {!! Form::text('dateID4', $statistical->date_id4, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateID4']); !!}
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('ID4comment') ? 'has-error' : ''}}">
                      {!! Form::label('comment', 'Comment') !!}
-                     @if(Session::has('ID4'))
-                     {!! Form::text('ID4comment',Session::get('ID4')->comentario, ['class' =>'form-control validate', 'id' => 'ID4comment']) !!}    
-                     @else 
-                     {!! Form::text('ID4comment',null, ['class' =>'form-control validate', 'id' => 'ID4comment']) !!}
-                     @endif
+                     {!! Form::text('ID4comment', $statistical->comment_id4, ['class' =>'form-control validate', 'id' => 'ID4comment']) !!}
                   </div>
                </div>
             </div>
@@ -341,24 +293,23 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p10_ID4') ? 'has-error' : ''}}">
                      {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p10_ID4',null, ['class' =>'form-control validate', 'id' => 'p10_22']) !!}   
+                     {!! Form::text('p10_ID4', $statistical->p10_id4, ['class' =>'form-control validate', 'id' => 'p10_22']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('p90_ID4') ? 'has-error' : ''}}">
                      {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('p90_ID4',null, ['class' =>'form-control validate', 'id' => 'p90_22']) !!}   
+                     {!! Form::text('p90_ID4', $statistical->p90_id4, ['class' =>'form-control validate', 'id' => 'p90_22']) !!}   
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('id_mud_damage_factor') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('id_mud_damage_factor',$statistical->subparameters->id_mud_damage_factor ? $statistical->subparameters->id_mud_damage_factor : 0.25, ['class' =>'form-control weight_count', 'id' => 'weight_22_value']) !!}  
+                     {!! Form::text('id_mud_damage_factor', $statistical->subparameters->id_mud_damage_factor ? $statistical->subparameters->id_mud_damage_factor : 0.25, ['class' =>'form-control weight_id_count', 'id' => 'weight_id_4_value']) !!}  
                   </div>
                </div>
             </div>
          </div>
-         <hr>
       </div>
    </div>
 </div>

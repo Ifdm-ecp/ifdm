@@ -133,9 +133,9 @@ trait StatisticalTrait {
 
     public function sessionParametros($statistical, $estado)
     {
-        $parametros = collect([ 'MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'RP1', 'RP2', 'RP3', 'RP4', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4']);
+        $parametros = collect([ 'MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4']);
 
-        $subparametro = collect([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,]);
+        $subparametro = collect([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 30, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,]);
         $a = collect();
 
         if($estado == 'false') {

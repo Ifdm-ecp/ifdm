@@ -1,32 +1,24 @@
 <script type="text/javascript">    
 
-    function multiparametricoStatistical()
-    {
+    function multiparametricoStatistical() {
         var count = <?php echo count($errors) ?>;
         var nps = [];
         var d;
         var p50;
-        var i = 1;
 
-        if("{{ $statistical->statistical}}" != "Colombia") 
-        {
+        if("{{ $statistical->statistical}}" != "Colombia") {
             var dataarray = "{{ $statistical->field_statistical }}";
         } else {
             var dataarray = "Todos";
         }
-        $.get("{!! url('P') !!}", 
-        {
+        
+        $.get("{!! url('P') !!}", {
             campo: dataarray,
-
         }, 
-        function(data) 
-        {
-            
-            $.each(data, function(index, value) 
-            {
+        function(data) { 
+            $.each(data, function(index, value) {
                 nps = [];
-                $.each(value, function(index, value) 
-                {
+                $.each(value, function(index, value) {
                     d = parseFloat(value.valorchart);
                     d = Math.round(d * 100) / 100;
                     nps.push(d);
@@ -43,43 +35,39 @@
                     p50 = nps[Math.floor(tam * 0.5)];
                     p90 = nps[Math.floor(tam * 0.9)];
                 }
+
                 if (count < 1) {
-                    $("#p10_" + i).val(p10);
-                    $("#p90_" + i).val(p90);
+                    $("#p10_" + index).val(p10);
+                    $("#p90_" + index).val(p90);
                 }
 
-                $("#popover" + i).popover(
-                {
-
+                $("#popover" + index).popover({
                     placement: 'top',
                     html: 'true',
                     title: '<span class="text-info"><strong>Percentile     </strong></span>',
                     content: '<b>p10: </b>' + p10 + '<br><b>p50: </b>' + p50 + '<br><b>p90: </b>' + p90
                 });
-
-                i++;
             });
         });
     }
 
-    function cargarCamposBBDD()
-    {
+    function cargarCamposBBDD() {
         $('#basin > option[value="{{ $statistical->basin_statistical }}"]').attr('selected', 'selected');
-            //Cargar valores de select anidados basados en opcion escogida
-            $.get("{{url('fieldbybasin')}}", {
-                basin: "{{ $statistical->basin_statistical }}"
-            }, function(data) {
-                $("#field").empty();
 
-                $.each(data, function(index, value) {
-                    $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                });
-                $("#field").selectpicker('refresh');
-                var data2 = "{{ $statistical->field_statistical }}";
-                var dataarray = data2.split(",");
-                $('#field').selectpicker('val', dataarray);
+        //Cargar valores de select anidados basados en opcion escogida
+        $.get("{{url('fieldbybasin')}}", {
+            basin: "{{ $statistical->basin_statistical }}"
+        }, function(data) {
+            $("#field").empty();
+
+            $.each(data, function(index, value) {
+                $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             });
-
+            $("#field").selectpicker('refresh');
+            var data2 = "{{ $statistical->field_statistical }}";
+            var dataarray = data2.split(",");
+            $('#field').selectpicker('val', dataarray);
+        });
     }
 
     //Asignar color a input en caso de que un valor este malo
@@ -95,8 +83,7 @@
         }
     }).trigger('init');
 
-    function cargarAvailables()
-    {
+    function cargarAvailables() {
         var ms = {{json_encode($statistical->msAvailable)}};
         var fb = {{json_encode($statistical->fbAvailable)}};
         var os = {{json_encode($statistical->osAvailable)}};     
@@ -104,39 +91,34 @@
         var id = {{json_encode($statistical->idAvailable)}};     
         var gd = {{json_encode($statistical->gdAvailable)}}; 
 
-        $.each(ms, function( index, value ) {
-            $('#weight_'+ value).prop("checked", true);
-            $('#weight_'+ value + '_div *').attr('disabled', false);
+        $.each(ms, function(index, value) {
+            $('#weight_ms_'+ value).prop("checked", true);
+            $('#weight_ms_'+ value + '_div *').attr('disabled', false);
         });
 
-        $.each(fb, function( index, value ) {
-            var i = parseInt(value)+5;
-            $('#weight_'+ i).prop("checked", true);
-            $('#weight_'+ i + '_div *').attr('disabled', false);
+        $.each(fb, function(index, value) {
+            $('#weight_fb_'+ value).prop("checked", true);
+            $('#weight_fb_'+ value + '_div *').attr('disabled', false);
         });
 
-        $.each(os, function( index, value ) {
-            var i = parseInt(value)+10;
-            $('#weight_'+ i).prop("checked", true);
-            $('#weight_'+ i + '_div *').attr('disabled', false);
+        $.each(os, function(index, value) {
+            $('#weight_os_'+ value).prop("checked", true);
+            $('#weight_os_'+ value + '_div *').attr('disabled', false);
         });
 
-        $.each(rp, function( index, value ) {
-            var i = parseInt(value)+14;
-            $('#weight_'+ i).prop("checked", true);
-            $('#weight_'+ i + '_div *').attr('disabled', false);
+        $.each(rp, function(index, value) {
+            $('#weight_rp_'+ value).prop("checked", true);
+            $('#weight_rp_'+ value + '_div *').attr('disabled', false);
         });
 
-        $.each(id, function( index, value ) {
-            var i = parseInt(value)+18;
-            $('#weight_'+ i).prop("checked", true);
-            $('#weight_'+ i + '_div *').attr('disabled', false);
+        $.each(id, function(index, value) {
+            $('#weight_id_'+ value).prop("checked", true);
+            $('#weight_id_'+ value + '_div *').attr('disabled', false);
         });
 
-        $.each(gd, function( index, value ) {
-            var i = parseInt(value)+22;
-            $('#weight_'+ i).prop("checked", true);
-            $('#weight_'+ i + '_div *').attr('disabled', false);
+        $.each(gd, function(index, value) {
+            $('#weight_gd_'+ value).prop("checked", true);
+            $('#weight_gd_'+ value + '_div *').attr('disabled', false);
         });
     }
 
@@ -1111,6 +1093,7 @@
         var event = window.event || arguments.callee.caller.arguments[0];
         var tabActiveElement = $(".nav.nav-tabs li.active");
         var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
+        console.log('adsadada');
 
         $("#next_button").toggle(nextPrevElement.next().is("li"));
         $("#prev_button").toggle(nextPrevElement.prev().is("li"));

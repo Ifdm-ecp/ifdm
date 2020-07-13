@@ -9,6 +9,7 @@ use App\Http\Requests\MultiparametricAnalyticalRequest;
 use App\Models\MultiparametricAnalysis\Statistical;
 use App\Traits\StatisticalTrait;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Session;
 
 class StatisticalController extends Controller
@@ -83,7 +84,51 @@ class StatisticalController extends Controller
      */
     public function edit($id)
     {
-        $statistical = $this->editStatistical($id);
+        /* se trae todos los datos de la tabla statistical con el id = $id */
+        $statistical = Statistical::find($id);
+
+        if (!$statistical) {
+            $statistical = Statistical::where('escenario_id', $id)->first();
+            if (!$statistical) {
+                abort('404');
+            }
+        }
+
+        /* se convierten  los datos autoriazados por bloques de string a arrays */
+        $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));
+        $statistical->fbAvailable = array_map('intval', explode(',', $statistical->fbAvailable));
+        $statistical->osAvailable = array_map('intval', explode(',', $statistical->osAvailable));
+        $statistical->rpAvailable = array_map('intval', explode(',', $statistical->rpAvailable));
+        $statistical->idAvailable = array_map('intval', explode(',', $statistical->idAvailable));
+        $statistical->gdAvailable = array_map('intval', explode(',', $statistical->gdAvailable));
+
+        $statistical->date_ms1 = $statistical->date_ms1 !== '0000-00-00' ? Carbon::parse($statistical->date_ms1)->format('d/m/Y') : '';
+        $statistical->date_ms2 = $statistical->date_ms2 !== '0000-00-00' ? Carbon::parse($statistical->date_ms2)->format('d/m/Y') : '';
+        $statistical->date_ms3 = $statistical->date_ms3 !== '0000-00-00' ? Carbon::parse($statistical->date_ms3)->format('d/m/Y') : '';
+        $statistical->date_ms4 = $statistical->date_ms4 !== '0000-00-00' ? Carbon::parse($statistical->date_ms4)->format('d/m/Y') : '';
+        $statistical->date_ms5 = $statistical->date_ms5 !== '0000-00-00' ? Carbon::parse($statistical->date_ms5)->format('d/m/Y') : '';
+        $statistical->date_fb1 = $statistical->date_fb1 !== '0000-00-00' ? Carbon::parse($statistical->date_fb1)->format('d/m/Y') : '';
+        $statistical->date_fb2 = $statistical->date_fb2 !== '0000-00-00' ? Carbon::parse($statistical->date_fb2)->format('d/m/Y') : '';
+        $statistical->date_fb3 = $statistical->date_fb3 !== '0000-00-00' ? Carbon::parse($statistical->date_fb3)->format('d/m/Y') : '';
+        $statistical->date_fb4 = $statistical->date_fb4 !== '0000-00-00' ? Carbon::parse($statistical->date_fb4)->format('d/m/Y') : '';
+        $statistical->date_fb5 = $statistical->date_fb5 !== '0000-00-00' ? Carbon::parse($statistical->date_fb5)->format('d/m/Y') : '';
+        $statistical->date_os1 = $statistical->date_os1 !== '0000-00-00' ? Carbon::parse($statistical->date_os1)->format('d/m/Y') : '';
+        $statistical->date_os2 = $statistical->date_os2 !== '0000-00-00' ? Carbon::parse($statistical->date_os2)->format('d/m/Y') : '';
+        $statistical->date_os3 = $statistical->date_os3 !== '0000-00-00' ? Carbon::parse($statistical->date_os3)->format('d/m/Y') : '';
+        $statistical->date_os4 = $statistical->date_os4 !== '0000-00-00' ? Carbon::parse($statistical->date_os4)->format('d/m/Y') : '';
+        $statistical->date_os5 = $statistical->date_os5 !== '0000-00-00' ? Carbon::parse($statistical->date_os5)->format('d/m/Y') : '';
+        $statistical->date_rp1 = $statistical->date_rp1 !== '0000-00-00' ? Carbon::parse($statistical->date_rp1)->format('d/m/Y') : '';
+        $statistical->date_rp2 = $statistical->date_rp2 !== '0000-00-00' ? Carbon::parse($statistical->date_rp2)->format('d/m/Y') : '';
+        $statistical->date_rp3 = $statistical->date_rp3 !== '0000-00-00' ? Carbon::parse($statistical->date_rp3)->format('d/m/Y') : '';
+        $statistical->date_rp4 = $statistical->date_rp4 !== '0000-00-00' ? Carbon::parse($statistical->date_rp4)->format('d/m/Y') : '';
+        $statistical->date_id1 = $statistical->date_id1 !== '0000-00-00' ? Carbon::parse($statistical->date_id1)->format('d/m/Y') : '';
+        $statistical->date_id2 = $statistical->date_id2 !== '0000-00-00' ? Carbon::parse($statistical->date_id2)->format('d/m/Y') : '';
+        $statistical->date_id3 = $statistical->date_id3 !== '0000-00-00' ? Carbon::parse($statistical->date_id3)->format('d/m/Y') : '';
+        $statistical->date_id4 = $statistical->date_id4 !== '0000-00-00' ? Carbon::parse($statistical->date_id4)->format('d/m/Y') : '';
+        $statistical->date_gd1 = $statistical->date_gd1 !== '0000-00-00' ? Carbon::parse($statistical->date_gd1)->format('d/m/Y') : '';
+        $statistical->date_gd2 = $statistical->date_gd2 !== '0000-00-00' ? Carbon::parse($statistical->date_gd2)->format('d/m/Y') : '';
+        $statistical->date_gd3 = $statistical->date_gd3 !== '0000-00-00' ? Carbon::parse($statistical->date_gd3)->format('d/m/Y') : '';
+        $statistical->date_gd4 = $statistical->date_gd4 !== '0000-00-00' ? Carbon::parse($statistical->date_gd4)->format('d/m/Y') : '';
 
         //se trae todas las cuencas existentes
         $cuencas = cuenca::all();

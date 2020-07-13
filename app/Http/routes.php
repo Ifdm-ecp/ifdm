@@ -4334,40 +4334,35 @@ Route::group(['middleware' => 'auth'], function(){
 
     });
 
-
-
-    Route::get('P', function(){
-        $arreglo=[];
-        $array=App\subparametro::select('id')->orderBy('id','asc')->get();
+    Route::get('P', function() {
+        $arreglo = [];
+        $array = App\subparametro::select('id')->orderBy('id', 'asc')->get();
         $formacion = Input::get('formacion');
         $campo = Input::get('campo');
-        if(!strcmp($campo, "Todos")){
+        if(!strcmp($campo, "Todos")) {
             foreach ($array as $arr) {
                 $chart = DB::table('mediciones')
-                 ->join('Pozos as p', 'mediciones.pozo_id','=','p.id')
-                 ->select('mediciones.valor as valorchart')
-                 ->where('subparametro_id', $arr['id'])
-                
-                 ->get();
-                array_push($arreglo,$chart);
+                    ->join('Pozos as p', 'mediciones.pozo_id', '=', 'p.id')
+                    ->select('mediciones.valor as valorchart')
+                    ->where('subparametro_id', $arr['id'])
+                    
+                    ->get();
+                $arreglo[$arr['id']] = $chart;
             }
-        }else{
-            foreach ($array as $arr){
+        } else {
+            foreach ($array as $arr) {
                 $chart = DB::table('mediciones')
-                 ->join('Pozos as p', 'mediciones.pozo_id','=','p.id')
-                 ->select('mediciones.valor as valorchart')
-                 ->wherein('p.campo_id',explode(',',$campo))
-                 ->where('subparametro_id', $arr['id'])
-                 
-                 ->get();
-                array_push($arreglo,$chart);
+                    ->join('Pozos as p', 'mediciones.pozo_id', '=', 'p.id')
+                    ->select('mediciones.valor as valorchart')
+                    ->wherein('p.campo_id', explode(',', $campo))
+                    ->where('subparametro_id', $arr['id'])
+                    
+                    ->get();
+                $arreglo[$arr['id']] = $chart;
             }
         }
 
-
-
         return Response::json($arreglo);
-
     });
 
     Route::get('pozosF', function(){

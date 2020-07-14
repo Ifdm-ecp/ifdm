@@ -55,18 +55,6 @@
          </div>
       </div>
    </div>
-   {{-- <br>
-   <br>
-   <div class="row">
-      <div class="col-xs-12">
-         <p class="pull-right">
-            <button class="btn btn-warning" id="calculate" >Calculate</button>
-            <button class="btn btn-success" id="button_wr" name="button_wr">Save</button>
-            <button class="btn btn-primary" id="save" style="display:none">Run</button>
-            <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
-         </p>
-      </div>
-   </div> --}}
 {!! Form::Close() !!}
 
 <div class="modal fade" id="errors" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">

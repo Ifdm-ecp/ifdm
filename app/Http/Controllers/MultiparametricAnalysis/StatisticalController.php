@@ -214,142 +214,247 @@ class StatisticalController extends Controller
 
                 //se ingresa los datos de la tabla statistical
                 $statistical = Statistical::find($id);
-                $statistical->ms1 = $request->MS1;
-                $statistical->ms2 = $request->MS2;
-                $statistical->ms3 = $request->MS3;
-                $statistical->ms4 = $request->MS4;
-                $statistical->ms5 = $request->MS5;
-                $statistical->fb1 = $request->FB1;
-                $statistical->fb2 = $request->FB2;
-                $statistical->fb3 = $request->FB3;
-                $statistical->fb4 = $request->FB4;
-                $statistical->fb5 = $request->FB5;
-                $statistical->os1 = $request->OS1;
-                $statistical->os2 = $request->OS2;
-                $statistical->os3 = $request->OS3;
-                $statistical->os4 = $request->OS4;
-                $statistical->os5 = $request->OS5;
-                $statistical->rp1 = $request->RP1;
-                $statistical->rp2 = $request->RP2;
-                $statistical->rp3 = $request->RP3;
-                $statistical->rp4 = $request->RP4;
-                $statistical->id1 = $request->ID1;
-                $statistical->id2 = $request->ID2;
-                $statistical->id3 = $request->ID3;
-                $statistical->id4 = $request->ID4;
-                $statistical->gd1 = $request->GD1;
-                $statistical->gd2 = $request->GD2;
-                $statistical->gd3 = $request->GD3;
-                $statistical->gd4 = $request->GD4;
-                $statistical->kd = $request->kd;
-                $statistical->date_ms1 = $request->dateMS1;
-                $statistical->date_ms2 = $request->dateMS2;
-                $statistical->date_ms3 = $request->dateMS3;
-                $statistical->date_ms4 = $request->dateMS4;
-                $statistical->date_ms5 = $request->dateMS5;
-                $statistical->comment_ms1 = $request->MS1comment;
-                $statistical->comment_ms2 = $request->MS2comment;
-                $statistical->comment_ms3 = $request->MS3comment;
-                $statistical->comment_ms4 = $request->MS4comment;
-                $statistical->comment_ms5 = $request->MS5comment;
-                $statistical->date_fb1 = $request->dateFB1;
-                $statistical->date_fb2 = $request->dateFB2;
-                $statistical->date_fb3 = $request->dateFB3;
-                $statistical->date_fb4 = $request->dateFB4;
-                $statistical->date_fb5 = $request->dateFB5;
-                $statistical->comment_fb1 = $request->FB1comment;
-                $statistical->comment_fb2 = $request->FB2comment;
-                $statistical->comment_fb3 = $request->FB3comment;
-                $statistical->comment_fb4 = $request->FB4comment;
-                $statistical->comment_fb5 = $request->FB5comment;
-                $statistical->date_os1 = $request->dateOS1;
-                $statistical->date_os2 = $request->dateOS2;
-                $statistical->date_os3 = $request->dateOS3;
-                $statistical->date_os4 = $request->dateOS4;
-                $statistical->date_os5 = $request->dateOS5;
-                $statistical->comment_os1 = $request->OS1comment;
-                $statistical->comment_os2 = $request->OS2comment;
-                $statistical->comment_os3 = $request->OS3comment;
-                $statistical->comment_os4 = $request->OS4comment;
-                $statistical->comment_os5 = $request->OS5comment;
-                $statistical->date_rp1 = $request->dateRP1;
-                $statistical->date_rp2 = $request->dateRP2;
-                $statistical->date_rp3 = $request->dateRP3;
-                $statistical->date_rp4 = $request->dateRP4;
-                $statistical->comment_rp1 = $request->RP1comment;
-                $statistical->comment_rp2 = $request->RP2comment;
-                $statistical->comment_rp3 = $request->RP3comment;
-                $statistical->comment_rp4 = $request->RP4comment;
-                $statistical->date_id1 = $request->dateID1;
-                $statistical->date_id2 = $request->dateID2;
-                $statistical->date_id3 = $request->dateID3;
-                $statistical->date_id4 = $request->dateID4;
-                $statistical->comment_id1 = $request->ID1comment;
-                $statistical->comment_id2 = $request->ID2comment;
-                $statistical->comment_id3 = $request->ID3comment;
-                $statistical->comment_id4 = $request->ID4comment;
-                $statistical->date_gd1 = $request->dateGD1;
-                $statistical->date_gd2 = $request->dateGD2;
-                $statistical->date_gd3 = $request->dateGD3;
-                $statistical->date_gd4 = $request->dateGD4;
-                $statistical->comment_gd1 = $request->GD1comment;
-                $statistical->comment_gd2 = $request->GD2comment;
-                $statistical->comment_gd3 = $request->GD3comment;
-                $statistical->comment_gd4 = $request->GD4comment;
-                $statistical->p10_ms1 = $request->p10_MS1;
-                $statistical->p10_ms2 = $request->p10_MS2;
-                $statistical->p10_ms3 = $request->p10_MS3;
-                $statistical->p10_ms4 = $request->p10_MS4;
-                $statistical->p10_ms5 = $request->p10_MS5;
-                $statistical->p10_fb1 = $request->p10_FB1;
-                $statistical->p10_fb2 = $request->p10_FB2;
-                $statistical->p10_fb3 = $request->p10_FB3;
-                $statistical->p10_fb4 = $request->p10_FB4;
-                $statistical->p10_fb5 = $request->p10_FB5;
-                $statistical->p10_os1 = $request->p10_OS1;
-                $statistical->p10_os2 = $request->p10_OS2;
-                $statistical->p10_os3 = $request->p10_OS3;
-                $statistical->p10_os4 = $request->p10_OS4;
-                $statistical->p10_os5 = $request->p10_OS5;
-                $statistical->p10_rp1 = $request->p10_RP1;
-                $statistical->p10_rp2 = $request->p10_RP2;
-                $statistical->p10_rp3 = $request->p10_RP3;
-                $statistical->p10_rp4 = $request->p10_RP4;
-                $statistical->p10_id1 = $request->p10_ID1;
-                $statistical->p10_id2 = $request->p10_ID2;
-                $statistical->p10_id3 = $request->p10_ID3;
-                $statistical->p10_id4 = $request->p10_ID4;
-                $statistical->p10_gd1 = $request->p10_GD1;
-                $statistical->p10_gd2 = $request->p10_GD2;
-                $statistical->p10_gd3 = $request->p10_GD3;
-                $statistical->p10_gd4 = $request->p10_GD4;
-                $statistical->p90_ms1 = $request->p90_MS1;
-                $statistical->p90_ms2 = $request->p90_MS2;
-                $statistical->p90_ms3 = $request->p90_MS3;
-                $statistical->p90_ms4 = $request->p90_MS4;
-                $statistical->p90_ms5 = $request->p90_MS5;
-                $statistical->p90_fb1 = $request->p90_FB1;
-                $statistical->p90_fb2 = $request->p90_FB2;
-                $statistical->p90_fb3 = $request->p90_FB3;
-                $statistical->p90_fb4 = $request->p90_FB4;
-                $statistical->p90_fb5 = $request->p90_FB5;
-                $statistical->p90_os1 = $request->p90_OS1;
-                $statistical->p90_os2 = $request->p90_OS2;
-                $statistical->p90_os3 = $request->p90_OS3;
-                $statistical->p90_os4 = $request->p90_OS4;
-                $statistical->p90_os5 = $request->p90_OS5;
-                $statistical->p90_rp1 = $request->p90_RP1;
-                $statistical->p90_rp2 = $request->p90_RP2;
-                $statistical->p90_rp3 = $request->p90_RP3;
-                $statistical->p90_rp4 = $request->p90_RP4;
-                $statistical->p90_id1 = $request->p90_ID1;
-                $statistical->p90_id2 = $request->p90_ID2;
-                $statistical->p90_id3 = $request->p90_ID3;
-                $statistical->p90_id4 = $request->p90_ID4;
-                $statistical->p90_gd1 = $request->p90_GD1;
-                $statistical->p90_gd2 = $request->p90_GD2;
-                $statistical->p90_gd3 = $request->p90_GD3;
-                $statistical->p90_gd4 = $request->p90_GD4;
+                
+                if ($request->msAvailable) {
+                    $availableArray = $request->msAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->ms1 = $request->MS1;
+                        $statistical->date_ms1 = $request->dateMS1;
+                        $statistical->comment_ms1 = $request->MS1comment;
+                        $statistical->p10_ms1 = $request->p10_MS1;
+                        $statistical->p90_ms1 = $request->p90_MS1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->ms2 = $request->MS2;
+                        $statistical->date_ms2 = $request->dateMS2;
+                        $statistical->comment_ms2 = $request->MS2comment;
+                        $statistical->p10_ms2 = $request->p10_MS2;
+                        $statistical->p90_ms2 = $request->p90_MS2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->ms3 = $request->MS3;
+                        $statistical->date_ms3 = $request->dateMS3;
+                        $statistical->comment_ms3 = $request->MS3comment;
+                        $statistical->p10_ms3 = $request->p10_MS3;
+                        $statistical->p90_ms3 = $request->p90_MS3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->ms4 = $request->MS4;
+                        $statistical->date_ms4 = $request->dateMS4;
+                        $statistical->comment_ms4 = $request->MS4comment;
+                        $statistical->p10_ms4 = $request->p10_MS4;
+                        $statistical->p90_ms4 = $request->p90_MS4;
+                    }
+
+                    if (in_array('5', $availableArray)) {
+                        $statistical->ms5 = $request->MS5;
+                        $statistical->date_ms5 = $request->dateMS5;
+                        $statistical->comment_ms5 = $request->MS5comment;
+                        $statistical->p10_ms5 = $request->p10_MS5;
+                        $statistical->p90_ms5 = $request->p90_MS5;
+                    }
+                }
+
+                if ($request->fbAvailable) {
+                    $availableArray = $request->fbAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->fb1 = $request->FB1;
+                        $statistical->date_fb1 = $request->dateFB1;
+                        $statistical->comment_fb1 = $request->FB1comment;
+                        $statistical->p10_fb1 = $request->p10_FB1;
+                        $statistical->p90_fb1 = $request->p90_FB1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->fb2 = $request->FB2;
+                        $statistical->date_fb2 = $request->dateFB2;
+                        $statistical->comment_fb2 = $request->FB2comment;
+                        $statistical->p10_fb2 = $request->p10_FB2;
+                        $statistical->p90_fb2 = $request->p90_FB2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->fb3 = $request->FB3;
+                        $statistical->date_fb3 = $request->dateFB3;
+                        $statistical->comment_fb3 = $request->FB3comment;
+                        $statistical->p10_fb3 = $request->p10_FB3;
+                        $statistical->p90_fb3 = $request->p90_FB3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->fb4 = $request->FB4;
+                        $statistical->date_fb4 = $request->dateFB4;
+                        $statistical->comment_fb4 = $request->FB4comment;
+                        $statistical->p10_fb4 = $request->p10_FB4;
+                        $statistical->p90_fb4 = $request->p90_FB4;
+                    }
+
+                    if (in_array('5', $availableArray)) {
+                        $statistical->fb5 = $request->FB5;
+                        $statistical->date_fb5 = $request->dateFB5;
+                        $statistical->comment_fb5 = $request->FB5comment;
+                        $statistical->p10_fb5 = $request->p10_FB5;
+                        $statistical->p90_fb5 = $request->p90_FB5;
+                    }
+                }
+
+                if ($request->osAvailable) {
+                    $availableArray = $request->osAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->os1 = $request->OS1;
+                        $statistical->date_os1 = $request->dateOS1;
+                        $statistical->comment_os1 = $request->OS1comment;
+                        $statistical->p10_os1 = $request->p10_OS1;
+                        $statistical->p90_os1 = $request->p90_OS1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->os2 = $request->OS2;
+                        $statistical->date_os2 = $request->dateOS2;
+                        $statistical->comment_os2 = $request->OS2comment;
+                        $statistical->p10_os2 = $request->p10_OS2;
+                        $statistical->p90_os2 = $request->p90_OS2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->os3 = $request->OS3;
+                        $statistical->date_os3 = $request->dateOS3;
+                        $statistical->comment_os3 = $request->OS3comment;
+                        $statistical->p10_os3 = $request->p10_OS3;
+                        $statistical->p90_os3 = $request->p90_OS3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->os4 = $request->OS4;
+                        $statistical->date_os4 = $request->dateOS4;
+                        $statistical->comment_os4 = $request->OS4comment;
+                        $statistical->p10_os4 = $request->p10_OS4;
+                        $statistical->p90_os4 = $request->p90_OS4;
+                    }
+
+                    if (in_array('5', $availableArray)) {
+                        $statistical->os5 = $request->OS5;
+                        $statistical->date_os5 = $request->dateOS5;
+                        $statistical->comment_os5 = $request->OS5comment;
+                        $statistical->p10_os5 = $request->p10_OS5;
+                        $statistical->p90_os5 = $request->p90_OS5;
+                    }
+                }
+
+                if ($request->rpAvailable) {
+                    $availableArray = $request->rpAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->rp1 = $request->RP1;
+                        $statistical->date_rp1 = $request->dateRP1;
+                        $statistical->comment_rp1 = $request->RP1comment;
+                        $statistical->p10_rp1 = $request->p10_RP1;
+                        $statistical->p90_rp1 = $request->p90_RP1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->rp2 = $request->RP2;
+                        $statistical->date_rp2 = $request->dateRP2;
+                        $statistical->comment_rp2 = $request->RP2comment;
+                        $statistical->p10_rp2 = $request->p10_RP2;
+                        $statistical->p90_rp2 = $request->p90_RP2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->rp3 = $request->RP3;
+                        $statistical->date_rp3 = $request->dateRP3;
+                        $statistical->comment_rp3 = $request->RP3comment;
+                        $statistical->p10_rp3 = $request->p10_RP3;
+                        $statistical->p90_rp3 = $request->p90_RP3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->rp4 = $request->RP4;
+                        $statistical->date_rp4 = $request->dateRP4;
+                        $statistical->comment_rp4 = $request->RP4comment;
+                        $statistical->p10_rp4 = $request->p10_RP4;
+                        $statistical->p90_rp4 = $request->p90_RP4;
+                    }
+                }
+
+                if ($request->idAvailable) {
+                    $availableArray = $request->idAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->id1 = $request->ID1;
+                        $statistical->date_id1 = $request->dateID1;
+                        $statistical->comment_id1 = $request->ID1comment;
+                        $statistical->p10_id1 = $request->p10_ID1;
+                        $statistical->p90_id1 = $request->p90_ID1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->id2 = $request->ID2;
+                        $statistical->date_id2 = $request->dateID2;
+                        $statistical->comment_id2 = $request->ID2comment;
+                        $statistical->p10_id2 = $request->p10_ID2;
+                        $statistical->p90_id2 = $request->p90_ID2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->id3 = $request->ID3;
+                        $statistical->date_id3 = $request->dateID3;
+                        $statistical->comment_id3 = $request->ID3comment;
+                        $statistical->p10_id3 = $request->p10_ID3;
+                        $statistical->p90_id3 = $request->p90_ID3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->id4 = $request->ID4;
+                        $statistical->date_id4 = $request->dateID4;
+                        $statistical->comment_id4 = $request->ID4comment;
+                        $statistical->p10_id4 = $request->p10_ID4;
+                        $statistical->p90_id4 = $request->p90_ID4;
+                    }
+                }
+
+                if ($request->gdAvailable) {
+                    $availableArray = $request->gdAvailable;
+
+                    if (in_array('1', $availableArray)) {
+                        $statistical->gd1 = $request->GD1;
+                        $statistical->date_gd1 = $request->dateGD1;
+                        $statistical->comment_gd1 = $request->GD1comment;
+                        $statistical->p10_gd1 = $request->p10_GD1;
+                        $statistical->p90_gd1 = $request->p90_GD1;
+                    }
+
+                    if (in_array('2', $availableArray)) {
+                        $statistical->gd2 = $request->GD2;
+                        $statistical->date_gd2 = $request->dateGD2;
+                        $statistical->comment_gd2 = $request->GD2comment;
+                        $statistical->p10_gd2 = $request->p10_GD2;
+                        $statistical->p90_gd2 = $request->p90_GD2;
+                    }
+
+                    if (in_array('3', $availableArray)) {
+                        $statistical->gd3 = $request->GD3;
+                        $statistical->date_gd3 = $request->dateGD3;
+                        $statistical->comment_gd3 = $request->GD3comment;
+                        $statistical->p10_gd3 = $request->p10_GD3;
+                        $statistical->p90_gd3 = $request->p90_GD3;
+                    }
+
+                    if (in_array('4', $availableArray)) {
+                        $statistical->gd4 = $request->GD4;
+                        $statistical->date_gd4 = $request->dateGD4;
+                        $statistical->comment_gd4 = $request->GD4comment;
+                        $statistical->p10_gd4 = $request->p10_GD4;
+                        $statistical->p90_gd4 = $request->p90_GD4;
+                    }
+                }
+                $statistical->kd = $request->kd;                
                 $statistical->msAvailable = $input['msAvailable'];
                 $statistical->fbAvailable = $input['fbAvailable'];
                 $statistical->osAvailable = $input['osAvailable'];

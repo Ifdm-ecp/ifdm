@@ -412,16 +412,17 @@ $.get("{!! url('arbol') !!}",
                     } else {
 
                         var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
-                        as = as.replace("xxxxxx", value.id);
-                        var color = "#ff1b00";
                         if(value.multiparametricType == 'statistical') {
                             var titulo = "[MPS] ";
+                            as = "{{ URL::route('statistical.edit',"xxxxxx") }}";
                         } else if(value.multiparametricType == 'analytical') {
                             var titulo = "[MPA] ";
                         } else if(value.multiparametricType == 'completeMultiparametric') {
                             var titulo = "[MPC] ";
                         }
 
+                        as = as.replace("xxxxxx", value.id);
+                        var color = "#ff1b00";
                     }
 
                     esc.push({

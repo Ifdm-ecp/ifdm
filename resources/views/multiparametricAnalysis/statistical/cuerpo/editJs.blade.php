@@ -122,6 +122,22 @@
         });
     }
 
+    // Load index parameters based in the well
+    $(".ms-parameter-picker").change(function() {
+        var idSelected = $(this).attr('id');
+        var parameter_id = $(this).val();
+
+        $.get("{{url('msparameterbywell')}}", {
+            parameter_id: parameter_id
+        },
+        function(data) {
+            var parameterAffected = idSelected.substr(idSelected.length - 3);
+
+            $("#" + parameterAffected).val(data.valor);
+            $("#date" + parameterAffected).val(data.fecha);
+        });
+    });
+
     /* verifyMultiparametric
     * Validates the form entirely
     * params {action: string}
@@ -633,7 +649,6 @@
         emptyValues = (emptyValues === false && ($("#weight_14_value").val() === null || $("#weight_14_value").val() === "")) ? true: emptyValues;
         
         sumWeights = parseFloat($("#weight_11_value").val()) + parseFloat($("#weight_30_value").val()) + parseFloat($("#weight_12_value").val()) + parseFloat($("#weight_13_value").val()) + parseFloat($("#weight_14_value").val());
-        console.log(sumWeights);
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Organic Scales";
@@ -1093,7 +1108,6 @@
         var event = window.event || arguments.callee.caller.arguments[0];
         var tabActiveElement = $(".nav.nav-tabs li.active");
         var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
-        console.log('adsadada');
 
         $("#next_button").toggle(nextPrevElement.next().is("li"));
         $("#prev_button").toggle(nextPrevElement.prev().is("li"));

@@ -8,7 +8,8 @@
     {
       column: "Scale Index Of CaCO3 value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -26,13 +27,15 @@
     {
       column: "Scale Index Of CaCO3 p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Scale Index Of CaCO3 p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_1').val(), otherField: "p10"}
       ]
     },
@@ -45,7 +48,8 @@
     {
       column: "Scale Index Of BaSO4 value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -63,13 +67,15 @@
     {
       column: "Scale Index Of BaSO4 p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Scale Index Of BaSO4 p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_2').val(), otherField: "p10"}
       ]
     },
@@ -82,7 +88,8 @@
     {
       column: "Scale Index Of Iron Scales value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -100,13 +107,15 @@
     {
       column: "Scale Index Of Iron Scales p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Scale Index Of Iron Scales p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_3').val(), otherField: "p10"}
       ]
     },
@@ -119,7 +128,8 @@
     {
       column: "Backflow [Ca] value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -137,13 +147,15 @@
     {
       column: "Backflow [Ca] p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Backflow [Ca] p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_4').val(), otherField: "p10"}
       ]
     },
@@ -156,7 +168,8 @@
     {
       column: "Backflow [Ba] value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -174,13 +187,15 @@
     {
       column: "Backflow [Ba] p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Backflow [Ba] p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_5').val(), otherField: "p10"}
       ]
     },
@@ -196,7 +211,8 @@
     {
       column: "[Al] on Produced Water value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -214,13 +230,15 @@
     {
       column: "[Al] on Produced Water p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "[Al] on Produced Water p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_6').val(), otherField: "p10"}
       ]
     },
@@ -233,7 +251,8 @@
     {
       column: "[Si] on produced water value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -251,13 +270,15 @@
     {
       column: "[Si] on produced water p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "[Si] on produced water p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_7').val(), otherField: "p10"}
       ]
     },
@@ -270,7 +291,8 @@
     {
       column: "Critical Radius derived from maximum critical velocity, Vc value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 100}
       ]
     },
     {
@@ -288,13 +310,15 @@
     {
       column: "Critical Radius derived from maximum critical velocity, Vc p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Critical Radius derived from maximum critical velocity, Vc p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_8').val(), otherField: "p10"}
       ]
     },
@@ -307,7 +331,8 @@
     {
       column: "Mineralogy Factor value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -325,13 +350,15 @@
     {
       column: "Mineralogy Factor p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Mineralogy Factor p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_9').val(), otherField: "p10"}
       ]
     },
@@ -344,7 +371,8 @@
     {
       column: "Mass of crushed proppant inside Hydraulic Fractures value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -362,13 +390,15 @@
     {
       column: "Mass of crushed proppant inside Hydraulic Fractures p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Mass of crushed proppant inside Hydraulic Fractures p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_10').val(), otherField: "p10"}
       ]
     },
@@ -384,7 +414,8 @@
     {
       column: "CII Factor: Colloidal Instability Index value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 14}
       ]
     },
     {
@@ -402,13 +433,15 @@
     {
       column: "CII Factor: Colloidal Instability Index p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "CII Factor: Colloidal Instability Index p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_11').val(), otherField: "p10"}
       ]
     },
@@ -421,7 +454,8 @@
     {
       column: "Volume of HCL pumped into the formation value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -439,13 +473,15 @@
     {
       column: "Volume of HCL pumped into the formation p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Volume of HCL pumped into the formation p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_30').val(), otherField: "p10"}
       ]
     },
@@ -458,7 +494,8 @@
     {
       column: "Cumulative Gas Produced value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -476,13 +513,15 @@
     {
       column: "Cumulative Gas Produced p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Cumulative Gas Produced p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_12').val(), otherField: "p10"}
       ]
     },
@@ -495,7 +534,8 @@
     {
       column: "Number Of Days Below Saturation Pressure value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 20000}
       ]
     },
     {
@@ -513,13 +553,15 @@
     {
       column: "Number Of Days Below Saturation Pressure p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Number Of Days Below Saturation Pressure p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_13').val(), otherField: "p10"}
       ]
     },
@@ -550,13 +592,15 @@
     {
       column: "De Boer Criteria p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "De Boer Criteria p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_14').val(), otherField: "p10"}
       ]
     },
@@ -572,7 +616,8 @@
     {
       column: "Number Of Days Below Saturation Pressure value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 20000}
       ]
     },
     {
@@ -590,13 +635,15 @@
     {
       column: "Number Of Days Below Saturation Pressure p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Number Of Days Below Saturation Pressure p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_15').val(), otherField: "p10"}
       ]
     },
@@ -609,7 +656,8 @@
     {
       column: "Delta Pressure From Saturation Pressure value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: -15000, max: 15000}
       ]
     },
     {
@@ -627,13 +675,15 @@
     {
       column: "Delta Pressure From Saturation Pressure p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Delta Pressure From Saturation Pressure p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_16').val(), otherField: "p10"}
       ]
     },
@@ -646,7 +696,8 @@
     {
       column: "Cumulative Water Produced value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -664,13 +715,15 @@
     {
       column: "Cumulative Water Produced p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Cumulative Water Produced p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_17').val(), otherField: "p10"}
       ]
     },
@@ -683,7 +736,8 @@
     {
       column: "Pore Size Diameter Approximation By Katz And Thompson Correlation value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -701,13 +755,15 @@
     {
       column: "Pore Size Diameter Approximation By Katz And Thompson Correlation p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Pore Size Diameter Approximation By Katz And Thompson Correlation p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_18').val(), otherField: "p10"}
       ]
     },
@@ -723,7 +779,8 @@
     {
       column: "Gross Pay value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 10000}
       ]
     },
     {
@@ -741,13 +798,15 @@
     {
       column: "Gross Pay p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Gross Pay p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_19').val(), otherField: "p10"}
       ]
     },
@@ -760,7 +819,8 @@
     {
       column: "Total polymer pumped during Hydraulic Fracturing value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
@@ -778,13 +838,15 @@
     {
       column: "Total polymer pumped during Hydraulic Fracturing p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Total polymer pumped during Hydraulic Fracturing p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_20').val(), otherField: "p10"}
       ]
     },
@@ -797,7 +859,8 @@
     {
       column: "Total volume of water based fluids pumped into the well value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -815,13 +878,15 @@
     {
       column: "Total volume of water based fluids pumped into the well p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Total volume of water based fluids pumped into the well p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_21').val(), otherField: "p10"}
       ]
     },
@@ -834,7 +899,8 @@
     {
       column: "Mud Losses value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 10000}
       ]
     },
     {
@@ -852,13 +918,15 @@
     {
       column: "Mud Losses p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Mud Losses p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_22').val(), otherField: "p10"}
       ]
     },
@@ -874,7 +942,8 @@
     {
       column: "Percentage of Net Pay exihibiting Natural value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -892,13 +961,15 @@
     {
       column: "Percentage of Net Pay exihibiting Natural p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Percentage of Net Pay exihibiting Natural p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_23').val(), otherField: "p10"}
       ]
     },
@@ -911,7 +982,8 @@
     {
       column: "Drawdown, i.e, reservoir pressure minus BHFP value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 10000}
       ]
     },
     {
@@ -929,13 +1001,15 @@
     {
       column: "Drawdown, i.e, reservoir pressure minus BHFP p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Drawdown, i.e, reservoir pressure minus BHFP p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_24').val(), otherField: "p10"}
       ]
     },
@@ -948,7 +1022,8 @@
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -966,13 +1041,15 @@
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_25').val(), otherField: "p10"}
       ]
     },
@@ -985,7 +1062,8 @@
     {
       column: "Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP value",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -1003,13 +1081,15 @@
     {
       column: "Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP p10",
       rules: [
-        {rule: "numeric"}
+        {rule: "numeric"},
+        {rule: "min", min: 0}
       ]
     },
     {
       column: "Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP p90",
       rules: [
         {rule: "numeric"},
+        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_26').val(), otherField: "p10"}
       ]
     },

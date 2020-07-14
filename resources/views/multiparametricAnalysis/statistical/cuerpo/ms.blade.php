@@ -36,6 +36,12 @@
 
          <div id="weight_ms_1_div" class="weight_ms_1_div">
             <div class="row">
+               <div class="col-xs-12">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredMS1', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-parameter-picker', 'data-live-search'=>'true', 'data-style' => 'btn-default', 'id' => 'selectStoredMS1')) !!}
+                  </div>
+               </div>
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS1') ? 'has-error' : ''}}">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}

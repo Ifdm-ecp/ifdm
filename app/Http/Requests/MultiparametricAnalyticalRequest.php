@@ -24,7 +24,7 @@ class MultiparametricAnalyticalRequest extends Request
      */
     public function rules()
     {
-        if (request()->calculate == true) {
+        if (request()->calculate == "true") {
             if (request()->statistical == 'Colombia') {
                 return [
                     'statistical' => 'required|in:Colombia',
@@ -41,285 +41,285 @@ class MultiparametricAnalyticalRequest extends Request
                 'field_statistical' => 'exists:campos,id',
             ];
 
-            if ($request->msAvailable) {
+            if (request()->msAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->msAvailable);
+                $availableArray = request()->msAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['MS1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['MS1'] = 'required|numeric|min:0';
                     $rulesSpecial['dateMS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS1'] = 'required|numeric';
-                    $rulesSpecial['p90_MS1'] = 'required|numeric|not_in:' . request()->p10_MS1;
+                    $rulesSpecial['p10_MS1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_MS1'] = 'required|numeric|min:0|not_in:' . request()->p10_MS1;
                     $rulesSpecial['ms_scale_index_caco3'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['MS2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['MS2'] = 'required|numeric|min:0';
                     $rulesSpecial['dateMS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS2'] = 'required|numeric';
-                    $rulesSpecial['p90_MS2'] = 'required|numeric|not_in:' . request()->p10_MS2;
+                    $rulesSpecial['p10_MS2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_MS2'] = 'required|numeric|min:0|not_in:' . request()->p10_MS2;
                     $rulesSpecial['ms_scale_index_baso4'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['MS3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['MS3'] = 'required|numeric|min:0';
                     $rulesSpecial['dateMS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS3'] = 'required|numeric';
-                    $rulesSpecial['p90_MS3'] = 'required|numeric|not_in:' . request()->p10_MS3;
+                    $rulesSpecial['p10_MS3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_MS3'] = 'required|numeric|min:0|not_in:' . request()->p10_MS3;
                     $rulesSpecial['ms_scale_index_iron_scales'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['MS4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['MS4'] = 'required|numeric|between:0,1000000';
                     $rulesSpecial['dateMS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS4'] = 'required|numeric';
-                    $rulesSpecial['p90_MS4'] = 'required|numeric|not_in:' . request()->p10_MS4;
+                    $rulesSpecial['p10_MS4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_MS4'] = 'required|numeric|min:0|not_in:' . request()->p10_MS4;
                     $rulesSpecial['ms_calcium_concentration'] = 'numeric';
                 }
 
-                if (in_array('5', $implodedArray)) {
-                    $rulesSpecial['MS5'] = 'required|numeric';
+                if (in_array('5', $availableArray)) {
+                    $rulesSpecial['MS5'] = 'required|numeric|between:0,1000000';
                     $rulesSpecial['dateMS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['MS5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_MS5'] = 'required|numeric';
-                    $rulesSpecial['p90_MS5'] = 'required|numeric|not_in:' . request()->p10_MS5;
+                    $rulesSpecial['p10_MS5'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_MS5'] = 'required|numeric|min:0|not_in:' . request()->p10_MS5;
                     $rulesSpecial['ms_barium_concentration'] = 'numeric';
                 }
 
                 $rules = array_merge($rules, $rulesSpecial);
             }
 
-            if ($request->fbAvailable) {
+            if (request()->fbAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->fbAvailable);
+                $availableArray = request()->fbAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['FB1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['FB1'] = 'required|numeric|between:0,1000000';
                     $rulesSpecial['dateFB1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB1'] = 'required|numeric';
-                    $rulesSpecial['p90_FB1'] = 'required|numeric|not_in:' . request()->p10_FB1;
+                    $rulesSpecial['p10_FB1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_FB1'] = 'required|numeric|min:0|not_in:' . request()->p10_FB1;
                     $rulesSpecial['fb_aluminum_concentration'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['FB2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['FB2'] = 'required|numeric|between:0,1000000';
                     $rulesSpecial['dateFB2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB2'] = 'required|numeric';
-                    $rulesSpecial['p90_FB2'] = 'required|numeric|not_in:' . request()->p10_FB2;
+                    $rulesSpecial['p10_FB2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_FB2'] = 'required|numeric|min:0|not_in:' . request()->p10_FB2;
                     $rulesSpecial['fb_silicon_concentration'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['FB3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['FB3'] = 'required|numeric|between:0,100';
                     $rulesSpecial['dateFB3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB3'] = 'required|numeric';
-                    $rulesSpecial['p90_FB3'] = 'required|numeric|not_in:' . request()->p10_FB3;
+                    $rulesSpecial['p10_FB3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_FB3'] = 'required|numeric|min:0|not_in:' . request()->p10_FB3;
                     $rulesSpecial['fb_critical_radius_factor'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['FB4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['FB4'] = 'required|numeric|between:0,1';
                     $rulesSpecial['dateFB4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB4'] = 'required|numeric';
-                    $rulesSpecial['p90_FB4'] = 'required|numeric|not_in:' . request()->p10_FB4;
+                    $rulesSpecial['p10_FB4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_FB4'] = 'required|numeric|min:0|not_in:' . request()->p10_FB4;
                     $rulesSpecial['fb_mineralogic_factor'] = 'numeric';
                 }
 
-                if (in_array('5', $implodedArray)) {
-                    $rulesSpecial['FB5'] = 'required|numeric';
+                if (in_array('5', $availableArray)) {
+                    $rulesSpecial['FB5'] = 'required|numeric|min:0';
                     $rulesSpecial['dateFB5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['FB5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_FB5'] = 'required|numeric';
-                    $rulesSpecial['p90_FB5'] = 'required|numeric|not_in:' . request()->p10_FB5;
+                    $rulesSpecial['p10_FB5'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_FB5'] = 'required|numeric|min:0|not_in:' . request()->p10_FB5;
                     $rulesSpecial['fb_crushed_proppant_factor'] = 'numeric';
                 }
 
                 $rules = array_merge($rules, $rulesSpecial);
             }
 
-            if ($request->osAvailable) {
+            if (request()->osAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->osAvailable);
+                $availableArray = request()->osAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['OS1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['OS1'] = 'required|numeric|between:0,14';
                     $rulesSpecial['dateOS1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS1'] = 'required|numeric';
-                    $rulesSpecial['p90_OS1'] = 'required|numeric|not_in:' . request()->p10_OS1;
+                    $rulesSpecial['p10_OS1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_OS1'] = 'required|numeric|min:0|not_in:' . request()->p10_OS1;
                     $rulesSpecial['os_cll_factor'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['OS2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['OS2'] = 'required|numeric|min:0';
                     $rulesSpecial['dateOS2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS2'] = 'required|numeric';
-                    $rulesSpecial['p90_OS2'] = 'required|numeric|not_in:' . request()->p10_OS2;
+                    $rulesSpecial['p10_OS2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_OS2'] = 'required|numeric|min:0|not_in:' . request()->p10_OS2;
                     $rulesSpecial['os_volume_of_hcl'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['OS3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['OS3'] = 'required|numeric|min:0';
                     $rulesSpecial['dateOS3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS3'] = 'required|numeric';
-                    $rulesSpecial['p90_OS3'] = 'required|numeric|not_in:' . request()->p10_OS3;
+                    $rulesSpecial['p10_OS3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_OS3'] = 'required|numeric|min:0|not_in:' . request()->p10_OS3;
                     $rulesSpecial['os_compositional_factor'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['OS4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['OS4'] = 'required|numeric|between:0,20000';
                     $rulesSpecial['dateOS4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS4'] = 'required|numeric';
-                    $rulesSpecial['p90_OS4'] = 'required|numeric|not_in:' . request()->p10_OS4;
+                    $rulesSpecial['p10_OS4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_OS4'] = 'required|numeric|min:0|not_in:' . request()->p10_OS4;
                     $rulesSpecial['os_pressure_factor'] = 'numeric';
                 }
 
-                if (in_array('5', $implodedArray)) {
+                if (in_array('5', $availableArray)) {
                     $rulesSpecial['OS5'] = 'required|numeric';
                     $rulesSpecial['dateOS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS5'] = 'required|numeric';
-                    $rulesSpecial['p90_OS5'] = 'required|numeric|not_in:' . request()->p10_OS5;
+                    $rulesSpecial['p10_OS5'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_OS5'] = 'required|numeric|min:0|not_in:' . request()->p10_OS5;
                     $rulesSpecial['os_high_impact_factor'] = 'numeric';
                 }
 
                 $rules = array_merge($rules, $rulesSpecial);
             }
 
-            if ($request->rpAvailable) {
+            if (request()->rpAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->rpAvailable);
+                $availableArray = request()->rpAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['RP1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['RP1'] = 'required|numeric|between:0,20000';
                     $rulesSpecial['dateRP1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP1'] = 'required|numeric';
-                    $rulesSpecial['p90_RP1'] = 'required|numeric|not_in:' . request()->p10_RP1;
+                    $rulesSpecial['p10_RP1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_RP1'] = 'required|numeric|min:0|not_in:' . request()->p10_RP1;
                     $rulesSpecial['rp_days_below_saturation_pressure'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['RP2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['RP2'] = 'required|numeric|between:-15000,15000';
                     $rulesSpecial['dateRP2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP2'] = 'required|numeric';
-                    $rulesSpecial['p90_RP2'] = 'required|numeric|not_in:' . request()->p10_RP2;
+                    $rulesSpecial['p10_RP2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_RP2'] = 'required|numeric|min:0|not_in:' . request()->p10_RP2;
                     $rulesSpecial['rp_delta_pressure_saturation'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['RP3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['RP3'] = 'required|numeric|min:0|not_in:0';
                     $rulesSpecial['dateRP3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP3'] = 'required|numeric';
-                    $rulesSpecial['p90_RP3'] = 'required|numeric|not_in:' . request()->p10_RP3;
+                    $rulesSpecial['p10_RP3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_RP3'] = 'required|numeric|min:0|not_in:' . request()->p10_RP3;
                     $rulesSpecial['rp_water_intrusion'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['RP4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['RP4'] = 'required|numeric|min:0|not_in:0';
                     $rulesSpecial['dateRP4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['RP4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_RP4'] = 'required|numeric';
-                    $rulesSpecial['p90_RP4'] = 'required|numeric|not_in:' . request()->p10_RP4;
+                    $rulesSpecial['p10_RP4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_RP4'] = 'required|numeric|min:0|not_in:' . request()->p10_RP4;
                     $rulesSpecial['rp_high_impact_factor'] = 'numeric';
                 }
 
                 $rules = array_merge($rules, $rulesSpecial);
             }
 
-            if ($request->idAvailable) {
+            if (request()->idAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->idAvailable);
+                $availableArray = request()->idAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['ID1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['ID1'] = 'required|numeric|between:0,10000';
                     $rulesSpecial['dateID1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID1'] = 'required|numeric';
-                    $rulesSpecial['p90_ID1'] = 'required|numeric|not_in:' . request()->p10_ID1;
+                    $rulesSpecial['p10_ID1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_ID1'] = 'required|numeric|min:0|not_in:' . request()->p10_ID1;
                     $rulesSpecial['id_gross_pay'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['ID2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['ID2'] = 'required|numeric|min:0';
                     $rulesSpecial['dateID2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID2'] = 'required|numeric';
-                    $rulesSpecial['p90_ID2'] = 'required|numeric|not_in:' . request()->p10_ID2;
+                    $rulesSpecial['p10_ID2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_ID2'] = 'required|numeric|min:0|not_in:' . request()->p10_ID2;
                     $rulesSpecial['id_polymer_damage_factor'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['ID3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['ID3'] = 'required|numeric|between:0,1000000';
                     $rulesSpecial['dateID3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID3'] = 'required|numeric';
-                    $rulesSpecial['p90_ID3'] = 'required|numeric|not_in:' . request()->p10_ID3;
+                    $rulesSpecial['p10_ID3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_ID3'] = 'required|numeric|min:0|not_in:' . request()->p10_ID3;
                     $rulesSpecial['id_total_volume_water'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['ID4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['ID4'] = 'required|numeric|between:0,10000';
                     $rulesSpecial['dateID4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['ID4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_ID4'] = 'required|numeric';
-                    $rulesSpecial['p90_ID4'] = 'required|numeric|not_in:' . request()->p10_ID4;
+                    $rulesSpecial['p10_ID4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_ID4'] = 'required|numeric|min:0|not_in:' . request()->p10_ID4;
                     $rulesSpecial['id_mud_damage_factor'] = 'numeric';
                 }
 
                 $rules = array_merge($rules, $rulesSpecial);
             }
 
-            if ($request->gdAvailable) {
+            if (request()->gdAvailable) {
                 $rulesSpecial = array();
-                $implodedArray = implode(",", $request->gdAvailable);
+                $availableArray = request()->gdAvailable;
 
-                if (in_array('1', $implodedArray)) {
-                    $rulesSpecial['GD1'] = 'required|numeric';
+                if (in_array('1', $availableArray)) {
+                    $rulesSpecial['GD1'] = 'required|numeric|between:0,1';
                     $rulesSpecial['dateGD1'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD1comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD1'] = 'required|numeric';
-                    $rulesSpecial['p90_GD1'] = 'required|numeric|not_in:' . request()->p10_GD1;
+                    $rulesSpecial['p10_GD1'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_GD1'] = 'required|numeric|min:0|not_in:' . request()->p10_GD1;
                     $rulesSpecial['gd_fraction_netpay'] = 'numeric';
                 }
 
-                if (in_array('2', $implodedArray)) {
-                    $rulesSpecial['GD2'] = 'required|numeric';
+                if (in_array('2', $availableArray)) {
+                    $rulesSpecial['GD2'] = 'required|numeric|between:0,10000';
                     $rulesSpecial['dateGD2'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD2comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD2'] = 'required|numeric';
-                    $rulesSpecial['p90_GD2'] = 'required|numeric|not_in:' . request()->p10_GD2;
+                    $rulesSpecial['p10_GD2'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_GD2'] = 'required|numeric|min:0|not_in:' . request()->p10_GD2;
                     $rulesSpecial['gd_drawdown'] = 'numeric';
                 }
 
-                if (in_array('3', $implodedArray)) {
-                    $rulesSpecial['GD3'] = 'required|numeric';
+                if (in_array('3', $availableArray)) {
+                    $rulesSpecial['GD3'] = 'required|numeric|between:0,1';
                     $rulesSpecial['dateGD3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD3'] = 'required|numeric';
-                    $rulesSpecial['p90_GD3'] = 'required|numeric|not_in:' . request()->p10_GD3;
+                    $rulesSpecial['p10_GD3'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_GD3'] = 'required|numeric|min:0|not_in:' . request()->p10_GD3;
                     $rulesSpecial['gd_ratio_kh_fracture'] = 'numeric';
                 }
 
-                if (in_array('4', $implodedArray)) {
-                    $rulesSpecial['GD4'] = 'required|numeric';
+                if (in_array('4', $availableArray)) {
+                    $rulesSpecial['GD4'] = 'required|numeric|between:0,1';
                     $rulesSpecial['dateGD4'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD4comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD4'] = 'required|numeric';
-                    $rulesSpecial['p90_GD4'] = 'required|numeric|not_in:' . request()->p10_GD4;
+                    $rulesSpecial['p10_GD4'] = 'required|numeric|min:0';
+                    $rulesSpecial['p90_GD4'] = 'required|numeric|min:0|not_in:' . request()->p10_GD4;
                     $rulesSpecial['gd_geomechanical_damage_fraction'] = 'numeric';
                 }
 
@@ -340,6 +340,138 @@ class MultiparametricAnalyticalRequest extends Request
 
             'basin_statistical.exists' => "This Basin doesn't exist.",
             'field_statistical.exists' => "This Field doesn't exist.",
+
+            'MS1.required' => 'Scale index of CaCO3 value is required.',
+            'MS2.required' => 'Scale index of BaSO4 value is required.',
+            'MS3.required' => 'Scale index of iron scales value is required.',
+            'MS4.required' => 'Backflow [Ca] value is required.',
+            'MS5.required' => 'Backflow [Ba] value is required.',
+
+            'FB1.required' => '[Al] on Produced Water value is required.',
+            'FB2.required' => '[Si] on produced water value is required.',
+            'FB3.required' => 'Critical Radius derived from maximum critical velocity, Vc value is required.',
+            'FB4.required' => 'Mineralogy Factor value is required.',
+            'FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures value is required.',
+
+            'OS1.required' => 'CII Factor: Colloidal Instability Index value is required.',
+            'OS2.required' => 'Volume of HCL pumped into the formation value is required.',
+            'OS3.required' => 'Cumulative Gas Produced value is required.',
+            'OS4.required' => 'Number Of Days Below Saturation Pressure value is required.',
+            'OS5.required' => 'De Boer Criteria value is required.',
+
+            'RP1.required' => 'Number of days below Saturation Pressure value is required.',
+            'RP2.required' => 'Delta Pressure From Saturation Pressure value is required.',
+            'RP3.required' => 'Cumulative Water Produced value is required.',
+            'RP4.required' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value is required.',
+
+            'ID1.required' => 'Gross Pay is required.',
+            'ID2.required' => 'Total polymer pumped during Hydraulic Fracturing value is required.',
+            'ID3.required' => 'Total volume of water based fluids pumped into the well value is required.',
+            'ID4.required' => 'Mud Losses value is required.',
+
+            'GD1.required' => 'Percentage of Net Pay exihibiting Natural value is required.',
+            'GD2.required' => 'Drawdown value is required.',
+            'GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix value is required.',
+            'GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is required.',
+
+            'dateMS1.required' => 'Scale index of CaCO3 monitoring date is required.',
+            'dateMS2.required' => 'Scale index of BaSO4 monitoring date is required.',
+            'dateMS3.required' => 'Scale index of iron scales monitoring date is required.',
+            'dateMS4.required' => 'Backflow [Ca] monitoring date is required.',
+            'dateMS5.required' => 'Backflow [Ba] monitoring date is required.',
+
+            'dateFB1.required' => '[Al] on Produced Water monitoring date is required.',
+            'dateFB2.required' => '[Si] on produced water monitoring date is required.',
+            'dateFB3.required' => 'Critical Radius derived from maximum critical velocity, Vc monitoring date is required.',
+            'dateFB4.required' => 'Mineralogy Factor monitoring date is required.',
+            'dateFB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures monitoring date is required.',
+
+            'dateOS1.required' => 'CII Factor: Colloidal Instability Index monitoring date is required.',
+            'dateOS2.required' => 'Volume of HCL pumped into the formation monitoring date is required.',
+            'dateOS3.required' => 'Cumulative Gas Produced monitoring date is required.',
+            'dateOS4.required' => 'Number Of Days Below Saturation Pressure monitoring date is required.',
+            'dateOS5.required' => 'De Boer Criteria monitoring date is required.',
+
+            'dateRP1.required' => 'Number of days below Saturation Pressure monitoring date is required.',
+            'dateRP2.required' => 'Delta Pressure From Saturation Pressure monitoring date is required.',
+            'dateRP3.required' => 'Cumulative Water Produced monitoring date is required.',
+            'dateRP4.required' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date is required.',
+
+            'dateID1.required' => 'Gross Pay monitoring date is required.',
+            'dateID2.required' => 'Total polymer pumped during Hydraulic Fracturing monitoring date is required.',
+            'dateID3.required' => 'Total volume of water based fluids pumped into the well monitoring date is required.',
+            'dateID4.required' => 'Mud Losses monitoring date is required.',
+
+            'dateGD1.required' => 'Percentage of Net Pay exihibiting Natural monitoring date is required.',
+            'dateGD2.required' => 'Drawdown monitoring date is required.',
+            'dateGD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix monitoring date is required.',
+            'dateGD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP monitoring date is required.',
+
+            'p10_MS1.required' => 'Scale index of CaCO3 p10 is required.',
+            'p10_MS2.required' => 'Scale index of BaSO4 p10 is required.',
+            'p10_MS3.required' => 'Scale index of iron scales p10 is required.',
+            'p10_MS4.required' => 'Backflow [Ca] p10 is required.',
+            'p10_MS5.required' => 'Backflow [Ba] p10 is required.',
+
+            'p10_FB1.required' => '[Al] on Produced Water p10 is required.',
+            'p10_FB2.required' => '[Si] on produced water p10 is required.',
+            'p10_FB3.required' => 'Critical Radius derived from maximum critical velocity, Vc p10 is required.',
+            'p10_FB4.required' => 'requirederalogy Factor p10 is required.',
+            'p10_FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures p10 is required.',
+
+            'p10_OS1.required' => 'CII Factor: Colloidal Instability Index p10 is required.',
+            'p10_OS2.required' => 'Volume of HCL pumped into the formation p10 is required.',
+            'p10_OS3.required' => 'Cumulative Gas Produced p10 is required.',
+            'p10_OS4.required' => 'Number Of Days Below Saturation Pressure p10 is required.',
+            'p10_OS5.required' => 'De Boer Criteria p10 is required.',
+
+            'p10_RP1.required' => 'Number Of Days Below Saturation Pressure p10 is required.',
+            'p10_RP2.required' => 'Delta Pressure From Saturation Pressure p10 is required.',
+            'p10_RP3.required' => 'Cumulative Water Produced p10 is required.',
+            'p10_RP4.required' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation p10 is required.',
+
+            'p10_ID1.required' => 'Gross Pay p10 is required.',
+            'p10_ID2.required' => 'Total polymer pumped during Hydraulic Fracturing p10 is required.',
+            'p10_ID3.required' => 'Total volume of water based fluids pumped into the well p10 is required.',
+            'p10_ID4.required' => 'Mud Losses p10 is required.',
+
+            'p10_GD1.required' => 'Percentage of Net Pay exihibiting Natural p10 is required.',
+            'p10_GD2.required' => 'Drawdown p10 is required.',
+            'p10_GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix p10 is required.',
+            'p10_GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p10 is required.',
+
+            'p90_MS1.required' => 'Scale index of CaCO3 p90 is required.',
+            'p90_MS2.required' => 'Scale index of BaSO4 p90 is required.',
+            'p90_MS3.required' => 'Scale index of iron scales p90 is required.',
+            'p90_MS4.required' => 'Backflow [Ca] p90 is required.',
+            'p90_MS5.required' => 'Backflow [Ba] p90 is required.',
+
+            'p90_FB1.required' => '[Al] on Produced Water p90 is required.',
+            'p90_FB2.required' => '[Si] on produced water p90 is required.',
+            'p90_FB3.required' => 'Critical Radius derived from maximum critical velocity, Vc p90 is required.',
+            'p90_FB4.required' => 'requirederalogy Factor p90 is required.',
+            'p90_FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures p90 is required.',
+
+            'p90_OS1.required' => 'CII Factor: Colloidal Instability Index p90 is required.',
+            'p90_OS2.required' => 'Volume of HCL pumped into the formation p90 is required.',
+            'p90_OS3.required' => 'Cumulative Gas Produced p90 is required.',
+            'p90_OS4.required' => 'Number Of Days Below Saturation Pressure p90 is required.',
+            'p90_OS5.required' => 'De Boer Criteria p90 is required.',
+
+            'p90_RP1.required' => 'Number Of Days Below Saturation Pressure p90 is required.',
+            'p90_RP2.required' => 'Delta Pressure From Saturation Pressure p90 is required.',
+            'p90_RP3.required' => 'Cumulative Water Produced p90 is required.',
+            'p90_RP4.required' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation p90 is required.',
+
+            'p90_ID1.required' => 'Gross Pay p90 is required.',
+            'p90_ID2.required' => 'Total polymer pumped during Hydraulic Fracturing p90 is required.',
+            'p90_ID3.required' => 'Total volume of water based fluids pumped into the well p90 is required.',
+            'p90_ID4.required' => 'Mud Losses p90 is required.',
+
+            'p90_GD1.required' => 'Percentage of Net Pay exihibiting Natural p90 is required.',
+            'p90_GD2.required' => 'Drawdown p90 is required.',
+            'p90_GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix p90 is required.',
+            'p90_GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 is required.',
 
             'MS1.numeric' => 'Scale index of CaCO3 value must be numeric.',
             'MS2.numeric' => 'Scale index of BaSO4 value must be numeric.',
@@ -374,71 +506,40 @@ class MultiparametricAnalyticalRequest extends Request
             'GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix value must be numeric.',
             'GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value must be numeric.',
 
-            'MS1.required_with' => 'Scale index of CaCO3 value is required when date is present.',
-            'MS2.required_with' => 'Scale index of BaSO4 value is required when date is present.',
-            'MS3.required_with' => 'Scale index of iron scales value is required when date is present.',
-            'MS4.required_with' => 'Backflow [Ca] value is required when date is present.',
-            'MS5.required_with' => 'Backflow [Ba] value is required when date is present.',
+            'MS1.min' => 'Scale index of CaCO3 value must be higher or equal than :min.',
+            'MS2.min' => 'Scale index of BaSO4 value must be higher or equal than :min.',
+            'MS3.min' => 'Scale index of iron scales value must be higher or equal than :min.',
+            'MS4.between' => 'Backflow [Ca] value is not between :min - :max.',
+            'MS5.between' => 'Backflow [Ba] value is not between :min - :max.',
 
-            'FB1.required_with' => '[Al] on Produced Water value is required when date is present.',
-            'FB2.required_with' => '[Si] on produced water value is required when date is present.',
-            'FB3.required_with' => 'Critical Radius derived from maximum critical velocity, Vc value is required when date is present.',
-            'FB4.required_with' => 'Mineralogy Factor value is required when date is present.',
-            'FB5.required_with' => 'Mass of crushed proppant inside Hydraulic Fractures value is required when date is present.',
+            'FB1.between' => '[Al] on Produced Water value is not between :min - :max.',
+            'FB2.between' => '[Si] on produced water value is not between :min - :max.',
+            'FB3.between' => 'Critical Radius derived from maximum critical velocity, Vc value is not between :min - :max.',
+            'FB4.between' => 'Mineralogy Factor value is not between :min - :max.',
+            'FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures value must be higher or equal than :min.',
 
-            'OS1.required_with' => 'CII Factor: Colloidal Instability Index value is required when date is present.',
-            'OS2.required_with' => 'Volume of HCL pumped into the formation value is required when date is present.',
-            'OS3.required_with' => 'Cumulative Gas Produced value is required when date is present.',
-            'OS4.required_with' => 'Number Of Days Below Saturation Pressure value is required when date is present.',
-            'OS5.required_with' => 'De Boer Criteria value is required when date is present.',
+            'OS1.between' => 'CII Factor: Colloidal Instability Index value is not between :min - :max.',
+            'OS2.min' => 'Volume of HCL pumped into the formation value must be higher or equal than :min.',
+            'OS3.min' => 'Cumulative Gas Produced value must be higher or equal than :min.',
+            'OS4.between' => 'Number Of Days Below Saturation Pressure value is not between :min - :max.',
 
-            'RP1.required_with' => 'Number of days below Saturation Pressure value is required when date is present.',
-            'RP2.required_with' => 'Delta Pressure From Saturation Pressure value is required when date is present.',
-            'RP3.required_with' => 'Cumulative Water Produced value is required when date is present.',
-            'RP4.required_with' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value is required when date is present.',
+            'RP1.between' => 'Number Of Days Below Saturation Pressure value is not between :min - :max.',
+            'RP2.between' => 'Delta Pressure From Saturation Pressure value is not between :min - :max.',
+            'RP3.min' => 'Cumulative Water Produced value must be higher than :min.',
+            'RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value must be higher than :min.',
 
-            'ID1.required_with' => 'Gross Pay is required when date is present.',
-            'ID2.required_with' => 'Total polymer pumped during Hydraulic Fracturing value is required when date is present.',
-            'ID3.required_with' => 'Total volume of water based fluids pumped into the well value is required when date is present.',
-            'ID4.required_with' => 'Mud Losses value is required when date is present.',
+            'ID1.between' => 'Gross Pay value is not between :min - :max.',
+            'ID2.min' => 'Total polymer pumped during Hydraulic Fracturing value must be higher or equal than :min.',
+            'ID3.between' => 'Total volume of water based fluids pumped into the well value is not between :min - :max.',
+            'ID4.between' => 'Mud Losses value is not between :min - :max.',
 
-            'GD1.required_with' => 'Percentage of Net Pay exihibiting Natural value is required when date is present.',
-            'GD2.required_with' => 'Drawdown value is required when date is present.',
-            'GD3.required_with' => 'Ratio of KH)matrix + fracture / KH)matrix value is required when date is present.',
-            'GD4.required_with' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is required when date is present.',
+            'GD1.between' => 'Percentage of Net Pay exihibiting Natural value is not between :min - :max.',
+            'GD2.between' => 'Drawdown value is not between :min - :max.',
+            'GD3.between' => 'Ratio of KH)matrix + fracture / KH)matrix value is not between :min - :max.',
+            'GD4.between' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is not between :min - :max.',
 
-            'dateMS1.required_with' => 'Date is required when Scale index of CaCO3 value is present.',
-            'dateMS2.required_with' => 'Date is required when Scale index of BaSO4 value is present.',
-            'dateMS3.required_with' => 'Date is required when Scale index of iron scales value is present.',
-            'dateMS4.required_with' => 'Date is required when Backflow [Ca] value is present.',
-            'dateMS5.required_with' => 'Date is required when Backflow [Ba] value is present.',
-
-            'dateFB1.required_with' => 'Date is required when [Al] on Produced Water value is present.',
-            'dateFB2.required_with' => 'Date is required when [Si] on produced water value is present.',
-            'dateFB3.required_with' => 'Date is required when Critical Radius derived from maximum critical velocity, Vc value is present.',
-            'dateFB4.required_with' => 'Date is required when Mineralogy Factor value is present.',
-            'dateFB5.required_with' => 'Date is required when Mass of crushed proppant inside Hydraulic Fractures value is present.',
-
-            'dateOS1.required_with' => 'Date is required when CII Factor: Colloidal Instability Index value is present.',
-            'dateOS2.required_with' => 'Date is required when Volume of HCL pumped into the formation value is present.',
-            'dateOS3.required_with' => 'Date is required when Cumulative Gas Produced value is present.',
-            'dateOS4.required_with' => 'Date is required when Number Of Days Below Saturation Pressure value is present.',
-            'dateOS5.required_with' => 'Date is required when De Boer Criteria value is present.',
-
-            'dateRP1.required_with' => 'Date is required when Number of days below Saturation Pressure value is present.',
-            'dateRP2.required_with' => 'Date is required when Delta Pressure From Saturation Pressure value is present.',
-            'dateRP3.required_with' => 'Date is required when Cumulative Water Produced value is present.',
-            'dateRP4.required_with' => 'Date is required when Pore Size Diameter Approximation By Katz And Thompson Correlation value is present.',
-
-            'dateID1.required_with' => 'Date is required when Gross Pay value is present.',
-            'dateID2.required_with' => 'Date is required when Total polymer pumped during Hydraulic Fracturing value is present.',
-            'dateID3.required_with' => 'Date is required when Total volume of water based fluids pumped into the well value is present.',
-            'dateID4.required_with' => 'Date is required when Mud Losses value is present.',
-
-            'dateGD1.required_with' => 'Date is required when Percentage of Net Pay exihibiting Natural value is present.',
-            'dateGD2.required_with' => 'Date is required when Drawdown value is present.',
-            'dateGD3.required_with' => 'Date is required when Ratio of KH)matrix + fracture / KH)matrix value is present.',
-            'dateGD4.required_with' => 'Date is required when Geomechanical damage expressed as fraction of base permeability at BHFP value is present.',
+            'RP3.not_in' => 'Cumulative Water Produced value must be higher than 0.',
+            'RP4.not_in' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value must be higher than 0.',
 
             'dateMS1.date_format' => 'Scale index of CaCO3 monitoring date must have the format dd/mm/yyyy.',
             'dateMS2.date_format' => 'Scale index of BaSO4 monitoring date must have the format dd/mm/yyyy.',
@@ -671,6 +772,72 @@ class MultiparametricAnalyticalRequest extends Request
             'p90_GD3.not_in' => "Ratio of KH)matrix + fracture / KH)matrix p10 and p90 can't have the same value.",
             'p90_GD4.not_in' => "Geomechanical damage expressed as fraction of base permeability at BHFP p10 and p90 can't have the same value.",
 
+            'p10_MS1.min' => 'Scale index of CaCO3 p10 must be higher or equal than :min.',
+            'p10_MS2.min' => 'Scale index of BaSO4 p10 must be higher or equal than :min.',
+            'p10_MS3.min' => 'Scale index of iron scales p10 must be higher or equal than :min.',
+            'p10_MS4.min' => 'Backflow [Ca] p10 must be higher or equal than :min.',
+            'p10_MS5.min' => 'Backflow [Ba] p10 must be higher or equal than :min.',
+
+            'p10_FB1.min' => '[Al] on Produced Water p10 must be higher or equal than :min.',
+            'p10_FB2.min' => '[Si] on produced water p10 must be higher or equal than :min.',
+            'p10_FB3.min' => 'Critical Radius derived from maximum critical velocity, Vc p10 must be higher or equal than :min.',
+            'p10_FB4.min' => 'Mineralogy Factor p10 must be higher or equal than :min.',
+            'p10_FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures p10 must be higher or equal than :min.',
+
+            'p10_OS1.min' => 'CII Factor: Colloidal Instability Index p10 must be higher or equal than :min.',
+            'p10_OS2.min' => 'Volume of HCL pumped into the formation p10 must be higher or equal than :min.',
+            'p10_OS3.min' => 'Cumulative Gas Produced p10 must be higher or equal than :min.',
+            'p10_OS4.min' => 'Number Of Days Below Saturation Pressure p10 must be higher or equal than :min.',
+            'p10_OS5.min' => 'De Boer Criteria p10 must be higher or equal than :min.',
+
+            'p10_RP1.min' => 'Number Of Days Below Saturation Pressure p10 must be higher or equal than :min.',
+            'p10_RP2.min' => 'Delta Pressure From Saturation Pressure p10 must be higher or equal than :min.',
+            'p10_RP3.min' => 'Cumulative Water Produced p10 must be higher or equal than :min.',
+            'p10_RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation p10 must be higher or equal than :min.',
+
+            'p10_ID1.min' => 'Gross Pay p10 must be higher or equal than :min.',
+            'p10_ID2.min' => 'Total polymer pumped during Hydraulic Fracturing p10 must be higher or equal than :min.',
+            'p10_ID3.min' => 'Total volume of water based fluids pumped into the well p10 must be higher or equal than :min.',
+            'p10_ID4.min' => 'Mud Losses p10 must be higher or equal than :min.',
+
+            'p10_GD1.min' => 'Percentage of Net Pay exihibiting Natural p10 must be higher or equal than :min.',
+            'p10_GD2.min' => 'Drawdown p10 must be higher or equal than :min.',
+            'p10_GD3.min' => 'Ratio of KH)matrix + fracture / KH)matrix p10 must be higher or equal than :min.',
+            'p10_GD4.min' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p10 must be higher or equal than :min.',
+
+            'p90_MS1.min' => 'Scale index of CaCO3 p90 must be higher or equal than :min.',
+            'p90_MS2.min' => 'Scale index of BaSO4 p90 must be higher or equal than :min.',
+            'p90_MS3.min' => 'Scale index of iron scales p90 must be higher or equal than :min.',
+            'p90_MS4.min' => 'Backflow [Ca] p90 must be higher or equal than :min.',
+            'p90_MS5.min' => 'Backflow [Ba] p90 must be higher or equal than :min.',
+
+            'p90_FB1.min' => '[Al] on Produced Water p90 must be higher or equal than :min.',
+            'p90_FB2.min' => '[Si] on produced water p90 must be higher or equal than :min.',
+            'p90_FB3.min' => 'Critical Radius derived from maximum critical velocity, Vc p90 must be higher or equal than :min.',
+            'p90_FB4.min' => 'Mineralogy Factor p90 must be higher or equal than :min.',
+            'p90_FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures p90 must be higher or equal than :min.',
+
+            'p90_OS1.min' => 'CII Factor: Colloidal Instability Index p90 must be higher or equal than :min.',
+            'p90_OS2.min' => 'Volume of HCL pumped into the formation p90 must be higher or equal than :min.',
+            'p90_OS3.min' => 'Cumulative Gas Produced p90 must be higher or equal than :min.',
+            'p90_OS4.min' => 'Number Of Days Below Saturation Pressure p90 must be higher or equal than :min.',
+            'p90_OS5.min' => 'De Boer Criteria p90 must be higher or equal than :min.',
+
+            'p90_RP1.min' => 'Number Of Days Below Saturation Pressure p90 must be higher or equal than :min.',
+            'p90_RP2.min' => 'Delta Pressure From Saturation Pressure p90 must be higher or equal than :min.',
+            'p90_RP3.min' => 'Cumulative Water Produced p90 must be higher or equal than :min.',
+            'p90_RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation p90 must be higher or equal than :min.',
+
+            'p90_ID1.min' => 'Gross Pay p90 must be higher or equal than :min.',
+            'p90_ID2.min' => 'Total polymer pumped during Hydraulic Fracturing p90 must be higher or equal than :min.',
+            'p90_ID3.min' => 'Total volume of water based fluids pumped into the well p90 must be higher or equal than :min.',
+            'p90_ID4.min' => 'Mud Losses p90 must be higher or equal than :min.',
+
+            'p90_GD1.min' => 'Percentage of Net Pay exihibiting Natural p90 must be higher or equal than :min.',
+            'p90_GD2.min' => 'Drawdown p90 must be higher or equal than :min.',
+            'p90_GD3.min' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be higher or equal than :min.',
+            'p90_GD4.min' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be higher or equal than :min.',
+
             'ms_scale_index_caco3.numeric' => 'Scale index of CaCO3 p90 must be numeric.',
             'ms_scale_index_baso4.numeric' => 'Scale index of BaSO4 p90 must be numeric.',
             'ms_scale_index_iron_scales.numeric' => 'Scale index of iron scales p90 must be numeric.',
@@ -703,24 +870,6 @@ class MultiparametricAnalyticalRequest extends Request
             'gd_drawdown.numeric' => 'Drawdown p90 must be numeric.',
             'gd_ratio_kh_fracture.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be numeric.',
             'gd_geomechanical_damage_fraction.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be numeric.',
-
-            'FB1.between' => '[Al] on Produced Water must be between 0 and 8.55.',
-            'FB2.between' => '[Si] on produced water must be between 4 and 102.',
-            'FB3.between' => 'Critical Radius derived from maximum critical velocity, Vc must be between 0.8 and 26.',
-            'FB4.between' => 'Mineralogy Factor must be between 0.3 and 1.',
-            'FB5.between' => 'Mass of crushed proppant inside Hydraulic Fractures must be between 0.74 and 3.',
-
-            'OS1.between' => 'CII Factor: Colloidal Instability Index must be between 0.592 and 13.557.',
-
-            'ID1.between' => 'Gross Pay must be between 0.774 and 24.95.',
-            'ID2.between' => 'Total polymer pumped during Hydraulic Fracturing must be between 0 and 9453.',
-            'ID3.between' => 'Total volume of water based fluids pumped into the well must be between 100 and 5217.',
-            'ID4.between' => 'Mud Losses must be between 4 and 14228.',
-
-            'GD1.between' => 'Percentage of Net Pay exihibiting Natural must be between 0 and 1.',
-            'GD2.between' => 'Drawdown must be between 1 and 6000.',
-            'GD3.between' => 'Ratio of KH)matrix + fracture / KH)matrix must be between 0 and 100.',
-            'GD4.between' => 'Geomechanical damage expressed as fraction of base permeability at BHFP must be between 0 and 1.',
         ];
     }
 }

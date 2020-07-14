@@ -28,6 +28,10 @@ function multiValidatorHandsonTable(value, ruleset)
         isValid = (value > set.minw || value < set.maxw);
         return isValid;
         break;
+      case "min":
+        isValid = (value >= set.minw);
+        return isValid;
+        break;
       case "minw":
         isValid = (value > set.minw);
         return isValid;
@@ -77,6 +81,12 @@ function multiValidatorTable(value, tableName, tableRow, ruleset)
       case "rangew":
         if (value <= set.minw || value >= set.maxw) {
           isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " has a value that is out of the numeric range [" + set.minw + ", " + set.maxw + ", both numbers exclusive]"];
+          return false;
+        }
+        break;
+      case "min":
+        if (value < set.min) {
+          isValid = [false, "Row " + (tableRow + 1) + " and column " + ruleset.column + " must be " + set.min + " or greater"];
           return false;
         }
         break;
@@ -146,6 +156,12 @@ function multiValidatorGeneral(action, value, ruleset)
         case "rangew":
           if (value <= set.minw || value >= set.maxw) {
             isValid = [false, "The field " + ruleset.column + " has a value that is out of the numeric range [" + set.minw + ", " + set.maxw + ", both numbers exclusive]"];
+            return false;
+          }
+          break;
+        case "min":
+          if (value < set.min) {
+            isValid = [false, "The field " + ruleset.column + " must be " + set.min + " or greater"];
             return false;
           }
           break;

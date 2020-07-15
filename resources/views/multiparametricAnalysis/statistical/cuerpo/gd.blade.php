@@ -36,6 +36,14 @@
 
          <div id="weight_gd_1_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredGD1', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-23', 'data-style' => 'btn-default', 'id' => 'selectStoredGD1')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -112,6 +120,14 @@
          <br>
 
          <div id="weight_gd_2_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredGD2', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-24', 'data-style' => 'btn-default', 'id' => 'selectStoredGD2')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
@@ -190,6 +206,14 @@
 
          <div id="weight_gd_3_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredGD3', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-25', 'data-style' => 'btn-default', 'id' => 'selectStoredGD3')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -264,6 +288,14 @@
          </div>
          <br>
          <div id="weight_gd_4_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredGD4', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-26', 'data-style' => 'btn-default', 'id' => 'selectStoredGD4')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">

@@ -36,6 +36,14 @@
 
          <div id="weight_rp_1_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredRP1', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-15', 'data-style' => 'btn-default', 'id' => 'selectStoredRP1')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -112,6 +120,14 @@
          <br>
 
          <div id="weight_rp_2_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredRP2', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-16', 'data-style' => 'btn-default', 'id' => 'selectStoredRP2')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
@@ -190,6 +206,14 @@
 
          <div id="weight_rp_3_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredRP3', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-17', 'data-style' => 'btn-default', 'id' => 'selectStoredRP3')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -266,6 +290,14 @@
          <br>
 
          <div id="weight_rp_4_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredRP4', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-18', 'data-style' => 'btn-default', 'id' => 'selectStoredRP4')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group">

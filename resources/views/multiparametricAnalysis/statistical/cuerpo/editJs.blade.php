@@ -1,4 +1,11 @@
-<script type="text/javascript">    
+<script type="text/javascript">
+    $(function() {
+        $(".jquery-datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"
+        });
+    });
 
     function multiparametricoStatistical() {
         var count = <?php echo count($errors) ?>;
@@ -77,9 +84,13 @@
         if ($(this_name).prop('checked')) {
             $(this_name + '_hidden').val("false");
             $(this_value_div + " *").attr('disabled', false);
+            $(this_name + ' .ms-subparameter-picker').attr('disabled', false);
+            $(this_name + ' .ms-subparameter-picker').selectpicker('refresh');
         } else {
             $(this_value_div + " *").attr('disabled', true);
             $(this_name + '_hidden').val("true");
+            $(this_name + ' .ms-subparameter-picker').attr('disabled', true);
+            $(this_name + ' .ms-subparameter-picker').selectpicker('refresh');
         }
     }).trigger('init');
 
@@ -122,20 +133,30 @@
         });
     }
 
-    // Load index parameters based in the well
-    $(".ms-parameter-picker").change(function() {
-        var idSelected = $(this).attr('id');
-        var parameter_id = $(this).val();
+    // Load all the subparameter historical data available for each subparameter
+    function loadSubparametersHistoricalByWell() {
+        $.get("{{url('subparameterbywell')}}", {
+            pozoId: "{{ $pozoId }}"
+        }, function(data) {
+            $.each(data, function(index, value) {
+                var textValue = value.valor + ' - ' + moment(value.fecha).format('DD/MM/YYYY');
+                $(".select-stored-" + value.subparametro_id).append('<option value="' + textValue + '">' + textValue + '</option>');
+            });
 
-        $.get("{{url('msparameterbywell')}}", {
-            parameter_id: parameter_id
-        },
-        function(data) {
-            var parameterAffected = idSelected.substr(idSelected.length - 3);
-
-            $("#" + parameterAffected).val(data.valor);
-            $("#date" + parameterAffected).val(data.fecha);
+            $(".ms-subparameter-picker").selectpicker('render');
+            $(".ms-subparameter-picker").selectpicker('refresh');
         });
+    }
+
+    // Load index subparameters data based in the well
+    $(".ms-subparameter-picker").change(function() {
+        var idSelected = $(this).attr('id');
+        var parameterData = $(this).val().split(' - ');
+
+        var parameterAffected = idSelected.substr(idSelected.length - 3);
+
+        $("#" + parameterAffected).val(parameterData[0]);
+        $("#date" + parameterAffected).val(parameterData[1]);
     });
 
     /* verifyMultiparametric

@@ -36,12 +36,14 @@
 
          <div id="weight_ms_1_div" class="weight_ms_1_div">
             <div class="row">
-               <div class="col-xs-12">
+               <div class="col-xs-12 col-md-4">
                   <div class="form-group">
                      {!! Form::label('stored', 'Stored previously') !!}
-                     {!! Form::select('selectStoredMS1', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-parameter-picker', 'data-live-search'=>'true', 'data-style' => 'btn-default', 'id' => 'selectStoredMS1')) !!}
+                     {!! Form::select('selectStoredMS1', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-1', 'data-style' => 'btn-default', 'id' => 'selectStoredMS1')) !!}
                   </div>
                </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS1') ? 'has-error' : ''}}">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -120,6 +122,14 @@
 
          <div id="weight_ms_2_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredMS2', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-2', 'data-style' => 'btn-default', 'id' => 'selectStoredMS2')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS2') ? 'has-error' : ''}}">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -196,6 +206,14 @@
          <br>
 
          <div id="weight_ms_3_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredMS3', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-3', 'data-style' => 'btn-default', 'id' => 'selectStoredMS3')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS3') ? 'has-error' : ''}}">
@@ -274,6 +292,14 @@
 
          <div id="weight_ms_4_div">
             <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredMS4', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-4', 'data-style' => 'btn-default', 'id' => 'selectStoredMS4')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-4">
                   <div class="form-group">
                      {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -350,6 +376,14 @@
          <br>  
 
          <div id="weight_ms_5_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredMS5', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-5', 'data-style' => 'btn-default', 'id' => 'selectStoredMS5')) !!}
+                  </div>
+               </div>
+            </div>
             <div class="row">
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('MS5') ? 'has-error' : ''}}">

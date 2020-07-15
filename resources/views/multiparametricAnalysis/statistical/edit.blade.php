@@ -11,7 +11,13 @@
 @include('layouts/modal_error')
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky" style="position: relative;">
-   <center><b>Scenario: </b>{!! $statistical->escenario->nombre !!} </br> Basin: {!! $statistical->escenario->cuenca->nombre !!} - Field: {!! $statistical->escenario->campo->nombre !!} - Producing interval: {!!  $statistical->escenario->formacionxpozo->nombre !!} - Well: {!!  $statistical->escenario->pozo->nombre !!} - User: {!! $statistical->escenario->user->name !!}</center>
+   <center><b>Scenario: </b>{!! $statistical->escenario->nombre !!} </br>
+      Basin: {!! $statistical->escenario->cuenca->nombre !!} - 
+      Field: {!! $statistical->escenario->campo->nombre !!} - 
+      {{-- Producing interval: {!!  $statistical->escenario->formacionxpozo->nombre !!} -  --}}
+      Well: {!!  $statistical->escenario->pozo->nombre !!} - 
+      User: {!! $statistical->escenario->user->name !!}
+   </center>
 </div>
 
 </br>
@@ -33,13 +39,13 @@
   <input type="hidden" name="calculate" value="false">
     <div class="tab-content">
       <br>
-         @include('multiparametricAnalysis.statistical.cuerpo.sb')
-         @include('multiparametricAnalysis.statistical.cuerpo.ms')
-         @include('multiparametricAnalysis.statistical.cuerpo.fb')
-         @include('multiparametricAnalysis.statistical.cuerpo.os')
-         @include('multiparametricAnalysis.statistical.cuerpo.rp')
-         @include('multiparametricAnalysis.statistical.cuerpo.id')
-         @include('multiparametricAnalysis.statistical.cuerpo.gd')
+      @include('multiparametricAnalysis.statistical.cuerpo.sb')
+      @include('multiparametricAnalysis.statistical.cuerpo.ms')
+      @include('multiparametricAnalysis.statistical.cuerpo.fb')
+      @include('multiparametricAnalysis.statistical.cuerpo.os')
+      @include('multiparametricAnalysis.statistical.cuerpo.rp')
+      @include('multiparametricAnalysis.statistical.cuerpo.id')
+      @include('multiparametricAnalysis.statistical.cuerpo.gd')
    </div>
    <div class="row">
       {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
@@ -97,6 +103,7 @@
          @endif
          cargarCamposBBDD();
          cargarAvailables();
+         loadSubparametersHistoricalByWell();
       });
    </script>
 @endsection

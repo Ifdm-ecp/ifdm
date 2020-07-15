@@ -4365,6 +4365,15 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($arreglo);
     });
 
+    Route::get('subparameterbywell', function() {
+        $subparameters = DB::table('mediciones')
+            ->where('pozo_id', Input::get('pozoId'))
+            ->orderBy('subparametro_id')
+            ->get();
+
+        return Response::json($subparameters);
+    });
+
     Route::get('pozosF', function(){
 
         $campo = Input::get('campo');

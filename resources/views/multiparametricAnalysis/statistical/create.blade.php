@@ -12,43 +12,41 @@
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky" style="position: relative;">
    <center><b>Scenario: {!! $scenary->nombre !!} </br> 
-    Basin: {!! $scenary->cuenca->nombre !!} - 
-    Field: {!! $scenary->campo->nombre !!} - 
-    Producing interval: {!!  $scenary->formacionxpozo->nombre !!} - 
-    Well: {!!  $scenary->pozo->nombre !!}</br> 
-    User: {!! $scenary->user->fullName !!}</center>
+      Basin: {!! $scenary->cuenca->nombre !!} - 
+      Field: {!! $scenary->campo->nombre !!} - 
+      {{-- Producing interval: {!!  $scenary->formacionxpozo->nombre !!} -  --}}
+      Well: {!!  $scenary->pozo->nombre !!}</br> 
+      User: {!! $scenary->user->fullName !!}
+   </center>
 </div>
 
 </br>
 
-   <div class="nav">
-      <div class="tab">
-         <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" href="#SB">Statistical Database</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Mineral Scale</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Fine Blockage</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Organic Scales</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Relative Permeability</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Induced Damage</a></li>
-            <li><a data-toggle="tab" class="text-danger sectionDeactivated">Geomechanical Damage</a></li>
-         </ul>
-      </div>
+<div class="nav">
+   <div class="tab">
+      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+         <li class="active gfdgdfg"><a data-toggle="tab" href="#SB" id="SB_C">Statistical Database</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Mineral Scale</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Fine Blockage</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Organic Scales</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Relative Permeability</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Induced Damage</a></li>
+         <li><a data-toggle="tab" class="text-danger sectionDeactivated">Geomechanical Damage</a></li>
+      </ul>
    </div>
+</div>
 {!!Form::open(['route' => [$complete == true ? 'completeMultiparametric.store' : 'statistical.store'], 'method' => 'POST'])!!}
-    <input type="hidden" name="calculate" value="false">
-    <input type="hidden" name="escenario_id" value="{{$scenary->id}}">
-    <div class="tab-content">
+   <input type="hidden" name="calculate" value="false">
+   <input type="hidden" name="escenario_id" value="{{$scenary->id}}">
+   <div class="tab-content">
       <br>
-         @include('multiparametricAnalysis.statistical.cuerpo.sb')
+      @include('multiparametricAnalysis.statistical.cuerpo.sb')
    </div>
-   <br>
-   <br>
    <div class="row">
-      <div class="col-xs-12">
-         <p class="pull-right">
-            {!! Form::submit('Calculate' , array('class' => 'maximize btn btn-warning', 'id' => 'calculate')) !!}
-            <a href="{!! url('share_scenario') !!}" class="btn btn-danger" role="button">Cancel</a>
-         </p>
+      <div class="col-md-12 scenario-buttons">
+         <div align="left">
+            <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
+         </div>
       </div>
    </div>
 {!! Form::Close() !!}
@@ -94,12 +92,12 @@
 @include('css/add_multiparametric')
 
 @section('Scripts')
-    @include('multiparametricAnalysis.statistical.cuerpo.createJs')
-    @include('js/modal_error')
-    <script type="text/javascript">
-       $(document).ready(function(){
-          cargarCamposDefault();
-           validationFields();
-       });
-    </script>
+   @include('multiparametricAnalysis.statistical.cuerpo.createJs')
+   @include('js/modal_error')
+   <script type="text/javascript">
+      $(document).ready(function(){
+         cargarCamposDefault();
+         validationFields();
+      });
+   </script>
 @endsection

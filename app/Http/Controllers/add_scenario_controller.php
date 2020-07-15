@@ -124,6 +124,8 @@ class add_scenario_controller extends Controller
                 $scenary->formacion_id = $formation_ids;
             } else if ($request->input('type') == 'Drilling') {
                 $scenary->formacion_id = 0;
+            } else if ($request->input('type') == 'Multiparametric') {
+                $scenary->formacion_id = 0;
             } else {
                 $scenary->formacion_id = $request->input('formation');
             }

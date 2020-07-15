@@ -94,6 +94,8 @@ class StatisticalController extends Controller
             }
         }
 
+        $pozoId = escenario::find($statistical->escenario_id)->pozo_id;
+
         /* se convierten  los datos autoriazados por bloques de string a arrays */
         $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));
         $statistical->fbAvailable = array_map('intval', explode(',', $statistical->fbAvailable));
@@ -136,7 +138,7 @@ class StatisticalController extends Controller
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
         //dd(Session::get('GD4'));
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'duplicateFrom']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete',  'pozoId', 'duplicateFrom']));
     }
 
     /**

@@ -17,7 +17,8 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of CaCO3 value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -35,7 +36,8 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of BaSO4 value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -53,7 +55,8 @@ mineral_scales_tab_ruleset = [
   {
     column: "Scale Index Of Iron Scales value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -71,7 +74,8 @@ mineral_scales_tab_ruleset = [
   {
     column: "Backflow [Ca] value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -89,7 +93,8 @@ mineral_scales_tab_ruleset = [
   {
     column: "Backflow [Ba] value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -110,7 +115,8 @@ fine_blockage_tab_ruleset = [
   {
     column: "[Al] on Produced Water value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -128,7 +134,8 @@ fine_blockage_tab_ruleset = [
   {
     column: "[Si] on produced water value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -146,7 +153,8 @@ fine_blockage_tab_ruleset = [
   {
     column: "Critical Radius derived from maximum critical velocity, Vc value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {
@@ -164,7 +172,8 @@ fine_blockage_tab_ruleset = [
   {
     column: "Mineralogy Factor value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {
@@ -182,7 +191,8 @@ fine_blockage_tab_ruleset = [
   {
     column: "Mass of crushed proppant inside Hydraulic Fractures value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -203,7 +213,8 @@ organic_scales_tab_ruleset = [
   {
     column: "CII Factor: Colloidal Instability Index value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 14}
     ]
   },
   {
@@ -221,7 +232,8 @@ organic_scales_tab_ruleset = [
   {
     column: "Volume of HCL pumped into the formation value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -239,7 +251,8 @@ organic_scales_tab_ruleset = [
   {
     column: "Cumulative Gas Produced value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -257,7 +270,8 @@ organic_scales_tab_ruleset = [
   {
     column: "Number Of Days Below Saturation Pressure value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 20000}
     ]
   },
   {
@@ -296,7 +310,8 @@ relative_permeability_tab_ruleset = [
   {
     column: "Number Of Days Below Saturation Pressure value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 20000}
     ]
   },
   {
@@ -314,7 +329,8 @@ relative_permeability_tab_ruleset = [
   {
     column: "Delta Pressure From Saturation Pressure value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: -15000, max: 15000}
     ]
   },
   {
@@ -332,7 +348,8 @@ relative_permeability_tab_ruleset = [
   {
     column: "Cumulative Water Produced value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "minw", minw: 0}
     ]
   },
   {
@@ -350,7 +367,8 @@ relative_permeability_tab_ruleset = [
   {
     column: "Pore Size Diameter Approximation By Katz And Thompson Correlation value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "minw", minw: 0}
     ]
   },
   {
@@ -371,7 +389,8 @@ induce_damage_tab_ruleset = [
   {
     column: "Gross Pay value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -389,7 +408,8 @@ induce_damage_tab_ruleset = [
   {
     column: "Total polymer pumped during Hydraulic Fracturing value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "min", min: 0}
     ]
   },
   {
@@ -407,7 +427,8 @@ induce_damage_tab_ruleset = [
   {
     column: "Total volume of water based fluids pumped into the well value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1000000}
     ]
   },
   {
@@ -425,7 +446,8 @@ induce_damage_tab_ruleset = [
   {
     column: "Mud Losses value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -446,7 +468,8 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Percentage of Net Pay exihibiting Natural value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {
@@ -464,7 +487,8 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Drawdown, i.e, reservoir pressure minus BHFP value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
     ]
   },
   {
@@ -482,7 +506,8 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Ratio of KH)matrix + fracture / KH)matrix value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {
@@ -500,7 +525,8 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP value",
     rules: [
-      {rule: "numeric"}
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
     ]
   },
   {

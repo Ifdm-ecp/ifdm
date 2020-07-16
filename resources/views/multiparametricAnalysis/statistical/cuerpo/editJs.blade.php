@@ -106,6 +106,14 @@
         }
     });
 
+    $('#OS4').bind('change', function() {
+        $('#RP1').val($(this).val());
+    });
+
+    $('#RP1').bind('change', function() {
+        $('#OS4').val($(this).val());
+    });
+
     function cargarAvailables() {
         var ms = {{json_encode($statistical->msAvailable)}};
         var fb = {{json_encode($statistical->fbAvailable)}};

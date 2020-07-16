@@ -14,14 +14,14 @@
                   </label>
                </div>
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('basin_statistical') ? 'has-error' : ''}}">
                      {!! Form::label('basinA', 'Basin') !!}
                      {!! Form::select('basin_statistical', $cuencas->lists('nombre','id'), null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'selectBasin')) !!}
                   </div>
                </div>
                
                <div class="col-md-4">
-                  <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('field_statistical') ? 'has-error' : ''}}">
                      {!! Form::label('fieldA', 'Field') !!}
                      {!! Form::select('field_statistical[]', array(), null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'field', 'multiple'=>'multiple')) !!}
                   </div>

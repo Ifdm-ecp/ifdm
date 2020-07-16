@@ -78,21 +78,33 @@
     }
 
     //Asignar color a input en caso de que un valor este malo
-    $('.check_weight').bind('change init', function() {
+    $('.check_weight').bind('init', function() {
         var this_name = '#' + $(this).attr('id');
         var this_value_div = '#' + $(this).attr('id') + '_div';
         if ($(this_name).prop('checked')) {
             $(this_name + '_hidden').val("false");
             $(this_value_div + " *").attr('disabled', false);
-            $(this_name + ' .ms-subparameter-picker').attr('disabled', false);
-            $(this_name + ' .ms-subparameter-picker').selectpicker('refresh');
         } else {
             $(this_value_div + " *").attr('disabled', true);
             $(this_name + '_hidden').val("true");
-            $(this_name + ' .ms-subparameter-picker').attr('disabled', true);
-            $(this_name + ' .ms-subparameter-picker').selectpicker('refresh');
         }
     }).trigger('init');
+
+    $('.check_weight').bind('change', function() {
+        var this_name = '#' + $(this).attr('id');
+        var this_value_div = '#' + $(this).attr('id') + '_div';
+        if ($(this_name).prop('checked')) {
+            $(this_name + '_hidden').val("false");
+            $(this_value_div + " *").attr('disabled', false);
+            $(this_value_div + ' .ms-subparameter-picker').attr('disabled', false);
+            $(this_value_div + ' .ms-subparameter-picker').selectpicker('refresh');
+        } else {
+            $(this_value_div + " *").attr('disabled', true);
+            $(this_name + '_hidden').val("true");
+            $(this_value_div + ' .ms-subparameter-picker').attr('disabled', true);
+            $(this_value_div + ' .ms-subparameter-picker').selectpicker('refresh');
+        }
+    });
 
     function cargarAvailables() {
         var ms = {{json_encode($statistical->msAvailable)}};

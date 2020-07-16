@@ -5,11 +5,13 @@ namespace App\Http\Controllers\MultiparametricAnalysis;
 use App\cuenca;
 use App\escenario;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MultiparametricAnalyticalRequest;
+use App\Http\Requests\MultiparametricStatisticalCreateRequest;
+use App\Http\Requests\MultiparametricStatisticalRequest;
 use App\Models\MultiparametricAnalysis\Statistical;
+use App\subparameters_weight;
 use App\Traits\StatisticalTrait;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Session;
 
 class StatisticalController extends Controller
@@ -46,12 +48,26 @@ class StatisticalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\MultiparametricStatisticalCreateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MultiparametricStatisticalCreateRequest $request)
     {
-        $statistical = $this->storeStatistical($request);
+        $input = $request->all();
+
+        /* se modifica el array del campo field_statistical con implode */
+        if ($request->field_statistical) {
+            $input['field_statistical'] = implode(",", $request->field_statistical);
+        }
+
+        /* se pasa la variable calculate al funcion edit */
+        Session::flash('calculate', $request->calculate);
+
+        /* se ingresa los datos de la tabla statistical */
+        $statistical = Statistical::create($input);
+
+        /* se guarda el parametro en la tabla subparameters_weight */
+        subparameters_weight::create(['multiparametric_id' => $statistical->id]);
 
         //se redirecciona a la vista edit de statistical
         return redirect()->route('statistical.edit', $statistical->id);
@@ -138,17 +154,17 @@ class StatisticalController extends Controller
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
         //dd(Session::get('GD4'));
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete',  'pozoId', 'duplicateFrom']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\MultiparametricAnalyticalRequest  $request
+     * @param  \Illuminate\Http\MultiparametricStatisticalRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MultiparametricAnalyticalRequest $request, $id)
+    public function update(MultiparametricStatisticalRequest $request, $id)
     {
         if (\Auth::check()) {
             if ($request->calculate == "true") {
@@ -216,7 +232,7 @@ class StatisticalController extends Controller
 
                 //se ingresa los datos de la tabla statistical
                 $statistical = Statistical::find($id);
-                
+
                 if ($request->msAvailable) {
                     $availableArray = $request->msAvailable;
 
@@ -456,7 +472,7 @@ class StatisticalController extends Controller
                         $statistical->p90_gd4 = $request->p90_GD4;
                     }
                 }
-                $statistical->kd = $request->kd;                
+                $statistical->kd = $request->kd;
                 $statistical->msAvailable = $input['msAvailable'];
                 $statistical->fbAvailable = $input['fbAvailable'];
                 $statistical->osAvailable = $input['osAvailable'];

@@ -933,13 +933,13 @@ class desagregacionController extends Controller
 
         /* Se llena los valores de presión para cada punto del vector de distancias*/
         foreach ($well_point_i_distance as $key => $pressure) {
-            $pressure = $bottomhole_flowing_pressure + ((141.2 * $fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness) * (log($well_point_i_distance[$key] / $well_radius) - (0.5 * pow($well_point_i_distance[$key] / 10, 2))));
+            $pressure = $bottomhole_flowing_pressure + (((141.2 * $fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness)) * (log($well_point_i_distance[$key] / $well_radius) - (0.5 * pow($well_point_i_distance[$key] / 10, 2))));
 
             //dd($fluid_viscosity);
 
             //dd($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $formation_thickness, $well_point_i_distance[$key] ,$well_radius, $pressure);
 
-            /** Si la presión calculada es igual o superior a la presión promedio,se ignora la calculada y se coloca en su lugar la promedio */
+            /** Si la presión calculada es igual o superior a la presión promedio, se ignora la calculada y se coloca en su lugar la promedio */
 
             if ($pressure >= $reservoir_pressure) {
                 $pressure = $reservoir_pressure;
@@ -948,7 +948,7 @@ class desagregacionController extends Controller
             array_push($pore_pressure_at_point_i, $pressure);
         }
 
-        //dd($well_point_i_distance, $pore_pressure_at_point_i);
+        //dd($well_point_i_distance, $pore_pressure_at_point_i, $reservoir_pressure);
 
         return $pore_pressure_at_point_i;
     }

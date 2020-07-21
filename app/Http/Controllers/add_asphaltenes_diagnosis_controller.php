@@ -268,7 +268,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);
@@ -589,7 +589,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);

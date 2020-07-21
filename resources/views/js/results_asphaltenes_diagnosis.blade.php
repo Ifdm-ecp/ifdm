@@ -49,13 +49,18 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
             dates:selected_dates},
         function(data)
         {   
+            pressure_radius = [];
             porosity_radius = [];
             permeability_radius = [];
             deposited_asphaltenes_radius = [];
             soluble_asphaltenes_radius = [];
 
+            console.log('lalalaalalala');
+            console.log(data);
+
             $.each(data[0], function(index, date)
             {
+                pressure_radius_row = [];
                 porosity_radius_row = [];
                 permeability_radius_row = [];
                 deposited_asphaltenes_radius_row = [];
@@ -68,6 +73,7 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 console.log(date_aux);
                 $.each(date, function(index, value)
                 {
+                    pressure_radius_row.push([value.radius, value.pressure]);
                     porosity_radius_row.push([value.radius, value.porosity]);
                     permeability_radius_row.push([value.radius, value.permeability]);
                     deposited_asphaltenes_radius_row.push([value.radius, value.deposited_asphaltenes]);
@@ -77,11 +83,13 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 porosity_radius.reverse();
                 permeability_radius.reverse();
 
+                pressure_radius_row.shift();
                 porosity_radius_row.shift();
                 permeability_radius_row.shift();
                 deposited_asphaltenes_radius_row.shift();
                 soluble_asphaltenes_radius_row.shift();
 
+                pressure_radius.push({"name":"Pressure on date: "+date_aux, "data":pressure_radius_row});
                 porosity_radius.push({"name":"Porosity on date: "+date_aux, "data":porosity_radius_row});
                 permeability_radius.push({"name":"Permeability on date: "+date_aux, "data":permeability_radius_row});
                 deposited_asphaltenes_radius.push({"name":"Deposited Asphaltenes on date: "+date_aux, "data":deposited_asphaltenes_radius_row});
@@ -90,6 +98,8 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 contador =+ 1;
             });
 
+            console.log('pressure radius');
+            console.log(pressure_radius);
             console.log('porosity_radius');
             console.log(porosity_radius);
             console.log('permeability_radius');
@@ -99,6 +109,7 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
             console.log('soluble_asphaltenes_radius');
             console.log(soluble_asphaltenes_radius);
 
+            plot_results("pressure_chart", pressure_radius, "Pressure", "Radius [ft]", "Pressure [spi]", 15);
             plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [-]", 15);
             plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", 15);
             plot_results("deposited_asphaltenes_chart", deposited_asphaltenes_radius, "Deposited Asphaltenes", "Radius [ft]", "Deposited Asphaltenes [%wt]", 500);

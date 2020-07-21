@@ -6,7 +6,13 @@
 @include('layouts/modal_error')
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky" style="position: relative;">
-  <center><b>Scenario: </b>{!! $statistical->escenario->nombre !!} </br> Basin: {!! $statistical->escenario->cuenca->nombre !!} - Field: {!! $statistical->escenario->campo->nombre !!} - Producing interval: {!! $statistical->escenario->formacionxpozo->nombre !!} - Well: {!!  $statistical->escenario->pozo->nombre !!} - User: {!! $statistical->escenario->user->name !!}</center>
+  <center>
+    <b>Scenario: </b>{!! $statistical->escenario->nombre !!} </br>
+    Basin: {!! $statistical->escenario->cuenca->nombre !!} - 
+    Field: {!! $statistical->escenario->campo->nombre !!} - 
+    {{-- Producing interval: {!! $statistical->escenario->formacionxpozo->nombre !!} -  --}}
+    Well: {!!  $statistical->escenario->pozo->nombre !!} - 
+    User: {!! $statistical->escenario->user->name !!}</center>
 </div>
 
 </br>

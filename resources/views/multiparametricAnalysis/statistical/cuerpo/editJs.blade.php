@@ -212,7 +212,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS1comment").val(), mineral_scales_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#MS1comment").val() === null || $("#MS1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_27").val(), mineral_scales_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -243,7 +242,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS2comment").val(), mineral_scales_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#MS2comment").val() === null || $("#MS2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_2").val(), mineral_scales_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -274,7 +272,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS3comment").val(), mineral_scales_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#MS3comment").val() === null || $("#MS3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_3").val(), mineral_scales_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -305,7 +302,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS4comment").val(), mineral_scales_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#MS4comment").val() === null || $("#MS4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_4").val(), mineral_scales_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];
@@ -336,7 +332,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS5comment").val(), mineral_scales_tab_ruleset[26]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#MS5comment").val() === null || $("#MS5comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_5").val(), mineral_scales_tab_ruleset[27]);
         titleTab = validationFunctionResult[0];
@@ -380,7 +375,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB1comment").val(), fine_blockage_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#FB1comment").val() === null || $("#FB1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_6").val(), fine_blockage_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -411,7 +405,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB2comment").val(), fine_blockage_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#FB2comment").val() === null || $("#FB2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_7").val(), fine_blockage_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -442,7 +435,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB3comment").val(), fine_blockage_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#FB3comment").val() === null || $("#FB3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_8").val(), fine_blockage_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -473,7 +465,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB4comment").val(), fine_blockage_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#FB4comment").val() === null || $("#FB4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_9").val(), fine_blockage_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];
@@ -504,7 +495,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB5comment").val(), fine_blockage_tab_ruleset[26]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#FB5comment").val() === null || $("#FB5comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_10").val(), fine_blockage_tab_ruleset[27]);
         titleTab = validationFunctionResult[0];
@@ -548,7 +538,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS1comment").val(), organic_scales_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#OS1comment").val() === null || $("#OS1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_11").val(), organic_scales_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -579,7 +568,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS2comment").val(), organic_scales_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#OS2comment").val() === null || $("#OS2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_30").val(), organic_scales_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -610,7 +598,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS3comment").val(), organic_scales_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#OS3comment").val() === null || $("#OS3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_12").val(), organic_scales_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -641,7 +628,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS4comment").val(), organic_scales_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#OS4comment").val() === null || $("#OS4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_13").val(), organic_scales_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];
@@ -672,7 +658,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS5comment").val(), organic_scales_tab_ruleset[26]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#OS5comment").val() === null || $("#OS5comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_14").val(), organic_scales_tab_ruleset[27]);
         titleTab = validationFunctionResult[0];
@@ -716,7 +701,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP1comment").val(), relative_permeability_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#RP1comment").val() === null || $("#RP1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_15").val(), relative_permeability_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -747,7 +731,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2comment").val(), relative_permeability_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#RP2comment").val() === null || $("#RP2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_16").val(), relative_permeability_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -778,7 +761,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP3comment").val(), relative_permeability_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#RP3comment").val() === null || $("#RP3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_17").val(), relative_permeability_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -809,7 +791,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4comment").val(), relative_permeability_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#RP4comment").val() === null || $("#RP4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_18").val(), relative_permeability_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];
@@ -853,7 +834,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID1comment").val(), induce_damage_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#ID1comment").val() === null || $("#ID1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_19").val(), induce_damage_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -884,7 +864,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID2comment").val(), induce_damage_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#ID2comment").val() === null || $("#ID2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_20").val(), induce_damage_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -915,7 +894,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID3comment").val(), induce_damage_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#ID3comment").val() === null || $("#ID3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_21").val(), induce_damage_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -946,7 +924,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID4comment").val(), induce_damage_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#ID4comment").val() === null || $("#ID4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_22").val(), induce_damage_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];
@@ -990,7 +967,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD1comment").val(), geomechanical_damage_tab_ruleset[2]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#GD1comment").val() === null || $("#GD1comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_23").val(), geomechanical_damage_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
@@ -1021,7 +997,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD2comment").val(), geomechanical_damage_tab_ruleset[8]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#GD2comment").val() === null || $("#GD2comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_24").val(), geomechanical_damage_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
@@ -1052,7 +1027,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD3comment").val(), geomechanical_damage_tab_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#GD3comment").val() === null || $("#GD3comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_25").val(), geomechanical_damage_tab_ruleset[15]);
         titleTab = validationFunctionResult[0];
@@ -1083,7 +1057,6 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD4comment").val(), geomechanical_damage_tab_ruleset[20]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#GD4comment").val() === null || $("#GD4comment").val() === "")) ? true: emptyValues;
 
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_26").val(), geomechanical_damage_tab_ruleset[21]);
         titleTab = validationFunctionResult[0];

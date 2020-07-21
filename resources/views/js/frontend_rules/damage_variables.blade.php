@@ -506,8 +506,7 @@ geomechanical_damage_tab_ruleset = [
   {
     column: "Ratio of KH)matrix + fracture / KH)matrix value",
     rules: [
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1}
+      {rule: "numeric"}
     ]
   },
   {

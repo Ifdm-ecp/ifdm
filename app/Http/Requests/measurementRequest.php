@@ -54,7 +54,7 @@ class measurementRequest extends Request
             'ID4' => 'numeric|required_with:dateID4|between:0,10000',
             'GD1' => 'numeric|required_with:dateGD1|between:0,1',
             'GD2' => 'numeric|required_with:dateGD2|between:0,10000',
-            'GD3' => 'numeric|required_with:dateGD3|between:0,1',
+            'GD3' => 'numeric|required_with:dateGD3',
             'GD4' => 'numeric|required_with:dateGD4|between:0,1',
 
             'dateMS1' => 'required_with:MS1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),

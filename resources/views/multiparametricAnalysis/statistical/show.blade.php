@@ -19,10 +19,10 @@
 <hr>
 @if(!$statistical->status_wr)
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <div  id="container"></div>
   </div>
-  <div class="col-md-4 col-md-offset-1">
+  <div class="col-md-4">
     <p> </p>            
     <p> </p>            
     <p> </p>            

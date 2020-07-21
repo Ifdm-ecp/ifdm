@@ -189,8 +189,8 @@ class MultiparametricStatisticalRequest extends Request
                     $rulesSpecial['OS5'] = 'required|numeric';
                     $rulesSpecial['dateOS5'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['OS5comment'] = 'string|max:100';
-                    $rulesSpecial['p10_OS5'] = 'required|numeric|min:0';
-                    $rulesSpecial['p90_OS5'] = 'required|numeric|min:0|not_in:' . request()->p10_OS5;
+                    $rulesSpecial['p10_OS5'] = 'required|numeric';
+                    $rulesSpecial['p90_OS5'] = 'required|numeric';
                     $rulesSpecial['os_high_impact_factor'] = 'numeric';
                 }
 
@@ -306,11 +306,11 @@ class MultiparametricStatisticalRequest extends Request
                 }
 
                 if (in_array('3', $availableArray)) {
-                    $rulesSpecial['GD3'] = 'required|numeric|between:0,1';
+                    $rulesSpecial['GD3'] = 'required|numeric';
                     $rulesSpecial['dateGD3'] = 'required|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y');
                     $rulesSpecial['GD3comment'] = 'string|max:100';
-                    $rulesSpecial['p10_GD3'] = 'required|numeric|min:0';
-                    $rulesSpecial['p90_GD3'] = 'required|numeric|min:0|not_in:' . request()->p10_GD3;
+                    $rulesSpecial['p10_GD3'] = 'required|numeric';
+                    $rulesSpecial['p90_GD3'] = 'required|numeric';
                     $rulesSpecial['gd_ratio_kh_fracture'] = 'numeric';
                 }
 

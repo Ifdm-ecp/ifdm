@@ -592,15 +592,13 @@
     {
       column: "De Boer Criteria p10",
       rules: [
-        {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "numeric"}
       ]
     },
     {
       column: "De Boer Criteria p90",
       rules: [
         {rule: "numeric"},
-        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_14').val(), otherField: "p10"}
       ]
     },
@@ -1022,8 +1020,7 @@
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix value",
       rules: [
-        {rule: "numeric"},
-        {rule: "range", min: 0, max: 1}
+        {rule: "numeric"}
       ]
     },
     {
@@ -1041,15 +1038,13 @@
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix p10",
       rules: [
-        {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "numeric"}
       ]
     },
     {
       column: "Ratio of KH)matrix + fracture / KH)matrix p90",
       rules: [
         {rule: "numeric"},
-        {rule: "min", min: 0},
         {rule: "differentnumber", otherValue: $('p10_25').val(), otherField: "p10"}
       ]
     },

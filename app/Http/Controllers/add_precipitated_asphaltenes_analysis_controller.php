@@ -2845,6 +2845,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $pburb[$i] = $this->interpolation($taps_f, 100, $tspline, $pspline);
         }
 
+        $ponset = 0;
+
         for ($i = 1; $i <= $nt; $i++) {
             for ($j = 1; $j <= 20; $j++) {
                 $p_enc[$j] = $pburb[$i] + 400 * $j;
@@ -2930,12 +2932,27 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $dsa = 221 * (1 - 0.00001 * $t);
                 }
 
-                $asphaltenes_maximum_results = $this->asphaltenes_maximum($n, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pburb[$i], $mwi, $zi); #Se agrega mw_data (mwi) y zi para corrección de solubilidad
-                $max_wap = $asphaltenes_maximum_results[0];
-                $max_a = $asphaltenes_maximum_results[1];
-                $ponset = $asphaltenes_maximum_results[2];
-                $ponsetc = $asphaltenes_maximum_results[3];
-
+                
+                if ( $i > 1 ) {
+                    if ( $ponset != $pburb[$i-1] ) {
+                        $asphaltenes_maximum_results = $this->asphaltenes_maximum($n, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pburb[$i], $mwi, $zi); #Se agrega mw_data (mwi) y zi para corrección de solubilidad
+                        $max_wap = $asphaltenes_maximum_results[0];
+                        $max_a = $asphaltenes_maximum_results[1];
+                        $ponset = $asphaltenes_maximum_results[2];
+                        $ponsetc = $asphaltenes_maximum_results[3];
+                    } else {
+                        $max_wap = 0;
+                        $max_a = 1;
+                        $ponset = $pburb[$i];
+                        $ponsetc = $pburb[$i];
+                    }
+                } elseif ( $i == 1) {
+                    $asphaltenes_maximum_results = $this->asphaltenes_maximum($n, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pburb[$i], $mwi, $zi); #Se agrega mw_data (mwi) y zi para corrección de solubilidad
+                    $max_wap = $asphaltenes_maximum_results[0];
+                    $max_a = $asphaltenes_maximum_results[1];
+                    $ponset = $asphaltenes_maximum_results[2];
+                    $ponsetc = $asphaltenes_maximum_results[3];
+                }
 
                 for ($j = 1; $j <= 20; $j++) {
                     if ($taps < $tc) {

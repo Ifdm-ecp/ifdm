@@ -1322,11 +1322,10 @@ class desagregacionController extends Controller
             if ( $emulsion == 1 && $characterized_mixture == 2 ) {  
                 // VISCOSIDAD
                 if ( $mixture_water_fraction_1_2 >= 0 && $mixture_water_fraction_1_2 <= 0.7 ) {
-                    $fluid_viscosity = ( 1 + (2.5 * $mixture_water_fraction_1_2) + (10 * sqrt($mixture_water_fraction_1_2)) ) * $mixture_oil_viscosity_1_2;
+                    $fluid_viscosity = ( 1 + (2.5 * $mixture_water_fraction_1_2) + (10 * pow($mixture_water_fraction_1_2, 2)) ) * $mixture_oil_viscosity_1_2;
                 } else {
-                    $fluid_viscosity = ( 1 + (2.5 * $mixture_oil_fraction_1_2) + (10 * sqrt($mixture_oil_fraction_1_2)) ) * $mixture_water_viscosity_1_2;
+                    $fluid_viscosity = ( 1 + (2.5 * $mixture_oil_fraction_1_2) + (10 * pow($mixture_oil_fraction_1_2, 2)) ) * $mixture_water_viscosity_1_2;
                 }
-                $fluid_viscosity=19;
                 // FACTOR VOLUMÉTRICO
                 if ( $mixture_water_fraction_1_2 >= 0 && $mixture_water_fraction_1_2 <= 0.7 ) {
                     $fluid_volumetric_factor = $mixture_oil_volumetric_factor_1_2;

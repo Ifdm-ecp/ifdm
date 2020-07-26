@@ -2849,8 +2849,13 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         for ($i = 1; $i <= $nt; $i++) {
             for ($j = 1; $j <= 20; $j++) {
-                $p_enc[$j] = $pburb[$i] + 400 * $j;
-                $p_deb[$j] = $pburb[$i] - 100 * $j;
+                if  ( $j == 1 ) {
+                    $p_enc[$j] = $pburb[$i] + 10;
+                    $p_deb[$j] = $pburb[$i] - 10;
+                } else {
+                    $p_enc[$j] = $pburb[$i] + 400 * $j;
+                    $p_deb[$j] = $pburb[$i] - 100 * $j;
+                }
             }
 
             for ($j = 1; $j <= 100; $j++) {
@@ -3455,13 +3460,25 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $soln = 170.48 - (58.41 * log($p)) + (5.06 * pow(log($p), 2)) + ($nd * $deltan2);
         }
 
-        $solco2 = $solco * $co2;
-        $solch4 = $solc1 * $c1;
+        if ( $solco > 0 ) {
+            $solco2 = $solco * $co2;
+        } else {
+            $solco2 = $co2 * 143.31 / 2;
+        }
+
+        if ( $solc1 > 0 ) {
+            $solch4 = $solc1 * $c1;
+        } else {
+            $solch4 = $c1 * 143.31 / 2;
+        }
+
+        //$solco2 = $solco * $co2;
+        //$solch4 = $solc1 * $c1;
 
         if ($soln > 0) {
             $soln2 = $soln * $n2;
         } else {
-            $soln2 = $n2 * 143.31;
+            $soln2 = $n2 * 143.31 / 2;
         }
 
         return array($solco2, $solch4, $soln2);

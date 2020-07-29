@@ -807,6 +807,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
             } else if ($saturated_content == 1 and $asphaltene_content == 1 and $resins_content == 2 and $aromatic_content == 2) {
                 $sara_conclusion_1 = "<b>Problems:</b> medium low";
                 $sara_conclusion_2 = "Aromatics/Resins rate increments the instability";
+                $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>25%</b> or less";
                 $sara_type = 1;
                 $sara_probability = 20;
             } else if ($saturated_content == 1 and $asphaltene_content == 2 and $resins_content == 1 and $aromatic_content == 1) #2'

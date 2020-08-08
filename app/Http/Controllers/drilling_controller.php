@@ -212,7 +212,12 @@ class drilling_controller extends Controller
 
                     // 3.2) Calculate drilling exposure time
                     $t_exp_calc = floatval($t_exp_calc) - (($bottom - $top) / floatval($drilling->d_rop)) * (1 / 24);
-                    array_push($t_exp_perf, $t_exp_calc);
+                    if ($t_exp_calc <= 0) {
+                        $t_exp_calc = 0.000001;
+                        array_push($t_exp_perf, $t_exp_calc);
+                    } else {
+                        array_push($t_exp_perf, $t_exp_calc);
+                    }
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
@@ -1968,7 +1973,12 @@ class drilling_controller extends Controller
 
                     // 3.2) Calculate drilling exposure time
                     $t_exp_calc = floatval($t_exp_calc) - (($bottom - $top) / floatval($drilling->d_rop)) * (1 / 24);
-                    array_push($t_exp_perf, $t_exp_calc);
+                    if ($t_exp_calc <= 0) {
+                        $t_exp_calc = 0.000001;
+                        array_push($t_exp_perf, $t_exp_calc);
+                    } else {
+                        array_push($t_exp_perf, $t_exp_calc);
+                    }
 
                     // 3.3) Calculate drilling filtrate volume
                     // Calculate af_field and af_lab
@@ -1980,6 +1990,7 @@ class drilling_controller extends Controller
 
                     // 3.4) Calculate drilling invasion radius
                     $rd_perf_calc = sqrt(pow($hole_diameter / 2 / 12, 2) + ($vf_perf_calc * 5.615) / (pi() * $porosity * ($bottom - $top) * (1 - $irreducible_saturation)));
+                    //dd($hole_diameter, $vf_perf_calc, $porosity, $bottom, $top, $irreducible_saturation);
                     array_push($rd_perf, $rd_perf_calc);
 
                     // Do calculations for completion/cementation
@@ -2056,6 +2067,8 @@ class drilling_controller extends Controller
                 $drilling_results->filtration_volume_avg_total = 0;
                 $drilling_results->filtration_volume_max_total = 0;
                 $drilling_results->total_invasion_radius_max_total = $vf_perf_total + $vf_cem_total;
+
+                //dd($drilling_results);
 
                 $drilling_results->save();
 

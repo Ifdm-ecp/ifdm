@@ -38,20 +38,20 @@
   <script>
     $(document).ready(function () 
     {
-              var count=0;
-              $.get("{{url('request')}}",
-                {},
-                function(data){
-                  $.each(data, function(index, value){
-                    count++;
-                  });
-                $('#request').html(count);
-              });
-              var url = window.location;
-              $('ul.nav a[href="' + url + '"]').parent().addClass('active');
-              $('ul.nav a').filter(function () {
-              return this.href == url;
-              }).parent().addClass('active').parent().parent().addClass('active');
+      var count=0;
+      $.get("{{url('request')}}",
+        {},
+        function(data){
+          $.each(data, function(index, value){
+            count++;
+          });
+        $('#request').html(count);
+      });
+      var url = window.location;
+      $('ul.nav a[href="' + url + '"]').parent().addClass('active');
+      $('ul.nav a').filter(function () {
+      return this.href == url;
+      }).parent().addClass('active').parent().parent().addClass('active');
     });
   </script>
   </head>
@@ -129,6 +129,9 @@
             <div class= "col-sm-3 sidebar-offcanvas" >
               <p align="center" id="b4"></p>
             </div>
+          </div>
+          <div class="row" id="empty_scale_values" style="display:none">
+            <h3 class="text-center text-danger">The filtered data doesn't have enough information</h3>
           </div>
           <br>
           <div class="row" id="alert_2"></div>

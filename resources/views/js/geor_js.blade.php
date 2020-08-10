@@ -88,7 +88,6 @@ $(document).ready(function()
     var min;
     var sd;
     var avg;
-    console.log(e);
     var parametro = $('#Parameter').val();
     var filtrox = $('#Filtrox').val();
     var formacion = $('#Formation').val();
@@ -126,7 +125,6 @@ $(document).ready(function()
     var min;
     var sd;
     var avg;
-    console.log(e);
     var parametro = $('#Parameter').val();
     var filtrox = $('#Filtrox').val();
     var formacion = $('#Formation').val();
@@ -163,7 +161,6 @@ $(document).ready(function()
     var min;
     var sd;
     var avg;
-    console.log(e);
     var parametro = $('#Parameter').val();
     var filtrox = $('#Filtrox').val();
     var formacion = $('#Formation').val();
@@ -204,7 +201,6 @@ $(document).ready(function()
     var min;
     var sd;
     var avg;
-    console.log(e);
     var pb;
     var pm;
     var puntos=[];
@@ -322,47 +318,46 @@ $(document).ready(function()
     $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable or Damage Configuration</div>');   
 
     $.get("{!! url('parametros') !!}",
-            {mec:mec},
-            function(data)
+      {mec:mec},
+      function(data)
+      {
+        $("#Parameter").empty();
+        $("#Filtrox").empty();
+
+        $.each(data, function(index, value)
+        {
+          $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+        });
+
+        $("#Parameter").append('</optgroup>');
+
+
+        $.get("{{url('variables_dano')}}",
+          {mec:mec},
+          function(data)
+          {
+            $("#Parameter").append('<optgroup label="Another Damage Variables" disabled>');
+            $.each(data, function(index, value){
+                
+                $("#Parameter").append('<option value="'+value.nombre+'">'+value.nombre+'</option>');
+            });
+            $("#Parameter").append('</optgroup>');
+            $("#Parameter").selectpicker('refresh');
+            $('#Parameter').selectpicker('val', '');
+          });
+
+        $.get("{{url('config_dano')}}",
+          {mec:mec},
+          function(data)
+          {
+            $.each(data, function(index, value)
             {
-
-              $("#Parameter").empty();
-              $("#Filtrox").empty();
-
-              $.each(data, function(index, value)
-              {
-                $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-              });
-
-              $("#Parameter").append('</optgroup>');
-
-
-              $.get("{{url('variables_dano')}}",
-                      {mec:mec},
-                      function(data)
-                      {
-                        $("#Parameter").append('<optgroup label="Another Damage Variables" disabled>');
-                        $.each(data, function(index, value){
-                            
-                            $("#Parameter").append('<option value="'+value.nombre+'">'+value.nombre+'</option>');
-                        });
-                        $("#Parameter").append('</optgroup>');
-                        $("#Parameter").selectpicker('refresh');
-                        $('#Parameter').selectpicker('val', '');
-                      });
-
-              $.get("{{url('config_dano')}}",
-                      {mec:mec},
-                      function(data)
-                      {
-                        $.each(data, function(index, value)
-                        {
-                          $("#Filtrox").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-                        });
-                        $("#Filtrox").selectpicker('refresh');
-                        $('#Filtrox').selectpicker('val', '');
-                      });
-              });
+              $("#Filtrox").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+            });
+            $("#Filtrox").selectpicker('refresh');
+            $('#Filtrox').selectpicker('val', '');
+          });
+      });
   });
 
   /**
@@ -375,7 +370,6 @@ $(document).ready(function()
     ccc = ccc+1;
     cc = 0;
     c=0;
-    console.log(e);
     var campos = $('#Field').val();
     camposf=campos;
 
@@ -1092,10 +1086,7 @@ function map_well_scale(fields, option)
     total_max = general_info_total.max;
     total_avg = general_info_total.avg;
     total_sd = general_info_total.sd;
-    console.log("variables");
-    console.log(total_min);
-    console.log(total_max);
-    console.log(total_avg);
+
     if(total_min === null && total_max === null)
     {
       $('#b1').text("NA");
@@ -1311,7 +1302,7 @@ function map_well_scale_bool(fields, option)
       var total_wells = counters[0]+counters[1];
       false_counter += counters[1];
       true_counter += wells_with_data;
-      console.log(counters);
+
       for (var j = 0; j<field_coordinates.length; j++) 
       {
         field_polygon_points.push(new google.maps.LatLng(field_coordinates[j].lat,field_coordinates[j].lon));
@@ -1553,7 +1544,6 @@ Parámetros:
   puntos: coordenadas de los polígonos de los mapas*/
 function map_Field(parametro,camposf,formacion,sp,puntos)
 {
-
   c = c+1;
   cc = cc +1;
   var unit;
@@ -1608,11 +1598,11 @@ function map_Field(parametro,camposf,formacion,sp,puntos)
         sd = value.SD;
         avg = value.Media; 
         pb = value.pb;
-
-      });     
+      });
+   
       $.each(data.General2, function(index,value){
         pm = value.pm;
-      });  
+      });
 
       max = parseFloat(max);
       min = parseFloat(min);
@@ -1631,114 +1621,107 @@ function map_Field(parametro,camposf,formacion,sp,puntos)
       $('#b3').text((max/2).toFixed(2));
       $('#b4').text(max.toFixed(2));
 
-    var canombres=[];
-    var avgcampos=[];
-    var sdcampos=[];
-    var capoz = []; //Pozos con datos
-    var pozoscampos = []; //Pozos en el campo
-    var mincampos = [];
-    var maxcampos = [];
-    $.each(data.Gencampos,function(index,value)
-    {
-      
-      $.each(value,function(index,value)
+      var canombres=[];
+      var avgcampos=[];
+      var sdcampos=[];
+      var capoz = []; //Pozos con datos
+      var pozoscampos = []; //Pozos en el campo
+      var mincampos = [];
+      var maxcampos = [];
+      $.each(data.Gencampos,function(index,value)
       {
-
-        canombres.push(value.cnombre);
-        avgcampos.push(value.avg);
-        sdcampos.push(value.sd);
-        capoz.push(value.count);
-        mincampos.push(value.min);
-        maxcampos.push(value.max);
         
+        $.each(value,function(index,value)
+        {
 
+          canombres.push(value.cnombre);
+          avgcampos.push(value.avg);
+          sdcampos.push(value.sd);
+          capoz.push(value.count);
+          mincampos.push(value.min);
+          maxcampos.push(value.max);
+          
+
+        });
       });
-    });
 
-    $.each(data.PozosC, function(index,value)
-    {
-      $.each(value,function(index,value)
+      $.each(data.PozosC, function(index,value)
       {
-        pozoscampos.push(value.count);
+        $.each(value,function(index,value)
+        {
+          pozoscampos.push(value.count);
+        });
       });
-    });
 
-    var jc=0;
-     $.each(data.Coordenadasc, function(index,value)
-     {
-      var cnombre = canombres[jc];
-      var cavg = parseFloat(avgcampos[jc]);
-      var cami = parseFloat(mincampos[jc]);
-      var camx = parseFloat(maxcampos[jc]);
-      var casd = parseFloat(sdcampos[jc]);
-      
-      var cap = capoz[jc];
-      var pozc = pozoscampos[jc];
-
-      puntos.length=0;
-
-                var color; 
-                var r2 = (cavg/max)*10;
-               
-                switch (true) {
-                           case (r2 > 9 ):  color = '#ff0000'; break;
-                           case (r2 < 9 && r2 > 8 ):  color = '#ff7f00'; break;
-                           case (r2 <= 8 && r2 > 7 ): color = '#ffc200'; break; 
-                           case (r2 <=7  && r2 > 6 ): color = '#ffff00'; break;
-                           case (r2 <= 6 && r2 > 5 ): color = '#b5d400'; break;
-                           case (r2 <= 5 && r2 > 4 ): color = '#6caa00'; break;
-                           case (r2 <= 4 && r2 > 3 ): color = '#008000'; break;
-                           case (r2 <= 3 && r2 > 2 ): color = '#506666'; break;
-                           case (r2 <= 2 && r2 > 1 ): color = '#5646b1'; break;
-                           case (r2 <= 1 ): color = '#0000ff'; break;
-                       }
-      
-      $.each(value,function(index,value)
+      var jc=0;
+      $.each(data.Coordenadasc, function(index,value)
       {
+        var cnombre = canombres[jc];
+        var cavg = parseFloat(avgcampos[jc]);
+        var cami = parseFloat(mincampos[jc]);
+        var camx = parseFloat(maxcampos[jc]);
+        var casd = parseFloat(sdcampos[jc]);
+        
+        var cap = capoz[jc];
+        var pozc = pozoscampos[jc];
 
-      puntos.push(new google.maps.LatLng(value.lat,value.lon));
+        puntos.length=0;
+
+        var color; 
+        var r2 = (cavg/max)*10;
+        
+        switch (true) {
+          case (r2 > 9 ):  color = '#ff0000'; break;
+          case (r2 < 9 && r2 > 8 ):  color = '#ff7f00'; break;
+          case (r2 <= 8 && r2 > 7 ): color = '#ffc200'; break; 
+          case (r2 <=7  && r2 > 6 ): color = '#ffff00'; break;
+          case (r2 <= 6 && r2 > 5 ): color = '#b5d400'; break;
+          case (r2 <= 5 && r2 > 4 ): color = '#6caa00'; break;
+          case (r2 <= 4 && r2 > 3 ): color = '#008000'; break;
+          case (r2 <= 3 && r2 > 2 ): color = '#506666'; break;
+          case (r2 <= 2 && r2 > 1 ): color = '#5646b1'; break;
+          case (r2 <= 1 ): color = '#0000ff'; break;
+        }
+        
+        $.each(value,function(index,value)
+        {
+
+        puntos.push(new google.maps.LatLng(value.lat,value.lon));
+        
+        });
       
-      });
-    
 
-      var Poligono = new google.maps.Polygon({
-      paths: puntos,
-      strokeColor: color,
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      fillColor: color,
-      fillOpacity: 0.5
-       });
+        var Poligono = new google.maps.Polygon({
+        paths: puntos,
+        strokeColor: color,
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        fillColor: color,
+        fillOpacity: 0.5
+      });
 
       Poligono.setMap(map);
       
       infoWindow = new google.maps.InfoWindow();
 
-      google.maps.event.addListener(Poligono, 'click', function(e)
-    {
+      google.maps.event.addListener(Poligono, 'click', function(e) {
+        var contentString = '<b>*** Field Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>These are data for all field\'s formations</b> '+'<br><br><b>Average '+sp+' value: </b>' + cavg.toFixed(2)+
+          '<br><b>Minimum  value: </b>' + cami.toFixed(2)+
+          '<br><b>Maximum  value: </b>' + camx.toFixed(2)+
 
-                var contentString = '<b>*** Field Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>These are data for all field\'s formations</b> '+'<br><br><b>Average '+sp+' value: </b>' + cavg.toFixed(2)+
+          '<br><b>Standard deviation '+sp+' value:</b> ' + casd.toFixed(2)+
+          '<br><b>Wells in field: <b> '+pozc+
+          '<br><b>Wells in field with data: <b> '+cap;
 
-                                    '<br><b>Minimum  value: </b>' + cami.toFixed(2)+
-                                    '<br><b>Maximum  value: </b>' + camx.toFixed(2)+
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(e.latLng);
+        
+        infoWindow.open(map);
+      });
 
-                                    '<br><b>Standard deviation '+sp+' value:</b> ' + casd.toFixed(2)+
-                                    '<br><b>Wells in field: <b> '+pozc+
-                                    '<br><b>Wells in field with data: <b> '+cap;
-
-                infoWindow.setContent(contentString);
-                infoWindow.setPosition(e.latLng);
-                
-                infoWindow.open(map);
-   
+      jc++;
     });
-
-    jc++;
-
-      
-     });
-
-    }); 
+  });
 }
 
 
@@ -1762,30 +1745,28 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
       formacion:formacion},
     function(data)
     {
-
       switch(op)
       {
-          case 1:
+        case 1:
 
-            tipo_pozos = data.Pozos;
-            tipo_info = "Last data";
-            break;
-          case 2:
+          tipo_pozos = data.Pozos;
+          tipo_info = "Last data";
+          break;
+        case 2:
 
-            tipo_pozos = data.Pozosavg;
-            tipo_info = "Average data";
-            break;
-          case 3: 
+          tipo_pozos = data.Pozosavg;
+          tipo_info = "Average data";
+          break;
+        case 3: 
 
-            tipo_pozos = data.Pozosmax;
-            tipo_info = "Maximum data";
-            break;
-          case 4: 
+          tipo_pozos = data.Pozosmax;
+          tipo_info = "Maximum data";
+          break;
+        case 4: 
 
-            tipo_pozos = data.Pozosmin;
-            tipo_info = "Minimum data";
-            break;
-
+          tipo_pozos = data.Pozosmin;
+          tipo_info = "Minimum data";
+          break;
       }
 
       $.each(data.unidades, function(index,value)
@@ -1799,23 +1780,21 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
 
         $("#chart_div").empty();
 
-        
         google.setOnLoadCallback(chart(data.Chart,sp,unit));
 
         $("#map").empty();
         $('#alert').empty();
         $("#alert_2").empty();
-          if(c == 1 || cc == 1)
-          {
-            zoom = 8;
-            ccenter = new google.maps.LatLng(lat, lon);
-          }
-          else
-          {
-            zoom = map.getZoom();
-            ccenter = map.getCenter();
-          }
-
+        if(c == 1 || cc == 1)
+        {
+          zoom = 8;
+          ccenter = new google.maps.LatLng(lat, lon);
+        }
+        else
+        {
+          zoom = map.getZoom();
+          ccenter = map.getCenter();
+        }
 
         var mapOptions = {
             zoom : zoom,
@@ -1835,28 +1814,36 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         pb = value.pb;
 
       });     
-     $.each(data.General2, function(index,value)
-     {
-        pm = value.pm;
-     });  
+      $.each(data.General2, function(index,value)
+      {
+          pm = value.pm;
+      });  
 
       max = parseFloat(max);
       min = parseFloat(min);
       sd = parseFloat(sd);
       avg = parseFloat(avg);
       
-      $('#MaV').text(max.toFixed(2));
-      $('#MiV').text(min.toFixed(2));
-      $('#AVG').text(avg.toFixed(2));
-      $('#SD').text(sd.toFixed(2));
+      $('#MaV').text(!isNaN(max) ? max.toFixed(2) : '-');
+      $('#MiV').text(!isNaN(min) ? min.toFixed(2) : '-');
+      $('#AVG').text(!isNaN(avg) ? avg.toFixed(2) : '-');
+      $('#SD').text(!isNaN(sd) ? sd.toFixed(2) : '-');
       $('#GI').text(sp+" ["+unit+"]")
       $('#WIF').text((pb+pm));
       $('#WWM').text((pb));
 
-      $('#b1').text(min.toFixed(2));
-      $('#b2').text((max/3).toFixed(2));
-      $('#b3').text((max/2).toFixed(2));
-      $('#b4').text(max.toFixed(2));
+      if (!isNaN(max) && !isNaN(min) && !isNaN(avg) && !isNaN(sd)) {
+        $('#empty_scale_values').hide();
+        $('#scale_values').show();
+
+        $('#b1').text(min.toFixed(2));
+        $('#b2').text((max/3).toFixed(2));
+        $('#b3').text((max/2).toFixed(2));
+        $('#b4').text(max.toFixed(2));
+      } else {
+        $('#empty_scale_values').show();
+        $('#scale_values').hide();
+      }
       $.each(tipo_pozos, function(index, value){
       cs = value.Cnombre;  
       pt=new google.maps.LatLng(value.lat, value.lon);
@@ -3233,7 +3220,6 @@ function isVD(s)
 function chart(datos,parametro, unidad)
 {
       data = new google.visualization.DataTable();
-      console.log(unidad);
       data.addColumn('number', parametro);
       var aux=[];
       var m =[];

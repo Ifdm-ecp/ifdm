@@ -1973,8 +1973,9 @@ class drilling_controller extends Controller
 
                     // 3.2) Calculate drilling exposure time
                     $t_exp_calc = floatval($t_exp_calc) - (($bottom - $top) / floatval($drilling->d_rop)) * (1 / 24);
+                    array_push($t_exp_perf, $t_exp_calc);
                     if ($t_exp_calc <= 0) {
-                        $t_exp_calc = 0.000001;
+                        $t_exp_calc = 0.000000001;
                         array_push($t_exp_perf, $t_exp_calc);
                     } else {
                         array_push($t_exp_perf, $t_exp_calc);

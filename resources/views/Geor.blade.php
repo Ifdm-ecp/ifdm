@@ -113,9 +113,11 @@
       <div class ="row">
         <div class= "col-sm-7 sidebar-offcanvas" >
           <div id ="alert" class = "col-sm-12"></div>
-          <div id="map" class = "col-sm-12"></div>  
+          <div id="map" class = "col-sm-12">
+            <h3 class="map-message text-center">Fill the form next to this section to get the georeference information</h3>
+          </div>
           <div class="row" style="height: 1%; float:center;"></div>
-          <div class="row" id="scale"> <img src="{!! asset('images/barra.png') !!}" width= 90% height= 5% HSPACE="30"/></div>
+          <div class="row text-center" id="scale"> <img src="{!! asset('images/barra.png') !!}" width= 90% height= 5% HSPACE="30"/></div>
           <div class="row" id="scale_values"> 
             <div class= "col-sm-3 sidebar-offcanvas" >
               <p align="center" id="b1"></p>
@@ -605,18 +607,18 @@
       </center></br>
     </footer>
     <style>
-          .red {
-            color: red;
-          }
-          .icon-menu>.icons{
-            width: 20px;
-            height: auto;
-            padding-top: 15px;
-            padding-left: 5px;
-          }
-          .nav>li{
-                display: -webkit-box;
-          }
-        </style>
+      .red {
+        color: red;
+      }
+      .icon-menu>.icons{
+        width: 20px;
+        height: auto;
+        padding-top: 15px;
+        padding-left: 5px;
+      }
+      .nav>li{
+        display: -webkit-box;
+      }
+    </style>
   </body>
 </html>

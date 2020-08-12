@@ -5131,20 +5131,23 @@ Route::group(['middleware' => 'auth'], function(){
         $multi = Input::get('multi');
         $sup = Input::get('subp');
 
-        $datos = App\multiparametrico::select('statistical','field_statistical')
-        ->where('id','=',$multi)
-        ->get();
+        $colombia = null;
+
+        $datos = App\Models\MultiparametricAnalysis\Statistical::select('statistical', 'basin_statistical', 'field_statistical')
+            ->where('id', $multi)
+            ->get();
+
+        if ($datos[0]->statistical !== null) {
+            $colombia = App\campo::select('id')
+                ->get();
+        }
 
         $sp = App\subparametro::select('nombre')
-        ->where('id','=',$sup)
-        ->get();
+            ->where('id', $sup)
+            ->get();
 
-        $colombia = App\campo::select('id')
-        ->get();
-
-        $data = Array('datos' => $datos,'sp'=>$sp, 'colombia'=>$colombia);
+        $data = Array('datos' => $datos, 'sp' => $sp, 'colombia' => $colombia);
         return Response::json($data);
-
     });
 
     Route::get('fieldview', function()

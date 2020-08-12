@@ -19,55 +19,149 @@ var zoom_flag_field_scale = 0;
 
 var well_coordinates = [];
 
-/* Esta sección se encarga de recibir las peticiones desde el módulo multiparamétrico. Recibe el subparámetro y el universo de datos que se quiere desplegar en el mapa*/
-if("{{Request::get('subp')}}" && "{{Request::get('multi')}}")
-{
-  var sub_sp = "{{Request::get('subp')}}";
-  var multi_sp = "{{Request::get('multi')}}";
-  var puntos5 = []; //Array necesario para operar la función
-  var formacion = $('#Formation').val(); //Deja la posibilidad abierta a volver a filtrar por formaciones
-  var campos_sp = [];
-  var sp_f; //Nombre subparámetro
-  
-  $.get("{!! url('datos_geor') !!}",
-  {
-    multi:multi_sp,
-    subp:sub_sp
-  },
-  function(data)
-  {
-    $.each(data.datos, function(index,value)
-    {
-      if(value.statistical == 'undefined' || value.statistical==null)
-      {
-        campos_sp = value.field_statistical.split(",");
-
-      }
-      else
-      {
-        $.each(data.colombia, function(index,value)
-        {
-          campos_sp.push(value.id);
-        });
-      }
-    });
-
-    $.each(data.sp, function(index,value)
-    {
-      sp_f = value.nombre;
-    });
-
-    map_Well(1,sub_sp,campos_sp,formacion,sp_f,puntos5);
-  });
-}
-
 google.load('visualization', '1', {packages: ['corechart', 'bar']});
 
+function fillBasicSelectors(cuenca, formaciones = null, sub_sp = null) {
+  $.get("{{url('campos')}}",
+    {cuenca : cuenca},
+    function(data)
+    {
+      $("#Field").empty();
+      $("#Field").selectpicker('refresh');
 
+      $.each(data, function(index, value)
+        {
+          $("#Field").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+        }
+      );
+
+      $("#Field").selectpicker('refresh');
+
+      if (formaciones) {
+        camposf = formaciones;
+        $('#Field').val(formaciones);
+        $('#Field').selectpicker('refresh');
+      }
+    }
+  );
+
+  $.get("{!! url('mecan_dano') !!}",
+    function(data)
+    {
+      $("#Mecanismos").empty();
+
+      $.each(data, function(index, value)
+        {
+          $("#Mecanismos").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+        }
+      );
+      $("#Mecanismos").selectpicker('refresh');
+      $('#Mecanismos').selectpicker('val', '');
+
+      if (sub_sp) {
+        parametrof = sub_sp;
+        var mecdan_id = 0;
+
+        if (sub_sp >= 1 && sub_sp <= 5) {
+          mecdan_id = 1;
+        } else if (sub_sp >= 6 && sub_sp <= 10) {
+          mecdan_id = 2;
+        } else if ((sub_sp >= 11 && sub_sp <= 14) || sub_sp == 30) {
+          mecdan_id = 3;
+        } else if (sub_sp >= 15 && sub_sp <= 18) {
+          mecdan_id = 4;
+        } else if (sub_sp >= 19 && sub_sp <= 22) {
+          mecdan_id = 5;
+        } else if (sub_sp >= 23 && sub_sp <= 26) {
+          mecdan_id = 6;
+        }
+
+        $('#Mecanismos').prop('disabled', false);
+        $('#Parameter').prop('disabled', false);
+
+        $('#Mecanismos').val(mecdan_id);
+        $('#Mecanismos').selectpicker('refresh');
+
+        fillParameters(mecdan_id);
+      }
+    }
+  );
+
+  $('#Parameter').prop('disabled',true);
+  $('#Parameter').selectpicker('val', '');
+
+  $('#Mecanismos').prop('disabled',true);
+  $('#Mecanismos').selectpicker('val', '');
+
+  $('#Filtrox').prop('disabled',true);
+  $('#Filtrox').selectpicker('val', '');
+
+  $('#Field').selectpicker('val', '');
+  //$("#Field").selectpicker('refresh');
+
+  $('#Formation').selectpicker('val', '');
+  //$("#Formation").selectpicker('refresh');
+
+  $('#avgb').prop('disabled',true);
+  $('#minb').prop('disabled',true);
+  $('#maxb').prop('disabled',true);
+  $('#lastb').prop('disabled',true);
+
+  $('#wvr').attr('disabled',true);
+  $('#fvr').attr('disabled',true);
+}
+
+function fillParameters(mec) {
+  $.get("{!! url('parametros') !!}",
+    {mec:mec},
+    function(data)
+    {
+      $("#Parameter").empty();
+      $("#Filtrox").empty();
+
+      $.each(data, function(index, value)
+      {
+        $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+      });
+
+      $("#Parameter").append('</optgroup>');
+
+      $.get("{{url('variables_dano')}}",
+        {mec:mec},
+        function(data)
+        {
+          $("#Parameter").append('<optgroup label="Another Damage Variables" disabled>');
+          $.each(data, function(index, value){
+              $("#Parameter").append('<option value="'+value.nombre+'">'+value.nombre+'</option>');
+          });
+          $("#Parameter").append('</optgroup>');
+          $("#Parameter").selectpicker('refresh');
+          $('#Parameter').selectpicker('val', '');
+
+          if (parametrof) {
+            $('#Parameter').val(parametrof);
+            $('#Parameter').selectpicker('refresh');
+            parametrof = null;
+          }
+        });
+
+      $.get("{{url('config_dano')}}",
+        {mec:mec},
+        function(data)
+        {
+          $.each(data, function(index, value)
+          {
+            $("#Filtrox").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          });
+          $("#Filtrox").selectpicker('refresh');
+          $('#Filtrox').selectpicker('val', '');
+      });
+    }
+  );
+}
 
 $(document).ready(function()
 {
-
   /* ***** Control de eventos ***** */
   $('#wvr').attr('disabled',true);
   $('#fvr').attr('disabled',true);
@@ -232,66 +326,7 @@ $(document).ready(function()
     var cuenca = e.target.value;
     basinf = cuenca;
 
-    $.get("{{url('campos')}}",
-            {cuenca : cuenca},
-            function(data)
-            {
-
-              $("#Field").empty();
-              $("#Field").selectpicker('refresh');
-
-              $.each(data, function(index, value)
-                {
-                  $("#Field").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-                }
-              );
-
-              $("#Field").selectpicker('refresh');
-
-            }
-        );
-
-
-
-    $.get("{!! url('mecan_dano') !!}",
-           function(data)
-             {
-               $("#Mecanismos").empty();
-
-               $.each(data, function(index, value)
-                  {
-                     $("#Mecanismos").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-                  }
-                );
-                $("#Mecanismos").selectpicker('refresh');
-                $('#Mecanismos').selectpicker('val', '');
-            }
-        );
-
-
-
-    $('#Parameter').prop('disabled',true);
-    $('#Parameter').selectpicker('val', '');
-
-    $('#Mecanismos').prop('disabled',true);
-    $('#Mecanismos').selectpicker('val', '');
-
-    $('#Filtrox').prop('disabled',true);
-    $('#Filtrox').selectpicker('val', '');
-
-    $('#Field').selectpicker('val', '');
-    //$("#Field").selectpicker('refresh');
-
-    $('#Formation').selectpicker('val', '');
-    //$("#Formation").selectpicker('refresh');
-
-    $('#avgb').prop('disabled',true);
-    $('#minb').prop('disabled',true);
-    $('#maxb').prop('disabled',true);
-    $('#lastb').prop('disabled',true);
-
-    $('#wvr').attr('disabled',true);
-    $('#fvr').attr('disabled',true);
+    fillBasicSelectors(cuenca);
   });
 
   /**
@@ -317,47 +352,7 @@ $(document).ready(function()
 
     $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable or Damage Configuration</div>');   
 
-    $.get("{!! url('parametros') !!}",
-      {mec:mec},
-      function(data)
-      {
-        $("#Parameter").empty();
-        $("#Filtrox").empty();
-
-        $.each(data, function(index, value)
-        {
-          $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-        });
-
-        $("#Parameter").append('</optgroup>');
-
-
-        $.get("{{url('variables_dano')}}",
-          {mec:mec},
-          function(data)
-          {
-            $("#Parameter").append('<optgroup label="Another Damage Variables" disabled>');
-            $.each(data, function(index, value){
-                
-                $("#Parameter").append('<option value="'+value.nombre+'">'+value.nombre+'</option>');
-            });
-            $("#Parameter").append('</optgroup>');
-            $("#Parameter").selectpicker('refresh');
-            $('#Parameter').selectpicker('val', '');
-          });
-
-        $.get("{{url('config_dano')}}",
-          {mec:mec},
-          function(data)
-          {
-            $.each(data, function(index, value)
-            {
-              $("#Filtrox").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-            });
-            $("#Filtrox").selectpicker('refresh');
-            $('#Filtrox').selectpicker('val', '');
-          });
-      });
+    fillParameters(mec);
   });
 
   /**
@@ -543,9 +538,8 @@ $(document).ready(function()
     $('#Filtrox').prop('disabled',false);
     $('#Filtrox').selectpicker('val', '');
 
-    $('#wvr').attr('disabled',false);;
-    $('#fvr').attr('disabled',false);;
-
+    $('#wvr').attr('disabled',false);
+    $('#fvr').attr('disabled',false);
 
     if($('#wvr').is(':checked')) 
     { 
@@ -717,6 +711,50 @@ $(document).ready(function()
       heatmap_well_scale(fields, option);
     }
   });
+
+  /* Esta sección se encarga de recibir las peticiones desde el módulo multiparamétrico. Recibe el subparámetro y el universo de datos que se quiere desplegar en el mapa*/
+  if("{{Request::get('subp')}}" && "{{Request::get('multi')}}")
+  {
+    var sub_sp = "{{Request::get('subp')}}";
+    var multi_sp = "{{Request::get('multi')}}";
+    var puntos5 = []; //Array necesario para operar la función
+    var formacion = $('#Formation').val(); //Deja la posibilidad abierta a volver a filtrar por formaciones
+    var campos_sp = [];
+    var sp_f; //Nombre subparámetro
+
+    $.get("{!! url('datos_geor') !!}",
+    {
+      multi: multi_sp,
+      subp: sub_sp
+    },
+    function(data)
+    {
+      $.each(data.datos, function(index, value)
+      {
+        if(value.statistical == 'undefined' || value.statistical == null)
+        {
+          campos_sp = value.field_statistical.split(",");
+          $('#Basin').val(value.basin_statistical);
+          $('#Basin').selectpicker('refresh');
+          fillBasicSelectors(value.basin_statistical, campos_sp, sub_sp);
+        }
+        else
+        {
+          $.each(data.colombia, function(index,value)
+          {
+            campos_sp.push(value.id);
+          });
+        }
+      });
+
+      $.each(data.sp, function(index,value)
+      {
+        sp_f = value.nombre;
+      });
+
+      map_Well(1, sub_sp, campos_sp, formacion, sp_f, puntos5);
+    });
+  }
 });
 
 

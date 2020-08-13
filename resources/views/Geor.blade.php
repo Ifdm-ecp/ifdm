@@ -187,7 +187,7 @@
                    -->
                   <div class="row">
                     <hr>
-                    <div class="col-sm-4 sidebar-offcanvas" id="Filter6">
+                    <div class="col-sm-6 sidebar-offcanvas" id="Filter6">
                       <div class = "row">
                         <div class = "col-sm-12">
                           <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%" data-style="btn-primary" id="Mecanismos" >
@@ -197,7 +197,7 @@
                       </div>
                       <div class = "row" align = "center">Damage Mechanisms</div>
                     </div>
-                    <div class="col-sm-4 sidebar-offcanvas" id="Filter4">
+                    <div class="col-sm-6 sidebar-offcanvas" id="Filter4">
                       <div class = "row">
                         <div class ="col-sm-12">
                          <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%" data-style="btn-primary" id="Parameter" >
@@ -207,7 +207,7 @@
                       </div>
                       <div class = "row" align="center">Damage Variables</div>
                     </div>
-                    <div class="col-sm-4 sidebar-offcanvas" id="Filter5">
+                    <div style="display:none" class="col-sm-4 sidebar-offcanvas" id="Filter5">
                       <div class = "row">
                         <div class ="col-sm-12">
                           <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%" data-style="btn-success" id="Filtrox" >

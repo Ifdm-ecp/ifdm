@@ -4480,6 +4480,14 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($datos);
     });
 
+    Route::get('allwellsgeoreference', function() {
+        $wells = App\pozo::select('c.nombre as Cnombre', 'Pozos.*')
+            ->join('Campos as c', 'c.id', '=', 'Pozos.campo_id')
+            ->get();
+
+        $data = array('Wells' => $wells);
+        return Response::json($data);
+    });
 
     Route::get('pozos', function(){
 

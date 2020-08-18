@@ -713,8 +713,7 @@ $(document).ready(function()
   });
 
   /* Esta sección se encarga de recibir las peticiones desde el módulo multiparamétrico. Recibe el subparámetro y el universo de datos que se quiere desplegar en el mapa*/
-  if("{{Request::get('subp')}}" && "{{Request::get('multi')}}")
-  {
+  if("{{Request::get('subp')}}" && "{{Request::get('multi')}}") {
     var sub_sp = "{{Request::get('subp')}}";
     var multi_sp = "{{Request::get('multi')}}";
     var puntos5 = []; //Array necesario para operar la función
@@ -754,6 +753,55 @@ $(document).ready(function()
 
       map_Well(1, sub_sp, campos_sp, formacion, sp_f, puntos5);
     });
+  } else {
+    $.get("{!! url('allwellsgeoreference') !!}",
+      function(data) {
+        // Initializes the map to point to Colombia
+        var ccenter = new google.maps.LatLng(4.624335, -74.063644);
+        var mapOptions = {
+          zoom : 6,
+          center: ccenter,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        // Loops each well existing in the database and draws a marker for each one in the
+        // Google maps canvas
+        $.each(data.Wells, function(index, value) {
+          var cs = value.Cnombre;
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(value.lat, value.lon),
+            map: map,
+            icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
+          });
+
+          var infoW = new google.maps.InfoWindow({
+            content: " <b>Well name: </b>" + value.nombre +
+              "- <b>Field: </b>" + cs 
+          });
+
+          marker.addListener('click', function() {
+            infoW.open(map, marker);
+            currentPopup = infoW;
+          });
+
+          google.maps.event.addListener(infoW, 'closeclick', function () {
+            map.panTo(center);
+            currentPopup = null;
+          });
+        });
+
+        // Fills the general data with at least the amount of wells present in the map
+        $('#MaV').text('-');
+        $('#MiV').text('-');
+        $('#AVG').text('-');
+        $('#SD').text('-');
+        $('#GI').text('-')
+        $('#WIF').text(data.Wells.length);
+        $('#WWM').text('-');
+      }
+    );
   }
 });
 
@@ -1807,12 +1855,11 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
           break;
       }
 
-      $.each(data.unidades, function(index,value)
-      {
+      $.each(data.unidades, function(index,value) {
         unit = value.unidad;
       });
-      $.each(data.Centro, function(index,value)
-      {
+
+      $.each(data.Centro, function(index,value) {
         var lat = value.lat;
         var lon = value.lon;
 
@@ -1843,17 +1890,16 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
       });
 
-      $.each(data.General, function(index,value)
-      {
+      $.each(data.General, function(index,value) {
         max = value.Maximo;
         min = value.Minimo;
         sd = value.SD;
         avg = value.Media; 
         pb = value.pb;
 
-      });     
-      $.each(data.General2, function(index,value)
-      {
+      });
+
+      $.each(data.General2, function(index,value) {
           pm = value.pm;
       });  
 
@@ -1882,239 +1928,185 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         $('#empty_scale_values').show();
         $('#scale_values').hide();
       }
-      $.each(tipo_pozos, function(index, value){
-      cs = value.Cnombre;  
-      pt=new google.maps.LatLng(value.lat, value.lon);
-      var val;
-      var marker = new google.maps.Marker({
-        position:pt ,
-        map:map,
-        icon: 'http://labs.google.com/ridefinder/images/mm_20_brown.png'
-      });
-      val = parseFloat(value.valor);
-      val = val.toFixed(2);
-      var infoW = new google.maps.InfoWindow({
-        content:"<b>"+tipo_info +" </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +" <BR><b>Comment</b> - "+value.comentario+" <BR><b>Measure date</b> - "+value.fecha
-      });
 
-      marker.addListener('click', function()
-      {
+      $.each(tipo_pozos, function(index, value) {
+        cs = value.Cnombre;  
+        pt=new google.maps.LatLng(value.lat, value.lon);
+        var val;
+        var marker = new google.maps.Marker({
+          position:pt ,
+          map:map,
+          icon: 'http://labs.google.com/ridefinder/images/mm_20_brown.png'
+        });
+        val = parseFloat(value.valor);
+        val = val.toFixed(2);
+        var infoW = new google.maps.InfoWindow({
+          content:"<b>"+tipo_info +" </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +" <BR><b>Comment</b> - "+value.comentario+" <BR><b>Measure date</b> - "+value.fecha
+        });
 
-        infoW.open(map,marker);
-        currentPopup=infoW;
-      });
-      google.maps.event.addListener(infoW, "closeclick", function () 
-      {
-        map.panTo(center);
-        currentPopup = null;
-      });
+        marker.addListener('click', function()
+        {
 
-      /* Asignación de color según el peso del valor del subparámetro consultado */
-      var color; 
-      var r2 = (val/max)*10;
-      switch (true) 
-      {
-        case (r2 > 9 ):  color = '#ff0000'; break;
-        case (r2 < 9 && r2 > 8 ):  color = '#ff7f00'; break;
-        case (r2 <= 8 && r2 > 7 ): color = '#ffc200'; break; 
-        case (r2 <=7  && r2 > 6 ): color = '#ffff00'; break;
-        case (r2 <= 6 && r2 > 5 ): color = '#b5d400'; break;
-        case (r2 <= 5 && r2 > 4 ): color = '#6caa00'; break;
-        case (r2 <= 4 && r2 > 3 ): color = '#008000'; break;
-        case (r2 <= 3 && r2 > 2 ): color = '#506666'; break;
-        case (r2 <= 2 && r2 > 1 ): color = '#5646b1'; break;
-        case (r2 <= 1 ): color = '#0000ff'; break;
-      }
+          infoW.open(map,marker);
+          currentPopup=infoW;
+        });
+        google.maps.event.addListener(infoW, "closeclick", function () 
+        {
+          map.panTo(center);
+          currentPopup = null;
+        });
 
-                      
+        /* Asignación de color según el peso del valor del subparámetro consultado */
+        var color; 
+        var r2 = (val/max)*10;
+        switch (true) 
+        {
+          case (r2 > 9 ):  color = '#ff0000'; break;
+          case (r2 < 9 && r2 > 8 ):  color = '#ff7f00'; break;
+          case (r2 <= 8 && r2 > 7 ): color = '#ffc200'; break; 
+          case (r2 <=7  && r2 > 6 ): color = '#ffff00'; break;
+          case (r2 <= 6 && r2 > 5 ): color = '#b5d400'; break;
+          case (r2 <= 5 && r2 > 4 ): color = '#6caa00'; break;
+          case (r2 <= 4 && r2 > 3 ): color = '#008000'; break;
+          case (r2 <= 3 && r2 > 2 ): color = '#506666'; break;
+          case (r2 <= 2 && r2 > 1 ): color = '#5646b1'; break;
+          case (r2 <= 1 ): color = '#0000ff'; break;
+        }       
 
-                var populationOptions = {
-                     strokeColor: color,
-                     strokeOpacity: 0.8,
-                     strokeWeight: 2,
-                     fillColor: color,
-                     fillOpacity: 0.35,
-                     map: map,
-                     center: pt,
-                     radius: 600
-                   };
+        var populationOptions = {
+          strokeColor: color,
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: color,
+          fillOpacity: 0.35,
+          map: map,
+          center: pt,
+          radius: 600
+        };
 
-
-                   
-                   cityCircle = new google.maps.Circle(populationOptions);
-
-
+        cityCircle = new google.maps.Circle(populationOptions);
       });
 
-    var canombres=[];
-    var avgcampos=[];
-    var sdcampos=[];
-    var capoz = []; //Pozos con datos
-    var pozoscampos = []; //Pozos en el campo
-
-
+      var canombres=[];
+      var avgcampos=[];
+      var sdcampos=[];
+      var capoz = []; //Pozos con datos
+      var pozoscampos = []; //Pozos en el campo
     
-    $.each(data.Gencampos,function(index,value)
-    {
-      
-      $.each(value,function(index,value)
-      {
+      $.each(data.Gencampos,function(index,value) {
+        $.each(value,function(index,value) {
+          canombres.push(value.cnombre);
+          avgcampos.push(value.avg);
+          sdcampos.push(value.sd);
+          capoz.push(value.count);
+        });
+      });
 
-        canombres.push(value.cnombre);
-        avgcampos.push(value.avg);
-        sdcampos.push(value.sd);
-        capoz.push(value.count);
+      $.each(data.PozosC, function(index,value) {
+        $.each(value,function(index,value) {
+          pozoscampos.push(value.count);
+        });
+      });
+    
+      var j=0;
+      $.each(data.Coordenadas, function(index,value) {
+        var cnombre = canombres[j];
+        var cavg = parseFloat(avgcampos[j]);
+        var casd = parseFloat(sdcampos[j]);
+        var cap = capoz[j];
+
+        puntos.length=0;
         
+        $.each(value,function(index,value) {
+          puntos.push(new google.maps.LatLng(value.lat,value.lon));
+        });
 
-      });
-    });
+        var Poligono = new google.maps.Polygon({
+          paths: puntos,
+          strokeColor: '#EFFF00',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#EFFF00',
+          fillOpacity: 0.05
+        });
 
-    $.each(data.PozosC, function(index,value)
-    {
-      $.each(value,function(index,value)
-      {
-        pozoscampos.push(value.count);
-      });
-    });
-
-    
-     var j=0;
-     $.each(data.Coordenadas, function(index,value)
-     {
-      
-      var cnombre = canombres[j];
-      var cavg = parseFloat(avgcampos[j]);
-      var casd = parseFloat(sdcampos[j]);
-      var cap = capoz[j];
-
-      puntos.length=0;
-
-      
-      $.each(value,function(index,value)
-      {
-
-      puntos.push(new google.maps.LatLng(value.lat,value.lon));
-      
-      });
-    
-
-    var Poligono = new google.maps.Polygon({
-    paths: puntos,
-    strokeColor: '#EFFF00',
-    strokeOpacity: 0.8,
-    strokeWeight: 3,
-    fillColor: '#EFFF00',
-    fillOpacity: 0.05
-     });
-
-      Poligono.setMap(map);
-      
-      infoWindow = new google.maps.InfoWindow();
-
-      google.maps.event.addListener(Poligono, 'click', function(e)
-    {
-
-                var contentString = '<b>*** Producing interval Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>Average '+sp+' value: </b>' + avg.toFixed(2)+
-                                    '<br><b>Standard deviation '+sp+' value:</b> ' + sd.toFixed(2);
-
-                infoWindow.setContent(contentString);
-                infoWindow.setPosition(e.latLng);
-                
-                infoWindow.open(map);
-   
-    });
-
-      j++;
-
-      
-     });
-
-
-
-
-    var jc=0;
-     $.each(data.Coordenadasc, function(index,value)
-     {
-      
-
-      var cnombre = canombres[jc];
-      var cavg = parseFloat(avgcampos[jc]);
-      var casd = parseFloat(sdcampos[jc]);
-      var cap = capoz[jc];
-      var pozc = pozoscampos[jc];
-
-
-      puntos.length=0;
-
-      
-      $.each(value,function(index,value)
-      {
-
-      puntos.push(new google.maps.LatLng(value.lat,value.lon));
-      
-      });
-    
-
-    var Poligono = new google.maps.Polygon({
-    paths: puntos,
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 3,
-    fillColor: '#FF0000',
-    fillOpacity: 0.1
-     });
-
-      Poligono.setMap(map);
-      
-      infoWindow = new google.maps.InfoWindow();
-
-      google.maps.event.addListener(Poligono, 'click', function(e)
-    {
-
-                var contentString = '<b>*** Field Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>These are data for all field\'s formations</b> '+'<br><br><b>Average '+sp+' value: </b>' + cavg.toFixed(2)+
-                                    '<br><b>Standard deviation '+sp+' value:</b> ' + casd.toFixed(2)+
-                                    '<br><b>Wells in field: <b> '+pozc+
-                                    '<br><b>Wells in field with data: <b> '+cap;
-
-                infoWindow.setContent(contentString);
-                infoWindow.setPosition(e.latLng);
-                
-                infoWindow.open(map);
-   
-    });
-
-      jc++;
-
-      
-     });
-
-
-      $.each(data.Pozos2, function(index, value){
+        Poligono.setMap(map);
         
-      var cs = value.Cnombre;
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(value.lat, value.lon),
-        map:map,
-        icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
-    });
+        infoWindow = new google.maps.InfoWindow();
 
-      var infoW = new google.maps.InfoWindow({
-        content: " <b>Well name: </b>"+value.nombre + "- <b>Field: </b>"+cs+" <BR> There's no measure for this well" 
+        google.maps.event.addListener(Poligono, 'click', function(e) {
+          var contentString = '<b>*** Producing interval Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>Average '+sp+' value: </b>' + avg.toFixed(2)+
+            '<br><b>Standard deviation '+sp+' value:</b> ' + sd.toFixed(2);
+          infoWindow.setContent(contentString);
+          infoWindow.setPosition(e.latLng);
+          infoWindow.open(map);
+        });
+
+        j++;
       });
 
-      marker.addListener('click', function(){
+      var jc=0;
+      $.each(data.Coordenadasc, function(index,value) {
+        var cnombre = canombres[jc];
+        var cavg = parseFloat(avgcampos[jc]);
+        var casd = parseFloat(sdcampos[jc]);
+        var cap = capoz[jc];
+        var pozc = pozoscampos[jc];
 
-        infoW.open(map,marker);
-        currentPopup=infoW;
+        puntos.length=0;
+        $.each(value,function(index,value) {
+          puntos.push(new google.maps.LatLng(value.lat,value.lon));
+        });
+
+        var Poligono = new google.maps.Polygon({
+          paths: puntos,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 3,
+          fillColor: '#FF0000',
+          fillOpacity: 0.1
+        });
+
+        Poligono.setMap(map);
+        
+        infoWindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(Poligono, 'click', function(e) {
+          var contentString = '<b>*** Field Data *** </b><br>'+'<b>Field: </b>'+cnombre+'<br><b>These are data for all field\'s formations</b> '+'<br><br><b>Average '+sp+' value: </b>' + cavg.toFixed(2)+
+            '<br><b>Standard deviation '+sp+' value:</b> ' + casd.toFixed(2)+
+            '<br><b>Wells in field: <b> '+pozc+
+            '<br><b>Wells in field with data: <b> '+cap;
+
+          infoWindow.setContent(contentString);
+          infoWindow.setPosition(e.latLng);
+          
+          infoWindow.open(map);
+        });
+
+        jc++;
       });
-                      google.maps.event.addListener(infoW, "closeclick", function () {
-                    map.panTo(center);
-                    currentPopup = null;
-                });
 
+      $.each(data.Pozos2, function(index, value) {
+        var cs = value.Cnombre;
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(value.lat, value.lon),
+          map:map,
+          icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
+        });
+
+        var infoW = new google.maps.InfoWindow({
+          content: " <b>Well name: </b>"+value.nombre + "- <b>Field: </b>"+cs+" <BR> There's no measure for this well" 
+        });
+
+        marker.addListener('click', function() {
+          infoW.open(map,marker);
+          currentPopup=infoW;
+        });
+        google.maps.event.addListener(infoW, "closeclick", function () {
+          map.panTo(center);
+          currentPopup = null;
+        });
       });
-
-
     });
 }
 

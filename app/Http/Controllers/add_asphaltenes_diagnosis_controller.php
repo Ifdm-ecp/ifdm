@@ -794,20 +794,20 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $pm2 = 0;
             }
             if ($dporo > 1.5 and $dporo <= 2.5) {
-                $pm2 = 3.5;
+                $pm2 = 0.0035;
             }
             if ($dporo > 0.5 and $dporo <= 1.5) {
-                $pm2 = 5.8;
+                $pm2 = 0.0058;
             }
             if ($vt < $u[$i]) {
-                $ent[$i] = $pm2 * $ea[$i] * ($u[$i] - $vt);
+                $ent[$i] = (-1) * 0.01 * 0.00092903 * $pm2 * $ea[$i] * ($u[$i] - $vt);
             } else {
                 $ent[$i] = 0;
             }
 
             #Depositación en la garganta deporo
             if ($dpart / $dporo > 0.33) {
-                $dgp[$i] = (0.00092903) * 1.05 * $u[$i] * (1 - $fcor) * $co[$i];
+                $dgp[$i] = 0.01 * (0.00092903) * 1.05 * $u[$i] * (1 - $fcor) * $co[$i];
             } else {
                 $dgp[$i] = 0;
             }
@@ -905,7 +905,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $simulated_results = [];
         $damage_results = [];
 
-        $dpart = $dpart * 10;
+        if ($dporo > 2.54) {
+            $dpart = $dpart * 10;
+        }
 
         $pi = 3.14159265359;
         $x = 0;

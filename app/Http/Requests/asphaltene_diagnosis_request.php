@@ -33,7 +33,7 @@ class asphaltene_diagnosis_request extends Request
                 'initial_pressure'=> 'numeric|required|between:0,100000|not_in:0',
                 'initial_porosity'=> 'numeric|required|between:0,1|not_in:0',
                 'initial_permeability'=> 'numeric|required|between:1,10000',
-                'average_pore_diameter'=> 'numeric|required',
+                'average_pore_diameter'=> 'numeric|required|between:0.6,100',
                 'asphaltene_particle_diameter'=> 'numeric|required|between:0.0001,100', 
                 'asphaltene_apparent_density'=> 'numeric|required|between:0.1,1.4',
                 'pvt_data_range_flag'=> 'in:1',
@@ -79,6 +79,7 @@ class asphaltene_diagnosis_request extends Request
             'initial_porosity.between' => 'Initial porosity must be between 0 and 1 (not including 0).',
             'initial_porosity.not_in' => 'Initial porosity must be between 0 and 1 (not including 0).',
             'initial_permeability.between' => 'Initial permeability must be between 1 and 10000.',
+            'average_pore_diameter.between' => 'Average pore diameter must be between 0.6 and 100.',
             'asphaltene_particle_diameter.between' => 'Asphaltene particle diameter must be between 0.0001 and 100.',
             'asphaltene_apparent_density.between' => 'Asphaltene apparent density must be between 0.1 and 1.4.',
 

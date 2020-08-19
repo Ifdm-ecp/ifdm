@@ -22,8 +22,8 @@
                                 src="{!! asset('images/EQUION.jpg') !!}" width="120" height="80" HSPACE="30" /></a>
                         <a href="http://www.ecopetrol.com.co/wps/portal/web_es"><img
                                 src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30" /></a>
-                        <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120"
-                                height="80" HSPACE="30" /></a>
+                        {{-- <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120"
+                                height="80" HSPACE="30" /></a> --}}
                         <a href="https://exergy-ma.co/"><img src="{!! asset('images/exergy.png') !!}" width="140"
                                 height="60" HSPACE="30" /></a>
                     </form>

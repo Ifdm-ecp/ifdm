@@ -4274,10 +4274,15 @@ Route::group(['middleware' => 'auth'], function(){
     {
 
         if (\Auth::check()) {
-            $statistical = App\Models\MultiparametricAnalysis\Statistical::find(Input::get('statistical'));
-            $cuencas = App\cuenca::all();
-            return  view('Hist', ['cuencas' => $cuencas, 'statistical' => $statistical]);
-        }else{
+            $statisticalInput = Input::get('statistical');
+            $statistical = 'false';
+            
+            if ($statisticalInput) {
+                $statistical = App\Models\MultiparametricAnalysis\Statistical::find(Input::get('statistical'));
+            }
+            $cuencas = App\cuenca::orderBy('nombre')->get();
+            return view('Hist', ['cuencas' => $cuencas, 'statistical' => $statistical]);
+        } else {
             return view('loginfirst');
         }
     }));
@@ -4472,10 +4477,12 @@ Route::group(['middleware' => 'auth'], function(){
         $pozo = Input::get('pozo');
         $sp = Input::get('parametro');
 
-        $datos = App\medicion::where('pozo_id','=',$pozo)
-        ->where('subparametro_id','=',$sp)
-        ->orderBy('fecha')
-        ->get();
+        $datos = App\medicion::select('mediciones.*', 'p.nombre as nombre')
+            ->join('pozos as p', 'p.id', '=', 'mediciones.pozo_id')
+            ->where('pozo_id', $pozo)
+            ->where('subparametro_id', $sp)
+            ->orderBy('fecha')
+            ->get();
 
         return Response::json($datos);
     });
@@ -4692,14 +4699,13 @@ Route::group(['middleware' => 'auth'], function(){
         $formacion = Input::get('formacion');
         $pozo = Input::get('pozo');
         $campo = Input::get('campo');
-        
 
-        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
-        ->select('mediciones.fecha as fecha','mediciones.valor as valorchart')
-        ->where('mediciones.subparametro_id','=',$parametro)
-        ->wherein('p.campo_id',$campo)
-        ->orderBy('mediciones.fecha')
-        ->get();
+        $chart = App\medicion::select('mediciones.fecha as fecha', 'mediciones.valor as valorchart', 'p.nombre as nombre')
+            ->join('pozos AS p', 'mediciones.pozo_id', '=', 'p.Id')
+            ->where('mediciones.subparametro_id', $parametro)
+            ->wherein('p.campo_id', $campo)
+            ->orderBy('mediciones.fecha')
+            ->get();
 
         $data = array('Chart'=>$chart);
         return Response::json($data);

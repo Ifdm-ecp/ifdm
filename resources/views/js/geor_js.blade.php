@@ -350,7 +350,7 @@ $(document).ready(function()
     $('#Parameter').selectpicker('deselectAll');
     $("#Parameter").append('<optgroup label="Sub-Parameters">');
 
-    $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable or Damage Configuration</div>');   
+    $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable</div>');   
 
     fillParameters(mec);
   });
@@ -507,7 +507,7 @@ $(document).ready(function()
     $('#Filtrox').selectpicker('refresh');
     $('#Filtrox').selectpicker('val', '');
 
-    $('#alert').html('<div class="alert alert-danger " role="alert"> <strong>Remember! </strong> Please choose a damage variable or damage configuration</div>');
+    $('#alert').html('<div class="alert alert-danger " role="alert"> <strong>Remember! </strong> Please choose a damage variable</div>');
   });
 
   /***

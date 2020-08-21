@@ -4230,7 +4230,7 @@ Route::group(['middleware' => 'auth'], function(){
         $formacion = Input::get('formacion');
         $campo = Input::get('campo');
 
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('count(*) as Freq'),'mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$parametro)
         ->where('mediciones.formacion_id','=',$formacion)
@@ -4289,7 +4289,7 @@ Route::group(['middleware' => 'auth'], function(){
         $campo = Input::get('campo');
 
         
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('count(mediciones.valor) as Freq'),'mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$parametro)
         ->where('mediciones.formacion_id','=',$formacion)
@@ -4342,7 +4342,7 @@ Route::group(['middleware' => 'auth'], function(){
         if(!strcmp($campo, "Todos")) {
             foreach ($array as $arr) {
                 $chart = DB::table('mediciones')
-                    ->join('Pozos as p', 'mediciones.pozo_id', '=', 'p.id')
+                    ->join('pozos as p', 'mediciones.pozo_id', '=', 'p.id')
                     ->select('mediciones.valor as valorchart')
                     ->where('subparametro_id', $arr['id'])
                     
@@ -4352,7 +4352,7 @@ Route::group(['middleware' => 'auth'], function(){
         } else {
             foreach ($array as $arr) {
                 $chart = DB::table('mediciones')
-                    ->join('Pozos as p', 'mediciones.pozo_id', '=', 'p.id')
+                    ->join('pozos as p', 'mediciones.pozo_id', '=', 'p.id')
                     ->select('mediciones.valor as valorchart')
                     ->wherein('p.campo_id', explode(',', $campo))
                     ->where('subparametro_id', $arr['id'])
@@ -4409,7 +4409,7 @@ Route::group(['middleware' => 'auth'], function(){
         $datos->put('Fnombre', $multiparametric->escenario->formacionxpozo->nombre);
         $datos->put('Cnombre', $multiparametric->escenario->pozo->campo->nombre);
         /*$datos = App\Models\MultiparametricAnalysis\Statistical::join('escenarios', 'escenarios.id','=', 'multiparametric_analysis_statistical.escenario_id')
-        ->join('Pozos AS p','p.id','=','escenarios.pozo_id')
+        ->join('pozos AS p','p.id','=','escenarios.pozo_id')
         ->join('Campos as c','p.campo_id','=','c.id')
         ->join('Formaciones as f','escenarios.formacion_id','=','f.id')
         ->select('escenarios.fecha', 'escenarios.nombre as scnombre', 'p.nombre','f.nombre as Fnombre','c.nombre as Cnombre')
@@ -4430,9 +4430,9 @@ Route::group(['middleware' => 'auth'], function(){
         $for = Input::get('formacion');
         $cid = Input::get('campo');
 
-        $campo = App\pozo::join('Campos AS c','Pozos.campo_id','=','c.id')
+        $campo = App\pozo::join('Campos AS c','pozos.campo_id','=','c.id')
         ->select('c.nombre as nombre')
-        ->where('Pozos.id','=',$pozo)
+        ->where('pozos.id','=',$pozo)
         ->get();
 
         $ncampo = App\campo::select('nombre')
@@ -4481,8 +4481,8 @@ Route::group(['middleware' => 'auth'], function(){
     });
 
     Route::get('allwellsgeoreference', function() {
-        $wells = App\pozo::select('c.nombre as Cnombre', 'Pozos.*')
-            ->join('Campos as c', 'c.id', '=', 'Pozos.campo_id')
+        $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')
+            ->join('Campos as c', 'c.id', '=', 'pozos.campo_id')
             ->get();
 
         $data = array('Wells' => $wells);
@@ -4506,7 +4506,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->wherein('campo_id',$campo)
         ->get();
 
-         $pozosavg = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+         $pozosavg = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->select('c.nombre as Cnombre','mediciones.fecha','mediciones.Comentario as comentario','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('AVG(mediciones.valor) as valor') )
         ->where('mediciones.subparametro_id','=',$parametro)
@@ -4515,7 +4515,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozosmin = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $pozosmin = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->select('c.nombre as Cnombre','mediciones.fecha','mediciones.Comentario as comentario','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('MIN(mediciones.valor) as valor') )
         ->where('mediciones.subparametro_id','=',$parametro)
@@ -4524,7 +4524,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozosmax = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $pozosmax = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->select('c.nombre as Cnombre','mediciones.fecha','mediciones.Comentario as comentario','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('MAX(mediciones.valor) as valor') )
         ->where('mediciones.subparametro_id','=',$parametro)
@@ -4533,7 +4533,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozos = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $pozos = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->select('c.nombre as Cnombre','mediciones.fecha','mediciones.Comentario as comentario','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', 'mediciones.valor as valor')
         ->where('mediciones.subparametro_id','=',$parametro)
@@ -4542,7 +4542,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $aux = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+         $aux = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select('p.Id AS Id')
         ->where('mediciones.subparametro_id','=',$parametro)
         #->where('mediciones.formacion_id','=',$formacion)
@@ -4550,13 +4550,13 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','Pozos.campo_id')
-        ->select('c.nombre as Cnombre','Pozos.*')
-        ->wherenotin('Pozos.Id',$aux)
-        ->wherein('Pozos.campo_id',$campo)
+        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','pozos.campo_id')
+        ->select('c.nombre as Cnombre','pozos.*')
+        ->wherenotin('pozos.Id',$aux)
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $general = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $general = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->distinct()
         ->select(DB::raw('MAX(mediciones.valor) as Maximo'), DB::raw('MIN(mediciones.valor) as Minimo'),
             DB::raw('AVG(mediciones.valor) as Media'),DB::raw('STD(mediciones.valor) as SD') , DB::raw('count(distinct(p.nombre)) as pb'))
@@ -4566,11 +4566,11 @@ Route::group(['middleware' => 'auth'], function(){
         ->get();
 
         $general2 = App\pozo::wherenotin('Id',$aux)
-        ->select(DB::raw('count(distinct(Pozos.nombre)) as pm'))
-        ->wherein('Pozos.campo_id',$campo)
+        ->select(DB::raw('count(distinct(pozos.nombre)) as pm'))
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('count(*) as Freq'),'mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$parametro)
         #ñ->where('mediciones.formacion_id','=',$formacion)
@@ -4579,7 +4579,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->orderBy('valorchart')
         ->get();
 
-        $chart2 = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart2 = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('distinct p.id, mediciones.valor as valorchart'))
         ->where('mediciones.subparametro_id','=',$parametro)
         ->wherein('p.campo_id',$campo)
@@ -4600,7 +4600,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->orderBy('Orden')
         ->get();
 
-        $gencampo = App\medicion::join('Pozos as p', 'mediciones.pozo_id','=','p.Id')
+        $gencampo = App\medicion::join('pozos as p', 'mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.campo_id')
         ->select(DB::raw('avg(mediciones.valor) as avg'),DB::raw('min(mediciones.valor) as min'),DB::raw('max(mediciones.valor) as max'),DB::raw('std(mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
         ->where('p.campo_id','=',$c)
@@ -4662,7 +4662,7 @@ Route::group(['middleware' => 'auth'], function(){
         $campo = Input::get('campo');
         
 
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select('mediciones.fecha as fecha','mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$parametro)
         ->wherein('p.campo_id',$campo)
@@ -4706,19 +4706,19 @@ Route::group(['middleware' => 'auth'], function(){
         {
             foreach ($ids as $id) {
 
-                $aux = App\medicion::join('Pozos as p', 'p.id','=','mediciones.pozo_id')
+                $aux = App\medicion::join('pozos as p', 'p.id','=','mediciones.pozo_id')
                 ->select('valor')
                 ->where('fecha','=',DB::raw('(select max(fecha) from mediciones where subparametro_id ='. $id['id'] .') limit 1'))
                 ->wherein('p.campo_id',explode(" ",$mpdatos['field_statistical']))
                 ->get();
 
-                $aux2 = App\medicion::join('Pozos as p', 'p.id','=','mediciones.pozo_id')
+                $aux2 = App\medicion::join('pozos as p', 'p.id','=','mediciones.pozo_id')
                 ->select(DB::raw('count(*) as Cantidad'))
                 ->where('subparametro_id','=',$id['id'])
                 ->wherein('p.campo_id',explode(" ",$mpdatos['field_statistical']))
                 ->get();
 
-                $aux3 = App\medicion::join('Pozos as p', 'p.id','=','mediciones.pozo_id')
+                $aux3 = App\medicion::join('pozos as p', 'p.id','=','mediciones.pozo_id')
                 ->select('valor')
                 ->where('subparametro_id','=',$id['id'])
                 ->wherein('p.campo_id',explode(" ",$mpdatos['field_statistical']))
@@ -4818,14 +4818,14 @@ Route::group(['middleware' => 'auth'], function(){
         $for = Input::get('formacion');
         $sp = Input::get('sp');
 
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('count(*) as Freq'),'mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$sp)
         ->where('p.id',$pozo)
         ->groupBy('mediciones.valor')
         ->get();
 
-        $general = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $general = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->distinct()
         ->select(DB::raw('MAX(mediciones.valor) as Maximo'), DB::raw('MIN(mediciones.valor) as Minimo'),
             DB::raw('AVG(mediciones.valor) as Media'),DB::raw('STD(mediciones.valor) as SD') , DB::raw('count(distinct(mediciones.valor)) as pb'))
@@ -4893,7 +4893,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         #pozos-avg
 
-         $pozosavg = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+         $pozosavg = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select('c.nombre as Cnombre','vd_mediciones.Comentario as comentario','vd_mediciones.fecha','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('AVG(vd_mediciones.valor) as valor') )
@@ -4902,7 +4902,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $pozosmin = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+         $pozosmin = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select('c.nombre as Cnombre','vd_mediciones.Comentario as comentario','vd_mediciones.fecha','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('MIN(vd_mediciones.valor) as valor') )
@@ -4911,7 +4911,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $pozosmax = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+         $pozosmax = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select('c.nombre as Cnombre','vd_mediciones.Comentario as comentario','vd_mediciones.fecha','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', DB::raw('MAX(vd_mediciones.valor) as valor') )
@@ -4920,7 +4920,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozos = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+        $pozos = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select('c.nombre as Cnombre','vd_mediciones.Comentario as comentario','vd_mediciones.fecha','p.Id AS Id','p.nombre as nombre','p.lat as lat', 'p.lon as lon', 'vd_mediciones.valor as valor')
@@ -4929,20 +4929,20 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $aux = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+         $aux = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->select('p.Id AS Id')
         ->where('vd_mediciones.vd_id','=',$vardan)
         ->wherein('p.campo_id',$campo)
         ->groupBy('p.Id')
         ->get();
 
-        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','Pozos.campo_id')
-        ->select('c.nombre as Cnombre','Pozos.*')
-        ->wherenotin('Pozos.Id',$aux)
-        ->wherein('Pozos.campo_id',$campo)
+        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','pozos.campo_id')
+        ->select('c.nombre as Cnombre','pozos.*')
+        ->wherenotin('pozos.Id',$aux)
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $general = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+        $general = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->distinct()
         ->select(DB::raw('MAX(vd_mediciones.valor) as Maximo'), DB::raw('MIN(vd_mediciones.valor) as Minimo'),
@@ -4952,11 +4952,11 @@ Route::group(['middleware' => 'auth'], function(){
         ->get();
 
         $general2 = App\pozo::wherenotin('Id',$aux)
-        ->select(DB::raw('count(distinct(Pozos.nombre)) as pm'))
-        ->wherein('Pozos.campo_id',$campo)
+        ->select(DB::raw('count(distinct(pozos.nombre)) as pm'))
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $chart = App\variable_dano_medicion::join('Pozos AS p','vd_mediciones.pozo_id','=','p.Id')
+        $chart = App\variable_dano_medicion::join('pozos AS p','vd_mediciones.pozo_id','=','p.Id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select(DB::raw('count(*) as Freq'),'vd_mediciones.valor as valorchart')
         ->where('vd.nombre','=',$vardan)
@@ -4977,7 +4977,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->orderBy('Orden')
         ->get();
 
-        $gencampo = App\variable_dano_medicion::join('Pozos as p', 'vd_mediciones.pozo_id','=','p.Id')
+        $gencampo = App\variable_dano_medicion::join('pozos as p', 'vd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.campo_id')
         ->join('variables_dano as vd','vd.id','=','vd_mediciones.vd_id')
         ->select(DB::raw('avg(vd_mediciones.valor) as avg'),DB::raw('min(vd_mediciones.valor) as min'),DB::raw('max(vd_mediciones.valor) as max'),DB::raw('std(vd_mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
@@ -5023,7 +5023,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         #pozos-avg
 
-         $pozosavg = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+         $pozosavg = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('Configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select('c.nombre as Cnombre','cd_mediciones.Comentario as Comentario','cd_mediciones.fecha','p.Id AS Id','p.nombre AS nombre','p.lat AS lat', 'p.lon AS lon', DB::raw('AVG(cd_mediciones.valor) as valor') )
@@ -5032,7 +5032,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $pozosmin = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+         $pozosmin = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('Configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select('c.nombre as Cnombre','cd_mediciones.Comentario as Comentario','cd_mediciones.fecha','p.Id AS Id','p.nombre AS nombre','p.lat AS lat', 'p.lon AS lon', DB::raw('MIN(cd_mediciones.valor) as valor') )
@@ -5041,7 +5041,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $pozosmax = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+         $pozosmax = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('Configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select('c.nombre as Cnombre','cd_mediciones.Comentario as Comentario','cd_mediciones.fecha','p.Id AS Id','p.nombre AS nombre','p.lat AS lat', 'p.lon AS lon', DB::raw('MAX(cd_mediciones.valor) as valor') )
@@ -5050,7 +5050,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-        $pozos = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+        $pozos = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.Campo_id')
         ->join('configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select('c.nombre as Cnombre','cd_mediciones.Comentario as Comentario','cd_mediciones.fecha','p.Id AS Id','p.nombre AS nombre','p.lat AS lat', 'p.lon AS lon', 'cd_mediciones.valor as valor')
@@ -5059,20 +5059,20 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $aux = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+         $aux = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->select('p.Id AS Id')
         ->where('cd_mediciones.cd_id','=',$varcon)
         ->wherein('p.campo_id',$campo)
         ->groupBy('p.Id')
         ->get();
 
-        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','Pozos.campo_id')
-        ->select('c.nombre as Cnombre','Pozos.*')
-        ->wherenotin('Pozos.Id',$aux)
-        ->wherein('Pozos.campo_id',$campo)
+        $pozos2 = App\pozo::join('Campos as c', 'c.id','=','pozos.campo_id')
+        ->select('c.nombre as Cnombre','pozos.*')
+        ->wherenotin('pozos.Id',$aux)
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $general = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+        $general = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->distinct()
         ->select(DB::raw('MAX(cd_mediciones.valor) as Maximo'), DB::raw('MIN(cd_mediciones.valor) as Minimo'),
@@ -5082,11 +5082,11 @@ Route::group(['middleware' => 'auth'], function(){
         ->get();
 
         $general2 = App\pozo::wherenotin('Id',$aux)
-        ->select(DB::raw('count(distinct(Pozos.nombre)) as pm'))
-        ->wherein('Pozos.campo_id',$campo)
+        ->select(DB::raw('count(distinct(pozos.nombre)) as pm'))
+        ->wherein('pozos.campo_id',$campo)
         ->get();
 
-        $chart = App\configuracion_dano_medicion::join('Pozos AS p','cd_mediciones.pozo_id','=','p.Id')
+        $chart = App\configuracion_dano_medicion::join('pozos AS p','cd_mediciones.pozo_id','=','p.Id')
         ->join('configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select(DB::raw('count(*) as Freq'),'cd_mediciones.valor AS valorchart')
         ->where('cd.id','=',$varcon)
@@ -5107,7 +5107,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->orderBy('Orden')
         ->get();
 
-        $gencampo = App\configuracion_dano_medicion::join('Pozos as p', 'cd_mediciones.pozo_id','=','p.Id')
+        $gencampo = App\configuracion_dano_medicion::join('pozos as p', 'cd_mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.campo_id')
         ->join('configuracion_dano as cd','cd.id','=','cd_mediciones.cd_id')
         ->select(DB::raw('avg(cd_mediciones.valor) as avg'),DB::raw('min(cd_mediciones.valor) as min'),DB::raw('max(cd_mediciones.valor) as max'),DB::raw('std(cd_mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
@@ -5168,7 +5168,7 @@ Route::group(['middleware' => 'auth'], function(){
         $coor = [];
         $gencampos = [];
 
-        $general = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $general = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->distinct()
         ->select(DB::raw('MAX(mediciones.valor) as Maximo'), DB::raw('MIN(mediciones.valor) as Minimo'),
             DB::raw('AVG(mediciones.valor) as Media'),DB::raw('STD(mediciones.valor) as SD') , DB::raw('count(distinct(p.nombre)) as pb'))
@@ -5177,7 +5177,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->wherein('p.campo_id',$campos)
         ->get();
 
-        $aux = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $aux = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select('p.Id AS Id')
         ->where('mediciones.subparametro_id','=',$parametro)
         ->where('mediciones.formacion_id','=',$formacion)
@@ -5186,11 +5186,11 @@ Route::group(['middleware' => 'auth'], function(){
         ->get();
 
         $general2 = App\pozo::wherenotin('Id',$aux)
-        ->select(DB::raw('count(distinct(Pozos.nombre)) as pm'))
-        ->wherein('Pozos.campo_id',$campos)
+        ->select(DB::raw('count(distinct(pozos.nombre)) as pm'))
+        ->wherein('pozos.campo_id',$campos)
         ->get();
 
-        $chart = App\medicion::join('Pozos AS p','mediciones.pozo_id','=','p.Id')
+        $chart = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select(DB::raw('count(*) as Freq'),'mediciones.valor as valorchart')
         ->where('mediciones.subparametro_id','=',$parametro)
         ->where('mediciones.formacion_id','=',$formacion)
@@ -5205,7 +5205,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->get();
 
 
-        $gencampo = App\medicion::join('Pozos as p', 'mediciones.pozo_id','=','p.Id')
+        $gencampo = App\medicion::join('pozos as p', 'mediciones.pozo_id','=','p.Id')
         ->join('Campos as c','c.id','=','p.campo_id')
         ->select(DB::raw('avg(mediciones.valor) as avg'),DB::raw('std(mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
         ->where('p.campo_id','=',$c)

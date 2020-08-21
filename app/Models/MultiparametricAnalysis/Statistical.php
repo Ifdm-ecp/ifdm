@@ -24,11 +24,11 @@ class Statistical extends Model
     static function subparametro($sub, $statistical){
 
         if(!strcmp($statistical->statistical, "Colombia")){
-            //dd(DB::table('mediciones')->join('Pozos as p', 'mediciones.pozo_id','=','p.id')->where('subparametro_id', $sub)->orderBy('fecha', 'desc')->first());
+            //dd(DB::table('mediciones')->join('pozos as p', 'mediciones.pozo_id','=','p.id')->where('subparametro_id', $sub)->orderBy('fecha', 'desc')->first());
             return DB::table('mediciones')->join('pozos as p', 'mediciones.pozo_id','=','p.id')->where('subparametro_id', $sub)->orderBy('fecha', 'desc')->first();
             //return medicion::with('pozo')->where('subparametro_id', $sub)->orderBy('fecha', 'desc')->first();
         }else{
-            //dd(DB::table('mediciones')->join('Pozos as p', 'mediciones.pozo_id','=','p.id')->wherein('p.campo_id',explode(',',$statistical->campos))->where('subparametro_id', 1)->orderBy('fecha', 'desc')->first());
+            //dd(DB::table('mediciones')->join('pozos as p', 'mediciones.pozo_id','=','p.id')->wherein('p.campo_id',explode(',',$statistical->campos))->where('subparametro_id', 1)->orderBy('fecha', 'desc')->first());
             return DB::table('mediciones')->join('pozos as p', 'mediciones.pozo_id','=','p.id')->wherein('p.campo_id',explode(',',$statistical->campos))->where('subparametro_id', $sub)->orderBy('fecha', 'desc')->first();     
         }
     } 

@@ -4489,6 +4489,38 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($data);
     });
 
+    Route::get('basinwellsgeoreference', function() {
+        $basin = Input::get('basin');
+
+        $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')
+            ->join('campos as c', 'c.id', '=', 'pozos.campo_id')
+            ->where('c.cuenca_id', $basin)
+            ->get();
+
+        $data = array('Wells' => $wells);
+        return Response::json($data);
+    });
+
+    Route::get('fieldwellsgeoreference', function() {
+        $fields = Input::get('fields');
+        $basin = Input::get('basin');
+
+        if ($fields) {
+            $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')
+                ->join('campos as c', 'c.id', '=', 'pozos.campo_id')
+                ->wherein('c.id', $fields)
+                ->get();
+        } else {
+            $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')
+                ->join('campos as c', 'c.id', '=', 'pozos.campo_id')
+                ->where('c.cuenca_id', $basin)
+                ->get();
+        }
+
+        $data = array('Wells' => $wells);
+        return Response::json($data);
+    });
+
     Route::get('pozos', function(){
 
         $parametro = Input::get('parametro');

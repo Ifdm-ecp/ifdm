@@ -143,6 +143,7 @@
             <div class="tabbable">
               <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
                   <li class="active"><a data-toggle="tab" href="#damage_data_c" id="damage_data">Damage Variables Data</a></li>
+                  <a href="{{ route('histo') }}" id="historical_link" class="btn btn-primary" target="_blank">Historical Data</a>
                   {{-- <li><a data-toggle="tab" href="#general_data_c" id="general_data">General Data</a></li> --}}
               </ul>
               <div class="tab-content">
@@ -155,7 +156,7 @@
                           <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-primary" id="Basin" >
                             <option selected disabled>Basin</option>
                               @foreach ($cuencas as $cuenca)
-                                  <option value = "{!! $cuenca->id!!}">{!! $cuenca->nombre!!}</option>
+                                <option value = "{!! $cuenca->id !!}">{!! $cuenca->nombre!!}</option>
                               @endforeach
                           </select>
                         </div>
@@ -618,6 +619,13 @@
       }
       .nav>li{
         display: -webkit-box;
+      }
+      #myTab {
+        position: relative;
+      }
+      #myTab #historical_link {
+        position: absolute;
+        right: 0;
       }
     </style>
   </body>

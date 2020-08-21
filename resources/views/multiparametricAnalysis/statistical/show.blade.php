@@ -143,27 +143,27 @@
     $("#statistical_body").append (
       '<tr>'+
       '<th>'+data_table_final[0][0][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][0][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][0][0]).toFixed(1)+' % </th>'+
       '</tr>' +
       '<tr>'+
       '<th>'+data_table_final[0][1][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][1][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][1][0]).toFixed(1)+' % </th>'+
       '</tr>' +
       '<tr>'+
       '<th>'+data_table_final[0][2][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][2][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][2][0]).toFixed(1)+' % </th>'+
       '</tr>' +
       '<tr>'+
       '<th>'+data_table_final[0][3][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][3][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][3][0]).toFixed(1)+' % </th>'+
       '</tr>' +
       '<tr>'+
       '<th>'+data_table_final[0][4][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][4][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][4][0]).toFixed(1)+' % </th>'+
       '</tr>' +
       '<tr>'+
       '<th>'+data_table_final[0][5][1]+'</th>'+
-      '<th>'+parseFloat(data_table_final[0][5][0]).toFixed(4)+' % </th>'+
+      '<th>'+parseFloat(data_table_final[0][5][0]).toFixed(1)+' % </th>'+
       '</tr>' 
       );
   }

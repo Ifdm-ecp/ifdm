@@ -87,8 +87,9 @@ function fillBasicSelectors(cuenca, formaciones = null, sub_sp = null) {
     }
   );
 
+  $('#Parameter').empty();
   $('#Parameter').prop('disabled',true);
-  $('#Parameter').selectpicker('val', '');
+  $('#Parameter').selectpicker('refresh');
 
   $('#Mecanismos').prop('disabled',true);
   $('#Mecanismos').selectpicker('val', '');
@@ -327,6 +328,59 @@ $(document).ready(function()
     basinf = cuenca;
 
     fillBasicSelectors(cuenca);
+
+    // Fills the map with the wells based on the basin
+    if (cuenca) {
+      $.get("{!! url('basinwellsgeoreference') !!}", {
+            basin: cuenca
+          }, function(data) {
+            // Initializes the map to point to Colombia
+            var ccenter = new google.maps.LatLng(4.624335, -74.063644);
+            var mapOptions = {
+              zoom : 6,
+              center: ccenter,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            // Loops each well existing in the database and draws a marker for each one in the
+            // Google maps canvas
+            $.each(data.Wells, function(index, value) {
+              var cs = value.Cnombre;
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(value.lat, value.lon),
+                map: map,
+                icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
+              });
+
+              var infoW = new google.maps.InfoWindow({
+                content: " <b>Well name: </b>" + value.nombre +
+                  "- <b>Field: </b>" + cs 
+              });
+
+              marker.addListener('click', function() {
+                infoW.open(map, marker);
+                currentPopup = infoW;
+              });
+
+              google.maps.event.addListener(infoW, 'closeclick', function () {
+                map.panTo(center);
+                currentPopup = null;
+              });
+            });
+
+            // Fills the general data with at least the amount of wells present in the map
+            $('#MaV').text('-');
+            $('#MiV').text('-');
+            $('#AVG').text('-');
+            $('#SD').text('-');
+            $('#GI').text('-')
+            $('#WIF').text(data.Wells.length);
+            $('#WWM').text('-');
+          }
+        );
+    }
   });
 
   /**
@@ -366,14 +420,12 @@ $(document).ready(function()
     cc = 0;
     c=0;
     var campos = $('#Field').val();
+    var cuenca = $('#Basin').val();
     camposf=campos;
 
-    if(ccc == 1)
-    {
-      $('#Mecanismos').prop('disabled',false);
-      $('#Mecanismos').selectpicker('refresh');
-      $('#Mecanismos').selectpicker('val', '');
-    }
+    $('#Mecanismos').prop('disabled',false);
+    $('#Mecanismos').selectpicker('refresh');
+    $('#Mecanismos').selectpicker('val', '');
 
     //$('#Parameter').prop('disabled',true);
     //$('#Parameter').selectpicker('refresh');
@@ -387,16 +439,68 @@ $(document).ready(function()
     $('#fvr').attr('disabled',true);
 
     $.get("{!! url('formaciones2') !!}",
-            {campos: campos},
-            function(data)
-            {
-              $("#Formation").empty();
-              $.each(data, function(index, value)
-              { 
-                $("#Formation").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-                $("#Formation").selectpicker('refresh');
-              });
+      {campos: campos},
+      function(data)
+      {
+        $("#Formation").empty();
+        $.each(data, function(index, value)
+        { 
+          $("#Formation").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          $("#Formation").selectpicker('refresh');
+        });
+      });
+
+      // Fills the map with the wells based on the basin
+      $.get("{!! url('fieldwellsgeoreference') !!}", {
+          fields: campos,
+          basin: cuenca
+        }, function(data) {
+          // Initializes the map to point to Colombia
+          var ccenter = new google.maps.LatLng(4.624335, -74.063644);
+          var mapOptions = {
+            zoom : 6,
+            center: ccenter,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+
+          map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+          // Loops each well existing in the database and draws a marker for each one in the
+          // Google maps canvas
+          $.each(data.Wells, function(index, value) {
+            var cs = value.Cnombre;
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(value.lat, value.lon),
+              map: map,
+              icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
             });
+
+            var infoW = new google.maps.InfoWindow({
+              content: " <b>Well name: </b>" + value.nombre +
+                "- <b>Field: </b>" + cs 
+            });
+
+            marker.addListener('click', function() {
+              infoW.open(map, marker);
+              currentPopup = infoW;
+            });
+
+            google.maps.event.addListener(infoW, 'closeclick', function () {
+              map.panTo(center);
+              currentPopup = null;
+            });
+          });
+
+          // Fills the general data with at least the amount of wells present in the map
+          $('#MaV').text('-');
+          $('#MiV').text('-');
+          $('#AVG').text('-');
+          $('#SD').text('-');
+          $('#GI').text('-')
+          $('#WIF').text(data.Wells.length);
+          $('#WWM').text('-');
+        }
+      );
   });
 
   /***

@@ -10,14 +10,14 @@ use App\Http\Controllers\Controller;
 		/* Devuelve la vista geor con los datos de las cuencas para popular el select */
 		public function Cuencas()
 		{
-			$cuencas = DB::table('Campos')->get();
+			$cuencas = DB::table('campos')->get();
 
 			return view('Geor',['cuencas2' => $cuencas]);
 		}
 		/* Devuelve la vista geor con los datos de los campos para popular el select */
 		public function Campos($id)
 		{
-			$campos = DB::table('Campos')->where('Cuenca_id', $id)->get();
+			$campos = DB::table('campos')->where('Cuenca_id', $id)->get();
 			return view('Geor',['Campos' => $campos]);
 		}
 	}

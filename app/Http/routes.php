@@ -4699,6 +4699,15 @@ Route::group(['middleware' => 'auth'], function(){
         $formacion = Input::get('formacion');
         $pozo = Input::get('pozo');
         $campo = Input::get('campo');
+        $multi = Input::get('multi');
+        
+        $datos = array();
+
+        if ($multi) {
+            $datos = App\Models\MultiparametricAnalysis\Statistical::select('statistical', 'basin_statistical', 'field_statistical')
+                ->where('id', $multi)
+                ->get();
+        }
 
         $chart = App\medicion::select('mediciones.fecha as fecha', 'mediciones.valor as valorchart', 'p.nombre as nombre')
             ->join('pozos AS p', 'mediciones.pozo_id', '=', 'p.Id')
@@ -4707,7 +4716,7 @@ Route::group(['middleware' => 'auth'], function(){
             ->orderBy('mediciones.fecha')
             ->get();
 
-        $data = array('Chart'=>$chart);
+        $data = array('datos' => $datos, 'Chart' => $chart);
         return Response::json($data);
 
     });

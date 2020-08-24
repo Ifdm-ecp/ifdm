@@ -143,7 +143,7 @@
             <div class="tabbable">
               <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
                   <li class="active"><a data-toggle="tab" href="#damage_data_c" id="damage_data">Damage Variables Data</a></li>
-                  <a href="{{ route('histo') }}" id="historical_link" class="btn btn-primary" target="_blank">Historical Data</a>
+                  <a href="{{ route('histo') }}" id="historical_link" class="btn btn-primary" target="_blank">Historic Data</a>
                   {{-- <li><a data-toggle="tab" href="#general_data_c" id="general_data">General Data</a></li> --}}
               </ul>
               <div class="tab-content">

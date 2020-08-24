@@ -404,7 +404,7 @@ $(document).ready(function()
     $('#Parameter').selectpicker('deselectAll');
     $("#Parameter").append('<optgroup label="Sub-Parameters">');
 
-    $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable</div>');   
+    $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable</div>');
 
     fillParameters(mec);
   });

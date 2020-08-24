@@ -27,10 +27,12 @@
   <div class ="col-sm-2"></div>
   <div class ="col-sm-8">
   <div class ="row" id="alert"></div>
-  <div class ="row"  align="center"><h1><div id="titulo"></div></h1></div>
+  <div class ="row"  align="center"><h1><div id="titulo">
+    <b>Historic Data</b>
+  </div></h1></div>
   <hr>
   <div class="row">
-    <div class= "col-sm-3" align="center">
+    <div class= "col-sm-6" align="center">
       <div class ="col-sm-12">
         <div class ="row">Basin</div>
         <div class ="row">
@@ -42,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class= "col-sm-3" align="center">
+    <div class= "col-sm-6" align="center">
       <div class ="col-sm-12">
         <div class ="row">Field</div>
         <div class ="row">
@@ -51,17 +53,30 @@
         </div>
       </div>
     </div>
-    <div class= "col-sm-3" align="center">
+  </div>
+  <br>
+  <div class="row">
+    <div class= "col-sm-4" align="center">
       <div class ="col-sm-12">
-        <div class ="row">Sub-Parameter</div>
+        <div class ="row">Damage Mechanisms</div>
         <div class ="row">
-        <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Parameter" >
-          <option selected disabled>Sub-Parameter</option>
+        <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Mecanismos" >
+          <option selected disabled>Damage Mechanisms</option>
         </select>
         </div>
       </div>
     </div>
-    <div class= "col-sm-3" align="center">
+    <div class= "col-sm-4" align="center">
+      <div class ="col-sm-12">
+        <div class ="row">Damage Variables</div>
+        <div class ="row">
+        <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Parameter" >
+          <option selected disabled>Damage Variables</option>
+        </select>
+        </div>
+      </div>
+    </div>
+    <div class= "col-sm-4" align="center">
       <div class ="col-sm-12">
         <div class ="row">Well</div>
         <div class ="row">

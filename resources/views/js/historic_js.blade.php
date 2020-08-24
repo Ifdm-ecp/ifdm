@@ -10,11 +10,115 @@
   cum[0]=0;
   var i =0;
   var parametro;
+  var parametrof;
   var campo; 
   var formacion; 
   var parametrod;
   var campod;
   var formaciond;
+
+  function fillBasicSelectors(cuenca, formaciones = null, sub_sp = null) {
+    $.get("{{url('campos')}}",
+      {cuenca : cuenca},
+      function(data)
+      {
+        $("#Field").empty();
+        $("#Field").selectpicker('refresh');
+
+        $.each(data, function(index, value)
+          {
+            $("#Field").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          }
+        );
+
+        $("#Field").selectpicker('refresh');
+
+        if (formaciones) {
+          camposf = formaciones;
+          $('#Field').val(formaciones);
+          $('#Field').selectpicker('refresh');
+        }
+      }
+    );
+
+    $.get("{!! url('mecan_dano') !!}",
+      function(data)
+      {
+        $("#Mecanismos").empty();
+
+        $.each(data, function(index, value)
+          {
+            $("#Mecanismos").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          }
+        );
+        $("#Mecanismos").selectpicker('refresh');
+        $('#Mecanismos').selectpicker('val', '');
+
+        if (sub_sp) {
+          parametrof = sub_sp;
+          var mecdan_id = 0;
+
+          if (sub_sp >= 1 && sub_sp <= 5) {
+            mecdan_id = 1;
+          } else if (sub_sp >= 6 && sub_sp <= 10) {
+            mecdan_id = 2;
+          } else if ((sub_sp >= 11 && sub_sp <= 14) || sub_sp == 30) {
+            mecdan_id = 3;
+          } else if (sub_sp >= 15 && sub_sp <= 18) {
+            mecdan_id = 4;
+          } else if (sub_sp >= 19 && sub_sp <= 22) {
+            mecdan_id = 5;
+          } else if (sub_sp >= 23 && sub_sp <= 26) {
+            mecdan_id = 6;
+          }
+
+          $('#Mecanismos').prop('disabled', false);
+          $('#Parameter').prop('disabled', false);
+
+          $('#Mecanismos').val(mecdan_id);
+          $('#Mecanismos').selectpicker('refresh');
+
+          fillParameters(mecdan_id);
+        }
+      }
+    );
+  }
+
+  function fillParameters(mec) {
+    $.get("{!! url('parametros') !!}",
+      {mec:mec},
+      function(data)
+      {
+        $("#Parameter").empty();
+
+        $.each(data, function(index, value)
+        {
+          $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+        });
+
+        $("#Parameter").append('</optgroup>');
+
+        $.get("{{url('variables_dano')}}",
+          {mec:mec},
+          function(data)
+          {
+            $("#Parameter").append('<optgroup label="Another Damage Variables" disabled>');
+            $.each(data, function(index, value){
+                $("#Parameter").append('<option value="'+value.nombre+'">'+value.nombre+'</option>');
+            });
+            $("#Parameter").append('</optgroup>');
+            $("#Parameter").selectpicker('refresh');
+            $('#Parameter').selectpicker('val', '');
+
+            if (parametrof) {
+              $('#Parameter').val(parametrof);
+              $('#Parameter').selectpicker('refresh');
+              parametrof = null;
+            }
+          });
+      }
+    );
+  }
 
   $(document).ready(function()
   {
@@ -22,6 +126,7 @@
 
     if("{{Request::get('subp')}}" && "{{Request::get('statistical')}}") {
       var Sub = {{ Input::get('subp') ? Input::get('subp') : 'false' }};
+      var statId = {{ Input::get('statistical') ? Input::get('statistical') : 'false' }};
       var For = {{ $statistical !== 'false' ? $statistical->escenario->formacionxpozo->id : 'false' }};
       var Poz = {{ $statistical !== 'false' ? $statistical->escenario->pozo->id : 'false' }};
       var Ca = [{{ $statistical !== 'false' ? $statistical->escenario->campo->id : 'false' }}];
@@ -31,10 +136,21 @@
           parametro : Sub,
           formacion: For,
           pozo: Poz,
-          campo: Ca
+          campo: Ca,
+          multi: statId
         },
         function(data)
-        {    
+        {
+          $.each(data.datos, function(index, value)
+          {
+            if(value.statistical == 'undefined' || value.statistical == null)
+            {
+              campos_sp = value.field_statistical.split(",");
+              $('#Basin').val(value.basin_statistical);
+              $('#Basin').selectpicker('refresh');
+              fillBasicSelectors(value.basin_statistical, Ca, Sub);
+            }
+          });
 
           $.each(data.Chart, function(index, value)
           {
@@ -92,41 +208,74 @@
           });
           $("#Field").selectpicker('refresh');
         });
-        $.get("{!! url('parametros2') !!}",
+
+        $.get("{!! url('mecan_dano') !!}",
           function(data)
           {
-            $("#Parameter").empty();
+            $("#Mecanismos").empty();
+
             $.each(data, function(index, value)
-            {
-              $("#Parameter").append('<option value="'+value.id+'">'+value.nombre+'</option>');
-            });
-            $("#Parameter").selectpicker('refresh');
-      });
+              {
+                $("#Mecanismos").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+              }
+            );
+            $('#Mecanismos').selectpicker('refresh');
+            $('#Mecanismos').selectpicker('val', '');
+          }
+        );
+
+        $('#Parameter').empty();
+        $('#Parameter').prop('disabled', true);
+        $('#Parameter').selectpicker('refresh');
+
+        $('#Mecanismos').prop('disabled', true);
+        $('#Mecanismos').selectpicker('val', '');
     });
 
     $("#Field").change(function(e)
     {
-      $('#Parameter').prop('disabled',false);
-      $('#Well').prop('disabled',true);
-      $('#Parameter').selectpicker('refresh');
-      $('#Parameter').selectpicker('val', '');
+      $('#Parameter').prop('disabled', false);
+      $('#Well').prop('disabled', true);
 
       var campos = $('#Field').val();
       camposf=campos;
+
+      $('#Mecanismos').prop('disabled',false);
+      $('#Mecanismos').selectpicker('refresh');
+      $('#Mecanismos').selectpicker('val', '');
+
       $.get("{!! url('formaciones2') !!}",
-      {campos: campos},
-      function(data)
-      {
-        $("#Formation").empty();
-        $.each(data, function(index, value)
-        {  
-          $("#Formation").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+        {campos: campos},
+        function(data)
+        {
+          $("#Formation").empty();
+          $.each(data, function(index, value)
+          {  
+            $("#Formation").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          });
+          $("#Formation").selectpicker('refresh');
         });
-        $("#Formation").selectpicker('refresh');
-      });
+
+      $('#Parameter').empty();
+      $('#Parameter').prop('disabled', true);
+      $('#Parameter').selectpicker('refresh');
+    });
+
+    /**
+    * Acción del filtro Mecanismos que consulta los mecanismos de daño en la base de datos y los lista para acotar la búsqueda de 
+    * una variable de daño o configuración del daño. 
+    */
+    $("#Mecanismos").change(function(e)
+    {
+      var mec = $('#Mecanismos').val();
+      $('#Parameter').prop('disabled',false);
 
       $('#Parameter').selectpicker('deselectAll');
-      $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a subparameter</div>'); 
+      $("#Parameter").append('<optgroup label="Sub-Parameters">');
+
+        $('#alert').html('<div class="alert alert-danger" role="alert"><strong>Remember! </strong> Please choose a Damage Variable</div>');
+
+      fillParameters(mec);
     });
 
     $("#Formation").change(function(e)

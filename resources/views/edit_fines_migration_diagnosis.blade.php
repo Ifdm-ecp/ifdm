@@ -118,15 +118,15 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('compressibility') ? 'has-error' : ''}}">
+                              {!! Form::label('initial_permeability_label', 'Initial Permeability') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('initial_permeability') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                    <span class="input-group-btn">
                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                    </span>
                                  @endif
-                                 {!! Form::text('compressibility', $fines_d_diagnosis->compressibility,  ['placeholder' => '1/psi', 'class' =>'form-control', 'id' => 'compressibility']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">1/psi</span>
+                                 {!! Form::text('initial_permeability', $fines_d_diagnosis->initial_permeability,  ['placeholder' => 'mD', 'class' =>'form-control', 'id' => 'initial_permeability']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">mD</span>
                               </div>
                            </div>
                         </div>
@@ -145,7 +145,21 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row">
+                     <div class="row hidden">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('compressibility') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                   <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                   </span>
+                                 @endif
+                                 {!! Form::text('compressibility', $fines_d_diagnosis->compressibility,  ['placeholder' => '1/psi', 'class' =>'form-control', 'id' => 'compressibility']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">1/psi</span>
+                              </div>
+                           </div>
+                        </div>
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('porosity_limit_constant_label', 'Constant For The Porosity Limit') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -157,20 +171,6 @@
                                  @endif
                                  {!! Form::text('porosity_limit_constant', $fines_d_diagnosis->porosity_limit_constant,  ['placeholder' => '-', 'class' =>'form-control', 'id' => 'porosity_limit_constant']) !!}
                                  <span class="input-group-addon" id="basic-addon2">-</span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('initial_permeability_label', 'Initial Permeability') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('initial_permeability') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
-                                 @endif
-                                 {!! Form::text('initial_permeability', $fines_d_diagnosis->initial_permeability,  ['placeholder' => 'mD', 'class' =>'form-control', 'id' => 'initial_permeability']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">mD</span>
                               </div>
                            </div>
                         </div>

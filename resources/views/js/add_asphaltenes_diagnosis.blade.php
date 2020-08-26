@@ -415,6 +415,9 @@
         $('.save_table').on('click', function () {
             //Loading
             $("#loading_icon").show();
+
+            //Variable quemada a petición del ingeniero
+            $("#compressibility").val('0.0002');
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");
@@ -436,6 +439,9 @@
         $('.save_table_wr').on('click', function () {
             /* Loading */
             $("#loading_icon").show();
+
+            //Variable quemada a petición del ingeniero
+            $("#compressibility").val('0.0002');
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");

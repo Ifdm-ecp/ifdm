@@ -4432,7 +4432,6 @@ Route::group(['middleware' => 'auth'], function(){
 
         $parametro = Input::get('parametro');
         $pozo = Input::get('pozo');
-        $for = Input::get('formacion');
         $cid = Input::get('campo');
 
         $campo = App\pozo::join('campos AS c','pozos.campo_id','=','c.id')
@@ -4444,10 +4443,6 @@ Route::group(['middleware' => 'auth'], function(){
         ->wherein('id',$cid)
         ->get();
 
-        $formacion = App\formacion::select('nombre')
-        ->where('id','=',$for)
-        ->get();
-
         $nombre = App\subparametro::select('nombre')
         ->where('id','=',$parametro)
         ->get();
@@ -4455,7 +4450,7 @@ Route::group(['middleware' => 'auth'], function(){
         $npozo = App\pozo::select('nombre')
         ->where('id','=',$pozo)
         ->get();
-         $data = array('nombre'=>$nombre,'campo'=>$campo, 'formacion'=>$formacion, 'NCampo'=>$ncampo, 'NPozo'=>$npozo);
+         $data = array('nombre'=>$nombre,'campo'=>$campo, 'NCampo'=>$ncampo, 'NPozo'=>$npozo);
 
         return Response::json($data);
 
@@ -4696,7 +4691,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('historico', function(){
 
         $parametro = Input::get('parametro');
-        $formacion = Input::get('formacion');
         $pozo = Input::get('pozo');
         $campo = Input::get('campo');
         $multi = Input::get('multi');

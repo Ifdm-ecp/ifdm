@@ -155,6 +155,8 @@
 
     // Load all the subparameter historical data available for each subparameter
     function loadSubparametersHistoricalByWell() {
+        $(".ms-subparameter-picker").empty();
+
         $.get("{{url('subparameterbywell')}}", {
             pozoId: "{{ $pozoId }}"
         }, function(data) {

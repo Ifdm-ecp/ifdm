@@ -127,14 +127,12 @@
     if("{{Request::get('subp')}}" && "{{Request::get('statistical')}}") {
       var Sub = {{ Input::get('subp') ? Input::get('subp') : 'false' }};
       var statId = {{ Input::get('statistical') ? Input::get('statistical') : 'false' }};
-      var For = {{ $statistical !== 'false' ? $statistical->escenario->formacionxpozo->id : 'false' }};
       var Poz = {{ $statistical !== 'false' ? $statistical->escenario->pozo->id : 'false' }};
       var Ca = [{{ $statistical !== 'false' ? $statistical->escenario->campo->id : 'false' }}];
       var x;
       $.get("{{url('historico')}}",
         {
           parametro : Sub,
-          formacion: For,
           pozo: Poz,
           campo: Ca,
           multi: statId
@@ -165,7 +163,6 @@
           $.get("{{'nombresp'}}",
             {
             parametro: Sub,
-            formacion: For,
             pozo: Poz,
             campo: Ca
             },
@@ -179,15 +176,11 @@
             {
               campo = value.nombre;
             });
-            $.each(data.formacion, function(index,value)
-            {
-              formacion = value.nombre;
-            });
             $.each(data.NCampo, function(index,value)
             {
               campo = value.nombre;
             });
-            chart(datos, freq, wellnames, parametro, campo, formacion, '0');
+            chart(datos, freq, wellnames, parametro, campo, '0');
           });
         });
     }
@@ -292,7 +285,6 @@
       $('#alert').html('<div class="alert alert-warning" role="alert">    If you want to see historic data for a <strong> specific well </strong> Please choose one</div>');
 
       var parametrox = $('#Parameter').val();
-      var formacionx = $('#Formation').val();
       var campox = $('#Field').val();
       var pozox = $('#Well').val();
       var campod = " ";
@@ -304,7 +296,6 @@
       $.get("{{url('historico')}}",
         {
           parametro : parametrox,
-          formacion: formacionx,
           campo: campox
         },
         function(data)
@@ -322,7 +313,6 @@
           $.get("{{'nombresp'}}",
             {
               parametro: parametrox,
-              formacion: formacionx,
               campo:campox 
             },
             function(data)
@@ -335,11 +325,7 @@
               {
                 campod = value.nombre + ' - '+campod;
               });
-              $.each(data.formacion, function(index,value)
-              {
-                formaciond = value.nombre;
-              });
-              chart(datosn, freqn, wellnames, parametrod, campod, formaciond, '0');
+              chart(datosn, freqn, wellnames, parametrod, campod, '0');
             });
       });
 
@@ -363,7 +349,6 @@
     $('#Well').change(function(e)
     {
       var parametrox = $('#Parameter').val();
-      var formacionx = $('#Formation').val();
       var pozox = $('#Well').val();
       var datosn = [];
       var freqn = [];
@@ -400,12 +385,12 @@
           {
             campod = value.nombre;                
           });
-          chart(datosn, freqn, wellnames, parametrod, campod, formaciond,pozod);
+          chart(datosn, freqn, wellnames, parametrod, campod, pozod);
         });
       });
     });
 
-    function chart(data, freq, wellnames, parametro, campo, formacion, pozo)
+    function chart(data, freq, wellnames, parametro, campo, pozo)
     {
       var dataMatrix = [];
       for (i = 0; i < data.length; i++) {

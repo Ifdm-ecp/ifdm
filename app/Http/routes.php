@@ -4263,7 +4263,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         if (\Auth::check()) {
             $statistical = App\Models\MultiparametricAnalysis\Statistical::find(Input::get('statistical'));
-            $cuencas = App\cuenca::all();
+            $cuencas = App\cuenca::orderBy('nombre')->get();
             return  view('Freq', ['cuencas' => $cuencas, 'statistical' => $statistical]);
         }else{
             return view('loginfirst');
@@ -4528,11 +4528,20 @@ Route::group(['middleware' => 'auth'], function(){
         $parametro = Input::get('parametro');
         $campo = Input::get('campo');
         $formacion = Input::get('formacion');
+        $multi = Input::get('multi');
         $coors = [];
         $coorsc = [];
         $gencampos = [];
         $pozosc = [];
         $i=0;
+
+        $datos = array();
+
+        if ($multi) {
+            $datos = App\Models\MultiparametricAnalysis\Statistical::select('statistical', 'basin_statistical', 'field_statistical')
+                ->where('id', $multi)
+                ->get();
+        }
 
         $unidades = App\subparametro::where('id',$parametro)->get();
 
@@ -4624,38 +4633,34 @@ Route::group(['middleware' => 'auth'], function(){
 
         foreach($campo as $c)
         {
+            $coordenadasc = App\coordenada_campo::where('campo_id','=',$c)
+            ->orderBy('Orden')
+            ->get();
 
-        $coordenadasc = App\coordenada_campo::where('campo_id','=',$c)
-        ->orderBy('Orden')
-        ->get();
+            $coordenadas = App\coordenada_formacion::where('campo_id','=',$c)
+            ->where('formacion_id','=',$formacion)
+            ->orderBy('Orden')
+            ->get();
 
-        $coordenadas = App\coordenada_formacion::where('campo_id','=',$c)
-        ->where('formacion_id','=',$formacion)
-        ->orderBy('Orden')
-        ->get();
+            $gencampo = App\medicion::join('pozos as p', 'mediciones.pozo_id','=','p.Id')
+            ->join('campos as c','c.id','=','p.campo_id')
+            ->select(DB::raw('avg(mediciones.valor) as avg'),DB::raw('min(mediciones.valor) as min'),DB::raw('max(mediciones.valor) as max'),DB::raw('std(mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
+            ->where('p.campo_id','=',$c)
+            ->where('mediciones.subparametro_id','=',$parametro)
+            ->get();
 
-        $gencampo = App\medicion::join('pozos as p', 'mediciones.pozo_id','=','p.Id')
-        ->join('campos as c','c.id','=','p.campo_id')
-        ->select(DB::raw('avg(mediciones.valor) as avg'),DB::raw('min(mediciones.valor) as min'),DB::raw('max(mediciones.valor) as max'),DB::raw('std(mediciones.valor) as sd'),DB::raw('count(distinct(p.Id)) as count'),'c.nombre as cnombre')
-        ->where('p.campo_id','=',$c)
-        ->where('mediciones.subparametro_id','=',$parametro)
-        ->get();
+            $pozoscampos = App\pozo::select(DB::raw('count(*) as count'))
+            ->where('campo_id','=',$c)
+            ->get();
 
-        $pozoscampos = App\pozo::select(DB::raw('count(*) as count'))
-        ->where('campo_id','=',$c)
-        ->get();
-
-        array_push($gencampos,$gencampo);
-        array_push($coors, $coordenadas);
-        array_push($coorsc, $coordenadasc);
-        array_push($pozosc,$pozoscampos);
-
-        
+            array_push($gencampos,$gencampo);
+            array_push($coors, $coordenadas);
+            array_push($coorsc, $coordenadasc);
+            array_push($pozosc,$pozoscampos);
         }
 
-        $data = array('PozosC'=>$pozosc,'Pozosmin'=>$pozosmin, 'Pozosmax'=>$pozosmax,'Pozosavg'=> $pozosavg, 'Coordenadasc'=>$coorsc, 'Gencampos'=>$gencampos ,'Coordenadas'=>$coors,'Pozos'=>$pozos,'Pozos2'=>$pozos2, 'General'=>$general,'Chart'=>$chart,'Chart2'=>$chart2,'General2'=>$general2,'Centro'=>$centro,'unidades'=>$unidades);
+        $data = array('PozosC'=>$pozosc,'Pozosmin'=>$pozosmin, 'Pozosmax'=>$pozosmax,'Pozosavg'=> $pozosavg, 'Coordenadasc'=>$coorsc, 'Gencampos'=>$gencampos ,'Coordenadas'=>$coors,'Pozos'=>$pozos,'Pozos2'=>$pozos2, 'General'=>$general,'Chart'=>$chart,'Chart2'=>$chart2,'General2'=>$general2,'Centro'=>$centro,'unidades'=>$unidades,'datos'=>$datos);
         return Response::json($data);
-
     });
 
 

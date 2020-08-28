@@ -38,7 +38,7 @@ class StatisticalController extends Controller
             $scenary = escenario::find(\Request::get('scenaryId'));
             $user = $scenary->user;
             $advisor = $scenary->enable_advisor;
-            $cuencas = cuenca::all();
+            $cuencas = cuenca::orderBy('nombre')->get();
             $complete = false;
 
             return view('multiparametricAnalysis.statistical.create', compact(['scenary', 'user', 'advisor', 'cuencas', 'complete']));
@@ -162,7 +162,7 @@ class StatisticalController extends Controller
         $statistical->date_gd4 = $statistical->date_gd4 !== '0000-00-00' ? Carbon::parse($statistical->date_gd4)->format('d/m/Y') : '';
 
         //se trae todas las cuencas existentes
-        $cuencas = cuenca::all();
+        $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 

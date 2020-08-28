@@ -146,7 +146,7 @@
               campos_sp = value.field_statistical.split(",");
               $('#Basin').val(value.basin_statistical);
               $('#Basin').selectpicker('refresh');
-              fillBasicSelectors(value.basin_statistical, Ca, Sub);
+              fillBasicSelectors(value.basin_statistical, campos_sp, Sub);
             }
           });
 
@@ -189,7 +189,7 @@
     {
       var cuenca = e.target.value;
       var basinf = cuenca;
-      $('#Well').prop('disabled',true);
+      $('#Well').prop('disabled', true);
       $.get("{{url('campos')}}",
         {cuenca : cuenca},
         function(data)

@@ -3341,7 +3341,7 @@ function mapIsVd_Well(op, parametro,camposf,formacion,sp, puntos)
   Adicional: el nombre a los subparámetros se le asigna con el nombre desde la base de datos a los subparámetros y con el id a las variables de daño, así que las variables de daño tendrán un nombre "numérico" */
 function isVD(s)
 {
-    return /[a-z]/i.test(s);
+  return /[a-z]/i.test(s);
 }
 
 
@@ -3351,34 +3351,32 @@ function isVD(s)
     parametro: nombre del subparámetro que se consulta.
     unidad: unidades del subparámetro que se consulta. 
  */
-function chart(datos,parametro, unidad)
+function chart(datos, parametro, unidad)
 {
-      data = new google.visualization.DataTable();
-      data.addColumn('number', parametro);
-      var aux=[];
-      var m =[];
-      var i=0;
-      $.each(datos, function(index,value){
-        aux = [value.valorchart];
-        data.addRow(aux);
+  data = new google.visualization.DataTable();
+  data.addColumn('number', parametro);
+  var aux=[];
+  var m =[];
+  var i=0;
+  $.each(datos, function(index,value){
+    aux = [value.valorchart];
+    data.addRow(aux);
+  });
 
-      });  
-      
+  var options = {
+    title: 'Frequency distribution',
+    vAxis: {title:"Frequency"},
+    hAxis: {title:parametro+" ["+unidad+"]"}, 
+    chart: 
+    {
+        title: 'Frequency distribution...',
+        subtitle: 'Subparameter: '+parametro,
+    },
+    legend: {position: 'left'}
+  };
 
-      var options = {
-            title: 'Frequency distribution',
-            vAxis: {title:"Frequency"},
-            hAxis: {title:parametro+" ["+unidad+"]"}, 
-            chart: 
-            {
-                title: 'Frequency distribution...',
-                subtitle: 'Subparameter: '+parametro,
-            },
-            legend: {position: 'left'}
-        };
-
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-        chart.draw(data, options);
+  var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+  chart.draw(data, options);
 }
 
 

@@ -33,42 +33,57 @@
   <div class ="col-sm-10">
     <div class ="row">
       <div class ="row" id="alert"></div>
-      <div class ="row"  align="center"><h1><div id="titulo"></div></h1></div>
-        <hr>
-        <div class="row">
-          <div class= "col-sm-3 " align="center">
+      <div class ="row" align="center">
+        <h1><div id="titulo">Frequency Distribution & General Information</div>
+        </h1>
+      </div>
+      <hr>
+      <div class="row">
+        <div class= "col-sm-6" align="center">
           <div class ="col-sm-12">
             <div class ="row">Basin</div>
             <div class ="row">
               <select class="selectpicker show-tick"  data-live-search="true" data-width="100%"  id="Basin" >
-              <option selected disabled>Basin</option>
                   @foreach ($cuencas as $cuenca)
                       <option value = "{!! $cuenca->id!!}">{!! $cuenca->nombre!!}</option>
                   @endforeach
               </select>
             </div>
           </div>
-          </div>
-          <div class= "col-sm-3 " align="center">
+        </div>
+        <div class= "col-sm-6" align="center">
           <div class ="col-sm-12">
             <div class ="row">Field</div>
             <div class ="row">
-              <select class="selectpicker show-tick" data-header="One or Many" data-live-search="true" data-width="100%"  id="Field" name="Field" title="Field" multiple>
+              <select class="selectpicker show-tick" data-live-search="true" data-width="100%"  id="Field" name="Field" title="Field" multiple>
               </select>
             </div>
           </div>
-          </div>
-          <div class= "col-sm-3 " align="center">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class= "col-sm-4" align="center">
           <div class ="col-sm-12">
-            <div class ="row">Sub-Parameter</div>
-              <div class ="row">
-                <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Parameter" >
-                  <option selected disabled>Sub-Prameter</option>
-                </select>
-              </div>
+            <div class ="row">Damage Mechanisms</div>
+            <div class ="row">
+            <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Mecanismos" >
+              <option selected disabled>Damage Mechanisms</option>
+            </select>
             </div>
           </div>
-          <div class= "col-sm-3 " align="center">
+        </div>
+        <div class= "col-sm-4" align="center">
+          <div class ="col-sm-12">
+            <div class ="row">Damage Variables</div>
+            <div class ="row">
+              <select class="selectpicker show-tick" disabled data-live-search="true" data-width="100%"  id="Parameter" >
+                <option selected disabled>Damage Variables</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class= "col-sm-4" align="center">
           <div class ="col-sm-12">
             <div class ="row">Well</div>
             <div class ="row">
@@ -77,117 +92,117 @@
                 </select>
             </div>
           </div>
+        </div>
+      </div>
+      <hr>
+      <div class ="row">
+        <div class="col-sm-6 " id="chart" >
+          <div class ="col-sm-12">
+            <div id= "chart2_div"></div>
           </div>
         </div>
-        <hr>
-        <div class ="row">
-            <div class="col-sm-6 " id="chart" >
-              <div class ="col-sm-12">
-                <div id= "chart2_div"></div>
-              </div>
+        <div class="col-sm-6 " id="chart2" >
+          <div class ="col-sm-12">
+            <div id= "chart_div"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12 " id="Info">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title" id="GI">General information</h3>
             </div>
-            <div class="col-sm-6 " id="chart2" >
-              <div class ="col-sm-12">
-                <div id= "chart_div"></div>
-              </div>
-            </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-12 " id="Info">
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title" id="GI">General information</h3>
-                  </div>
-                  <div class="panel-body">
-                    <div class="row">
-                      <div class= "col-sm-3 " >
-                        <div class ="col-sm-12">
-                            <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                <h3 class="panel-title" align="center">Maximum value</h3>
-                              </div>
-                               <div class="panel-body" id="MaV" align="center"></div>
-                            </div>
-                        </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class= "col-sm-3 " >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Maximum value</h3>
                       </div>
-                      <div class= "col-sm-3 " >
-                        <div class ="col-sm-12">
-                            <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                <h3 class="panel-title" align="center">Minimum value</h3>
-                              </div>
-                              <div class="panel-body" id="MiV" align="center"></div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class= "col-sm-3 " >
-                        <div class ="col-sm-12">
-                            <div class="panel panel-primary">
-                              <div class="panel-heading">
-                                <h3 class="panel-title" align="center">Number of data</h3>
-                              </div>
-                              <div class="panel-body" id="len" align="center"></div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class= "col-sm-3" >
-                        <div class ="col-sm-12">
-                          <div class="panel panel-primary">
-                            <div class="panel-heading">
-                              <h3 class="panel-title" align="center">Mean</h3>
-                            </div>
-                            <div class="panel-body" id="AVG" align="center"></div>
-                          </div>
-                        </div>
-                      </div>
+                        <div class="panel-body" id="MaV" align="center"></div>
                     </div>
-                    <div class="row">
-                      <div class= "col-sm-3 " >
-                            <div class = "col-sm-12">
-                              <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                  <h3 class="panel-title" align="center">Standard deviation</h3>
-                                </div>
-                                <div class="panel-body" id="SD" align="center"></div>
-                              </div>
-                            </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Minimum value</h3>
                       </div>
-                      <div class= "col-sm-3 " >
-                            <div class ="col-sm-12">
-                              <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                  <h3 class="panel-title" align="center">P10</h3>
-                                </div>
-                                <div class="panel-body" id="p10" align="center"></div>
-                              </div>
-                            </div>
+                      <div class="panel-body" id="MiV" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Number of data</h3>
                       </div>
-                      <div class= " col-sm-3 " >
-                            <div class ="col-sm-12">
-                              <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                  <h3 class="panel-title" align="center">P50</h3>
-                                </div>
-                                <div class="panel-body" id="p50" align="center"></div>
-                              </div>
-                            </div>
+                      <div class="panel-body" id="len" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Mean</h3>
                       </div>
-                      <div class= " col-sm-3 " >
-                            <div class ="col-sm-12">
-                              <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                  <h3 class="panel-title" align="center">P90</h3>
-                                </div>
-                                <div class="panel-body" id="p90" align="center"></div>
-                              </div>
-                            </div>
-                      </div>   
+                      <div class="panel-body" id="AVG" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class= "col-sm-3" >
+                  <div class = "col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">Standard deviation</h3>
+                      </div>
+                      <div class="panel-body" id="SD" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">P10</h3>
+                      </div>
+                      <div class="panel-body" id="p10" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">P50</h3>
+                      </div>
+                      <div class="panel-body" id="p50" align="center"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class= "col-sm-3" >
+                  <div class ="col-sm-12">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" align="center">P90</h3>
+                      </div>
+                      <div class="panel-body" id="p90" align="center"></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class ="col-sm-1"></div>

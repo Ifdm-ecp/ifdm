@@ -173,7 +173,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6 hidden">
+                        <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('compressibility') ? 'has-error' : ''}}">

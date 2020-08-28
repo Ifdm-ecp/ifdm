@@ -162,11 +162,12 @@
         }, function(data) {
             $.each(data, function(index, value) {
                 var textValue = value.valor + ' - ' + moment(value.fecha).format('DD/MM/YYYY');
-                $(".select-stored-" + value.subparametro_id).append('<option value="' + textValue + '">' + textValue + '</option>');
+                $("select.select-stored-" + value.subparametro_id).append('<option value="' + textValue + '">' + textValue + '</option>');
             });
 
             $(".ms-subparameter-picker").selectpicker('render');
             $(".ms-subparameter-picker").selectpicker('refresh');
+            $(".ms-subparameter-picker").selectpicker('val', '');
         });
     }
 

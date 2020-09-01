@@ -3701,7 +3701,7 @@ class IPR2Controller extends Controller
             $formacion = [];
             foreach ($formacion_edit as $f_edit) {
                 $actual = $f_edit;
-                $nombre_f = formacionxpozo::where('id','=',$actual->id_formation)->first()->nombre;
+                $nombre_f = 'lelele';
                 $actual->nombre = $nombre_f;
                 $formacion[] = $f_edit;
             }

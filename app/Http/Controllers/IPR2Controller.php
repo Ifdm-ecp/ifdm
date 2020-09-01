@@ -3699,10 +3699,8 @@ class IPR2Controller extends Controller
 
             $formacion_edit = formations_scenary::where('id_scenary',$id_escenario)->get();
             $formacion = [];
-            //dd($formacion_edit);
             foreach ($formacion_edit as $f_edit) {
                 $actual = $f_edit;
-                //dd($actual->id_formation);
                 $nombre_f = formacionxpozo::where('id','=',$actual->id_formation)->first()->nombre;
                 $nombre_f = 'lelele';
                 $actual->nombre = $nombre_f;

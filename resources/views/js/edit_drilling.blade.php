@@ -455,6 +455,8 @@ function verifyDrilling(action) {
     titleTab = "";
     tabTitle = "Tab: Completion Data";
 
+    $("#check_available").val(1);
+
     validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#c_total_exposure_time_t").val(), completion_data_tab_ruleset[0]);
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
@@ -484,6 +486,8 @@ function verifyDrilling(action) {
     titleTab = validationFunctionResult[0];
     validationMessages = validationFunctionResult[1];
     emptyValues = (emptyValues === false && ($("#c_equivalent_circulating_density_t").val() === null || $("#c_equivalent_circulating_density_t").val() === "")) ? true: emptyValues;
+  } else {
+    $("#check_available").val(0);
   }
 
   if (validationMessages.length < 1) {

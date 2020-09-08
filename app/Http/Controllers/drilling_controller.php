@@ -2056,18 +2056,18 @@ class drilling_controller extends Controller
                 $drilling_results->d_total_invasion_radius_volume = $vf_perf_total;
 
                 // Table results for completion
-                $drilling_results->c_average_calculated_skin = $skin_cem_avg;
-                $drilling_results->c_maximum_calculated_skin = $skin_cem_max;
-                $drilling_results->c_average_invasion_radius = $rd_cem_avg;
-                $drilling_results->c_maximum_invasion_radius = $rd_cem_max;
-                $drilling_results->c_total_invasion_radius_volume = $vf_cem_total;
+                $drilling_results->c_average_calculated_skin = isset($skin_cem_avg) ? $skin_cem_avg : 0;
+                $drilling_results->c_maximum_calculated_skin = isset($skin_cem_max) ? $skin_cem_max : 0;
+                $drilling_results->c_average_invasion_radius = isset($rd_cem_avg) ? $rd_cem_avg : 0;
+                $drilling_results->c_maximum_invasion_radius = isset($rd_cem_max) ? $rd_cem_max : 0;
+                $drilling_results->c_total_invasion_radius_volume = isset($vf_cem_total) ? $vf_cem_total : 0;
 
                 // Table results for totals
-                $drilling_results->calculated_skin_avg_total = $skin_perf_avg + $skin_cem_avg;
-                $drilling_results->calculated_skin_max_total = $skin_perf_max + $skin_cem_max;
+                $drilling_results->calculated_skin_avg_total = $skin_perf_avg + (isset($skin_cem_avg) ? $skin_cem_avg : 0);
+                $drilling_results->calculated_skin_max_total = $skin_perf_max + (isset($skin_cem_max) ? $skin_cem_max : 0);
                 $drilling_results->filtration_volume_avg_total = 0;
                 $drilling_results->filtration_volume_max_total = 0;
-                $drilling_results->total_invasion_radius_max_total = $vf_perf_total + $vf_cem_total;
+                $drilling_results->total_invasion_radius_max_total = $vf_perf_total + (isset($vf_cem_total) ? $vf_cem_total : 0);
 
                 //dd($drilling_results);
 

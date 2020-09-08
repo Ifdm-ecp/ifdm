@@ -59,7 +59,7 @@
 											<td>{!! $table_results[0][4] !!}</td>
 										</tr>
 
-										@if(count($table_results[1]) > 0)
+										@if(array_key_exists(1, $table_results) && count($table_results[1]) > 0)
 											<tr>
 												<th>Completion</th>
 												<td>{!! $table_results[1][0] !!}</td>

@@ -498,7 +498,7 @@ function linear_regression_plot()
     b = temp[1];
 
     if (b < 0) {
-        b = intercept;
+        b = 0;
     }
 
     //graficar

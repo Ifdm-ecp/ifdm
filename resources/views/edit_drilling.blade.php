@@ -238,7 +238,7 @@
                   <h4>
                      Completion Data
                      <div class="pull-right">
-                        {!! Form::checkbox('cementingAvailable',null,true, array('id' => 'check_available')) !!}
+                        {!! Form::checkbox('cementingAvailable', $drilling_scenario->cementingAvailable, ($drilling_scenario->cementingAvailable == 1 ? true : false), array('id' => 'check_available')) !!}
                         {!! Form::label('available', 'Available') !!}
                      </div>
                   </h4>

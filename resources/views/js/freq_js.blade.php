@@ -34,9 +34,24 @@ function fillBasicSelectors(cuenca, formaciones = null, sub_sp = null) {
       $("#Field").selectpicker('refresh');
 
       if (formaciones) {
-        console.log(formaciones);
         $('#Field').val(formaciones);
         $('#Field').selectpicker('refresh');
+
+        $('#Well').prop('disabled', false);
+
+        $.get("{!! url('pozosFiltros') !!}", {
+          campo: formaciones
+        },
+        function(data) {
+          $("#Well").empty();
+
+          $.each(data, function(index, value){
+            $("#Well").append('<option value="'+value.id+'">'+value.nombre+'</option>');
+          });
+
+          $("#Well").selectpicker('refresh');
+          $('#Well').selectpicker('val', '');
+        });
       }
     }
   );

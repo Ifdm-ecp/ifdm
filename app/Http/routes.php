@@ -4350,7 +4350,7 @@ Route::group(['middleware' => 'auth'], function(){
                     ->join('pozos as p', 'mediciones.pozo_id', '=', 'p.id')
                     ->select('mediciones.valor as valorchart')
                     ->where('subparametro_id', $arr['id'])
-                    
+                    ->orderBy('valorchart')
                     ->get();
                 $arreglo[$arr['id']] = $chart;
             }
@@ -4361,7 +4361,7 @@ Route::group(['middleware' => 'auth'], function(){
                     ->select('mediciones.valor as valorchart')
                     ->wherein('p.campo_id', explode(',', $campo))
                     ->where('subparametro_id', $arr['id'])
-                    
+                    ->orderBy('valorchart')
                     ->get();
                 $arreglo[$arr['id']] = $chart;
             }

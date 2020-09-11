@@ -465,7 +465,13 @@ function chart(datos, parametro, subx, camx)
   var options = {
     title: 'Cumulative frequency ',
     vAxis: {format: '#\'%\'',title:"Cumulative Frequency (%)"},
-    hAxis: {title:parametro},
+    hAxis: {
+      title: parametro,
+      viewWindow: {
+        min: 0,
+        max: 100
+      }
+    },
     chart: {
       title: 'Cumulative distribution...',
       subtitle: 'Subparameter: '+parametro,

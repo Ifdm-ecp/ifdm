@@ -819,9 +819,9 @@
             validationMessages = validationMessages.concat("The plus of the input Weight of the section Relative Permeability is older (" + sumWeights + ")");
         }
         
-        // Validating Induce Damage
+        // Validating Induced Damage
         titleTab = "";
-        tabTitle = "Tab: Induce Damage";
+        tabTitle = "Tab: Induced Damage";
 
         // Gross Pay (ft)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID1").val(), induce_damage_tab_ruleset[0]);

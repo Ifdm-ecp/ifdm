@@ -37,7 +37,7 @@
          <li><a data-toggle="tab" href="#fine_blockage_c" id="fine_blockage" onclick="switchTab()">Fine Blockage</a></li>
          <li><a data-toggle="tab" href="#organic_scales_c" id="organic_scales" onclick="switchTab()">Organic Scales</a></li>
          <li><a data-toggle="tab" href="#relative_permeability_c" id="relative_permeability" onclick="switchTab()">Relative Permeability</a></li>
-         <li><a data-toggle="tab" href="#induce_damage_c" id="induce_damage" onclick="switchTab()">Induce Damage</a></li>
+         <li><a data-toggle="tab" href="#induce_damage_c" id="induce_damage" onclick="switchTab()">Induced Damage</a></li>
          <li><a data-toggle="tab" href="#geomechanical_damage_c" id="geomechanical_damage" onclick="switchTab()">Geomechanical Damage</a></li>
       </ul>
    </div>
@@ -721,7 +721,7 @@
          <br>
          <div class="panel panel-default">
             <div class="panel-heading">
-               <h4>Induce Damage</h4>
+               <h4>Induced Damage</h4>
             </div>
       
             <div class="panel-body">

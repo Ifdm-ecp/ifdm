@@ -371,9 +371,9 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         
-        // Validating Induce Damage
+        // Validating Induced Damage
         titleTab = "";
-        tabTitle = "Tab: Induce Damage";
+        tabTitle = "Tab: Induced Damage";
 
         // Gross Pay (ft)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID1").val(), induce_damage_tab_ruleset[0]);

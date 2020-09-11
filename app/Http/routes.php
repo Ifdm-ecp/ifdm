@@ -4627,6 +4627,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->where('mediciones.subparametro_id','=',$parametro)
         ->wherein('p.campo_id',$campo)
         ->groupBy('p.id')
+        ->orderBy('valorchart')
         ->get();
 
 

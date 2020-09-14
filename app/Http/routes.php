@@ -2740,6 +2740,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('AddMeasurementC', 'add_damage_variables_controller');
     Route::resource('AddMeasurementCS', 'add_damage_variables_controller@store');
 
+    Route::resource('EditMeasurementC', 'edit_damage_variables_controller');
+    Route::resource('subparametersbywell', 'edit_damage_variables_controller@getSubparametersByWell');
+    Route::resource('EditSubparameterC', 'edit_damage_variables_controller@editSubparameter');
+    Route::resource('RemoveSubparameterC', 'edit_damage_variables_controller@removeSubparameter');
+
     Route::resource('AddDataBasin', 'AddDataController');
 
     Route::resource('AddFormationS', 'add_formation_controller@store');

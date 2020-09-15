@@ -31,45 +31,45 @@
             <br>
             <div class="row">
                <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('AddDataC') !!}" class="btn btn-primary col-md-12" role="button">Basin</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddDataC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Basin</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('AddDataC') !!}" class="btn btn-primary col-md-12" role="button">Field</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddDataC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Field</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('AddFormationC') !!}" class="btn btn-primary col-md-12" role="button">Formation</a>
-                  </div>
-               </div>
-            </div>
-            <br>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('AddFormationWC') !!}" class="btn btn-primary col-md-12" role="button">Well</a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('AddFormationWellC') !!}" class="btn btn-primary col-md-12" role="button">Producing Interval</a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('AddMeasurementC') !!}" class="btn btn-primary col-md-12" role="button">Damage Variables</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddFormationC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Formation</a>
                   </div>
                </div>
             </div>
             <br>
             <div class="row">
                <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('filtration_function') !!}" class="btn btn-primary col-md-12" role="button">Filtration Function</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddFormationWC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Well</a>
                   </div>
-                  <div class="col-md-4" style="display:none;">
-                     <a href="{!! url('add_filtration_function_u') !!}" class="btn btn-primary col-md-12" role="button">Universal Filt. Func.</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddFormationWellC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Producing Interval</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! route('formation-mineralogy.create') !!}" class="btn btn-primary col-md-12" role="button"><small>Formation Mineralogy</small></a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('AddMeasurementC') !!}" class="btn btn-block btn-primary col-md-12" role="button">Damage Variables</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! route('pvt-global.create') !!}" class="btn btn-primary col-md-12" role="button">PVT Library </a>
+               </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('filtration_function') !!}" class="btn btn-block btn-primary col-md-12" role="button">Filtration Function</a>
+                  </div>
+                  <div class="col-xs-12 col-sm-4" style="display:none;">
+                     <a href="{!! url('add_filtration_function_u') !!}" class="btn btn-block btn-primary col-md-12" role="button">Universal Filt. Func.</a>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! route('formation-mineralogy.create') !!}" class="btn btn-block btn-primary col-md-12" role="button"><small>Formation Mineralogy</small></a>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! route('pvt-global.create') !!}" class="btn btn-block btn-primary col-md-12" role="button">PVT Library </a>
                   </div>
                </div>
             </div>
@@ -91,50 +91,50 @@
             <br><br>
             <div class="row">
                <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('listBasinC') !!}" class="btn btn-success col-md-12" role="button">Basin</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('listBasinC') !!}" class="btn btn-block btn-success col-md-12" role="button">Basin</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('listFieldC') !!}" class="btn btn-success col-md-12" role="button">Field</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('listFieldC') !!}" class="btn btn-block btn-success col-md-12" role="button">Field</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('listFormationC') !!}" class="btn btn-success col-md-12" role="button">Formation</a>
-                  </div>
-               </div>
-            </div>
-            <br>
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('listWellC') !!}" class="btn btn-success col-md-12" role="button">Well</a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('listIntervalC') !!}" class="btn btn-success col-md-12" role="button">Producing Interval</a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('EditMeasurementC') !!}" class="btn btn-success col-md-12" role="button">Damage Variables</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('listFormationC') !!}" class="btn btn-block btn-success col-md-12" role="button">Formation</a>
                   </div>
                </div>
             </div>
             <br>
             <div class="row">
                <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! url('DeleteProject') !!}" class="btn btn-success col-md-12" role="button">Project</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('listWellC') !!}" class="btn btn-block btn-success col-md-12" role="button">Well</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! url('filtration_function_list') !!}" class="btn btn-success col-md-12" role="button">Filtration Function</a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('listIntervalC') !!}" class="btn btn-block btn-success col-md-12" role="button">Producing Interval</a>
                   </div>
-                  <div class="col-md-4">
-                     <a href="{!! route('formation-mineralogy.index') !!}" class="btn btn-success col-md-12" role="button"><small>Formation Mineralogy</small></a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('EditMeasurementC') !!}" class="btn btn-block btn-success col-md-12" role="button">Damage Variables</a>
                   </div>
                </div>
             </div>
             <br>
             <div class="row">
                <div class="col-md-12">
-                  <div class="col-md-4">
-                     <a href="{!! route('pvt-global.index') !!}" class="btn btn-success col-md-12" role="button">PVT Library </a>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('DeleteProject') !!}" class="btn btn-block btn-success col-md-12" role="button">Project</a>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! url('filtration_function_list') !!}" class="btn btn-block btn-success col-md-12" role="button">Filtration Function</a>
+                  </div>
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! route('formation-mineralogy.index') !!}" class="btn btn-block btn-success col-md-12" role="button"><small>Formation Mineralogy</small></a>
+                  </div>
+               </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
                   </div>
                </div>
             </div>

@@ -417,7 +417,7 @@
             $("#loading_icon").show();
 
             //Variable quemada a petición del ingeniero
-            //$("#compressibility").val('0.0002');
+            $("#compressibility").val('0.0002');
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");
@@ -441,7 +441,7 @@
             $("#loading_icon").show();
 
             //Variable quemada a petición del ingeniero
-            //$("#compressibility").val('0.0002');
+            $("#compressibility").val('0.0002');
             
             pvt_table = order_matrix(clean_table_data("pvt_table"));
             historical_table = clean_table_data("historical_table");

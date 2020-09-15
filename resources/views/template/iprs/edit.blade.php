@@ -667,13 +667,27 @@ if(!isset($_SESSION)) {
                   <div id="MP2" class="panel-collapse collapse in">
                      <fieldset>
                         <div class="tabular">
-                           <div class="col-sm-12">
-                              <div id="excel_table_pvt" class="handsontable"></div>
-                           </div>
+                           <div id="excel_table_pvt" class="handsontable"></div>
+                           <br>
                            <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                  <button class="btn btn-primary pull-right btn_plot_fp_first">Plot</button>  
                               </div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_oil_viscosity"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_oil_volumetric_factor"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_water_viscosity"></div>
+                           </div>
+                            <div class="row">
+                              <div id="graph_gas_viscosity"></div>
+                           </div>
+                            <div class="row">
+                              <div id="graph_gas_compressibility_factor"></div>
                            </div>
                            <div class="row">
                               <div id="graph_up"></div>

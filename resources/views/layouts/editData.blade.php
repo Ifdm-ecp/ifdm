@@ -11,6 +11,7 @@
     {!! link_to('listFormationC', 'Formation',array('class' => 'list-group-item')) !!}
     {!! link_to('listWellC', 'Well',array('class' => 'list-group-item')) !!}
     {!! link_to('listIntervalC', 'Producing Interval',array('class' => 'list-group-item')) !!}
+    {!! link_to('EditMeasurementC', 'Damage variables',array('class' => 'list-group-item')) !!}
     {!! link_to('DeleteProject', 'Project',array('class' => 'list-group-item')) !!}
     {!! link_to('filtration_function_list', 'Filtration Function',array('class' => 'list-group-item')) !!}
     <a href="{{route('formation-mineralogy.index')}}" class="list-group-item">Formation Mineralogy</a>

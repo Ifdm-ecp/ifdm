@@ -1,59 +1,5 @@
 <script type="text/javascript">
-
-    //Guardar valores de select para cargar cuando salga error en el formulario.
-    window.onbeforeunload = function() {
-        var a = $('#well').val();
-        localStorage.setItem('well', $('#well').val());
-        var b = $('#field').val();
-        localStorage.setItem('field', $('#field').val());
-    }
-
-    //Volver a cargar valores de select anidados cuando salga ventana modal de error.
-    window.onload = function() {
-        var basin = $('#basin').val();
-        var field = localStorage.getItem('field');
-        $.get("{{url('fieldbybasinselect')}}", {
-                basin: basin
-            },
-            function(data) {
-                $("#field").empty();
-                $.each(data, function(index, value) {
-                    $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                });
-                var k = '#field > option[value="{{ 'xxx'}}"]';
-                k = k.replace('xxx', field);
-                $(k).attr('selected', 'selected');
-                $("#field").selectpicker('refresh');
-            }
-        );
-
-        var field = localStorage.getItem('field');
-        var pozo = localStorage.getItem('well');
-        $.get("{{url('fields')}}", {
-                field: field
-            },
-            function(data) {
-                $("#well").empty();
-                $.each(data, function(index, value) {
-                    $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                });
-                var k = '#well > option[value="{{ 'xxx'}}"]';
-                k = k.replace('xxx', pozo);
-                $(k).attr('selected', 'selected');
-                $("#well").selectpicker('refresh');
-            }
-        );
-    }
-
     $(document).ready(function() {
-        // $(".jquery-datepicker").datepicker({
-        //     changeMonth: true,
-        //     changeYear: true,
-        //     dateFormat: "dd/mm/yy"
-        // });
-        
-        // $("#myModal").modal('show');
-
         //Valores de select anidados, cargar datos de acuerdo a opcion escogida
         $("#basin").change(function(e) {
             var basin = $('#basin').val();
@@ -98,31 +44,149 @@
                 well: well
             },
             function(data) {
-                var mecdanName = '';
-                var tableIdArray = [];
+                $("#modal_notification .modal-body").html('');
 
-                $.each(data, function(index, value) {
-                    mecdanName = value.sigla + '_table';
-                    if (!tableIdArray.includes(mecdanName)) {
-                        tableIdArray.push(mecdanName);
-                    }
-                    
-                    var constructedRow = '<tr>' +
-                        '<td><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
-                        '<td><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm" id="subdate_' + value.id + '"" type="text" value="' + value.fecha + '"></td>' +
-                        '<td><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
-                        '<td><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ');">Edit</button> ' +
-                        '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ');">Remove</button></td>' +
-                        '</tr>';
-                    $("#" + mecdanName + " tbody").append(constructedRow);
-                });
+                if (data.success === true) {
+                    var mecdanName = '';
+                    var tableIdArray = [];
+                    $(".dataTable tbody").html('');
+                    $("#subparameter_tabs").show('fast');
 
-                $.each(tableIdArray, function(index, value) {
-                    $("#" + value).DataTable();
-                });
+                    $.each(data.data, function(index, value) {
+                        mecdanName = value.sigla + '_table';
+                        if (!tableIdArray.includes(mecdanName)) {
+                            tableIdArray.push(mecdanName);
+                        }
+                        
+                        var constructedRow = '<tr>' +
+                            '<td><span style="display:none">' + value.valor + '</span><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
+                            '<td><span style="display:none">' + value.fecha + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
+                            '<td><span style="display:none">' + value.comentario + '</span><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
+                            '<td align="center"><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Edit</button> ' +
+                            '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Remove</button></td>' +
+                            '</tr>';
+                        $("#" + mecdanName + " tbody").append(constructedRow);
+                    });
+
+                    $.each(tableIdArray, function(index, value) {
+                        if ($.fn.dataTable.isDataTable("#" + value)) {
+                            $("#" + value).DataTable();
+                        } else {
+                            $("#" + value).DataTable({
+                                "order": [[1, "desc"]]
+                            });
+                        }
+                    });
+
+                    $(".jquery-datepicker").datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd/mm/yy"
+                    });
+                } else {
+                    $("#modal_notification_title").html('Error');
+                    var errorList = '<ul>';
+                    $.each(data.errors, function(index, value) {
+                        $.each(value, function(index2, value2) {
+                            errorList += '<li>' + value2 + '</li>';
+                        });
+                    });
+
+                    errorList += '</ul>';
+
+                    $("#modal_notification .modal-body").html(errorList);
+                    $("#modal_notification").modal('show');
+                }
             });
         });
+
+        $(".dataTable").on('page.dt', function () {
+            setTimeout(function() {
+                $(".jquery-datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd/mm/yy"
+                });
+            }, 50);
+        });
     });
+
+    /* editSubparameter
+    * Edits the subparameter with the new data submitted
+    */
+    function editSubparameter(subparameterId, subInitials) {
+        var subValue = $('#subvalue_' + subparameterId).val();
+        var subDate = $('#subdate_' + subparameterId).val();
+        var subComment = $('#subcomment_' + subparameterId).val();
+
+        $.get("{{url('EditSubparameterC')}}", {
+            id: subparameterId,
+            value: subValue,
+            date: subDate,
+            comment: subComment,
+            initials: subInitials
+        },
+        function(data) {
+            $("#modal_notification .modal-body").html('');
+
+            if (data.success === true) {
+                $("#modal_notification_title").html('Success');
+                $("#modal_notification .modal-body").html('<p>' + data.message + '</p>');
+            } else {
+                $("#modal_notification_title").html('Error');
+                var errorList = '<ul>';
+                $.each(data.errors, function(index, value) {
+                    $.each(value, function(index2, value2) {
+                        errorList += '<li>' + value2 + '</li>';
+                    });
+                });
+
+                errorList += '</ul>';
+                $("#modal_notification .modal-body").html(errorList);
+            }
+
+            $("#modal_notification").modal('show');
+        });
+    }
+
+    /* removeSubparameter
+    * Removes the subparameter with the new data submitted
+    */
+    function removeSubparameter(subparameterId, subInitials) {
+        $.get("{{url('RemoveSubparameterC')}}", {
+            id: subparameterId
+        },
+        function(data) {
+            $("#modal_notification .modal-body").html('');
+
+            if (data.success === true) {
+                var table = $('#' + subInitials + '_table').DataTable();
+                table.row( $('#subvalue_' + subparameterId).parents('tr') ).remove().draw();
+
+                $(".jquery-datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: "dd/mm/yy"
+                });
+
+                $("#modal_notification_title").html('Success');
+                $("#modal_notification .modal-body").html('<p>' + data.message + '</p>');
+            } else {
+                $("#modal_notification_title").html('Error');
+                var errorList = '<ul>';
+                $.each(data.errors, function(index, value) {
+                    $.each(value, function(index2, value2) {
+                        errorList += '<li>' + value2 + '</li>';
+                    });
+                });
+
+                errorList += '</ul>';
+                $("#modal_notification .modal-body").html(errorList);
+            }
+
+            $("#modal_notification").modal('show');
+        });
+    }
 
     /* verifyDamage
     * Validates the form entirely

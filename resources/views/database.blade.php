@@ -112,7 +112,7 @@
                      <a href="{!! url('listIntervalC') !!}" class="btn btn-success col-md-12" role="button">Producing Interval</a>
                   </div>
                   <div class="col-md-4">
-                     <a href="{!! url('DeleteProject') !!}" class="btn btn-success col-md-12" role="button">Project</a>
+                     <a href="{!! url('EditMeasurementC') !!}" class="btn btn-success col-md-12" role="button">Damage Variables</a>
                   </div>
                </div>
             </div>
@@ -120,11 +120,19 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="col-md-4">
+                     <a href="{!! url('DeleteProject') !!}" class="btn btn-success col-md-12" role="button">Project</a>
+                  </div>
+                  <div class="col-md-4">
                      <a href="{!! url('filtration_function_list') !!}" class="btn btn-success col-md-12" role="button">Filtration Function</a>
                   </div>
                   <div class="col-md-4">
                      <a href="{!! route('formation-mineralogy.index') !!}" class="btn btn-success col-md-12" role="button"><small>Formation Mineralogy</small></a>
                   </div>
+               </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-md-12">
                   <div class="col-md-4">
                      <a href="{!! route('pvt-global.index') !!}" class="btn btn-success col-md-12" role="button">PVT Library </a>
                   </div>

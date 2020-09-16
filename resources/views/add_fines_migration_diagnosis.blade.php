@@ -254,7 +254,6 @@
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_deposited_fines_concentration_label', 'Initial Deposited Fines Concentration') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="form-inline">
                                 <div class="input-group {{$errors->has('initial_deposited_fines_concentration') ? 'has-error' : ''}}">
                                    @if($advisor === "true")
                                      <span class="input-group-btn">
@@ -264,10 +263,6 @@
                                    {!! Form::text('initial_deposited_fines_concentration', null,  ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'initial_deposited_fines_concentration']) !!}
                                    <span class="input-group-addon" id="basic-addon2">g/cc</span>
                                 </div>
-                                <div class="pull-right">
-                                  <button type="button" class="btn btn-primary concentration_ev">Calculate</button>
-                                </div>
-                              </div>
                            </div>
                         </div>
                         <div class="col-md-6">

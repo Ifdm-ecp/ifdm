@@ -250,8 +250,8 @@
             $("#loading_icon").show();
 
             //Datos quemados a petición de la ingeniera
-            $('#compressibility').val('0.0000055');
-            $('#porosity_limit_constant').val('0.001');
+            //$('#compressibility').val('0.0000055');
+            //$('#porosity_limit_constant').val('0.001');
 
             if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
                 historical_data = clean_table_data("historical_data_table");
@@ -281,8 +281,8 @@
             $("#loading_icon").show();
 
             //Datos quemados a petición de la ingeniera
-            $('#compressibility').val('0.0000055');
-            $('#porosity_limit_constant').val('0.001');
+            //$('#compressibility').val('0.0000055');
+            //$('#porosity_limit_constant').val('0.001');
 
             if($('#perform_historical_projection_oil').val() != 'without'){ // cuando se escogió exponencial o hiperbólica llenar value_historical_data para mandar al backend
                 historical_data = clean_table_data("historical_data_table");

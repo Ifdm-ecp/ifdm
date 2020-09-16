@@ -147,7 +147,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row hidden">
+                     <div class="row">
                       <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -263,11 +263,12 @@
                                    @endif
                                    {!! Form::text('initial_deposited_fines_concentration', null,  ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'initial_deposited_fines_concentration']) !!}
                                    <span class="input-group-addon" id="basic-addon2">g/cc</span>
+                                  </div>
+                                  <div class="pull-right">
+                                    <button type="button" class="btn btn-primary concentration_ev">Calculate</button>
+                                  </div>
                                 </div>
-                                <div class="pull-right">
-                                  <button type="button" class="btn btn-primary concentration_ev">Calculate</button>
                                 </div>
-                              </div>
                            </div>
                         </div>
                         <div class="col-md-6">

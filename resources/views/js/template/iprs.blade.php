@@ -250,32 +250,37 @@
     var water_viscosity = [];
     for (var i = 0; i < data.length; i++)
     {
-      pressure.push(parseFloat(data[i][0]));
-      oil_viscosity.push(parseFloat(data[i][1]));
-      oil_volumetric_factor.push(parseFloat(data[i][2]));
-      water_viscosity.push(parseFloat(data[i][3]));
+      //pressure.push(parseFloat(data[i][0]));
+      oil_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][1])]);
+      oil_volumetric_factor.push([parseFloat(data[i][0]), parseFloat(data[i][2])]);
+      water_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][3])]);
     }
-    pressure.pop();
+    //pressure.pop();
+    //pressure.pop();
+    oil_viscosity.pop();
     oil_viscosity.pop();
     oil_volumetric_factor.pop();
+    oil_volumetric_factor.pop();
+    water_viscosity.pop();
     water_viscosity.pop();
 
-    $('#graph_up').highcharts({
+
+    $('#graph_oil_viscosity').highcharts({
       title: {
-        text: 'Oil PVT',
+        type: 'line',
+        text: 'Oil Viscosity',
         x: -20
       },
       xAxis: {
         title: {
           text: 'Pressure [psi]'
-        },
-        categories: pressure
+        }
       },
       yAxis: {
         title: {
-          text: 'Uo, Uw & Bo'
+          text: 'Viscosity [cp]'
         },
-        plotLines: [{
+        plotLines: [{ 
           value: 0,
           width: 1,
           color: '#808080'
@@ -286,8 +291,8 @@
       },
       legend: {
         layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
+        align: 'center',
+        verticalAlign: 'bottom',
         borderWidth: 0
       },
       series: [{
@@ -296,13 +301,79 @@
         tooltip:{
           valueSuffix: ' cp'
         }
-      }, {
+      }]
+    });
+
+    $('#graph_oil_volumetric_factor').highcharts({
+      title: {
+        type: 'line',
+        text: 'Oil Volumetric Factor',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Volumetric Factor [RB/STB]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
         name: 'Oil Volumetric Factor',
         data: oil_volumetric_factor,
         tooltip:{
           valueSuffix: ' RB/STB'
         }
-      }, {
+      }]
+    });
+
+    $('#graph_water_viscosity').highcharts({
+      title: {
+        type: 'line',
+        text: 'Water Viscosity',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Viscosity [cp]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
         name: 'Water Viscosity',
         data: water_viscosity,
         tooltip:{
@@ -324,29 +395,30 @@
 
     for (var i = 0; i < data.length; i++)
     {
-      pressure.push(parseFloat(data[i][0]));
-      gas_viscosity.push(parseFloat(data[i][1]));
-      gas_compressibility_factor.push(parseFloat(data[i][2]));
+      //pressure.push(parseFloat(data[i][0]));
+      gas_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][1])]);
+      gas_compressibility_factor.push([parseFloat(data[i][0]), parseFloat(data[i][2])]);
     }
 
-    pressure.pop();
+    //pressure.pop();
+    gas_viscosity.pop();
     gas_viscosity.pop();
     gas_compressibility_factor.pop();
+    gas_compressibility_factor.pop();
 
-    $('#graph_up').highcharts({
+    $('#graph_gas_viscosity').highcharts({
       title: {
-        text: 'Gas PVT',
+        text: 'Gas Viscosity',
         x: -20
       },
       xAxis: {
         title: {
           text: 'Pressure [psi]'
-        },
-        categories: pressure
+        }
       },
       yAxis: {
         title: {
-          text: 'Ug & Bg'
+          text: 'Viscosity [cp]'
         },
         plotLines: [{
           value: 0,
@@ -359,8 +431,8 @@
       },
       legend: {
         layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
+        align: 'center',
+        verticalAlign: 'bottom',
         borderWidth: 0
       },
       series: [{
@@ -369,7 +441,40 @@
         tooltip: {
           valueSuffix: ' cp'
         }
-      }, {
+      }]
+    });
+    
+    $('#graph_gas_compressibility_factor').highcharts({
+      title: {
+        text: 'Gas Compressibility Factor',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        },
+        categories: pressure
+      },
+      yAxis: {
+        title: {
+          text: 'Compressibility Factor [-]'
+        },
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
         name: 'Gas Compressibility Factor',
         data: gas_compressibility_factor,
         tooltip:{
@@ -2075,7 +2180,7 @@
     //Pvt - Oil Black
     var hot = $('#excel_table_pvt');
     hot.handsontable({
-      colWidths: [170, 170, 200, 170],
+      colWidths: [188, 188, 200, 188],
       rowHeaders: true, 
       columns: [
       {title:"Pressures [psi]", data: 0,type: 'numeric', format: '0[.]0000000'},
@@ -2104,6 +2209,11 @@
     $('.pvt_data').show();
     $('.rpds_up').find('legend').text('PVT Data');
     $('#graph_up').html('');
+    $('#graph_oil_viscosity').html('');
+    $('#graph_oil_volumetric_factor').html('');
+    $('#graph_water_viscosity').html('');
+    $('#graph_gas_viscosity').html('');
+    $('#graph_gas_compressibility_factor').html('');
 
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
     $('.btn_plot_fp_first').attr('onclick','plot_pvt_oil()');
@@ -2242,6 +2352,12 @@
 
     $('.rpds_up').find('legend').text('PVT Data');
     $('#graph_up').html('');
+    $('#graph_oil_viscosity').html('');
+    $('#graph_oil_volumetric_factor').html('');
+    $('#graph_water_viscosity').html('');
+    $('#graph_gas_viscosity').html('');
+    $('#graph_gas_compressibility_factor').html('');
+
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
     $('.btn_plot_fp_first').attr('onclick','plot_pvt_gas()');
 
@@ -2252,7 +2368,7 @@
     $excel_tabular_pvt_fluid = $('#excel_table_pvt');
     $excel_tabular_pvt_fluid.handsontable({
       data: datos, 
-      colWidths: [200, 200, 200] ,
+      colWidths: [255, 255, 254] ,
       rowHeaders: true, 
       columns: [
 
@@ -2430,6 +2546,12 @@
     $('.pvt_data').show();
     $('.rpds_up').find('legend').text('PVT Data');
     $('#graph_up').html('');
+    $('#graph_oil_viscosity').html('');
+    $('#graph_oil_volumetric_factor').html('');
+    $('#graph_water_viscosity').html('');
+    $('#graph_gas_viscosity').html('');
+    $('#graph_gas_compressibility_factor').html('');
+    
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
     $('.btn_plot_fp_first').attr('onclick','plot_pvt_oil()');
 
@@ -2439,7 +2561,7 @@
     $excel_tabular_pvt_fluid_c_g = $('#excel_table_pvt');
     $excel_tabular_pvt_fluid_c_g.handsontable({
       data: datos, 
-      colWidths: [100, 100, 60,100, 100, 60,150] ,
+      colWidths: [102, 102, 102, 102, 102, 102, 152] ,
       rowHeaders: true, 
       columns: [
       {title:"Pressure [psi] ", data: 0,type: 'numeric', format: '0[.]0000000'},

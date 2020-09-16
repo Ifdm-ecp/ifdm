@@ -1495,7 +1495,7 @@ class IPR2Controller extends Controller
         foreach ($tabla_cnf as $k => $v) {
             $tabla_cnf[$k]['data'] = $pos_conf;
             $titulos[] = $tabla_cnf[$k];
-            $widths[] = 170;
+            $widths[] = 220;
             $pos_conf++;
         }
 
@@ -1763,23 +1763,23 @@ class IPR2Controller extends Controller
     {
         if ($columna == "netpay") {
 
-            return [ "title" => "Net Pay [ft]", "data" => 0, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Net Pay - hnet [ft]", "data" => 0, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "absolute_permeability") {
 
-            return [ "title" => "Absolute Permeability [md]", "data" => 1, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Absolute Permeability - Kabs [md]", "data" => 1, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "bhp") {
 
-            return [ "title" => "BHP [psi]", "data" => 2, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Bottom Hole Pressure - BHP [psi]", "data" => 2, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "modulo_permeabilidad") {
 
-            return [ "title" => "Permeability Module [1/psi]", "data" => 3, "type" => 'numeric', "renderer" => 'html', "format" => '0[.]0000', "readOnly" =>  true ];
+            return [ "title" => "Permeability Module - Perm. Mod [1/psi]", "data" => 3, "type" => 'numeric', "renderer" => 'html', "format" => '0[.]0000', "readOnly" =>  true ];
 
         } else if ($columna == "bsw") {
 
-            return [ "title" => "BSW [-]", "data" => 4, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Water Cut - BSW [-]", "data" => 4, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "corey") {
 
@@ -1787,15 +1787,15 @@ class IPR2Controller extends Controller
 
         } else if ($columna == "presion_separacion") {
 
-            return [ "title" => "Reservoir Parting Pressure", "data" => 6, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Reservoir Parting Pressure - RPP [psi]", "data" => 6, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "reservoir_pressure") {
 
-            return [ "title" => "Reservoir Pressure", "data" => 7, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Reservoir Pressure - Pres [psi]", "data" => 7, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         } else if ($columna == "radio_drenaje_yac") {
 
-            return [ "title" => "Reservoir Drenaje Radius", "data" => 8, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Reservoir Drenaje Radius - Re [ft]", "data" => 8, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         }
     }

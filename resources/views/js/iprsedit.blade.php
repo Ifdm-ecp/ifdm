@@ -355,9 +355,9 @@
                 x: -20 //center
             },
             xAxis: {
-             title: {
-               text: 'Pressure [psi]'
-             },
+                title: {
+                    text: 'Pressure [psi]'
+                },
                 categories: pressure
             },
             yAxis: {

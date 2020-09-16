@@ -145,7 +145,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="row hidden">
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}

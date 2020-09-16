@@ -104,14 +104,14 @@
         '<label for="sensitivity_type">Sensitivity</label>' +
         '<select name="sensitivity_type" class="form-control">' +
         '<option value="" selected>Select a sensitivity</option>' +
-        '<option value="netpay">Net Pay [ft]</option>' +
-        '<option value="absolute_permeability" {{ $IPR->intervalo->stress_sensitive_reservoir == 2 ? 'disabled' : '' }}>Absolute Permeability [md]</option>' +
-        '<option value="bhp">BHP [psi]</option>' +
-        '<option value="modulo_permeabilidad" {{ $IPR->intervalo->stress_sensitive_reservoir == 1 ? 'disabled' : '' }}>Permeability Module [1/psi]</option>' +
-        '<option value="presion_separacion" {{ $IPR->well_Type == 1 ? 'disabled' : '' }}>Reservoir Parting Pressure</option>' +
-        '<option value="reservoir_pressure">Reservoir Pressure</option>' +
-        '<option value="radio_drenaje_yac">Reservoir Drainage Radius</option>' +
-        '<option value="bsw" {!! $IPR->fluido == 1 ? "" : "disabled" !!}>BSW [-]</option>' +
+        '<option value="netpay">Net Pay - hnet [ft]</option>' +
+        '<option value="absolute_permeability" {{ $IPR->intervalo->stress_sensitive_reservoir == 2 ? 'disabled' : '' }}>Absolute Permeability - Kabs [md]</option>' +
+        '<option value="bhp">Bottom Hole Pressure - BHP [psi]</option>' +
+        '<option value="modulo_permeabilidad" {{ $IPR->intervalo->stress_sensitive_reservoir == 1 ? 'disabled' : '' }}>Permeability Module - Perm. Mod [1/psi]</option>' +
+        '<option value="presion_separacion" {{ $IPR->well_Type == 1 ? 'disabled' : '' }}>Reservoir Parting Pressure - RPP [psi]</option>' +
+        '<option value="reservoir_pressure">Reservoir Pressure - Pres [psi]</option>' +
+        '<option value="radio_drenaje_yac">Reservoir Drainage Radius - Re [ft]</option>' +
+        '<option value="bsw" {!! $IPR->fluido == 1 ? "" : "disabled" !!}>Water Cut - BSW [-]</option>' +
         '<option value="corey" {{ isset($IPR->exponente_corey_petroleo) ? "" : "disabled" }}>Corey Exponent Oil [-]</option>' +
         '</select>' +
         '<div id="resultado"></div>' +
@@ -160,7 +160,6 @@
         }
         $('#div_tabla').html('<h3>Sensibility Table</h3><div id="tabla_sensibilidades_'+ cantidad_tablas +'"</div>');
 
-        console.log(data);
         $excel_tabular_pvt_fluid_c_g = $('#tabla_sensibilidades_'+ cantidad_tablas +'');
         $excel_tabular_pvt_fluid_c_g.handsontable({
             data: data.datos,
@@ -245,7 +244,6 @@
         });
 
         graphicate(data);
-
     }
 
     function prepareData(nodo) {
@@ -254,14 +252,54 @@
         var skin = [];
         var cero = [];
 
-        console.log(nodo.attr('data_id'));
+        //console.log(nodo.attr('data_id'));
 
         var id_inputs = parseInt(nodo.attr('data_id'));
         var indice = (id_inputs + 1);
 
-        var label_skin = 'Current | Row ' + indice;
+        //valores de leyenda
+        var colHeaderList = $("#tabla_sensibilidades_0").handsontable("getColHeader");
+        colHeaderList.pop();
+        colHeaderList.pop();
+        colHeaderList.reverse();
 
-        var label_cero = 'Ideal | Row ' + indice;
+        var tableValueList = $("#tabla_sensibilidades_0").data('handsontable').getDataAtRow(indice-1);
+        tableValueList.pop();
+        var skin_val = tableValueList.pop();
+        tableValueList.reverse();
+
+        var antes = '';
+        var final = '';
+        var header_val = '';
+        var data_val = 0;
+        $.each(colHeaderList, function(val) {
+            header_val = colHeaderList.pop();
+            data_val = tableValueList.pop();
+            if (header_val == 'Net Pay - hnet [ft]') {
+                final = final + ', hnet = ' + data_val;
+            } else if (header_val == 'Absolute Permeability - Kabs [md]') {
+                final = final + ', Kabs = ' + data_val;
+            } else if (header_val == 'Bottom Hole Pressure - BHP [psi]') {
+                final = final + ', BHP = ' + data_val;
+            } else if (header_val == 'Permeability Module - Perm. Mod [1/psi]') {
+                final = final + ', Perm. Mod = ' + data_val;
+            } else if (header_val == 'Reservoir Parting Pressure - RPP [psi]') {
+                final = final + ', RPP = ' + data_val;
+            } else if (header_val == 'Reservoir Pressure - Pres [psi]') {
+                final = final + ', Pres = ' + data_val;
+            } else if (header_val == 'Reservoir Drainage Radius - Re [ft]') {
+                final = final + ', Re = ' + data_val;
+            } else if (header_val == 'Water Cut - BSW [-]') {
+                final = final + ', BSW = ' + data_val;
+            } else {  //hader_val == 'Corey Exponent Oil [-]'
+                final = final + ', CE = ' + data_val;
+            }
+        });
+        final = final.substring(1);
+
+        var label_skin = 'Skin = ' + skin_val + ' |'+ final;
+
+        var label_cero = 'Ideal |' + final;
 
         var data_skin = JSON.parse($('#hidden_data_'+id_inputs).val());
         var ejey_skin = JSON.parse($('#hidden_eje_'+id_inputs).val());

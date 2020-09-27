@@ -1789,6 +1789,8 @@ class drilling_controller extends Controller
             $scenario = escenario::find($id_escenario);
             $drilling_scenario = drilling::where('scenario_id', $scenario->id)->first();
 
+            dd('id', $id_escenario);
+
             //Tablas
             $general_data = DB::table('d_general_data')->where('drilling_id', $drilling_scenario->id)->get();
             $general_data_table = [];

@@ -2112,6 +2112,8 @@ class drilling_controller extends Controller
             $scenario = escenario::find($id);
             $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
 
+            dd('id',$id);
+
             if (!$drilling->status_wr) {
                 $graph_results_perf = array();
                 $graph_results_perf_x = array();
@@ -2137,12 +2139,12 @@ class drilling_controller extends Controller
                 array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
 
                 $table_results = array(
-                    array($drilling_results->autoRound($drilling_results->d_average_calculated_skin), $drilling_results->autoRound($drilling_results->d_maximum_calculated_skin), $drilling_results->autoRound($drilling_results->d_average_invasion_radius), $drilling_results->autoRound($drilling_results->d_maximum_invasion_radius), $drilling_results->autoRound($drilling_results->d_total_invasion_radius_volume)),
+                    array($this->autoRound($drilling_results->d_average_calculated_skin), $this->autoRound($drilling_results->d_maximum_calculated_skin), $this->autoRound($drilling_results->d_average_invasion_radius), $this->autoRound($drilling_results->d_maximum_invasion_radius), $this->autoRound($drilling_results->d_total_invasion_radius_volume)),
                 );
 
                 if ($drilling->cementingAvailable == 1) {
-                    array_push($table_results, array($drilling_results->autoRound($drilling_results->c_average_calculated_skin), $drilling_results->autoRound($drilling_results->c_maximum_calculated_skin), $drilling_results->autoRound($drilling_results->c_average_invasion_radius), $drilling_results->autoRound($drilling_results->c_maximum_invasion_radius), $drilling_results->autoRound($drilling_results->c_total_invasion_radius_volume)));
-                    array_push($table_results, array($drilling_results->autoRound($drilling_results->calculated_skin_avg_total), $drilling_results->autoRound($drilling_results->calculated_skin_max_total), $drilling_results->autoRound($drilling_results->filtration_volume_avg_total), $drilling_results->autoRound($drilling_results->filtration_volume_max_total), $drilling_results->autoRound($drilling_results->total_invasion_radius_max_total)));
+                    array_push($table_results, array($this->autoRound($drilling_results->c_average_calculated_skin), $this->autoRound($drilling_results->c_maximum_calculated_skin), $this->autoRound($drilling_results->c_average_invasion_radius), $this->autoRound($drilling_results->c_maximum_invasion_radius), $this->autoRound($drilling_results->c_total_invasion_radius_volume)));
+                    array_push($table_results, array($this->autoRound($drilling_results->calculated_skin_avg_total), $this->autoRound($drilling_results->calculated_skin_max_total), $this->autoRound($drilling_results->filtration_volume_avg_total), $this->autoRound($drilling_results->filtration_volume_max_total), $this->autoRound($drilling_results->total_invasion_radius_max_total)));
                 }
 
                 return View::make('drilling_results', compact('scenario', 'drilling', 'graph_results_perf', 'graph_results_cem', 'table_results'));

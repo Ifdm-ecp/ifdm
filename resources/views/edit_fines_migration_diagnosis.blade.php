@@ -466,6 +466,7 @@
         </div>
     </div>
 </div>
+</div>
 
 
 <div id="fines_concentration_fluid" class="modal fade" data-toggle="modal">

@@ -402,7 +402,7 @@
                         stretchH: 'all'
                     });
                     hot_historical_data.render();
-                    var chart=$("#oil_projection_chart").highcharts();
+                    var chart = $("#oil_projection_chart").highcharts();
                     chart.destroy();
                 }
             });

@@ -270,21 +270,20 @@
                                 </div>
                                 </div>
                            </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('critical_rate_label', 'Critical Rate') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('critical_rate') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
-                                 @endif
-                                 {!! Form::text('critical_rate', null,  ['placeholder' => 'cc/min', 'class' =>'form-control', 'id' => 'critical_rate']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">cc/min</span>
-                              </div>
-                           </div>
-                        </div>
+                          <div class="col-md-6">
+                             <div class="form-group">
+                                {!! Form::label('critical_rate_label', 'Critical Rate') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                <div class="input-group {{$errors->has('critical_rate') ? 'has-error' : ''}}">
+                                   @if($advisor === "true")
+                                     <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                     </span>
+                                   @endif
+                                   {!! Form::text('critical_rate', null,  ['placeholder' => 'cc/min', 'class' =>'form-control', 'id' => 'critical_rate']) !!}
+                                   <span class="input-group-addon" id="basic-addon2">cc/min</span>
+                                </div>
+                             </div>
+                          </div>
                      </div>
                      <div class="row">
                         <div class="col-md-6">
@@ -475,6 +474,7 @@
             <p>Historical Data has been saved successfully!</p>
         </div>
     </div>
+</div>
 </div>
 
 <div id="fines_concentration_fluid" class="modal fade" data-toggle="modal">

@@ -1789,7 +1789,7 @@ class drilling_controller extends Controller
             $scenario = escenario::find($id_escenario);
             $drilling_scenario = drilling::where('scenario_id', $scenario->id)->first();
 
-            dd('id', $id_escenario);
+            //dd('id', $id_escenario);
 
             //Tablas
             $general_data = DB::table('d_general_data')->where('drilling_id', $drilling_scenario->id)->get();
@@ -2114,7 +2114,7 @@ class drilling_controller extends Controller
             $scenario = escenario::find($id);
             $drilling = DB::table('drilling')->where('scenario_id', $id)->first();
 
-            dd('id',$id);
+            //dd('id',$id);
 
             if (!$drilling->status_wr) {
                 $graph_results_perf = array();

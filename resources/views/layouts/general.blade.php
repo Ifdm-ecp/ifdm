@@ -90,20 +90,42 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="icon-menu"><img src="/images/User-white.png" class="icons" alt="User">{!! link_to('homeC', $title = 'Home'); !!}<span class="sr-only">(current)</span></li>
+                        <li class="icon-menu">
+                            <a href="homeC">
+                                <img src="/images/User-white.png" class="icons" alt="User" width="20" height="20">
+                                Home<span class="sr-only">(current)</span>
+                            </a>
+                        </li>
                         @if(\Auth::User()->office == 2)
                             <li>{!! link_to('requestC', $title = 'Request'); !!}</li>
                         @endif
                         @if(\Auth::User()->office != 2)
-                            <li class="icon-menu"><img src="/images/Database-icon.png" class="icons" alt="database">{!! link_to_route('database', $title = 'Database'); !!}</li>
+                            <li class="icon-menu">
+                                <a href="database">
+                                    <img src="/images/Database-icon.png" class="icons" alt="database" width="20" height="20">
+                                    Database
+                                </a>
+                            </li>
                         @endif
-                        <li class="icon-menu"><img src="/images/Project-management.png" class="icons" alt="project">{!! link_to('share_scenario', $title = 'Project Management'); !!}</li>
-                        <li class="icon-menu"><img src="/images/Georeference.png" class="icons" alt="geo">{!! link_to('Geor', $title = 'Georeference'); !!}</li>
-                        {{-- <li class="icon-menu"><img src="/images/Scenario-report.png" class="icons" alt="scenary">{!! link_to('scenarioR', $title = 'Scenario Report'); !!}</li> --}}
-                        {{--<li class="icon-menu"><img src="/images/Data-inventory.png" class="icons" alt="data">{!! link_to('dataInventory', $title = 'Data Inventory'); !!}</li>--}}
+                        <li class="icon-menu">
+                            <a href="share_scenario">
+                                <img src="/images/Project-management.png" class="icons" alt="project" width="15" height="20">
+                                Project Management
+                            </a>
+                        </li>
+                        <li class="icon-menu">
+                            <a href="Geor">
+                                <img src="/images/Georeference.png" class="icons" alt="geo" width="20" height="20">
+                                Georeference
+                            </a>
+                        </li>
+                        {{-- <li class="icon-menu"><img src="/images/Scenario-report.png" class="icons" alt="scenary">{!! link_to('scenarioR', $title = 'Scenario Report'); !!}</li>
+                        <li class="icon-menu"><img src="/images/Data-inventory.png" class="icons" alt="data">{!! link_to('dataInventory', $title = 'Data Inventory'); !!}</li> --}}
                         <li class="dropdown icon-menu">
-                            <img src="/images/Help.png" class="icons" alt="help">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="/images/Help.png" class="icons" alt="help" width="20" height="20">
+                                Help<span class="caret"></span>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li>{!! link_to_route('manuals', $title = 'Manuals'); !!}</li>
                                 <li>{!! link_to_route('download', $title = 'Other Downloads'); !!}</li>
@@ -134,14 +156,19 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-                    @yield('sidebar')
+                @if(View::hasSection('sidebar'))
+                    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+                        @yield('sidebar')
+                    </div>
 
-                </div>
-
-                <div class= "col-xs-12 col-sm-9">
-                    @yield('content')
-                </div>
+                    <div class="col-xs-12 col-sm-9">
+                        @yield('content')
+                    </div>
+                @else
+                    <div class="col-xs-12">
+                        @yield('content')
+                    </div>
+                @endif
             </div>
         </div>
         <footer>    

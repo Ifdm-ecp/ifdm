@@ -12,7 +12,7 @@
                 <br>
                 <p align="justify">The IFDM has been developed by the Hydrocarbon Reservoir Computational Laboratory of
                     Universidad Nacional de Colombia, with the sponsorship of Ecopetrol Group and the support with the
-                    diagnostics specialized tools of Universidad Nacional de Colombia and Exergy Modeling and Analytics.
+                    diagnostics specialized tools of Universidad Nacional de Colombia.
                 </p>
                 <center>
                     <form class="form-inline" role="form">
@@ -24,8 +24,8 @@
                                 src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30" /></a>
                         {{-- <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120"
                                 height="80" HSPACE="30" /></a> --}}
-                        <a href="https://exergy-ma.co/"><img src="{!! asset('images/exergy.png') !!}" width="140"
-                                height="60" HSPACE="30" /></a>
+                        {{-- <a href="https://exergy-ma.co/"><img src="{!! asset('images/exergy.png') !!}" width="140"
+                                height="60" HSPACE="30" /></a> --}}
                     </form>
                 </center>
             </div>

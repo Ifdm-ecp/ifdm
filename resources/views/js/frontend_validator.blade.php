@@ -198,7 +198,7 @@ function multiValidatorGeneral(action, value, ruleset)
           }
           break;
         case "differentnumber":
-          if (value == set.otherValue) {
+          if (value == set.otherValue.val()) {
             isValid = [false, "The field " + ruleset.column + " and " + set.otherField + " can't have the same value"];
             return false;
           }

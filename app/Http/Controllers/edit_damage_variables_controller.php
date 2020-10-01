@@ -33,6 +33,7 @@ class edit_damage_variables_controller extends Controller
         'KrP2' => 'required|numeric|between:-15000,15000',
         'KrP3' => 'required|numeric|min:0|not_in:0',
         'KrP4' => 'required|numeric|min:0|not_in:0',
+        'KrP5' => 'required|numeric|min:0|not_in:0',
         'IDP1' => 'required|numeric|between:0,10000',
         'IDP2' => 'required|numeric|min:0',
         'IDP3' => 'required|numeric|between:0,1000000',

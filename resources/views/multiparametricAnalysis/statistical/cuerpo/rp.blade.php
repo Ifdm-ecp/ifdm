@@ -10,10 +10,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group pull-left">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 15, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 15, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover15">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -82,7 +82,7 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('rp_days_below_saturation_pressure') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('rp_days_below_saturation_pressure', $statistical->subparameters->rp_days_below_saturation_pressure ? $statistical->subparameters->rp_days_below_saturation_pressure : 0.25, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_1_value']) !!}   
+                     {!! Form::text('rp_days_below_saturation_pressure', $statistical->subparameters->rp_days_below_saturation_pressure ? $statistical->subparameters->rp_days_below_saturation_pressure : 0.20, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_1_value']) !!}   
                   </div>
                </div>
             </div>
@@ -95,10 +95,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 16, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 16, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover16">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -167,7 +167,7 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('rp_delta_pressure_saturation') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('rp_delta_pressure_saturation', $statistical->subparameters->rp_delta_pressure_saturation ? $statistical->subparameters->rp_delta_pressure_saturation : 0.25, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_2_value']) !!}  
+                     {!! Form::text('rp_delta_pressure_saturation', $statistical->subparameters->rp_delta_pressure_saturation ? $statistical->subparameters->rp_delta_pressure_saturation : 0.20, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_2_value']) !!}  
                   </div>
                </div>
             </div>
@@ -180,10 +180,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 17, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 17, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover17">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -252,7 +252,7 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('rp_water_intrusion') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('rp_water_intrusion', $statistical->subparameters->rp_water_intrusion ? $statistical->subparameters->rp_water_intrusion : 0.25, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_3_value']) !!}     
+                     {!! Form::text('rp_water_intrusion', $statistical->subparameters->rp_water_intrusion ? $statistical->subparameters->rp_water_intrusion : 0.20, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_3_value']) !!}     
                   </div>
                </div>
             </div>
@@ -265,10 +265,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 18, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 18, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover18">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -337,7 +337,92 @@
                <div class="col-md-4">
                   <div class="form-group {{$errors->has('rp_high_impact_factor') ? 'has-error' : ''}}">
                      {!! Form::label('Weight', 'Weight') !!}
-                     {!! Form::text('rp_high_impact_factor', $statistical->subparameters->rp_high_impact_factor ? $statistical->subparameters->rp_high_impact_factor : 0.25, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_4_value']) !!} 
+                     {!! Form::text('rp_high_impact_factor', $statistical->subparameters->rp_high_impact_factor ? $statistical->subparameters->rp_high_impact_factor : 0.20, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_4_value']) !!} 
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <hr>
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="form-inline" role="form">
+                  <div class="form-group">
+                     <a target="_blank" href="{{ URL::route('histo', ['subp' => 31, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
+                     </button></a>
+                     <a target="_blank" href="{{ URL::route('freq', ['subp' => 31, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
+                     </button></a>
+                     <button type="button" class="btn btn-default" aria-label="Left Align" id="popover31">
+                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                     </button>
+                     <a target="_blank" href="{{ URL::route('Geor', ['subp' => 31, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
+                     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                     </button></a>&nbsp&nbsp&nbsp
+                     {!! Form::label('', 'Velocity parameter estimated from maximum critical velocity') !!}
+                  </div>
+                  <div class="pull-right">
+                     {!! Form::checkbox('rpAvailable[]',4,false, array('id'=>'weight_rp_5', 'class' => 'check_weight')) !!}
+                     {!! Form::label('available', 'Available') !!}
+                     {!! Form::hidden('weight_rp_5_hidden', '', array('class' => 'form-control', 'id' => 'weight_rp_5_hidden')) !!}
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <br>
+
+         <div id="weight_rp_5_div">
+            <div class="row">
+               <div class="col-xs-12 col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('stored', 'Stored previously') !!}
+                     {!! Form::select('selectStoredRP5', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-31', 'data-style' => 'btn-default', 'id' => 'selectStoredRP5')) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="form-group">
+                     {!! Form::label('value', 'Value') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     <div class="input-group {{$errors->has('RP5') ? 'has-error' : ''}}">
+                        {!! Form::text('RP5', $statistical->rp5, ['placeholder' => 'cc/min', 'class' =>'form-control value_edit', 'id' => 'RP5']) !!}
+                        <span class="input-group-addon" id="basic-addon2">cc/min</span>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group {{$errors->has('dateRP5') ? 'has-error' : ''}}">
+                     {!! Form::label('date', 'Monitoring Date') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::text('dateRP5', $statistical->date_rp5, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control value_edit jquery-datepicker', 'id' => 'dateRP5']); !!}
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group {{$errors->has('RP5comment') ? 'has-error' : ''}}">
+                     {!! Form::label('comment', 'Comment') !!}
+                     {!! Form::text('RP5comment', $statistical->comment_rp5, ['class' =>'form-control validate', 'id' => 'RP5comment']) !!}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="form-group {{$errors->has('p10_RP5') ? 'has-error' : ''}}">
+                     {!! Form::label('p10', 'p10') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::text('p10_RP5', $statistical->p10_rp5, ['class' =>'form-control validate', 'id' => 'p10_31']) !!}   
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group {{$errors->has('p90_RP5') ? 'has-error' : ''}}">
+                     {!! Form::label('p90', 'p90') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::text('p90_RP5', $statistical->p90_rp5, ['class' =>'form-control validate', 'id' => 'p90_31']) !!}   
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group {{$errors->has('rp_velocity_estimated') ? 'has-error' : ''}}">
+                     {!! Form::label('Weight', 'Weight') !!}
+                     {!! Form::text('rp_velocity_estimated', $statistical->subparameters->rp_velocity_estimated ? $statistical->subparameters->rp_velocity_estimated : 0.20, ['class' =>'form-control weight_rp_count', 'id' => 'weight_rp_5_value']) !!} 
                   </div>
                </div>
             </div>

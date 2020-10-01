@@ -36,7 +36,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_1').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_1'), otherField: "p10"}
       ]
     },
     {
@@ -76,7 +76,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_2').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_2'), otherField: "p10"}
       ]
     },
     {
@@ -116,7 +116,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_3').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_3'), otherField: "p10"}
       ]
     },
     {
@@ -156,7 +156,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_4').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_4'), otherField: "p10"}
       ]
     },
     {
@@ -196,7 +196,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_5').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_5'), otherField: "p10"}
       ]
     },
     {
@@ -239,7 +239,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_6').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_6'), otherField: "p10"}
       ]
     },
     {
@@ -279,7 +279,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_7').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_7'), otherField: "p10"}
       ]
     },
     {
@@ -319,7 +319,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_8').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_8'), otherField: "p10"}
       ]
     },
     {
@@ -359,7 +359,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_9').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_9'), otherField: "p10"}
       ]
     },
     {
@@ -399,7 +399,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_10').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_10'), otherField: "p10"}
       ]
     },
     {
@@ -442,7 +442,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_11').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_11'), otherField: "p10"}
       ]
     },
     {
@@ -482,7 +482,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_30').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_30'), otherField: "p10"}
       ]
     },
     {
@@ -522,7 +522,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_12').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_12'), otherField: "p10"}
       ]
     },
     {
@@ -562,7 +562,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_13').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_13'), otherField: "p10"}
       ]
     },
     {
@@ -599,7 +599,7 @@
       column: "De Boer Criteria p90",
       rules: [
         {rule: "numeric"},
-        {rule: "differentnumber", otherValue: $('p10_14').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_14'), otherField: "p10"}
       ]
     },
     {
@@ -642,7 +642,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_15').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_15'), otherField: "p10"}
       ]
     },
     {
@@ -682,7 +682,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_16').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_16'), otherField: "p10"}
       ]
     },
     {
@@ -722,7 +722,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_17').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_17'), otherField: "p10"}
       ]
     },
     {
@@ -762,7 +762,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_18').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_18'), otherField: "p10"}
       ]
     },
     {
@@ -771,6 +771,46 @@
         {rule: "numeric"}
       ]
     },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity value",
+      rules: [
+        {rule: "numeric"},
+        {rule: "minw", minw: 0}
+      ]
+    },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity monitoring date",
+      rules: [
+        {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
+      ]
+    },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity comment",
+      rules: [
+        {rule: "textmaxw", maxw: 100},
+      ]
+    },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity p10",
+      rules: [
+        {rule: "numeric"},
+        {rule: "min", min: 0}
+      ]
+    },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity p90",
+      rules: [
+        {rule: "numeric"},
+        {rule: "min", min: 0},
+        {rule: "differentnumber", otherValue: $('#p10_31'), otherField: "p10"}
+      ]
+    },
+    {
+      column: "Velocity parameter estimated from maximum critical velocity weight",
+      rules: [
+        {rule: "numeric"}
+      ]
+    }
   ];
   
   induce_damage_tab_ruleset = [
@@ -805,7 +845,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_19').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_19'), otherField: "p10"}
       ]
     },
     {
@@ -845,7 +885,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_20').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_20'), otherField: "p10"}
       ]
     },
     {
@@ -885,7 +925,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_21').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_21'), otherField: "p10"}
       ]
     },
     {
@@ -925,7 +965,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_22').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_22'), otherField: "p10"}
       ]
     },
     {
@@ -968,7 +1008,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_23').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_23'), otherField: "p10"}
       ]
     },
     {
@@ -1008,7 +1048,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_24').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_24'), otherField: "p10"}
       ]
     },
     {
@@ -1045,7 +1085,7 @@
       column: "Ratio of KH)matrix + fracture / KH)matrix p90",
       rules: [
         {rule: "numeric"},
-        {rule: "differentnumber", otherValue: $('p10_25').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_25'), otherField: "p10"}
       ]
     },
     {
@@ -1085,7 +1125,7 @@
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
-        {rule: "differentnumber", otherValue: $('p10_26').val(), otherField: "p10"}
+        {rule: "differentnumber", otherValue: $('#p10_26'), otherField: "p10"}
       ]
     },
     {

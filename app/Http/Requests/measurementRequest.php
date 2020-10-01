@@ -48,6 +48,7 @@ class measurementRequest extends Request
             'RP2' => 'numeric|required_with:dateRP2|between:-15000,15000',
             'RP3' => 'numeric|required_with:dateRP3|min:0|not_in:0',
             'RP4' => 'numeric|required_with:dateRP4|min:0|not_in:0',
+            'RP5' => 'numeric|required_with:dateRP5|min:0|not_in:0',
             'ID1' => 'numeric|required_with:dateID1|between:0,10000',
             'ID2' => 'numeric|required_with:dateID2|min:0',
             'ID3' => 'numeric|required_with:dateID3|between:0,1000000',
@@ -76,6 +77,7 @@ class measurementRequest extends Request
             'dateRP2' => 'required_with:RP2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
             'dateRP3' => 'required_with:RP3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
             'dateRP4' => 'required_with:RP4|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
+            'dateRP5' => 'required_with:RP5|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
             'dateID1' => 'required_with:ID1|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
             'dateID2' => 'required_with:ID2|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
             'dateID3' => 'required_with:ID3|date_format:d/m/Y|before:' . Carbon::now()->addDays(1)->format('d/m/Y'),
@@ -104,6 +106,7 @@ class measurementRequest extends Request
             'RP2comment' => 'string|max:100',
             'RP3comment' => 'string|max:100',
             'RP4comment' => 'string|max:100',
+            'RP5comment' => 'string|max:100',
             'ID1comment' => 'string|max:100',
             'ID2comment' => 'string|max:100',
             'ID3comment' => 'string|max:100',
@@ -148,6 +151,7 @@ class measurementRequest extends Request
             'RP2.numeric' => 'Difference between current reservoir pressure and saturation pressure value must be numeric.',
             'RP3.numeric' => 'Cumulative Water Produced value must be numeric.',
             'RP4.numeric' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be numeric.',
+            'RP5.numeric' => 'Velocity parameter estimated from maximum critical velocity value must be numeric.',
 
             'ID1.numeric' => 'Gross Pay value must be numeric.',
             'ID2.numeric' => 'Total polymer pumped during Hydraulic Fracturing value must be numeric.',
@@ -180,6 +184,7 @@ class measurementRequest extends Request
             'RP2.between' => 'Difference between current reservoir pressure and saturation pressure value is not between :min - :max.',
             'RP3.min' => 'Cumulative Water Produced value must be higher than :min.',
             'RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be higher than :min.',
+            'RP5.min' => 'Velocity parameter estimated from maximum critical velocity value must be higher than :min.',
 
             'ID1.between' => 'Gross Pay value is not between :min - :max.',
             'ID2.min' => 'Total polymer pumped during Hydraulic Fracturing value must be higher or equal than :min.',
@@ -193,6 +198,7 @@ class measurementRequest extends Request
 
             'RP3.not_in' => 'Cumulative Water Produced value must be higher than 0.',
             'RP4.not_in' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be higher than 0.',
+            'RP5.not_in' => 'Velocity parameter estimated from maximum critical velocity value must be higher than 0.',
 
             'MS1.required_with' => 'Scale index of CaCO3 value is required when date is present.',
             'MS2.required_with' => 'Scale index of BaSO4 value is required when date is present.',
@@ -216,6 +222,7 @@ class measurementRequest extends Request
             'RP2.required_with' => 'Difference between current reservoir pressure and saturation pressure value is required when date is present.',
             'RP3.required_with' => 'Cumulative Water Produced value is required when date is present.',
             'RP4.required_with' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value is required when date is present.',
+            'RP5.required_with' => 'Velocity parameter estimated from maximum critical velocity value is required when date is present.',
 
             'ID1.required_with' => 'Gross Pay is required when date is present.',
             'ID2.required_with' => 'Total polymer pumped during Hydraulic Fracturing value is required when date is present.',
@@ -249,6 +256,7 @@ class measurementRequest extends Request
             'dateRP2.required_with' => 'Date is required when Difference between current reservoir pressure and saturation pressure value is present.',
             'dateRP3.required_with' => 'Date is required when Cumulative Water Produced value is present.',
             'dateRP4.required_with' => 'Date is required when Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value is present.',
+            'dateRP5.required_with' => 'Date is required when Velocity parameter estimated from maximum critical velocity value is present.',
 
             'dateID1.required_with' => 'Date is required when Gross Pay value is present.',
             'dateID2.required_with' => 'Date is required when Total polymer pumped during Hydraulic Fracturing value is present.',
@@ -282,6 +290,7 @@ class measurementRequest extends Request
             'dateRP2.date_format' => 'Difference between current reservoir pressure and saturation pressure monitoring date must have the format dd/mm/yyyy.',
             'dateRP3.date_format' => 'Cumulative Water Produced monitoring date must have the format dd/mm/yyyy.',
             'dateRP4.date_format' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date must have the format dd/mm/yyyy.',
+            'dateRP5.date_format' => 'Velocity parameter estimated from maximum critical velocity monitoring date must have the format dd/mm/yyyy.',
 
             'dateID1.date_format' => 'Gross Pay monitoring date must have the format dd/mm/yyyy.',
             'dateID2.date_format' => 'Total polymer pumped during Hydraulic Fracturing monitoring date must have the format dd/mm/yyyy.',
@@ -315,6 +324,7 @@ class measurementRequest extends Request
             'dateRP2.before' => 'Difference between current reservoir pressure and saturation pressure monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateRP3.before' => 'Cumulative Water Produced monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateRP4.before' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
+            'dateRP5.before' => 'Velocity parameter estimated from maximum critical velocity monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
 
             'dateID1.before' => 'Gross Pay monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateID2.before' => 'Total polymer pumped during Hydraulic Fracturing monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
@@ -348,6 +358,7 @@ class measurementRequest extends Request
             'RP2comment.string' => 'Difference between current reservoir pressure and saturation pressure comment must be a text.',
             'RP3comment.string' => 'Cumulative Water Produced comment must be a text.',
             'RP4comment.string' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment must be a text.',
+            'RP5comment.string' => 'Velocity parameter estimated from maximum critical velocity comment must be a text.',
 
             'ID1comment.string' => 'Gross Pay comment must be a text.',
             'ID2comment.string' => 'Total polymer pumped during Hydraulic Fracturing comment must be a text.',
@@ -381,6 +392,7 @@ class measurementRequest extends Request
             'RP2comment.max' => 'Difference between current reservoir pressure and saturation pressure comment may not be greater than :max characters.',
             'RP3comment.max' => 'Cumulative Water Produced comment may not be greater than :max characters.',
             'RP4comment.max' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment may not be greater than :max characters.',
+            'RP5comment.max' => 'Velocity parameter estimated from maximum critical velocity comment may not be greater than :max characters.',
 
             'ID1comment.max' => 'Gross Pay comment may not be greater than :max characters.',
             'ID2comment.max' => 'Total polymer pumped during Hydraulic Fracturing comment may not be greater than :max characters.',

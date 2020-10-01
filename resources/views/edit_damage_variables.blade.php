@@ -602,6 +602,34 @@
                      </table>
                   </div>
                </div>
+
+               <hr>
+
+               <div class="row">
+                  <div class="col-md-12">
+                     {!! Form::label('', 'Velocity parameter estimated from maximum critical velocity') !!}
+                  </div>
+               </div>
+      
+               <br>
+      
+               <div class="row">
+                  <div class="col-xs-12">
+                     <table id="KrP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                        <thead>
+                           <tr>
+                              <th>Value</th>
+                              <th>Date</th>
+                              <th>Comment</th>
+                              <th>Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
             </div>
          </div>
       </div>

@@ -263,6 +263,17 @@ class add_damage_variables_controller extends Controller
                 $measurement->save();
             }
 
+            if ($request->input('RP5')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP5');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP5comment');
+                $measurement->formacion_id = null;
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 31;
+                $measurement->save();
+            }
+
             if ($request->input('ID1')) {
                 $measurement = new medicion;
                 $measurement->valor = $request->input('ID1');

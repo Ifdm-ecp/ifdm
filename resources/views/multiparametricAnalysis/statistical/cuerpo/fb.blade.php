@@ -10,10 +10,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 6, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 6, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover6">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -95,10 +95,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 7, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 7, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover7">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -180,10 +180,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 8, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 8, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover8">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -265,10 +265,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 9, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 9, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover9">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -350,10 +350,10 @@
                <div class="form-inline" role="form">
                   <div class="form-group">
                      <a target="_blank" href="{{ URL::route('histo', ['subp' => 10, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/historics.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/historics.png')}}" width="25" height="24"/>
                      </button></a>
                      <a target="_blank" href="{{ URL::route('freq', ['subp' => 10, 'statistical' => $statistical])}}"><button type="button" class="btn btn-default btn-xs" aria-label="Left Align">
-                     <img src="{{asset('images/est.png')}}" width="25" height="25"/>
+                     <img src="{{asset('images/est.png')}}" width="25" height="24"/>
                      </button></a>
                      <button type="button" class="btn btn-default" aria-label="Left Align" id="popover10">
                      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>

@@ -370,6 +370,19 @@
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4comment").val(), relative_permeability_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
+
+        // Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP5").val(), relative_permeability_tab_ruleset[12]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP5").val(), relative_permeability_tab_ruleset[13]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP5comment").val(), relative_permeability_tab_ruleset[14]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
         
         // Validating Induced Damage
         titleTab = "";

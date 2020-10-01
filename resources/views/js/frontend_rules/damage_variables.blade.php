@@ -382,6 +382,25 @@ relative_permeability_tab_ruleset = [
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
+  },
+  {
+    column: "Velocity parameter estimated from maximum critical velocity value",
+    rules: [
+      {rule: "numeric"},
+      {rule: "minw", minw: 0}
+    ]
+  },
+  {
+    column: "Velocity parameter estimated from maximum critical velocity monitoring date",
+    rules: [
+      {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
+    ]
+  },
+  {
+    column: "Velocity parameter estimated from maximum critical velocity comment",
+    rules: [
+      {rule: "textmaxw", maxw: 100},
+    ]
   }
 ];
 

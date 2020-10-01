@@ -714,6 +714,39 @@
                      </div>
                   </div>
                </div>
+
+               <hr>
+               <div class="row">
+                  <div class="col-md-12">
+                     {!! Form::label('', 'Velocity parameter estimated from maximum critical velocity') !!}
+                  </div>
+               </div>
+      
+               <br>
+      
+               <div class="row">
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        {!! Form::label('value', 'Value') !!}
+                        <div class="input-group {{$errors->has('RP5') ? 'has-error' : ''}}">
+                           {!! Form::text('RP5',null, ['placeholder' => 'cc/min', 'class' =>'form-control', 'id' => 'RP5']) !!}
+                           <span class="input-group-addon" id="basic-addon2">cc/min</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group {{$errors->has('dateRP5') ? 'has-error' : ''}}">
+                        {!! Form::label('date', 'Monitoring Date') !!}
+                        {!! Form::text('dateRP5', null, ['placeholder' => 'dd/mm/yyyy', 'class' =>'form-control jquery-datepicker', 'id' => 'dateRP5']); !!}
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group {{$errors->has('RP4comment') ? 'has-error' : ''}}">
+                        {!! Form::label('comment', 'Comment') !!}
+                        {!! Form::text('RP5comment',null, ['class' =>'form-control', 'id' => 'RP5comment']) !!}
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
       </div>

@@ -152,6 +152,7 @@ class StatisticalController extends Controller
         $statistical->date_rp2 = $statistical->date_rp2 !== '0000-00-00' ? Carbon::parse($statistical->date_rp2)->format('d/m/Y') : '';
         $statistical->date_rp3 = $statistical->date_rp3 !== '0000-00-00' ? Carbon::parse($statistical->date_rp3)->format('d/m/Y') : '';
         $statistical->date_rp4 = $statistical->date_rp4 !== '0000-00-00' ? Carbon::parse($statistical->date_rp4)->format('d/m/Y') : '';
+        $statistical->date_rp5 = $statistical->date_rp5 !== '0000-00-00' ? Carbon::parse($statistical->date_rp5)->format('d/m/Y') : '';
         $statistical->date_id1 = $statistical->date_id1 !== '0000-00-00' ? Carbon::parse($statistical->date_id1)->format('d/m/Y') : '';
         $statistical->date_id2 = $statistical->date_id2 !== '0000-00-00' ? Carbon::parse($statistical->date_id2)->format('d/m/Y') : '';
         $statistical->date_id3 = $statistical->date_id3 !== '0000-00-00' ? Carbon::parse($statistical->date_id3)->format('d/m/Y') : '';
@@ -412,6 +413,14 @@ class StatisticalController extends Controller
                         $statistical->p10_rp4 = $request->p10_RP4;
                         $statistical->p90_rp4 = $request->p90_RP4;
                     }
+
+                    if (in_array('5', $availableArray)) {
+                        $statistical->rp5 = $request->RP5;
+                        $statistical->date_rp5 = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
+                        $statistical->comment_rp5 = $request->RP5comment;
+                        $statistical->p10_rp5 = $request->p10_RP5;
+                        $statistical->p90_rp5 = $request->p90_RP5;
+                    }
                 }
 
                 if ($request->idAvailable) {
@@ -620,6 +629,7 @@ class StatisticalController extends Controller
         $rp2 = 0;
         $rp3 = 0;
         $rp4 = 0;
+        $rp5 = 0;
         if ($statistical->rpAvailable[$this->buscarArray(1, $statistical->rpAvailable)] == 1) {
             $rp1 = $this->normalizacion($statistical->rp1, $statistical->p10_rp1, $statistical->p90_rp1, $statistical->subparameters->rp_days_below_saturation_pressure);
         }
@@ -635,7 +645,11 @@ class StatisticalController extends Controller
         if ($statistical->rpAvailable[$this->buscarArray(4, $statistical->rpAvailable)] == 4) {
             $rp4 = $this->normalizacion($statistical->rp4, $statistical->p10_rp4, $statistical->p90_rp4, $statistical->subparameters->rp_high_impact_factor);
         }
-        $rpp = ($rp1 + $rp2 + $rp3 + $rp4) / count($statistical->rpAvailable);
+
+        if ($statistical->rpAvailable[$this->buscarArray(5, $statistical->rpAvailable)] == 5) {
+            $rp5 = $this->normalizacion($statistical->rp5, $statistical->p10_rp5, $statistical->p90_rp5, $statistical->subparameters->rp_velocity_estimated);
+        }
+        $rpp = ($rp1 + $rp2 + $rp3 + $rp4 + $rp5) / count($statistical->rpAvailable);
 
         /* ---------------------------------------------------------------------------- */
 

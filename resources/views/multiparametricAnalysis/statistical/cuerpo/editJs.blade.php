@@ -110,8 +110,24 @@
         $('#RP1').val($(this).val());
     });
 
+    $('#p10_13').bind('change', function() {
+        $('#p10_15').val($(this).val());
+    });
+
+    $('#p90_13').bind('change', function() {
+        $('#p90_15').val($(this).val());
+    });
+
     $('#RP1').bind('change', function() {
         $('#OS4').val($(this).val());
+    });
+
+    $('#p10_15').bind('change', function() {
+        $('#p10_13').val($(this).val());
+    });
+
+    $('#p90_15').bind('change', function() {
+        $('#p90_13').val($(this).val());
     });
 
     function cargarAvailables() {

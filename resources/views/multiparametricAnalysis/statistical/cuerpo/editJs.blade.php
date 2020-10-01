@@ -226,10 +226,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_1").val() === null || $("#p90_1").val() === "")) ? true: emptyValues;
 
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_1_value").val(), mineral_scales_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_ms_1_value").val(), mineral_scales_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_1_value").val() === null || $("#weight_1_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_ms_1_value").val() === null || $("#weight_ms_1_value").val() === "")) ? true: emptyValues;
 
         // Scale Index Of BaSO4
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS2").val(), mineral_scales_tab_ruleset[6]);
@@ -256,10 +256,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_2").val() === null || $("#p90_2").val() === "")) ? true: emptyValues;
 
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_2_value").val(), mineral_scales_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_ms_2_value").val(), mineral_scales_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_2_value").val() === null || $("#weight_2_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_ms_2_value").val() === null || $("#weight_ms_2_value").val() === "")) ? true: emptyValues;
 
         // Scale Index Of Iron Scales
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS3").val(), mineral_scales_tab_ruleset[12]);
@@ -286,10 +286,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_3").val() === null || $("#p90_3").val() === "")) ? true: emptyValues;
 
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_3_value").val(), mineral_scales_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_ms_3_value").val(), mineral_scales_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_3_value").val() === null || $("#weight_3_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_ms_3_value").val() === null || $("#weight_ms_3_value").val() === "")) ? true: emptyValues;
 
         // Backflow [Ca] (ppm)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS4").val(), mineral_scales_tab_ruleset[18]);
@@ -316,10 +316,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_4").val() === null || $("#p90_4").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_4_value").val(), mineral_scales_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_ms_4_value").val(), mineral_scales_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_4_value").val() === null || $("#weight_4_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_ms_4_value").val() === null || $("#weight_ms_4_value").val() === "")) ? true: emptyValues;
         
         // Backflow [Ba] (ppm)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#MS5").val(), mineral_scales_tab_ruleset[24]);
@@ -346,12 +346,12 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_5").val() === null || $("#p90_5").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_5_value").val(), mineral_scales_tab_ruleset[29]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_ms_5_value").val(), mineral_scales_tab_ruleset[29]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_5_value").val() === null || $("#weight_5_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_ms_5_value").val() === null || $("#weight_ms_5_value").val() === "")) ? true: emptyValues;
 
-        var sumWeights = parseFloat($("#weight_1_value").val()) + parseFloat($("#weight_2_value").val()) + parseFloat($("#weight_3_value").val()) + parseFloat($("#weight_4_value").val()) + parseFloat($("#weight_5_value").val());
+        var sumWeights = parseFloat($("#weight_ms_1_value").val()) + parseFloat($("#weight_ms_2_value").val()) + parseFloat($("#weight_ms_3_value").val()) + parseFloat($("#weight_ms_4_value").val()) + parseFloat($("#weight_ms_5_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Mineral Scales";
@@ -389,10 +389,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_6").val() === null || $("#p90_6").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_6_value").val(), fine_blockage_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_fb_1_value").val(), fine_blockage_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_6_value").val() === null || $("#weight_6_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_fb_1_value").val() === null || $("#weight_fb_1_value").val() === "")) ? true: emptyValues;
 
         // [Si] on produced water
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB2").val(), fine_blockage_tab_ruleset[6]);
@@ -419,10 +419,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_7").val() === null || $("#p90_7").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_7_value").val(), fine_blockage_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_fb_2_value").val(), fine_blockage_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_7_value").val() === null || $("#weight_7_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_fb_2_value").val() === null || $("#weight_fb_2_value").val() === "")) ? true: emptyValues;
 
         // Critical Radius derived from maximum critical velocity, Vc (ft)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB3").val(), fine_blockage_tab_ruleset[12]);
@@ -449,10 +449,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_8").val() === null || $("#p90_8").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_8_value").val(), fine_blockage_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_fb_3_value").val(), fine_blockage_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_8_value").val() === null || $("#weight_8_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_fb_3_value").val() === null || $("#weight_fb_3_value").val() === "")) ? true: emptyValues;
 
         // Mineralogy Factor
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB4").val(), fine_blockage_tab_ruleset[18]);
@@ -479,10 +479,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_9").val() === null || $("#p90_9").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_9_value").val(), fine_blockage_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_fb_4_value").val(), fine_blockage_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_9_value").val() === null || $("#weight_9_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_fb_4_value").val() === null || $("#weight_fb_4_value").val() === "")) ? true: emptyValues;
         
         // Mass of crushed proppant inside Hydraulic Fractures (lbs)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#FB5").val(), fine_blockage_tab_ruleset[24]);
@@ -509,12 +509,12 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_10").val() === null || $("#p90_10").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_10_value").val(), fine_blockage_tab_ruleset[29]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_fb_5_value").val(), fine_blockage_tab_ruleset[29]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_10_value").val() === null || $("#weight_10_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_fb_5_value").val() === null || $("#weight_fb_5_value").val() === "")) ? true: emptyValues;
 
-        sumWeights = parseFloat($("#weight_6_value").val()) + parseFloat($("#weight_7_value").val()) + parseFloat($("#weight_8_value").val()) + parseFloat($("#weight_9_value").val()) + parseFloat($("#weight_10_value").val());
+        sumWeights = parseFloat($("#weight_fb_1_value").val()) + parseFloat($("#weight_fb_2_value").val()) + parseFloat($("#weight_fb_3_value").val()) + parseFloat($("#weight_fb_4_value").val()) + parseFloat($("#weight_fb_5_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Fine Blockage";
@@ -552,10 +552,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_11").val() === null || $("#p90_11").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_11_value").val(), organic_scales_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_os_1_value").val(), organic_scales_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_11_value").val() === null || $("#weight_11_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_os_1_value").val() === null || $("#weight_os_1_value").val() === "")) ? true: emptyValues;
 
         // Volume of HCL pumped into the formation (bbl)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS2").val(), organic_scales_tab_ruleset[6]);
@@ -582,10 +582,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_30").val() === null || $("#p90_30").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_30_value").val(), organic_scales_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_os_2_value").val(), organic_scales_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_30_value").val() === null || $("#weight_30_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_os_2_value").val() === null || $("#weight_os_2_value").val() === "")) ? true: emptyValues;
 
         // Cumulative Gas Produced
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS3").val(), organic_scales_tab_ruleset[12]);
@@ -612,10 +612,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_12").val() === null || $("#p90_12").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_12_value").val(), organic_scales_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_os_3_value").val(), organic_scales_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_12_value").val() === null || $("#weight_12_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_os_3_value").val() === null || $("#weight_os_3_value").val() === "")) ? true: emptyValues;
 
         // Number Of Days Below Saturation Pressure
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS4").val(), organic_scales_tab_ruleset[18]);
@@ -642,10 +642,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_13").val() === null || $("#p90_13").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_13_value").val(), organic_scales_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_os_4_value").val(), organic_scales_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_13_value").val() === null || $("#weight_13_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_os_4_value").val() === null || $("#weight_os_4_value").val() === "")) ? true: emptyValues;
         
         // De Boer Criteria
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS5").val(), organic_scales_tab_ruleset[24]);
@@ -672,12 +672,12 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_14").val() === null || $("#p90_14").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_14_value").val(), organic_scales_tab_ruleset[29]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_os_5_value").val(), organic_scales_tab_ruleset[29]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_14_value").val() === null || $("#weight_14_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_os_5_value").val() === null || $("#weight_os_5_value").val() === "")) ? true: emptyValues;
         
-        sumWeights = parseFloat($("#weight_11_value").val()) + parseFloat($("#weight_30_value").val()) + parseFloat($("#weight_12_value").val()) + parseFloat($("#weight_13_value").val()) + parseFloat($("#weight_14_value").val());
+        sumWeights = parseFloat($("#weight_os_1_value").val()) + parseFloat($("#weight_os_2_value").val()) + parseFloat($("#weight_os_3_value").val()) + parseFloat($("#weight_os_4_value").val()) + parseFloat($("#weight_os_5_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Organic Scales";
@@ -715,10 +715,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_15").val() === null || $("#p90_15").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_15_value").val(), relative_permeability_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_rp_1_value").val(), relative_permeability_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_15_value").val() === null || $("#weight_15_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_rp_1_value").val() === null || $("#weight_rp_1_value").val() === "")) ? true: emptyValues;
 
         // Difference between current reservoir pressure and saturation pressure
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2").val(), relative_permeability_tab_ruleset[6]);
@@ -745,10 +745,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_16").val() === null || $("#p90_16").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_16_value").val(), relative_permeability_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_rp_2_value").val(), relative_permeability_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_16_value").val() === null || $("#weight_16_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_rp_2_value").val() === null || $("#weight_rp_2_value").val() === "")) ? true: emptyValues;
 
         // Cumulative Water Produced
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP3").val(), relative_permeability_tab_ruleset[12]);
@@ -775,10 +775,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_17").val() === null || $("#p90_17").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_17_value").val(), relative_permeability_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_rp_3_value").val(), relative_permeability_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_17_value").val() === null || $("#weight_17_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_rp_3_value").val() === null || $("#weight_rp_3_value").val() === "")) ? true: emptyValues;
 
         // Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4").val(), relative_permeability_tab_ruleset[18]);
@@ -805,12 +805,42 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_18").val() === null || $("#p90_18").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_18_value").val(), relative_permeability_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_rp_4_value").val(), relative_permeability_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_18_value").val() === null || $("#weight_18_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_rp_4_value").val() === null || $("#weight_rp_4_value").val() === "")) ? true: emptyValues;
+
+        // Velocity parameter estimated from maximum critical velocity
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP5").val(), relative_permeability_tab_ruleset[24]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#RP5").val() === null || $("#RP5").val() === "")) ? true: emptyValues;
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#dateRP5").val(), relative_permeability_tab_ruleset[25]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#dateRP5").val() === null || $("#dateRP5").val() === "")) ? true: emptyValues;
         
-        sumWeights = parseFloat($("#weight_15_value").val()) + parseFloat($("#weight_16_value").val()) + parseFloat($("#weight_17_value").val()) + parseFloat($("#weight_18_value").val());
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP5comment").val(), relative_permeability_tab_ruleset[26]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p10_31").val(), relative_permeability_tab_ruleset[27]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#p10_31").val() === null || $("#p10_31").val() === "")) ? true: emptyValues;
+
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#p90_31").val(), relative_permeability_tab_ruleset[28]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#p90_31").val() === null || $("#p90_31").val() === "")) ? true: emptyValues;
+        
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_rp_5_value").val(), relative_permeability_tab_ruleset[29]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#weight_rp_5_value").val() === null || $("#weight_rp_5_value").val() === "")) ? true: emptyValues;
+        
+        sumWeights = parseFloat($("#weight_rp_1_value").val()) + parseFloat($("#weight_rp_2_value").val()) + parseFloat($("#weight_rp_3_value").val()) + parseFloat($("#weight_rp_4_value").val()) + parseFloat($("#weight_rp_5_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Relative Permeability";
@@ -848,10 +878,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_19").val() === null || $("#p90_19").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_19_value").val(), induce_damage_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_id_1_value").val(), induce_damage_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_19_value").val() === null || $("#weight_19_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_id_1_value").val() === null || $("#weight_id_1_value").val() === "")) ? true: emptyValues;
 
         // Total polymer pumped during Hydraulic Fracturing (lbs)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID2").val(), induce_damage_tab_ruleset[6]);
@@ -878,10 +908,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_20").val() === null || $("#p90_20").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_20_value").val(), induce_damage_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_id_2_value").val(), induce_damage_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_20_value").val() === null || $("#weight_20_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_id_2_value").val() === null || $("#weight_id_2_value").val() === "")) ? true: emptyValues;
 
         // Total volume of water based fluids pumped into the well (bbl)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID3").val(), induce_damage_tab_ruleset[12]);
@@ -908,10 +938,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_21").val() === null || $("#p90_21").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_21_value").val(), induce_damage_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_id_3_value").val(), induce_damage_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_21_value").val() === null || $("#weight_21_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_id_3_value").val() === null || $("#weight_id_3_value").val() === "")) ? true: emptyValues;
 
         // Mud Losses
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#ID4").val(), induce_damage_tab_ruleset[18]);
@@ -938,12 +968,12 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_22").val() === null || $("#p90_22").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_22_value").val(), induce_damage_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_id_4_value").val(), induce_damage_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_22_value").val() === null || $("#weight_22_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_id_4_value").val() === null || $("#weight_id_4_value").val() === "")) ? true: emptyValues;
         
-        sumWeights = parseFloat($("#weight_19_value").val()) + parseFloat($("#weight_20_value").val()) + parseFloat($("#weight_21_value").val()) + parseFloat($("#weight_22_value").val());
+        sumWeights = parseFloat($("#weight_id_1_value").val()) + parseFloat($("#weight_id_2_value").val()) + parseFloat($("#weight_id_3_value").val()) + parseFloat($("#weight_id_4_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Induced Damage";
@@ -981,10 +1011,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_23").val() === null || $("#p90_23").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_23_value").val(), geomechanical_damage_tab_ruleset[5]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_gd_1_value").val(), geomechanical_damage_tab_ruleset[5]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_23_value").val() === null || $("#weight_23_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_gd_1_value").val() === null || $("#weight_gd_1_value").val() === "")) ? true: emptyValues;
 
         // Drawdown, i.e, reservoir pressure minus BHFP (psi)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD2").val(), geomechanical_damage_tab_ruleset[6]);
@@ -1011,10 +1041,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_24").val() === null || $("#p90_24").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_24_value").val(), geomechanical_damage_tab_ruleset[11]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_gd_2_value").val(), geomechanical_damage_tab_ruleset[11]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_24_value").val() === null || $("#weight_24_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_gd_2_value").val() === null || $("#weight_gd_2_value").val() === "")) ? true: emptyValues;
 
         // Ratio of KH)matrix + fracture / KH)matrix
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD3").val(), geomechanical_damage_tab_ruleset[12]);
@@ -1041,10 +1071,10 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_25").val() === null || $("#p90_25").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_25_value").val(), geomechanical_damage_tab_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_gd_3_value").val(), geomechanical_damage_tab_ruleset[17]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_25_value").val() === null || $("#weight_25_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_gd_3_value").val() === null || $("#weight_gd_3_value").val() === "")) ? true: emptyValues;
 
         // Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD4").val(), geomechanical_damage_tab_ruleset[18]);
@@ -1071,12 +1101,12 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#p90_26").val() === null || $("#p90_26").val() === "")) ? true: emptyValues;
         
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_26_value").val(), geomechanical_damage_tab_ruleset[23]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#weight_gd_4_value").val(), geomechanical_damage_tab_ruleset[23]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        emptyValues = (emptyValues === false && ($("#weight_26_value").val() === null || $("#weight_26_value").val() === "")) ? true: emptyValues;
+        emptyValues = (emptyValues === false && ($("#weight_gd_4_value").val() === null || $("#weight_gd_4_value").val() === "")) ? true: emptyValues;
 
-        sumWeights = parseFloat($("#weight_23_value").val()) + parseFloat($("#weight_24_value").val()) + parseFloat($("#weight_25_value").val()) + parseFloat($("#weight_26_value").val());
+        sumWeights = parseFloat($("#weight_gd_1_value").val()) + parseFloat($("#weight_gd_2_value").val()) + parseFloat($("#weight_gd_3_value").val()) + parseFloat($("#weight_gd_4_value").val());
         if (sumWeights > 1) {
             if (titleTab == "") {
                 titleTab = "Tab: Geomechanical Damage";

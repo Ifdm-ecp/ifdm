@@ -619,7 +619,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Delta Pressure From Saturation Pressure') !!}
+                     {!! Form::label('', 'Difference between current reservoir pressure and saturation pressure') !!}
                   </div>
                </div>
       
@@ -685,7 +685,7 @@
                <hr>
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Pore Size Diameter Approximation By Katz And Thompson Correlation') !!}
+                     {!! Form::label('', 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))') !!}
                   </div>
                </div>
       

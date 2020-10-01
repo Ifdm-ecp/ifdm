@@ -145,9 +145,9 @@ class measurementRequest extends Request
             'OS5.numeric' => 'De Boer Criteria value must be numeric.',
 
             'RP1.numeric' => 'Number Of Days Below Saturation Pressure value must be numeric.',
-            'RP2.numeric' => 'Delta Pressure From Saturation Pressure value must be numeric.',
+            'RP2.numeric' => 'Difference between current reservoir pressure and saturation pressure value must be numeric.',
             'RP3.numeric' => 'Cumulative Water Produced value must be numeric.',
-            'RP4.numeric' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value must be numeric.',
+            'RP4.numeric' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be numeric.',
 
             'ID1.numeric' => 'Gross Pay value must be numeric.',
             'ID2.numeric' => 'Total polymer pumped during Hydraulic Fracturing value must be numeric.',
@@ -177,9 +177,9 @@ class measurementRequest extends Request
             'OS4.between' => 'Number Of Days Below Saturation Pressure value is not between :min - :max.',
 
             'RP1.between' => 'Number Of Days Below Saturation Pressure value is not between :min - :max.',
-            'RP2.between' => 'Delta Pressure From Saturation Pressure value is not between :min - :max.',
+            'RP2.between' => 'Difference between current reservoir pressure and saturation pressure value is not between :min - :max.',
             'RP3.min' => 'Cumulative Water Produced value must be higher than :min.',
-            'RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value must be higher than :min.',
+            'RP4.min' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be higher than :min.',
 
             'ID1.between' => 'Gross Pay value is not between :min - :max.',
             'ID2.min' => 'Total polymer pumped during Hydraulic Fracturing value must be higher or equal than :min.',
@@ -192,7 +192,7 @@ class measurementRequest extends Request
             'GD4.between' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is not between :min - :max.',
 
             'RP3.not_in' => 'Cumulative Water Produced value must be higher than 0.',
-            'RP4.not_in' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value must be higher than 0.',
+            'RP4.not_in' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value must be higher than 0.',
 
             'MS1.required_with' => 'Scale index of CaCO3 value is required when date is present.',
             'MS2.required_with' => 'Scale index of BaSO4 value is required when date is present.',
@@ -213,9 +213,9 @@ class measurementRequest extends Request
             'OS5.required_with' => 'De Boer Criteria value is required when date is present.',
 
             'RP1.required_with' => 'Number of days below Saturation Pressure value is required when date is present.',
-            'RP2.required_with' => 'Delta Pressure From Saturation Pressure value is required when date is present.',
+            'RP2.required_with' => 'Difference between current reservoir pressure and saturation pressure value is required when date is present.',
             'RP3.required_with' => 'Cumulative Water Produced value is required when date is present.',
-            'RP4.required_with' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation value is required when date is present.',
+            'RP4.required_with' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value is required when date is present.',
 
             'ID1.required_with' => 'Gross Pay is required when date is present.',
             'ID2.required_with' => 'Total polymer pumped during Hydraulic Fracturing value is required when date is present.',
@@ -246,9 +246,9 @@ class measurementRequest extends Request
             'dateOS5.required_with' => 'Date is required when De Boer Criteria value is present.',
 
             'dateRP1.required_with' => 'Date is required when Number of days below Saturation Pressure value is present.',
-            'dateRP2.required_with' => 'Date is required when Delta Pressure From Saturation Pressure value is present.',
+            'dateRP2.required_with' => 'Date is required when Difference between current reservoir pressure and saturation pressure value is present.',
             'dateRP3.required_with' => 'Date is required when Cumulative Water Produced value is present.',
-            'dateRP4.required_with' => 'Date is required when Pore Size Diameter Approximation By Katz And Thompson Correlation value is present.',
+            'dateRP4.required_with' => 'Date is required when Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value is present.',
 
             'dateID1.required_with' => 'Date is required when Gross Pay value is present.',
             'dateID2.required_with' => 'Date is required when Total polymer pumped during Hydraulic Fracturing value is present.',
@@ -279,9 +279,9 @@ class measurementRequest extends Request
             'dateOS5.date_format' => 'De Boer Criteria monitoring date must have the format dd/mm/yyyy.',
 
             'dateRP1.date_format' => 'Number of days below Saturation Pressure monitoring date must have the format dd/mm/yyyy.',
-            'dateRP2.date_format' => 'Delta Pressure From Saturation Pressure monitoring date must have the format dd/mm/yyyy.',
+            'dateRP2.date_format' => 'Difference between current reservoir pressure and saturation pressure monitoring date must have the format dd/mm/yyyy.',
             'dateRP3.date_format' => 'Cumulative Water Produced monitoring date must have the format dd/mm/yyyy.',
-            'dateRP4.date_format' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date must have the format dd/mm/yyyy.',
+            'dateRP4.date_format' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date must have the format dd/mm/yyyy.',
 
             'dateID1.date_format' => 'Gross Pay monitoring date must have the format dd/mm/yyyy.',
             'dateID2.date_format' => 'Total polymer pumped during Hydraulic Fracturing monitoring date must have the format dd/mm/yyyy.',
@@ -312,9 +312,9 @@ class measurementRequest extends Request
             'dateOS5.before' => 'De Boer Criteria monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
 
             'dateRP1.before' => 'Number of days below Saturation Pressure monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
-            'dateRP2.before' => 'Delta Pressure From Saturation Pressure monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
+            'dateRP2.before' => 'Difference between current reservoir pressure and saturation pressure monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateRP3.before' => 'Cumulative Water Produced monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
-            'dateRP4.before' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
+            'dateRP4.before' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
 
             'dateID1.before' => 'Gross Pay monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateID2.before' => 'Total polymer pumped during Hydraulic Fracturing monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
@@ -345,9 +345,9 @@ class measurementRequest extends Request
             'OS5comment.string' => 'De Boer Criteria comment must be a text.',
 
             'RP1comment.string' => 'Number Of Days Below Saturation Pressure comment must be a text.',
-            'RP2comment.string' => 'Delta Pressure From Saturation Pressure comment must be a text.',
+            'RP2comment.string' => 'Difference between current reservoir pressure and saturation pressure comment must be a text.',
             'RP3comment.string' => 'Cumulative Water Produced comment must be a text.',
-            'RP4comment.string' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation comment must be a text.',
+            'RP4comment.string' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment must be a text.',
 
             'ID1comment.string' => 'Gross Pay comment must be a text.',
             'ID2comment.string' => 'Total polymer pumped during Hydraulic Fracturing comment must be a text.',
@@ -378,9 +378,9 @@ class measurementRequest extends Request
             'OS5comment.max' => 'De Boer Criteria comment may not be greater than :max characters.',
 
             'RP1comment.max' => 'Number Of Days Below Saturation Pressure comment may not be greater than :max characters.',
-            'RP2comment.max' => 'Delta Pressure From Saturation Pressure comment may not be greater than :max characters.',
+            'RP2comment.max' => 'Difference between current reservoir pressure and saturation pressure comment may not be greater than :max characters.',
             'RP3comment.max' => 'Cumulative Water Produced comment may not be greater than :max characters.',
-            'RP4comment.max' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation comment may not be greater than :max characters.',
+            'RP4comment.max' => 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment may not be greater than :max characters.',
 
             'ID1comment.max' => 'Gross Pay comment may not be greater than :max characters.',
             'ID2comment.max' => 'Total polymer pumped during Hydraulic Fracturing comment may not be greater than :max characters.',

@@ -652,33 +652,33 @@
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure value",
+      column: "Difference between current reservoir pressure and saturation pressure value",
       rules: [
         {rule: "numeric"},
         {rule: "range", min: -15000, max: 15000}
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure monitoring date",
+      column: "Difference between current reservoir pressure and saturation pressure monitoring date",
       rules: [
         {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure comment",
+      column: "Difference between current reservoir pressure and saturation pressure comment",
       rules: [
         {rule: "textmaxw", maxw: 100},
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure p10",
+      column: "Difference between current reservoir pressure and saturation pressure p10",
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0}
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure p90",
+      column: "Difference between current reservoir pressure and saturation pressure p90",
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
@@ -686,7 +686,7 @@
       ]
     },
     {
-      column: "Delta Pressure From Saturation Pressure weight",
+      column: "Difference between current reservoir pressure and saturation pressure weight",
       rules: [
         {rule: "numeric"}
       ]
@@ -732,33 +732,33 @@
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation value",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value",
       rules: [
         {rule: "numeric"},
         {rule: "minw", minw: 0}
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date",
       rules: [
         {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation comment",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment",
       rules: [
         {rule: "textmaxw", maxw: 100},
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation p10",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) p10",
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0}
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation p90",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) p90",
       rules: [
         {rule: "numeric"},
         {rule: "min", min: 0},
@@ -766,7 +766,7 @@
       ]
     },
     {
-      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation weight",
+      column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) weight",
       rules: [
         {rule: "numeric"}
       ]

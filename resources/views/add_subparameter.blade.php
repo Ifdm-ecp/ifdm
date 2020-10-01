@@ -1454,7 +1454,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 17, 'multi' => $multiparametrico->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Delta Pressure From Saturation Pressure') !!}
+                     {!! Form::label('', 'Difference between current reservoir pressure and saturation pressure') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('weight_16',null,null, array('id'=>'weight_16', 'name'=>'weight_16', 'class' => 'check_weight')) !!}
@@ -1640,7 +1640,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 19, 'multi' => $multiparametrico->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'High Impact Factor:Pore Size Diameter Approximation By Katz And Thompson Correlation') !!}
+                     {!! Form::label('', 'High Impact Factor:Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('weight_18',null,null, array('id'=>'weight_18', 'name'=>'weight_18', 'class' => 'check_weight')) !!}

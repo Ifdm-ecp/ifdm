@@ -327,20 +327,20 @@ relative_permeability_tab_ruleset = [
     ]
   },
   {
-    column: "Delta Pressure From Saturation Pressure value",
+    column: "Difference between current reservoir pressure and saturation pressure value",
     rules: [
       {rule: "numeric"},
       {rule: "range", min: -15000, max: 15000}
     ]
   },
   {
-    column: "Delta Pressure From Saturation Pressure monitoring date",
+    column: "Difference between current reservoir pressure and saturation pressure monitoring date",
     rules: [
       {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Delta Pressure From Saturation Pressure comment",
+    column: "Difference between current reservoir pressure and saturation pressure comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -365,20 +365,20 @@ relative_permeability_tab_ruleset = [
     ]
   },
   {
-    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation value",
+    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) value",
     rules: [
       {rule: "numeric"},
       {rule: "minw", minw: 0}
     ]
   },
   {
-    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation monitoring date",
+    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) monitoring date",
     rules: [
       {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation comment",
+    column: "Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]

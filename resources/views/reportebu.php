@@ -322,7 +322,7 @@
                         <thead>
                             <tr>
                                 <th>Number Of Days Below Saturation Pressure</th>
-                                <th>Delta Pressure From Saturation Pressure</th>
+                                <th>Difference between current reservoir pressure and saturation pressure</th>
                                 <th>Water Intrusion</th>
                                 <th>High Impact Factor</th>
                             </tr>

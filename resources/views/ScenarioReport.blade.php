@@ -348,9 +348,9 @@
                         <thead>
                             <tr>
                                 <th>Number Of Days Below Saturation Pressure [days]</th>
-                                <th>Delta Pressure From Saturation Pressure [psi]</th>
+                                <th>Difference between current reservoir pressure and saturation pressure [psi]</th>
                                 <th>Water Intrusion: Cumulative Water Produced [MMbbl]</th>
-                                <th> High Impact Factor:Pore Size Diameter Approximation By Katz And Thompson Correlation [-]</th>
+                                <th> High Impact Factor:Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) [-]</th>
                             </tr>
                         </thead>
                         <tbody>

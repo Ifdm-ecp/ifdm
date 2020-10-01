@@ -332,7 +332,7 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
 
-        // Delta Pressure From Saturation Pressure
+        // Difference between current reservoir pressure and saturation pressure
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2").val(), relative_permeability_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
@@ -358,7 +358,7 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
 
-        // Pore Size Diameter Approximation By Katz And Thompson Correlation
+        // Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4").val(), relative_permeability_tab_ruleset[9]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];

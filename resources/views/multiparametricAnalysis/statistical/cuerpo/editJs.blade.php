@@ -720,7 +720,7 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#weight_15_value").val() === null || $("#weight_15_value").val() === "")) ? true: emptyValues;
 
-        // Delta Pressure From Saturation Pressure
+        // Difference between current reservoir pressure and saturation pressure
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP2").val(), relative_permeability_tab_ruleset[6]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
@@ -780,7 +780,7 @@
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#weight_17_value").val() === null || $("#weight_17_value").val() === "")) ? true: emptyValues;
 
-        // Pore Size Diameter Approximation By Katz And Thompson Correlation
+        // Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP4").val(), relative_permeability_tab_ruleset[18]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];

@@ -371,7 +371,7 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
 
-        // Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))
+        // Velocity parameter estimated from maximum critical velocity
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#RP5").val(), relative_permeability_tab_ruleset[12]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];

@@ -69,7 +69,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="icon-menu">
-                <a href="homeC">
+                <a href="/homeC">
                     <img src="/images/User-white.png" class="icons" alt="User" width="20" height="20">
                     Home<span class="sr-only">(current)</span>
                 </a>
@@ -79,20 +79,20 @@
             @endif
             @if(\Auth::User()->office != 2)
                 <li class="icon-menu">
-                    <a href="database">
+                    <a href="/database">
                         <img src="/images/Database-icon.png" class="icons" alt="database" width="20" height="20">
                         Database
                     </a>
                 </li>
             @endif
             <li class="icon-menu">
-                <a href="share_scenario">
+                <a href="/share_scenario">
                     <img src="/images/Project-management.png" class="icons" alt="project" width="15" height="20">
                     Project Management
                 </a>
             </li>
             <li class="icon-menu">
-                <a href="Geor">
+                <a href="/Geor">
                     <img src="/images/Georeference.png" class="icons" alt="geo" width="20" height="20">
                     Georeference
                 </a>

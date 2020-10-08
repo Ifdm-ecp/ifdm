@@ -1,4 +1,4 @@
-@extends('layouts.ProjectGeneral')
+@extends('layouts.basic')
 @section('title', 'IFDM Project')
 
 @section('content')

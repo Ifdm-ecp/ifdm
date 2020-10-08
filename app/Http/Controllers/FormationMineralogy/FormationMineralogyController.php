@@ -27,7 +27,7 @@ class FormationMineralogyController extends Controller
         $data = FormationMineralogy::formacion_id($request->get('formacion_id'))->paginate(15);
         $basin = cuenca::all()->pluck('nombre', 'id');
 
-        return view('formationMineralogy.index', compact('data', 'basin', 'finesDB'));
+        return view('formationMineralogy.index', compact('data', 'basin'));
     }
 
     /**

@@ -60,7 +60,7 @@
                         
                         var constructedRow = '<tr>' +
                             '<td><span style="display:none">' + value.valor + '</span><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
-                            '<td><span style="display:none">' + value.fecha + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
+                            '<td><span style="display:none">' + moment(value.fecha).format('DD/MM/YYYY') + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
                             '<td><span style="display:none">' + value.comentario + '</span><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
                             '<td align="center"><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Edit</button> ' +
                             '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Remove</button></td>' +

@@ -41,11 +41,11 @@ class list_project_controller extends Controller
 
             if(\Auth::User()->office == 0){
                 #Todos los proyectos, compañias y usuarios. Perfil administrador del sistema
-                $project_UN= proyecto::where('compania','=', 0)->take(8)->get();
-                $project_equion= proyecto::where('compania','=', 1)->take(8)->get();
-                $project_ecopetrol= proyecto::where('compania','=', 2)->take(8)->get();
-                $project_hocol= proyecto::where('compania','=', 3)->take(8)->get();
-                $project_uis= proyecto::where('compania','=', 4)->take(8)->get();
+                $project_UN= proyecto::where('compania','=', 0)->get();
+                $project_equion= proyecto::where('compania','=', 1)->get();
+                $project_ecopetrol= proyecto::where('compania','=', 2)->get();
+                $project_hocol= proyecto::where('compania','=', 3)->get();
+                $project_uis= proyecto::where('compania','=', 4)->get();
 
                 $company = array("UN", "Equion", "Ecopetrol", "Hocol", "UIS");
 

@@ -430,5 +430,8 @@
 
 
 @section('Scripts')
-    @include('js/list_project')
+   @include('js/list_project')
+   <script>
+      $('.table').DataTable();
+   </script>
 @endsection

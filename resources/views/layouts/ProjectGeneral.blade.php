@@ -43,6 +43,7 @@
         var scenarios = [];
 
         $.get("{!! url('getSharedScenarios') !!}", {}, function (data) {
+            var esc = [];
             $.each(data, function (index, value) {
                 var str = value.nombre;
                 var str2 = value.id;

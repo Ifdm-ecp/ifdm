@@ -129,9 +129,61 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('getSharedScenarios', function () {
         $shared_scenarios = collect(DB::table('shared_scenario')
-                    ->where('shared_scenario.user_id', '=', Auth::id())
-                    ->join('escenarios','shared_scenario.scenario_id','=','escenarios.id')
-                    ->get());
+            ->where('shared_scenario.user_id', '=', Auth::id())
+            ->join('escenarios','shared_scenario.scenario_id','=','escenarios.id')
+            ->get());
+
+        foreach ($shared_scenarios as $ke => $ve) {
+
+            $respuesta = 1;
+            $id = $ve->scenario_id;
+
+            if($ve->tipo == 'Asphaltene precipitation') {
+
+                $scenarios_extras = [];
+
+                $resp_asphaltenes_d_stability_analysis = App\asphaltenes_d_stability_analysis::where('scenario_id',$id)->first();
+                if ($resp_asphaltenes_d_stability_analysis) {
+                    $resp_asphaltenes_d_stability_analysis->nombre = '[A_S]';
+                    $resp_asphaltenes_d_stability_analysis->route = route("asa.result",$id);
+                    $scenarios_extras[] = $resp_asphaltenes_d_stability_analysis;
+                }
+                $respuesta_as = ($resp_asphaltenes_d_stability_analysis) ? 0 : 1;
+
+
+                $resp_asphaltenes_d_precipitated_analysis = App\asphaltenes_d_precipitated_analysis::where('scenario_id',$id)->first();
+                if ($resp_asphaltenes_d_precipitated_analysis) {
+                    $resp_asphaltenes_d_precipitated_analysis->nombre = '[A_P]';
+                    $resp_asphaltenes_d_precipitated_analysis->route = route("asp.result",$id);
+                    $scenarios_extras[] = $resp_asphaltenes_d_precipitated_analysis;
+                }
+                $respuesta_ap = ($resp_asphaltenes_d_precipitated_analysis) ? 0 : 1;
+
+
+                $resp_asphaltenes_d_diagnosis = App\asphaltenes_d_diagnosis::where('scenario_id',$id)->first();
+                if ($resp_asphaltenes_d_diagnosis) {
+                    $resp_asphaltenes_d_diagnosis->nombre = '[A_D]';
+                    $resp_asphaltenes_d_diagnosis->route = route("asd.result",$id);
+                    $scenarios_extras[] = $resp_asphaltenes_d_diagnosis;
+                }
+                $respuesta_ad = ($resp_asphaltenes_d_diagnosis) ? 0 : 1;
+
+                $shared_scenarios[$ke]->extra_ = $scenarios_extras;
+
+                if ($respuesta_as == 0 && $respuesta_ad == 0 && $respuesta_ap == 0) {
+                    $respuesta = 0;
+                }
+
+            }
+
+            if ($respuesta == 0) {
+                $shared_scenarios[$ke]->res_ = $respuesta;
+            } 
+
+        }
+
+        //array_push($escenarioscompleto,$escenarios);
+
         return Response::json($shared_scenarios);
 
     });

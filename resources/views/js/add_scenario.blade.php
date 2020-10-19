@@ -70,6 +70,17 @@
         $('.s_scenary_clear').attr('disabled','true');
     });
 
+    /* Ocultar el selector del intervalo productor si se selecciona estadístico en multiparamétrico */
+    $('[name=multiparametricType]').change(function(){
+        var sub_type = $('[name=multiparametricType]').val();
+
+        if (sub_type == 'statistical') {
+            $('#div_formation_wipr').hide();
+        } else {
+            $('#div_formation_wipr').show();
+        }
+    });
+
     function update_duplicate_modal() {
         var Tree = [];
         var getImportTree;
@@ -327,7 +338,8 @@ $(document).ready(function() {
             $("#MultiparametricModal").modal('hide'); 
             $("#multiparametric_type_button").hide(); 
 
-        } else if(type == "Multiparametric"){
+        } else if (type == "Multiparametric") {
+
             $("#aspahltene_type").modal('hide');
 
             $("#asphaltene_type_button").hide();
@@ -335,7 +347,7 @@ $(document).ready(function() {
 
             $("#multiparametric_type_button").show();
             $("#MultiparametricModal").modal('show');
-        }else {
+        } else {
             $("#aspahltene_type").modal('hide');
 
             $("#asphaltene_type_button").hide();
@@ -368,7 +380,13 @@ $(document).ready(function() {
         }
 
         if (type == "Multiparametric") {
-            $('#div_formation_wipr').hide();
+            var sub_type = $('[name=multiparametricType]').val();
+
+            if (sub_type == 'statistical') {
+                $('#div_formation_wipr').hide();
+            } else {
+                $('#div_formation_wipr').show();
+            }
         }
 
         $('.selectpicker').selectpicker('refresh');
@@ -386,6 +404,14 @@ $(document).ready(function() {
 
     $('.multiparametric_type_ev').on('click', function() { 
         $("#MultiparametricModal").modal('show');
+
+        var sub_type = $('[name=multiparametricType]').val();
+
+        if (sub_type == 'statistical') {
+            $('#div_formation_wipr').hide();
+        } else {
+            $('#div_formation_wipr').show();
+        }
     });
 
     $("#field").change(function(e) {

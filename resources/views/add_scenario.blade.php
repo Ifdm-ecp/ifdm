@@ -47,7 +47,7 @@
                <input type="text" class="form-control" disabled id="escenario_dup" name="escenario_dup" aria-label="...">
                <input type="hidden" class="form-control" id="id_escenario_dup" name="id_escenario_dup" aria-label="...">
                <div class="input-group-btn">
-                  <button type="button" class="btn btn-default s_scenary_mod">Scenary</button>
+                  <button type="button" class="btn btn-default s_scenary_mod">Scenario</button>
                   <button type="button" class="btn btn-danger s_scenary_clear" disabled>X</button>
                </div>
             </div>

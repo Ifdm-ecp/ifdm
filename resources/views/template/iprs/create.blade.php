@@ -660,11 +660,10 @@
                   <div id="MP2" class="panel-collapse collapse in">
                      <fieldset>
                         <div class="tabular">
-                           <div class="col-sm-12">
-                              <div id="excel_table_pvt" class="handsontable"></div>
-                           </div>
+                           <div id="excel_table_pvt" class="handsontable"></div>
+                           <br>
                            <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                  <button class="btn btn-primary pull-right btn_plot_fp_first">Plot</button>  
                               </div>
                            </div>

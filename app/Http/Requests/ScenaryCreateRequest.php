@@ -34,7 +34,7 @@ class ScenaryCreateRequest extends Request
             'date' => 'required',
             'project' => 'required',
             'formation_ipr' => 'required_if:type,IPR',
-            'formation' => 'required_unless:type,IPR,Drilling,Multiparametric',
+            'formation' => 'required_unless:type,IPR,Drilling|required_unless:multiparametricType,statistical',
         ];
 
         return $validations_;

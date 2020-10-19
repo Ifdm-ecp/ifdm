@@ -74,7 +74,7 @@ class IPR2Controller extends Controller
             $fluido = DB::table('fluidoxpozos')->where('pozo_id', $pozo->id)->first();
             $campo = DB::table('campos')->where('id', $escenario->campo_id)->first();
             $user = DB::table('users')->join('escenarios','users.id','=','escenarios.user_id')->select('users.fullName')->where('escenarios.id','=',$escenario->id)->first();
-            $advisor = true;
+            $advisor = 'true';
 
             return View('template.iprs.create', compact(['user', 'pozo', 'formacion', 'fluido', 'campo', 'IPR', 'escenario', 'advisor', 'cuenca']));
 

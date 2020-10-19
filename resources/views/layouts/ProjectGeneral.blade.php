@@ -19,7 +19,7 @@
 <script src="{!! asset('bower_components/bootstrap-treeview/src/js/bootstrap-treeview.js') !!}"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    
         var url = window.location;
         var id = <?php echo \Auth::User()->id; ?>;
         var office = <?php echo \Auth::User()->office; ?>;
@@ -288,7 +288,6 @@
                 }
 
             }); 
-});
 
 $.get("{!! url('arbol') !!}",
     {usuario: usuario},

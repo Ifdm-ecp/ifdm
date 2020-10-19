@@ -364,7 +364,7 @@
                      {!! Form::label('', 'Velocity parameter estimated from maximum critical velocity') !!}
                   </div>
                   <div class="pull-right">
-                     {!! Form::checkbox('rpAvailable[]',4,false, array('id'=>'weight_rp_5', 'class' => 'check_weight')) !!}
+                     {!! Form::checkbox('rpAvailable[]',5,false, array('id'=>'weight_rp_5', 'class' => 'check_weight')) !!}
                      {!! Form::label('available', 'Available') !!}
                      {!! Form::hidden('weight_rp_5_hidden', '', array('class' => 'form-control', 'id' => 'weight_rp_5_hidden')) !!}
                   </div>

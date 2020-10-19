@@ -131,7 +131,7 @@ Route::group(['middleware' => 'auth'], function(){
         $shared_scenarios = collect(DB::table('shared_scenario')
             ->where('shared_scenario.user_id', '=', Auth::id())
             ->join('escenarios','shared_scenario.scenario_id','=','escenarios.id')
-            ->orderBy('nombre', 'DESC')
+            ->orderBy('nombre', 'ASC')
             ->get());
 
         foreach ($shared_scenarios as $ke => $ve) {

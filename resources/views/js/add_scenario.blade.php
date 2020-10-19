@@ -200,7 +200,7 @@
 /* Cargar valores de formulario en caso de que salga error */
 window.onload = function() {
     var basin = $('#basin').val();
-    var field = localStorage.getItem('field');
+    var field = {{ count($errors) > 0 && old('field') ? old('field') : json_encode(null) }};
     $.get("{{url('fieldbybasinselect')}}", {
         basin: basin
     }, function(data) {
@@ -215,8 +215,7 @@ window.onload = function() {
 
     });
 
-    var field = localStorage.getItem('field');
-    var pozo = localStorage.getItem('well');
+    var pozo = {{ count($errors) > 0 && old('well') ? old('well') : json_encode(null) }};
     $.get("{{url('fields')}}", {
         field: field
     }, function(data) {
@@ -231,10 +230,9 @@ window.onload = function() {
 
     });
 
-
-    var well = localStorage.getItem('well');
-    var formation = localStorage.getItem('formation');
-    var formation_ipr = localStorage.getItem('formation');
+    var well = {{ count($errors) > 0 && old('well') ? old('well') : json_encode(null) }};
+    var formation = {{ count($errors) > 0 && old('formation') ? old('formation') : json_encode(null) }};
+    var formation_ipr = {{ count($errors) > 0 && old('formation_ipr') ? old('formation_ipr') : json_encode(null) }};
     $.get("{{url('formacionW')}}", {
         pozo: well
     }, function(data) {

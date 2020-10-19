@@ -124,8 +124,6 @@ class add_scenario_controller extends Controller
                 $scenary->formacion_id = $formation_ids;
             } else if ($request->input('type') == 'Drilling') {
                 $scenary->formacion_id = 0;
-            } else if ($request->input('type') == 'Multiparametric') {
-                $scenary->formacion_id = 0;
             } else {
                 $scenary->formacion_id = $request->input('formation');
             }
@@ -137,6 +135,10 @@ class add_scenario_controller extends Controller
                 $scenary->asphaltene_remediation = $request->input('asphaltene_remediation');
             } elseif ($request->input('type') == "Multiparametric"){
                 $scenary->multiparametricType = $request->input('multiparametricType');
+
+                if ($request->input('multiparametricType') == 'statistical') {
+                    $scenary->formacion_id = 0;
+                }
             }
 
             $scenary->cuenca_id = $request->input('basin');

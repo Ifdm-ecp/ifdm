@@ -36,8 +36,9 @@ class analyticalController extends Controller
             $escenario = escenario::find(\Request::get('scenaryId'));
             $complete = false;
             $advisor = 'true';
+            $pozoId = $escenario->pozo_id;
 
-            return view('multiparametricAnalysis.analytical.create', compact(['escenario', 'complete', 'advisor']));
+            return view('multiparametricAnalysis.analytical.create', compact(['escenario', 'complete', 'advisor', 'pozoId']));
         }
     }
 
@@ -101,8 +102,10 @@ class analyticalController extends Controller
         if (!$analytical) {
             $analytical = Analytical::where('escenario_id', $id)->first();
         }
+        $escenario = escenario::find($id);
         $complete = false;
         $advisor = true;
+        $pozoId = $escenario->pozo_id;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
         return view('multiparametricAnalysis.analytical.edit', compact(['analytical', 'complete', 'advisor', 'duplicateFrom']));

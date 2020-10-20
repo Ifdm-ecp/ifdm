@@ -2,15 +2,46 @@
     $(document).ready(function(){
         import_tree("Multiparametric", "multiparametrico_analytical");
         seleccionarFluido();
+        loadSubparametersHistoricalByWell();
     });
 
-        $('.input-group').prepend('<span class="input-group-btn"><button type="button" class="btn btn-default button-advisor onclick="pendejoclick()" conTooltip"><span class="glyphicon glyphicon-info-sign"></span></button></span>');
-        $('.input-group > input[type=text]').each(function() {
-            let name =  $(this).attr('name');
-            $('input[name='+name+']').attr('id', name);
+    // Load all the subparameter historical data available for each subparameter
+    function loadSubparametersHistoricalByWell() {
+        $(".ms-subparameter-picker").empty();
+
+        $.get("{{url('subparameterbywellanalytical')}}", {
+            pozoId: "{{ $pozoId }}"
+        }, function(data) {
+            $.each(data, function(index, value) {
+                var textValue = value.valor + ' - ' + moment(value.fecha).format('DD/MM/YYYY');
+                $("select.select-stored-" + value.subparametro_id).append('<option value="' + textValue + '">' + textValue + '</option>');
+            });
+
+            $(".ms-subparameter-picker").selectpicker('render');
+            $(".ms-subparameter-picker").selectpicker('refresh');
+            $(".ms-subparameter-picker").selectpicker('val', '');
         });
+    }
 
+    // Load index subparameters data based in the well
+    $(".ms-subparameter-picker").change(function() {
+        var idSelected = $(this).attr('id');
+        var parameterData = $(this).val().split(' - ');
 
+        var parameterAffected = idSelected.substr(idSelected.length - 3);
+
+        if (parameterAffected == 'FB3') {
+            $("#critical_radius").val(parameterData[0]);
+        } else if (parameterAffected == 'ID3') {
+            $("#total_volumen").val(parameterData[0]);
+        }
+    });
+
+    $('.input-group').prepend('<span class="input-group-btn"><button type="button" class="btn btn-default button-advisor onclick="pendejoclick()" conTooltip"><span class="glyphicon glyphicon-info-sign"></span></button></span>');
+    $('.input-group > input[type=text]').each(function() {
+        let name =  $(this).attr('name');
+        $('input[name='+name+']').attr('id', name);
+    });
 
 	$('#fluid_type').change(function(){
 		seleccionarFluido();
@@ -18,7 +49,6 @@
 
 	function seleccionarFluido()
 	{
-		
 		var fluido = $('#fluid_type').val();
 		if(fluido == 'Oil')
 		{
@@ -29,9 +59,7 @@
 			$("#div_oil *, #input_oil *").attr('disabled', true).hide();
 			$("#div_gas *, #input_gas *").attr('disabled', false).show();
 		}
-
 	}
-
 
 	//Función para gráficos de presión vs radios 
 	 $('#plot').click(function(e){

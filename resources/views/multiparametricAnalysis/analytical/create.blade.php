@@ -18,10 +18,10 @@
    <div class="nav">
       <div class="tab">
          <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-            <li class="active"><a data-toggle="tab" href="#RP">Rock Properties</a></li>
-            <li><a data-toggle="tab" href="#FI">Fluid Information</a></li>
-            <li><a data-toggle="tab" href="#PD">Production Data</a></li>
-            <li><a data-toggle="tab" href="#MA">Multiárametric Analysis</a></li>
+            <li class="active"><a data-toggle="tab" href="#RP" onclick="switchTab()">Rock Properties</a></li>
+            <li><a data-toggle="tab" href="#FI" onclick="switchTab()">Fluid Information</a></li>
+            <li><a data-toggle="tab" href="#PD" onclick="switchTab()">Production Data</a></li>
+            <li><a data-toggle="tab" href="#MA" onclick="switchTab()">Multiparametric Analysis</a></li>
          </ul>
       </div>
    </div>
@@ -33,7 +33,7 @@
         <div class="tab-pane active" id="RP">
           <div class="col-md-6">
             <div class="form-group">
-               <label for="netpay">netpay</label><label class="red">*</label>
+               <label for="netpay">NetPay</label><label class="red">*</label>
                <div class="input-group ">
                   {!! Form::text('netpay',$escenario->formacionxpozo->netpay, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
                   <span class="input-group-addon" id="basic-addon2">ft</span>
@@ -179,7 +179,7 @@
                 <div class="form-group">
                    <label for="bhp">BHP</label><label class="red">*</label>
                    <div class="input-group ">
-                      {!! Form::text('bhp',null, ['class' =>'form-control', 'placeholder' => 'bhp']) !!}
+                      {!! Form::text('bhp',null, ['class' =>'form-control', 'placeholder' => 'BHP']) !!}
                       <span class="input-group-addon" id="basic-addon2">BHP</span>
                    </div>
                 </div>
@@ -191,35 +191,43 @@
         <div class="tab-pane" id="MA">
           <div class="panel panel-default">
             <div class="panel-heading">
-               <h4> Damage Variables </h4>
+              <h4> Damage Variables </h4>
             </div>
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                      <label for="critical_radius" ><small>Critical Radius Derived From Maximum Critical Velocity ,  Vc</small></label><label class="red">*</label>
-                      <div class="input-group ">
-                         {!! Form::text('critical_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
-                          <span class="input-group-addon" id="basic-addon2">ft</span>
-                      </div>
+                    <label for="critical_radius">Critical Radius Derived From Maximum Critical Velocity, Vc <span class="red">*</span></label>
+                    <div class="form-group">
+                      {!! Form::label('stored', 'Stored previously') !!}
+                      {!! Form::select('selectStoredFB3', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-8', 'data-style' => 'btn-default', 'id' => 'selectStoredFB3')) !!}
+                    </div>
+                    <div class="input-group">
+                      {!! Form::text('critical_radius',null, ['class' =>'form-control', 'placeholder' => 'ft', 'id' => 'FB3']) !!}
+                      <span class="input-group-addon" id="basic-addon2">ft</span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      <label for="total_volumen"><small>Total Volumen Of Water Based Fluids Pumped Into The Well</small></label><label class="red">*</label>
-                      <div class="input-group ">
-                        {!! Form::text('total_volumen',null, ['class' =>'form-control', 'placeholder' => 'bbl']) !!}
-                          <span class="input-group-addon" id="basic-addon2">bbl</span>
-                      </div>
+                    <label for="total_volumen">Total Volume Of Water Based Fluids Pumped Into The Well <span class="red">*</span></label>
+                    <div class="form-group">
+                      {!! Form::label('stored', 'Stored previously') !!}
+                      {!! Form::select('selectStoredID3', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick ms-subparameter-picker select-stored-21', 'data-style' => 'btn-default', 'id' => 'selectStoredID3')) !!}
+                    </div>
+                    <div class="input-group">
+                      {!! Form::text('total_volumen',null, ['class' =>'form-control', 'placeholder' => 'bbl', 'id' => 'ID3']) !!}
+                      <span class="input-group-addon" id="basic-addon2">bbl</span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                      <label for="saturation_presure">Saturation Pressure</label><label class="red">*</label>
-                      <div class="input-group ">
-                        {!! Form::text('saturation_presure',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
-                          <span class="input-group-addon" id="basic-addon2">psia</span>
-                      </div>
+                    <label for="saturation_presure">Saturation Pressure</label><label class="red">*</label>
+                    <div class="input-group ">
+                      {!! Form::text('saturation_presure',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                      <span class="input-group-addon" id="basic-addon2">psia</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -228,10 +236,10 @@
               <div class="row" style="margin: 10px;">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                     <h4><a data-parent="#accordion" data-toggle="collapse" href="#CP" class="collapsed"><span class="chevron_toggleable glyphicon pull-right glyphicon-chevron-down"></span></a> Critical Pressure By Damage Parameters</h4>
+                    <h4>Critical Pressure By Damage Parameters</h4>
                   </div>
                   <div class="panel-body">
-                    <div id="CP" class="panel-collapse collapse" aria-expanded="false">
+                    <div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group ">
@@ -267,11 +275,9 @@
                   </div>
                 </div>
                 <button class="btn btn-primary pull-right" id="plot">Plot</button>
-                <hr>
                 <div class="row">
                   <div class="col-md-12"><div id="chart"></div></div>
                 </div>
-                <hr>
                 <div class="row">
                   <div class="col-md-12"><div id="chart_2"></div></div>
                 </div>
@@ -281,10 +287,10 @@
               <div class="row" style="margin: 10px;">
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                     <h4><a data-parent="#accordion" data-toggle="collapse" href="#KD" class="collapsed"><span class="chevron_toggleable glyphicon pull-right glyphicon-chevron-down"></span></a>K Damaged And K Base Ratio (Kd/Kb) By Damage Parameter</h4>
+                     <h4>K Damaged And K Base Ratio (Kd/Kb) By Damage Parameter</h4>
                   </div>
                   <div class="panel-body">
-                    <div id="KD" class="panel-collapse collapse" aria-expanded="false">
+                    <div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group ">
@@ -377,6 +383,7 @@
 {{--/////////////////////////////////////////////////////////////////////////////////////////////////--}}
 
 @section('Scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
     @include('css/add_multiparametric')
     @include('multiparametricAnalysis.analytical.cuerpo.createJs')
     @include('js/modal_error')

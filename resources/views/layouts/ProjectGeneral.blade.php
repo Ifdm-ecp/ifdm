@@ -417,6 +417,7 @@ $.get("{!! url('arbol') !!}",
                             as = "{{ URL::route('statistical.edit',"xxxxxx") }}";
                         } else if(value.multiparametricType == 'analytical') {
                             var titulo = "[MPA] ";
+                            as = "{{ URL::route('analytical.edit',"xxxxxx") }}";
                         } else if(value.multiparametricType == 'completeMultiparametric') {
                             var titulo = "[MPC] ";
                         }

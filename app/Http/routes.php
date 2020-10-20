@@ -4384,6 +4384,16 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($subparameters);
     });
 
+    Route::get('subparameterbywellanalytical', function() {
+        $subparameters = DB::table('mediciones')
+            ->where('pozo_id', Input::get('pozoId'))
+            ->wherein('subparametro_id', [8, 21])
+            ->orderBy('subparametro_id')
+            ->get();
+
+        return Response::json($subparameters);
+    });
+
     Route::get('pozosF', function(){
 
         $campo = Input::get('campo');

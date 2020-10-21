@@ -701,7 +701,7 @@
            },
            yAxis: {
                title: {
-                   text: 'Liquid Fracture'
+                   text: 'Liquid Fraction'
                },
                plotLines: [{
                    value: 0,
@@ -719,7 +719,7 @@
                borderWidth: 0
            },
            series: [{
-               name: 'Liquid Fracture',
+               name: 'Liquid Fraction',
                data: liquid_fracture
            }]
        });
@@ -2424,7 +2424,7 @@ $drop_out_c_g.handsontable({
         columns: [
 
       {title:"Pressure [psi]", data: 0,type: 'numeric', format: '0[.]0000000'},
-      {title:"Liquid Fracture[]",data: 1,type: 'numeric', format: '0[.]0000000'}
+      {title:"Liquid Fraction []",data: 1,type: 'numeric', format: '0[.]0000000'}
     ],
     minSpareRows: 1,
     contextMenu: true,

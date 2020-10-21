@@ -23,80 +23,119 @@ class AnalyticalRequest extends Request
      */
     public function rules()
     {
-        if (!isset($_POST['button_wr'])) {
-            return [
-                'netpay'  => 'numeric|required',
-                'absolute_permeability'  => 'numeric|required',
-                'fluid_type'  => 'required',
-                'viscosity'  => 'numeric|required',
-                'volumetric_factor'  => 'numeric|required',
-                'well_radius'  => 'numeric|required',
-                'drainage_radius'  => 'numeric|required',
-                'reservoir_pressure'  => 'numeric|required',
-                'fluid_rate'  => 'numeric|required',
-                'critical_radius'  => 'numeric|required',
-                'total_volumen'  => 'numeric|required',
-                'saturation_presure'  => 'numeric|required',
-                'mineral_scale_cp'  => 'numeric|required',
-                'organic_scale_cp'  => 'numeric|required',
-                'geomechanical_damage_cp'  => 'numeric|required',
-                'mineral_scale_kd'  => 'numeric|required',
-                'organic_scale_kd'  => 'numeric|required',
-                'geomechanical_damage_kd'  => 'numeric|required',
-                'fines_blockage_kd'  => 'numeric|required',
-                'relative_permeability_kd'  => 'numeric|required',
-                'induced_damage_kd'  => 'numeric|required',
-            ];
-        } else {
-            return [];
+        $rules = [
+            'netpay' => 'required|numeric',
+            'absolute_permeability' => 'required|numeric',
+            'porosity' => 'required|numeric',
+            'fluid_type' => 'required|in:Oil,Gas',
+            'viscosity_oil' => 'required_if:fluid_type,Oil|numeric',
+            'volumetric_factor_oil' => 'required_if:fluid_type,Oil|numeric',
+            'viscosity_gas' => 'required_if:fluid_type,Gas|numeric',
+            'volumetric_factor_gas' => 'required_if:fluid_type,Gas|numeric',
+            'well_radius' => 'required|numeric',
+            'drainage_radius' => 'required|numeric',
+            'reservoir_pressure' => 'required|numeric',
+            'fluid_rate_oil' => 'required_if:fluid_type,Oil|numeric',
+            'fluid_rate_gas' => 'required_if:fluid_type,Gas|numeric',
+            'critical_radius' => 'required|numeric',
+            'total_volumen' => 'required|numeric',
+            'saturation_presure' => 'required|numeric',
+            'mineral_scale_cp' => 'required|numeric',
+            'organic_scale_cp' => 'required|numeric',
+            'geomechanical_damage_cp' => 'required|numeric',
+            'mineral_scale_kd' => 'required|numeric',
+            'organic_scale_kd' => 'required|numeric',
+            'geomechanical_damage_kd' => 'required|numeric',
+            'fines_blockage_kd' => 'required|numeric',
+            'relative_permeability_kd' => 'required|numeric',
+            'induced_damage_kd' => 'required|numeric',
+        ];
+
+        if ($this->only_s == "save") {
+            $rules["netpay"] = str_replace("required|", "", $rules["netpay"]);
+            $rules["absolute_permeability"] = str_replace("required|", "", $rules["absolute_permeability"]);
+            $rules["porosity"] = str_replace("required|", "", $rules["porosity"]);
+            $rules["fluid_type"] = str_replace("required|", "", $rules["fluid_type"]);
+            $rules["viscosity_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["viscosity_oil"]);
+            $rules["volumetric_factor_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["volumetric_factor_oil"]);
+            $rules["viscosity_gas"] = str_replace("required_if:fluid_type,Gas|", "", $rules["viscosity_gas"]);
+            $rules["volumetric_factor_gas"] = str_replace("required_if:fluid_type,Gas|", "", $rules["volumetric_factor_gas"]);
+            $rules["well_radius"] = str_replace("required|", "", $rules["well_radius"]);
+            $rules["drainage_radius"] = str_replace("required|", "", $rules["drainage_radius"]);
+            $rules["reservoir_pressure"] = str_replace("required|", "", $rules["reservoir_pressure"]);
+            $rules["fluid_rate_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["fluid_rate"]);
+            $rules["fluid_rate_gas"] = str_replace("required_if:fluid_type,Gas|", "", $rules["fluid_rate"]);
+            $rules["critical_radius"] = str_replace("required|", "", $rules["critical_radius"]);
+            $rules["total_volumen"] = str_replace("required|", "", $rules["total_volumen"]);
+            $rules["saturation_presure"] = str_replace("required|", "", $rules["saturation_presure"]);
+            $rules["mineral_scale_cp"] = str_replace("required|", "", $rules["mineral_scale_cp"]);
+            $rules["organic_scale_cp"] = str_replace("required|", "", $rules["organic_scale_cp"]);
+            $rules["geomechanical_damage_cp"] = str_replace("required|", "", $rules["geomechanical_damage_cp"]);
+            $rules["mineral_scale_kd"] = str_replace("required|", "", $rules["mineral_scale_kd"]);
+            $rules["organic_scale_kd"] = str_replace("required|", "", $rules["organic_scale_kd"]);
+            $rules["geomechanical_damage_kd"] = str_replace("required|", "", $rules["geomechanical_damage_kd"]);
+            $rules["fines_blockage_kd"] = str_replace("required|", "", $rules["fines_blockage_kd"]);
+            $rules["relative_permeability_kd"] = str_replace("required|", "", $rules["relative_permeability_kd"]);
+            $rules["induced_damage_kd"] = str_replace("required|", "", $rules["induced_damage_kd"]);
         }
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            'netpay.numeric'  => 'netpay must be numeric.',
-            'absolute_permeability.numeric'  => 'absolute_permeability must be numeric.',
-            'viscosity.numeric'  => 'viscosity must be numeric.',
-            'volumetric_factor.numeric'  => 'volumetric_factor must be numeric.',
-            'well_radius.numeric'  => 'well_radius must be numeric.',
-            'drainage_radius.numeric'  => 'drainage_radius must be numeric.',
-            'reservoir_pressure.numeric'  => 'reservoir_pressure must be numeric.',
-            'fluid_rate.numeric'  => 'fluid_rate must be numeric.',
-            'critical_radius.numeric'  => 'critical_radius must be numeric.',
-            'total_volumen.numeric'  => 'total_volumen must be numeric.',
-            'saturation_presure.numeric'  => 'saturation_presure must be numeric.',
-            'mineral_scale_cp.numeric'  => 'mineral_scale_cp must be numeric.',
-            'organic_scale_cp.numeric'  => 'organic_scale_cp must be numeric.',
-            'geomechanical_damage_cp.numeric'  => 'geomechanical_damage_cp must be numeric.',
-            'mineral_scale_kd.numeric'  => 'mineral_scale_kd must be numeric.',
-            'organic_scale_kd.numeric'  => 'organic_scale_kd must be numeric.',
-            'geomechanical_damage_kd.numeric'  => 'geomechanical_damage_kd must be numeric.',
-            'fines_blockage.numeric'  => 'fines_blockage must be numeric.',
-            'relative_permeability.numeric'  => 'relative_permeability must be numeric.',
-            'induced_damage.numeric'  => 'induced_damage must be numeric.',
+            'netpay.required' => 'NetPay is required.',
+            'absolute_permeability.required' => 'Absolute Permeability is required.',
+            'porosity.required' => 'Pososity is required.',
+            'fluid_type.required' => 'Fluid Type is required.',
+            'viscosity_oil.required_if' => 'Oil Viscosity is required.',
+            'volumetric_factor_oil.required_if' => 'Oil Volumetric Factor is required.',
+            'viscosity_gas.required_if' => 'Gas Viscosity is required.',
+            'volumetric_factor_gas.required_if' => 'Gas Volumetric Factor is required.',
+            'well_radius.required' => 'Well Radius is required.',
+            'drainage_radius.required' => 'Drainage Radius is required.',
+            'reservoir_pressure.required' => 'Reservoir Pressure is required.',
+            'fluid_rate_oil.required' => 'Oil Fluid Rate is required.',
+            'fluid_rate_gas.required' => 'Gas Fluid Rate is required.',
+            'critical_radius.required' => 'Critical Radius is required.',
+            'total_volumen.required' => 'Total Volume is required.',
+            'saturation_presure.required' => 'Saturation Pressure is required.',
+            'mineral_scale_cp.required' => 'Critical Pressure Mineral Scales is required.',
+            'organic_scale_cp.required' => 'Critical Pressure Organic Scales is required.',
+            'geomechanical_damage_cp.required' => 'Critical Pressure Geomechanical Damage is required.',
+            'mineral_scale_kd.required' => 'K Damaged And K Base Ratio Mineral Scales is required.',
+            'organic_scale_kd.required' => 'K Damaged And K Base Ratio Organic Scales is required.',
+            'geomechanical_damage_kd.required' => 'K Damaged And K Base Ratio Geomechanical Damage is required.',
+            'fines_blockage.required' => 'K Damaged And K Base Ratio Fines Blockage is required.',
+            'relative_permeability.required' => 'K Damaged And K Base Ratio Relative Permeability is required.',
+            'induced_damage.required' => 'K Damaged And K Base Ratio Induced Damage is required.',
 
-            'netpay.required'  => 'netpay is required.',
-            'absolute_permeability.required'  => 'absolute_permeability is required.',
-            'viscosity.required'  => 'viscosity is required.',
-            'volumetric_factor.required'  => 'volumetric_factor is required.',
-            'well_radius.required'  => 'well_radius is required.',
-            'drainage_radius.required'  => 'drainage_radius is required.',
-            'reservoir_pressure.required'  => 'reservoir_pressure is required.',
-            'fluid_rate.required'  => 'fluid_rate is required.',
-            'critical_radius.required'  => 'critical_radius is required.',
-            'total_volumen.required'  => 'total_volumen is required.',
-            'saturation_presure.required'  => 'saturation_presure is required.',
-            'mineral_scale_cp.required'  => 'mineral_scale_cp is required.',
-            'organic_scale_cp.required'  => 'organic_scale_cp is required.',
-            'geomechanical_damage_cp.required'  => 'geomechanical_damage_cp is required.',
-            'mineral_scale_kd.required'  => 'mineral_scale_kd is required.',
-            'organic_scale_kd.required'  => 'organic_scale_kd is required.',
-            'geomechanical_damage_kd.required'  => 'geomechanical_damage_kd is required.',
-            'fines_blockage.required'  => 'fines_blockage is required.',
-            'relative_permeability.required'  => 'relative_permeability is required.',
-            'induced_damage.required'  => 'induced_damage is required.',
-            'fluid_type.required'  => 'fluid_type is required.',
+            'netpay.numeric' => 'NetPay must be numeric.',
+            'absolute_permeability.numeric' => 'Absolute Permeability must be numeric.',
+            'porosity.numeric' => 'Pososity must be numeric.',
+            'viscosity_oil.numeric' => 'Oil Viscosity must be numeric.',
+            'volumetric_factor_oil.numeric' => 'Oil Volumetric Factor must be numeric.',
+            'viscosity_gas.numeric' => 'Gas Viscosity must be numeric.',
+            'volumetric_factor_gas.numeric' => 'Gas Volumetric Factor must be numeric.',
+            'well_radius.numeric' => 'Well Radius must be numeric.',
+            'drainage_radius.numeric' => 'Drainage Radius must be numeric.',
+            'reservoir_pressure.numeric' => 'Reservoir Pressure must be numeric.',
+            'fluid_rate.numeric' => 'Fluid Rate must be numeric.',
+            'critical_radius.numeric' => 'Critical Radius must be numeric.',
+            'total_volumen.numeric' => 'Total Volume must be numeric.',
+            'saturation_presure.numeric' => 'Saturation Pressure must be numeric.',
+            'mineral_scale_cp.numeric' => 'Critical Pressure Mineral Scales must be numeric.',
+            'organic_scale_cp.numeric' => 'Critical Pressure Organic Scales must be numeric.',
+            'geomechanical_damage_cp.numeric' => 'Critical Pressure Geomechanical Damage must be numeric.',
+            'mineral_scale_kd.numeric' => 'K Damaged And K Base Ratio Mineral Scales must be numeric.',
+            'organic_scale_kd.numeric' => 'K Damaged And K Base Ratio Organic Scales must be numeric.',
+            'geomechanical_damage_kd.numeric' => 'K Damaged And K Base Ratio Geomechanical Damage must be numeric.',
+            'fines_blockage.numeric' => 'K Damaged And K Base Ratio Fines Blockage must be numeric.',
+            'relative_permeability.numeric' => 'K Damaged And K Base Ratio Relative Permeability must be numeric.',
+            'induced_damage.numeric' => 'K Damaged And K Base Ratio Induced Damage must be numeric.',
+
+            'fluid_type.in' => 'Fluid Type selection must be Oil or Gas.',
         ];
     }
 }

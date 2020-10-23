@@ -180,7 +180,7 @@ class filtration_function_controller extends Controller
       $filtration_function->gel_strength = $request->gel_strength;
       $filtration_function->a_factor = $request->a_factor;
       $filtration_function->b_factor = $request->b_factor;
-      dd('a', $request->a_factor, $request->b_factor);
+      //dd('a', $request->a_factor, $request->b_factor);
       $filtration_function->method = $request->filtration_function_factors_option;
       //dd($filtration_function->a_factor, $filtration_function->b_factor, 'lolala');
       $filtration_function->save();

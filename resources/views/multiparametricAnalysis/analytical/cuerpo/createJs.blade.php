@@ -50,18 +50,18 @@
 	function seleccionarFluido()
 	{
 		var fluido = $('#fluid_type').val();
-		if(fluido == 'Oil')
-		{
+		if (fluido == 'Oil') {
             $("#div_oil").show();
             $("#div_gas").hide();
 			$("#div_oil *, #input_oil *").attr('disabled', false).show();
-			$("#div_gas *, #input_gas *").attr('disabled', true).hide();
-		}else if(fluido == 'Gas')
-		{
+            $("#div_gas *, #input_gas *").attr('disabled', true).hide();
+            $("#permeability_type").text('Oil Permeability');
+		} else if (fluido == 'Gas') {
             $("#div_oil").hide();
             $("#div_gas").show();
 			$("#div_oil *, #input_oil *").attr('disabled', true).hide();
-			$("#div_gas *, #input_gas *").attr('disabled', false).show();
+            $("#div_gas *, #input_gas *").attr('disabled', false).show();
+            $("#permeability_type").text('Condensate Permeability');
 		}
 	}
 
@@ -90,9 +90,7 @@
         var porosity = parseFloat($("input[name = porosity]").val());//porosity
         var bhp = parseFloat($("input[name = bhp]").val());//nhp
         var type_of_well = $("#fluid_type").val();//Fluid Type
-		//alert('cp_msp: '+cp_msp+' - '+'cp_osp: '+cp_osp+' - '+'cp_krp: '+cp_krp+' - '+'cp_mcv: '+cp_mcv+' - '+'tv_wbf: '+tv_wbf+' - '+'netpay: '+netpay+' - '+'condensate_perm: '+condensate_perm+' - '+'oil_viscosity: '+oil_viscosity+' - '+'oil_vol_factor: '+oil_vol_factor+' - '+'oil_rate: '+oil_rate+' - '+'gas_rate: '+gas_rate+' - '+'gas_viscosity: '+gas_viscosity+' - '+'gas_vol_factor: '+gas_vol_factor+' - '+'well_radius: '+well_radius+' - '+'radius: '+radius+' - '+'external_radius: '+external_radius+' - '+'porosity: '+porosity+' - '+'bhp: '+bhp+' - '+'type_of_well: '+type_of_well);        
-
-        console.log("Entré");
+		//alert('cp_msp: '+cp_msp+' - '+'cp_osp: '+cp_osp+' - '+'cp_krp: '+cp_krp+' - '+'cp_mcv: '+cp_mcv+' - '+'tv_wbf: '+tv_wbf+' - '+'netpay: '+netpay+' - '+'condensate_perm: '+condensate_perm+' - '+'oil_viscosity: '+oil_viscosity+' - '+'oil_vol_factor: '+oil_vol_factor+' - '+'oil_rate: '+oil_rate+' - '+'gas_rate: '+gas_rate+' - '+'gas_viscosity: '+gas_viscosity+' - '+'gas_vol_factor: '+gas_vol_factor+' - '+'well_radius: '+well_radius+' - '+'radius: '+radius+' - '+'external_radius: '+external_radius+' - '+'porosity: '+porosity+' - '+'bhp: '+bhp+' - '+'type_of_well: '+type_of_well);
         //se crean los arrays en 0
         var pressures_total = [];
         var radius_total = [];
@@ -100,29 +98,26 @@
         var pressures_data = [];
         var radius_data = [];
 
-
         var pr = bhp;
         var fbp_radius = cp_mcv + radius;
-        var idp_radius = Math.sqrt(((tv_wbf * 5.615) / (Math.PI * netpay * porosity)) + Math.pow(well_radius, 2));
+        var idp_radius = Math.sqrt(((tv_wbf) / (Math.PI * netpay * porosity)) + well_radius);
 
         if (type_of_well == "Oil") {
             while (radius < external_radius) {
-                
-                pr = bhp + (((141.2 * oil_rate * oil_viscosity * oil_vol_factor) / (netpay * condensate_perm)) * (Math.log(radius / well_radius)-0.75));
+                pr = bhp + (((141.2 * oil_rate * oil_viscosity * oil_vol_factor) / (netpay * condensate_perm)) * (Math.log(well_radius) - (0.5 * radius / Math.pow(external_radius, 2))));
                 pressures_data.push(pr);
                 radius_data.push(radius);
-                radius = radius + 0.5;
+                radius = radius + 0.05;
             }
 
             // var Pr_Rmax = bhp + (((141.2 * oil_rate * oil_viscosity * oil_vol_factor) / (netpay * condensate_perm)) * Math.log(external_radius / well_radius)) - (0.5 * (Math.pow((external_radius / external_radius), 2)));
             // var Pr_Rmin = bhp + (((141.2 * oil_rate * oil_viscosity * oil_vol_factor) / (netpay * condensate_perm)) * Math.log(well_radius / well_radius)) - (0.5 * (Math.pow((well_radius / external_radius), 2)));
         } else {
             while (radius < external_radius) {
-
-                pr = bhp + (((141.2 * gas_rate * (1000000) * gas_viscosity * gas_vol_factor) / (5.615 * netpay * condensate_perm)) * (Math.log(radius / well_radius)-0.75));
+                pr = bhp + (((141.2 * gas_rate * 1000000 * gas_viscosity * gas_vol_factor) / (5.615 * netpay * condensate_perm)) * (Math.log(well_radius) - (0.5 * radius / Math.pow(external_radius, 2))));
                 pressures_data.push(pr);
                 radius_data.push(radius);
-                radius = radius + 0.5;
+                radius = radius + 0.05;
             }
 
             // var Pr_Rmax = bhp + (((141.2 * gas_rate * (1000000) * gas_viscosity * gas_vol_factor) / (5.615 * netpay * condensate_perm)) * Math.log(external_radius / well_radius)) - (0.5 * (Math.pow((external_radius / external_radius), 2)));

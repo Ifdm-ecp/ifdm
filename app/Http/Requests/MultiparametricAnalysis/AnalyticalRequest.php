@@ -63,8 +63,8 @@ class AnalyticalRequest extends Request
             $rules["well_radius"] = str_replace("required|", "", $rules["well_radius"]);
             $rules["drainage_radius"] = str_replace("required|", "", $rules["drainage_radius"]);
             $rules["reservoir_pressure"] = str_replace("required|", "", $rules["reservoir_pressure"]);
-            $rules["fluid_rate_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["fluid_rate"]);
-            $rules["fluid_rate_gas"] = str_replace("required_if:fluid_type,Gas|", "", $rules["fluid_rate"]);
+            $rules["fluid_rate_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["fluid_rate_oil"]);
+            $rules["fluid_rate_gas"] = str_replace("required_if:fluid_type,Gas|", "", $rules["fluid_rate_gas"]);
             $rules["critical_radius"] = str_replace("required|", "", $rules["critical_radius"]);
             $rules["total_volumen"] = str_replace("required|", "", $rules["total_volumen"]);
             $rules["saturation_presure"] = str_replace("required|", "", $rules["saturation_presure"]);

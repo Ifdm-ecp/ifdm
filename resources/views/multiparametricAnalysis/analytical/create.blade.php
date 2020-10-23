@@ -19,8 +19,8 @@
   <div class="nav">
     <div class="tab">
       <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-        <li class="active"><a data-toggle="tab" href="#RP" id="RP_C" onclick="switchTab()">Rock Properties</a></li>
-        <li><a data-toggle="tab" href="#FI" id="FI_C" onclick="switchTab()">Fluid Information</a></li>
+        <li class="active"><a data-toggle="tab" href="#FI" id="FI_C" onclick="switchTab()">Fluid Information</a></li>
+        <li><a data-toggle="tab" href="#RP" id="RP_C" onclick="switchTab()">Rock Properties</a></li>
         <li><a data-toggle="tab" href="#PD" id="PD_C" onclick="switchTab()">Production Data</a></li>
         <li><a data-toggle="tab" href="#MA" id="MA_C" onclick="switchTab()">Multiparametric Analysis</a></li>
       </ul>
@@ -30,47 +30,8 @@
   <input type="hidden" name="escenario_id" value="{{$escenario->id}}">
   <div class="tab-content">
     <br>
-    {{--bloque rp--}}
-    <div class="tab-pane active" id="RP">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Rock Properties</h4>
-        </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="netpay">NetPay</label><label class="red">*</label>
-                <div class="input-group">
-                  {!! Form::text('netpay',$escenario->formacionxpozo->netpay, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
-                  <span class="input-group-addon" id="basic-addon2">ft</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="absolute_permeability">Absolute Permeability</label><label class="red">*</label>
-                <div class="input-group">
-                  {!! Form::text('absolute_permeability',$escenario->formacionxpozo->permeabilidad, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
-                  <span class="input-group-addon" id="basic-addon2">mD</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="porosity">Porosity</label><label class="red">*</label>
-                <div class="input-group">
-                  {!! Form::text('porosity',$escenario->formacionxpozo->porosidad, ['class' =>'form-control', 'placeholder' => '-']) !!}
-                  <span class="input-group-addon" id="basic-addon2">-</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     {{--bloque fi--}}
-    <div class="tab-pane" id="FI">
+    <div class="tab-pane active" id="FI">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Fluid Information</h4>
@@ -131,6 +92,45 @@
                     {!! Form::text('volumetric_factor_gas',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
                     <span class="input-group-addon" id="basic-addon2">-</span>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{--bloque rp--}}
+    <div class="tab-pane" id="RP">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Rock Properties</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="netpay">NetPay</label><label class="red">*</label>
+                <div class="input-group">
+                  {!! Form::text('netpay',$escenario->formacionxpozo->netpay, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
+                  <span class="input-group-addon" id="basic-addon2">ft</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="absolute_permeability" id="permeability_type">Absolute Permeability</label><label class="red">*</label>
+                <div class="input-group">
+                  {!! Form::text('absolute_permeability',$escenario->formacionxpozo->permeabilidad, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
+                  <span class="input-group-addon" id="basic-addon2">mD</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="porosity">Porosity</label><label class="red">*</label>
+                <div class="input-group">
+                  {!! Form::text('porosity',$escenario->formacionxpozo->porosidad, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                  <span class="input-group-addon" id="basic-addon2">-</span>
                 </div>
               </div>
             </div>

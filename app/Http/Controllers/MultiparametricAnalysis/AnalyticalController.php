@@ -256,12 +256,12 @@ class analyticalController extends Controller
         $Pr = $analytical->bhp;
         while ($Radius < $analytical->drainage_radius) {
             if ($analytical->fluid_type == "Oil") {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - 0.75));
+                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
 
             } else {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * (1000000) * $analytical->viscosity * $analytical->volumetric_factor) / (5.615 * $analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - 0.75));
+                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * (1000000) * $analytical->viscosity * $analytical->volumetric_factor) / (5.615 * $analytical->netpay * $analytical->absolute_permeability)) * (log($analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
             }

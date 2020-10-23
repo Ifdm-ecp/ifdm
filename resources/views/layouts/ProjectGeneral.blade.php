@@ -40,7 +40,7 @@
         var k = 0;
 
         var shared_scenarios = [];
-        var scenarios = [];
+        var eescenarios = [];
 
         $.get("{!! url('getSharedScenarios') !!}", {}, function (data) {
             //var esc = [];
@@ -66,7 +66,7 @@
                     }
 
                     as = as.replace("xx", value.id);
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[IPR]  " + value.nombre,
                         href: as,
                         color: color,
@@ -87,7 +87,7 @@
                     }
 
                     as = as.replace("xx", value.id);
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[SDA]  " + value.nombre,
                         href: as,
                         color: color,
@@ -106,7 +106,7 @@
                         var color = "#ff1b00";
                     }
 
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[MP]  " + value.nombre,
                         href: as,
                         color: color,
@@ -125,7 +125,7 @@
                         var color = "#ff1b00";
                     }
 
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[D]  " + value.nombre,
                         href: as,
                         color: color,
@@ -158,14 +158,14 @@
 
                     if (nodes_child.length > 0) {
 
-                        scenarios.push({
+                        eescenarios.push({
                             text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
                             color: value.completo == 1 ? "#000000" : "#ff1b00",
                             tags: ['0'],
                             nodes: nodes_child
                         });
                     } else {
-                        scenarios.push({
+                        eescenarios.push({
                             text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
                             href: as,
                             color: color,
@@ -188,7 +188,7 @@
                         var color = "#ff1b00";
                     }
 
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[F]  " + value.nombre,
                         href: as,
                         color: color,
@@ -207,7 +207,7 @@
                         var color = "#ff1b00";
                     }
 
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[G]  " + value.nombre,
                         href: as,
                         color: color,
@@ -225,7 +225,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[FTS]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -243,7 +243,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[FR]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -261,7 +261,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[AR]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -279,7 +279,7 @@
                         var color = "#ff1b00";
                     }
 
-                    scenarios.push({
+                    eescenarios.push({
                         text: "[DA]  " + value.nombre,
                         href: as,
                         color: color,

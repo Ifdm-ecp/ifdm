@@ -30,7 +30,7 @@
         }).parent().addClass('active').parent().parent().addClass('active');
 
         var usuario = id;
-        var datos = [];
+        var datosArbol = [];
         var compañias = [];
         var escenarios = [];
         var proyectos;
@@ -658,7 +658,7 @@ $.each(data.ProyectosxCompanias, function (index, value) {
         k++;
     });
     if (compañias[i] != "") {
-        datos.push({
+        datosArbol.push({
             text: compañias[i],
             tags: ['0'],
             nodes: proyectos
@@ -668,17 +668,17 @@ $.each(data.ProyectosxCompanias, function (index, value) {
 });
 
 if (office != 0) {
-    datos.push({
+    datosArbol.push({
         text: "Shared Scenarios",
         tags: ['0'],
         nodes: scenarios
     });
 }
-arbol(datos);
+arbol(datosArbol);
+console.log(datosArbol);
 });
 
 function arbol(data){
-    console.log(data);
     var initSelectableTree = function() {
         return $('#treeview-selectable').treeview({ 
             data: data,

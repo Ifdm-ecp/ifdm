@@ -341,13 +341,14 @@ class filtration_function_controller extends Controller
 
     # En caso de solo existir una prueba de filtrado
     if (count($aux2) == 1) {
+      dd($aux2, $intercept);
       array_push($aux2, array($intercept, 0));
     }
 
     list($a, $b) = $this->linearRegression($aux2);
 
     if ($b < 0) {
-      $b = $intercept;
+      $b = 0;
     }
 
     return collect(['a' => $a, 'b' => $b]);

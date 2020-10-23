@@ -17,10 +17,10 @@ if(!isset($_SESSION)) {
 </br>
 <hr>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <div  id="container"></div>
   </div>
-  <div class="col-md-4 col-md-offset-1">
+  <div class="col-md-4">
     <p> </p>            
     <p> </p>            
     <p> </p>            
@@ -65,7 +65,6 @@ if(!isset($_SESSION)) {
   function graficar()
   {
     $('#container').highcharts({
-
       chart: {
         polar: true, 
         type: 'line'
@@ -85,7 +84,7 @@ if(!isset($_SESSION)) {
       },
 
       xAxis: {
-        categories: ['Mineral Scales','Fines Blockage','Organic Scales','Relative Permeability','Induced Damage','Geomechanical Damage'],
+        categories: ['Mineral Scales', 'Fines Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'],
         tickmarkPlacement: 'on',
         lineWidth: 0
       },
@@ -128,7 +127,7 @@ if(!isset($_SESSION)) {
     {
       for (var j = 0; j <= data_table.length; j++) 
       {
-        if(parseFloat(data_table[j])<parseFloat(data_table[i]))
+        if(parseFloat(data_table[j]) < parseFloat(data_table[i]))
         {
           var aux = data_table[j];
           data_table[j] = data_table[i];

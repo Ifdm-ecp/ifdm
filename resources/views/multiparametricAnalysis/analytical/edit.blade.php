@@ -323,26 +323,6 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="organic_scale_kd">Organic Scales</label><label for="*" class="red">*</label>
-                      <div class="input-group">
-                        {!! Form::text('organic_scale_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
-                        <span class="input-group-addon" id="basic-addon2">-</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="geomechanical_damage_kd">Geomechanical Damage</label><label for="*" class="red">*</label>
-                      <div class="input-group">
-                        {!! Form::text('geomechanical_damage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
-                        <span class="input-group-addon" id="basic-addon2">-</span>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
                       <label for="fines_blockage">Fines Blockage</label><label for="*" class="red">*</label>
                       <div class="input-group">
                         {!! Form::text('fines_blockage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
@@ -354,6 +334,15 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
+                      <label for="organic_scale_kd">Organic Scales</label><label for="*" class="red">*</label>
+                      <div class="input-group">
+                        {!! Form::text('organic_scale_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                        <span class="input-group-addon" id="basic-addon2">-</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
                       <label for="relative_permeability">Relative Permeability</label><label for="*" class="red">*</label>
                       <div class="input-group">
                         {!! Form::text('relative_permeability_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
@@ -361,6 +350,8 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="induced_damage">Induced Damage</label><label for="*" class="red">*</label>
@@ -368,6 +359,15 @@
                         {!! Form::text('induced_damage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
                         <span class="input-group-addon" id="basic-addon2">-</span>
                       </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="geomechanical_damage_kd">Geomechanical Damage</label><label for="*" class="red">*</label>
+                      <div class="input-group">
+                        {!! Form::text('geomechanical_damage_kd',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                        <span class="input-group-addon" id="basic-addon2">-</span>
+                        </div>
                     </div>
                   </div>
                 </div>

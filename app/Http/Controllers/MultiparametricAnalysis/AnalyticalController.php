@@ -225,23 +225,21 @@ class analyticalController extends Controller
     {
         $skinRadius = 0.0;
         if ($funcion == "ms") {
-            $skinRadius = $this->interpolation($analytical, $analytical->mineral_scale_cp, $pressures_data, $radius_data);
+            $skinRadius = $this->interpolation($analytical, $analytical->mineral_scale_cp, $pressures_data, $radius_data, $funcion);
             #$skinRadius = $this->PvsR_profile($analytical, $analytical->mineral_scale_cp) + $analytical->well_radius;
         } else if ($funcion == "fb") {
-
-            $skinRadius = $analytical->critical_radius;
+            $skinRadius = $analytical->critical_radius + $analytical->well_radius;
             #$skinRadius = $analytical->critical_radius + $analytical->well_radius;
         } else if ($funcion == "os") {
-            $skinRadius = $this->interpolation($analytical, $analytical->organic_scale_cp, $pressures_data, $radius_data);
+            $skinRadius = $this->interpolation($analytical, $analytical->organic_scale_cp, $pressures_data, $radius_data, $funcion);
             #$skinRadius = $this->PvsR_profile($analytical, $analytical->organic_scale_cp) + $analytical->well_radius;
         } else if ($funcion == "rp") {
-            $skinRadius = $this->interpolation($analytical, $analytical->saturation_presure, $pressures_data, $radius_data);
+            $skinRadius = $this->interpolation($analytical, $analytical->saturation_presure, $pressures_data, $radius_data, $funcion);
             #$skinRadius = $this->PvsR_profile($analytical, $analytical->saturation_presure) + $analytical->well_radius;
         } else if ($funcion == "id") {
-            $skinRadius = sqrt((($analytical->total_volumen * 5.615) / (pi() * $analytical->netpay * $analytical->porosity)) + pow($analytical->well_radius, 2));
-
+            $skinRadius = sqrt((($analytical->total_volumen) / (pi() * $analytical->netpay * $analytical->porosity)) + $analytical->well_radius);
         } else if ($funcion == "gd") {
-            $skinRadius = $this->interpolation($analytical, $analytical->geomechanical_damage_cp + $analytical->bhp, $pressures_data, $radius_data);
+            $skinRadius = $this->interpolation($analytical, $analytical->geomechanical_damage_cp, $pressures_data, $radius_data, $funcion);
             #$skinRadius = $this->PvsR_profile_GDP($analytical/*$analytical->geomechanical_damage_cp*/) + $analytical->well_radius;
         }
 
@@ -256,12 +254,12 @@ class analyticalController extends Controller
         $Pr = $analytical->bhp;
         while ($Radius < $analytical->drainage_radius) {
             if ($analytical->fluid_type == "Oil") {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
+                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
 
             } else {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * (1000000) * $analytical->viscosity * $analytical->volumetric_factor) / (5.615 * $analytical->netpay * $analytical->absolute_permeability)) * (log($analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
+                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * 1000000 * $analytical->viscosity * $analytical->volumetric_factor) / (5.615 * $analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
             }
@@ -271,16 +269,22 @@ class analyticalController extends Controller
         return array($radius_data, $pressures_data);
     }
 
-    public function interpolation($analytical, $critical_pressure, $pressures_data, $radius_data)
+    public function interpolation($analytical, $critical_pressure, $pressures_data, $radius_data, $funcion)
     {
         if ($critical_pressure >= end($pressures_data)) {
-            return $analytical->drainage_radius;
+            return $analytical->drainage_radius + $analytical->well_radius;
         } else if ($critical_pressure <= $analytical->bhp) {
-            return $analytical->bhp;
+            return $analytical->well_radius;
         } else {
             for ($j = 0; $j < count($pressures_data) - 1; $j++) {
-                if ($critical_pressure >= $pressures_data[$j] && $critical_pressure < $pressures_data[$j + 1]) {
-                    return (($radius_data[$j + 1] - $radius_data[$j]) / ($pressures_data[$j + 1] - $pressures_data[$j])) * ($critical_pressure - $pressures_data[$j]) + $radius_data[$j];
+                $calculated_pressure = $pressures_data[$j] - $critical_pressure;
+
+                if ($funcion == 'gd') {
+                    $calculated_pressure = 1 - (($pressures_data[count($pressures_data) - 1] - $pressures_data[$j]) / ($pressures_data[count($pressures_data) - 1] - $pressures_data[0]));
+                }
+
+                if ($calculated_pressure >= $analytical->well_radius) {
+                    return $radius_data[$j] + $analytical->well_radius;
                 }
             }
         }

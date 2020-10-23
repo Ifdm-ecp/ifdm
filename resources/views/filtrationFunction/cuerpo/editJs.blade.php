@@ -495,7 +495,7 @@ function linear_regression_plot()
     temp = linear_regression(aux2);
 
     a = temp[0];
-    b = temp[1];
+    var b = temp[1];
 
     if (b < 0) {
         b = 0;
@@ -722,17 +722,11 @@ function save_filtration_function() {
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, a_factor, filtration_function_factors_ruleset[0]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-        
-        var b_factor = $("#b_factor").val();
-        if (b_factor < 0) {
-            b_factor = 0;
-        }
+     
         var b_factor = $("#b_factor").val();
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, b_factor, filtration_function_factors_ruleset[1]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
     } else {
         // Validating Cement Properties Data
         titleTab = "";
@@ -766,6 +760,100 @@ function save_filtration_function() {
             
             labTableIndex++;
         });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        verificarComposicion();
+
+        if($("#filtration_function_factors_option").val() == 1) {
+            cleaned_and_validated_data = validate_lab_test_tables();
+            if(cleaned_and_validated_data[0]) {
+                $("#lab_test_data").val(JSON.stringify(cleaned_and_validated_data[1]));
+
+                //K y pob para cada prueba de laboratorio
+                var final_k_data = [];
+                $( ".k_value" ).each(function() {
+                    final_k_data.push(parseFloat($(this).val()));
+                });
+                $("#k_data").val(JSON.stringify(final_k_data));
+
+                var final_p_data = [];
+                $( ".pob_value" ).each(function() {
+                    final_p_data.push(parseFloat($(this).val()));
+                });
+                $("#p_data").val(JSON.stringify(final_p_data));
+            } else {
+                var evt = window.event || arguments.callee.caller.arguments[0];
+                evt.preventDefault();
+                showFrontendErrorsBasic("Please, check your laboratory test data. You must include at least two rows of numerical data.");
+            }
+        }
+
+        //aux[]
+        var aux2 = [];
+        var aux = []; 
+
+        $("#k_lab_test_"+i).val()
+        $("#p_lab_test_1"+i).val()
+        var dv_dt;
+        var kpob;
+
+        var m;
+        var intercept;
+
+        //sirve para organizar los datos al momento de hacer operaciones
+        var temp;
+
+        
+        for (var i = 1; i < counter; i++) {
+            data = $("#lab_test_"+i+"_table").handsontable('getData');
+            
+            aux = [];
+            for (var j = 0; j < data.length; j++) {
+                temp = data[j]
+                aux.push([Math.sqrt(temp[0]),parseFloat(temp[1])]);
+            }
+
+            aux.pop();
+
+            temp = linear_regression(aux);
+
+            m = temp[0];
+            intercept = temp[1];
+
+            if (intercept < 0) 
+            {
+              intercept = 0;
+            }
+
+            dv_dt = m;
+            kpob = parseFloat($("#p_lab_test_"+i).val())*parseFloat($("#k_lab_test_"+i).val());
+            aux2.push([kpob, dv_dt]);
+        }
+
+        //En caso de solo existir una prueba de filtrado
+        if (aux2.length == 1) {
+          aux2.push([intercept, 0]);
+        }
+
+        temp = linear_regression(aux2);
+
+        a = temp[0];
+        var b = temp[1];
+
+        if (b < 0) {
+            b = 0;
+        }
+
+        var a_factor = a;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, a_factor, filtration_function_factors_ruleset[0]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+     
+        var b_factor = b;
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, b_factor, filtration_function_factors_ruleset[1]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+
     }
 
     if (validationMessages.length < 1) {

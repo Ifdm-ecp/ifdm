@@ -731,6 +731,8 @@ function save_filtration_function() {
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, b_factor, filtration_function_factors_ruleset[1]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
+
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
     } else {
         // Validating Cement Properties Data
         titleTab = "";

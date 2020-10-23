@@ -134,7 +134,9 @@
             <div class="row text-center">
                <div class="col-md-12 text-center">
                   <div class="col-xs-12 col-sm-4 text-center">
-                     <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
+                     <center>
+                        <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
+                     </center>
                   </div>
                </div>
             </div>

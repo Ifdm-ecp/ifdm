@@ -95,7 +95,11 @@ class filtration_function_controller extends Controller
         $factores = $this->factores($request, $filtration_function);
         $update = $filtration_function;
         $update->a_factor = $factores['a'];
-        $update->b_factor = $factores['b'];
+        $b_factor_aux = $factores['b'];
+        if ($b_factor_aux < 0) {
+          $b_factor_aux = 0;
+        }
+        $update->b_factor = $b_factor_aux;
         $update->save();
         //dd($factores['a'], $factores['b'], 'dentro del if');
       }
@@ -199,7 +203,11 @@ class filtration_function_controller extends Controller
         $factores = $this->factores($request, $filtration_function);
         $update = $filtration_function;
         $update->a_factor = $factores['a'];
-        $update->b_factor = $factores['b'];
+        $b_factor_aux = $factores['b'];
+        if ($b_factor_aux < 0) {
+          $b_factor_aux = 0;
+        }
+        $update->b_factor = $b_factor_aux;
         $update->save();
       }
 

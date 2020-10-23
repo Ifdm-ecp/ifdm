@@ -722,7 +722,11 @@ function save_filtration_function() {
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, a_factor, filtration_function_factors_ruleset[0]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
-
+        
+        var b_factor = $("#b_factor").val();
+        if (b_factor < 0) {
+            b_factor = 0;
+        }
         var b_factor = $("#b_factor").val();
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, b_factor, filtration_function_factors_ruleset[1]);
         titleTab = validationFunctionResult[0];

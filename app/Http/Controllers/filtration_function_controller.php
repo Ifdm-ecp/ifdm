@@ -344,10 +344,8 @@ class filtration_function_controller extends Controller
 
     list($a, $b) = $this->linearRegression($aux2);
 
-    dd($aux2, $a, $b);
-
     if ($b < 0) {
-      $b = $intercept;
+      $b = 0;
     }
 
     return collect(['a' => $a, 'b' => $b]);

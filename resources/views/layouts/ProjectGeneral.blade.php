@@ -19,7 +19,7 @@
 <script src="{!! asset('bower_components/bootstrap-treeview/src/js/bootstrap-treeview.js') !!}"></script>
 
 <script type="text/javascript">
-    $(function () {
+    
         var url = window.location;
         var id = <?php echo \Auth::User()->id; ?>;
         var office = <?php echo \Auth::User()->office; ?>;
@@ -43,6 +43,8 @@
         var scenarios = [];
 
         $.get("{!! url('getSharedScenarios') !!}", {}, function (data) {
+            //var esc = [];
+            //console.log(data);
             $.each(data, function (index, value) {
                 var str = value.nombre;
                 var str2 = value.id;
@@ -132,38 +134,47 @@
 
                 } else if (value.tipo == "Asphaltene precipitation") {
 
-                    if (value.completo == 1) {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
-                        as = as.replace("xxxxxx", value.id);
-                        var color = "#000000";
+                    var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
+                    var color = "#000000";
+                    var nnombre = value.nombre;
+                    if (nnombre.length > 17) {
+                        var nnombre_subs = value.nombre.substring(0, 17) + '...';
                     } else {
-                        var as = "{{ URL::route('ScenaryC.edit',"xxxxxx") }}";
-                        as = as.replace("xxxxxx", value.id);
-                        var color = "#ff1b00";
+                        var nnombre_subs = value.nombre;
                     }
 
-                    if(value.asphaltene_type == "Asphaltene stability analysis") {
-                        esc.push({
-                            text: "[A_S]  " + value.nombre,
-                            href: as,
-                            color: color,
-                            tags: ['0']
+                    as = as.replace("xxxxxx", value.id);
+
+                    var nodes_child = [];
+                    //console.log(value);
+                    $.each(value.extra_,function(index,val){
+                        nodes_child.push({
+                            text: val.nombre + " <span title='"+nnombre+"'>" + nnombre_subs + "</span>",
+                            href: val.route,
+                            color: val.status_wr == 0 ? "#000000" : "#ff1b00",
+                            tags: ['0'],
                         });
-                    } else if(value.asphaltene_type == "Precipitated asphaltene analysis") {
-                        esc.push({
-                            text: "[A_P]  " + value.nombre,
-                            href: as,
-                            color: color,
-                            tags: ['0']
+                    });
+
+                    if (nodes_child.length > 0) {
+
+                        scenarios.push({
+                            text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
+                            color: value.completo == 1 ? "#000000" : "#ff1b00",
+                            tags: ['0'],
+                            nodes: nodes_child
                         });
-                    } else if(value.asphaltene_type == "Asphaltene diagnosis") {
-                        esc.push({
-                            text: "[A_D]  " + value.nombre,
+                    } else {
+                        scenarios.push({
+                            text: "<span title='"+nnombre+"'>" + nnombre_subs + "</span>",
                             href: as,
                             color: color,
-                            tags: ['0']
+                            tags: ['0'],
                         });
                     }
+
+                
+
 
                 } else if (value.tipo == "Swelling and fines migration") {
 
@@ -214,7 +225,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    esc.push({
+                    scenarios.push({
                         text: "[FTS]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -232,7 +243,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    esc.push({
+                    scenarios.push({
                         text: "[FR]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -250,7 +261,7 @@
                         as = as.replace("xx",value.id);
                         var color = "#ff1b00";
                     }
-                    esc.push({
+                    scenarios.push({
                         text: "[AR]  "+value.nombre,
                         href: as ,
                         color:color,
@@ -277,7 +288,6 @@
                 }
 
             }); 
-});
 
 $.get("{!! url('arbol') !!}",
     {usuario: usuario},
@@ -459,6 +469,7 @@ $.get("{!! url('arbol') !!}",
                     as = as.replace("xxxxxx", value.id);
 
                     var nodes_child = [];
+                    //console.log(value);
                     $.each(value.extra_,function(index,val){
                         nodes_child.push({
                             text: val.nombre + " <span title='"+nnombre+"'>" + nnombre_subs + "</span>",

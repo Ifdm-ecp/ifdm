@@ -53,7 +53,7 @@
             <h4 class="modal-title">Confirmation</h4>
          </div>
          <div class="modal-body">
-            <p>Do You Want To Delete This Scenary?</p>
+            <p>Do You Want To Delete This Scenario?</p>
          </div>
          <div class="modal-footer">
             {!! Form::open(['method' => 'DELETE', 'url' => ['scenario/destroy'], 'id' => 'formDelete']) !!}

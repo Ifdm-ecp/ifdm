@@ -41,7 +41,7 @@
             <h4 class="modal-title">Confirmation</h4>
          </div>
          <div class="modal-body">
-            <p>Do You Want To Delete This Scenary?</p>
+            <p>Do You Want To Delete This Scenario?</p>
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

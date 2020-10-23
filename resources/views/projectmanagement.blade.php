@@ -35,10 +35,10 @@
          <b><center><h2>Share Scenario</h2></center></b>
          <table class="table table-striped table-bordered table-fixed-wordwrap" id="table_Scenary">
             <thead>
-               <th class="col-md-3">Name</th>
-               <th class="col-md-3">Type</th>
-               <th class="col-md-3">Shared With</th>
-               <th class="col-md-3">Action</th>
+               <th WIDTH="20%">Name</th>
+               <th WIDTH="20%">Type</th>
+               <th WIDTH="30%">Shared With</th>
+               <th>Action</th>
             </thead>
          </table>
       </div>

@@ -68,10 +68,6 @@
                   <div class="col-xs-12 col-sm-4">
                      <a href="{!! route('formation-mineralogy.create') !!}" class="btn btn-block btn-primary col-md-12" role="button"><small>Formation Mineralogy</small></a>
                   </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-md-12 text-center">
                   <div class="col-xs-12 col-sm-4">
                      <a href="{!! route('pvt-global.create') !!}" class="btn btn-block btn-primary col-md-12" role="button">PVT Library </a>
                   </div>
@@ -136,7 +132,7 @@
             </div>
             <br>
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-md-12 text-center">
                   <div class="col-xs-12 col-sm-4">
                      <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
                   </div>

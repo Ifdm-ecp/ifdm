@@ -295,6 +295,7 @@ $.get("{!! url('arbol') !!}",
         $.each(data.Compañias, function (index, value) {
             compañias.push(value);
         });
+        console.log(compañias);
 
         $.each(data.Escenarios, function (index, value) {
             var esc = [];

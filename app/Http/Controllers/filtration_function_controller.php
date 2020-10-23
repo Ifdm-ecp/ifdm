@@ -82,7 +82,11 @@ class filtration_function_controller extends Controller
       $filtration_function->cement_yield_point = $request->cement_yield_point;
       $filtration_function->gel_strength = $request->gel_strength;
       $filtration_function->a_factor = $request->a_factor;
-      $filtration_function->b_factor = $request->b_factor;
+      $b_factor_aux = $request->b_factor;
+      if ($b_factor_aux < 0) {
+        $b_factor_aux = 0;
+      }
+      $filtration_function->b_factor = $b_factor_aux;
       $filtration_function->method = $request->filtration_function_factors_option;
       //dd($filtration_function->a_factor, $filtration_function->b_factor, 'lolala');
       $filtration_function->save();
@@ -179,7 +183,11 @@ class filtration_function_controller extends Controller
       $filtration_function->cement_yield_point = $request->cement_yield_point;
       $filtration_function->gel_strength = $request->gel_strength;
       $filtration_function->a_factor = $request->a_factor;
-      $filtration_function->b_factor = $request->b_factor;
+      $b_factor_aux = $request->b_factor;
+      if ($b_factor_aux < 0) {
+        $b_factor_aux = 0;
+      }
+      $filtration_function->b_factor = $b_factor_aux;
       $filtration_function->method = $request->filtration_function_factors_option;
       //dd($filtration_function->a_factor, $filtration_function->b_factor, 'lolala');
       $filtration_function->save();

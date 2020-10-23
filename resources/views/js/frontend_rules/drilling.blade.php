@@ -150,7 +150,7 @@ filtration_function_tab_ruleset = [
 
 drilling_data_tab_ruleset = [
   {
-    column: "Total Exposure Time",
+    column: "Pumping Time",
     rules: [
       {rule: "required"},
       {rule: "numeric"},

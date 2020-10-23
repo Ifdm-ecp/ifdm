@@ -131,18 +131,12 @@
                </div>
             </div>
             <br>
-            <div class="row text-center">
-               <center>
-                  <div class="col-md-12 text-center">
-                     <center>
-                        <div class="col-xs-12 col-sm-4 text-center">
-                           <center>
-                              <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
-                           </center>
-                        </div>
-                     </center>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="col-xs-12 col-sm-4">
+                     <a href="{!! route('pvt-global.index') !!}" class="btn btn-block btn-success col-md-12" role="button">PVT Library </a>
                   </div>
-               </center>
+               </div>
             </div>
          </div>
       </div>

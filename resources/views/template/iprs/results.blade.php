@@ -1,4 +1,4 @@
-
+@extends('layouts.ProjectGeneral')
 
 @section('title', 'IFDM Project')
 

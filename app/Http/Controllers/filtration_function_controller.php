@@ -180,7 +180,6 @@ class filtration_function_controller extends Controller
       $filtration_function->gel_strength = $request->gel_strength;
       $filtration_function->a_factor = $request->a_factor;
       $filtration_function->b_factor = $request->b_factor;
-      //dd('a', $request->a_factor, $request->b_factor);
       $filtration_function->method = $request->filtration_function_factors_option;
       //dd($filtration_function->a_factor, $filtration_function->b_factor, 'lolala');
       $filtration_function->save();
@@ -191,7 +190,6 @@ class filtration_function_controller extends Controller
 
         $factores = $this->factores($request, $filtration_function);
         $update = $filtration_function;
-        dd('b', $factores['a'], $factores['b']);
         $update->a_factor = $factores['a'];
         $update->b_factor = $factores['b'];
         $update->save();
@@ -341,14 +339,15 @@ class filtration_function_controller extends Controller
 
     # En caso de solo existir una prueba de filtrado
     if (count($aux2) == 1) {
-      dd($aux2, $intercept);
       array_push($aux2, array($intercept, 0));
     }
 
     list($a, $b) = $this->linearRegression($aux2);
 
+    dd($aux2, $a, $b);
+
     if ($b < 0) {
-      $b = 0;
+      $b = $intercept;
     }
 
     return collect(['a' => $a, 'b' => $b]);

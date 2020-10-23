@@ -494,6 +494,9 @@ function linear_regression_plot()
 
     temp = linear_regression(aux2);
 
+    console.log(aux2);
+    console.log(temp);
+
     a = temp[0];
     b = temp[1];
 

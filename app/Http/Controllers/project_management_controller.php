@@ -63,9 +63,9 @@ class project_management_controller extends Controller
                 }else{
                     $arr[] = '';
                 }
-                $v->actions = '<div align="center" class="row">';
-                $v->actions .= '<button type="button" class="btn btn-default edit-button" data-target="#edit_scenario" data-id="'.$v->id.'" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>';
-                $v->actions .= '<button type="button" class="btn btn-info share-button" data-target="#shared_scenario" data-id="'.$v->id.'" data-toggle="modal">Share</button>';
+                $v->actions = '<div align="center" class="row align-middle">';
+                $v->actions .= '<button type="button" class="btn btn-default edit-button" data-target="#edit_scenario" data-id="'.$v->id.'" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span></button>  ';
+                $v->actions .= '<button type="button" class="btn btn-info share-button" data-target="#shared_scenario" data-id="'.$v->id.'" data-toggle="modal">Share</button>  ';
                 $v->actions .= '<button class="btn btn-danger" type="button" data-toggle="modal" OnClick="javascript: delete_modal('.$v->id.');">Delete</button>';
                 $v->actions .= '</div>';
                 $arr[] = $v->actions;

@@ -33,7 +33,7 @@
    <div class="panel panel-default">
       <div class="panel-body">
          <b><center><h2>Share Scenario</h2></center></b>
-         <table class="table table-striped table-bordered table-fixed-wordwrap" id="table_Scenary">
+         <table class="table table-striped table-bordered table-fixed-wordwrap" style="word-break:break-all; overflow: hidden; text-overflow: ellipsis;" id="table_Scenary">
             <thead>
                <th WIDTH="20%">Name</th>
                <th WIDTH="20%">Type</th>

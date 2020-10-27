@@ -152,7 +152,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('d_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
+                              {!! Form::label('d_total_exposure_time_l', 'Pumping Time') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_total_exposure_time_t') ? 'has-error' : ''}}">
                                  {!! Form::text('d_total_exposure_time_t', null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'd_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>
@@ -248,7 +248,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('c_total_exposure_time_l', 'Total Exposure Time') !!} <span style='color:red;'>*</span>
+                              {!! Form::label('c_total_exposure_time_l', 'Pumping Time') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('c_total_exposure_time_t') ? 'has-error' : ''}}">
                                  {!! Form::text('c_total_exposure_time_t', null, ['placeholder' => 'd', 'class' =>'form-control', 'id' => 'c_total_exposure_time_t']) !!}
                                  <span class="input-group-addon" id="basic-addon2">d</span>

@@ -131,12 +131,32 @@ class filtration_function_controller extends Controller
       if (\Auth::User()->office != 2) {
         $filtration_function = filtration_function::find($id);
         $filtration_function->mudComposicion = MudComposicion::getData($filtration_function->id);
+        $lab_tests = DB::table('d_laboratory_test')->where('d_filtration_function_id', $filtration_function->id)->get();
+        $lab_tests_data = [];
+        $k_datas = [];
+        $p_datas = [];
+
+        foreach ($lab_tests as $key => $value) {
+          array_push($k_datas, $value->permeability);
+          array_push($p_datas, $value->pob);
+          $lab_data = collect(DB::table('d_laboratory_test_data')->select('time', 'filtered_volume')->where('d_laboratory_test_id', $value->id)->get());
+          $lab_data = $lab_data->map(function ($data) {
+              return [
+                  $data->time,
+                  $data->filtered_volume,
+              ];
+          });
+          array_push($lab_tests_data, $lab_data);
+        }
         $basins = cuenca::all();
         $formation_id = $filtration_function->formation_id;
         $field_id = formacion::find($formation_id)->campo_id;
         $basin_id = campo::find($field_id)->cuenca_id;
+        $k_datas = json_encode($k_datas);
+        $p_datas = json_encode($p_datas);
+        $lab_tests_data = json_encode($lab_tests_data);
 
-        return View::make('filtrationFunction.edit', compact(['basins', 'filtration_function', 'formation_id', 'field_id', 'basin_id']));
+        return View::make('filtrationFunction.edit', compact(['basins', 'filtration_function', 'lab_tests_data', 'k_datas', 'p_datas', 'formation_id', 'field_id', 'basin_id']));
       } else {
         return view('permission');
       }

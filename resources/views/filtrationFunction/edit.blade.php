@@ -277,9 +277,9 @@
 									</div>
 									<hr>
 									<div id="extra_lab_test"></div>
-									{!! Form::hidden('lab_test_data', '', array('id' => 'lab_test_data')) !!}
-									{!! Form::hidden('k_data', '', array('id' => 'k_data')) !!}
-									{!! Form::hidden('p_data', '', array('id' => 'p_data')) !!}
+									{!! Form::hidden('lab_test_data', $lab_tests_data, array('id' => 'lab_test_data')) !!}
+									{!! Form::hidden('k_data', $k_datas, array('id' => 'k_data')) !!}
+									{!! Form::hidden('p_data', $p_datas, array('id' => 'p_data')) !!}
 									<div class="row">
 										<div class="col-md-8">
 											{!! Form::button('Add Extra Laboratory Test' , array('class' => 'btn btn-warning btn-sm', 'onclick' => 'add_extra_lab_test();', 'name' => 'accion', 'id'=>'plot_1')) !!}

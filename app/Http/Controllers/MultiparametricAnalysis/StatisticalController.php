@@ -566,7 +566,8 @@ class StatisticalController extends Controller
         if ($statistical->msAvailable[$this->buscarArray(5, $statistical->msAvailable)] == 5) {
             $ms5 = $this->normalizacion($statistical->ms5, $statistical->p10_ms5, $statistical->p90_ms5, $statistical->subparameters->ms_barium_concentration);
         }
-        $msp = ($ms1 + $ms2 + $ms3 + $ms4 + $ms5) / count($statistical->msAvailable);
+        $msp = ($ms1 + $ms2 + $ms3 + $ms4 + $ms5);
+
         /* ---------------------------------------------------------------------------- */
 
         $fb1 = 0;
@@ -593,8 +594,8 @@ class StatisticalController extends Controller
         if ($statistical->fbAvailable[$this->buscarArray(5, $statistical->fbAvailable)] == 5) {
             $fb5 = $this->normalizacion($statistical->fb5, $statistical->p10_fb5, $statistical->p90_fb5, $statistical->subparameters->fb_crushed_proppant_factor);
         }
+        $fbp = ($fb1 + $fb2 + $fb3 + $fb4 + $fb5);
 
-        $fbp = ($fb1 + $fb2 + $fb3 + $fb4 + $fb5) / count($statistical->fbAvailable);
         /* ---------------------------------------------------------------------------- */
 
         $os1 = 0;
@@ -619,9 +620,9 @@ class StatisticalController extends Controller
         }
 
         if ($statistical->osAvailable[$this->buscarArray(5, $statistical->osAvailable)] == 5) {
-            $os4 = $this->normalizacion($statistical->os5, $statistical->p10_os5, $statistical->p90_os5, $statistical->subparameters->os_high_impact_factor);
+            $os5 = $this->normalizacion($statistical->os5, $statistical->p10_os5, $statistical->p90_os5, $statistical->subparameters->os_high_impact_factor);
         }
-        $osp = ($os1 + $os2 + $os3 + $os4 + $os5) / count($statistical->osAvailable);
+        $osp = ($os1 + $os2 + $os3 + $os4 + $os5);
 
         /* ---------------------------------------------------------------------------- */
 
@@ -649,7 +650,7 @@ class StatisticalController extends Controller
         if ($statistical->rpAvailable[$this->buscarArray(5, $statistical->rpAvailable)] == 5) {
             $rp5 = $this->normalizacion($statistical->rp5, $statistical->p10_rp5, $statistical->p90_rp5, $statistical->subparameters->rp_velocity_estimated);
         }
-        $rpp = ($rp1 + $rp2 + $rp3 + $rp4 + $rp5) / count($statistical->rpAvailable);
+        $rpp = ($rp1 + $rp2 + $rp3 + $rp4 + $rp5);
 
         /* ---------------------------------------------------------------------------- */
 
@@ -672,7 +673,7 @@ class StatisticalController extends Controller
         if ($statistical->idAvailable[$this->buscarArray(4, $statistical->idAvailable)] == 4) {
             $id4 = $this->normalizacion($statistical->id4, $statistical->p10_id4, $statistical->p90_id4, $statistical->subparameters->id_mud_damage_factor);
         }
-        $idp = ($id1 + $id2 + $id3 + $id4) / count($statistical->idAvailable);
+        $idp = ($id1 + $id2 + $id3 + $id4);
 
         /* ---------------------------------------------------------------------------- */
 
@@ -695,7 +696,7 @@ class StatisticalController extends Controller
         if ($statistical->gdAvailable[$this->buscarArray(4, $statistical->gdAvailable)] == 4) {
             $gd4 = $this->normalizacion($statistical->gd4, $statistical->p10_gd4, $statistical->p90_gd4, $statistical->subparameters->gd_geomechanical_damage_fraction);
         }
-        $gdp = ($gd1 + $gd2 + $gd3 + $gd4) / count($statistical->gdAvailable);
+        $gdp = ($gd1 + $gd2 + $gd3 + $gd4);
 
         $totalStatistical = $msp + $fbp + $osp + $rpp + $idp + $gdp;
 

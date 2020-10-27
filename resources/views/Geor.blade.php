@@ -622,7 +622,7 @@
             <a href="http://unal.edu.co/"><img src="{!! asset('images/UN.png') !!}" width="125" height="80" HSPACE="30"/></a>
             <a href="http://www.equion-energia.com/Paginas/default.aspx"><img src="{!! asset('images/EQUION.jpg') !!}" width="120" height="80" HSPACE="30"/></a>
             <a href="http://www.ecopetrol.com.co/wps/portal/web_es"><img src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30"/></a>
-            {{-- <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL.jpg') !!}" width="80" height="80" HSPACE="30"/></a> --}}
+            <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120" height="80" HSPACE="30"/></a>
         </form>
         <form action="">
             <center><img src="{!! asset('images/IFDM.png') !!}" width="250" height="100" HSPACE="30"/></center>

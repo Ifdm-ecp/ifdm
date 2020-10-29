@@ -30,6 +30,10 @@
    animation: round 2s linear infinite;
    z-index: 9999;
    }
+
+   .handsontable.has-error {
+      border-left: 5px solid #a94442;
+   }
    @keyframes round{
    from{transform: rotate(0deg)}
    to{transform: rotate(360deg)}

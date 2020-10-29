@@ -5,7 +5,6 @@
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
-
   $(document).ready(function(){
     defineWellType(document.getElementById('well_type'));
     import_tree("IPR", "IPR");
@@ -2014,6 +2013,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     /* Gas Oil - Table */
@@ -2034,6 +2036,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     /* Se agregan los enventos para los botones */
@@ -2191,6 +2196,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     @if(!empty($tabla))
@@ -2379,6 +2387,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     $('.pvt_data').show();
@@ -2526,6 +2537,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     /***************************** Fin sección Rock Properties - Condensated gas *****************************/
@@ -2575,6 +2589,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
 
     $('.drop_out_data').show();
@@ -2598,6 +2615,9 @@
       startRows: 6,
       minSpareRows: 2,
       contextMenu: true,
+      afterChange: function( changes, source ) {
+        validateTabs(false);
+      }
     });
   }
 
@@ -2767,9 +2787,11 @@
     var validateRockProps = (id == 'rock_properties_c') ? true : false;
     var fieldsets_div = div.find('fieldset');
     var inputs_div = div.find('input');
+    var handsontable_div = div.find('.handsontable');
 
     validateInputs(inputs_div);
     validateFieldsets(fieldsets_div);
+    validateTables(handsontable_div);
 
     var errores = 0;
     $.each(div.find('div.has-error'), function(index, val) {
@@ -2814,32 +2836,153 @@
   function validateFieldsets(fieldsets){
     $.each(fieldsets, function(index_fieldset, fieldset) {
       var fieldset = $(fieldset);
+      var fieldsetPanel = fieldset.parents('.panel.panel-default');
       var inputs_fieldset = fieldset.find('input');
+      var canValidate = false;
 
+      if (fieldsetPanel.length > 0) {
+        fieldsetPanelJ = $(fieldsetPanel[0]);
 
-      $.each(inputs_fieldset, function(index_i_fieldset, input) {
-        var input = $(input);
-        if (input.attr('type') == 'radio') {
-          if(input.is(':checked')) {
-            inputs_fieldset_ = input.parents('fieldset').find('input[type=text]');
-            $.each(inputs_fieldset_, function(index_i_fieldset_, input_fieldset_) {
-              var input_fieldset_ = $(input_fieldset_);
-              var form_group_fieldset = input_fieldset_.parents('div.form-group');
-              var tipo = input_fieldset_.attr('type');
-
-              if (tipo != 'hidden' && form_group_fieldset.attr('style') != "display: none;") {
-                if (input_fieldset_.val() == '') {
-                  form_group_fieldset.addClass('has-error');
+        if (fieldsetPanelJ.attr('style') != 'display: none;') {
+          if (inputs_fieldset.length > 0) {
+            $.each(inputs_fieldset, function(index_i_fieldset, input) {
+              var input = $(input);
+              if (input.attr('type') == 'radio') {
+                if (input.is(':checked')) {
+                  canValidate = true;
                 } else {
-                  form_group_fieldset.removeClass('has-error');
+                  canValidate = false;
                 }
               }
-
             });
+          } else {
+            canValidate = true;
           }
         }
-      });
+      }
 
+      if (canValidate === true) {
+        $.each(inputs_fieldset, function(index_i_fieldset, input) {
+          var input = $(input);
+          if (input.attr('type') == 'radio') {
+            if (input.is(':checked')) {
+              inputs_fieldset_ = input.parents('fieldset').find('input[type=text]');
+              $.each(inputs_fieldset_, function(index_i_fieldset_, input_fieldset_) {
+                var input_fieldset_ = $(input_fieldset_);
+                var form_group_fieldset = input_fieldset_.parents('div.form-group');
+                var tipo = input_fieldset_.attr('type');
+
+                if (tipo != 'hidden' && form_group_fieldset.attr('style') != "display: none;") {
+                  if (input_fieldset_.val() == '') {
+                    form_group_fieldset.addClass('has-error');
+                  } else {
+                    form_group_fieldset.removeClass('has-error');
+                  }
+                }
+              });
+            } else {
+              inputs_fieldset_ = input.parents('fieldset').find('input[type=text]');
+              $.each(inputs_fieldset_, function(index_i_fieldset_, input_fieldset_) {
+                var input_fieldset_ = $(input_fieldset_);
+                var form_group_fieldset = input_fieldset_.parents('div.form-group');
+                form_group_fieldset.removeClass('has-error');
+              });
+            }
+          }
+        });
+      } else {
+        $.each(inputs_fieldset, function(index_i_fieldset, input) {
+          var input = $(input);
+
+          inputs_fieldset_ = input.parents('fieldset').find('input[type=text]');
+          $.each(inputs_fieldset_, function(index_i_fieldset_, input_fieldset_) {
+            var input_fieldset_ = $(input_fieldset_);
+            var form_group_fieldset = input_fieldset_.parents('div.form-group');
+            form_group_fieldset.removeClass('has-error');
+          });
+        });
+      }
+    });
+  }
+
+  function validateTables(tables) {
+    $.each(tables, function(index_table, table) {
+      var tableElement = $(table);
+      tableElement.removeClass('has-error');
+      var tableFieldset = tableElement.parents('fieldset');
+      var fieldsetPanel = tableFieldset.parents('.panel.panel-default');
+      var inputs_fieldset = tableFieldset.find('input[type=radio]');
+      var canValidate = false;
+
+      if (fieldsetPanel.length > 0) {
+        var fieldsetPanelJ = $(fieldsetPanel[0]);
+
+        if (fieldsetPanelJ.attr('style') != 'display: none;') {
+          if (inputs_fieldset.length > 0) {
+            $.each(inputs_fieldset, function(index_i_fieldset, input) {
+              var input = $(input);
+              if (input.attr('type') == 'radio') {
+                if (input.is(':checked')) {
+                  canValidate = true;
+                } else {
+                  canValidate = false;
+                }
+              }
+            });
+          } else {
+            canValidate = true;
+          }
+        }
+      }
+
+      if (canValidate === true) {
+        var datatables = tableElement.handsontable('getData');
+
+        if (datatables !== undefined) {
+          var hasData = false;
+          var previousRowHasData = true;
+
+          for (var i = 0; i < datatables.length; i++) {
+            var data = datatables[i];
+            var rowHasData = false;
+            var previousColumnHasData = false;
+            var failedNestedFor = false;
+
+            for (var j = 0; j < data.length; j++) {
+              if (data[j] !== null && data[j] !== '') {
+                if (previousColumnHasData === false && j > 0) {
+                  tableElement.addClass('has-error');
+                  failedNestedFor = true;
+                  break;
+                } else {
+                  previousColumnHasData = true;
+                  rowHasData = true;
+                  hasData = true;
+                }
+              } else if (rowHasData === true) {
+                tableElement.addClass('has-error');
+                failedNestedFor = true;
+                break;
+              } else {
+                previousColumnHasData = false;
+              }
+            }
+
+            if (failedNestedFor === true) {
+              break;
+            } else if (previousRowHasData === false && rowHasData === true) {
+              tableElement.addClass('has-error');
+              break;
+            }
+
+            previousRowHasData = rowHasData;
+          }
+
+          if (hasData === false) {
+            tableElement.addClass('has-error');
+          }
+        }
+      }
     });
   }
   /*********************** FIN DE SECCIÓN CREAR *********************************/

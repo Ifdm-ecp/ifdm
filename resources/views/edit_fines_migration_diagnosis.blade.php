@@ -81,7 +81,7 @@
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('perforating_radius_label', 'Perforation Radius') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                 {!! Form::label('perforating_radius_label', 'Perforation Radius') !!}
                                  <div class="input-group {{$errors->has('perforation_radius') ? 'has-error' : ''}}">
                                     @if($advisor === "true")
                                       <span class="input-group-btn">
@@ -97,7 +97,7 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('numbers_of_perforations_label', 'Number Of Perforations') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                                 {!! Form::label('numbers_of_perforations_label', 'Number Of Perforations') !!}
                                  <div class="input-group {{$errors->has('number_of_perforations') ? 'has-error' : ''}}">
                                     @if($advisor === "true")
                                       <span class="input-group-btn">

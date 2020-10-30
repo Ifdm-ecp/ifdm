@@ -902,19 +902,21 @@ class add_fines_migration_diagnosis_controller extends Controller
     function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp)
     {
         $bw = 1.1;
-        #Hueco abierto
-        $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
 
-        if ($rw < 0.375)
-        {
-            $fp3 = 1.036 * ($tpp * $rp) / (0.9932 * $tpp * $rp + 0.7718);
-            $tcri_esc = $tcri_esc * $fp3;
-        }
-        else
-        {
-            $fp6 = 1.0258 * ($tpp * $rp) / (0.9742 * $tpp * $rp + 0.8845);
-            $tcri_esc = $tcri_esc * $fp6;
-        }
+        #Hueco abierto
+        if ($tpp == 0) {
+            $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
+
+        #Hueco cementado
+        } else if ($tpp =! 0) {
+            if ($rw < 0.375) {
+                $fp3 = 1.036 * ($tpp * $rp) / (0.9932 * $tpp * $rp + 0.7718);
+                $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);
+            } else {
+                $fp6 = 1.0258 * ($tpp * $rp) / (0.9742 * $tpp * $rp + 0.8845);
+                $tcri_esc = $fp6 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);
+            }
+        }    
 
         return $tcri_esc;
     }

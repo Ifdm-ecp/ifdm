@@ -491,6 +491,58 @@ $(document).ready(function()
             });
           });
 
+          var fieldNames = [];
+          var wellsxField = []; // Pozos en el campo
+        
+          $.each(data.Genfields, function(index, value) {
+            console.log(data.Genfields);
+            $.each(value, function(index, value) {
+              fieldNames.push(value.nombre);
+            });
+          });
+
+          $.each(data.WellsxField, function(index, value) {
+            $.each(value, function(index, value) {
+              wellsxField.push(value.count);
+            });
+          });
+
+          var jc = 0;
+          $.each(data.Coords, function(index, value) {
+            var cname = fieldNames[jc];
+            var wellcount = wellsxField[jc];
+
+            var points = [];
+            $.each(value, function(index, value) {
+              points.push(new google.maps.LatLng(value.lat, value.lon));
+            });
+
+            var poligon = new google.maps.Polygon({
+              paths: points,
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 3,
+              fillColor: '#FF0000',
+              fillOpacity: 0.1
+            });
+
+            poligon.setMap(map);
+            
+            infoWindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(poligon, 'click', function(e) {
+              var contentString = '<b>*** Field Data *** </b><br>' + '<b>Field: </b>' + cname +
+                '<br><b>Wells in field: <b> ' + wellcount;
+
+              infoWindow.setContent(contentString);
+              infoWindow.setPosition(e.latLng);
+              
+              infoWindow.open(map);
+            });
+
+            jc++;
+          });
+
           // Fills the general data with at least the amount of wells present in the map
           $('#MaV').text('-');
           $('#MiV').text('-');
@@ -1986,9 +2038,9 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         }
 
         var mapOptions = {
-            zoom : zoom,
-            center: ccenter,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+          zoom : zoom,
+          center: ccenter,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -2050,7 +2102,6 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
 
         marker.addListener('click', function()
         {
-
           infoW.open(map,marker);
           currentPopup=infoW;
         });

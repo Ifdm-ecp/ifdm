@@ -4580,14 +4580,40 @@ Route::group(['middleware' => 'auth'], function(){
                 ->join('campos as c', 'c.id', '=', 'pozos.campo_id')
                 ->wherein('c.id', $fields)
                 ->get();
+
+            $coords = [];
+            $genfields = [];
+            $wellsxField = [];
+
+            foreach ($fields as $field) {
+                $coord = App\coordenada_campo::where('campo_id', $field)
+                    ->orderBy('Orden')
+                    ->get();
+
+                $genfield = App\campo::select(DB::raw('nombre'))
+                    ->where('id', $field)
+                    ->get();
+
+                $wellsxfield = App\pozo::select(DB::raw('count(*) as count'))
+                    ->where('campo_id', $field)
+                    ->get();
+
+                array_push($coords, $coord);
+                array_push($genfields, $genfield);
+                array_push($wellsxField, $wellsxfield);
+            }
         } else {
             $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')
                 ->join('campos as c', 'c.id', '=', 'pozos.campo_id')
                 ->where('c.cuenca_id', $basin)
                 ->get();
+
+            $coords = [];
+            $genfields = [];
+            $wellsxField = [];
         }
 
-        $data = array('Wells' => $wells);
+        $data = array('Wells' => $wells, 'Coords' => $coords, 'Genfields' => $genfields, 'WellsxField' => $wellsxField);
         return Response::json($data);
     });
 
@@ -4653,7 +4679,7 @@ Route::group(['middleware' => 'auth'], function(){
         ->groupBy('p.Id')
         ->get();
 
-         $aux = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
+        $aux = App\medicion::join('pozos AS p','mediciones.pozo_id','=','p.Id')
         ->select('p.Id AS Id')
         ->where('mediciones.subparametro_id','=',$parametro)
         #->where('mediciones.formacion_id','=',$formacion)

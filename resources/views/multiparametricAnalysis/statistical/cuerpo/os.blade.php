@@ -106,7 +106,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 30, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Volume of HCL pumped into the formation') !!}
+                     {!! Form::label('', 'Volume of HCl pumped into the formation') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('osAvailable[]',2,false, array('id'=>'weight_os_2', 'class' => 'check_weight')) !!}

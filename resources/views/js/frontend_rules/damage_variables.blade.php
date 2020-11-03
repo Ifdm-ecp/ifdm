@@ -230,20 +230,20 @@ organic_scales_tab_ruleset = [
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation value",
+    column: "Volume of HCl pumped into the formation value",
     rules: [
       {rule: "numeric"},
       {rule: "min", min: 0}
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation monitoring date",
+    column: "Volume of HCl pumped into the formation monitoring date",
     rules: [
       {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Volume of HCL pumped into the formation comment",
+    column: "Volume of HCl pumped into the formation comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]
@@ -485,20 +485,20 @@ induce_damage_tab_ruleset = [
 
 geomechanical_damage_tab_ruleset = [
   {
-    column: "Percentage of Net Pay exihibiting Natural value",
+    column: "Fraction of Net Pay Exihibiting Natural Fractures value",
     rules: [
       {rule: "numeric"},
       {rule: "range", min: 0, max: 1}
     ]
   },
   {
-    column: "Percentage of Net Pay exihibiting Natural monitoring date",
+    column: "Fraction of Net Pay Exihibiting Natural Fractures monitoring date",
     rules: [
       {rule: "date", format: "DD/MM/YYYY", formatRead: "dd/mm/yyyy"}
     ]
   },
   {
-    column: "Percentage of Net Pay exihibiting Natural comment",
+    column: "Fraction of Net Pay Exihibiting Natural Fractures comment",
     rules: [
       {rule: "textmaxw", maxw: 100},
     ]

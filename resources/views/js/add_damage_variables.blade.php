@@ -263,7 +263,7 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
 
-        // Volume of HCL pumped into the formation (bbl)
+        // Volume of HCl pumped into the formation (bbl)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#OS2").val(), organic_scales_tab_ruleset[3]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
@@ -444,7 +444,7 @@
         titleTab = "";
         tabTitle = "Tab: Geomechanical Damage";
 
-        // Percentage of Net Pay exihibiting Natural (fraction)
+        // Fraction of Net Pay Exihibiting Natural Fractures (fraction)
         validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#GD1").val(), geomechanical_damage_tab_ruleset[0]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];

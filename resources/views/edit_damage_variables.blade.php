@@ -375,7 +375,7 @@
 
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('', 'Volume of HCL pumped into the formation') !!}
+                     {!! Form::label('', 'Volume of HCl pumped into the formation') !!}
                   </div>
                </div>
       
@@ -763,7 +763,7 @@
             <div class="panel-body">
                <div class="row">
                   <div class="col-md-12">
-                     {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural') !!}
+                     {!! Form::label('PNP', 'Fraction of Net Pay Exihibiting Natural Fractures') !!}
                   </div>
                </div>
       

@@ -21,7 +21,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 23, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('PNP', 'Percentage of Net Pay exihibiting Natural') !!}
+                     {!! Form::label('PNP', 'Fraction of Net Pay Exihibiting Natural Fractures') !!}
                   </div>
                   <div class="pull-right">
                      {!! Form::checkbox('gdAvailable[]',1,false, array('id'=>'weight_gd_1', 'class' => 'check_weight')) !!}

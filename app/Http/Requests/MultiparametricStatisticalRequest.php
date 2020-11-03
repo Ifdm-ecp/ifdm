@@ -363,7 +363,7 @@ class MultiparametricStatisticalRequest extends Request
             'FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures value is required.',
 
             'OS1.required' => 'CII Factor: Colloidal Instability Index value is required.',
-            'OS2.required' => 'Volume of HCL pumped into the formation value is required.',
+            'OS2.required' => 'Volume of HCl pumped into the formation value is required.',
             'OS3.required' => 'Cumulative Gas Produced value is required.',
             'OS4.required' => 'Number Of Days Below Saturation Pressure value is required.',
             'OS5.required' => 'De Boer Criteria value is required.',
@@ -379,7 +379,7 @@ class MultiparametricStatisticalRequest extends Request
             'ID3.required' => 'Total volume of water based fluids pumped into the well value is required.',
             'ID4.required' => 'Mud Losses value is required.',
 
-            'GD1.required' => 'Percentage of Net Pay exihibiting Natural value is required.',
+            'GD1.required' => 'Fraction of Net Pay Exihibiting Natural Fractures value is required.',
             'GD2.required' => 'Drawdown value is required.',
             'GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix value is required.',
             'GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is required.',
@@ -397,7 +397,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateFB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures monitoring date is required.',
 
             'dateOS1.required' => 'CII Factor: Colloidal Instability Index monitoring date is required.',
-            'dateOS2.required' => 'Volume of HCL pumped into the formation monitoring date is required.',
+            'dateOS2.required' => 'Volume of HCl pumped into the formation monitoring date is required.',
             'dateOS3.required' => 'Cumulative Gas Produced monitoring date is required.',
             'dateOS4.required' => 'Number Of Days Below Saturation Pressure monitoring date is required.',
             'dateOS5.required' => 'De Boer Criteria monitoring date is required.',
@@ -413,7 +413,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateID3.required' => 'Total volume of water based fluids pumped into the well monitoring date is required.',
             'dateID4.required' => 'Mud Losses monitoring date is required.',
 
-            'dateGD1.required' => 'Percentage of Net Pay exihibiting Natural monitoring date is required.',
+            'dateGD1.required' => 'Fraction of Net Pay Exihibiting Natural Fractures monitoring date is required.',
             'dateGD2.required' => 'Drawdown monitoring date is required.',
             'dateGD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix monitoring date is required.',
             'dateGD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP monitoring date is required.',
@@ -431,7 +431,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures p10 is required.',
 
             'p10_OS1.required' => 'CII Factor: Colloidal Instability Index p10 is required.',
-            'p10_OS2.required' => 'Volume of HCL pumped into the formation p10 is required.',
+            'p10_OS2.required' => 'Volume of HCl pumped into the formation p10 is required.',
             'p10_OS3.required' => 'Cumulative Gas Produced p10 is required.',
             'p10_OS4.required' => 'Number Of Days Below Saturation Pressure p10 is required.',
             'p10_OS5.required' => 'De Boer Criteria p10 is required.',
@@ -447,7 +447,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_ID3.required' => 'Total volume of water based fluids pumped into the well p10 is required.',
             'p10_ID4.required' => 'Mud Losses p10 is required.',
 
-            'p10_GD1.required' => 'Percentage of Net Pay exihibiting Natural p10 is required.',
+            'p10_GD1.required' => 'Fraction of Net Pay Exihibiting Natural Fractures p10 is required.',
             'p10_GD2.required' => 'Drawdown p10 is required.',
             'p10_GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix p10 is required.',
             'p10_GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p10 is required.',
@@ -465,7 +465,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_FB5.required' => 'Mass of crushed proppant inside Hydraulic Fractures p90 is required.',
 
             'p90_OS1.required' => 'CII Factor: Colloidal Instability Index p90 is required.',
-            'p90_OS2.required' => 'Volume of HCL pumped into the formation p90 is required.',
+            'p90_OS2.required' => 'Volume of HCl pumped into the formation p90 is required.',
             'p90_OS3.required' => 'Cumulative Gas Produced p90 is required.',
             'p90_OS4.required' => 'Number Of Days Below Saturation Pressure p90 is required.',
             'p90_OS5.required' => 'De Boer Criteria p90 is required.',
@@ -481,7 +481,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_ID3.required' => 'Total volume of water based fluids pumped into the well p90 is required.',
             'p90_ID4.required' => 'Mud Losses p90 is required.',
 
-            'p90_GD1.required' => 'Percentage of Net Pay exihibiting Natural p90 is required.',
+            'p90_GD1.required' => 'Fraction of Net Pay Exihibiting Natural Fractures p90 is required.',
             'p90_GD2.required' => 'Drawdown p90 is required.',
             'p90_GD3.required' => 'Ratio of KH)matrix + fracture / KH)matrix p90 is required.',
             'p90_GD4.required' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 is required.',
@@ -499,7 +499,7 @@ class MultiparametricStatisticalRequest extends Request
             'FB5.numeric' => 'Mass of crushed proppant inside Hydraulic Fractures value must be numeric.',
 
             'OS1.numeric' => 'CII Factor: Colloidal Instability Index value must be numeric.',
-            'OS2.numeric' => 'Volume of HCL pumped into the formation value must be numeric.',
+            'OS2.numeric' => 'Volume of HCl pumped into the formation value must be numeric.',
             'OS3.numeric' => 'Cumulative Gas Produced value must be numeric.',
             'OS4.numeric' => 'Number Of Days Below Saturation Pressure value must be numeric.',
             'OS5.numeric' => 'De Boer Criteria value must be numeric.',
@@ -515,7 +515,7 @@ class MultiparametricStatisticalRequest extends Request
             'ID3.numeric' => 'Total volume of water based fluids pumped into the well value must be numeric.',
             'ID4.numeric' => 'Mud Losses value must be numeric.',
 
-            'GD1.numeric' => 'Percentage of Net Pay exihibiting Natural value must be numeric.',
+            'GD1.numeric' => 'Fraction of Net Pay Exihibiting Natural Fractures value must be numeric.',
             'GD2.numeric' => 'Drawdown value must be numeric.',
             'GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix value must be numeric.',
             'GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value must be numeric.',
@@ -533,7 +533,7 @@ class MultiparametricStatisticalRequest extends Request
             'FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures value must be higher or equal than :min.',
 
             'OS1.between' => 'CII Factor: Colloidal Instability Index value is not between :min - :max.',
-            'OS2.min' => 'Volume of HCL pumped into the formation value must be higher or equal than :min.',
+            'OS2.min' => 'Volume of HCl pumped into the formation value must be higher or equal than :min.',
             'OS3.min' => 'Cumulative Gas Produced value must be higher or equal than :min.',
             'OS4.between' => 'Number Of Days Below Saturation Pressure value is not between :min - :max.',
 
@@ -548,7 +548,7 @@ class MultiparametricStatisticalRequest extends Request
             'ID3.between' => 'Total volume of water based fluids pumped into the well value is not between :min - :max.',
             'ID4.between' => 'Mud Losses value is not between :min - :max.',
 
-            'GD1.between' => 'Percentage of Net Pay exihibiting Natural value is not between :min - :max.',
+            'GD1.between' => 'Fraction of Net Pay Exihibiting Natural Fractures value is not between :min - :max.',
             'GD2.between' => 'Drawdown value is not between :min - :max.',
             'GD3.between' => 'Ratio of KH)matrix + fracture / KH)matrix value is not between :min - :max.',
             'GD4.between' => 'Geomechanical damage expressed as fraction of base permeability at BHFP value is not between :min - :max.',
@@ -570,7 +570,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateFB5.date_format' => 'Mass of crushed proppant inside Hydraulic Fractures monitoring date must have the format dd/mm/yyyy.',
 
             'dateOS1.date_format' => 'CII Factor: Colloidal Instability Index monitoring date must have the format dd/mm/yyyy.',
-            'dateOS2.date_format' => 'Volume of HCL pumped into the formation monitoring date must have the format dd/mm/yyyy.',
+            'dateOS2.date_format' => 'Volume of HCl pumped into the formation monitoring date must have the format dd/mm/yyyy.',
             'dateOS3.date_format' => 'Cumulative Gas Produced monitoring date must have the format dd/mm/yyyy.',
             'dateOS4.date_format' => 'Number Of Days Below Saturation Pressure monitoring date must have the format dd/mm/yyyy.',
             'dateOS5.date_format' => 'De Boer Criteria monitoring date must have the format dd/mm/yyyy.',
@@ -586,7 +586,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateID3.date_format' => 'Total volume of water based fluids pumped into the well monitoring date must have the format dd/mm/yyyy.',
             'dateID4.date_format' => 'Mud Losses monitoring date must have the format dd/mm/yyyy.',
 
-            'dateGD1.date_format' => 'Percentage of Net Pay exihibiting Natural monitoring date must have the format dd/mm/yyyy.',
+            'dateGD1.date_format' => 'Fraction of Net Pay Exihibiting Natural Fractures monitoring date must have the format dd/mm/yyyy.',
             'dateGD2.date_format' => 'Drawdown monitoring date must have the format dd/mm/yyyy.',
             'dateGD3.date_format' => 'Ratio of KH)matrix + fracture / KH)matrix monitoring date must have the format dd/mm/yyyy.',
             'dateGD4.date_format' => 'Geomechanical damage expressed as fraction of base permeability at BHFP monitoring date must have the format dd/mm/yyyy.',
@@ -604,7 +604,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateFB5.before' => 'Mass of crushed proppant inside Hydraulic Fractures monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
 
             'dateOS1.before' => 'CII Factor: Colloidal Instability Index monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
-            'dateOS2.before' => 'Volume of HCL pumped into the formation monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
+            'dateOS2.before' => 'Volume of HCl pumped into the formation monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateOS3.before' => 'Cumulative Gas Produced monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateOS4.before' => 'Number Of Days Below Saturation Pressure monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateOS5.before' => 'De Boer Criteria monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
@@ -620,7 +620,7 @@ class MultiparametricStatisticalRequest extends Request
             'dateID3.before' => 'Total volume of water based fluids pumped into the well monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateID4.before' => 'Mud Losses monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
 
-            'dateGD1.before' => 'Percentage of Net Pay exihibiting Natural monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
+            'dateGD1.before' => 'Fraction of Net Pay Exihibiting Natural Fractures monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateGD2.before' => 'Drawdown monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateGD3.before' => 'Ratio of KH)matrix + fracture / KH)matrix monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
             'dateGD4.before' => 'Geomechanical damage expressed as fraction of base permeability at BHFP monitoring date must be a date before or equal than ' . Carbon::now()->format('d/m/Y') . '.',
@@ -638,7 +638,7 @@ class MultiparametricStatisticalRequest extends Request
             'FB5comment.string' => 'Mass of crushed proppant inside Hydraulic Fractures comment must be a text.',
 
             'OS1comment.string' => 'CII Factor: Colloidal Instability Index comment must be a text.',
-            'OS2comment.string' => 'Volume of HCL pumped into the formation comment must be a text.',
+            'OS2comment.string' => 'Volume of HCl pumped into the formation comment must be a text.',
             'OS3comment.string' => 'Cumulative Gas Produced comment must be a text.',
             'OS4comment.string' => 'Number Of Days Below Saturation Pressure comment must be a text.',
             'OS5comment.string' => 'De Boer Criteria comment must be a text.',
@@ -654,7 +654,7 @@ class MultiparametricStatisticalRequest extends Request
             'ID3comment.string' => 'Total volume of water based fluids pumped into the well comment must be a text.',
             'ID4comment.string' => 'Mud Losses comment must be a text.',
 
-            'GD1comment.string' => 'Percentage of Net Pay exihibiting Natural comment must be a text.',
+            'GD1comment.string' => 'Fraction of Net Pay Exihibiting Natural Fractures comment must be a text.',
             'GD2comment.string' => 'Drawdown comment must be a text.',
             'GD3comment.string' => 'Ratio of KH)matrix + fracture / KH)matrix comment must be a text.',
             'GD4comment.string' => 'Geomechanical damage expressed as fraction of base permeability at BHFP comment must be a text.',
@@ -672,7 +672,7 @@ class MultiparametricStatisticalRequest extends Request
             'FB5comment.max' => 'Mass of crushed proppant inside Hydraulic Fractures comment may not be greater than :max characters.',
 
             'OS1comment.max' => 'CII Factor: Colloidal Instability Index comment may not be greater than :max characters.',
-            'OS2comment.max' => 'Volume of HCL pumped into the formation comment may not be greater than :max characters.',
+            'OS2comment.max' => 'Volume of HCl pumped into the formation comment may not be greater than :max characters.',
             'OS3comment.max' => 'Cumulative Gas Produced comment may not be greater than :max characters.',
             'OS4comment.max' => 'Number Of Days Below Saturation Pressure comment may not be greater than :max characters.',
             'OS5comment.max' => 'De Boer Criteria comment may not be greater than :max characters.',
@@ -688,7 +688,7 @@ class MultiparametricStatisticalRequest extends Request
             'ID3comment.max' => 'Total volume of water based fluids pumped into the well comment may not be greater than :max characters.',
             'ID4comment.max' => 'Mud Losses comment may not be greater than :max characters.',
 
-            'GD1comment.max' => 'Percentage of Net Pay exihibiting Natural comment may not be greater than :max characters.',
+            'GD1comment.max' => 'Fraction of Net Pay Exihibiting Natural Fractures comment may not be greater than :max characters.',
             'GD2comment.max' => 'Drawdown comment may not be greater than :max characters.',
             'GD3comment.max' => 'Ratio of KH)matrix + fracture / KH)matrix comment may not be greater than :max characters.',
             'GD4comment.max' => 'Geomechanical damage expressed as fraction of base permeability at BHFP comment may not be greater than :max characters.',
@@ -706,7 +706,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_FB5.numeric' => 'Mass of crushed proppant inside Hydraulic Fractures p10 must be numeric.',
 
             'p10_OS1.numeric' => 'CII Factor: Colloidal Instability Index p10 must be numeric.',
-            'p10_OS2.numeric' => 'Volume of HCL pumped into the formation p10 must be numeric.',
+            'p10_OS2.numeric' => 'Volume of HCl pumped into the formation p10 must be numeric.',
             'p10_OS3.numeric' => 'Cumulative Gas Produced p10 must be numeric.',
             'p10_OS4.numeric' => 'Number Of Days Below Saturation Pressure p10 must be numeric.',
             'p10_OS5.numeric' => 'De Boer Criteria p10 must be numeric.',
@@ -722,7 +722,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_ID3.numeric' => 'Total volume of water based fluids pumped into the well p10 must be numeric.',
             'p10_ID4.numeric' => 'Mud Losses p10 must be numeric.',
 
-            'p10_GD1.numeric' => 'Percentage of Net Pay exihibiting Natural p10 must be numeric.',
+            'p10_GD1.numeric' => 'Fraction of Net Pay Exihibiting Natural Fractures p10 must be numeric.',
             'p10_GD2.numeric' => 'Drawdown p10 must be numeric.',
             'p10_GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix p10 must be numeric.',
             'p10_GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p10 must be numeric.',
@@ -740,7 +740,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_FB5.numeric' => 'Mass of crushed proppant inside Hydraulic Fractures p90 must be numeric.',
 
             'p90_OS1.numeric' => 'CII Factor: Colloidal Instability Index p90 must be numeric.',
-            'p90_OS2.numeric' => 'Volume of HCL pumped into the formation p90 must be numeric.',
+            'p90_OS2.numeric' => 'Volume of HCl pumped into the formation p90 must be numeric.',
             'p90_OS3.numeric' => 'Cumulative Gas Produced p90 must be numeric.',
             'p90_OS4.numeric' => 'Number Of Days Below Saturation Pressure p90 must be numeric.',
             'p90_OS5.numeric' => 'De Boer Criteria p90 must be numeric.',
@@ -756,7 +756,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_ID3.numeric' => 'Total volume of water based fluids pumped into the well p90 must be numeric.',
             'p90_ID4.numeric' => 'Mud Losses p90 must be numeric.',
 
-            'p90_GD1.numeric' => 'Percentage of Net Pay exihibiting Natural p90 must be numeric.',
+            'p90_GD1.numeric' => 'Fraction of Net Pay Exihibiting Natural Fractures p90 must be numeric.',
             'p90_GD2.numeric' => 'Drawdown p90 must be numeric.',
             'p90_GD3.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be numeric.',
             'p90_GD4.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be numeric.',
@@ -774,7 +774,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_FB5.not_in' => "Mass of crushed proppant inside Hydraulic Fractures p10 and p90 can't have the same value.",
 
             'p90_OS1.not_in' => "CII Factor: Colloidal Instability Index p10 and p90 can't have the same value.",
-            'p90_OS2.not_in' => "Volume of HCL pumped into the formation p10 and p90 can't have the same value.",
+            'p90_OS2.not_in' => "Volume of HCl pumped into the formation p10 and p90 can't have the same value.",
             'p90_OS3.not_in' => "Cumulative Gas Produced p10 and p90 can't have the same value.",
             'p90_OS4.not_in' => "Number Of Days Below Saturation Pressure p10 and p90 can't have the same value.",
             'p90_OS5.not_in' => "De Boer Criteria p10 and p90 can't have the same value.",
@@ -790,7 +790,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_ID3.not_in' => "Total volume of water based fluids pumped into the well p10 and p90 can't have the same value.",
             'p90_ID4.not_in' => "Mud Losses p10 and p90 can't have the same value.",
 
-            'p90_GD1.not_in' => "Percentage of Net Pay exihibiting Natural p10 and p90 can't have the same value.",
+            'p90_GD1.not_in' => "Fraction of Net Pay Exihibiting Natural Fractures p10 and p90 can't have the same value.",
             'p90_GD2.not_in' => "Drawdown p10 and p90 can't have the same value.",
             'p90_GD3.not_in' => "Ratio of KH)matrix + fracture / KH)matrix p10 and p90 can't have the same value.",
             'p90_GD4.not_in' => "Geomechanical damage expressed as fraction of base permeability at BHFP p10 and p90 can't have the same value.",
@@ -808,7 +808,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures p10 must be higher or equal than :min.',
 
             'p10_OS1.min' => 'CII Factor: Colloidal Instability Index p10 must be higher or equal than :min.',
-            'p10_OS2.min' => 'Volume of HCL pumped into the formation p10 must be higher or equal than :min.',
+            'p10_OS2.min' => 'Volume of HCl pumped into the formation p10 must be higher or equal than :min.',
             'p10_OS3.min' => 'Cumulative Gas Produced p10 must be higher or equal than :min.',
             'p10_OS4.min' => 'Number Of Days Below Saturation Pressure p10 must be higher or equal than :min.',
             'p10_OS5.min' => 'De Boer Criteria p10 must be higher or equal than :min.',
@@ -824,7 +824,7 @@ class MultiparametricStatisticalRequest extends Request
             'p10_ID3.min' => 'Total volume of water based fluids pumped into the well p10 must be higher or equal than :min.',
             'p10_ID4.min' => 'Mud Losses p10 must be higher or equal than :min.',
 
-            'p10_GD1.min' => 'Percentage of Net Pay exihibiting Natural p10 must be higher or equal than :min.',
+            'p10_GD1.min' => 'Fraction of Net Pay Exihibiting Natural Fractures p10 must be higher or equal than :min.',
             'p10_GD2.min' => 'Drawdown p10 must be higher or equal than :min.',
             'p10_GD3.min' => 'Ratio of KH)matrix + fracture / KH)matrix p10 must be higher or equal than :min.',
             'p10_GD4.min' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p10 must be higher or equal than :min.',
@@ -842,7 +842,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_FB5.min' => 'Mass of crushed proppant inside Hydraulic Fractures p90 must be higher or equal than :min.',
 
             'p90_OS1.min' => 'CII Factor: Colloidal Instability Index p90 must be higher or equal than :min.',
-            'p90_OS2.min' => 'Volume of HCL pumped into the formation p90 must be higher or equal than :min.',
+            'p90_OS2.min' => 'Volume of HCl pumped into the formation p90 must be higher or equal than :min.',
             'p90_OS3.min' => 'Cumulative Gas Produced p90 must be higher or equal than :min.',
             'p90_OS4.min' => 'Number Of Days Below Saturation Pressure p90 must be higher or equal than :min.',
             'p90_OS5.min' => 'De Boer Criteria p90 must be higher or equal than :min.',
@@ -858,7 +858,7 @@ class MultiparametricStatisticalRequest extends Request
             'p90_ID3.min' => 'Total volume of water based fluids pumped into the well p90 must be higher or equal than :min.',
             'p90_ID4.min' => 'Mud Losses p90 must be higher or equal than :min.',
 
-            'p90_GD1.min' => 'Percentage of Net Pay exihibiting Natural p90 must be higher or equal than :min.',
+            'p90_GD1.min' => 'Fraction of Net Pay Exihibiting Natural Fractures p90 must be higher or equal than :min.',
             'p90_GD2.min' => 'Drawdown p90 must be higher or equal than :min.',
             'p90_GD3.min' => 'Ratio of KH)matrix + fracture / KH)matrix p90 must be higher or equal than :min.',
             'p90_GD4.min' => 'Geomechanical damage expressed as fraction of base permeability at BHFP p90 must be higher or equal than :min.',
@@ -876,7 +876,7 @@ class MultiparametricStatisticalRequest extends Request
             'fb_crushed_proppant_factor.numeric' => 'Mass of crushed proppant inside Hydraulic Fractures weight must be numeric.',
 
             'os_cll_factor.numeric' => 'CII Factor: Colloidal Instability Index weight must be numeric.',
-            'os_volume_of_hcl.numeric' => 'Volume of HCL pumped into the formation weight must be numeric.',
+            'os_volume_of_hcl.numeric' => 'Volume of HCl pumped into the formation weight must be numeric.',
             'os_compositional_factor.numeric' => 'Cumulative Gas Produced weight must be numeric.',
             'os_pressure_factor.numeric' => 'Number Of Days Below Saturation Pressure weight must be numeric.',
             'os_high_impact_factor.numeric' => 'De Boer Criteria weight must be numeric.',
@@ -892,7 +892,7 @@ class MultiparametricStatisticalRequest extends Request
             'id_total_volume_water.numeric' => 'Total volume of water based fluids pumped into the well weight must be numeric.',
             'id_mud_damage_factor.numeric' => 'Mud Losses weight must be numeric.',
 
-            'gd_fraction_netpay.numeric' => 'Percentage of Net Pay exihibiting Natural weight must be numeric.',
+            'gd_fraction_netpay.numeric' => 'Fraction of Net Pay Exihibiting Natural Fractures weight must be numeric.',
             'gd_drawdown.numeric' => 'Drawdown weight must be numeric.',
             'gd_ratio_kh_fracture.numeric' => 'Ratio of KH)matrix + fracture / KH)matrix weight must be numeric.',
             'gd_geomechanical_damage_fraction.numeric' => 'Geomechanical damage expressed as fraction of base permeability at BHFP weight must be numeric.',

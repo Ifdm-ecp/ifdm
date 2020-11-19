@@ -155,7 +155,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_molecular_weight_label', 'Plus Fraction Molecular Weight (MW)') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_molecular_weight_label', 'Plus Fraction Molecular Weight (MW)') !!}
                                              <div class="input-group {{$errors->has('plus_fraction_molecular_weight') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -170,7 +170,7 @@
                                        </div>
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_specific_gravity_label', 'Plus Fraction Specific Gravity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_specific_gravity_label', 'Plus Fraction Specific Gravity') !!}
                                              <div class="input-group {{$errors->has('plus_fraction_specific_gravity') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -188,7 +188,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('plus_fraction_boiling_temperature_label', 'Plus Fraction Boiling Temperature') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('plus_fraction_boiling_temperature_label', 'Plus Fraction Boiling Temperature') !!}
                                              <div class="input-group {{$errors->has('plus_fraction_boiling_temperature') ? 'has-error' : ''}}">
                                                 @if($advisor === "true")
                                                    <span class="input-group-btn">
@@ -207,7 +207,7 @@
                                     <div class="row">
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                             {!! Form::label('correlation_label', 'Correlation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                                             {!! Form::label('correlation_label', 'Correlation') !!}
                                              {!! Form::select('correlation', [
                                                 ' ' => ' ',
                                                 'Twu' => 'Twu',

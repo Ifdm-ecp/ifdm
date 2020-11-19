@@ -1190,6 +1190,7 @@
                 });
             }
 
+            /*
             if (select_components_data.includes("Plus +")) {
                 var plus_fraction_molecular_weight = $("#plus_fraction_molecular_weight").val();
                 validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, plus_fraction_molecular_weight, plus_plus_data_ruleset[0]);
@@ -1215,6 +1216,7 @@
                 validationMessages = validationFunctionResult[1];
                 emptyValues = (emptyValues === false && (correlation === null || correlation === "")) ? true: emptyValues;
             }
+            */
         }
 
         binary_interaction_coefficients_data = clean_table_data("binary_interaction_coefficients_table");        

@@ -10,7 +10,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 10000}
       ]
     },
     {
@@ -18,7 +18,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0},
+        {rule: "max", max: 10000}
       ]
     },
     {
@@ -26,7 +27,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0},
+        {rule: "max", max: 0.49}
       ]
     }
   ];
@@ -47,7 +49,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -55,7 +57,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0},
+        {rule: "max", max: 20}
       ]
     },
     {
@@ -63,7 +66,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -71,7 +74,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0},
+        {rule: "max", max: 20}
       ]
     }
   ];
@@ -82,7 +86,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0.1},
+        {rule: "max", max: 2}
       ]
     },
     {
@@ -90,7 +95,8 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 10},
+        {rule: "max", max: 20000}
       ]
     },
     {
@@ -98,7 +104,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 100},
       ]
     },
     {
@@ -106,7 +112,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -114,7 +120,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -122,7 +128,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     }
   ];
@@ -133,7 +139,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 100}
       ]
     },
     {
@@ -141,7 +147,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1000000}
       ]
     },
     {
@@ -149,7 +155,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -157,7 +163,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -165,7 +171,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -173,7 +179,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "minw", minw: 0}
       ]
     },
     {
@@ -181,7 +187,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -189,7 +195,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -197,7 +203,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -205,7 +211,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -213,7 +219,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     },
     {
@@ -221,7 +227,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "min", min: 0}
+        {rule: "range", min: 0, max: 1}
       ]
     }
   ];

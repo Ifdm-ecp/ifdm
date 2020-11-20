@@ -171,6 +171,18 @@ function multiValidatorGeneral(action, value, ruleset)
             return false;
           }
           break;
+        case "max":
+          if (value > set.max) {
+            isValid = [false, "The field " + ruleset.column + " must be " + set.max + " or lower"];
+            return false;
+          }
+          break;
+        case "maxw":
+          if (value >= set.maxw) {
+            isValid = [false, "The field " + ruleset.column + " must be lower than " + set.maxw];
+            return false;
+          }
+          break;
         case "textmaxw":
           if (value.length > set.maxw) {
             isValid = [false, "The field " + ruleset.column + " can't be longer than " + set.maxw + " characters"];

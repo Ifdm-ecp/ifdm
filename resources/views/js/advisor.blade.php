@@ -10,7 +10,7 @@
     function import_tree(type_scenario, type_advisor){
         type = type_scenario;
         advisor = type_advisor;
-        getImportTree = $.get("{{url('getAdvisorTree')}}", { type: type_scenario}, function (data) {
+        getImportTree = $.get("{{url('getAdvisorTree')}}", { type: type_scenario }, function (data) {
             Tree = data;
         });
         init_advisor();
@@ -233,7 +233,7 @@
             
             if ($(this).hasClass('conTooltip')){
                 $(".button-advisor").tooltip('hide');
-            }      
+            }
 
             $("#text_tree").addClass("d-none");
             $("#value_db").val("");

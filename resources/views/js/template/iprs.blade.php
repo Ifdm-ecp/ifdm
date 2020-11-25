@@ -1869,7 +1869,6 @@
 
       activateActionButtons();
       validateTabs(false);
-      import_tree("IPR", "IPR");
       document.getElementById('loading').style.display = 'none';
     }, 1000);
   }
@@ -2809,16 +2808,13 @@
       }
     });
 
-    if(errores > 0) {
-      return true;
-    }
+    return errores > 0;
   }
 
   function validateInputs(inputs) {
     $.each(inputs, function(index_input, input) {
       var input = $(input);
       if (input.parents('fieldset').length == 0) {
-
         var form_group_div = input.parents('div.form-group');
         var tipo = input.attr('type');
         if (tipo != 'hidden' && form_group_div.attr('style') != "display: none;") {
@@ -2828,7 +2824,6 @@
             form_group_div.removeClass('has-error');
           }
         }
-
       }
     });
   }
@@ -2843,7 +2838,7 @@
       if (fieldsetPanel.length > 0) {
         fieldsetPanelJ = $(fieldsetPanel[0]);
 
-        if (fieldsetPanelJ.attr('style') != 'display: none;') {
+        if (fieldsetPanelJ.attr('style') != 'display: none;' || fieldset.attr('style') != 'display: none;') {
           if (inputs_fieldset.length > 0) {
             $.each(inputs_fieldset, function(index_i_fieldset, input) {
               var input = $(input);
@@ -2912,25 +2907,29 @@
       var tableFieldset = tableElement.parents('fieldset');
       var fieldsetPanel = tableFieldset.parents('.panel.panel-default');
       var inputs_fieldset = tableFieldset.find('input[type=radio]');
+      var divs_tables_left = tableElement.parents('.rpds_left');
+      var divs_tables_right = tableElement.parents('.rpds_right');
       var canValidate = false;
 
-      if (fieldsetPanel.length > 0) {
-        var fieldsetPanelJ = $(fieldsetPanel[0]);
+      if ((divs_tables_left.length <= 0 && divs_tables_right.length <= 0) || ((divs_tables_left.length > 0 && $(divs_tables_left[0]).attr('style') != 'display: none;') || (divs_tables_right.length > 0 && $(divs_tables_right[0]).attr('style') != 'display: none;'))) {
+        if (fieldsetPanel.length > 0) {
+          var fieldsetPanelJ = $(fieldsetPanel[0]);
 
-        if (fieldsetPanelJ.attr('style') != 'display: none;') {
-          if (inputs_fieldset.length > 0) {
-            $.each(inputs_fieldset, function(index_i_fieldset, input) {
-              var input = $(input);
-              if (input.attr('type') == 'radio') {
-                if (input.is(':checked')) {
-                  canValidate = true;
-                } else {
-                  canValidate = false;
+          if (fieldsetPanelJ.attr('style') != 'display: none;') {
+            if (inputs_fieldset.length > 0) {
+              $.each(inputs_fieldset, function(index_i_fieldset, input) {
+                var input = $(input);
+                if (input.attr('type') == 'radio') {
+                  if (input.is(':checked')) {
+                    canValidate = true;
+                  } else {
+                    canValidate = false;
+                  }
                 }
-              }
-            });
-          } else {
-            canValidate = true;
+              });
+            } else {
+              canValidate = true;
+            }
           }
         }
       }

@@ -663,13 +663,13 @@ Route::group(['middleware' => 'auth'], function(){
                 $project['href'] = '';
 
                 $wells = App\pozo::join('escenarios', 'escenarios.pozo_id', '=', 'pozos.id')
-                ->where('escenarios.proyecto_id', '=', $project->id)
-                ->where('escenarios.estado','=',1)
-                ->where('escenarios.tipo', '=', $type)
-                ->select('pozos.id as id', 'pozos.nombre as name')
-                ->raw('COUNT(escenarios.id) > 0')
-                ->distinct()
-                ->get();
+                    ->where('escenarios.proyecto_id', '=', $project->id)
+                    ->where('escenarios.estado','=',1)
+                    ->where('escenarios.tipo', '=', $type)
+                    ->select('pozos.id as id', 'pozos.nombre as name')
+                    ->raw('COUNT(escenarios.id) > 0')
+                    ->distinct()
+                    ->get();
                 
                 foreach ($wells as $well) {
                     $well['icon'] = url('images/icon-well.png');
@@ -678,11 +678,11 @@ Route::group(['middleware' => 'auth'], function(){
                     $well['name'] = $well['name'];
 
                     $scenary = App\escenario::where('pozo_id', '=', $well->id)
-                                            ->where('proyecto_id', '=', $project->id)
-                                            ->where('escenarios.estado','=',1)
-                                            ->where('escenarios.tipo', '=', $type)
-                                            ->select('id', 'nombre')
-                                            ->get();
+                        ->where('proyecto_id', '=', $project->id)
+                        ->where('escenarios.estado','=',1)
+                        ->where('escenarios.tipo', '=', $type)
+                        ->select('id', 'nombre')
+                        ->get();
 
                     foreach ($scenary as $sce) {
                         $sce['icon'] = url('images/icon-scenario.png');
@@ -699,27 +699,27 @@ Route::group(['middleware' => 'auth'], function(){
 
         if($rol == 0){
             $company_tree = App\company::select('company.id', 'company.name')
-                                        ->join('proyectos', 'proyectos.compania', '=', 'company.id')
-                                        ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
-                                        ->raw('COUNT(escenarios.id) > 0')
-                                        ->where('escenarios.estado','=',1)
-                                        ->where('escenarios.tipo', '=', $type)
-                                        ->distinct()
-                                        ->get();
+                ->join('proyectos', 'proyectos.compania', '=', 'company.id')
+                ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
+                ->raw('COUNT(escenarios.id) > 0')
+                ->where('escenarios.estado','=',1)
+                ->where('escenarios.tipo', '=', $type)
+                ->distinct()
+                ->get();
 
             $tree = [];
             foreach ($company_tree as $company) {
                 $company['icon'] = url('images/icon-company.png');
                 $company['href'] = '';
                 $projects = App\proyecto::select('proyectos.id as id', 'proyectos.nombre as name')
-                            ->join('users', 'users.id', '=', 'proyectos.usuario_id')
-                            ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
-                            ->raw('COUNT(escenarios.id) > 0')
-                            ->where('escenarios.estado','=',1)
-                            ->where('escenarios.tipo', '=', $type)
-                            ->where('proyectos.compania',"=", $company->id)
-                            ->distinct()
-                            ->get();
+                    ->join('users', 'users.id', '=', 'proyectos.usuario_id')
+                    ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
+                    ->raw('COUNT(escenarios.id) > 0')
+                    ->where('escenarios.estado','=',1)
+                    ->where('escenarios.tipo', '=', $type)
+                    ->where('proyectos.compania',"=", $company->id)
+                    ->distinct()
+                    ->get();
                 add_simulations_to_projects($projects, $type);
 
                 $company['child'] = $projects;
@@ -727,13 +727,13 @@ Route::group(['middleware' => 'auth'], function(){
             $tree = $company_tree;
         } else {
             $projects = App\proyecto::select('proyectos.id', 'proyectos.nombre', 'proyectos.compania')
-                                    ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
-                                    ->raw('COUNT(escenarios.id) > 0')
-                                    ->where('escenarios.estado','=',1)
-                                    ->where('escenarios.tipo', '=', $type)
-                                    ->where('proyectos.compania',"=", $user->company)
-                                    ->distinct()
-                                    ->get();
+                ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
+                ->raw('COUNT(escenarios.id) > 0')
+                ->where('escenarios.estado','=',1)
+                ->where('escenarios.tipo', '=', $type)
+                ->where('proyectos.compania',"=", $user->company)
+                ->distinct()
+                ->get();
             add_simulations_to_projects($projects, $type);
             
             $tree = $projects;

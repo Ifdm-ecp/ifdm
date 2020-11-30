@@ -406,11 +406,6 @@
                                                    <div class="form-group data_first_input_corey">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -420,11 +415,6 @@
                                                    <div class="form-group data_second_input_corey">
                                                       {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -434,11 +424,6 @@
                                                    <div class="form-group data_third_input_corey">
                                                       {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -448,11 +433,6 @@
                                                    <div class="form-group data_fourth_input_corey">
                                                       {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -462,11 +442,6 @@
                                                    <div class="form-group data_fifth_input_corey">
                                                       {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -476,11 +451,6 @@
                                                    <div class="form-group data_sixth_input_corey">
                                                       {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -509,11 +479,6 @@
                                                    <div class="form-group data_first_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -523,11 +488,6 @@
                                                    <div class="form-group data_second_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -537,11 +497,6 @@
                                                    <div class="form-group data_third_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -551,11 +506,6 @@
                                                    <div class="form-group data_fourth_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -565,11 +515,6 @@
                                                    <div class="form-group data_fifth_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -579,11 +524,6 @@
                                                    <div class="form-group data_sixth_input_corey_ow">
                                                       {!! Form::label('','', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                                                       <div class="input-group">
-                                                         @if($advisor === "true")
-                                                         <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                                         </span>
-                                                         @endif
                                                          {!! Form::text('', null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                                          <span class="input-group-addon" name="medida"></span>
                                                       </div>
@@ -623,11 +563,6 @@
                            <div class="form-group data_first_input_fp">
                               {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                               <div class="input-group">
-                                 @if($advisor === "true")
-                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                 </span>
-                                 @endif
                                  {!! Form::text('',null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                  <span class="input-group-addon" name="medida"></span>
                               </div>
@@ -637,11 +572,6 @@
                            <div class="form-group data_second_input_fp">
                               {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                               <div class="input-group">
-                                 @if($advisor === "true")
-                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                 </span>
-                                 @endif
                                  {!! Form::text('',null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                  <span class="input-group-addon" name="medida"></span>
                               </div>
@@ -654,7 +584,7 @@
 
             <div class="panel panel-default pvt_data">
                <div class="panel-heading">
-                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#MP2"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> PVT Data @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_excel_table" style="color:black;font-size:15pt;"></i></span>@endif</h4>
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#MP2"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> PVT Data</h4>
                </div>
                <div class="panel-body">
                   <div id="MP2" class="panel-collapse collapse in">
@@ -678,7 +608,7 @@
 
             <div class="panel panel-default drop_out_data">
                <div class="panel-heading">
-                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#MP2"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Drop-Out Data @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_excel_table" style="color:black;font-size:15pt;"></i></span>@endif</h4>
+                  <h4><a data-parent="#accordion" data-toggle="collapse" href="#MP2"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Drop-Out Data</h4>
                </div>
                <div class="panel-body">
                   <div id="MP2" class="panel-collapse collapse in">

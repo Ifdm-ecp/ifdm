@@ -2166,12 +2166,16 @@
     /* Water volumetric factor */
     input_first_fp.find("[name = 'label']").text('Saturation Pressure').attr('for','presion_saturacion');
     input_first_fp.find(".input-group").addClass("{{$errors->has('presion_saturacion') ? 'has-error' : ''}}");
+    input_first_fp.find(".input-group-btn").remove();
+    input_first_fp.find(".input-group").prepend('<span class="input-group-btn"> <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button> </span>');
+    refreshAdvisorButtons();
     input_first_fp.find("input").attr('id','presion_saturacion').attr('name','presion_saturacion').attr('placeholder','Saturation Pressure').val({{ (is_null($IPR->saturation_pressure) ? "" : round($IPR->saturation_pressure, 15)) }});
     input_first_fp.find("[name = 'medida']").text('psi');
 
     /* Water Viscosity */
     input_second_fp.find("[name = 'label']").text('').attr('for','water_viscosity');
     input_second_fp.find(".input-group").removeClass("{{$errors->has('water_viscosity') ? 'has-error' : ''}}");
+    input_second_fp.find(".input-group-btn").remove();
     input_second_fp.find("input").attr('id','water_viscosity').attr('name','water_viscosity').attr('placeholder','').val({{ ($IPR->water_viscosity) ? $IPR->water_viscosity : '' }});
     input_second_fp.find("[name = 'medida']").text('');
     input_second_fp.hide();
@@ -2347,12 +2351,14 @@
     /* Water volumetric factor */
     input_first_fp.find("[name = 'label']").text('Temperature').attr('for','temperature_text_g');
     input_first_fp.find(".input-group").addClass("{{$errors->has('temperature_text_g') ? 'has-error' : ''}}");
+    input_first_fp.find(".input-group-btn").remove();
     input_first_fp.find("input").attr('id','temperature_text_g').attr('name','temperature_text_g').attr('placeholder','Temperature').val({{ isset($IPR->temperature_text_g) ? $IPR->temperature_text_g : '' }});;;
     input_first_fp.find("[name = 'medida']").text('F');
 
     /* Water Viscosity */
     input_second_fp.find("[name = 'label']").text('').attr('for','water_viscosity');
     input_second_fp.find(".input-group").removeClass("{{$errors->has('water_viscosity') ? 'has-error' : ''}}");
+    input_second_fp.find(".input-group-btn").remove();
     input_second_fp.find("input").attr('id','water_viscosity').attr('name','water_viscosity').attr('placeholder','').val('');
     input_second_fp.find("[name = 'medida']").text('');
     input_second_fp.hide();
@@ -2546,6 +2552,7 @@
     /* Water volumetric factor */
     input_first_fp.find("[name = 'label']").text('Saturation Pressure').attr('for','presion_saturacion_c_g');
     input_first_fp.find(".input-group").addClass("{{$errors->has('presion_saturacion_c_g') ? 'has-error' : ''}}");
+    input_first_fp.find(".input-group-btn").remove();
     input_first_fp.find("input").attr('id','presion_saturacion_c_g').attr('name','presion_saturacion_c_g').attr('placeholder','Saturation Pressure').val('{{ isset($IPR->saturation_pressure_c_g) ? $IPR->saturation_pressure_c_g : '' }}');
     input_first_fp.find("[name = 'medida']").text('psi');
 
@@ -2553,6 +2560,7 @@
     input_second_fp.show();
     input_second_fp.find("[name = 'label']").text('GOR').attr('for','gor_c_g');
     input_second_fp.find(".input-group").addClass("{{$errors->has('gor_c_g') ? 'has-error' : ''}}");
+    input_second_fp.find(".input-group-btn").remove();
     input_second_fp.find("input").attr('id','gor_c_g').attr('name','gor_c_g').attr('placeholder','GOR').val('{{ isset($IPR->gor_c_g) ? $IPR->gor_c_g : '' }}');
     input_second_fp.find("[name = 'medida']").text('psi');
 
@@ -2669,6 +2677,7 @@
     /* FP - Water volumetric factor */
     /* FP */input_first_fp.find("[name = 'label']").text('Water Volumetric Factor').attr('for','water_volumetric_factor');
     /* FP */input_first_fp.find(".input-group").addClass("{{$errors->has('water_volumetric_factor') ? 'has-error' : ''}}");
+    /* FP */input_first_fp.find(".input-group-btn").remove();
     /* FP */input_first_fp.find("input").attr('id','water_volumetric_factor').attr('name','water_volumetric_factor').attr('placeholder','Water Volumetric Factor').val({!! isset($IPR->water_volumetric_factor) ? $IPR->water_volumetric_factor : '' !!});
     /* FP */input_first_fp.find("[name = 'medida']").text('RB/STB');
     /* FP - Water volumetric factor */
@@ -2677,6 +2686,7 @@
     /* FP */input_second_fp.show();
     /* FP */input_second_fp.find("[name = 'label']").text('Water Viscosity').attr('for','water_viscosity');
     /* FP */input_second_fp.find(".input-group").addClass("{{$errors->has('water_viscosity') ? 'has-error' : ''}}");
+    /* FP */input_second_fp.find(".input-group-btn").remove();
     /* FP */input_second_fp.find("input").attr('id','water_viscosity').attr('name','water_viscosity').attr('placeholder','Water Viscosity').val({!! isset($IPR->water_viscosity) ? $IPR->water_viscosity : '' !!});
     /* FP */input_second_fp.find("[name = 'medida']").text('CP');
     /* FP - Water Viscosity */

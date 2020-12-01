@@ -16,6 +16,32 @@
         init_advisor();
     }
 
+    function refreshAdvisorButtons() {
+        $('.button-advisor').on('click',function(){
+            $("#text_tree").addClass("d-none");
+            $("#value_db").val("");
+            actual = $(this).parent().next();
+  
+            input_name = actual.attr("id");
+            input_id = "#advisor_" + input_name;
+            input_ref = "#advisor_ref_" + input_name;
+            $('#input_text_advisor').empty();
+            $('#input_text_advisor').append($(input_id).html());
+
+            $('#input_ref_advisor').empty();
+            $('#input_ref_advisor').append($(input_ref).html());
+            
+            search_advisor(input_name);
+            $("#advisorModalButton").modal('show');
+
+            if(! $(input_ref).length){
+                $("#advisor_footer").addClass("d-none");
+            }else{
+                $("#advisor_footer").removeClass("d-none");
+            }
+        });
+    }
+
     function search_advisor(input_name){
         $("#advisorModalButton").modal('show');
         var advisor_name = document.getElementById("advisor_" + input_name);

@@ -563,6 +563,11 @@
                            <div class="form-group data_first_input_fp">
                               {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                               <div class="input-group">
+                                 @if($advisor === "true")
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
+                                 @endif
                                  {!! Form::text('',null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                  <span class="input-group-addon" name="medida"></span>
                               </div>
@@ -572,6 +577,11 @@
                            <div class="form-group data_second_input_fp">
                               {!! Form::label('', '', ['name' => 'label']) !!}<span style='color:red;'>*</span>
                               <div class="input-group">
+                                 @if($advisor === "true")
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
+                                 @endif
                                  {!! Form::text('',null, ['placeholder' => '', 'class' =>'form-control', 'id' => '']) !!}
                                  <span class="input-group-addon" name="medida"></span>
                               </div>

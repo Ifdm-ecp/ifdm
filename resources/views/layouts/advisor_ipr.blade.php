@@ -27,6 +27,11 @@
 			The wellbore cross section is assumed to be a circle and has a specific radius called the wellbore radius. It can be estimated by the production casing internal diameter, or the bit size.
 		</div>
 
+		<div id="advisor_radio_drenaje_yac">
+			<br>
+			The radius of the approximate circular shape around a single wellbore from which the hydrocarbon flows into the wellbore.
+		</div>
+
 		<div id="advisor_presion_yacimiento">
 			<br>
 			The current reservoir pressure. It can be measured from wells tests. Another stimation can be obtained with the equation for steady-state radial flow [2][3]

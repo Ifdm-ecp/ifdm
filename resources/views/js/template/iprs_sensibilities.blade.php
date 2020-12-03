@@ -158,9 +158,9 @@
             alert('Only a maximum of 3 sensitivities is allowed.');
             return false;
         }
-        $('#div_tabla').html('<h3>Sensibility Table</h3><div id="tabla_sensibilidades_'+ cantidad_tablas +'"</div>');
+        $('#div_tabla').html('<h3>Sensibility Table</h3><div id="tabla_sensibilidades"</div>');
 
-        $excel_tabular_pvt_fluid_c_g = $('#tabla_sensibilidades_'+ cantidad_tablas +'');
+        $excel_tabular_pvt_fluid_c_g = $('#tabla_sensibilidades');
         $excel_tabular_pvt_fluid_c_g.handsontable({
             data: data.datos,
             colWidths: data.widths,
@@ -258,12 +258,12 @@
         var indice = (id_inputs + 1);
 
         //valores de leyenda
-        var colHeaderList = $("#tabla_sensibilidades_0").handsontable("getColHeader");
+        var colHeaderList = $("#tabla_sensibilidades").handsontable("getColHeader");
         colHeaderList.pop();
         colHeaderList.pop();
         colHeaderList.reverse();
 
-        var tableValueList = $("#tabla_sensibilidades_0").data('handsontable').getDataAtRow(indice-1);
+        var tableValueList = $("#tabla_sensibilidades").data('handsontable').getDataAtRow(indice-1);
         tableValueList.pop();
         var skin_val = tableValueList.pop();
         tableValueList.reverse();

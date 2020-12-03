@@ -2191,7 +2191,7 @@
       colWidths: [188, 188, 200, 188],
       rowHeaders: true, 
       columns: [
-      {title:"Pressures [psi]", data: 0,type: 'numeric', format: '0[.]0000000'},
+      {title:"Pressure [psi]", data: 0,type: 'numeric', format: '0[.]0000000'},
       {title:"Oil Viscosity [cp]",data: 1,type: 'numeric', format: '0[.]0000000'},
       {title:"Oil Volumetric Factor [RB/STB]",data: 2,type: 'numeric', format: '0[.]0000000'},
       {title:"Water Viscosity [cp]",data: 3,type: 'numeric', format: '0[.]0000000'}
@@ -2651,9 +2651,9 @@
 
     /* OD - BHFP */
     /* OD */group_input_2.show();
-    /* OD */group_input_2.find("[name = 'label']").text('BHFP').attr('for','bhfp');
+    /* OD */group_input_2.find("[name = 'label']").text('BHP').attr('for','bhfp');
     /* OD */group_input_2.find(".input-group").addClass("{{$errors->has('bhfp') ? 'has-error' : ''}}");
-    /* OD */group_input_2.find("input").attr('id','bhfp').attr('name','bhfp').attr('placeholder','BHFP').val({!! isset($IPR->bhfp) ? $IPR->bhfp : '' !!});
+    /* OD */group_input_2.find("input").attr('id','bhfp').attr('name','bhfp').attr('placeholder','BHP').val({!! isset($IPR->bhfp) ? $IPR->bhfp : '' !!});
     /* OD */group_input_2.find("[name = 'medida']").text('psi');
     /* OD - BHFP */
 
@@ -2723,9 +2723,9 @@
 
     /* OD - BHFP */
     /* OD */group_input_2.show();
-    /* OD */group_input_2.find("[name = 'label']").text('BHFP').attr('for','bhfp');
+    /* OD */group_input_2.find("[name = 'label']").text('BHP').attr('for','bhfp');
     /* OD */group_input_2.find(".input-group").addClass("{{$errors->has('bhfp') ? 'has-error' : ''}}");
-    /* OD */group_input_2.find("input").attr('id','bhfp').attr('placeholder','BHFP').val({!! isset($IPR->bhp_g) ? $IPR->bhp_g : '' !!});
+    /* OD */group_input_2.find("input").attr('id','bhfp').attr('placeholder','BHP').val({!! isset($IPR->bhp_g) ? $IPR->bhp_g : '' !!});
     /* OD */group_input_2.find("[name = 'medida']").text('psi');
     /* OD - BHFP */
 

@@ -110,7 +110,7 @@
         '<option value="modulo_permeabilidad" {{ $IPR->intervalo->stress_sensitive_reservoir == 1 ? 'disabled' : '' }}>Permeability Module - Perm. Mod [1/psi]</option>' +
         '<option value="presion_separacion" {{ $IPR->well_Type == 1 ? 'disabled' : '' }}>Reservoir Parting Pressure - RPP [psi]</option>' +
         '<option value="reservoir_pressure">Reservoir Pressure - Pres [psi]</option>' +
-        '<option value="radio_drenaje_yac">Reservoir Drainage Radius - Re [ft]</option>' +
+        '<option value="radio_drenaje_yac">Drainage Radius - Re [ft]</option>' +
         '<option value="bsw" {!! $IPR->fluido == 1 ? "" : "disabled" !!}>Water Cut - BSW [-]</option>' +
         '<option value="corey" {{ isset($IPR->exponente_corey_petroleo) ? "" : "disabled" }}>Corey Exponent Oil [-]</option>' +
         '</select>' +
@@ -287,7 +287,7 @@
                 final = final + ', RPP = ' + data_val;
             } else if (header_val == 'Reservoir Pressure - Pres [psi]') {
                 final = final + ', Pres = ' + data_val;
-            } else if (header_val == 'Reservoir Drainage Radius - Re [ft]') {
+            } else if (header_val == 'Drainage Radius - Re [ft]') {
                 final = final + ', Re = ' + data_val;
             } else if (header_val == 'Water Cut - BSW [-]') {
                 final = final + ', BSW = ' + data_val;

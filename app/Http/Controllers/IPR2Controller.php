@@ -1335,7 +1335,7 @@ class IPR2Controller extends Controller
                     break;
                     case 'radio_drenaje_yac':
 
-                    $label = "Reservoir Drainage Radius - Value";
+                    $label = "Drainage Radius - Value";
                     $input_data[$var_rdr] = (float)$valor;
                     $input_data['modificado'] = $var_rdr;
 
@@ -1795,7 +1795,7 @@ class IPR2Controller extends Controller
 
         } else if ($columna == "radio_drenaje_yac") {
 
-            return [ "title" => "Reservoir Drenaje Radius - Re [ft]", "data" => 8, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
+            return [ "title" => "Drainage Radius - Re [ft]", "data" => 8, "type" => 'numeric', "format" => '0[.]0000', "renderer" => 'html', "readOnly" =>  true ];
 
         }
     }

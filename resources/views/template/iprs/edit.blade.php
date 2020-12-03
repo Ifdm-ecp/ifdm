@@ -121,7 +121,7 @@ if(!isset($_SESSION)) {
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('drainage radius', 'Reservoir Drainage Radius') !!} <span style='color:red;'>*</span>
+                              {!! Form::label('drainage radius', 'Drainage Radius') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('radio_drenaje_yac') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                  <span class="input-group-btn">

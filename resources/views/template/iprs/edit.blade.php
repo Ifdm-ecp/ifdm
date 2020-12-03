@@ -632,6 +632,24 @@ if(!isset($_SESSION)) {
                            <div class="row">
                               <div id="graph_up"></div>
                            </div>
+                           <div class="row">
+                              <div id="graph_bo"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_uo"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_rs"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_bg"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_ug"></div>
+                           </div>
+                           <div class="row">
+                              <div id="graph_ogratio"></div>
+                           </div>
                         </div>
                      </fieldset> 
                   </div>

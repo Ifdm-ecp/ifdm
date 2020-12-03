@@ -488,9 +488,9 @@
   {
     var evt = window.event || arguments.callee.caller.arguments[0];
     evt.preventDefault(); 
-    var data = $("#pvt_c_g").handsontable('getData');
+    var data = $("#excel_table_pvt").handsontable('getData');
 
-    var pressure = [];
+    var oil_volumetric_factor = [];
     var oil_viscosity = [];
     var rs = [];
     var gas_volumetric_factor = [];
@@ -499,37 +499,37 @@
 
     for (var i = 0; i < data.length; i++)
     {
-      pressure.push(parseFloat(data[i][0]));
-      oil_viscosity.push(parseFloat(data[i][1]));
-      rs.push(parseFloat(data[i][2]));
-      gas_volumetric_factor.push(parseFloat(data[i][3]));
-      gas_viscosity.push(parseFloat(data[i][4]));
-      oil_gas_ratio.push(parseFloat(data[i][5]));
+      oil_volumetric_factor.push([parseFloat(data[i][0]), parseFloat(data[i][1])]);
+      oil_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][2])]);
+      rs.push([parseFloat(data[i][0]), parseFloat(data[i][3])]);
+      gas_volumetric_factor.push([parseFloat(data[i][0]), parseFloat(data[i][4])]);
+      gas_viscosity.push([parseFloat(data[i][0]), parseFloat(data[i][5])]);
+      oil_gas_ratio.push([parseFloat(data[i][0]), parseFloat(data[i][6])]);
     }
 
-    pressure.pop();
+    oil_volumetric_factor.pop();
     oil_viscosity.pop();
     rs.pop();
     gas_volumetric_factor.pop();
     gas_viscosity.pop();
     oil_gas_ratio.pop();
 
-    $('#pvt_c_g_chart').highcharts({
+    $('#graph_bo').highcharts({
       title: {
-        text: 'Condensate Gas PVT',
+        type: 'line',
+        text: 'Oil Volumetric Factor',
         x: -20
       },
       xAxis: {
         title: {
           text: 'Pressure [psi]'
-        },
-        categories: pressure
+        }
       },
       yAxis: {
         title: {
-          text: '...***...'
+          text: 'Bo [RB/STB]'
         },
-        plotLines: [{
+        plotLines: [{ 
           value: 0,
           width: 1,
           color: '#808080'
@@ -540,8 +540,47 @@
       },
       legend: {
         layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
+        name: 'Oil Volumetric Factor',
+        data: oil_volumetric_factor,
+        tooltip:{
+          valueSuffix: ' RB/STB'
+        }
+      }]
+    });
+
+    $('#graph_uo').highcharts({
+      title: {
+        type: 'line',
+        text: 'Oil Viscosity',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Uo [cp]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
         borderWidth: 0
       },
       series: [{
@@ -550,29 +589,161 @@
         tooltip:{
           valueSuffix: ' cp'
         }
-      }, {
-        name: 'RS',
+      }]
+    });
+
+    $('#graph_rs').highcharts({
+      title: {
+        type: 'line',
+        text: 'Solution Oil - Gas Ratio',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'RS [SCF/STB]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
+        name: 'Solution Oil - Gas Ratio',
         data: rs,
         tooltip:{
-          valueSuffix: ' RB/STB'
+          valueSuffix: ' SCF/STB'
         }
-      }, {
+      }]
+    });
+
+    $('#graph_bg').highcharts({
+      title: {
+        type: 'line',
+        text: 'Gas Volumetric Factor',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Bg [RCS/SCF]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
         name: 'Gas Volumetric Factor',
         data: gas_volumetric_factor,
         tooltip:{
-          valueSuffix: ' cp'
+          valueSuffix: ' RCS/SCF'
         }
-      }, {
+      }]
+    });
+
+    $('#graph_ug').highcharts({
+      title: {
+        type: 'line',
+        text: 'Gas Viscosity',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Ug [cp]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
         name: 'Gas Viscosity',
         data: gas_viscosity,
         tooltip:{
           valueSuffix: ' cp'
         }
-      }, {
-        name: 'Oil-Gas Ratio',
+      }]
+    });
+
+    $('#graph_ogratio').highcharts({
+      title: {
+        type: 'line',
+        text: 'Oil - Gas Ratio',
+        x: -20
+      },
+      xAxis: {
+        title: {
+          text: 'Pressure [psi]'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'O-G Ratio [STB/SCF]'
+        },
+        plotLines: [{ 
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'center',
+        verticalAlign: 'bottom',
+        borderWidth: 0
+      },
+      series: [{
+        name: 'Oil - Gas Ratio',
         data: oil_gas_ratio,
         tooltip:{
-          valueSuffix: ' cp'
+          valueSuffix: ' STB/SCF'
         }
       }]
     });
@@ -2225,6 +2396,12 @@
     $('#graph_water_viscosity').html('');
     $('#graph_gas_viscosity').html('');
     $('#graph_gas_compressibility_factor').html('');
+    $('#graph_bo').html('');
+    $('#graph_uo').html('');
+    $('#graph_rs').html('');
+    $('#graph_bg').html('');
+    $('#graph_ug').html('');
+    $('#graph_ogratio').html('');
 
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
     $('.btn_plot_fp_first').attr('onclick','plot_pvt_oil()');
@@ -2370,6 +2547,12 @@
     $('#graph_water_viscosity').html('');
     $('#graph_gas_viscosity').html('');
     $('#graph_gas_compressibility_factor').html('');
+    $('#graph_bo').html('');
+    $('#graph_uo').html('');
+    $('#graph_rs').html('');
+    $('#graph_bg').html('');
+    $('#graph_ug').html('');
+    $('#graph_ogratio').html('');
 
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
     $('.btn_plot_fp_first').attr('onclick','plot_pvt_gas()');
@@ -2572,9 +2755,15 @@
     $('#graph_water_viscosity').html('');
     $('#graph_gas_viscosity').html('');
     $('#graph_gas_compressibility_factor').html('');
+    $('#graph_bo').html('');
+    $('#graph_uo').html('');
+    $('#graph_rs').html('');
+    $('#graph_bg').html('');
+    $('#graph_ug').html('');
+    $('#graph_ogratio').html('');
     
     $('.rpds_up').find('fieldset').find('.handsontable:first').attr('id', 'excel_table_pvt');
-    $('.btn_plot_fp_first').attr('onclick','plot_pvt_oil()');
+    $('.btn_plot_fp_first').attr('onclick','plot_pvt_c_g()');
 
     /* Pvt Condensate Gas */
     var datos = {!! !empty($ipr_cg_pvt_table) ? $ipr_cg_pvt_table : '{}' !!};

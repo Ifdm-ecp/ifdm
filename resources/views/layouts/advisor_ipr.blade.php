@@ -258,6 +258,11 @@
 			<br>
 			Pressure above which injection of fluids will cause the rock formation to fracture hydraulically.
 		</div>
+
+		<div id="advisor_gas_rate_gg">
+			<br>
+			The current gas injection rate into the well.
+		</div>
 	</div>
 </html>
 

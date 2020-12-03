@@ -2547,7 +2547,7 @@
       }
     });
 
-    /***************************** Fin sección Rock Properties - Condensated gas *****************************/
+    /***************************** Fin sección Rock Properties - Condensate gas *****************************/
 
     /* Water volumetric factor */
     input_first_fp.find("[name = 'label']").text('Saturation Pressure').attr('for','presion_saturacion_c_g');
@@ -2715,9 +2715,9 @@
 
     /* OD - Injection Rate */
     /* OD */group_input_1.show();
-    /* OD */group_input_1.find("[name = 'label']").text('Injection Rate').attr('for','injection_rate');
-    /* OD */group_input_1.find(".input-group").addClass("{{$errors->has('injection_rate') ? 'has-error' : ''}}");
-    /* OD */group_input_1.find("input").attr('id','injection_rate').attr('placeholder','Injection Rate').val({!! isset($IPR->gas_rate_g) ? $IPR->gas_rate_g : '' !!});
+    /* OD */group_input_1.find("[name = 'label']").text('Injection Rate').attr('for','gas_rate_gg');
+    /* OD */group_input_1.find(".input-group").addClass("{{$errors->has('gas_rate_gg') ? 'has-error' : ''}}");
+    /* OD */group_input_1.find("input").attr('id','gas_rate_gg').attr('placeholder','Injection Rate').val({!! isset($IPR->gas_rate_g) ? $IPR->gas_rate_g : '' !!});
     /* OD */group_input_1.find("[name = 'medida']").text('MMscf/day');
     /* OD - Injection Rate */
 

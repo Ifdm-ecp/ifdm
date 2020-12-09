@@ -2133,11 +2133,12 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         $dsl = $dsl * (1 - $xia[$m]) + $dsa * $xia[$m];
         $num = $dslm - $dsa;
-        if ($mwa <= 750) {
-            $ax = 1.01597203520425;
-        } else {
-            $ax = 0.45;
-        }
+        $ax = 1.01597203520425;
+        //if ($mwa <= 750) {
+        //    $ax = 1.01597203520425;
+        //} else {
+        //    $ax = 0.45;
+        //}
 
         $xsolu = exp(-$ax * pow($num, 2));
 
@@ -2419,11 +2420,12 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $num = $dslm - $dsa;
 
         #Realmente depende del tamaño del agregado
-        if ($mwa <= 750) {
-            $ax = 1.01597203520425;
-        } else {
-            $ax = 0.45;
-        }
+        $ax = 1.01597203520425;
+        //if ($mwa <= 750) {
+        //    $ax = 1.01597203520425;
+        //} else {
+        //    $ax = 0.45;
+        //}
 
         $xsolu = exp(-$ax * pow($num, 2));
         $den = $mwa * $xia[$m] / ($rhoa * 62.4);

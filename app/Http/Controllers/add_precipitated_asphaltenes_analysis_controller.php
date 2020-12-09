@@ -2873,7 +2873,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             if ($flag_s == 1) {
                 $ns = 1;
                 for ($j = 1; $j <= 20; $j++) {
-                    if ($taps < $tc) {
+                    if ($taps < ($tc + 460)) {
                         $paps = $p_enc[$j];
                         $solid_region_1_results = $this->solid_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
                         $wat = $solid_region_1_results[0];
@@ -2892,7 +2892,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 for ($j = 1; $j <= 20; $j++) {
                     $paps = $p_deb[$j];
                     if ($paps > 14.7) {
-                        if ($taps < $tc) {
+                        if ($taps < ($tc + 460)) {
                             $solid_region_2_results = $this->solid_region_2($paps, $taps, $n, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
                             $wat = $solid_region_2_results[0];
                             $s = $solid_region_2_results[1];

@@ -313,7 +313,13 @@
                      <br>
                      <div class="row">
                         <div class="col-md-12">
-                           <button class="btn btn-primary pull-right" onclick="plot_asphaltene_table()">Plot</button>  
+                           <div class="row">
+                              <div class="col-xs-0 col-md-6"></div>
+                              <div class="col-xs-12 col-md-6" align="right">
+                                <button class="btn btn-primary" onclick="import_solid_results()">Import from Precipitated Analysis</button> 
+                                <button class="btn btn-primary" onclick="plot_asphaltene_table()">Plot</button> 
+                              </div>
+                           </div>
                            {!! Form::hidden('value_asphaltenes_table', '', array('class' => 'form-control', 'id' => 'value_asphaltenes_table')) !!}
                            {!! Form::hidden('asphaltenes_data_range_flag', '', array('class' => 'form-control', 'id' => 'asphaltenes_data_range_flag')) !!}
                         </div>

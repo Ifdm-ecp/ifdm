@@ -115,31 +115,6 @@
         }
     }
 
-    function import_solid_results() {
-        var evt = window.event || arguments.callee.caller.arguments[0];
-        evt.preventDefault();
-        var hot_asphaltenes_table = $('#asphaltenes_table').handsontable('getInstance');
-
-        var table_solid_a = [];
-        $.get("{{ url('get_solid_a_results') }}", {
-            scenario_id: $('#id_scenary').val()
-        }, function (data) {
-            $.each(data, function (index, value) {
-                var solid_a = [];
-                solid_a.push(value.pressure);
-                solid_a.push(value.a);
-
-                table_solid_a.push(solid_a);
-            });
-            table_solid_a.reverse();
-            hot_asphaltenes_table.updateSettings({
-                data: table_solid_a
-            });
-
-            hot_asphaltenes_table.render();
-        });
-    }
-
     //Graficar tabla PVT
     //Limpiar los datos para no graficar valores vacios
     function plot_pvt_table() {
@@ -301,6 +276,31 @@
         } else {
             alert('Please complete all the information in "Asphaltenes Data" section.');
         }
+    }
+
+    function import_solid_results() {
+        var evt = window.event || arguments.callee.caller.arguments[0];
+        evt.preventDefault();
+        var hot_asphaltenes_table = $('#asphaltenes_table').handsontable('getInstance');
+
+        var table_solid_a = [];
+        $.get("{{ url('get_solid_a_results') }}", {
+            scenario_id: $('#id_scenary').val()
+        }, function (data) {
+            $.each(data, function (index, value) {
+                var solid_a = [];
+                solid_a.push(value.pressure);
+                solid_a.push(value.a);
+
+                table_solid_a.push(solid_a);
+            });
+            table_solid_a.reverse();
+            hot_asphaltenes_table.updateSettings({
+                data: table_solid_a
+            });
+
+            hot_asphaltenes_table.render();
+        });
     }
     
     $(document).ready(function() {

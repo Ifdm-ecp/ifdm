@@ -163,41 +163,29 @@
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (oil_volumetric_factor === null || oil_volumetric_factor === "")) ? true: emptyValues;
-
-      var oil_specific_gravity = $("#oil_specific_gravity").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, oil_specific_gravity, production_data_ruleset[5]);
-      titleTab = validationFunctionResult[0];
-      validationMessages = validationFunctionResult[1];
-      emptyValues = (emptyValues === false && (oil_specific_gravity === null || oil_specific_gravity === "")) ? true: emptyValues;
     }
 
     if (fluid_of_interest == "2") {
       var gas_rate = $("#gas_rate").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_rate, production_data_ruleset[6]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_rate, production_data_ruleset[5]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (gas_rate === null || gas_rate === "")) ? true: emptyValues;
 
       var gas_bottomhole_flowing_pressure = $("#gas_bottomhole_flowing_pressure").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_bottomhole_flowing_pressure, production_data_ruleset[7]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_bottomhole_flowing_pressure, production_data_ruleset[6]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (gas_bottomhole_flowing_pressure === null || gas_bottomhole_flowing_pressure === "")) ? true: emptyValues;
 
       var gas_viscosity = $("#gas_viscosity").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_viscosity, production_data_ruleset[8]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_viscosity, production_data_ruleset[7]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (gas_viscosity === null || gas_viscosity === "")) ? true: emptyValues;
 
       var gas_volumetric_factor = $("#gas_volumetric_factor").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_volumetric_factor, production_data_ruleset[9]);
-      titleTab = validationFunctionResult[0];
-      validationMessages = validationFunctionResult[1];
-      emptyValues = (emptyValues === false && (gas_volumetric_factor === null || gas_volumetric_factor === "")) ? true: emptyValues;
-
-      var gas_specific_gravity = $("#gas_specific_gravity").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_volumetric_factor, production_data_ruleset[10]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, gas_volumetric_factor, production_data_ruleset[8]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (gas_volumetric_factor === null || gas_volumetric_factor === "")) ? true: emptyValues;
@@ -205,40 +193,34 @@
 
     if (fluid_of_interest == "3") {
       var water_rate = $("#water_rate").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_rate, production_data_ruleset[11]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_rate, production_data_ruleset[9]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (water_rate === null || water_rate === "")) ? true: emptyValues;
 
       var water_bottomhole_flowing_pressure = $("#water_bottomhole_flowing_pressure").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_bottomhole_flowing_pressure, production_data_ruleset[12]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_bottomhole_flowing_pressure, production_data_ruleset[10]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (water_bottomhole_flowing_pressure === null || water_bottomhole_flowing_pressure === "")) ? true: emptyValues;
 
       var water_viscosity = $("#water_viscosity").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_viscosity, production_data_ruleset[13]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_viscosity, production_data_ruleset[11]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (water_viscosity === null || water_viscosity === "")) ? true: emptyValues;
 
       var water_volumetric_factor = $("#water_volumetric_factor").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_volumetric_factor, production_data_ruleset[14]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_volumetric_factor, production_data_ruleset[12]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (water_volumetric_factor === null || water_volumetric_factor === "")) ? true: emptyValues;
-
-      var water_specific_gravity = $("#water_specific_gravity").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, water_specific_gravity, production_data_ruleset[15]);
-      titleTab = validationFunctionResult[0];
-      validationMessages = validationFunctionResult[1];
-      emptyValues = (emptyValues === false && (water_specific_gravity === null || water_specific_gravity === "")) ? true: emptyValues;
     }
 
     if (fluid_of_interest == "4") {
 
       var emulsion = $("#emulsion").val();
-      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, emulsion, production_data_ruleset[16]);
+      validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, emulsion, production_data_ruleset[13]);
       titleTab = validationFunctionResult[0];
       validationMessages = validationFunctionResult[1];
       emptyValues = (emptyValues === false && (emulsion === null || emulsion === "")) ? true: emptyValues;
@@ -246,7 +228,7 @@
       if (emulsion == "1") {
 
         var characterized_mixture = $("#characterized_mixture").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, characterized_mixture, production_data_ruleset[17]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, characterized_mixture, production_data_ruleset[14]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (characterized_mixture === null || characterized_mixture === "")) ? true: emptyValues;
@@ -254,43 +236,43 @@
         if (characterized_mixture == "1") {
 
           var flow_rate_1_1 = $("#flow_rate_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_1, production_data_ruleset[18]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_1, production_data_ruleset[15]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (flow_rate_1_1 === null || flow_rate_1_1 === "")) ? true: emptyValues;
 
           var mixture_bottomhole_flowing_pressure_1_1 = $("#mixture_bottomhole_flowing_pressure_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_1, production_data_ruleset[19]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_1, production_data_ruleset[16]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_1_1 === null || mixture_bottomhole_flowing_pressure_1_1 === "")) ? true: emptyValues;
 
           var mixture_viscosity_1_1 = $("#mixture_viscosity_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_viscosity_1_1, production_data_ruleset[20]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_viscosity_1_1, production_data_ruleset[17]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_viscosity_1_1 === null || mixture_viscosity_1_1 === "")) ? true: emptyValues;
 
           var mixture_oil_volumetric_factor_1_1 = $("#mixture_oil_volumetric_factor_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_1, production_data_ruleset[21]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_1, production_data_ruleset[18]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_1_1 === null || mixture_oil_volumetric_factor_1_1 === "")) ? true: emptyValues;
 
           var mixture_water_volumetric_factor_1_1 = $("#mixture_water_volumetric_factor_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_1, production_data_ruleset[22]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_1, production_data_ruleset[19]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_1_1 === null || mixture_water_volumetric_factor_1_1 === "")) ? true: emptyValues;
 
           var mixture_oil_fraction_1_1 = $("#mixture_oil_fraction_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_1, production_data_ruleset[23]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_1, production_data_ruleset[20]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_oil_fraction_1_1 === null || mixture_oil_fraction_1_1 === "")) ? true: emptyValues;
 
           var mixture_water_fraction_1_1 = $("#mixture_water_fraction_1_1").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_1, production_data_ruleset[24]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_1, production_data_ruleset[21]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_water_fraction_1_1 === null || mixture_water_fraction_1_1 === "")) ? true: emptyValues;
@@ -300,49 +282,49 @@
           console.log('manolo');
 
           var flow_rate_1_2 = $("#flow_rate_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_2, production_data_ruleset[25]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_1_2, production_data_ruleset[22]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (flow_rate_1_2 === null || flow_rate_1_2 === "")) ? true: emptyValues;
 
           var mixture_bottomhole_flowing_pressure_1_2 = $("#mixture_bottomhole_flowing_pressure_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_2, production_data_ruleset[26]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_1_2, production_data_ruleset[23]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_1_2 === null || mixture_bottomhole_flowing_pressure_1_2 === "")) ? true: emptyValues;
 
           var mixture_oil_viscosity_1_2 = $("#mixture_oil_viscosity_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_1_2, production_data_ruleset[27]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_1_2, production_data_ruleset[24]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_oil_viscosity_1_2 === null || mixture_oil_viscosity_1_2 === "")) ? true: emptyValues;
 
           var mixture_water_viscosity_1_2 = $("#mixture_water_viscosity_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_1_2, production_data_ruleset[28]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_1_2, production_data_ruleset[25]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_water_viscosity_1_2 === null || mixture_water_viscosity_1_2 === "")) ? true: emptyValues;
 
           var mixture_oil_fraction_1_2 = $("#mixture_oil_fraction_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_2, production_data_ruleset[29]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_1_2, production_data_ruleset[26]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_oil_fraction_1_2 === null || mixture_oil_fraction_1_2 === "")) ? true: emptyValues;
 
           var mixture_water_fraction_1_2 = $("#mixture_water_fraction_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_2, production_data_ruleset[30]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_1_2, production_data_ruleset[27]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_water_fraction_1_2 === null || mixture_water_fraction_1_2 === "")) ? true: emptyValues;
 
           var mixture_oil_volumetric_factor_1_2 = $("#mixture_oil_volumetric_factor_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_2, production_data_ruleset[31]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_1_2, production_data_ruleset[28]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_1_2 === null || mixture_oil_volumetric_factor_1_2 === "")) ? true: emptyValues;
 
           var mixture_water_volumetric_factor_1_2 = $("#mixture_water_volumetric_factor_1_2").val();
-          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_2, production_data_ruleset[32]);
+          validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_1_2, production_data_ruleset[29]);
           titleTab = validationFunctionResult[0];
           validationMessages = validationFunctionResult[1];
           emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_1_2 === null || mixture_water_volumetric_factor_1_2 === "")) ? true: emptyValues;
@@ -354,49 +336,49 @@
         console.log('guandolo');
 
         var flow_rate_2 = $("#flow_rate_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_2, production_data_ruleset[33]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, flow_rate_2, production_data_ruleset[30]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (flow_rate_2 === null || flow_rate_2 === "")) ? true: emptyValues;
 
         var mixture_bottomhole_flowing_pressure_2 = $("#mixture_bottomhole_flowing_pressure_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_2, production_data_ruleset[34]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_bottomhole_flowing_pressure_2, production_data_ruleset[31]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_bottomhole_flowing_pressure_2 === null || mixture_bottomhole_flowing_pressure_2 === "")) ? true: emptyValues;
 
         var mixture_oil_viscosity_2 = $("#mixture_oil_viscosity_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_2, production_data_ruleset[35]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_viscosity_2, production_data_ruleset[32]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_oil_viscosity_2 === null || mixture_oil_viscosity_2 === "")) ? true: emptyValues;
 
         var mixture_water_viscosity_2 = $("#mixture_water_viscosity_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_2, production_data_ruleset[36]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_viscosity_2, production_data_ruleset[33]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_water_viscosity_2 === null || mixture_water_viscosity_2 === "")) ? true: emptyValues;
 
         var mixture_oil_fraction_2 = $("#mixture_oil_fraction_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_2, production_data_ruleset[37]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_fraction_2, production_data_ruleset[34]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_oil_fraction_2 === null || mixture_oil_fraction_2 === "")) ? true: emptyValues;
 
         var mixture_water_fraction_2 = $("#mixture_water_fraction_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_2, production_data_ruleset[38]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_fraction_2, production_data_ruleset[35]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_water_fraction_2 === null || mixture_water_fraction_2 === "")) ? true: emptyValues;
 
         var mixture_oil_volumetric_factor_2 = $("#mixture_oil_volumetric_factor_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_2, production_data_ruleset[39]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_oil_volumetric_factor_2, production_data_ruleset[36]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_oil_volumetric_factor_2 === null || mixture_oil_volumetric_factor_2 === "")) ? true: emptyValues;
 
         var mixture_water_volumetric_factor_2 = $("#mixture_water_volumetric_factor_2").val();
-        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_2, production_data_ruleset[40]);
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, mixture_water_volumetric_factor_2, production_data_ruleset[37]);
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && (mixture_water_volumetric_factor_2 === null || mixture_water_volumetric_factor_2 === "")) ? true: emptyValues;

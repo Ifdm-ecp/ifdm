@@ -161,6 +161,14 @@ production_data_ruleset = [
     ]
   },
   {
+    column: "Oil Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100}
+    ]
+  },
+  {
     column: "Gas Rate",
     rules: [
       {rule: "required"},
@@ -193,6 +201,14 @@ production_data_ruleset = [
     ]
   },
   {
+    column: "Gas Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100}
+    ]
+  },
+  {
     column: "Water Rate",
     rules: [
       {rule: "required"},
@@ -222,6 +238,14 @@ production_data_ruleset = [
       {rule: "required"},
       {rule: "numeric"},
       {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100}
     ]
   },
   {

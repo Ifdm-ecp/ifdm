@@ -422,6 +422,18 @@
                               </div>
                            </div>
                         </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('oil_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del aceite', 'Oil Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('oil_specific_gravity', $disaggregation->oil_specific_gravity, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'oil_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('oil_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <div id="hidden_gas" style="display: none;">
                         <div class="row">
@@ -429,8 +441,8 @@
                               <div class="form-group">
                                  {!! Form::label('gas rate', 'Gas Rate ', array('class' => 'required')) !!}
                                  <div class="input-group {{$errors->has('gas_rate') ? 'has-error' : ''}}">
-                                    {!! Form::text('gas_rate', $disaggregation->gas_rate, ['placeholder' => 'bbls/day', 'class' =>'form-control', 'id' => 'gas_rate']) !!}
-                                    <span class="input-group-addon" id="basic-addon2">bbls/day</span>
+                                    {!! Form::text('gas_rate', $disaggregation->gas_rate, ['placeholder' => 'Mfsc/d', 'class' =>'form-control', 'id' => 'gas_rate']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">Mfsc/d</span>
                                  </div>
                                  {!! $errors->first('gas_rate', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
@@ -465,6 +477,18 @@
                                     <span class="input-group-addon" id="basic-addon2">-</span>
                                  </div>
                                  {!! $errors->first('gas_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('gas_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del gas', 'Gas Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('gas_specific_gravity', $disaggregation->gas_specific_gravity, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gas_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('gas_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
                            </div>
                         </div>
@@ -511,6 +535,18 @@
                                     <span class="input-group-addon" id="basic-addon2">-</span>
                                  </div>
                                  {!! $errors->first('water_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('water_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del agua', 'Water Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('water_specific_gravity', $disaggregation->water_specific_gravity, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'water_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('water_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
                            </div>
                         </div>

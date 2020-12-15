@@ -165,7 +165,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -205,7 +205,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {
@@ -245,7 +245,7 @@ production_data_ruleset = [
     rules: [
       {rule: "required"},
       {rule: "numeric"},
-      {rule: "range", min: 0, max: 100}
+      {rule: "range", min: 0, max: 10}
     ]
   },
   {

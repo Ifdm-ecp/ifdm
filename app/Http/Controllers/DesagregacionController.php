@@ -94,6 +94,7 @@ class desagregacionController extends Controller
                     'oil_bottomhole_flowing_pressure' => $request->input('oil_bottomhole_flowing_pressure'),
                     'oil_viscosity' => $request->input('oil_viscosity'),
                     'oil_volumetric_factor' => $request->input('oil_volumetric_factor'),
+                    'oil_specific_gravity' => $request->input('oil_specific_gravity'),
                 ]);
             } elseif ($request->input('fluid_of_interest') == 2) {
                 DB::table('desagregacion')->where('id_escenario', $scenaryId)->update([
@@ -109,6 +110,7 @@ class desagregacionController extends Controller
                     'water_bottomhole_flowing_pressure' => $request->input('water_bottomhole_flowing_pressure'),
                     'water_viscosity' => $request->input('water_viscosity'),
                     'water_volumetric_factor' => $request->input('water_volumetric_factor'),
+                    'water_specific_gravity' => $request->input('water_specific_gravity'),
                 ]);
             }elseif ($request->input('fluid_of_interest') == 4) {
                 if ($request->input('emulsion') == 1) {
@@ -261,7 +263,8 @@ class desagregacionController extends Controller
                     $bottomhole_flowing_pressure = $request->get("oil_bottomhole_flowing_pressure");
                     $fluid_viscosity = $request->get("oil_viscosity");
                     $fluid_volumetric_factor = $request->get("oil_volumetric_factor");
-                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = $fluid_specific_gravity = 1;
+                    $fluid_specific_gravity = $request->get("oil_specific_gravity");
+                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                 } elseif ($request->input('fluid_of_interest') == 2) {
                     $fluid_rate = $request->get("gas_rate");
                     $bottomhole_flowing_pressure = $request->get("gas_bottomhole_flowing_pressure");
@@ -274,7 +277,8 @@ class desagregacionController extends Controller
                     $bottomhole_flowing_pressure = $request->get("water_bottomhole_flowing_pressure");
                     $fluid_viscosity = $request->get("water_viscosity");
                     $fluid_volumetric_factor = $request->get("water_volumetric_factor");
-                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = $fluid_specific_gravity = 1;
+                    $fluid_specific_gravity = $request->get("water_specific_gravity");
+                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                 }elseif ($request->input('fluid_of_interest') == 4) {
                     if ($request->input('emulsion') == 1) {
                         if ($request->input('characterized_mixture') == 1) {
@@ -521,6 +525,7 @@ class desagregacionController extends Controller
                     'oil_bottomhole_flowing_pressure' => $request->input('oil_bottomhole_flowing_pressure'),
                     'oil_viscosity' => $request->input('oil_viscosity'),
                     'oil_volumetric_factor' => $request->input('oil_volumetric_factor'),
+                    'oil_specific_gravity' => $request->input('oil_specific_gravity'),
                 ]);
             } elseif ($request->input('fluid_of_interest') == 2) {
                 DB::table('desagregacion')->where('id_escenario', $scenaryId)->update([
@@ -536,6 +541,7 @@ class desagregacionController extends Controller
                     'water_bottomhole_flowing_pressure' => $request->input('water_bottomhole_flowing_pressure'),
                     'water_viscosity' => $request->input('water_viscosity'),
                     'water_volumetric_factor' => $request->input('water_volumetric_factor'),
+                    'water_specific_gravity' => $request->input('water_specific_gravity'),
                 ]);
             }elseif ($request->input('fluid_of_interest') == 4) {
                 if ($request->input('emulsion') == 1) {
@@ -688,7 +694,8 @@ class desagregacionController extends Controller
                     $bottomhole_flowing_pressure = $request->get("oil_bottomhole_flowing_pressure");
                     $fluid_viscosity = $request->get("oil_viscosity");
                     $fluid_volumetric_factor = $request->get("oil_volumetric_factor");
-                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = $fluid_specific_gravity = 1;
+                    $fluid_specific_gravity = $request->get("oil_specific_gravity");
+                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                 } elseif ($request->input('fluid_of_interest') == 2) {
                     $fluid_rate = $request->get("gas_rate");
                     $bottomhole_flowing_pressure = $request->get("gas_bottomhole_flowing_pressure");
@@ -701,7 +708,8 @@ class desagregacionController extends Controller
                     $bottomhole_flowing_pressure = $request->get("water_bottomhole_flowing_pressure");
                     $fluid_viscosity = $request->get("water_viscosity");
                     $fluid_volumetric_factor = $request->get("water_volumetric_factor");
-                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = $fluid_specific_gravity = 1;
+                    $fluid_specific_gravity = $request->get("water_specific_gravity");
+                    $emulsion = $characterized_mixture = $mixture_rate = $mixture_bottomhole_flowing_pressure = $mixture_viscosity = $mixture_volumetric_factor = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_1 = $mixture_bottomhole_flowing_pressure_1_1 = $mixture_viscosity_1_1 = $mixture_oil_volumetric_factor_1_1 = $mixture_water_volumetric_factor_1_1 = $mixture_oil_fraction_1_1 = $mixture_water_fraction_1_1 = $flow_rate_1_2 = $mixture_bottomhole_flowing_pressure_1_2 = $mixture_oil_viscosity_1_2 = $mixture_water_viscosity_1_2 = $mixture_oil_fraction_1_2 = $mixture_water_fraction_1_2 = $mixture_oil_volumetric_factor_1_2 = $mixture_water_volumetric_factor_1_2 = $flow_rate_2 = $mixture_bottomhole_flowing_pressure_2 = $mixture_oil_viscosity_2 = $mixture_water_viscosity_2 = $mixture_oil_fraction_2 = $mixture_water_fraction_2 = $mixture_oil_volumetric_factor_2 = $mixture_water_volumetric_factor_2 = 1;
                 }elseif ($request->input('fluid_of_interest') == 4) {
                     if ($request->input('emulsion') == 1) {
                         if ($request->input('characterized_mixture') == 1) {
@@ -1040,7 +1048,7 @@ class desagregacionController extends Controller
         #Promedio de permeablidad_zona_afectada de a dos, en lugar de valor puntual
         $well_point_i_distance = $this->well_point_i_distance($well_radius, 10);
         $sum = [];
-
+        
         for ($i = 0; $i < count($well_point_i_distance) - 1; $i++) {
             array_push($sum, (log($well_point_i_distance[$i + 1] / $well_point_i_distance[$i])) * (pow(M_E, $well_permeability_module * $effective_stress[$i])));
         }
@@ -1376,7 +1384,7 @@ class desagregacionController extends Controller
 
         //REVISADO 2
         $well_permeability_module = $this->well_permeability_module($permeability_module); /* Nuevos datos de unidades hidráulicas calculadas en la función permeability_module (Antes estaba hidraulic_units_data) */
-
+        
         //REVISADO 3
         $hidraulic_units_data = $this->friction_coefficient($permeability_module); /* Nuevos datos de unidades hidráulicas calculadas en la función permeability_module (Antes estaba hidraulic_units_data) */
 
@@ -1444,7 +1452,7 @@ class desagregacionController extends Controller
         if ($well_completitions == 3) {
             //REVISADO 11
             $damage_by_deflection = $this->damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $formation_thickness, $well_radius);
-
+            
             //REVISADO 12
             $damage_by_partial_penetration = $this->damage_by_partial_penetration($formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius);
 
@@ -1485,7 +1493,7 @@ class desagregacionController extends Controller
         //dd($mechanical_damage);
 
         $results = array($skin, $mechanical_damage, $stress_damage, $total_pseudo_skin, $damage_ratio, $pressure_axis, $pressure_axis/* $permeability_axis */, $well_friction_coefficient, $well_permeability_module, $pore_pressure_view, $stress_damage_results_view);
-
+        
         return $results;
     }
 }

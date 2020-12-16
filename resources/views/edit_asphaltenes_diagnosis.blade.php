@@ -168,7 +168,7 @@
                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                     </span>
                                   @endif
-                                 {!! Form::text('asphaltene_apparent_density',$asphaltenes_d_diagnosis->asphaltene_apparent_density, ['placeholder' => 'um', 'class' =>'form-control', 'id' => 'asphaltene_apparent_density']) !!}
+                                 {!! Form::text('asphaltene_apparent_density',$asphaltenes_d_diagnosis->asphaltene_apparent_density, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'asphaltene_apparent_density']) !!}
                                  <span class="input-group-addon" id="basic-addon2">g/cc</span>
                               </div>
                            </div>

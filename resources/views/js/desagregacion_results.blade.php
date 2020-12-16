@@ -53,11 +53,14 @@
     
     function draw_results_table(data)
     {
-        document.getElementById("tabla"/* + numero */+ "11").innerHTML = Math.round(data[0]*100)/100;
-        document.getElementById("tabla"/* + numero */+ "21").innerHTML = Math.round(data[1]*100)/100;
-        document.getElementById("tabla"/* + numero */+ "31").innerHTML = Math.round(data[2]*100)/100;
-        document.getElementById("tabla"/* + numero */+ "41").innerHTML = Math.round(data[3]*100)/100;
-        document.getElementById("tabla"/* + numero */+ "51").innerHTML = Math.round(data[4]*100)/100;
+        document.getElementById("tabla"/* + numero */+ "11").innerHTML = data[0].toFixed(4);
+        document.getElementById("tabla"/* + numero */+ "21").innerHTML = data[1].toFixed(4);
+        document.getElementById("tabla"/* + numero */+ "31").innerHTML = data[2].toFixed(4);
+        document.getElementById("tabla"/* + numero */+ "41").innerHTML = data[3].toFixed(4);
+        document.getElementById("tabla"/* + numero */+ "51").innerHTML = data[4].toFixed(4);
+        //document.getElementById("tabla"/* + numero */+ "51").innerHTML = Math.round(data[4]*100)/100;
+
+        console.log(data);
     
         if (data[0] != 0) 
         {

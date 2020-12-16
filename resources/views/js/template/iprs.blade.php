@@ -405,6 +405,9 @@
     gas_compressibility_factor.pop();
     gas_compressibility_factor.pop();
 
+    console.log(gas_viscosity);
+    console.log(gas_compressibility_factor);
+
     $('#graph_gas_viscosity').highcharts({
       title: {
         text: 'Gas Viscosity',
@@ -451,8 +454,7 @@
       xAxis: {
         title: {
           text: 'Pressure [psi]'
-        },
-        categories: pressure
+        }
       },
       yAxis: {
         title: {
@@ -477,7 +479,7 @@
         name: 'Gas Compressibility Factor',
         data: gas_compressibility_factor,
         tooltip:{
-          valueSuffix: ''
+          valueSuffix: ' [-]'
         }
       }]
     });

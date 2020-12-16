@@ -422,6 +422,18 @@
                               </div>
                            </div>
                         </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('oil_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del aceite', 'Oil Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('oil_specific_gravity', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'oil_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('oil_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <div id="hidden_gas" style="display: none;">
                         <div class="row">
@@ -468,6 +480,18 @@
                               </div>
                            </div>
                         </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('gas_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del gas', 'Gas Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('gas_specific_gravity', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'gas_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('gas_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
                      </div>
                      <div id="hidden_water" style="display: none;">
                         <div class="row">
@@ -511,6 +535,18 @@
                                     <span class="input-group-addon" id="basic-addon2">-</span>
                                  </div>
                                  {!! $errors->first('water_volumetric_factor', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group {{$errors->has('water_specific_gravity') ? 'has-error' : ''}}">
+                                 {!! Form::label('gravedad específica del agua', 'Water Specific Gravity ', array('class' => 'required')) !!}
+                                 <div class="input-group">
+                                    {!! Form::text('water_specific_gravity', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'water_specific_gravity']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">-</span>
+                                 </div>
+                                 {!! $errors->first('water_specific_gravity', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                               </div>
                            </div>
                         </div>
@@ -611,6 +647,28 @@
                                     {!! $errors->first('mixture_water_fraction_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_specific_gravity_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil specific gravity 1 1', 'Oil Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_specific_gravity_1_1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_specific_gravity_1_1']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_specific_gravity_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_specific_gravity_1_1') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water specific gravity 1 1', 'Water Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_specific_gravity_1_1', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_specific_gravity_1_1']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_specific_gravity_1_1', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
                            </div>
                         </div>
                         <div id="hidden_has_emulsion_hasnt_characterized_mixture" style="display: none;">
@@ -703,6 +761,28 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_specific_gravity_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil specific gravity 1 2', 'Oil Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_specific_gravity_1_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_specific_gravity_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_specific_gravity_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_specific_gravity_1_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water specific gravity 1 2', 'Water Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_specific_gravity_1_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_specific_gravity_1_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_specific_gravity_1_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
                         </div>
                         <div id="hidden_hasnt_emulsion" style="display: none;">
                            <hr>
@@ -791,6 +871,28 @@
                                        <span class="input-group-addon" id="basic-addon2">-</span>
                                     </div>
                                     {!! $errors->first('mixture_water_volumetric_factor_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_oil_specific_gravity_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture oil specific gravity 2', 'Oil Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_oil_specific_gravity_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_oil_specific_gravity_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_oil_specific_gravity_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="form-group {{$errors->has('mixture_water_specific_gravity_2') ? 'has-error' : ''}}">
+                                    {!! Form::label('mixture water specific gravity 2', 'Water Specific Gravity ', array('class' => 'required')) !!}
+                                    <div class="input-group">
+                                       {!! Form::text('mixture_water_specific_gravity_2', null, ['placeholder' => '-', 'class' =>'form-control', 'id' => 'mixture_water_specific_gravity_2']) !!}
+                                       <span class="input-group-addon" id="basic-addon2">-</span>
+                                    </div>
+                                    {!! $errors->first('mixture_water_specific_gravity_2', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                                  </div>
                               </div>
                            </div>

@@ -161,6 +161,14 @@ production_data_ruleset = [
     ]
   },
   {
+    column: "Oil Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
     column: "Gas Rate",
     rules: [
       {rule: "required"},
@@ -193,6 +201,14 @@ production_data_ruleset = [
     ]
   },
   {
+    column: "Gas Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
     column: "Water Rate",
     rules: [
       {rule: "required"},
@@ -218,6 +234,14 @@ production_data_ruleset = [
   },
   {
     column: "Water Volumetric Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Specific Gravity",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -301,55 +325,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Flow Rate",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 1, max: 10000}
-    ]
-  },
-  {
-    column: "Bottomhole Flowing Pressure",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 10000}
-    ]
-  },
-  {
-    column: "Oil Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000}
-    ]
-  },
-  {
-    column: "Water Viscosity",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 100000}
-    ]
-  },
-  {
-    column: "Oil Fraction",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1}
-    ]
-  },
-  {
-    column: "Water Fraction",
-    rules: [
-      {rule: "required"},
-      {rule: "numeric"},
-      {rule: "range", min: 0, max: 1}
-    ]
-  },
-  {
-    column: "Oil Volume Factor",
+    column: "Oil Specific Gravity",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -357,7 +333,7 @@ production_data_ruleset = [
     ]
   },
   {
-    column: "Water Volume Factor",
+    column: "Water Specific Gravity",
     rules: [
       {rule: "required"},
       {rule: "numeric"},
@@ -422,6 +398,102 @@ production_data_ruleset = [
   },
   {
     column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Oil Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Flow Rate",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 1, max: 10000}
+    ]
+  },
+  {
+    column: "Bottomhole Flowing Pressure",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10000}
+    ]
+  },
+  {
+    column: "Oil Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Water Viscosity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 100000}
+    ]
+  },
+  {
+    column: "Oil Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Water Fraction",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 1}
+    ]
+  },
+  {
+    column: "Oil Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Volume Factor",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Oil Specific Gravity",
+    rules: [
+      {rule: "required"},
+      {rule: "numeric"},
+      {rule: "range", min: 0, max: 10}
+    ]
+  },
+  {
+    column: "Water Specific Gravity",
     rules: [
       {rule: "required"},
       {rule: "numeric"},

@@ -12,13 +12,14 @@
 <div id="sticky-anchor"  class="col-md-6"></div>
 <div id="sticky">
 <center>
-      {!! Form::label('Scenario: ') !!} {!! Form::label('scenary_name', $scenary->nombre) !!} {!! Form::label(' - Basin: ') !!} {!! Form::label('basin_name', $cuenca->nombre) !!} {!! Form::label(' - Field: ') !!} {!! Form::label('field_name', $campo->nombre) !!} {!! Form::label(' - Producing interval: ') !!} {!! Form::label('interval_name', $formacion->nombre) !!} {!! Form::label(' - Well: ') !!} {!! Form::label('well_name', $pozo->nombre) !!} {!! Form::label(' - User: ') !!} {!! Form::label('user_name', $user->fullName) !!}
-   </center>
+   {!! Form::label('Scenario: ') !!} {!! Form::label('scenary_name', $scenary->nombre) !!} {!! Form::label(' - Basin: ') !!} {!! Form::label('basin_name', $cuenca->nombre) !!} {!! Form::label(' - Field: ') !!} {!! Form::label('field_name', $campo->nombre) !!} {!! Form::label(' - Producing interval: ') !!} {!! Form::label('interval_name', $formacion->nombre) !!} {!! Form::label(' - Well: ') !!} {!! Form::label('well_name', $pozo->nombre) !!} {!! Form::label(' - User: ') !!} {!! Form::label('user_name', $user->fullName) !!}
+</center>
 </div>
 <p></p>
 </br>
 
 {!!Form::open(['action' => ['add_asphaltenes_diagnosis_controller@store', 'scenaryId' => $scenaryId], 'method' => 'post', 'id' => 'DiagnosisAsphaltenesForm'])!!}
+<input type="hidden" name="id_scenary" id="id_scenary" value="{{ $scenary->id }}">
 
 @include('layouts/general_advisor')
 

@@ -37,14 +37,6 @@
                 <br>
                 <div class="row">
                   <div class="panel panel-default">
-                     <div class="panel-heading"><b>Pressure</b></div>
-                     <div class="panel-body">
-                       <div id="pressure_chart"></div>
-                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="panel panel-default">
                      <div class="panel-heading"><b>Porosity</b></div>
                      <div class="panel-body">
                        <div id="porosity_chart"></div>
@@ -56,22 +48,6 @@
                      <div class="panel-heading"><b>Permeability</b></div>
                      <div class="panel-body">
                        <div id="permeability_chart"></div>
-                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="panel panel-default">
-                     <div class="panel-heading"><b>Deposited Asphaltenes</b></div>
-                     <div class="panel-body">
-                       <div id="deposited_asphaltenes_chart"></div>
-                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="panel panel-default">
-                     <div class="panel-heading"><b>Soluble Asphaltenes</b></div>
-                     <div class="panel-body">
-                       <div id="soluble_asphaltenes_chart"></div>
                      </div>
                   </div>
                 </div>

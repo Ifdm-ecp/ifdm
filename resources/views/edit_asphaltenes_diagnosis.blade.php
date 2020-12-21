@@ -175,15 +175,15 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('compressibility') ? 'has-error' : ''}}">
+                              {!! Form::label('current_pressure_label', 'Current Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('current_pressure') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                     <span class="input-group-btn">
                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                     </span>
                                   @endif
-                                 {!! Form::text('compressibility',$asphaltenes_d_diagnosis->compressibility, ['placeholder' => '1/psi', 'class' =>'form-control', 'id' => 'compressibility']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">1/psi</span>
+                                 {!! Form::text('current_pressure',$asphaltenes_d_diagnosis->current_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_pressure']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
                            </div>
                         </div>

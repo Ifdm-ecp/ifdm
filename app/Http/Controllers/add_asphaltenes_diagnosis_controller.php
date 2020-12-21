@@ -98,7 +98,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $asphaltenes_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $asphaltenes_d_diagnosis->net_pay = $request->input('net_pay');
         $asphaltenes_d_diagnosis->wellbore_radius = $request->input('wellbore_radius');
-        $asphaltenes_d_diagnosis->compressibility = $request->input('compressibility');
+        $asphaltenes_d_diagnosis->current_pressure = $request->input('current_pressure');
         $asphaltenes_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $asphaltenes_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         $asphaltenes_d_diagnosis->initial_permeability = $request->input('initial_permeability');
@@ -240,7 +240,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $drainage_radius = $asphaltenes_d_diagnosis->drainage_radius; #rdre
         $formation_height = $asphaltenes_d_diagnosis->net_pay; #hf
         $well_radius = $asphaltenes_d_diagnosis->wellbore_radius; #rw ?
-        $rock_fluid_compressibility = $asphaltenes_d_diagnosis->compressibility; #CR ?
+        $current_pressure = $asphaltenes_d_diagnosis->current_pressure; #pact ?
         $reservoir_initial_pressure = $asphaltenes_d_diagnosis->initial_pressure; #pini ?
         $reservoir_initial_porosity = $asphaltenes_d_diagnosis->initial_porosity; #phio ?
         $reservoir_initial_permeability = $asphaltenes_d_diagnosis->initial_permeability; #ko ? 
@@ -250,7 +250,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $rock_fluid_compressibility, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
+                $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
@@ -447,7 +447,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $asphaltenes_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $asphaltenes_d_diagnosis->net_pay = $request->input('net_pay');
         $asphaltenes_d_diagnosis->wellbore_radius = $request->input('wellbore_radius');
-        $asphaltenes_d_diagnosis->compressibility = $request->input('compressibility');
+        $asphaltenes_d_diagnosis->current_pressure = $request->input('current_pressure');
         $asphaltenes_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $asphaltenes_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         $asphaltenes_d_diagnosis->initial_permeability = $request->input('initial_permeability');
@@ -558,7 +558,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $drainage_radius = $asphaltenes_d_diagnosis->drainage_radius; #rdre
         $formation_height = $asphaltenes_d_diagnosis->net_pay; #hf
         $well_radius = $asphaltenes_d_diagnosis->wellbore_radius; #rw ?
-        $rock_fluid_compressibility = $asphaltenes_d_diagnosis->compressibility; #CR ?
+        $current_pressure = $asphaltenes_d_diagnosis->current_pressure; #pact ?
         $reservoir_initial_pressure = $asphaltenes_d_diagnosis->initial_pressure; #pini ?
         $reservoir_initial_porosity = $asphaltenes_d_diagnosis->initial_porosity; #phio ?
         $reservoir_initial_permeability = $asphaltenes_d_diagnosis->initial_permeability; #ko ? 
@@ -568,7 +568,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $rock_fluid_compressibility, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
+                $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
@@ -892,12 +892,12 @@ class add_asphaltenes_diagnosis_controller extends Controller
         return array($co, $rl);
     }
 
-    function simulate_deposited_asphaltenes($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $pvt_data, $historical_data, $asphaltenes_data)
+    function simulate_deposited_asphaltenes($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $pvt_data, $historical_data, $asphaltenes_data)
     {
 
-        ini_set('max_execution_time', 900);
+        ini_set('max_execution_time', 3600);
         ini_set('memory_limit', '-1');
-        set_time_limit(900);
+        set_time_limit(3600);
 
         $complete_simulated_results = [];
         $complete_damage_results = [];
@@ -905,7 +905,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $simulated_results = [];
         $damage_results = [];
 
-        if ($dporo > 2.54) {
+        if ($dporo <= 2.54) {
+            $dpart = $dpart * 1;
+        }else{
             $dpart = $dpart * 10;
         }
 
@@ -1009,6 +1011,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $rl = array_fill(1, 100, 0);
         $coc = array_fill(1, $nr, 0);
         $cocs = array_fill(1, $nr, 0);
+        $cri = array_fill(1, 6, 0);
+        $pite = array_fill(1, 5, 0);
+        $crite = array_fill(1, 5, 0);
         $tiempo = array_fill(1, $nh, 0);
 
         $n = 0.5;
@@ -1024,263 +1029,337 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
         }
 
-        for ($kk = 1; $kk <= $nh; $kk++) {
-            $ndt = 24 * $tiempo[$kk] / $dt;
-            $qo = -$bopd[$kk];
-            for ($v = 1; $v <= $ndt; $v++) {
-                #coeficientes matriz tridiagonal
-                $i = 1;
-                while ($i == $x + 1) {
-                    $i = $i + 1;
-                    $b[$i] = pow($r1[$i - 1], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i - 1]);
-                }
-                for ($i = $x + 2; $i <= $nr; $i++) {
-                    $b[$i] = $r1[$i - 1] / ($r[$i] * $dr[$i] * $dr1[$i - 1]);
-                }
+        #Variables nuevas
+        $cri = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+        $pite = array(1 => 0, 0, 0, 0, 0, 0);
+        $crite = array(1 => 0, 0, 0, 0, 0, 0);
+        $cr = $cri[1];
 
-                $i = 0;
-                if ($x == 0) {
-                    $x = 1;
-                }
-                while ($i == $x - 1) {
-                    $i = $i + 1;
-                    $a[$i] = pow($r1[$i], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i]);
-                }
+        for ($xx = 1; $xx <= 7; $xx++) {    #Nuevo ciclo
+            for ($kk = 1; $kk <= $nh; $kk++) {
+                $ndt = 24 * $tiempo[$kk] / $dt;
+                $qo = -$bopd[$kk];
+                for ($v = 1; $v <= $ndt; $v++) {
+                    //if ($xx == 7 && $kk == (15)) { dd('LLEGO AL SEGUNDO FOR DEL CICLO 7', $ndt, $x, $nr, $ri); }
+                    #coeficientes matriz tridiagonal
+                    $i = 1;
+                    while ($i == $x + 1) {
+                        $i = $i + 1;
+                        $b[$i] = pow($r1[$i - 1], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i - 1]);
+                    }
+                    for ($i = $x + 2; $i <= $nr; $i++) {
+                        $b[$i] = $r1[$i - 1] / ($r[$i] * $dr[$i] * $dr1[$i - 1]);
+                    }
 
-                for ($i = $x; $i < $nr; $i++) {
-                    $a[$i] = $r1[$i] / ($r[$i] * $dr[$i] * $dr1[$i]);
-                }
+                    $i = 0;
+                    if ($x == 0) {
+                        $x = 1;
+                    }
+                    while ($i == $x - 1) {
+                        $i = $i + 1;
+                        $a[$i] = pow($r1[$i], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i]);
+                    }
 
-                $i = 0;
-                while ($i == $x) {
-                    $i = $i + 1;
-                    $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                    $g1 = 3792.58489625175 * $n * $phin[$i] * $cr / $kn[$i];
-                    $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
-                }
+                    for ($i = $x; $i < $nr; $i++) {
+                        $a[$i] = $r1[$i] / ($r[$i] * $dr[$i] * $dr1[$i]);
+                    }
 
-                for ($i = $x + 1; $i <= $nr; $i++) {
-                    $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
-                    $f[$i] = $g2 / $dt;
-                }
-
-                if ($ri > 0 and $ri < $re) {
-                    $b[$x] = $dr1[$x] / $dr1[$x - 1];
-                    $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                    $a[$x] = $mu / $un; #uapp[$x] / un
-                    $f[$x] = 0;
-                }
-
-                $c[1] = -($a[1] + $f[1]);
-                $c[$nr] = -($b[$nr] + $f[$nr]);
-
-                for ($i = 2; $i < $nr; $i++) {
-                    $c[$i] = -($a[$i] + $b[$i] + $f[$i]);
-                }
-
-                for ($i = 1; $i <= $nr; $i++) {
-                    if ($i == 1) {
-                        $beta = $this->interpolation($pn[$i], $nv, $ppvt, $bopvt);
-                        $vm = $pi * $hf * (pow($r1[1], 2) - pow($rw, 2)) / (5.615 * $beta);
+                    $i = 0;
+                    while ($i == $x) {
+                        $i = $i + 1;
                         $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                        $d[$i] = -$f[$i] * $pn[$i] - 158.024370659982 * ($qo / ($kn[$i] * $vm)) * $mu;
-                    } else {
-                        $d[$i] = -$f[$i] * $pn[$i];
+                        $g1 = 3792.58489625175 * $n * $phin[$i] * $cr / $kn[$i];
+                        $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
+                    }
+
+                    for ($i = $x + 1; $i < $nr; $i++) {
+                        $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
+                        $f[$i] = $g2 / $dt;
+                    }
+
+                    if ($ri > 0 and $ri < $re) {
+                        $b[$x] = $dr1[$x] / $dr1[$x - 1];
+                        $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
+                        $a[$x] = $mu / $un; #uapp[$x] / un
+                        $f[$x] = 0;
+                    }
+
+                    $c[1] = -($a[1] + $f[1]);
+                    $c[$nr] = -($b[$nr] + $f[$nr]);
+
+                    for ($i = 2; $i < $nr; $i++) {
+                        $c[$i] = -($a[$i] + $b[$i] + $f[$i]);
+                    }
+
+                    for ($i = 1; $i <= $nr; $i++) {
+                        if ($i == 1) {
+                            $beta = $this->interpolation($pn[$i], $nv, $ppvt, $bopvt);
+                            $vm = $pi * $hf * (pow($r1[1], 2) - pow($rw, 2)) / (5.615 * $beta);
+                            $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
+                            $d[$i] = -$f[$i] * $pn[$i] - 158.024370659982 * ($qo / ($kn[$i] * $vm)) * $mu;
+                        } else {
+                            $d[$i] = -$f[$i] * $pn[$i];
+                        }
+                    }
+                    
+                    $qq[1] = $a[1] / $c[1];
+                    $gg[1] = $d[1] / $c[1];
+
+                    for ($j = 2; $j <= $nr; $j++) {
+                        $w[$j] = $c[$j] - ($b[$j] * $qq[$j - 1]);
+                        $gg[$j] = ($d[$j] - ($b[$j] * $gg[$j - 1])) / $w[$j];
+                        $qq[$j] = $a[$j] / $w[$j];
+                    }
+
+                    $pcal[$nr] = $gg[$nr];
+                    for ($j = $nr - 1; $j >= 1; $j--) {
+                        $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
+                    }
+
+                    //if ($xx == 7 && $kk == $nh) {
+                    //    dd($gg, $qq, $cr, $pcal);
+                    //}
+
+                    #Nuevo
+                    if ($pcal[1] < 0) {
+                        $xx = 6;
+                        break;
+                    }
+
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
+                        $coi = $this->interpolation($pcal[$i], $ns, $pasf, $sasf);
+                        if ( ($rho) < 0.00000000001 ) {
+                            $co[$i] = 0;
+                        } else {
+                            $co[$i] = ($wtasf[$kk] * 10000 * (1 - $coi)) / ($rho);
+                        }
+                    }
+
+                    #Cálculo del flux
+                    for ($i = 2; $i < $nr; $i++) {
+                        $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
+                    }
+                    $dpre[$nr] = 0;
+                    $u[1] = -2.5 * 158.024370659982 * $qo / (2 * $pi * $rw * $hf); #ft/dia
+
+                    for ($i = 2; $i <= $nr; $i++) {
+                        $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
+                        //if( $mu == 0) {
+                        //    dd($kn[$i], $dpre[$i], $mu, $pcal, $kk);
+                        //}
+                        $u[$i] = ((-$kn[$i]) * $dpre[$i]) / $mu;
+                        if ($u[$i] < 0.000001) {
+                            $u[$i] = 0;
+                        }
+                    }
+
+                    #Cambio de porosidad
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
+                        $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
+                        $beta = $this->interpolation($pcal[$i], $nv, $ppvt, $bopvt);
+                        $muo[$i] = $mu;
+                        $rhof[$i] = $rho;
+                        $boi[$i] = $beta;
+                    }
+
+                    $porosity_change_results = $this->porosity_change($nr, $dpart, $dporo, $rhop, $rhof, $muo, $boi, $rw, $hf, $r1, $r, $dr, $phin, $co, $ea, $u, $dt);
+                    $phic = $porosity_change_results[0];
+                    $deadt = $porosity_change_results[1];
+
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $dphi[$i] = $phin[$i] - $phic[$i];
+                    }
+
+                    #Cambio de permeabilidad
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $ea[$i] = $ea[$i] + $deadt[$i];
+                        $kc[$i] = $kn[$i] * pow((($phic[$i]) / $phin[$i]), 2.5);
+                    }
+
+                    #Solución de la ecuacion de concentracion de particulas
+                    $concentration_change_results = $this->concentration_change($rw, $rdre, $hf, $nr, $phic, $u, $r, $dt, $co, $deadt, $dphi, $rl);
+                    $cocal = $concentration_change_results[0];
+                    $rl = $concentration_change_results[1];
+
+                    for ($i = 1; $i < $nr; $i++) {
+                        $coi = $this->interpolation($r[$i], 100, $rl, $cocal);
+                        $coc[$i] = $coi;
+                    }
+
+                    $coc[$nr] = $co[$nr];
+
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $pn[$i] = $pcal[$i];
+                        $phin[$i] = $phic[$i];
+                        $kn[$i] = $kc[$i];
+                        $co[$i] = $coc[$i];
+                        $coi = $this->interpolation($pn[$i], $ns, $pasf, $sasf);
+                        $cocs[$i] = (($wtasf[$kk] * 10000 * $coi) / ($rho)) - $co[$i];
+                    }
+
+                }
+
+
+                $radioo = array_fill(1, $nr, 0);
+
+                #Radio de daño
+                for ($i = 1; $i <= $nr; $i++) {
+                    if (($ko - $kc[$i]) > (0.01 * $ko)) {
+                        $radioo[$i] = $r[$i];
+                    }else{
+                        $radioo[$i] = 0;
+                    }
+                }
+
+                $radio_dam = max($radioo);
+                
+                #Cambios cálculos de skin  
+                $skin = 0;
+                $skin_array = [];
+                for ($i = 1; $i <= $nr; $i++) 
+                {
+                    if ($radioo[$i] != 0) 
+                    {
+                        $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                    }
+                    else
+                    {
+                        $skin = 0;
+                    }
+                    array_push($skin_array, $skin);
+                }
+                
+                $max_skin = max($skin_array);
+
+
+                /*
+                VERSION PARA PRUEBAS ELIANA
+        
+                #Radio de daño
+                for ($i = 2; $i <= $nr; $i++) {
+                    if (($ko - $kc[$i]) > 0.05 * $ko) {
+                        $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
                     }
                 }
                 
-                $qq[1] = $a[1] / $c[1];
-                $gg[1] = $d[1] / $c[1];
-
-                for ($j = 2; $j <= $nr; $j++) {
-                    $w[$j] = $c[$j] - ($b[$j] * $qq[$j - 1]);
-                    $gg[$j] = ($d[$j] - ($b[$j] * $gg[$j - 1])) / $w[$j];
-                    $qq[$j] = $a[$j] / $w[$j];
+                
+                #Cambios cálculos de skin  
+                $skin = 0;
+                $skin_array = [];
+                for ($i = 1; $i <= $nr; $i++) 
+                {
+                    if ($radio_dam != 0) 
+                    {
+                        $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
+                    }
+                    else
+                    {
+                        $skin = 0;
+                    }
+                    array_push($skin_array, $skin);
                 }
+                
+                $max_skin = max($skin_array); /*  
 
-                //if ($kk == 6) {
-                //    dd($gg, $qq, $co);
-                //}
-
-                $pcal[$nr] = $gg[$nr];
-                for ($j = $nr - 1; $j >= 1; $j--) {
-                    $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
-                }
-
+                /*
+                CAMBIOS DE ANDRES
+                #Radio de daño
                 for ($i = 1; $i <= $nr; $i++) {
-                    $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
-                    $coi = $this->interpolation($pcal[$i], $ns, $pasf, $sasf);
-                    if ( ($rho) < 0.00000000001 ) {
-                        $co[$i] = 0;
-                    } else {
-                        $co[$i] = ($wtasf[$kk] * 10000 * (1 - $coi)) / ($rho);
+                    if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
+                        $radio_dam[$i] = $r[$i];
+                    }else{
+                        $radio_dam[$i] = 0;
                     }
                 }
 
-                #Cálculo del flux
-                for ($i = 2; $i < $nr; $i++) {
-                    $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
-                }
-                $dpre[$nr] = 0;
-                $u[1] = -2.5 * 158.024370659982 * $qo / (2 * $pi * $rw * $hf); #ft/dia
-
-                for ($i = 2; $i <= $nr; $i++) {
-                    $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
-                    //if( $mu == 0) {
-                    //    dd($kn[$i], $dpre[$i], $mu, $pcal, $kk);
-                    //}
-                    $u[$i] = ((-$kn[$i]) * $dpre[$i]) / $mu;
-                    if ($u[$i] < 0.000001) {
-                        $u[$i] = 0;
+                $r_damage = max($radio_dam);
+                
+                #Cambios cálculos de skin  
+                $skin = [];
+                for ($i = 1; $i <= $nr; $i++) 
+                {
+                    if ($radio_dam[$i] != 0) 
+                    {
+                        $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
+                    }
+                    else
+                    {
+                        $skin[$i] = 0;
                     }
                 }
+                
+                $max_skin = max($skin); */                 
 
-                #Cambio de porosidad
-                for ($i = 1; $i <= $nr; $i++) {
-                    $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
-                    $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
-                    $beta = $this->interpolation($pcal[$i], $nv, $ppvt, $bopvt);
-                    $muo[$i] = $mu;
-                    $rhof[$i] = $rho;
-                    $boi[$i] = $beta;
+                for ($i = 1; $i <= $nr; $i++) 
+                {
+                    $simulated_results[$i] = [$r[$i], $pcal[$i], $phic[$i], $kc[$i], $ea[$i], $cocs[$i]];
                 }
 
-                $porosity_change_results = $this->porosity_change($nr, $dpart, $dporo, $rhop, $rhof, $muo, $boi, $rw, $hf, $r1, $r, $dr, $phin, $co, $ea, $u, $dt);
-                $phic = $porosity_change_results[0];
-                $deadt = $porosity_change_results[1];
+                $damage_results[$kk] = [$hist[$kk], $radio_dam, $max_skin];
 
-                for ($i = 1; $i <= $nr; $i++) {
-                    $dphi[$i] = $phin[$i] - $phic[$i];
-                }
+                array_push($complete_simulated_results, $simulated_results);
+            }
 
-                #Cambio de permeabilidad
-                for ($i = 1; $i <= $nr; $i++) {
-                    $ea[$i] = $ea[$i] + $deadt[$i];
-                    $kc[$i] = $kn[$i] * pow((($phic[$i]) / $phin[$i]), 2.5);
-                }
-
-                #Solución de la ecuacion de concentracion de particulas
-                $concentration_change_results = $this->concentration_change($rw, $rdre, $hf, $nr, $phic, $u, $r, $dt, $co, $deadt, $dphi, $rl);
-                $cocal = $concentration_change_results[0];
-                $rl = $concentration_change_results[1];
-
-                for ($i = 1; $i < $nr; $i++) {
-                    $coi = $this->interpolation($r[$i], 100, $rl, $cocal);
-                    $coc[$i] = $coi;
-                }
-
-                $coc[$nr] = $co[$nr];
+            #Nueva sección
+            if ($xx < 6) {
+                $pite[$xx] = $pcal[299];
+                $crite[$xx] = $cr;
 
                 for ($i = 1; $i <= $nr; $i++) {
-                    $pn[$i] = $pcal[$i];
-                    $phin[$i] = $phic[$i];
-                    $kn[$i] = $kc[$i];
-                    $co[$i] = $coc[$i];
-                    $coi = $this->interpolation($pn[$i], $ns, $pasf, $sasf);
-                    $cocs[$i] = (($wtasf[$kk] * 10000 * $coi) / ($rho)) - $co[$i];
+                    $pn[$i] = $pini;
+                    $phin[$i] = $phio;
+                    $kn[$i] = $ko;
+                }
+                for ($i = 1; $i <= $nr; $i++) { 
+                    $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                    $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                    $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho;
+                    $ea[$i] = 0;
                 }
 
+                $cr = $cri[$xx + 1];
             }
 
-
-            $radioo = array_fill(1, $nr, 0);
-
-            #Radio de daño
-            for ($i = 1; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.01 * $ko) {
-                    $radioo[$i] = $r[$i];
-                }else{
-                    $radioo[$i] = 0;
+            if ($xx == 6) {
+                //dd('LLEGA AL INICIO DEL xx = 6',$pite);
+                for ($j = 1; $j <= 4; $j++) {  #length(crite)-1
+                    if ($pact > $pite[1]) {
+                        $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $pn[$i] = $pini;
+                            $phin[$i] = $phio;
+                            $kn[$i] = $ko;
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                            $ea[$i] = 0;
+                        }
+                        break;
+                    }
+                    if (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
+                        $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $pn[$i] = $pini;
+                            $phin[$i] = $phio;
+                            $kn[$i] = $ko;
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                            $ea[$i] = 0;
+                        }
+                        break;
+                    }
                 }
+                //dd($cr);
             }
 
-            $radio_dam = max($radioo);
-            
-            #Cambios cálculos de skin  
-            $skin = 0;
-            $skin_array = [];
-            for ($i = 1; $i <= $nr; $i++) 
-            {
-                if ($radioo[$i] != 0) 
-                {
-                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
-                }
-                else
-                {
-                    $skin = 0;
-                }
-                array_push($skin_array, $skin);
-            }
-            
-            $max_skin = max($skin_array);
-
-
-            /*
-            VERSION PARA PRUEBAS ELIANA
-    
-            #Radio de daño
-            for ($i = 2; $i <= $nr; $i++) {
-                if (($ko - $kc[$i]) > 0.05 * $ko) {
-                    $radio_dam = ($r[$i] + $r[$i - 1]) / 2;
-                }
-            }
-            
-            
-            #Cambios cálculos de skin  
-            $skin = 0;
-            $skin_array = [];
-            for ($i = 1; $i <= $nr; $i++) 
-            {
-                if ($radio_dam != 0) 
-                {
-                    $skin = (($ko / $kc[$i]) - 1.0) * log($radio_dam / $rw);
-                }
-                else
-                {
-                    $skin = 0;
-                }
-                array_push($skin_array, $skin);
-            }
-            
-            $max_skin = max($skin_array); /*  
-
-            /*
-            CAMBIOS DE ANDRES
-            #Radio de daño
-            for ($i = 1; $i <= $nr; $i++) {
-                if (abs($ko - $kc[$i]) > (0.05 * $ko)) {
-                    $radio_dam[$i] = $r[$i];
-                }else{
-                    $radio_dam[$i] = 0;
-                }
-            }
-
-            $r_damage = max($radio_dam);
-            
-            #Cambios cálculos de skin  
-            $skin = [];
-            for ($i = 1; $i <= $nr; $i++) 
-            {
-                if ($radio_dam[$i] != 0) 
-                {
-                    $skin[$i] = (($ko / $kc[$i]) - 1.0) * log($r_damage / $rw);
-                }
-                else
-                {
-                    $skin[$i] = 0;
-                }
-            }
-            
-            $max_skin = max($skin); */                 
-
-            for ($i = 1; $i <= $nr; $i++) 
-            {
-                $simulated_results[$i] = [$r[$i], $pcal[$i], $phic[$i], $kc[$i], $ea[$i], $cocs[$i]];
-            }
-
-            $damage_results[$kk] = [$hist[$kk], $radio_dam, $max_skin];
-
-            array_push($complete_simulated_results, $simulated_results);
+            //if ($xx == 7) { dd('LLEGO AL FINAL DEL CICLO 7'); } #AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         }
 
         return array($complete_simulated_results, $damage_results);

@@ -9,7 +9,7 @@
     </br>
     <br>
     @if(!$desagregacion->status_wr)
-        @if($mechanical_result < 0)
+        @if($mechanical_result > 0)
             <div class="panel panel-default" >      
                 <div class="panel-heading"><h4><a data-parent="#accordion" data-toggle="collapse" href="#Prod"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Results By Components</h4></div>
                 <div class="panel-body">
@@ -73,7 +73,7 @@
         @else
             <div class="jumbotron">
                 <center>
-                    <span>Nolas canolas</span>
+                    <span>Run has not been executed, please check input data.</span>
                 </center>
             </div>
         @endif

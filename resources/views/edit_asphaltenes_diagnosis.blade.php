@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('initial_pressure_label', 'Initial Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('initial_pressure_label', 'Initial Reservoir Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('initial_pressure') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                     <span class="input-group-btn">
@@ -99,6 +99,20 @@
                         </div>
                      </div>
                      <div class="row">
+                     <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('current_pressure_label', 'Current Reservoir Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('current_pressure') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
+                                  @endif
+                                 {!! Form::text('current_pressure',$asphaltenes_d_diagnosis->current_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_pressure']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">psi</span>
+                              </div>
+                           </div>
+                        </div>
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_porosity_label', 'Initial Porosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -113,7 +127,9 @@
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6">
+                     </div>
+                     <div class="row">
+                     <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_permeability_label', 'Initial Permeability') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('initial_permeability') ? 'has-error' : ''}}">
@@ -127,8 +143,6 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('average_pore_diameter_label', 'Average Pore Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -139,20 +153,6 @@
                                     </span>
                                   @endif
                                  {!! Form::text('average_pore_diameter',$asphaltenes_d_diagnosis->average_pore_diameter, ['placeholder' => 'um', 'class' =>'form-control', 'id' => 'average_pore_diameter']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">um</span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
-                              {!! Form::label('asphaltene_particle_diameter_label', 'Asphaltene Particle Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('asphaltene_particle_diameter') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                    <span class="input-group-btn">
-                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                    </span>
-                                  @endif
-                                 {!! Form::text('asphaltene_particle_diameter',$asphaltenes_d_diagnosis->asphaltene_particle_diameter, ['placeholder' => 'um', 'class' =>'form-control', 'id' => 'asphaltene_particle_diameter']) !!}
                                  <span class="input-group-addon" id="basic-addon2">um</span>
                               </div>
                            </div>
@@ -175,15 +175,15 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('current_pressure_label', 'Current Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('current_pressure') ? 'has-error' : ''}}">
+                              {!! Form::label('asphaltene_particle_diameter_label', 'Asphaltene Particle Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('asphaltene_particle_diameter') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                     <span class="input-group-btn">
                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                     </span>
                                   @endif
-                                 {!! Form::text('current_pressure',$asphaltenes_d_diagnosis->current_pressure, ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_pressure']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi</span>
+                                 {!! Form::text('asphaltene_particle_diameter',$asphaltenes_d_diagnosis->asphaltene_particle_diameter, ['placeholder' => 'um', 'class' =>'form-control', 'id' => 'asphaltene_particle_diameter']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">um</span>
                               </div>
                            </div>
                         </div>

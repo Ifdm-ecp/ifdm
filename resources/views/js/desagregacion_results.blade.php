@@ -1,5 +1,4 @@
 <script>
-    console.log('dojkfndfiubnfsibndfiobnfg');
     function enviar()
     {
         document.getElementById('loading').style.display = 'block';      

@@ -407,6 +407,7 @@ class desagregacionController extends Controller
                     $resultado_skin_by_stress->save();
                 }
 
+                $mechanical_result = json_encode($results[1]);
                 $results = json_encode($results);
                 $radios = json_encode($radios);
                 $permeabilidades = json_encode($permeabilidades);
@@ -418,7 +419,7 @@ class desagregacionController extends Controller
                 $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
                 $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
 
-                return view('desagregacion.show', compact('results', 'formacion', 'cuenca', 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo'));
+                return view('desagregacion.show', compact('results', 'formacion', 'cuenca', 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo', 'mechanical_result'))->with('mechanical_result', json_decode($mechanical_result, true));
             } else {
                 return view('projectmanagement');
             }
@@ -471,13 +472,14 @@ class desagregacionController extends Controller
             $results = json_encode([]);
 
             $disaggregation_results_query = DB::table('resultado_desagregacion')->where('id_desagregacion', $desagregacion->id)->first();
+            $mechanical_result = json_encode($disaggregation_results_query->mechanical_skin);
             $total = $disaggregation_results_query->total_skin;
             $suma = $disaggregation_results_query->mechanical_skin + $disaggregation_results_query->stress_skin + $disaggregation_results_query->pseudo_skin + $disaggregation_results_query->rate_skin;
             $coeficiente_friccion = $disaggregation_results_query->friction_coefficient;
             $modulo_permeabilidad = $disaggregation_results_query->permeability_module;
             $results = json_encode(array($disaggregation_results_query->total_skin, $disaggregation_results_query->mechanical_skin, $disaggregation_results_query->stress_skin, $disaggregation_results_query->pseudo_skin, $disaggregation_results_query->rate_skin));
 
-            return view('desagregacion.show', compact('results', 'formacion', 0, 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo'));
+            return view('desagregacion.show', compact('results', 'formacion', 0, 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo', 'mechanical_result'))->with('mechanical_result', json_decode($mechanical_result, true));
         } else {
             return view('loginfirst');
         }
@@ -867,6 +869,7 @@ class desagregacionController extends Controller
                     $resultado_permeabilidades->save();
                 }
 
+                $mechanical_result = json_encode($results[1]);
                 $results = json_encode($results);
                 $radios = json_encode($radios);
                 $permeabilidades = json_encode($permeabilidades);
@@ -878,7 +881,7 @@ class desagregacionController extends Controller
                 $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
                 $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
 
-                return view('desagregacion.show', compact('results', 'formacion', 'cuenca', 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo'));
+                return view('desagregacion.show', compact('results', 'formacion', 'cuenca', 'pozo', 'ri', 'skin_by_stress', 'desagregacion', 'suma', 'total', 'modulo_permeabilidad', 'coeficiente_friccion', 'scenary_s', 'intervalo', 'campo', 'mechanical_result'))->with('mechanical_result', json_decode($mechanical_result, true));
             } else {
                 return view('projectmanagement');
             }

@@ -9,72 +9,80 @@
     </br>
     <br>
     @if(!$desagregacion->status_wr)
-    <div class="panel panel-default" >      
-        <div class="panel-heading"><h4><a data-parent="#accordion" data-toggle="collapse" href="#Prod"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Results By Components</h4></div>
-        <div class="panel-body">
-            <div id="Prod" class="panel-collapse collapse in">
+        @if($mechanical_result < 0)
+            <div class="panel panel-default" >      
+                <div class="panel-heading"><h4><a data-parent="#accordion" data-toggle="collapse" href="#Prod"><span class="chevron_toggleable glyphicon glyphicon-chevron-down pull-right"></span></a> Results By Components</h4></div>
                 <div class="panel-body">
-                    <br/>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Skin Configuration</th>
-                                <th style="text-align:center">Value</th>
-                                <th style="text-align:center">Total Skin Percentage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Total Skin</td>
-                                <td id="tabla11"  align="center"></td>
-                                <td id="tabla12" align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td>Mechanical Skin</td>
-                                <td id="tabla21" align="center"></td>
-                                <td id="tabla22" align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td>Stress-dependent Skin</td>
-                                <td id="tabla31" align="center"></td>
-                                <td id="tabla32" align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td>Pseudo Skin</td>
-                                <td id="tabla41" align="center"></td>
-                                <td id="tabla42" align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td>Rate-dependent Skin</td>
-                                <td id="tabla51" align="center"></td>
-                                <td id="tabla52" align="center">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>Well friction coefficient [1/ft]</th>
-                                <td>{!! sprintf("%E", round($coeficiente_friccion),2) !!}</td>
-                            </tr>
-                            <tr>
-                                <th>Well permeability module [1/PSI]</th>
-                                <td>{!! round($modulo_permeabilidad,6) !!}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="grafica_desagregacion"></div>
-                    <div id="grafica_pres_perm"></div>
+                    <div id="Prod" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <br/>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Skin Configuration</th>
+                                        <th style="text-align:center">Value</th>
+                                        <th style="text-align:center">Total Skin Percentage</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Total Skin</td>
+                                        <td id="tabla11"  align="center"></td>
+                                        <td id="tabla12" align="center">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mechanical Skin</td>
+                                        <td id="tabla21" align="center"></td>
+                                        <td id="tabla22" align="center">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stress-dependent Skin</td>
+                                        <td id="tabla31" align="center"></td>
+                                        <td id="tabla32" align="center">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pseudo Skin</td>
+                                        <td id="tabla41" align="center"></td>
+                                        <td id="tabla42" align="center">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rate-dependent Skin</td>
+                                        <td id="tabla51" align="center"></td>
+                                        <td id="tabla52" align="center">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Well friction coefficient [1/ft]</th>
+                                        <td>{!! sprintf("%E", round($coeficiente_friccion),2) !!}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Well permeability module [1/PSI]</th>
+                                        <td>{!! round($modulo_permeabilidad,6) !!}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div id="grafica_desagregacion"></div>
+                            <div id="grafica_pres_perm"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        @else
+            <div class="jumbotron">
+                <center>
+                    <span>Nolas canolas</span>
+                </center>
+            </div>
+        @endif
     @else
-    <div class="jumbotron">
-        <center>
-            <span>Run has not been executed, there is no data to show.</span>
-        </center>
-    </div>
+        <div class="jumbotron">
+            <center>
+                <span>Run has not been executed, there is no data to show.</span>
+            </center>
+        </div>
     @endif
 </div>
 <div id="loading" style="display:none;"></div>

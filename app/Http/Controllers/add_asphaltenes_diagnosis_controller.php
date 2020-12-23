@@ -1398,7 +1398,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                 
                 
-                //dd($pact, $pite, $crite, $cr, $extrapolationFlag, $banderita);
+                //dd($pact, $pite, $crite, $cr);
 
                 
             }

@@ -161,20 +161,6 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('asphaltene_apparent_density_label', 'Asphaltene Apparent Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('asphaltene_apparent_density') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                    <span class="input-group-btn">
-                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                    </span>
-                                  @endif
-                                 {!! Form::text('asphaltene_apparent_density',$asphaltenes_d_diagnosis->asphaltene_apparent_density, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'asphaltene_apparent_density']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">g/cc</span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
                               {!! Form::label('asphaltene_particle_diameter_label', 'Asphaltene Particle Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('asphaltene_particle_diameter') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
@@ -184,6 +170,20 @@
                                   @endif
                                  {!! Form::text('asphaltene_particle_diameter',$asphaltenes_d_diagnosis->asphaltene_particle_diameter, ['placeholder' => 'um', 'class' =>'form-control', 'id' => 'asphaltene_particle_diameter']) !!}
                                  <span class="input-group-addon" id="basic-addon2">um</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('asphaltene_apparent_density_label', 'Asphaltene Apparent Density') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('asphaltene_apparent_density') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
+                                  @endif
+                                 {!! Form::text('asphaltene_apparent_density',$asphaltenes_d_diagnosis->asphaltene_apparent_density, ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'asphaltene_apparent_density']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">g/cc</span>
                               </div>
                            </div>
                         </div>

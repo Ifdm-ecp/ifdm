@@ -132,22 +132,6 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('initial_pressure_label', 'Initial Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('initial_pressure') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
-                                 @endif
-                                 {!! Form::text('initial_pressure', $fines_d_diagnosis->initial_pressure,  ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'initial_pressure']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi</span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-6">
-                           <div class="form-group">
                               {!! Form::label('current_permeability_label', 'Current Permeability') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('current_permeability') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
@@ -157,6 +141,22 @@
                                  @endif
                                  {!! Form::text('current_permeability', $fines_d_diagnosis->current_permeability,  ['placeholder' => 'mD', 'class' =>'form-control', 'id' => 'current_permeability']) !!}
                                  <span class="input-group-addon" id="basic-addon2">mD</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('initial_pressure_label', 'Initial Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('initial_pressure') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                   <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                   </span>
+                                 @endif
+                                 {!! Form::text('initial_pressure', $fines_d_diagnosis->initial_pressure,  ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'initial_pressure']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
                            </div>
                         </div>

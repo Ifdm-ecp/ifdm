@@ -27,7 +27,7 @@
          <li><a data-toggle="tab" href="#skin_results">Skin Results</a></li>
       </ul>
 
-      <div class="row tab-content">
+      <div class="tab-content">
          <div class="tab-pane active" id="deposited_asphaltenes_results">
             <div class="panel-body">
               <div class="col-md-12">
@@ -96,6 +96,9 @@
   </center>
 </div>
 @endif
+
+</br>
+<br>
 
 <div class="row">
    <div class="col-xs-12">

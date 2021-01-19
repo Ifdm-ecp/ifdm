@@ -1885,7 +1885,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         return array($fg, $zg);
     }
 
-    function asphaltenes_region_1($n, $p, $t, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pb, $ponset, $nmaxa, $amax)
+    function asphaltenes_region_1($n, $p, $t, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pb, $ponsetc, $nmaxa, $amax)
     {
 
         $zz = array_fill(1, 3, 0);
@@ -2164,10 +2164,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         #Encontrando argunmento de solubilidad
         $arg2 = log($amax);
         $xref = (-$ax * $arg2); #referencia al punto de burbujeo
-        if ($p > $ponset) {
+        if ($p > $ponsetc) {
             $xnew = 0.00001;
         } else {
-            $xnew = $xref - ($p - $pb) * ($xref) / ($ponset - $pb); #el nuevo punto de referncia
+            $xnew = $xref - ($p - $pb) * ($xref) / ($ponsetc - $pb); #el nuevo punto de referncia
         }
 
         $wap = exp(-$ax * $xnew);
@@ -2181,7 +2181,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         return array($dsl, $deno, $wap, $a);
     }
 
-    function asphaltenes_region_2($n, $p, $t, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pb, $ponset, $nmaxa, $amax)
+    function asphaltenes_region_2($n, $p, $t, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pb, $ponsetc, $nmaxa, $amax)
     {
 
         $zz = array_fill(1, 3, 0);
@@ -2457,7 +2457,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $arg2 = log($amax);
         $xref = (-$ax * $arg2); #referencia al punto de burbujeo
 
-        if ($p > $ponset) {
+        if ($p > $ponsetc) {
             $xnew = 0.00001;
         } else {
             $xnew = $xref - ($pb - $p) * ($xref) / ($pb - 14.7); #el nuevo punto de referncia
@@ -2929,6 +2929,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 #array_push($s_solid_results, array($p_salida,$s_salida)); 
             }
 
+            $at = 0;
+            $vma = $mwa / $rhoa;
             if ($flag_a == 1) {
                 $nsa = 1;
                 $t = 1; #Posible error
@@ -2936,7 +2938,14 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 {
                     $dsa = (140 * $h_c + 614 * $o_c + 235 * $n_c + 460 * $s_c + 136 * $faro) / $vca;
                 } else {
-                    $dsa = 221 * (1 - 0.00001 * $t);
+                    //$dsa = 221 * (1 - 0.00001 * $t);
+                    if ($ponset != $pburb[$i - 1]) {
+                        $vma = 1.493 * (pow($mwa, 0.936));
+                        $at = 0.579 - 0.00075 * ($taps * 0.5556);
+                        $dsa = pow(((1000 * $at * $mwa / $vma) / 0.00689475729), 1/2);
+                    }else{
+                        $dsa = $dsa;
+                    }
                 }
 
                 
@@ -2964,7 +2973,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 for ($j = 1; $j <= 20; $j++) {
                     if ($taps < ($tc + 460)) {
                         $paps = $p_enc[$j];
-                        $asphaltenes_region_1_results = $this->asphaltenes_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponset, $nmaxa, $max_a);
+                        $asphaltenes_region_1_results = $this->asphaltenes_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponsetc, $nmaxa, $max_a);
 
                         $dsl = $asphaltenes_region_1_results[0]; #Posible error -Revisar decimales dsl
                         $deno = $asphaltenes_region_1_results[1];
@@ -2990,7 +2999,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $paps = $p_deb[$j];
                     if ($paps > 14.7) {
                         if ($taps < ($tc + 460)) {
-                            $asphaltenes_region_2_results = $this->asphaltenes_region_2($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponset, $nmaxa, $max_a);
+                            $asphaltenes_region_2_results = $this->asphaltenes_region_2($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponsetc, $nmaxa, $max_a);
                             $dsl = $asphaltenes_region_2_results[0]; #Revisar variación decimales
                             $deno = $asphaltenes_region_2_results[1];
                             $wap = $asphaltenes_region_2_results[2];

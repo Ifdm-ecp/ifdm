@@ -56,7 +56,7 @@
 											<td>{!! $table_results[0][1] !!}</td>
 											<td>{!! $table_results[0][2] !!}</td>
 											<td>{!! $table_results[0][3] !!}</td>
-											<td>{!! $table_results[0][4] !!}</td>
+											<td>{!! number_format((float)$table_results[0][4], 2) !!}</td>
 										</tr>
 
 										@if(array_key_exists(1, $table_results) && count($table_results[1]) > 0)

@@ -197,7 +197,7 @@
                               {!! Form::label('d_yield_point_l', 'Yield Point') !!} <span style='color:red;'>*</span>
                               <div class="input-group {{$errors->has('d_yield_point_t') ? 'has-error' : ''}}">
                                  {!! Form::text('d_yield_point_t', null, ['placeholder' => 'bf/100ft²', 'class' =>'form-control', 'id' => 'd_yield_point_t']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">bf/100ft²</span>
+                                 <span class="input-group-addon" id="basic-addon2">lbf/100ft²</span>
                               </div>
                               {!! $errors->first('d_yield_point_t', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}
                            </div>

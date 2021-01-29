@@ -332,7 +332,6 @@ class drilling_controller extends Controller
                 }
             }
 
-            dd($vf_perf);
             return redirect(url('Drilling/result', $request->scenary_id));
         } else {
             return view('loginfirst');

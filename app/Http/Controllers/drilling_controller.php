@@ -1090,7 +1090,6 @@ class drilling_controller extends Controller
                 $drilling_results->d_average_invasion_radius = $rd_perf_avg;
                 $drilling_results->d_maximum_invasion_radius = $rd_perf_max;
                 $drilling_results->d_total_invasion_radius_volume = $vf_perf_total;
-                dd($drilling_results->d_total_invasion_radius_volume);
 
                 // Table results for completion
                 $drilling_results->c_average_calculated_skin = isset($skin_cem_avg) ? $skin_cem_avg : 0;
@@ -1106,7 +1105,7 @@ class drilling_controller extends Controller
                 $drilling_results->filtration_volume_max_total = 0;
                 $drilling_results->total_invasion_radius_max_total = $vf_perf_total + (isset($vf_cem_total) ? $vf_cem_total : 0);
 
-                //dd($drilling_results);
+                dd($drilling_results);
 
                 $drilling_results->save();
 

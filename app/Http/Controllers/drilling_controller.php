@@ -1072,7 +1072,6 @@ class drilling_controller extends Controller
 
                 // 12) Calculate drilling max filtrate volume
                 $vf_perf_total = array_sum($vf_perf);
-                dd($vf_perf_total);
 
                 if ($drilling->cementingAvailable == 1) {
                     // 13) Calculate cementing max filtrate volume
@@ -1091,6 +1090,7 @@ class drilling_controller extends Controller
                 $drilling_results->d_average_invasion_radius = $rd_perf_avg;
                 $drilling_results->d_maximum_invasion_radius = $rd_perf_max;
                 $drilling_results->d_total_invasion_radius_volume = $vf_perf_total;
+                dd($drilling_results->d_total_invasion_radius_volume);
 
                 // Table results for completion
                 $drilling_results->c_average_calculated_skin = isset($skin_cem_avg) ? $skin_cem_avg : 0;

@@ -1105,7 +1105,7 @@ class drilling_controller extends Controller
                 $drilling_results->filtration_volume_max_total = 0;
                 $drilling_results->total_invasion_radius_max_total = $vf_perf_total + (isset($vf_cem_total) ? $vf_cem_total : 0);
 
-                dd($drilling_results);
+                //dd($drilling_results);
 
                 $drilling_results->save();
 

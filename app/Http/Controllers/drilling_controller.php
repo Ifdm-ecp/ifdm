@@ -1041,6 +1041,7 @@ class drilling_controller extends Controller
                         array_push($rd_cem, $rd_cem_calc);
                     }
                 }
+                dd($vf_perf);
 
                 // 4) Calculate drilling average invasion radius
                 $rd_perf_avg = array_sum($rd_perf);

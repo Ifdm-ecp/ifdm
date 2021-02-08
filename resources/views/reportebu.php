@@ -1048,7 +1048,7 @@ function PvsR_profile_GDP(CriticalPressure)
 
 
 @section('Scripts')
-<script src="http://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
+<script src="https://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>

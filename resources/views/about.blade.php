@@ -16,13 +16,13 @@
                 </p>
                 <center>
                     <form class="form-inline" role="form">
-                        <a href="http://unal.edu.co/"><img src="{!! asset('images/unal.png') !!}" width="125"
+                        <a href="https://unal.edu.co/"><img src="{!! asset('images/unal.png') !!}" width="125"
                                 height="70" HSPACE="30" /></a>
-                        <a href="http://www.equion-energia.com/Paginas/default.aspx"><img
+                        <a href="https://www.equion-energia.com/Paginas/default.aspx"><img
                                 src="{!! asset('images/EQUION.jpg') !!}" width="120" height="80" HSPACE="30" /></a>
-                        <a href="http://www.ecopetrol.com.co/wps/portal/web_es"><img
+                        <a href="https://www.ecopetrol.com.co/wps/portal/web_es"><img
                                 src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30" /></a>
-                        {{-- <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120"
+                        {{-- <a href="https://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120"
                                 height="80" HSPACE="30" /></a> --}}
                         {{-- <a href="https://exergy-ma.co/"><img src="{!! asset('images/exergy.png') !!}" width="140"
                                 height="60" HSPACE="30" /></a> --}}

@@ -3,7 +3,7 @@
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 <script src="{{ asset('js/handsontable/dist/handsontable.full.js') }}"></script>
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     defineWellType(document.getElementById('well_type'));

@@ -11,11 +11,11 @@ PHP 5.3.3 is required but using the latest version of PHP is highly recommended
 
 ### PHP 5
 
-[Xdebug](https://xdebug.org/) is the only source of raw code coverage data supported for PHP 5. Version 2.1.3 of Xdebug is required but using the latest version is highly recommended.
+[Xdebug](http://xdebug.org/) is the only source of raw code coverage data supported for PHP 5. Version 2.1.3 of Xdebug is required but using the latest version is highly recommended.
 
 ### PHP 7
 
-[phpdbg](https://phpdbg.com/docs) is currently the only source of raw code coverage data supported for PHP 7. Once Xdebug has been updated for PHP 7 it, too, will be supported.
+[phpdbg](http://phpdbg.com/docs) is currently the only source of raw code coverage data supported for PHP 7. Once Xdebug has been updated for PHP 7 it, too, will be supported.
 
 ### HHVM
 

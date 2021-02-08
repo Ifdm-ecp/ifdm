@@ -40,7 +40,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Symfonys session implementation starts the session on demand. So writing to it after
  * it is saved will just restart it.
  *
- * @author Tobias Schultze <https://tobion.de>
+ * @author Tobias Schultze <http://tobion.de>
  */
 class SaveSessionListener implements EventSubscriberInterface
 {

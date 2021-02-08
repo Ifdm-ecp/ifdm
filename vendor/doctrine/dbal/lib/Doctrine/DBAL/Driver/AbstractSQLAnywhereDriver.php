@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver;
@@ -41,7 +41,7 @@ abstract class AbstractSQLAnywhereDriver implements Driver, ExceptionConverterDr
     /**
      * {@inheritdoc}
      *
-     * @link https://dcx.sybase.com/index.html#sa160/en/saerrors/sqlerror.html
+     * @link http://dcx.sybase.com/index.html#sa160/en/saerrors/sqlerror.html
      */
     public function convertException($message, DriverException $exception)
     {

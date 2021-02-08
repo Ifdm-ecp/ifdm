@@ -55,7 +55,7 @@ class CsvFileLoaderTest extends TestCase
     public function testLoadNonLocalResource()
     {
         $loader = new CsvFileLoader();
-        $resource = 'https://example.com/resources.csv';
+        $resource = 'http://example.com/resources.csv';
         $loader->load($resource, 'en', 'domain1');
     }
 }

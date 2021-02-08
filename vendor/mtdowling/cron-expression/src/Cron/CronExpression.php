@@ -19,7 +19,7 @@ use RuntimeException;
  * minute [0-59], hour [0-23], day of month, month [1-12|JAN-DEC], day of week
  * [1-7|MON-SUN], and an optional year.
  *
- * @link https://en.wikipedia.org/wiki/Cron
+ * @link http://en.wikipedia.org/wiki/Cron
  */
 class CronExpression
 {

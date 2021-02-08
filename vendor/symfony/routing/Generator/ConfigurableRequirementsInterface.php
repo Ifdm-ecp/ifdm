@@ -33,7 +33,7 @@ namespace Symfony\Component\Routing\Generator;
  *   generated).
  *
  * @author Fabien Potencier <fabien@symfony.com>
- * @author Tobias Schultze <https://tobion.de>
+ * @author Tobias Schultze <http://tobion.de>
  */
 interface ConfigurableRequirementsInterface
 {

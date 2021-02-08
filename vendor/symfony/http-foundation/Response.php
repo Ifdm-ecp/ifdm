@@ -116,7 +116,7 @@ class Response
      * Status codes translation table.
      *
      * The list of codes is complete according to the
-     * {@link https://www.iana.org/assignments/http-status-codes/ Hypertext Transfer Protocol (HTTP) Status Code Registry}
+     * {@link http://www.iana.org/assignments/http-status-codes/ Hypertext Transfer Protocol (HTTP) Status Code Registry}
      * (last updated 2016-03-01).
      *
      * Unless otherwise noted, the status code is defined in RFC2616.
@@ -930,7 +930,7 @@ class Response
      *
      * @return $this
      *
-     * @see https://tools.ietf.org/html/rfc2616#section-10.3.5
+     * @see http://tools.ietf.org/html/rfc2616#section-10.3.5
      */
     public function setNotModified()
     {
@@ -1028,7 +1028,7 @@ class Response
      *
      * @return bool
      *
-     * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+     * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
      */
     public function isInvalid()
     {
@@ -1163,7 +1163,7 @@ class Response
     /**
      * Checks if we need to remove Cache-Control for SSL encrypted downloads when using IE < 9.
      *
-     * @see https://support.microsoft.com/kb/323308
+     * @see http://support.microsoft.com/kb/323308
      */
     protected function ensureIEOverSSLCompatibility(Request $request)
     {

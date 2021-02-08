@@ -3,7 +3,7 @@
 <!-- HandsOnTable CSS -->
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
 <script src="{{ asset('js/highcharts.js') }}"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 alert("A");
 

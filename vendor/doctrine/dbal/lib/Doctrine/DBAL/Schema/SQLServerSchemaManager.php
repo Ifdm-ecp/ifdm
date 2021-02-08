@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
@@ -25,7 +25,7 @@ use Doctrine\DBAL\Types\Type;
 /**
  * SQL Server Schema Manager.
  *
- * @license https://www.opensource.org/licenses/mit-license.php MIT
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @author  Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author  Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @author  Juozas Kaziukenas <juozas@juokaz.com>

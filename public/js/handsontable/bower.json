@@ -3,7 +3,7 @@
   "description": "Spreadsheet-like data grid editor that provides copy/paste functionality compatible with Excel/Google Docs",
   "version": "0.20.0",
   "main": ["./dist/handsontable.js", "./dist/handsontable.css"],
-  "homepage": "https://handsontable.com/",
+  "homepage": "http://handsontable.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/handsontable/handsontable.git"

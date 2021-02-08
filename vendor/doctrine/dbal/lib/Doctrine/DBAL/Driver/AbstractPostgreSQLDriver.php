@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver;
@@ -40,7 +40,7 @@ abstract class AbstractPostgreSQLDriver implements Driver, ExceptionConverterDri
     /**
      * {@inheritdoc}
      *
-     * @link https://www.postgresql.org/docs/9.3/static/errcodes-appendix.html
+     * @link http://www.postgresql.org/docs/9.3/static/errcodes-appendix.html
      */
     public function convertException($message, DriverException $exception)
     {

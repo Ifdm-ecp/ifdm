@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms;
@@ -954,7 +954,7 @@ abstract class AbstractPlatform
      * The parameter $expression is checked if it is between $value1 and $value2.
      *
      * Note: There is a slight difference in the way BETWEEN works on some databases.
-     * https://www.w3schools.com/sql/sql_between.asp. If you want complete database
+     * http://www.w3schools.com/sql/sql_between.asp. If you want complete database
      * independence you should avoid using between().
      *
      * @param string $expression The value to compare to.

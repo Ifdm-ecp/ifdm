@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver;
@@ -36,7 +36,7 @@ abstract class AbstractSQLiteDriver implements Driver, ExceptionConverterDriver
     /**
      * {@inheritdoc}
      *
-     * @link https://www.sqlite.org/c3ref/c_abort.html
+     * @link http://www.sqlite.org/c3ref/c_abort.html
      */
     public function convertException($message, DriverException $exception)
     {

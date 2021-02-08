@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
@@ -159,7 +159,7 @@ class SqliteSchemaManager extends AbstractSchemaManager
      * {@inheritdoc}
      *
      * @license New BSD License
-     * @link https://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
+     * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
      */
     protected function _getPortableTableIndexesList($tableIndexes, $tableName=null)
     {

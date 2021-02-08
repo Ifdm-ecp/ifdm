@@ -5,7 +5,7 @@
  * Copyright (c) 2012-2014 Marcin Warpechowski
  * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
- * https://handsontable.com/
+ * http://handsontable.com/
  *
  * Date: Tue Nov 03 2015 14:30:34 GMT+0100 (CET)
  */
@@ -20671,7 +20671,7 @@ if (typeof exports !== "undefined") {
         return regexes[token](config._strict, config._locale);
     }
 
-    // Code from https://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
     function unescapeFormat(s) {
         return s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
             return p1 || p2 || p3 || p4;
@@ -20966,7 +20966,7 @@ if (typeof exports !== "undefined") {
 
     function createDate (y, m, d, h, M, s, ms) {
         //can't just apply() to create a date:
-        //https://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
         var date = new Date(y, m, d, h, M, s, ms);
 
         //the date constructor doesn't accept years < 1970
@@ -21132,7 +21132,7 @@ if (typeof exports !== "undefined") {
 
     // HELPERS
 
-    //https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
         var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
         if (d < firstDayOfWeek) {
@@ -21805,7 +21805,7 @@ if (typeof exports !== "undefined") {
 
     var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
 
-    // from https://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+    // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
     // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
     var create__isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
 
@@ -23970,7 +23970,7 @@ if (typeof exports !== "undefined") {
 
     isLeapYear = function(year)
     {
-        // solution by Matti Virkkunen: https://stackoverflow.com/a/4881951
+        // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
         return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
     },
 
@@ -24160,7 +24160,7 @@ if (typeof exports !== "undefined") {
     },
 
     renderWeek = function (d, m, y) {
-        // Lifted from https://javascript.about.com/library/blweekyear.htm, lightly modified.
+        // Lifted from http://javascript.about.com/library/blweekyear.htm, lightly modified.
         var onejan = new Date(y, 0, 1),
             weekNum = Math.ceil((((new Date(y, m, d) - onejan) / 86400000) + onejan.getDay()+1)/7);
         return '<td class="pika-week">' + weekNum + '</td>';
@@ -24940,7 +24940,7 @@ if (typeof exports !== "undefined") {
  * The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.
  * Copyright (c) 2009-2014 Jon Rohan, James M. Greene
  * Licensed MIT
- * https://zeroclipboard.org/
+ * http://zeroclipboard.org/
  * v2.2.0
  */
 (function(window, undefined) {
@@ -26640,9 +26640,9 @@ if (typeof exports !== "undefined") {
  * Attempt to detect if ZeroClipboard is executing inside of a sandboxed iframe.
  * If it is, Flash Player cannot be used, so ZeroClipboard is dead in the water.
  *
- * @see {@link https://lists.w3.org/Archives/Public/public-whatwg-archive/2014Dec/0002.html}
+ * @see {@link http://lists.w3.org/Archives/Public/public-whatwg-archive/2014Dec/0002.html}
  * @see {@link https://github.com/zeroclipboard/zeroclipboard/issues/511}
- * @see {@link https://zeroclipboard.org/test-iframes.html}
+ * @see {@link http://zeroclipboard.org/test-iframes.html}
  *
  * @returns `true` (is sandboxed), `false` (is not sandboxed), or `null` (uncertain) 
  * @private
@@ -26688,7 +26688,7 @@ if (typeof exports !== "undefined") {
  * Detect the Flash Player status, version, and plugin type.
  *
  * @see {@link https://code.google.com/p/doctype-mirror/wiki/ArticleDetectFlash#The_code}
- * @see {@link https://stackoverflow.com/questions/12866060/detecting-pepper-ppapi-flash-with-javascript}
+ * @see {@link http://stackoverflow.com/questions/12866060/detecting-pepper-ppapi-flash-with-javascript}
  *
  * @returns `undefined`
  * @private

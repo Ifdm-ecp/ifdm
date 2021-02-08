@@ -33,7 +33,7 @@ class PHP_CodeCoverage_Report_XML_Tests
     {
         $node = $this->contextNode->appendChild(
             $this->contextNode->ownerDocument->createElementNS(
-                'https://schema.phpunit.de/coverage/1.0',
+                'http://schema.phpunit.de/coverage/1.0',
                 'test'
             )
         );

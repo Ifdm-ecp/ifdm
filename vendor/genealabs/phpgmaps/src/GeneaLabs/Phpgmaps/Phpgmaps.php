@@ -136,7 +136,7 @@ class Phpgmaps
     public $placesRadius = 0;                        // The radius (in meters) if search is based around a central position
     public $placesLocationSW = '';                        // If preferring to search within bounds the South-West position (latitude/longitude coordinate OR address)
     public $placesLocationNE = '';                        // If preferring to search within bounds the North-East position (latitude/longitude coordinate OR address)
-    public $placesTypes = array();                    // The types of places to search for. For a list of supported types see https://code.google.com/apis/maps/documentation/places/supported_types.html
+    public $placesTypes = array();                    // The types of places to search for. For a list of supported types see http://code.google.com/apis/maps/documentation/places/supported_types.html
     public $placesName = '';                        // A term to be matched against when searching for places to display on the map
     public $placesAutocompleteInputID = '';                        // The ID attribute of the textfield that the autocomplete should effect
     public $placesAutocompleteTypes = array();                    // The types of places for the autocomplete to return. Options can be seen here https://developers.google.com/maps/documentation/javascript/places#places_autocomplete but include 'establishment' to only return business results, '(cities)', or '(regions)'

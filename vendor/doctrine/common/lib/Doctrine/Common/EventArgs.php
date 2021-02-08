@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common;
@@ -52,7 +52,7 @@ class EventArgs
      *
      * @see EventManager::dispatchEvent
      *
-     * @link https://msdn.microsoft.com/en-us/library/system.eventargs.aspx
+     * @link http://msdn.microsoft.com/en-us/library/system.eventargs.aspx
      *
      * @return EventArgs
      */

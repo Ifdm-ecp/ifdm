@@ -3,11 +3,11 @@
   "title": "iconate.js",
   "description": "A light-weight library to animate your font-awesome like icons",
   "version": "0.3.1",
-  "homepage": "https://bitshadow.github.io/iconate",
+  "homepage": "http://bitshadow.github.io/iconate",
   "author": {
     "name": "Jignesh Kakadiya",
     "email": "jigneshhk1992@gmail.com",
-    "url": "https://bitshadow.github.io"
+    "url": "http://bitshadow.github.io"
   },
   "main": "dist/iconate.js",
   "repository": {

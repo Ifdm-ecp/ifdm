@@ -3,7 +3,7 @@
 <head>
 
   <title>Frequency Distribution</title>
-  <script src="https://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
+  <script src="http://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <link rel="stylesheet" href="{!! asset('css/map.css') !!}">

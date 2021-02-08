@@ -15,7 +15,7 @@ namespace Symfony\Component\Routing;
  * A Route describes a route and its parameters.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- * @author Tobias Schultze <https://tobion.de>
+ * @author Tobias Schultze <http://tobion.de>
  */
 class Route implements \Serializable
 {

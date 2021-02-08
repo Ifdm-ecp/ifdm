@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL;
@@ -24,7 +24,7 @@ namespace Doctrine\DBAL;
 /**
  * Doctrine\DBAL\ConnectionException
  *
- * @license https://www.opensource.org/licenses/mit-license.php MIT
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
  * @link    www.doctrine-project.org
  * @since   2.4
  * @author  Lars Strojny <lars@strojny.net>

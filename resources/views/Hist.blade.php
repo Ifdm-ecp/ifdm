@@ -3,7 +3,7 @@
   <head>
 
   <title>Historic Data</title>
-  <script src="https://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
+  <script src="http://nextgen.pl/_/scroll/lib/jquery.min.js"></script>
   <link rel="stylesheet" href="{!! asset('plugins/bootstrap/css/bootstrap.css') !!}">
   <script src="{!! asset('plugins/bootstrap/js/bootstrap.min.js') !!}"></script>
   <!-- Estilos select -->

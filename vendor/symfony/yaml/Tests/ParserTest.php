@@ -811,8 +811,8 @@ EOF
      * > preserves a consistent information model for one-pass and random access
      * > applications.
      *
-     * @see https://yaml.org/spec/1.2/spec.html#id2759572
-     * @see https://yaml.org/spec/1.1/#id932806
+     * @see http://yaml.org/spec/1.2/spec.html#id2759572
+     * @see http://yaml.org/spec/1.1/#id932806
      * @group legacy
      */
     public function testMappingDuplicateKeyBlock()

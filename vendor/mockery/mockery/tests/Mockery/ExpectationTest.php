@@ -7,7 +7,7 @@
  * This source file is subject to the new BSD license that is bundled
  * with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * https://github.com/padraic/mockery/master/LICENSE
+ * http://github.com/padraic/mockery/master/LICENSE
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
@@ -15,8 +15,8 @@
  * @category   Mockery
  * @package    Mockery
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2010-2014 Pádraic Brady (https://blog.astrumfutura.com)
- * @license    https://github.com/padraic/mockery/blob/master/LICENSE New BSD License
+ * @copyright  Copyright (c) 2010-2014 Pádraic Brady (http://blog.astrumfutura.com)
+ * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
  */
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -1811,14 +1811,14 @@ class ExpectationTest extends MockeryTestCase
         $service = $this->container->mock('MyService');
         $service->shouldReceive('login')->with('user', 'pass')->once()->andReturn(true);
         $service->shouldReceive('hasBookmarksTagged')->with('php')->once()->andReturn(false);
-        $service->shouldReceive('addBookmark')->with('/^https:/', \Mockery::type('string'))->times(3)->andReturn(true);
+        $service->shouldReceive('addBookmark')->with('/^http:/', \Mockery::type('string'))->times(3)->andReturn(true);
         $service->shouldReceive('hasBookmarksTagged')->with('php')->once()->andReturn(true);
 
         $this->assertTrue($service->login('user', 'pass'));
         $this->assertFalse($service->hasBookmarksTagged('php'));
-        $this->assertTrue($service->addBookmark('https://example.com/1', 'some_tag1'));
-        $this->assertTrue($service->addBookmark('https://example.com/2', 'some_tag2'));
-        $this->assertTrue($service->addBookmark('https://example.com/3', 'some_tag3'));
+        $this->assertTrue($service->addBookmark('http://example.com/1', 'some_tag1'));
+        $this->assertTrue($service->addBookmark('http://example.com/2', 'some_tag2'));
+        $this->assertTrue($service->addBookmark('http://example.com/3', 'some_tag3'));
         $this->assertTrue($service->hasBookmarksTagged('php'));
 
         $this->container->mockery_verify();
@@ -1829,14 +1829,14 @@ class ExpectationTest extends MockeryTestCase
         $service = $this->container->mock('MyService');
         $service->shouldReceive('login')->with('user', 'pass')->once()->andReturn(true);
         $service->shouldReceive('hasBookmarksTagged')->with('php')->once()->andReturn(false);
-        $service->shouldReceive('addBookmark')->with('/^https:/', \Mockery::type('string'))->times(3)->andReturn(true);
+        $service->shouldReceive('addBookmark')->with('/^http:/', \Mockery::type('string'))->times(3)->andReturn(true);
         $service->shouldReceive('hasBookmarksTagged')->with('php')->twice()->andReturn(true);
 
         $this->assertTrue($service->login('user', 'pass'));
         $this->assertFalse($service->hasBookmarksTagged('php'));
-        $this->assertTrue($service->addBookmark('https://example.com/1', 'some_tag1'));
-        $this->assertTrue($service->addBookmark('https://example.com/2', 'some_tag2'));
-        $this->assertTrue($service->addBookmark('https://example.com/3', 'some_tag3'));
+        $this->assertTrue($service->addBookmark('http://example.com/1', 'some_tag1'));
+        $this->assertTrue($service->addBookmark('http://example.com/2', 'some_tag2'));
+        $this->assertTrue($service->addBookmark('http://example.com/3', 'some_tag3'));
         $this->assertTrue($service->hasBookmarksTagged('php'));
         $this->assertTrue($service->hasBookmarksTagged('php'));
 
@@ -1850,14 +1850,14 @@ class ExpectationTest extends MockeryTestCase
         $service->expects($this->exactly(3))->method('hasBookmarksTagged')->with('php')
             ->will($this->onConsecutiveCalls(false, true, true));
         $service->expects($this->exactly(3))->method('addBookmark')
-            ->with($this->matchesRegularExpression('/^https:/'), $this->isType('string'))
+            ->with($this->matchesRegularExpression('/^http:/'), $this->isType('string'))
             ->will($this->returnValue(true));
 
         $this->assertTrue($service->login('user', 'pass'));
         $this->assertFalse($service->hasBookmarksTagged('php'));
-        $this->assertTrue($service->addBookmark('https://example.com/1', 'some_tag1'));
-        $this->assertTrue($service->addBookmark('https://example.com/2', 'some_tag2'));
-        $this->assertTrue($service->addBookmark('https://example.com/3', 'some_tag3'));
+        $this->assertTrue($service->addBookmark('http://example.com/1', 'some_tag1'));
+        $this->assertTrue($service->addBookmark('http://example.com/2', 'some_tag2'));
+        $this->assertTrue($service->addBookmark('http://example.com/3', 'some_tag3'));
         $this->assertTrue($service->hasBookmarksTagged('php'));
         $this->assertTrue($service->hasBookmarksTagged('php'));
     }

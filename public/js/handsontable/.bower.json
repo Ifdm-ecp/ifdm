@@ -6,7 +6,7 @@
     "./dist/handsontable.js",
     "./dist/handsontable.css"
   ],
-  "homepage": "https://handsontable.com/",
+  "homepage": "http://handsontable.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/handsontable/handsontable.git"

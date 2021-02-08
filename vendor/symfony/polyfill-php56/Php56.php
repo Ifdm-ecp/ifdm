@@ -65,7 +65,7 @@ final class Php56
      *
      * @return string
      *
-     * @see https://stackoverflow.com/a/8561604
+     * @see http://stackoverflow.com/a/8561604
      */
     public static function ldap_escape($subject, $ignore = '', $flags = 0)
     {

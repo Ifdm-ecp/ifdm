@@ -45,14 +45,14 @@ class PHP_CodeCoverage_Report_XML_File_Unit
     public function setPackage($full, $package, $sub, $category)
     {
         $node = $this->contextNode->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
+            'http://schema.phpunit.de/coverage/1.0',
             'package'
         )->item(0);
 
         if (!$node) {
             $node = $this->contextNode->appendChild(
                 $this->contextNode->ownerDocument->createElementNS(
-                    'https://schema.phpunit.de/coverage/1.0',
+                    'http://schema.phpunit.de/coverage/1.0',
                     'package'
                 )
             );
@@ -67,14 +67,14 @@ class PHP_CodeCoverage_Report_XML_File_Unit
     public function setNamespace($namespace)
     {
         $node = $this->contextNode->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
+            'http://schema.phpunit.de/coverage/1.0',
             'namespace'
         )->item(0);
 
         if (!$node) {
             $node = $this->contextNode->appendChild(
                 $this->contextNode->ownerDocument->createElementNS(
-                    'https://schema.phpunit.de/coverage/1.0',
+                    'http://schema.phpunit.de/coverage/1.0',
                     'namespace'
                 )
             );
@@ -87,7 +87,7 @@ class PHP_CodeCoverage_Report_XML_File_Unit
     {
         $node = $this->contextNode->appendChild(
             $this->contextNode->ownerDocument->createElementNS(
-                'https://schema.phpunit.de/coverage/1.0',
+                'http://schema.phpunit.de/coverage/1.0',
                 'method'
             )
         );

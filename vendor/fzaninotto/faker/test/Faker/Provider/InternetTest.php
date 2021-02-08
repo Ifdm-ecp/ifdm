@@ -39,7 +39,7 @@ class InternetTest extends TestCase
     }
 
     /**
-     * @link https://stackoverflow.com/questions/12026842/how-to-validate-an-email-address-in-php
+     * @link http://stackoverflow.com/questions/12026842/how-to-validate-an-email-address-in-php
      *
      * @dataProvider localeDataProvider
      */

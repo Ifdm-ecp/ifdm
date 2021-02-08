@@ -3,7 +3,7 @@
  * SplClassLoader implementation that implements the technical interoperability
  * standards for PHP 5.3 namespaces and class names.
  *
- * https://groups.google.com/group/php-standards/web/final-proposal
+ * http://groups.google.com/group/php-standards/web/final-proposal
  *
  *     // Example which loads classes for the Doctrine Common package in the
  *     // Doctrine\Common namespace.

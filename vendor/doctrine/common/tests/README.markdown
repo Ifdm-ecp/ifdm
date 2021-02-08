@@ -11,7 +11,7 @@ Execute PHPUnit in the root folder of your doctrine-common clone.
 The Lock support in Doctrine 2 is tested using Gearman, which allows to run concurrent tasks in parallel.
 Install Gearman with PHP as follows:
 
-1. Go to https://www.gearman.org and download the latest Gearman Server
+1. Go to http://www.gearman.org and download the latest Gearman Server
 2. Compile it and then call ldconfig
 3. Start it up "gearmand -vvvv"
 4. Install pecl/gearman by calling "gearman-beta"

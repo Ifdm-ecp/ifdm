@@ -75,7 +75,7 @@
 	</div>
 	<div id="advisor_href_monthly_decline_rate">
 		<br>
-		[5] M.J Fetkovich et al (1996). Useful Concepts for Decline Curve Forecasting, Reserve Estimation, and Analysis. SPE Reservoir Engineering. <a href="https://dx.doi.org/10.2118/28628-PA">https://dx.doi.org/10.2118/28628-PA</a>
+		[5] M.J Fetkovich et al (1996). Useful Concepts for Decline Curve Forecasting, Reserve Estimation, and Analysis. SPE Reservoir Engineering. <a href="http://dx.doi.org/10.2118/28628-PA">http://dx.doi.org/10.2118/28628-PA</a>
 	</div>
 
 	<div id="advisor_current_oil_production">

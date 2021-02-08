@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms\Keywords;
@@ -39,7 +39,7 @@ class PostgreSQL92Keywords extends PostgreSQL91Keywords
     /**
      * {@inheritdoc}
      *
-     * @link https://www.postgresql.org/docs/9.2/static/sql-keywords-appendix.html
+     * @link http://www.postgresql.org/docs/9.2/static/sql-keywords-appendix.html
      */
     protected function getKeywords()
     {

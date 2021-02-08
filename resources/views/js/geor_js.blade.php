@@ -351,7 +351,7 @@ $(document).ready(function()
               var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(value.lat, value.lon),
                 map: map,
-                icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+                icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
               });
 
               var infoW = new google.maps.InfoWindow({
@@ -472,7 +472,7 @@ $(document).ready(function()
             var marker = new google.maps.Marker({
               position: new google.maps.LatLng(value.lat, value.lon),
               map: map,
-              icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+              icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
             });
 
             var infoW = new google.maps.InfoWindow({
@@ -929,7 +929,7 @@ $(document).ready(function()
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(value.lat, value.lon),
             map: map,
-            icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+            icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
           });
 
           var infoW = new google.maps.InfoWindow({
@@ -1191,7 +1191,7 @@ function heatmap_well_scale(fields, option)
         {
           well_coordinates.push(well_coordinate);
 
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_brown.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_brown.png';
           true_counter += 1; 
           /* Asignación de color según el peso del valor del subparámetro consultado */
           var circle_color; 
@@ -1225,7 +1225,7 @@ function heatmap_well_scale(fields, option)
         }
         else
         {
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_white.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_white.png';
           false_counter += 1; 
         }
 
@@ -1421,7 +1421,7 @@ function map_well_scale(fields, option)
 
         if(well_info[i].value)
         {
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_brown.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_brown.png';
           true_counter += 1; 
           /* Asignación de color según el peso del valor del subparámetro consultado */
           var circle_color; 
@@ -1455,7 +1455,7 @@ function map_well_scale(fields, option)
         }
         else
         {
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_white.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_white.png';
           false_counter += 1; 
         }
 
@@ -1578,12 +1578,12 @@ function map_well_scale_bool(fields, option)
 
         if(well_info[i][1])
         {
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_brown.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_brown.png';
           var well_value = '<font color=green> There is '+option_name+' for this well</font>';
         }
         else
         {
-          var well_icon = 'https://labs.google.com/ridefinder/images/mm_20_white.png';
+          var well_icon = 'http://labs.google.com/ridefinder/images/mm_20_white.png';
           var well_value = '<font color=red> There is no '+option_name+' for this well</font>';
         }
 
@@ -2092,7 +2092,7 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         var marker = new google.maps.Marker({
           position:pt ,
           map:map,
-          icon: 'https://labs.google.com/ridefinder/images/mm_20_brown.png'
+          icon: 'http://labs.google.com/ridefinder/images/mm_20_brown.png'
         });
         val = parseFloat(value.valor);
         val = val.toFixed(2);
@@ -2246,7 +2246,7 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(value.lat, value.lon),
           map:map,
-          icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+          icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
         });
 
         var infoW = new google.maps.InfoWindow({
@@ -2593,7 +2593,7 @@ function mapConfDan_Well(op,filtrox,camposf,formacion,sp,puntos)
       var marker = new google.maps.Marker({
         position:pt ,
         map:map,
-        icon: 'https://labs.google.com/ridefinder/images/mm_20_brown.png'
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_brown.png'
   });
       val = parseFloat(value.valor);
       val = val.toFixed(2);
@@ -2801,7 +2801,7 @@ function mapConfDan_Well(op,filtrox,camposf,formacion,sp,puntos)
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(value.lat, value.lon),
         map:map,
-        icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
   });
 
       var infoW = new google.maps.InfoWindow({
@@ -3157,7 +3157,7 @@ function mapIsVd_Well(op, parametro,camposf,formacion,sp, puntos)
       var marker = new google.maps.Marker({
         position:pt ,
         map:map,
-        icon: 'https://labs.google.com/ridefinder/images/mm_20_brown.png'
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_brown.png'
     });
       val = parseFloat(value.valor);
       val = val.toFixed(2);
@@ -3363,7 +3363,7 @@ function mapIsVd_Well(op, parametro,camposf,formacion,sp, puntos)
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(value.lat, value.lon),
         map:map,
-        icon: 'https://labs.google.com/ridefinder/images/mm_20_white.png'
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_white.png'
     });
 
       var infoW = new google.maps.InfoWindow({

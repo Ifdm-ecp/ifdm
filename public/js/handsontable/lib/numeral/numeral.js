@@ -3,7 +3,7 @@
  * version : 1.5.3
  * author : Adam Draper
  * license : MIT
- * https://adamwdraper.github.com/Numeral-js/
+ * http://adamwdraper.github.com/Numeral-js/
  */
 
 (function () {
@@ -591,7 +591,7 @@
     ************************************/
 
     // The floating-point helper functions and implementation
-    // borrows heavily from sinful.js: https://guipn.github.io/sinful.js/
+    // borrows heavily from sinful.js: http://guipn.github.io/sinful.js/
 
     /**
      * Array.prototype.reduce for browsers that don't support it

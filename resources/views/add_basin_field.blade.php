@@ -83,10 +83,10 @@
 @endsection
 
 @section('Scripts')
-    <script src="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.js"></script>
-    <link rel="stylesheet" media="screen" href="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
+    <script src="http://nextgen.pl/_/scroll/dist/jquery.handsontable.full.js"></script>
+    <link rel="stylesheet" media="screen" href="http://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
     <script src="{{ asset('js/highcharts.js') }}"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
     @include('js/add_basin_field')
     @include('js/modal_error')
 @endsection

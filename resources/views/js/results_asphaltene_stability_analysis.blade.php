@@ -4,7 +4,7 @@
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
 <!-- Libreria de graficación -->
 {{-- <script src="{{ asset('js/highcharts.js') }}"></script> --}}
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/annotations.js"></script>
 <script type="text/javascript">   

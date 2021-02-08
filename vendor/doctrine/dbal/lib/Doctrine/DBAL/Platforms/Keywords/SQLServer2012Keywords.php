@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms\Keywords;
@@ -22,7 +22,7 @@ namespace Doctrine\DBAL\Platforms\Keywords;
 /**
  * Microsoft SQL Server 2012 reserved keyword dictionary.
  *
- * @license BSD https://www.opensource.org/licenses/bsd-license.php
+ * @license BSD http://www.opensource.org/licenses/bsd-license.php
  * @link    www.doctrine-project.com
  * @since   2.3
  * @author  Steve Müller <st.mueller@dzh-online.de>
@@ -40,7 +40,7 @@ class SQLServer2012Keywords extends SQLServer2008Keywords
     /**
      * {@inheritdoc}
      *
-     * @link https://msdn.microsoft.com/en-us/library/ms189822.aspx
+     * @link http://msdn.microsoft.com/en-us/library/ms189822.aspx
      */
     protected function getKeywords()
     {

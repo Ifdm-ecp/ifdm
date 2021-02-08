@@ -12,7 +12,7 @@
  * @contact     ashl1future@gmail.com
  * @copyright   Alexey Shildyakov
  * 
- * License      MIT - https://datatables.net/license/mit
+ * License      MIT - http://datatables.net/license/mit
  *
  * This feature plug-in for DataTables automatically merges columns cells
  * based on it's values equality. It supports multi-column row grouping

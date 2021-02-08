@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Mockery;
@@ -184,7 +184,7 @@ final class Instantiator
      * with an incompatible serialization format. If that's the case, use serialization marker
      * "C" instead of "O".
      *
-     * @link https://news.php.net/php.internals/74654
+     * @link http://news.php.net/php.internals/74654
      *
      * @param ReflectionClass $reflectionClass
      *

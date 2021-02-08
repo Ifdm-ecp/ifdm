@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms;
@@ -33,7 +33,7 @@ class SQLServer2008Platform extends SQLServer2005Platform
     public function getDateTimeTypeDeclarationSQL(array $fieldDeclaration)
     {
         // 3 - microseconds precision length
-        // https://msdn.microsoft.com/en-us/library/ms187819.aspx
+        // http://msdn.microsoft.com/en-us/library/ms187819.aspx
         return 'DATETIME2(6)';
     }
 

@@ -20,7 +20,7 @@ function functionName(&\$a = 0, \$b = 1.0) {
 CODE;
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<AST xmlns:node="https://nikic.github.com/PHPParser/XML/node" xmlns:subNode="https://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="https://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="https://nikic.github.com/PHPParser/XML/scalar">
+<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
  <scalar:array>
   <node:Stmt_Function>
    <attribute:startLine>

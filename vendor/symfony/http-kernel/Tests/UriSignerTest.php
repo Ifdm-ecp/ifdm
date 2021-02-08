@@ -20,23 +20,23 @@ class UriSignerTest extends TestCase
     {
         $signer = new UriSigner('foobar');
 
-        $this->assertContains('?_hash=', $signer->sign('https://example.com/foo'));
-        $this->assertContains('&_hash=', $signer->sign('https://example.com/foo?foo=bar'));
+        $this->assertContains('?_hash=', $signer->sign('http://example.com/foo'));
+        $this->assertContains('&_hash=', $signer->sign('http://example.com/foo?foo=bar'));
     }
 
     public function testCheck()
     {
         $signer = new UriSigner('foobar');
 
-        $this->assertFalse($signer->check('https://example.com/foo?_hash=foo'));
-        $this->assertFalse($signer->check('https://example.com/foo?foo=bar&_hash=foo'));
-        $this->assertFalse($signer->check('https://example.com/foo?foo=bar&_hash=foo&bar=foo'));
+        $this->assertFalse($signer->check('http://example.com/foo?_hash=foo'));
+        $this->assertFalse($signer->check('http://example.com/foo?foo=bar&_hash=foo'));
+        $this->assertFalse($signer->check('http://example.com/foo?foo=bar&_hash=foo&bar=foo'));
 
-        $this->assertTrue($signer->check($signer->sign('https://example.com/foo')));
-        $this->assertTrue($signer->check($signer->sign('https://example.com/foo?foo=bar')));
-        $this->assertTrue($signer->check($signer->sign('https://example.com/foo?foo=bar&0=integer')));
+        $this->assertTrue($signer->check($signer->sign('http://example.com/foo')));
+        $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar')));
+        $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar&0=integer')));
 
-        $this->assertSame($signer->sign('https://example.com/foo?foo=bar&bar=foo'), $signer->sign('https://example.com/foo?bar=foo&foo=bar'));
+        $this->assertSame($signer->sign('http://example.com/foo?foo=bar&bar=foo'), $signer->sign('http://example.com/foo?bar=foo&foo=bar'));
     }
 
     public function testCheckWithDifferentArgSeparator()
@@ -45,9 +45,9 @@ class UriSignerTest extends TestCase
         $signer = new UriSigner('foobar');
 
         $this->assertSame(
-            'https://example.com/foo?baz=bay&foo=bar&_hash=rIOcC%2FF3DoEGo%2FvnESjSp7uU9zA9S%2F%2BOLhxgMexoPUM%3D',
-            $signer->sign('https://example.com/foo?foo=bar&baz=bay')
+            'http://example.com/foo?baz=bay&foo=bar&_hash=rIOcC%2FF3DoEGo%2FvnESjSp7uU9zA9S%2F%2BOLhxgMexoPUM%3D',
+            $signer->sign('http://example.com/foo?foo=bar&baz=bay')
         );
-        $this->assertTrue($signer->check($signer->sign('https://example.com/foo?foo=bar&baz=bay')));
+        $this->assertTrue($signer->check($signer->sign('http://example.com/foo?foo=bar&baz=bay')));
     }
 }

@@ -1,7 +1,7 @@
 //! moment.js locale configuration
 //! locale : belarusian (be)
 //! author : Dmitry Demidov : https://github.com/demidov91
-//! author: Praleska: https://praleska.pro/
+//! author: Praleska: http://praleska.pro/
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 (function (global, factory) {

@@ -1,5 +1,5 @@
 /*
-  html2canvas 0.4.1 <https://html2canvas.hertzen.com>
+  html2canvas 0.4.1 <http://html2canvas.hertzen.com>
   Copyright (c) 2013 Niklas von Hertzen
 
   Released under MIT License
@@ -197,7 +197,7 @@ function toPX(element, attribute, value ) {
     // Check if we are not dealing with pixels, (Opera has issues with this)
     // Ported from jQuery css.js
     // From the awesome hack by Dean Edwards
-    // https://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
+    // http://erik.eae.net/archives/2007/07/27/18.54.15/#comment-102291
 
     // If we're not dealing with a regular pixel number
     // but a number that has a weird ending, we need to convert it to pixels
@@ -377,7 +377,7 @@ _html2canvas.Util.Extend = function (options, defaults) {
  * Derived from jQuery.contents()
  * Copyright 2010, John Resig
  * Dual licensed under the MIT or GPL Version 2 licenses.
- * https://jquery.org/license
+ * http://jquery.org/license
  */
 _html2canvas.Util.Children = function( elem ) {
   var children;
@@ -442,7 +442,7 @@ _html2canvas.Util.Font = (function () {
 
     doc.body.appendChild(container);
 
-    // https://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever (handtinywhite.gif)
+    // http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever (handtinywhite.gif)
     img.src = "data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACwAAAAAAQABAAACAkQBADs=";
     img.width = 1;
     img.height = 1;
@@ -1658,7 +1658,7 @@ _html2canvas.Parse = function (images, options) {
     bw,
     bh,
     borderArgs,
-    // https://www.w3.org/TR/css3-background/#the-border-radius
+    // http://www.w3.org/TR/css3-background/#the-border-radius
     borderRadius = getBorderRadiusData(element),
     borderPoints = calculateCurvePoints(bounds, borderRadius, borders),
     borderData = {
@@ -2201,7 +2201,7 @@ _html2canvas.Preload = function( options ) {
 
   function isSameOrigin(url){
     link.href = url;
-    link.href = link.href; // YES, BELIEVE IT OR NOT, that is required for IE9 - https://jsfiddle.net/niklasvh/2e48b/
+    link.href = link.href; // YES, BELIEVE IT OR NOT, that is required for IE9 - http://jsfiddle.net/niklasvh/2e48b/
     var origin = link.protocol + link.host;
     return (origin === pageOrigin);
   }
@@ -2493,7 +2493,7 @@ _html2canvas.Preload = function( options ) {
 
 _html2canvas.Renderer = function(parseQueue, options){
 
-  // https://www.w3.org/TR/CSS21/zindex.html
+  // http://www.w3.org/TR/CSS21/zindex.html
   function createRenderQueue(parseQueue) {
     var queue = [],
     rootContext;
@@ -2541,7 +2541,7 @@ _html2canvas.Renderer = function(parseQueue, options){
         // positioned after static
         context[zi].forEach(function(v) {
           if (v.node.zIndex.isPositioned || v.node.zIndex.opacity < 1) {
-            // https://www.w3.org/TR/css3-color/#transparency
+            // http://www.w3.org/TR/css3-color/#transparency
             // non-positioned element with opactiy < 1 should be stacked as if it were a positioned element with ‘z-index: 0’ and ‘opacity: 1’.
             positioned.push(v);
           } else if (v.node.zIndex.isFloated) {
@@ -2605,9 +2605,9 @@ _html2canvas.Util.Support = function (options, doc) {
     canvas.width = canvas.height = 10;
     img.src = [
     "data:image/svg+xml,",
-    "<svg xmlns='https://www.w3.org/2000/svg' width='10' height='10'>",
+    "<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'>",
     "<foreignObject width='10' height='10'>",
-    "<div xmlns='https://www.w3.org/1999/xhtml' style='width:10;height:10;'>",
+    "<div xmlns='http://www.w3.org/1999/xhtml' style='width:10;height:10;'>",
     "sup",
     "</div>",
     "</foreignObject>",

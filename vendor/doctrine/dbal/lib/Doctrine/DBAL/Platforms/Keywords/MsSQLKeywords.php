@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 
@@ -23,7 +23,7 @@ namespace Doctrine\DBAL\Platforms\Keywords;
 /**
  * MsSQL Keywordlist
  *
- * @license    BSD https://www.opensource.org/licenses/bsd-license.php
+ * @license    BSD http://www.opensource.org/licenses/bsd-license.php
  * @link       www.doctrine-project.com
  * @since      2.0
  * @author     Benjamin Eberlei <kontakt@beberlei.de>

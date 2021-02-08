@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
@@ -32,7 +32,7 @@ class DB2SchemaManager extends AbstractSchemaManager
      * {@inheritdoc}
      *
      * Apparently creator is the schema not the user who created it:
-     * {@link https://publib.boulder.ibm.com/infocenter/dzichelp/v2r2/index.jsp?topic=/com.ibm.db29.doc.sqlref/db2z_sysibmsystablestable.htm}
+     * {@link http://publib.boulder.ibm.com/infocenter/dzichelp/v2r2/index.jsp?topic=/com.ibm.db29.doc.sqlref/db2z_sysibmsystablestable.htm}
      */
     public function listTableNames()
     {
@@ -196,7 +196,7 @@ class DB2SchemaManager extends AbstractSchemaManager
     protected function _getPortableViewDefinition($view)
     {
         $view = array_change_key_case($view, \CASE_LOWER);
-        // sadly this still segfaults on PDO_IBM, see https://pecl.php.net/bugs/bug.php?id=17199
+        // sadly this still segfaults on PDO_IBM, see http://pecl.php.net/bugs/bug.php?id=17199
         //$view['text'] = (is_resource($view['text']) ? stream_get_contents($view['text']) : $view['text']);
         if (!is_resource($view['text'])) {
             $pos = strpos($view['text'], ' AS ');

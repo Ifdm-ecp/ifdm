@@ -11,4 +11,4 @@ Please read the documentation chapter on Security in Doctrine DBAL to
 understand the assumptions we make.
 
 - [Latest security.rst page on Github](https://github.com/doctrine/dbal/blob/master/docs/en/reference/security.rst)
-- [Security Page in rendered documentation](https://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/security.html)
+- [Security Page in rendered documentation](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/security.html)

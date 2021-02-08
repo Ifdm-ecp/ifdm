@@ -70,7 +70,7 @@ class ApacheMatcherDumper extends MatcherDumper
                 $regex = $this->regexToApacheRegex($hostRegex);
                 $regex = self::escape($regex, ' ', '\\');
 
-                $rule[] = sprintf('RewriteCond %%{https:Host} %s', $regex);
+                $rule[] = sprintf('RewriteCond %%{HTTP:Host} %s', $regex);
 
                 $variables = array();
                 $variables[] = sprintf('E=__ROUTING_host_%s:1', $hostRegexUnique);

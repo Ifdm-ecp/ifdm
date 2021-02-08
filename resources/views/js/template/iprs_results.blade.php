@@ -3,7 +3,7 @@
 <!-- HandsOnTable CSS -->
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
 <!-- Libreria de graficación -->
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <script type="text/javascript">

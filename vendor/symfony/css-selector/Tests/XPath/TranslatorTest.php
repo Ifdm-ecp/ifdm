@@ -164,7 +164,7 @@ class TranslatorTest extends TestCase
             array('a[href*="localhost"]', array('tag-anchor')),
             array('a[href*=""]', array()),
             array('a[href^="http"]', array('tag-anchor', 'nofollow-anchor')),
-            array('a[href^="https:"]', array('tag-anchor')),
+            array('a[href^="http:"]', array('tag-anchor')),
             array('a[href^=""]', array()),
             array('a[href$="org"]', array('nofollow-anchor')),
             array('a[href$=""]', array()),

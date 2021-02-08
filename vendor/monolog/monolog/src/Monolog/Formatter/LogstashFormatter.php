@@ -14,7 +14,7 @@ namespace Monolog\Formatter;
 /**
  * Serializes a log message to Logstash Event Format
  *
- * @see https://logstash.net/
+ * @see http://logstash.net/
  * @see https://github.com/logstash/logstash/blob/master/lib/logstash/event.rb
  *
  * @author Tim Mower <timothy.mower@gmail.com>

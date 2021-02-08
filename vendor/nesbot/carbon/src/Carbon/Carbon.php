@@ -1824,7 +1824,7 @@ class Carbon extends DateTime implements JsonSerializable
 
     /**
      * Format the instance with the current locale.  You can set the current
-     * locale using setlocale() https://php.net/setlocale.
+     * locale using setlocale() http://php.net/setlocale.
      *
      * @param string $format
      *

@@ -847,12 +847,12 @@ yaml: |
    ---
    at: 2001-08-12 09:25:00.00 Z
    type: GET
-   https: '1.0'
+   HTTP: '1.0'
    url: '/index.html'
    ---
    at: 2001-08-12 09:25:10.00 Z
    type: GET
-   https: '1.0'
+   HTTP: '1.0'
    url: '/toc.html'
 ruby: |
    y = YAML::Stream.new

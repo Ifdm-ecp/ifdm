@@ -4,7 +4,7 @@
 @if ($option_remediation == 1)
 <script src="{{ asset('js/handsontable/dist/handsontable.full.js') }}"></script>
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 @endif
 
 

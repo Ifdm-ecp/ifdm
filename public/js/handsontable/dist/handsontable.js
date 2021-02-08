@@ -5,7 +5,7 @@
  * Copyright (c) 2012-2014 Marcin Warpechowski
  * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
- * https://handsontable.com/
+ * http://handsontable.com/
  *
  * Date: Tue Nov 03 2015 14:30:34 GMT+0100 (CET)
  */

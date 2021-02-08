@@ -22,7 +22,7 @@ class PersonTest extends TestCase
         $this->assertTrue($this->isValidDNI($dni));
     }
 
-    // validation taken from https://kiwwito.com/php-function-for-spanish-dni-nie-validation/
+    // validation taken from http://kiwwito.com/php-function-for-spanish-dni-nie-validation/
     public function isValidDNI($string)
     {
         if (strlen($string) != 9 ||

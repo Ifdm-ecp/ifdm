@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <https://www.doctrine-project.org>.
+ * <http://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Schema;
@@ -26,7 +26,7 @@ use \Doctrine\DBAL\Platforms\AbstractPlatform;
  *
  * @link      www.doctrine-project.org
  * @copyright Copyright (C) 2005-2009 eZ Systems AS. All rights reserved.
- * @license   https://ez.no/licenses/new_bsd New BSD License
+ * @license   http://ez.no/licenses/new_bsd New BSD License
  * @since     2.0
  * @author    Benjamin Eberlei <kontakt@beberlei.de>
  */

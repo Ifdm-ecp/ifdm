@@ -1,7 +1,7 @@
 {
   "name": "handsontable",
   "description": "Spreadsheet-like data grid editor that provides copy/paste functionality compatible with Excel/Google Docs",
-  "homepage": "https://handsontable.com/",
+  "homepage": "http://handsontable.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/handsontable/handsontable.git"

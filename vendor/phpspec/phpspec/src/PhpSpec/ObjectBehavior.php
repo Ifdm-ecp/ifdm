@@ -50,7 +50,7 @@ class ObjectBehavior implements
     /**
      * Override this method to provide your own inline matchers
      *
-     * @link https://phpspec.net/cookbook/matchers.html Matchers cookbook
+     * @link http://phpspec.net/cookbook/matchers.html Matchers cookbook
      * @return array a list of inline matchers
      */
     public function getMatchers()

@@ -5,7 +5,7 @@
   "author": {
     "name": "Marcin Warpechowski",
     "email": "hello@handsontable.com",
-    "url": "https://www.nextgen.pl/"
+    "url": "http://www.nextgen.pl/"
   },
   "licenses": [
     {
@@ -14,9 +14,9 @@
     }
   ],
   "description": "Spreadsheet-like data grid editor that provides copy/paste functionality compatible with Excel/Google Docs",
-  "homepage": "https://handsontable.com/",
+  "homepage": "http://handsontable.com/",
   "docs": "https://github.com/handsontable/handsontable",
-  "demo": "https://handsontable.com/",
+  "demo": "http://handsontable.com/",
   "download": "https://github.com/handsontable/handsontable/archive/master.zip",
   "keywords": [
     "grid",

@@ -7,8 +7,8 @@
  *
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2017 Mike van Riel<mike@phpdoc.org>
- * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      http://phpdoc.org
+ * @license   https://www.opensource.org/licenses/mit-license.php MIT
+ * @link      https://phpdoc.org
  */
 
 namespace phpDocumentor\Reflection\DocBlock\Tags\Formatter;

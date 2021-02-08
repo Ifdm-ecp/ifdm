@@ -3,7 +3,7 @@
 
 `iconate.js` is a tiny performant library for cross-browser icon transformation animations in your projects.
 
-## [Demo](http://bitshadow.github.io/iconate)
+## [Demo](https://bitshadow.github.io/iconate)
 
 Installation
 ------------
@@ -89,5 +89,5 @@ Browser Support
 License
 -------
 
-Copyright (c) 2015 Jignesh Kakadiya, http://bitshadow.github.io
-Licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Copyright (c) 2015 Jignesh Kakadiya, https://bitshadow.github.io
+Licensed under the [MIT license](https://opensource.org/licenses/MIT).

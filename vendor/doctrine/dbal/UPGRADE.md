@@ -25,7 +25,7 @@ When mapping `time` type field to PHP's `DateTime` instance all unused date fiel
 reset to UNIX epoch (i.e. 1970-01-01). This might break any logic which relies on comparing
 `DateTime` instances with date fields set to the current date.
 
-Use `!` format prefix (see http://php.net/manual/en/datetime.createfromformat.php) for parsing
+Use `!` format prefix (see https://php.net/manual/en/datetime.createfromformat.php) for parsing
 time strings to prevent having different date fields when comparing user input and `DateTime`
 instances as mapped by Doctrine.
 
@@ -105,7 +105,7 @@ client session will be altered to set the numeric character to ".,":
 
     ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'
 
-See [DBAL-345](http://www.doctrine-project.org/jira/browse/DBAL-345) for more details.
+See [DBAL-345](https://www.doctrine-project.org/jira/browse/DBAL-345) for more details.
 
 ## Doctrine\DBAL\Connection and Doctrine\DBAL\Statement
 

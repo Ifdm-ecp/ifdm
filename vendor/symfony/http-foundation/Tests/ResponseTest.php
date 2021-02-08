@@ -884,10 +884,10 @@ class ResponseTest extends ResponseTestCase
     }
 
     /**
-     * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
+     * @see       https://github.com/zendframework/zend-diactoros for the canonical source repository
      *
      * @author    Fábio Pacheco
-     * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+     * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (https://www.zend.com)
      * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
      */
     public function ianaCodesReasonPhrasesProvider()
@@ -913,7 +913,7 @@ class ResponseTest extends ResponseTestCase
         $ianaCodesReasonPhrases = array();
 
         $xpath = new \DOMXPath($ianaHttpStatusCodes);
-        $xpath->registerNamespace('ns', 'http://www.iana.org/assignments');
+        $xpath->registerNamespace('ns', 'https://www.iana.org/assignments');
 
         $records = $xpath->query('//ns:record');
         foreach ($records as $record) {

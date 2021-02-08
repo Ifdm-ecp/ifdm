@@ -18,15 +18,15 @@ class Internet extends Base
         '{{userName}}@{{freeEmailDomain}}',
     );
     protected static $urlFormats = array(
-        'http://www.{{domainName}}/',
-        'http://{{domainName}}/',
-        'http://www.{{domainName}}/{{slug}}',
-        'http://www.{{domainName}}/{{slug}}',
+        'https://www.{{domainName}}/',
+        'https://{{domainName}}/',
         'https://www.{{domainName}}/{{slug}}',
-        'http://www.{{domainName}}/{{slug}}.html',
-        'http://{{domainName}}/{{slug}}',
-        'http://{{domainName}}/{{slug}}',
-        'http://{{domainName}}/{{slug}}.html',
+        'https://www.{{domainName}}/{{slug}}',
+        'https://www.{{domainName}}/{{slug}}',
+        'https://www.{{domainName}}/{{slug}}.html',
+        'https://{{domainName}}/{{slug}}',
+        'https://{{domainName}}/{{slug}}',
+        'https://{{domainName}}/{{slug}}.html',
         'https://{{domainName}}/{{slug}}.html',
     );
 
@@ -153,7 +153,7 @@ class Internet extends Base
     }
 
     /**
-     * @example 'http://www.runolfsdottir.com/'
+     * @example 'https://www.runolfsdottir.com/'
      */
     public function url()
     {

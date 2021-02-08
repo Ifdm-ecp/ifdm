@@ -27,7 +27,7 @@ RANGES = {
     # All valid codepoints in the BMP
     'bmp': chain(range(0x0000, 0xD800), range(0xE000, 0xFFFF)),
     # Smaller set of pertinent? codepoints inside BMP
-    # see: http://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane
+    # see: https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_Multilingual_Plane
     'small': chain(
         # latin blocks
         range(0x0000, 0x0250),

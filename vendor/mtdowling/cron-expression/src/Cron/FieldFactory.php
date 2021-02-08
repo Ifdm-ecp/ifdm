@@ -6,7 +6,7 @@ use InvalidArgumentException;
 
 /**
  * CRON field factory implementing a flyweight factory
- * @link http://en.wikipedia.org/wiki/Cron
+ * @link https://en.wikipedia.org/wiki/Cron
  */
 class FieldFactory
 {

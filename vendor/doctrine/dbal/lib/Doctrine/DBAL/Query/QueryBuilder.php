@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Query;
@@ -1238,7 +1238,7 @@ class QueryBuilder
      * placeholder for you. An automatic placeholder will be of the name
      * ':dcValue1', ':dcValue2' etc.
      *
-     * For more information see {@link http://php.net/pdostatement-bindparam}
+     * For more information see {@link https://php.net/pdostatement-bindparam}
      *
      * Example:
      * <code>
@@ -1248,7 +1248,7 @@ class QueryBuilder
      * </code>
      *
      * @license New BSD License
-     * @link http://www.zetacomponents.org
+     * @link https://www.zetacomponents.org
      *
      * @param mixed  $value
      * @param mixed  $type

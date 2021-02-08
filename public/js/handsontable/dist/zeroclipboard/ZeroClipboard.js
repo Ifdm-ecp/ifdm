@@ -3,7 +3,7 @@
  * The ZeroClipboard library provides an easy way to copy text to the clipboard using an invisible Adobe Flash movie and a JavaScript interface.
  * Copyright (c) 2009-2014 Jon Rohan, James M. Greene
  * Licensed MIT
- * http://zeroclipboard.org/
+ * https://zeroclipboard.org/
  * v2.2.0
  */
 (function(window, undefined) {
@@ -1703,9 +1703,9 @@
  * Attempt to detect if ZeroClipboard is executing inside of a sandboxed iframe.
  * If it is, Flash Player cannot be used, so ZeroClipboard is dead in the water.
  *
- * @see {@link http://lists.w3.org/Archives/Public/public-whatwg-archive/2014Dec/0002.html}
+ * @see {@link https://lists.w3.org/Archives/Public/public-whatwg-archive/2014Dec/0002.html}
  * @see {@link https://github.com/zeroclipboard/zeroclipboard/issues/511}
- * @see {@link http://zeroclipboard.org/test-iframes.html}
+ * @see {@link https://zeroclipboard.org/test-iframes.html}
  *
  * @returns `true` (is sandboxed), `false` (is not sandboxed), or `null` (uncertain) 
  * @private
@@ -1751,7 +1751,7 @@
  * Detect the Flash Player status, version, and plugin type.
  *
  * @see {@link https://code.google.com/p/doctype-mirror/wiki/ArticleDetectFlash#The_code}
- * @see {@link http://stackoverflow.com/questions/12866060/detecting-pepper-ppapi-flash-with-javascript}
+ * @see {@link https://stackoverflow.com/questions/12866060/detecting-pepper-ppapi-flash-with-javascript}
  *
  * @returns `undefined`
  * @private

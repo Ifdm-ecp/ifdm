@@ -7,7 +7,7 @@
  *
  * Copyright 2012, Marcin Warpechowski
  * Licensed under the MIT license.
- * http://github.com/warpech/sheetclip/
+ * https://github.com/warpech/sheetclip/
  */
 /*jslint white: true*/
 (function (global) {

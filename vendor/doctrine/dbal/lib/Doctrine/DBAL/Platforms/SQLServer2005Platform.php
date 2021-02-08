@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms;
@@ -30,7 +30,7 @@ namespace Doctrine\DBAL\Platforms;
  *   setting .000 manually.
  * - Starting with SQLServer2005 VARCHAR(MAX), VARBINARY(MAX) and
  *   NVARCHAR(max) replace the old TEXT, NTEXT and IMAGE types. See
- *   {@link http://www.sql-server-helper.com/faq/sql-server-2005-varchar-max-p01.aspx}
+ *   {@link https://www.sql-server-helper.com/faq/sql-server-2005-varchar-max-p01.aspx}
  *   for more information.
  */
 class SQLServer2005Platform extends SQLServerPlatform

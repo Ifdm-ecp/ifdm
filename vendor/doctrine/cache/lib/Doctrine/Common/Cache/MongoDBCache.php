@@ -30,7 +30,7 @@ class MongoDBCache extends CacheProvider
      * The cache provider will also check dates on its own, in case expired
      * entries are fetched before MongoDB's TTLMonitor pass can expire them.
      *
-     * @see http://docs.mongodb.org/manual/tutorial/expire-data/
+     * @see https://docs.mongodb.org/manual/tutorial/expire-data/
      */
     public const EXPIRATION_FIELD = 'e';
 
@@ -44,8 +44,8 @@ class MongoDBCache extends CacheProvider
      * return values of delete() and save() unreliable. Reading from secondaries
      * may make contain() and fetch() unreliable.
      *
-     * @see http://www.php.net/manual/en/mongo.readpreferences.php
-     * @see http://www.php.net/manual/en/mongo.writeconcerns.php
+     * @see https://www.php.net/manual/en/mongo.readpreferences.php
+     * @see https://www.php.net/manual/en/mongo.writeconcerns.php
      * @param MongoCollection|Collection $collection
      */
     public function __construct($collection)

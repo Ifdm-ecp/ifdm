@@ -1,15 +1,15 @@
 # Handsontable [![Build Status](https://travis-ci.org/handsontable/handsontable.png?branch=master)](https://travis-ci.org/handsontable/handsontable)
 
-Handsontable is a data grid component with an Excel-like appearance. Built in JavaScript, it integrates with any data source and comes with [features](http://docs.handsontable.com/0.17.0/tutorial-features.html) like data validation, sorting, grouping, data binding or column ordering. Actively supported by the Handsoncode team and the GitHub community.
+Handsontable is a data grid component with an Excel-like appearance. Built in JavaScript, it integrates with any data source and comes with [features](https://docs.handsontable.com/0.17.0/tutorial-features.html) like data validation, sorting, grouping, data binding or column ordering. Actively supported by the Handsoncode team and the GitHub community.
 
-Check out the demos at http://handsontable.com/examples.html or fork the example on
-[JSFiddle](http://jsfiddle.net/js_ziggle/hU6Kz/3228/) to see Handsontable in action.
+Check out the demos at https://handsontable.com/examples.html or fork the example on
+[JSFiddle](https://jsfiddle.net/js_ziggle/hU6Kz/3228/) to see Handsontable in action.
 
 - - -
 
 ### Quick start
 
-1. A recommended way to install Handsontable is through [Bower](http://bower.io/search/?q=handsontable) package manager using the following command:
+1. A recommended way to install Handsontable is through [Bower](https://bower.io/search/?q=handsontable) package manager using the following command:
 
   `bower install handsontable --save`
 
@@ -45,9 +45,9 @@ Check out the demos at http://handsontable.com/examples.html or fork the example
 
 ### API Reference
 
-- [Core methods](http://docs.handsontable.com/0.17.0/Core.html)
-- [Options](http://docs.handsontable.com/0.17.0/Options.html)
-- [Hooks](http://docs.handsontable.com/0.17.0/Hooks.html)
+- [Core methods](https://docs.handsontable.com/0.17.0/Core.html)
+- [Options](https://docs.handsontable.com/0.17.0/Options.html)
+- [Hooks](https://docs.handsontable.com/0.17.0/Hooks.html)
 
 ### Troubleshooting
 
@@ -55,7 +55,7 @@ Please follow this guidelines when reporting bugs and feature requests:
 
 1. Use [GitHub Issues](https://github.com/handsontable/handsontable/issues) board to report bugs and feature requests (not our email address)
 2. Please **always** write steps to reproduce the error. That way we can focus on fixing the bug, not scratching our heads trying to reproduce it.
-3. If possible, please add a JSFiddle link that shows the problem (start by forking [this fiddle](http://jsfiddle.net/js_ziggle/hU6Kz/3228/)). It saves us much time.
+3. If possible, please add a JSFiddle link that shows the problem (start by forking [this fiddle](https://jsfiddle.net/js_ziggle/hU6Kz/3228/)). It saves us much time.
 4. If you can't reproduce it on JSFiddle, please add a screenshot that shows the problem. JSFiddle is much more appreciated because it lets us start fixing straight away.
 
 Thanks for understanding!

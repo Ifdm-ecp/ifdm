@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
     "keywords": ["lexer", "parser"],
-    "homepage": "http://www.doctrine-project.org",
+    "homepage": "https://www.doctrine-project.org",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},

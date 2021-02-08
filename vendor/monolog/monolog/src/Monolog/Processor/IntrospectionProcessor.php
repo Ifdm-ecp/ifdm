@@ -56,7 +56,7 @@ class IntrospectionProcessor implements ProcessorInterface
         }
 
         /*
-        * http://php.net/manual/en/function.debug-backtrace.php
+        * https://php.net/manual/en/function.debug-backtrace.php
         * As of 5.3.6, DEBUG_BACKTRACE_IGNORE_ARGS option was added.
         * Any version less than 5.3.6 must use the DEBUG_BACKTRACE_IGNORE_ARGS constant value '2'.
         */

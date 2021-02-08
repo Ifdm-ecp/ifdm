@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common\Persistence;
@@ -22,7 +22,7 @@ namespace Doctrine\Common\Persistence;
 /**
  * Base class to simplify ObjectManager decorators
  *
- * @license http://opensource.org/licenses/MIT MIT
+ * @license https://opensource.org/licenses/MIT MIT
  * @link    www.doctrine-project.org
  * @since   2.4
  * @author  Lars Strojny <lars@strojny.net>

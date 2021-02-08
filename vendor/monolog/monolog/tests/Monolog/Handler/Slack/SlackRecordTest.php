@@ -133,13 +133,13 @@ class SlackRecordTest extends TestCase
         $slackRecord = new SlackRecord(null, null, false, 'ghost');
         $data = $slackRecord->getSlackData($record);
 
-        $slackRecord2 = new SlackRecord(null, null, false, 'http://github.com/Seldaek/monolog');
+        $slackRecord2 = new SlackRecord(null, null, false, 'https://github.com/Seldaek/monolog');
         $data2 = $slackRecord2->getSlackData($record);
 
         $this->assertArrayHasKey('icon_emoji', $data);
         $this->assertSame(':ghost:', $data['icon_emoji']);
         $this->assertArrayHasKey('icon_url', $data2);
-        $this->assertSame('http://github.com/Seldaek/monolog', $data2['icon_url']);
+        $this->assertSame('https://github.com/Seldaek/monolog', $data2['icon_url']);
     }
 
     public function testAttachmentsNotPresentIfNoAttachment()

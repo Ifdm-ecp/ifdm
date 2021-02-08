@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms\Keywords;
@@ -37,7 +37,7 @@ class SQLAnywhere16Keywords extends SQLAnywhere12Keywords
     /**
      * {@inheritdoc}
      *
-     * @link http://dcx.sybase.com/index.html#sa160/en/dbreference/alhakeywords.html
+     * @link https://dcx.sybase.com/index.html#sa160/en/dbreference/alhakeywords.html
      */
     protected function getKeywords()
     {

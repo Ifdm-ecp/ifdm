@@ -20,7 +20,7 @@
     "library"
   ],
   "license": "MIT",
-  "homepage": "http://bitshadow.github.io/iconate",
+  "homepage": "https://bitshadow.github.io/iconate",
   "ignore": [
     ".jscsrc",
     "**/*.txt",

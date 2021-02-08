@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver;
@@ -109,7 +109,7 @@ abstract class AbstractOracleDriver implements Driver, ExceptionConverterDriver
      *
      * @return string
      *
-     * @link http://download.oracle.com/docs/cd/E11882_01/network.112/e10836/naming.htm
+     * @link https://download.oracle.com/docs/cd/E11882_01/network.112/e10836/naming.htm
      */
     protected function getEasyConnectString(array $params)
     {

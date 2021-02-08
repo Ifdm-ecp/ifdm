@@ -15,7 +15,7 @@ namespace Symfony\Component\Routing;
  * RouteCompiler compiles Route instances to CompiledRoute instances.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- * @author Tobias Schultze <http://tobion.de>
+ * @author Tobias Schultze <https://tobion.de>
  */
 class RouteCompiler implements RouteCompilerInterface
 {
@@ -30,7 +30,7 @@ class RouteCompiler implements RouteCompilerInterface
 
     /**
      * The maximum supported length of a PCRE subpattern name
-     * http://pcre.org/current/doc/html/pcre2pattern.html#SEC16.
+     * https://pcre.org/current/doc/html/pcre2pattern.html#SEC16.
      *
      * @internal
      */

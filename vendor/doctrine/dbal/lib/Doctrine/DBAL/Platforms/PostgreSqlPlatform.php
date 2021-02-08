@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms;
@@ -337,7 +337,7 @@ class PostgreSqlPlatform extends AbstractPlatform
      * {@inheritDoc}
      *
      * @license New BSD License
-     * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
+     * @link https://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
      */
     public function getListTableIndexesSQL($table, $currentDatabase = null)
     {
@@ -773,7 +773,7 @@ class PostgreSqlPlatform extends AbstractPlatform
         }
 
         /**
-         * Better safe than sorry: http://php.net/in_array#106319
+         * Better safe than sorry: https://php.net/in_array#106319
          */
         if (in_array(trim(strtolower($value)), $this->booleanLiterals['false'], true)) {
             return $callback(false);

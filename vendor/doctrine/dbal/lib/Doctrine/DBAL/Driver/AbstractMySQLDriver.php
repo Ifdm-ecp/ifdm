@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Driver;
@@ -39,8 +39,8 @@ abstract class AbstractMySQLDriver implements Driver, ExceptionConverterDriver, 
     /**
      * {@inheritdoc}
      *
-     * @link http://dev.mysql.com/doc/refman/5.7/en/error-messages-client.html
-     * @link http://dev.mysql.com/doc/refman/5.7/en/error-messages-server.html
+     * @link https://dev.mysql.com/doc/refman/5.7/en/error-messages-client.html
+     * @link https://dev.mysql.com/doc/refman/5.7/en/error-messages-server.html
      */
     public function convertException($message, DriverException $exception)
     {

@@ -2105,7 +2105,7 @@ var jsPDF = (function (global) {
  * Copyright (c) 2016 Alexander Weidt, https://github.com/BiggA94
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 (AcroForm = function (jsPDFAPI) {
@@ -3739,7 +3739,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * Copyright (c) 2014 Diego Casorran
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 (function (jsPDFAPI) {
@@ -4250,7 +4250,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 
 	/**
 	 * @see this discussion
-	 * http://stackoverflow.com/questions/6965107/converting-between-strings-and-arraybuffers
+	 * https://stackoverflow.com/questions/6965107/converting-between-strings-and-arraybuffers
 	 *
 	 * As stated, i imagine the method below is highly inefficent for large files.
 	 *
@@ -4290,7 +4290,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	 *
 	 * Taken from here
 	 *
-	 * http://jsperf.com/encoding-xhr-image-data/31
+	 * https://jsperf.com/encoding-xhr-image-data/31
 	 *
 	 * Need to test if this is a better solution for larger files
 	 *
@@ -4474,7 +4474,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 
 	//takes a string imgData containing the raw bytes of
 	//a jpeg image and returns [width, height]
-	//Algorithm from: http://www.64lines.com/jpeg-width-height
+	//Algorithm from: https://www.64lines.com/jpeg-width-height
 	var getJpegSize = function(imgData) {
 		'use strict'
 		var width, height, numcomponents;
@@ -4586,7 +4586,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -4875,7 +4875,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * jsPDF Autoprint Plugin
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 (function (jsPDFAPI) {
@@ -4901,7 +4901,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -5365,7 +5365,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -5978,7 +5978,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	c2d.internal.rxRgb = /rgb\s*\(\s*(\d+),\s*(\d+),\s*(\d+\s*)\)/;
 	c2d.internal.rxRgba = /rgba\s*\(\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
 
-	// http://hansmuller-flex.blogspot.com/2011/10/more-about-approximating-circular-arcs.html
+	// https://hansmuller-flex.blogspot.com/2011/10/more-about-approximating-circular-arcs.html
 	c2d.internal.arc = function(xc,yc,r,a1,a2,anticlockwise,style) {
 
 		var k = this.pdf.internal.scaleFactor;
@@ -7281,7 +7281,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -7548,7 +7548,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 'use strict'
 	
 	/*
-	 * @see http://www.w3.org/TR/PNG-Chunks.html
+	 * @see https://www.w3.org/TR/PNG-Chunks.html
 	 * 
 	 Color    Allowed      Interpretation
 	 Type     Bit Depths
@@ -7570,8 +7570,8 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	/*
 	 * PNG filter method types
 	 * 
-	 * @see http://www.w3.org/TR/PNG-Filters.html
-	 * @see http://www.libpng.org/pub/png/book/chapter09.html
+	 * @see https://www.w3.org/TR/PNG-Filters.html
+	 * @see https://www.libpng.org/pub/png/book/chapter09.html
 	 * 
 	 * This is what the value 'Predictor' in decode params relates to
 	 * 
@@ -7648,7 +7648,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
 	}
 	, createZlibHeader = function(bytes, level){
 		/*
-		 * @see http://www.ietf.org/rfc/rfc1950.txt for zlib header 
+		 * @see https://www.ietf.org/rfc/rfc1950.txt for zlib header 
 		 */
 		var cm = 8;
         var cinfo = Math.LOG2E * Math.log(0x8000) - 8;
@@ -8038,7 +8038,7 @@ AcroForm.internal.setBitPosition = function (variable, position, value) {
  * jsPDF Autoprint Plugin
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 (function (jsPDFAPI) {
@@ -8979,7 +8979,7 @@ jsPDFAPI.putTotalPages = function(pageExpression) {
  * A Blob implementation.
  * 2014-07-24
  *
- * By Eli Grey, http://eligrey.com
+ * By Eli Grey, https://eligrey.com
  * By Devin Samarin, https://github.com/dsamarin
  * License: MIT
  *   See https://github.com/eligrey/Blob.js/blob/master/LICENSE.md
@@ -8989,7 +8989,7 @@ jsPDFAPI.putTotalPages = function(pageExpression) {
 /*jslint bitwise: true, regexp: true, confusion: true, es5: true, vars: true, white: true,
   plusplus: true */
 
-/*! @source http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
+/*! @source https://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
 
 (function (view) {
 	"use strict";
@@ -9050,7 +9050,7 @@ jsPDFAPI.putTotalPages = function(pageExpression) {
 		if (!real_URL.createObjectURL) {
 			URL = view.URL = function(uri) {
 				var
-					  uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+					  uri_info = document.createElementNS("https://www.w3.org/1999/xhtml", "a")
 					, uri_origin
 				;
 				uri_info.href = uri;
@@ -9190,7 +9190,7 @@ jsPDFAPI.putTotalPages = function(pageExpression) {
  * A saveAs() FileSaver implementation.
  * 1.1.20151003
  *
- * By Eli Grey, http://eligrey.com
+ * By Eli Grey, https://eligrey.com
  * License: MIT
  *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
  */
@@ -9198,7 +9198,7 @@ jsPDFAPI.putTotalPages = function(pageExpression) {
 /*global self */
 /*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
 
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+/*! @source https://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 
 var saveAs = saveAs || (function(view) {
 	"use strict";
@@ -9212,7 +9212,7 @@ var saveAs = saveAs || (function(view) {
 		, get_URL = function() {
 			return view.URL || view.webkitURL || view;
 		}
-		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+		, save_link = doc.createElementNS("https://www.w3.org/1999/xhtml", "a")
 		, can_use_save_link = "download" in save_link
 		, click = function(node) {
 			var event = new MouseEvent("click");
@@ -9305,7 +9305,7 @@ var saveAs = saveAs || (function(view) {
 					} else {
 						var new_tab = view.open(object_url, "_blank");
 						if (new_tab == undefined && is_safari) {
-							//Apple do not allow window.open, see http://bit.ly/1kZffRI
+							//Apple do not allow window.open, see https://bit.ly/1kZffRI
 							view.location.href = object_url
 						}
 					}
@@ -9341,7 +9341,7 @@ var saveAs = saveAs || (function(view) {
 			}
 			// Object and web filesystem URLs have a problem saving in Google Chrome when
 			// viewed in a tab, so I force save with application/octet-stream
-			// http://code.google.com/p/chromium/issues/detail?id=91158
+			// https://code.google.com/p/chromium/issues/detail?id=91158
 			// Update: Google errantly closed 91158, I submitted it again:
 			// https://code.google.com/p/chromium/issues/detail?id=389642
 			if (view.chrome && type && type !== force_saveable_type) {
@@ -9460,7 +9460,7 @@ if (typeof module !== "undefined" && module.exports) {
  * Copyright (c) 2012 chick307 <chick307@gmail.com>
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 void function(global, callback) {
@@ -9643,7 +9643,7 @@ void function(global, callback) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -11858,7 +11858,7 @@ var Deflater = (function(obj) {
 	};
 })(this);
 /*
-  html2canvas 0.5.0-alpha <http://html2canvas.hertzen.com>
+  html2canvas 0.5.0-alpha <https://html2canvas.hertzen.com>
   Copyright (c) 2014 Niklas von Hertzen
 
   Released under MIT License
@@ -12107,7 +12107,7 @@ if (typeof(Object.create) !== "function" || typeof(document.createElement("canva
 
 	/**
 	 * Bias adaptation function as per section 3.4 of RFC 3492.
-	 * http://tools.ietf.org/html/rfc3492#section-3.4
+	 * https://tools.ietf.org/html/rfc3492#section-3.4
 	 * @private
 	 */
 	function adapt(delta, numPoints, firstTime) {
@@ -12909,7 +12909,7 @@ ImageLoader.prototype.isSameOrigin = function(url) {
 ImageLoader.prototype.getOrigin = function(url) {
     var link = this.link || (this.link = document.createElement("a"));
     link.href = url;
-    link.href = link.href; // IE9, LOL! - http://jsfiddle.net/niklasvh/2e48b/
+    link.href = link.href; // IE9, LOL! - https://jsfiddle.net/niklasvh/2e48b/
     return link.protocol + link.hostname + link.port;
 };
 
@@ -13446,7 +13446,7 @@ function NodeParser(element, renderer, support, imageLoader, options) {
     this.stack = new StackingContext(true, 1, element.ownerDocument, null);
     var parent = new NodeContainer(element, null);
     if (element === element.ownerDocument.documentElement) {
-        // http://www.w3.org/TR/css3-background/#special-backgrounds
+        // https://www.w3.org/TR/css3-background/#special-backgrounds
         var canvasBackground = new NodeContainer(this.renderer.isTransparent(parent.css('backgroundColor')) ? element.ownerDocument.body : element.ownerDocument.documentElement, null);
         renderer.rectangle(0, 0, renderer.width, renderer.height, canvasBackground.css('backgroundColor'));
     }
@@ -13684,7 +13684,7 @@ NodeParser.prototype.getRangeBounds = function(node, offset, length) {
 function ClearTransform() {}
 
 NodeParser.prototype.parse = function(stack) {
-    // http://www.w3.org/TR/CSS21/visuren.html#z-index
+    // https://www.w3.org/TR/CSS21/visuren.html#z-index
     var negativeZindex = stack.contexts.filter(negativeZIndex); // 2. the child stacking contexts with negative stack levels (most negative first).
     var descendantElements = stack.children.filter(isElement);
     var descendantNonFloats = descendantElements.filter(not(isFloating));
@@ -14703,7 +14703,7 @@ Support.prototype.testSVG = function() {
     var img = new Image();
     var canvas = document.createElement("canvas");
     var ctx =  canvas.getContext("2d");
-    img.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+    img.src = "data:image/svg+xml,<svg xmlns='https://www.w3.org/2000/svg'></svg>";
 
     try {
         ctx.drawImage(img, 0, 0);
@@ -15539,7 +15539,7 @@ ImageLoader.prototype.isSameOrigin = function(url) {
 ImageLoader.prototype.getOrigin = function(url) {
     var link = this.link || (this.link = document.createElement("a"));
     link.href = url;
-    link.href = link.href; // IE9, LOL! - http://jsfiddle.net/niklasvh/2e48b/
+    link.href = link.href; // IE9, LOL! - https://jsfiddle.net/niklasvh/2e48b/
     return link.protocol + link.hostname + link.port;
 };
 
@@ -16072,7 +16072,7 @@ function NodeParser(element, renderer, support, imageLoader, options) {
     this.stack = new StackingContext(true, 1, element.ownerDocument, null);
     var parent = new NodeContainer(element, null);
     if (element === element.ownerDocument.documentElement) {
-        // http://www.w3.org/TR/css3-background/#special-backgrounds
+        // https://www.w3.org/TR/css3-background/#special-backgrounds
         var canvasBackground = new NodeContainer(this.renderer.isTransparent(parent.css('backgroundColor')) ? element.ownerDocument.body : element.ownerDocument.documentElement, null);
         renderer.rectangle(0, 0, renderer.width, renderer.height, canvasBackground.css('backgroundColor'));
     }
@@ -16310,7 +16310,7 @@ NodeParser.prototype.getRangeBounds = function(node, offset, length) {
 function ClearTransform() {}
 
 NodeParser.prototype.parse = function(stack) {
-    // http://www.w3.org/TR/CSS21/visuren.html#z-index
+    // https://www.w3.org/TR/CSS21/visuren.html#z-index
     var negativeZindex = stack.contexts.filter(negativeZIndex); // 2. the child stacking contexts with negative stack levels (most negative first).
     var descendantElements = stack.children.filter(isElement);
     var descendantNonFloats = descendantElements.filter(not(isFloating));
@@ -17182,7 +17182,7 @@ Support.prototype.testSVG = function() {
     var img = new Image();
     var canvas = document.createElement("canvas");
     var ctx =  canvas.getContext("2d");
-    img.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+    img.src = "data:image/svg+xml,<svg xmlns='https://www.w3.org/2000/svg'></svg>";
 
     try {
         ctx.drawImage(img, 0, 0);
@@ -17355,7 +17355,7 @@ function XHR(url) {
  * Copyright (c) 2014 Steven Spungin (TwelveTone LLC)  steven@twelvetone.tv
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 function html2pdf (html,pdf,callback) {
@@ -18405,13 +18405,13 @@ var FlateStream = (function() {
 
 	if (typeof global.btoa === 'undefined') {
 		global.btoa = function(data) {
-			//  discuss at: http://phpjs.org/functions/base64_encode/
-			// original by: Tyler Akins (http://rumkin.com)
+			//  discuss at: https://phpjs.org/functions/base64_encode/
+			// original by: Tyler Akins (https://rumkin.com)
 			// improved by: Bayron Guevara
 			// improved by: Thunder.m
-			// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-			// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-			// improved by: Rafal Kukawski (http://kukawski.pl)
+			// improved by: Kevin van Zonneveld (https://kevin.vanzonneveld.net)
+			// improved by: Kevin van Zonneveld (https://kevin.vanzonneveld.net)
+			// improved by: Rafal Kukawski (https://kukawski.pl)
 			// bugfixed by: Pellentesque Malesuada
 			//   example 1: base64_encode('Kevin van Zonneveld');
 			//   returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
@@ -18448,16 +18448,16 @@ var FlateStream = (function() {
 
 	if (typeof global.atob === 'undefined') {
 		global.atob = function(data) {
-			//  discuss at: http://phpjs.org/functions/base64_decode/
-			// original by: Tyler Akins (http://rumkin.com)
+			//  discuss at: https://phpjs.org/functions/base64_decode/
+			// original by: Tyler Akins (https://rumkin.com)
 			// improved by: Thunder.m
-			// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-			// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+			// improved by: Kevin van Zonneveld (https://kevin.vanzonneveld.net)
+			// improved by: Kevin van Zonneveld (https://kevin.vanzonneveld.net)
 			//    input by: Aman Gupta
-			//    input by: Brett Zamir (http://brett-zamir.me)
+			//    input by: Brett Zamir (https://brett-zamir.me)
 			// bugfixed by: Onno Marsman
 			// bugfixed by: Pellentesque Malesuada
-			// bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+			// bugfixed by: Kevin van Zonneveld (https://kevin.vanzonneveld.net)
 			//   example 1: base64_decode('S2V2aW4gdmFuIFpvbm5ldmVsZA==');
 			//   returns 1: 'Kevin van Zonneveld'
 
@@ -18596,7 +18596,7 @@ var FlateStream = (function() {
  * Copyright (c) 2015 James Hall (Parallax Agency Ltd) james@parall.ax
  *
  * Licensed under the MIT License.
- * http://opensource.org/licenses/mit-license
+ * https://opensource.org/licenses/mit-license
  */
 
 /**
@@ -18719,7 +18719,7 @@ require.config({
 /** vim: et:ts=4:sw=4:sts=4
  * @license RequireJS 2.1.15 Copyright (c) 2010-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
- * see: http://github.com/jrburke/requirejs for details
+ * see: https://github.com/jrburke/requirejs for details
  */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -18861,7 +18861,7 @@ var requirejs, require, define;
 	 * @returns {Error}
 	 */
 	function makeError(id,msg,err,requireModules) {
-		var e = new Error(msg + '\nhttp://requirejs.org/docs/errors.html#' + id);
+		var e = new Error(msg + '\nhttps://requirejs.org/docs/errors.html#' + id);
 		e.requireType = id;
 		e.requireModules = requireModules;
 		if (err) {
@@ -20443,7 +20443,7 @@ var requirejs, require, define;
 		head = s.head = document.getElementsByTagName('head')[0];
 		//If BASE tag is in play, using appendChild is a problem for IE6.
 		//When that browser dies, this can be removed. Details in this jQuery bug:
-		//http://dev.jquery.com/ticket/2709
+		//https://dev.jquery.com/ticket/2709
 		baseElement = document.getElementsByTagName('base')[0];
 		if (baseElement) {
 			head = s.head = baseElement.parentNode;
@@ -20461,7 +20461,7 @@ var requirejs, require, define;
 	 * Creates the node for the load command. Only used in browser envs.
 	 */
 	req.createNode = function(config,moduleName,url) {
-		var node = config.xhtml ? document.createElementNS('http://www.w3.org/1999/xhtml', 'html:script') : document.createElement('script');
+		var node = config.xhtml ? document.createElementNS('https://www.w3.org/1999/xhtml', 'html:script') : document.createElement('script');
 		node.type = config.scriptType || 'text/javascript';
 		node.charset = 'utf-8';
 		node.async = true;

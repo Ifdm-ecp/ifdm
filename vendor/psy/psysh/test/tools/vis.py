@@ -33,7 +33,7 @@ Constants:
   `VIS_GLOB`:       encode glob(3) magic characters
 
 :Authors:
-    - ju1ius (http://github.com/ju1ius)
+    - ju1ius (https://github.com/ju1ius)
 :Version: 1
 :Date: 2014-01-05
 """

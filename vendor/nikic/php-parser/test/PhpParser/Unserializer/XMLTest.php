@@ -10,7 +10,7 @@ class XMLTest extends \PHPUnit_Framework_TestCase
     public function testNode() {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node" xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="http://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+<AST xmlns:node="https://nikic.github.com/PHPParser/XML/node" xmlns:subNode="https://nikic.github.com/PHPParser/XML/subNode" xmlns:attribute="https://nikic.github.com/PHPParser/XML/attribute" xmlns:scalar="https://nikic.github.com/PHPParser/XML/scalar">
  <node:Scalar_String line="1" docComment="/** doc comment */">
   <attribute:startLine>
    <scalar:int>1</scalar:int>
@@ -45,7 +45,7 @@ XML;
     public function testEmptyNode() {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<AST xmlns:node="http://nikic.github.com/PHPParser/XML/node">
+<AST xmlns:node="https://nikic.github.com/PHPParser/XML/node">
  <node:Scalar_MagicConst_Class />
 </AST>
 XML;
@@ -61,7 +61,7 @@ XML;
     public function testScalars() {
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<AST xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar">
+<AST xmlns:scalar="https://nikic.github.com/PHPParser/XML/scalar">
  <scalar:array>
   <scalar:array></scalar:array>
   <scalar:array/>
@@ -111,10 +111,10 @@ XML;
 
         $xml = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<AST xmlns:scalar="http://nikic.github.com/PHPParser/XML/scalar"
-     xmlns:node="http://nikic.github.com/PHPParser/XML/node"
-     xmlns:subNode="http://nikic.github.com/PHPParser/XML/subNode"
-     xmlns:foo="http://nikic.github.com/PHPParser/XML/foo">
+<AST xmlns:scalar="https://nikic.github.com/PHPParser/XML/scalar"
+     xmlns:node="https://nikic.github.com/PHPParser/XML/node"
+     xmlns:subNode="https://nikic.github.com/PHPParser/XML/subNode"
+     xmlns:foo="https://nikic.github.com/PHPParser/XML/foo">
  $xml
 </AST>
 XML;

@@ -27,7 +27,7 @@ class Person extends \Faker\Provider\Person
     );
 
     /**
-     * {@link} http://www.ine.es/daco/daco42/nombyapel/nombyapel.htm
+     * {@link} https://www.ine.es/daco/daco42/nombyapel/nombyapel.htm
      * Manually added accent marks because the source lacks of them
      */
     protected static $firstNameMale = array(

@@ -25,7 +25,7 @@ And the Facade in the alias section (further down in `config/app.php`):
 
 #Original README
 ## Phpgmaps
-A none CI implementation of BIOINSTALL's [CodeIgniter library](http://github.com/BIOSTALL/CodeIgniter-Google-Maps-V3-API-Library).
+A none CI implementation of BIOINSTALL's [CodeIgniter library](https://github.com/BIOSTALL/CodeIgniter-Google-Maps-V3-API-Library).
 
 ---
 I found this library to be incredibly useful when I was working in CodeIgniter. However a little bit of work needed to be done to use it in a Laravel project. I can't take any of the credit for the actual "heavy lifting" going on in the class.
@@ -57,4 +57,4 @@ The following code will prompt the user for access to their geolocation and then
     });
 
 ### More Examples
-BIOINSTALL has a great website showing how to do all the things with the class. No reason to reinvent the wheel, so [here](http://biostall.com/demos/google-maps-v3-api-codeigniter-library/) it is. The only thing to note is that `$this->googlemaps` is now `Gmaps::`.
+BIOINSTALL has a great website showing how to do all the things with the class. No reason to reinvent the wheel, so [here](https://biostall.com/demos/google-maps-v3-api-codeigniter-library/) it is. The only thing to note is that `$this->googlemaps` is now `Gmaps::`.

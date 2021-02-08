@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
-<grammar xmlns="http://relaxng.org/ns/structure/1.0"
-  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
-  ns="http://www.iana.org/assignments">
+<grammar xmlns="https://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="https://www.w3.org/2001/XMLSchema-datatypes"
+  ns="https://www.iana.org/assignments">
 
   <define name="registryMeta">
     <interleave>

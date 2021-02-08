@@ -1,5 +1,5 @@
 /*! iconate.js - v0.2.7 - 2018-01-16
-* http://bitshadow.github.io/iconate
+* https://bitshadow.github.io/iconate
 * Copyright (c) 2018 Jignesh Kakadiya;/*global window */
 /*global document */
 (function() {

@@ -19,7 +19,7 @@
  *  - dist/handsontable.full.min.js
  *  - dist/handsontable.full.min.css
  *
- * See http://gruntjs.com/getting-started for more information about Grunt
+ * See https://gruntjs.com/getting-started for more information about Grunt
  */
 var browsers = [
   {
@@ -226,7 +226,7 @@ module.exports = function(grunt) {
     'saucelabs-jasmine': {
       handsontable: {
         options: {
-          urls: ['http://localhost:9999/test/jasmine/SpecRunner.html'],
+          urls: ['https://localhost:9999/test/jasmine/SpecRunner.html'],
           build: '<%= pkg.version %>-<%= gitinfo.local.branch.current.name %>',
           concurrency: 3,
           browsers: browsers,
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
       },
       walkontable: {
         options: {
-          urls: ['http://localhost:9999/src/3rdparty/walkontable/test/jasmine/SpecRunner.html'],
+          urls: ['https://localhost:9999/src/3rdparty/walkontable/test/jasmine/SpecRunner.html'],
           build: '<%= pkg.version %>-<%= gitinfo.local.branch.current.name %>',
           concurrency: 3,
           browsers: browsers,

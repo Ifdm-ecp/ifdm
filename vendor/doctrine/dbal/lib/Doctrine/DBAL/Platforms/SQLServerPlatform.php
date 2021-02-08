@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\DBAL\Platforms;
@@ -717,7 +717,7 @@ class SQLServerPlatform extends AbstractPlatform
      *
      * @return string
      *
-     * @link http://msdn.microsoft.com/en-us/library/ms180047%28v=sql.90%29.aspx
+     * @link https://msdn.microsoft.com/en-us/library/ms180047%28v=sql.90%29.aspx
      */
     public function getAddExtendedPropertySQL(
         $name,
@@ -749,7 +749,7 @@ class SQLServerPlatform extends AbstractPlatform
      *
      * @return string
      *
-     * @link http://technet.microsoft.com/en-gb/library/ms178595%28v=sql.90%29.aspx
+     * @link https://technet.microsoft.com/en-gb/library/ms178595%28v=sql.90%29.aspx
      */
     public function getDropExtendedPropertySQL(
         $name,
@@ -781,7 +781,7 @@ class SQLServerPlatform extends AbstractPlatform
      *
      * @return string
      *
-     * @link http://msdn.microsoft.com/en-us/library/ms186885%28v=sql.90%29.aspx
+     * @link https://msdn.microsoft.com/en-us/library/ms186885%28v=sql.90%29.aspx
      */
     public function getUpdateExtendedPropertySQL(
         $name,

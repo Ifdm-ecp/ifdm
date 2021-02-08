@@ -150,8 +150,8 @@ CopyPasteClass.prototype.onKeyDown = function(event) {
   }
 };
 
-//http://jsperf.com/textara-selection
-//http://stackoverflow.com/questions/1502385/how-can-i-make-this-code-work-in-ie
+//https://jsperf.com/textara-selection
+//https://stackoverflow.com/questions/1502385/how-can-i-make-this-code-work-in-ie
 /**
  * Select all text contains in passed node element
  *
@@ -163,7 +163,7 @@ CopyPasteClass.prototype.selectNodeText = function(element) {
   }
 };
 
-//http://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+//https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
 /**
  * Get selection text
  *

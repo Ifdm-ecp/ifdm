@@ -191,7 +191,7 @@ SQLite3Cache
 ------------
 
 The ``SQLite3Cache`` driver stores the cache data in a SQLite database and depends on the
-``sqlite3`` extension which can be found `here <http://php.net/manual/en/book.sqlite3.php>`_.
+``sqlite3`` extension which can be found `here <https://php.net/manual/en/book.sqlite3.php>`_.
 
 .. code-block:: php
     $db = new SQLite3('mydatabase.db');
@@ -213,7 +213,7 @@ WinCacheCache
 -------------
 
 The ``WinCacheCache`` driver uses the ``wincache_ucache_get``, ``wincache_ucache_exists``, etc. functions that come
-with the ``wincache`` extension which can be found `here <http://php.net/manual/en/book.wincache.php>`_.
+with the ``wincache`` extension which can be found `here <https://php.net/manual/en/book.wincache.php>`_.
 
 .. code-block:: php
     $cache = new WinCacheCache();

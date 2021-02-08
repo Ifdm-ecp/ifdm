@@ -38,8 +38,8 @@ class ExtMongoDBCache extends CacheProvider
      * values of delete() and save() unreliable. Reading from secondaries may
      * make contain() and fetch() unreliable.
      *
-     * @see http://www.php.net/manual/en/mongo.readpreferences.php
-     * @see http://www.php.net/manual/en/mongo.writeconcerns.php
+     * @see https://www.php.net/manual/en/mongo.readpreferences.php
+     * @see https://www.php.net/manual/en/mongo.writeconcerns.php
      */
     public function __construct(Collection $collection)
     {

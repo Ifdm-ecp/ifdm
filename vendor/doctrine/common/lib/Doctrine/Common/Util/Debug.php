@@ -14,7 +14,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the MIT license. For more information, see
- * <http://www.doctrine-project.org>.
+ * <https://www.doctrine-project.org>.
  */
 
 namespace Doctrine\Common\Util;
@@ -43,7 +43,7 @@ final class Debug
     /**
      * Prints a dump of the public, protected and private properties of $var.
      *
-     * @link http://xdebug.org/
+     * @link https://xdebug.org/
      *
      * @param mixed   $var       The variable to dump.
      * @param integer $maxDepth  The maximum nesting level for object properties.

@@ -72,7 +72,7 @@ You can also specify the connection name if you are not using your default conne
 
 Run `php artisan help migrate:generate` for a list of options.
 
-Check out Chung Tran's blog post for a quick step by step introduction: [Generate Migrations from an existing database in Laravel 4](http://codingtip.blogspot.com/2014/04/laravel-4-generate-migration-existed-dabase-laravel-4.html)
+Check out Chung Tran's blog post for a quick step by step introduction: [Generate Migrations from an existing database in Laravel 4](https://codingtip.blogspot.com/2014/04/laravel-4-generate-migration-existed-dabase-laravel-4.html)
 
 ## Changelog
 
@@ -129,4 +129,4 @@ Bernhard Breytenbach ([@BBreyten](https://twitter.com/BBreyten))
 
 ## License
 
-The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT)

@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Collections Abstraction library",
     "keywords": ["collections", "array", "iterator"],
-    "homepage": "http://www.doctrine-project.org",
+    "homepage": "https://www.doctrine-project.org",
     "license": "MIT",
     "authors": [
         {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},

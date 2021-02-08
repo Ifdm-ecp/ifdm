@@ -159,7 +159,7 @@ class ErrorHandler
             $level = isset($this->errorLevelMap[$code]) ? $this->errorLevelMap[$code] : LogLevel::CRITICAL;
             $this->logger->log($level, self::codeToString($code).': '.$message, array('code' => $code, 'message' => $message, 'file' => $file, 'line' => $line));
         } else {
-            // http://php.net/manual/en/function.debug-backtrace.php
+            // https://php.net/manual/en/function.debug-backtrace.php
             // As of 5.3.6, DEBUG_BACKTRACE_IGNORE_ARGS option was added.
             // Any version less than 5.3.6 must use the DEBUG_BACKTRACE_IGNORE_ARGS constant value '2'.
             $trace = debug_backtrace((PHP_VERSION_ID < 50306) ? 2 : DEBUG_BACKTRACE_IGNORE_ARGS);

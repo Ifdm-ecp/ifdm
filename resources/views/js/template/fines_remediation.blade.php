@@ -3,7 +3,7 @@
 <script type='text/javascript' src="{{asset('js/tipsy/jquery.tipsy.js')}}"></script>
 <script src="{{ asset('js/handsontable/dist/handsontable.full.js') }}"></script>
 <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script>
    var excel_damage_diagnosis = '';
    $(document).ready(function() {

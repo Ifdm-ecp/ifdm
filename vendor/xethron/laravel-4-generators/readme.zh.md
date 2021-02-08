@@ -221,7 +221,7 @@ class CreatePostsTable extends Migration {
 - 它解析`fields`选项，并添加这些字段
 - drop方法能够足够聪明的意识到，在相反的情况下，这个表应该被完全删除
 
-声明字段，使用逗号+空格分隔键值列表[key:value:option sets]，其中`key`表示字段的名称，`value`表示[字段的类型](http://laravel.com/docs/schema#adding-columns)，`option`表示制定索引或者像是`unique`、`nullable`这样的属性。
+声明字段，使用逗号+空格分隔键值列表[key:value:option sets]，其中`key`表示字段的名称，`value`表示[字段的类型](https://laravel.com/docs/schema#adding-columns)，`option`表示制定索引或者像是`unique`、`nullable`这样的属性。
 这里是一些示例:
 
 - `--fields="first:string, last:string"`

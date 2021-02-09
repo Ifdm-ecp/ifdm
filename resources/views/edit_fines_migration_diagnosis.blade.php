@@ -132,15 +132,15 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('initial_porosity_label', 'Initial Porosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('initial_porosity') ? 'has-error' : ''}}">
+                              {!! Form::label('initial_pressure_label', 'Initial Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('initial_pressure') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
-                                    <span class="input-group-btn">
-                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                    </span>
+                                   <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                   </span>
                                  @endif
-                                 {!! Form::text('initial_porosity', $fines_d_diagnosis->initial_porosity,  ['placeholder' => 'Fraction', 'class' =>'form-control', 'id' => 'initial_porosity']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">Fraction</span>
+                                 {!! Form::text('initial_pressure', $fines_d_diagnosis->initial_pressure,  ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'initial_pressure']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
                            </div>
                         </div>
@@ -148,29 +148,29 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('compressibility_label', 'Compressibility') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('compressibility') ? 'has-error' : ''}}">
+                              {!! Form::label('current_permeability_label', 'Current Permeability') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('current_permeability') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                    <span class="input-group-btn">
                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                    </span>
                                  @endif
-                                 {!! Form::text('compressibility', $fines_d_diagnosis->compressibility,  ['placeholder' => '1/psi', 'class' =>'form-control', 'id' => 'compressibility']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">1/psi</span>
+                                 {!! Form::text('current_permeability', $fines_d_diagnosis->current_permeability,  ['placeholder' => 'mD', 'class' =>'form-control', 'id' => 'current_permeability']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">mD</span>
                               </div>
                            </div>
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('porosity_limit_constant_label', 'Constant For The Porosity Limit') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('porosity_limit_constant') ? 'has-error' : ''}}">
+                              {!! Form::label('current_pressure_label', 'Current Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('current_pressure') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
                                  @endif
-                                 {!! Form::text('porosity_limit_constant', $fines_d_diagnosis->porosity_limit_constant,  ['placeholder' => '-', 'class' =>'form-control', 'id' => 'porosity_limit_constant']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">-</span>
+                                 {!! Form::text('current_pressure', $fines_d_diagnosis->current_pressure,  ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'current_pressure']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">psi</span>
                               </div>
                            </div>
                         </div>
@@ -192,15 +192,15 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('initial_pressure_label', 'Initial Pressure') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="input-group {{$errors->has('initial_pressure') ? 'has-error' : ''}}">
+                              {!! Form::label('initial_porosity_label', 'Initial Porosity') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('initial_porosity') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                    <span class="input-group-btn">
                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                    </span>
                                  @endif
-                                 {!! Form::text('initial_pressure', $fines_d_diagnosis->initial_pressure,  ['placeholder' => 'psi', 'class' =>'form-control', 'id' => 'initial_pressure']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">psi</span>
+                                 {!! Form::text('initial_porosity', $fines_d_diagnosis->initial_porosity,  ['placeholder' => 'Fraction', 'class' =>'form-control', 'id' => 'initial_porosity']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">Fraction</span>
                               </div>
                            </div>
                         </div>

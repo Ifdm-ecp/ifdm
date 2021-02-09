@@ -116,12 +116,14 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->well_radius = $request->input('well_radius');
         $fines_d_diagnosis->perforation_radius = $request->input('perforation_radius');
         $fines_d_diagnosis->number_of_perforations = $request->input('number_of_perforations');
-        $fines_d_diagnosis->compressibility = $request->input('compressibility');
+        // $fines_d_diagnosis->compressibility = $request->input('compressibility');
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
-        $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
-        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability');
+        // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
+        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
+        $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
         $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter');
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
+        $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
         $fines_d_diagnosis->fine_density = $request->input('fine_density');
         $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
@@ -1202,7 +1204,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
         }
 
-            #Inicializando varibles iniciales
+        #Inicializando varibles iniciales
         $pn = array_fill(1, $nr, $pini); 
         $phin = array_fill(1, $nr, $phio); 
         $kn = array_fill(1, $nr, $ko); 
@@ -1214,325 +1216,437 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         //HASTA AQUÍ LLEGAMOS
 
-    #Dimensionamiento
-    $b = array_fill(1, $nr, 0); 
-    $a = array_fill(1, $nr, 0); 
-    $f = array_fill(1, $nr, 0); 
-    $c = array_fill(1, $nr, 0); 
-    $d = array_fill(1, $nr, 0);
-    $qq = array_fill(1, $nr, 0); 
-    $gg = array_fill(1, $nr, 0); 
-    $w = array_fill(1, $nr, 0); 
-    $pcal = array_fill(1, $nr, 0);
-    $dpre = array_fill(1, $nr, 0); 
-    $u = array_fill(1, $nr, 0); 
-    $phic = array_fill(1, $nr, 0); 
-    $dphi = array_fill(1, $nr, 0); 
-    $deadt = array_fill(1, $nr, 0);
-    $muo = array_fill(1, $nr, 0); 
-    $rhof = array_fill(1, $nr, 0); 
-    $boi = array_fill(1, $nr, 0); 
-    $kc = array_fill(1, $nr, 0);
-    $cocal = array_fill(1, 100, 0);
-    $rl = array_fill(1, 100, 0); 
-    $coc = array_fill(1, $nr, 0); 
-    $cod = array_fill(1, $nr, 0); 
-    $sigmasal = array_fill(1, $nr, 0); 
-    $dsigma = array_fill(1, $nr, 0); 
-    $dsigma1 = array_fill(1, $nr, 0); 
-    $rdamage = array_fill(1, $nr, 0);
-    $tiempo = array_fill(1, $nh, 0);
+        #Dimensionamiento
+        $b = array_fill(1, $nr, 0); 
+        $a = array_fill(1, $nr, 0); 
+        $f = array_fill(1, $nr, 0); 
+        $c = array_fill(1, $nr, 0); 
+        $d = array_fill(1, $nr, 0);
+        $qq = array_fill(1, $nr, 0); 
+        $gg = array_fill(1, $nr, 0); 
+        $w = array_fill(1, $nr, 0); 
+        $pcal = array_fill(1, $nr, 0);
+        $dpre = array_fill(1, $nr, 0); 
+        $u = array_fill(1, $nr, 0); 
+        $phic = array_fill(1, $nr, 0); 
+        $dphi = array_fill(1, $nr, 0); 
+        $deadt = array_fill(1, $nr, 0);
+        $muo = array_fill(1, $nr, 0); 
+        $rhof = array_fill(1, $nr, 0); 
+        $boi = array_fill(1, $nr, 0); 
+        $kc = array_fill(1, $nr, 0);
+        $cocal = array_fill(1, 100, 0);
+        $rl = array_fill(1, 100, 0); 
+        $coc = array_fill(1, $nr, 0); 
+        $cod = array_fill(1, $nr, 0); 
+        $sigmasal = array_fill(1, $nr, 0);
+        $cri = array_fill(1, 6, 0);
+        $pite = array_fill(1, 4, 0);
+        $crite = array_fill(1, 4, 0);
+        $dsigma = array_fill(1, $nr, 0); 
+        $dsigma1 = array_fill(1, $nr, 0); 
+        $rdamage = array_fill(1, $nr, 0);
+        $tiempo = array_fill(1, $nh, 0);
 
-    $n = 0.5;
-    $dt = 30;
-    $un = 3;
+        $n = 0.5;
+        $dt = 30;
+        $un = 3;
 
         #Delta de tiempo
-    for ($i=1; $i <= $nh ; $i++) 
-    { 
-        if ($i == 1)
-        {
-            $tiempo[$i] = 30;
-        }
-        else
-        {
-            $tiempo[$i] = floatval($this->dateDifference($hist[$i], $hist[$i - 1], "%a"));
-        }
-    }
-
-    for ($kk=1; $kk <= $nh ; $kk++) 
-    { 
-        $ndt = $tiempo[$kk] / $dt;
-        $qo = -$bopd[$kk];
-
-        for ($v=1; $v <= $ndt ; $v++) 
+        for ($i=1; $i <= $nh ; $i++) 
         { 
-                #coeficientes matriz tridiagonal
-            $i = 1;
-            while ($i == $x + 1)
+            if ($i == 1)
             {
-                $i = $i + 1;
-                $b[$i] = pow($r1[$i - 1], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i - 1]);
+                $tiempo[$i] = 30;
             }
-
-            for ($i= $x + 2; $i <= $nr ; $i++) 
-            { 
-                $b[$i] = $r1[$i - 1] / ($r[$i] * $dr[$i] * $dr1[$i - 1]);
-            }
-
-            $i = 0;
-            if ($x == 0)
+            else
             {
-                $x = 1;
+                $tiempo[$i] = floatval($this->dateDifference($hist[$i], $hist[$i - 1], "%a"));
             }
-
-            while ($i == $x - 1)
-            {
-                $i = $i + 1;
-                $a[$i] = pow($r1[$i], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i]);
-            }
-
-            for ($i=$x; $i < $nr ; $i++)
-            //for ($i=$x; $i < $nr - 1 ; $i++)
-            { 
-                $a[$i] = $r1[$i] / ($r[$i] * $dr[$i] * $dr1[$i]);
-            }
-
-            $i = 0;
-
-            while ($i == $x)
-            {
-                $i = $i + 1;
-                $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                $g1 = 3792.58489625175 * $n * $phin[$i] * $cr / $kn[$i];
-                $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
-                }
-
-                for ($i=$x + 1; $i < $nr ; $i++) 
-                //for ($i=$x + 1; $i < $nr - 1; $i++) 
-                { 
-                    $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
-                    $f[$i] = $g2 / $dt;
-                }
-
-                if ($ri > 0 and $ri < $re)
-                {
-                    $b[$x] = $dr1[$x] / $dr1[$x - 1];
-                    $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                    $a[$x] = $mu / $un; #uapp[$x] / un
-                    $f[$x] = 0;
-                }
-
-
-                $c[1] = -($a[1] + $f[1]);
-                $c[$nr] = -($b[$nr] + $f[$nr]);
-
-                for ($i=2; $i < $nr ; $i++) 
-                //for ($i=2; $i < $nr - 1; $i++) 
-                { 
-                    $c[$i] = -($a[$i] + $b[$i] + $f[$i]);
-                }
-
-                for ($i=1; $i <= $nr ; $i++) 
-                { 
-                    if ($i == 1)
-                    {
-                        $beta = $this->interpolation($pn[$i], $nv, $ppvt, $bopvt);
-                        //dd('Verificar si el interpolation esta bien','pn', $pn, 'nv', $nv, 'ppvt', $ppvt, 'bopvt', $bopvt, 'dopvt', $dopvt);
-                        $vm = $pi * $hf * (pow($r1[1], 2) - pow($rw, 2)) / (5.615 * $beta);
-                        $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
-                        $d[$i] = -$f[$i] * $pn[$i] - 158.024370659982 * ($qo / ($kn[$i] * $vm)) * $mu;
-                        //dd('f', $f, 'pn', $pn, 'qo', $qo, 'kn', $kn, 'vm', $vm, 'mu', $mu, 'beta', $beta, 'nv', $nv);
-                    }
-                    else
-                    {
-                        $d[$i] = -$f[$i] * $pn[$i];
-                        //dd('d', $d, 'f', $f, 'pn', $pn);
-                    }
-                }
-
-                $qq[1] = $a[1] / $c[1];
-                $gg[1] = $d[1] / $c[1];
-
-                for ($j=2; $j <= $nr ; $j++) 
-                { 
-                    $w[$j] = $c[$j] - ($b[$j] * $qq[$j - 1]);
-                    $gg[$j] = ($d[$j] - ($b[$j] * $gg[$j - 1])) / $w[$j];
-                    $qq[$j] = $a[$j] / $w[$j];
-                }
-
-                $pcal[$nr] = $gg[$nr];
-
-                for ($j=$nr - 1; $j >= 1 ; $j--) 
-                { 
-                    $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
-                }
-                
-                //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
-
-                for ($i=1; $i <= $nr ; $i++) 
-                { 
-                    $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt); #Revisar -->quitar y evaluar con último valor de pcal.
-                }
-
-                #Cálculo del flux
-                for ($i=2; $i < $nr; $i++) 
-                //for ($i=2; $i < $nr - 1 ; $i++) 
-                { 
-                    $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
-                }
-
-                $dpre[$nr] = 0;
-                $u[1] = -2.5 * 158.024370659982 * $qo / (2 * $pi * $rw * $hf); #ft/dia
-                $ucri_esc = 2.5 * 158.024370659982 * $tcri_esc / (2 * $pi * $rw * $hf);  #ft/dia
-                for ($i=2; $i <= $nr ; $i++) 
-                { 
-                    $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
-                    $u[$i] = -$kn[$i] * $dpre[$i] / $mu;
-                    if ($u[$i] < 0.00001)
-                    {
-                        $u[$i] = 0;
-                    }
-                }
-
-                #Identificación de fenomenos
-                $k1i = $this->fines_interpolation(-$qo, $ns, $qlab, $k1_lab);
-                $k2i = $this->fines_interpolation(-$qo, $ns, $qlab, $k2_lab);
-                $dpdli = $this->fines_interpolation(-$qo, $ns, $qlab, $dpdl_lab);
-                $k3i = $this->fines_interpolation(-$qo, $ns, $qlab, $k3_lab);
-                $k4i = $this->fines_interpolation(-$qo, $ns, $qlab, $k4_lab);
-                $k5i = $this->fines_interpolation(-$qo, $ns, $qlab, $k5_lab);
-                $dpdlsi = $this->fines_interpolation(-$qo, $ns, $qlab, $dpdls_lab);
-                $sigmai = $this->fines_interpolation(-$qo, $ns, $qlab, $sigma_lab);
-                $k6i = $this->fines_interpolation(-$qo, $ns, $qlab, $k6_lab);
-                $ab2i = $this->fines_interpolation(-$qo, $ns, $qlab, $ab2_lab);
-                $abi = $this->fines_interpolation(-$qo, $ns, $qlab, $ab_lab);
-
-                #Cambio de porosidad - No se usa ki para estos escenarios --> ajuste del modelo multitasa. Revisar y quitar
-                $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
-                //dd($porosity_change);
-                $phic = $porosity_change[0];
-                $dsigma = $porosity_change[1];
-                $dsigma1 = $porosity_change[2];
-                $sigmasal = $porosity_change[3];
-                $sigma2 = $porosity_change[4];
-
-                #Delta de porosidad
-                for ($i=1; $i <= $nr ; $i++) 
-                { 
-                    if ($u[$i] > $ucri_esc)
-                    {
-                        $dphi[$i] = $phin[$i] - $phic[$i];
-                    }
-                    else
-                    {
-                        $dphi[$i] = 0;
-                        //$sigmasal[$i] = 0;
-                    }
-                    $beta = $this->interpolation($pcal[$i], $nv, $ppvt, $bopvt, $beta);
-                    $boi[$i] = $beta;
-                }
-
-                #Factor de corrección ecuación de partículas
-                /*
-                $fcorr = 0.899;
-                $concentration_change_results = $this->concentration_change($rw, $rdre, $hf, $cr, $qo, $nr, $r1, $boi, $phin, $phic, $u, $dt, $co, $dsigma1, $dphi, $rl);
-                $cocal = $concentration_change_results[0];
-                $rl = $concentration_change_results[1];
-
-                for ($i=1; $i < $nr ; $i++) 
-                { 
-                    $coi = $this->interpolation($r[$i], 100, $rl, $cocal);
-                    $coc[$i] = $coi;
-                }
-
-                $coc[$nr] = $co[$nr];
-
-                **/
-
-                $coc = $sigma2;
-
-                #Cambio de permeabilidad
-                for ($i=1; $i <= $nr ; $i++) 
-                { 
-                    //$cod[$i] = $cod[$i] + $sigmasal[$i];
-                    $cod[$i] = $sigmasal[$i];
-                    $kc[$i] = $kn[$i] * pow($phic[$i] / $phin[$i], 3.0); #Revisar
-                }
-
-                for ($i=1; $i <= $nr ; $i++) 
-                { 
-                    $pn[$i] = $pcal[$i];
-                    $phin[$i] = $phic[$i];
-                    $kn[$i] = $kc[$i];
-                    $co[$i] = $coc[$i];
-                    $sigmaini[$i] = $sigmasal[$i];
-                }
-            }
-
-            #Radio de daño
-            /*for ($i=2; $i <= $nr ; $i++) 
-            { 
-                $rdamage[$i] = (($ko - $kc[$i]) / $phio) * 100;
-            }*/
-
-            #Reducción del 10% de permeabilidad
-            /*$radio_dam = $this->interpolation(10, $nr, $r, $rdamage);
-
-            if ($radio_dam >= $rdre)
-            {
-                $radio_dam = $rw; #fallo inter
-            }
-
-            if ($radio_dam < $rw)
-            {
-                $radio_dam = $rw; #fallo inter
-            }
-
-            $skinprom = 0;
-            $npro = 1;
-            for ($i=1; $i <= $nr ; $i++) 
-            { 
-                if ($r[$i] < $radio_dam)
-                {
-                    $npro = $npro + 1;
-                    $skinprom = $kc[$i] + $skinprom;
-                }
-            }
-
-            $skinprom = $skinprom / $npro;
-            $skin = (($kc[1] / $ko) - 1.0) * log($rw / $radio_dam);
-
-            */
-
-            for ($i=1; $i <= $nr ; $i++) { 
-                if ( abs($ko - $kc[$i]) > (0.05 * $ko) ) {
-                    $radio_dam[$i] = $r[$i];
-                }else{
-                    $radio_dam[$i] = 0;
-                }
-            }
-
-            $r_damage = max($radio_dam);
-
-            for ($i=1; $i <= $nr ; $i++) { 
-                if ( $radio_dam[$i] != 0 ) {
-                    $skin[$i] = (($ko / $kc[$i]) - 1 ) * log($r_damage / $rw);
-                }else{
-                    $skin[$i] = 0;
-                }
-            }
-
-            for ($i=1; $i <= $nr ; $i++) 
-            { 
-                $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
-            }
-            //dd($r, $pcal, $phic, $kc, $coc, 'lel');
-            array_push($complete_simulated_results, $simulation_results);
-            $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
         }
 
-        //dd($complete_simulated_results);
+        #Variables nuevas
+        $cri = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+        $pite = array(1 => 0, 0, 0, 0, 0);
+        $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
+        $cr = $cri[1];
+
+        for ($xx = 1; $xx <= 7; $xx++) {
+            for ($kk=1; $kk <= $nh ; $kk++)
+            {
+                $ndt = $tiempo[$kk] / $dt;
+                $qo = -$bopd[$kk];
+
+                for ($v=1; $v <= $ndt ; $v++) 
+                { 
+                    #coeficientes matriz tridiagonal
+                    $i = 1;
+                    while ($i == $x + 1)
+                    {
+                        $i = $i + 1;
+                        $b[$i] = pow($r1[$i - 1], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i - 1]);
+                    }
+
+                    for ($i= $x + 2; $i <= $nr ; $i++) 
+                    { 
+                        $b[$i] = $r1[$i - 1] / ($r[$i] * $dr[$i] * $dr1[$i - 1]);
+                    }
+
+                    $i = 0;
+                    if ($x == 0)
+                    {
+                        $x = 1;
+                    }
+
+                    while ($i == $x - 1)
+                    {
+                        $i = $i + 1;
+                        $a[$i] = pow($r1[$i], $n) / (pow($r[$i], $n) * $dr[$i] * $dr1[$i]);
+                    }
+
+                    for ($i=$x; $i < $nr ; $i++)
+                    //for ($i=$x; $i < $nr - 1 ; $i++)
+                    { 
+                        $a[$i] = $r1[$i] / ($r[$i] * $dr[$i] * $dr1[$i]);
+                    }
+
+                    $i = 0;
+
+                    while ($i == $x)
+                    {
+                        $i = $i + 1;
+                        $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
+                        $g1 = 3792.58489625175 * $n * $phin[$i] * $cr / $kn[$i];
+                        $f[$i] = $g1 * $mu / $dt; #g1 * uapp[$i] / dt
+                    }
+
+                    for ($i=$x + 1; $i < $nr ; $i++) 
+                    //for ($i=$x + 1; $i < $nr - 1; $i++) 
+                    { 
+                        $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
+                        $f[$i] = $g2 / $dt;
+                    }
+
+                    if ($ri > 0 and $ri < $re)
+                    {
+                        $b[$x] = $dr1[$x] / $dr1[$x - 1];
+                        $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
+                        $a[$x] = $mu / $un; #uapp[$x] / un
+                        $f[$x] = 0;
+                    }
+
+
+                    $c[1] = -($a[1] + $f[1]);
+                    $c[$nr] = -($b[$nr] + $f[$nr]);
+
+                    for ($i=2; $i < $nr ; $i++) 
+                    //for ($i=2; $i < $nr - 1; $i++) 
+                    { 
+                        $c[$i] = -($a[$i] + $b[$i] + $f[$i]);
+                    }
+
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        if ($i == 1)
+                        {
+                            $beta = $this->interpolation($pn[$i], $nv, $ppvt, $bopvt);
+                            //dd('Verificar si el interpolation esta bien','pn', $pn, 'nv', $nv, 'ppvt', $ppvt, 'bopvt', $bopvt, 'dopvt', $dopvt);
+                            $vm = $pi * $hf * (pow($r1[1], 2) - pow($rw, 2)) / (5.615 * $beta);
+                            $mu = $this->interpolation($pn[$i], $nv, $ppvt, $uopvt);
+                            $d[$i] = -$f[$i] * $pn[$i] - 158.024370659982 * ($qo / ($kn[$i] * $vm)) * $mu;
+                            //dd('f', $f, 'pn', $pn, 'qo', $qo, 'kn', $kn, 'vm', $vm, 'mu', $mu, 'beta', $beta, 'nv', $nv);
+                        }
+                        else
+                        {
+                            $d[$i] = -$f[$i] * $pn[$i];
+                            //dd('d', $d, 'f', $f, 'pn', $pn);
+                        }
+                    }
+
+                    $qq[1] = $a[1] / $c[1];
+                    $gg[1] = $d[1] / $c[1];
+
+                    for ($j=2; $j <= $nr ; $j++) 
+                    { 
+                        $w[$j] = $c[$j] - ($b[$j] * $qq[$j - 1]);
+                        $gg[$j] = ($d[$j] - ($b[$j] * $gg[$j - 1])) / $w[$j];
+                        $qq[$j] = $a[$j] / $w[$j];
+                    }
+
+                    $pcal[$nr] = $gg[$nr];
+
+                    for ($j=$nr - 1; $j >= 1 ; $j--) 
+                    { 
+                        $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
+                    }
+                        
+                    //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
+
+                    #Nuevo
+                    if ($pcal[1] < 0) {
+                        //dd($xx, $pcal[1]);
+                        $xx = 6;
+                        break;
+                    }
+
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt); #Revisar -->quitar y evaluar con último valor de pcal.
+                    }
+
+                    #Cálculo del flux
+                    for ($i=2; $i < $nr; $i++) 
+                    //for ($i=2; $i < $nr - 1 ; $i++) 
+                    { 
+                        $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
+                    }
+
+                    $dpre[$nr] = 0;
+                    $u[1] = -2.5 * 158.024370659982 * $qo / (2 * $pi * $rw * $hf); #ft/dia
+                    $ucri_esc = 2.5 * 158.024370659982 * $tcri_esc / (2 * $pi * $rw * $hf);  #ft/dia
+                    for ($i=2; $i <= $nr ; $i++) 
+                    { 
+                        $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
+                        $u[$i] = -$kn[$i] * $dpre[$i] / $mu;
+                        if ($u[$i] < 0.00001)
+                        {
+                            $u[$i] = 0;
+                        }
+                    }
+
+                    #Identificación de fenomenos
+                    $k1i = $this->fines_interpolation(-$qo, $ns, $qlab, $k1_lab);
+                    $k2i = $this->fines_interpolation(-$qo, $ns, $qlab, $k2_lab);
+                    $dpdli = $this->fines_interpolation(-$qo, $ns, $qlab, $dpdl_lab);
+                    $k3i = $this->fines_interpolation(-$qo, $ns, $qlab, $k3_lab);
+                    $k4i = $this->fines_interpolation(-$qo, $ns, $qlab, $k4_lab);
+                    $k5i = $this->fines_interpolation(-$qo, $ns, $qlab, $k5_lab);
+                    $dpdlsi = $this->fines_interpolation(-$qo, $ns, $qlab, $dpdls_lab);
+                    $sigmai = $this->fines_interpolation(-$qo, $ns, $qlab, $sigma_lab);
+                    $k6i = $this->fines_interpolation(-$qo, $ns, $qlab, $k6_lab);
+                    $ab2i = $this->fines_interpolation(-$qo, $ns, $qlab, $ab2_lab);
+                    $abi = $this->fines_interpolation(-$qo, $ns, $qlab, $ab_lab);
+
+                    #Cambio de porosidad - No se usa ki para estos escenarios --> ajuste del modelo multitasa. Revisar y quitar
+                    $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
+                    //dd($porosity_change);
+                    $phic = $porosity_change[0];
+                    $dsigma = $porosity_change[1];
+                    $dsigma1 = $porosity_change[2];
+                    $sigmasal = $porosity_change[3];
+                    $sigma2 = $porosity_change[4];
+
+                    #Delta de porosidad
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        if ($u[$i] > $ucri_esc)
+                        {
+                            $dphi[$i] = $phin[$i] - $phic[$i];
+                        }
+                        else
+                        {
+                            $dphi[$i] = 0;
+                            //$sigmasal[$i] = 0;
+                        }
+                        $beta = $this->interpolation($pcal[$i], $nv, $ppvt, $bopvt, $beta);
+                        $boi[$i] = $beta;
+                    }
+
+                    #Factor de corrección ecuación de partículas
+                    /*
+                    $fcorr = 0.899;
+                    $concentration_change_results = $this->concentration_change($rw, $rdre, $hf, $cr, $qo, $nr, $r1, $boi, $phin, $phic, $u, $dt, $co, $dsigma1, $dphi, $rl);
+                    $cocal = $concentration_change_results[0];
+                    $rl = $concentration_change_results[1];
+
+                    for ($i=1; $i < $nr ; $i++) 
+                    { 
+                        $coi = $this->interpolation($r[$i], 100, $rl, $cocal);
+                        $coc[$i] = $coi;
+                    }
+
+                    $coc[$nr] = $co[$nr];
+
+                    **/
+
+                    $coc = $sigma2;
+
+                    #Cambio de permeabilidad
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        //$cod[$i] = $cod[$i] + $sigmasal[$i];
+                        $cod[$i] = $sigmasal[$i];
+                        $kc[$i] = $kn[$i] * pow($phic[$i] / $phin[$i], 3.0); #Revisar
+                    }
+
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        $pn[$i] = $pcal[$i];
+                        $phin[$i] = $phic[$i];
+                        $kn[$i] = $kc[$i];
+                        $co[$i] = $coc[$i];
+                        $sigmaini[$i] = $sigmasal[$i];
+                    }
+                }
+
+                #Radio de daño
+                /*for ($i=2; $i <= $nr ; $i++) 
+                { 
+                    $rdamage[$i] = (($ko - $kc[$i]) / $phio) * 100;
+                }*/
+
+                #Reducción del 10% de permeabilidad
+                /*$radio_dam = $this->interpolation(10, $nr, $r, $rdamage);
+
+                if ($radio_dam >= $rdre)
+                {
+                    $radio_dam = $rw; #fallo inter
+                }
+
+                if ($radio_dam < $rw)
+                {
+                    $radio_dam = $rw; #fallo inter
+                }
+
+                $skinprom = 0;
+                $npro = 1;
+                for ($i=1; $i <= $nr ; $i++) 
+                { 
+                    if ($r[$i] < $radio_dam)
+                    {
+                        $npro = $npro + 1;
+                        $skinprom = $kc[$i] + $skinprom;
+                    }
+                }
+
+                $skinprom = $skinprom / $npro;
+                $skin = (($kc[1] / $ko) - 1.0) * log($rw / $radio_dam);
+
+                */
+
+                for ($i=1; $i <= $nr ; $i++) { 
+                    if ( abs($ko - $kc[$i]) > (0.05 * $ko) ) {
+                        $radio_dam[$i] = $r[$i];
+                    }else{
+                        $radio_dam[$i] = 0;
+                    }
+                }
+
+                $r_damage = max($radio_dam);
+
+                for ($i=1; $i <= $nr ; $i++) { 
+                    if ( $radio_dam[$i] != 0 ) {
+                        $skin[$i] = (($ko / $kc[$i]) - 1 ) * log($r_damage / $rw);
+                    }else{
+                        $skin[$i] = 0;
+                    }
+                }
+
+                if ($xx == 7) {
+                    for ($i=1; $i <= $nr ; $i++) 
+                    { 
+                        $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
+                    }
+                    //dd($r, $pcal, $phic, $kc, $coc, 'lel');
+                    $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
+                    array_push($complete_simulated_results, $simulation_results);
+                }
+            }
+
+            //dd($complete_simulated_results);
+           
+            #Nueva sección
+            if ($xx < 6) {
+                $pite[$xx] = $pcal[299];
+                $crite[$xx] = $cr;
+
+                for ($i = 1; $i <= $nr; $i++) {
+                    $pn[$i] = $pini;
+                    $phin[$i] = $phio;
+                    $kn[$i] = $ko;
+                }
+                for ($i = 1; $i <= $nr; $i++) { 
+                    $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                    $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                    $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho;
+                    $ea[$i] = 0;
+                }
+
+                $cr = $cri[$xx + 1];
+            }
+
+            if ($xx == 6) {
+                //dd('LLEGA AL INICIO DEL xx = 6',$pite);
+                //dd(count($pite));
+
+                #Eliminar posiciones en 0
+                while (count($pite) > 1 && $pite[count($pite)] == 0) { 
+                    if ($pite[count($pite)] == 0) { 
+                        array_pop($pite);
+                    }
+                }
+
+                //dd($pite);
+                
+                for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
+                    if ($pact > $pite[1]) {
+                        $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
+                        if ($cr < 0) { 
+                            $cr = $crite[count($pite)];
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $pn[$i] = $pini;
+                            $phin[$i] = $phio;
+                            $kn[$i] = $ko;
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                            $ea[$i] = 0;
+                        }
+                        //dd($pact, $pite, $crite, $cr, 1, $xx);
+                        break;
+                    }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
+                        $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
+                        if ($cr < 0) { 
+                            $cr = $crite[count($pite)];
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $pn[$i] = $pini;
+                            $phin[$i] = $phio;
+                            $kn[$i] = $ko;
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                            $ea[$i] = 0;
+                        }
+                        //dd($pact, $pite, $crite, $cr, 2, $xx);
+                        break;
+                    }elseif ($pact < $pite[count($pite)]) {
+                        $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                        if ($cr < 0) { 
+                            $cr = $crite[count($pite)];
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $pn[$i] = $pini;
+                            $phin[$i] = $phio;
+                            $kn[$i] = $ko;
+                        }
+                        for ($i = 1; $i <= $nr; $i++) {
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                            $ea[$i] = 0;
+                        }
+                        //dd($pact, $pite, $crite, $cr, 3, $xx);
+                        break;
+                    }
+                }
+            }
+        }
 
         return array($complete_simulated_results, $damage_results);
     }

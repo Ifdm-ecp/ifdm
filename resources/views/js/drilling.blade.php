@@ -14,6 +14,8 @@ $(document).ready(function(){
   } else {
     create_profile_input_data_table(JSON.parse(input_data_profile));
   }
+
+  $("#check_available").attr('checked', false);
 });
 
 

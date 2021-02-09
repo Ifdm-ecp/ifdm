@@ -18,10 +18,10 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
   <script src="../../js/index.js"></script>
   <!-- Otros -->
-  <link rel="stylesheet" media="screen" href="http://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" media="screen" href="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="{!! asset('assets/css/estilos.css') !!}">
   {!!Html::style( asset('css/fileinput.css'))!!}
   <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -619,10 +619,10 @@
       <hr>
       <center>
         <form class="form-inline" role="form">
-            <a href="http://unal.edu.co/"><img src="{!! asset('images/UN.png') !!}" width="125" height="80" HSPACE="30"/></a>
-            <a href="http://www.equion-energia.com/Paginas/default.aspx"><img src="{!! asset('images/EQUION.jpg') !!}" width="120" height="80" HSPACE="30"/></a>
-            <a href="http://www.ecopetrol.com.co/wps/portal/web_es"><img src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30"/></a>
-            <a href="http://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120" height="80" HSPACE="30"/></a>
+            <a href="https://unal.edu.co/"><img src="{!! asset('images/UN.png') !!}" width="125" height="80" HSPACE="30"/></a>
+            <a href="https://www.equion-energia.com/Paginas/default.aspx"><img src="{!! asset('images/EQUION.jpg') !!}" width="120" height="80" HSPACE="30"/></a>
+            <a href="https://www.ecopetrol.com.co/wps/portal/web_es"><img src="{!! asset('images/ECOPETROL.jpg') !!}" width="120" height="100" HSPACE="30"/></a>
+            <a href="https://www.hocol.com/"><img src="{!! asset('images/HOCOL-nueva.png') !!}" width="120" height="80" HSPACE="30"/></a>
         </form>
         <form action="">
             <center><img src="{!! asset('images/IFDM.png') !!}" width="250" height="100" HSPACE="30"/></center>

@@ -1,5 +1,5 @@
 <script src="{{ asset('js/highcharts.js') }}"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://docs.handsontable.com/pro/1.3.3/bower_components/handsontable-pro/dist/handsontable.full.min.js"></script> <link type="text/css" rel="stylesheet" href="https://docs.handsontable.com/pro/1.3.3/bower_components/handsontable-pro/dist/handsontable.full.min.css"> <script src="https://docs.handsontable.com/pro/1.3.3/bower_components/numeraljs/languages/de.js"></script>
 
 <script type="text/javascript">

@@ -1,6 +1,6 @@
-<script src="http://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.js"></script>
-<link type="text/css" rel="stylesheet" href="http://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.min.css">
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.js"></script>
+<link type="text/css" rel="stylesheet" href="https://docs.handsontable.com/0.15.0-beta6/bower_components/handsontable/dist/handsontable.full.min.css">
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
 

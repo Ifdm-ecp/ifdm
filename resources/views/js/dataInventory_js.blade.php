@@ -385,7 +385,7 @@ $(document).ready(function()
 					        text: 'World\'s largest cities per 2014'
 					    },
 					    subtitle: {
-					        text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+					        text: 'Source: <a href="https://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
 					    },
 					    xAxis: {
 					        type: 'category',

@@ -1,22 +1,22 @@
-/// <reference path="http://code.jquery.com/jquery-1.4.1-vsdoc.js" />
+/// <reference path="https://code.jquery.com/jquery-1.4.1-vsdoc.js" />
 /*
 * Print Element Plugin 1.2
 *
 * Copyright (c) 2010 Erik Zaadi
 *
-* Inspired by PrintArea (http://plugins.jquery.com/project/PrintArea) and
-* http://stackoverflow.com/questions/472951/how-do-i-print-an-iframe-from-javascript-in-safari-chrome
+* Inspired by PrintArea (https://plugins.jquery.com/project/PrintArea) and
+* https://stackoverflow.com/questions/472951/how-do-i-print-an-iframe-from-javascript-in-safari-chrome
 *
-*  Home Page : http://projects.erikzaadi/jQueryPlugins/jQuery.printElement 
-*  Issues (bug reporting) : http://github.com/erikzaadi/jQueryPlugins/issues/labels/printElement
-*  jQuery plugin page : http://plugins.jquery.com/project/printElement 
+*  Home Page : https://projects.erikzaadi/jQueryPlugins/jQuery.printElement 
+*  Issues (bug reporting) : https://github.com/erikzaadi/jQueryPlugins/issues/labels/printElement
+*  jQuery plugin page : https://plugins.jquery.com/project/printElement 
 *  
-*  Thanks to David B (http://github.com/ungenio) and icgJohn (http://www.blogger.com/profile/11881116857076484100)
+*  Thanks to David B (https://github.com/ungenio) and icgJohn (https://www.blogger.com/profile/11881116857076484100)
 *  For their great contributions!
 * 
 * Dual licensed under the MIT and GPL licenses:
-*   http://www.opensource.org/licenses/mit-license.php
-*   http://www.gnu.org/licenses/gpl.html
+*   https://www.opensource.org/licenses/mit-license.php
+*   https://www.gnu.org/licenses/gpl.html
 *   
 *   Note, Iframe Printing is not supported in Opera and Chrome 3.0, a popup window will be shown instead
 */
@@ -26,7 +26,7 @@
     $.fn["printElement"] = function (options) {
         var mainOptions = $.extend({}, $.fn["printElement"]["defaults"], options);
         //iframe mode is not supported for opera and chrome 3.0 (it prints the entire page).
-        //http://www.google.com/support/forum/p/Webmasters/thread?tid=2cb0f08dce8821c3&hl=en
+        //https://www.google.com/support/forum/p/Webmasters/thread?tid=2cb0f08dce8821c3&hl=en
         if (mainOptions["printMode"] == 'iframe') {
             if ($.browser.opera || (/chrome/.test(navigator.userAgent.toLowerCase())))
                 mainOptions["printMode"] = 'popup';
@@ -74,7 +74,7 @@
             documentToWriteTo = popupOrIframe.document;
         }
         else {
-            //The random ID is to overcome a safari bug http://www.cjboco.com.sharedcopy.com/post.cfm/442dc92cd1c0ca10a5c35210b8166882.html
+            //The random ID is to overcome a safari bug https://www.cjboco.com.sharedcopy.com/post.cfm/442dc92cd1c0ca10a5c35210b8166882.html
             var printElementID = "printElement_" + (Math.round(Math.random() * 99999)).toString();
             //Native creation of the element is faster..
             var iframe = document.createElement('IFRAME');
@@ -127,15 +127,15 @@
             });
         });
         $("textarea", $element).each(function () {
-            //Thanks http://blog.ekini.net/2009/02/24/jquery-getting-the-latest-textvalue-inside-a-textarea/
+            //Thanks https://blog.ekini.net/2009/02/24/jquery-getting-the-latest-textvalue-inside-a-textarea/
             var value = $(this).attr('value');
-            //fix for issue 7 (http://plugins.jquery.com/node/13503 and http://github.com/erikzaadi/jQueryPlugins/issues#issue/7)
+            //fix for issue 7 (https://plugins.jquery.com/node/13503 and https://github.com/erikzaadi/jQueryPlugins/issues#issue/7)
             if ($.browser.mozilla && this.firstChild)
                 this.firstChild.textContent = value;
             else
                 this.innerHTML = value;
         });
-        //http://dbj.org/dbj/?p=91
+        //https://dbj.org/dbj/?p=91
         var elementHtml = $('<div></div>').append($element.clone()).html();
         return elementHtml;
     }

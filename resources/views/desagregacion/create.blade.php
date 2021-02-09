@@ -187,7 +187,7 @@
                      <div class="row">
                         <div class="col-md-12">
                            <div class="form-group {{$errors->has('well_completitions') ? 'has-error' : ''}}">
-                              {!! Form::label('well completitions', 'Well Completitions ', array('class' => 'required')) !!}
+                              {!! Form::label('well completitions', 'Well Completions ', array('class' => 'required')) !!}
                               {!! Form::select('well_completitions', array(1 => 'Open Hole', 2 => 'Slotted Liners', 3 => 'Perforated Liner'), 'S', ['class' => 'form-control', 'id'=>'well_completitions', 'placeholder' => 'Select a well completition']) !!}
                            </div>
                            {!! $errors->first('well_completitions', '<p class="help-block" style="font-size: 11px; color: #ba6063">:message</p>') !!}

@@ -24,6 +24,10 @@ Route::get('/', function () {
     }
 });
 
+Route::get('/.well-known/pki-validation/C3524CCE68099C98DFAA4F334F99B095.txt', function () {
+    return Storage::url('/.well-known/pki-validation/C3524CCE68099C98DFAA4F334F99B095.txt');
+});
+
 
 //buscar los uintervalos pertenecientes de una formacion
 Route::get('intervalos/{formacion}', function($formacion){

@@ -30,7 +30,7 @@
          <li><a data-toggle="tab" href="#fines_data" id="fines_data_tab" onclick="switchTab()">Phenomenological Constants</a></li>
          <li><a data-toggle="tab" href="#historical_data" id="historical_data_tab" onclick="switchTab()">Historical Data</a></li>
       </ul>
-      <div class="row tab-content">
+      <div class="tab-content">
          <div class="tab-pane active" id="general_data">
             <div class="panel-body">
                <div class="panel panel-default">

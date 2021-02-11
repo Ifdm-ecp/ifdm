@@ -814,7 +814,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
       return array($co, $rl);
   }*/
-
+ 
   function porosity_change($nx, $t, $dt, $ko, $phin, $u, $ucri_esc, $sigmaini, $dp, $rhop, $con, $k1, $k2, $k3, $k4, $k5, $k6, $dpdl, $dpdlc, $sigmai, $ab, $ab2, $porosity_limit_constant)
   {
     $sigma1 = array_fill(1, $nx, 0); 

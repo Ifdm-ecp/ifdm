@@ -817,7 +817,7 @@ class add_fines_migration_diagnosis_controller extends Controller
  
   function porosity_change($nx, $t, $dt, $ko, $phin, $u, $ucri_esc, $sigmaini, $dp, $rhop, $con, $k1, $k2, $k3, $k4, $k5, $k6, $dpdl, $dpdlc, $sigmai, $ab, $ab2, $porosity_limit_constant)
   {
-    $sigma1 = array_fill(1, $nx, 0); 
+    $sigma1 = array_fill(1, $nx, 0);
     $dphi = array_fill(1, $nx, 0); 
     $phisw = array_fill(1, $nx, 0); 
     $phip = array_fill(1, $nx, 0); 
@@ -889,7 +889,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             #beta=((8.91*10^-8)*tao)/(phio*ko)  ---- ajuste del modelo multitasa
             //$dphi[$i] = -$phin[$i] / 3.0 / pow($relperm, (2.0 / 3.0)) * (1.0 - 0.00092903 * $k6) * exp(-$ab * pow($t, 0.5)) * $ab / (2.0 * pow($t, 0.5)) - $dsigma[$i] / $rhop;
 
-            if ($sigma[$i] > 0.00001)
+            if ($dsigma[$i] != 0)
             {
                 //$phic[$i] = $phisw[$i] - $phip[$i];
                 $phic[$i] = $phin[$i] - $phisw[$i] - $phip[$i];
@@ -897,7 +897,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             else
             {
                 $phic[$i] = $phin[$i];
-                $sigma[$i] = $sigmaini[$i];
+                //$sigma[$i] = $sigmaini[$i];
             }
             $sigmasal[$i] = $sigma[$i];
         }
@@ -908,6 +908,9 @@ class add_fines_migration_diagnosis_controller extends Controller
     function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp)
     {
         $bw = 1.1;
+
+        #$bw = $volumetricfactor
+        #$rplug = $radiodeplug
 
         #Hueco abierto
         if ($tpp === 0) {
@@ -1276,7 +1279,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pite = array(1 => 0, 0, 0, 0, 0);
         $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
-        $porosity_limit_constanti = array(1 => 0.5, 0.01, 0.005, 0.001, 0.0005);
+        $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
         $porosity_limit_constantite = array(1 => 0, 0, 0, 0, 0);
         $kite = array(1 => 0, 0, 0, 0, 0);
         $porosity_limit_constant = $porosity_limit_constanti[1];

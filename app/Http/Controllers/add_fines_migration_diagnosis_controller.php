@@ -1918,7 +1918,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }
 
                         if ($xx == 7 && $yy == 6) {
-                            dd('entró pues');
                             for ($i=1; $i <= $nr ; $i++) 
                             { 
                                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
@@ -2016,7 +2015,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 }
             }
         }
-
+        dd('retorne pues');
         return array($complete_simulated_results, $damage_results);
     }
 

@@ -180,7 +180,7 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('pore_diameter_label', 'Average Pore Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('pore_diameter_label', 'Average Pore Diameter') !!}
                               <div class="input-group {{$errors->has('average_pore_diameter') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                    <span class="input-group-btn">
@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('fine_diameter_label', 'Fine Diameter') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                              {!! Form::label('fine_diameter_label', 'Fine Diameter') !!}
                               <div class="input-group {{$errors->has('fine_diameter') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
                                    <span class="input-group-btn">
@@ -297,6 +297,36 @@
                                  @endif
                                  {!! Form::text('initial_fines_concentration_in_fluid', null,  ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'initial_fines_concentration_in_fluid']) !!}
                                  <span class="input-group-addon" id="basic-addon2">g/cc</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('water_volumetric_factor_label', 'Water Volumetric Factor') !!}
+                              <div class="input-group {{$errors->has('water_volumetric_factor') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                   <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                   </span>
+                                 @endif
+                                 {!! Form::text('water_volumetric_factor', $fines_d_diagnosis->water_volumetric_factor,  ['placeholder' => 'bbl/BN', 'class' =>'form-control', 'id' => 'water_volumetric_factor']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">bbl/BN</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="form-group">
+                              {!! Form::label('plug_radius_label', 'Plug Radius') !!}
+                              <div class="input-group {{$errors->has('plug_radius') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                   <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                   </span>
+                                 @endif
+                                 {!! Form::text('plug_radius', $fines_d_diagnosis->plug_radius,  ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'plug_radius']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                            </div>
                         </div>

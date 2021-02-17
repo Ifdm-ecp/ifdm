@@ -128,6 +128,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->fine_density = $request->input('fine_density');
         $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
+        $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor');
+        $fines_d_diagnosis->plug_radius = $request->input('plug_radius');
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
         $fines_d_diagnosis->length = $request->input('length');
@@ -271,10 +273,12 @@ class add_fines_migration_diagnosis_controller extends Controller
         $rp = floatval($fines_d_diagnosis->perforation_radius);
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
         $kact = floatval($fines_d_diagnosis->current_permeability);
+        $bw = floatval($fines_d_diagnosis->water_volumetric_factor);
+        $rplug = floatval($fines_d_diagnosis->plug_radius);
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
@@ -283,7 +287,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     array_push($dates_data, $value[0]);
                     array_push($bopd_data, $fines_d_historical_data->bopd);
                 }
-
+                
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
                 $skin_results = $simulation_results[1];
@@ -468,6 +472,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
+        $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor');
+        $fines_d_diagnosis->plug_radius = $request->input('plug_radius');
         $fines_d_diagnosis->length = $request->input('length');
         $fines_d_diagnosis->diameter = $request->input('diameter');
         $fines_d_diagnosis->porosity = $request->input('porosity');
@@ -616,13 +622,15 @@ class add_fines_migration_diagnosis_controller extends Controller
         $rp = floatval($fines_d_diagnosis->perforation_radius);
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
         $kact = floatval($fines_d_diagnosis->current_permeability);
+        $bw = floatval($fines_d_diagnosis->water_volumetric_factor);
+        $rplug = floatval($fines_d_diagnosis->plug_radius);
 
         try 
         {
             if (!$button_wr) {
                 /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'dporo', $dporo,'dpart', $dpart,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
@@ -631,7 +639,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     array_push($dates_data, $value[0]);
                     array_push($bopd_data, $fines_d_historical_data->bopd);
                 }
-
+                
                 //dd($simulation_results[0]);
 
                 /* Guardando resultados */
@@ -905,9 +913,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         return array($phic, $dsigma, $dsigma1, $sigmasal, $sigma2);
     }
 
-    function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp)
+    function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw)
     {
-        $bw = 1.1;
 
         #$bw = $volumetricfactor
         #$rplug = $radiodeplug
@@ -1077,7 +1084,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         return [$y, $dy];
     }
-    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant)   
+    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug)   
     {
 
         #Formateando arreglos - empezando índices en 1 
@@ -1106,11 +1113,11 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_data[$key] = $this->set_array($value, count($value));
         }
 
-        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant);
-
+        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+        //dd('run simulation');
         return $simulation_results;
     }
-    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant) 
+    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
     {
         set_time_limit(3600); //Cambiar
         $complete_simulated_results = [];
@@ -1150,13 +1157,19 @@ class add_fines_migration_diagnosis_controller extends Controller
         //
 
         #Escalamiento de tasa crítica escalada
+        if ($bw == 0.0 || $bw == null) {
+            $bw = 1.1;
+        }
+        if ($rplug == 0.0 || $rplug == null) {
+            $rplug = 0.061;
+        }
         $rplug = 0.061; #Medición estandar para un núcleo de laboratorio [ft]
-        $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp);
+        $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw);
 
         #Conversión tasas de laboratorio
         for ($i=1; $i <= $ns ; $i++) 
         { 
-            $qlab[$i] = $this->rate_scaling($rw, $qlab[$i], $hf, $rplug, $tpp, $rp);
+            $qlab[$i] = $this->rate_scaling($rw, $qlab[$i], $hf, $rplug, $tpp, $rp, $bw);
         }
 
         #Discretizando el medio (geometría radial)
@@ -1649,11 +1662,13 @@ class add_fines_migration_diagnosis_controller extends Controller
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 1; $yy++) {
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
+                        
                         $ndt = $tiempo[$kk] / $dt;
                         $qo = -$bopd[$kk];
-
+                        
                         for ($v=1; $v <= $ndt ; $v++) 
                         { 
+                            
                             #coeficientes matriz tridiagonal
                             $i = 1;
                             while ($i == $x + 1)
@@ -1710,7 +1725,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $f[$x] = 0;
                             }
 
-
                             $c[1] = -($a[1] + $f[1]);
                             $c[$nr] = -($b[$nr] + $f[$nr]);
 
@@ -1756,11 +1770,16 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                                 
                             //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
-
+                            
                             #Nuevo
                             if ($pcal[1] < 0) {
                                 //dd($xx, $pcal[1]);
                                 $xx = 6;
+                                //if ($xx == 7  && $yy == 5 && $kk == 135 && $v == 1 ) { dd($pcal[1], $xx,$yy,count($porosity_limit_constanti) + 1, 'antes del ciclon', $nh, $ndt); }
+                        
+                                
+                                
+
                                 break;
                             }
 
@@ -1928,6 +1947,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }
                     }
 
+                    //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
+
                     #Nueva sección
                     if ($yy < 5) {
                         $kite[$yy] = $kc[2];
@@ -2015,7 +2036,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                 }
             }
         }
-        dd('retorne pues');
         return array($complete_simulated_results, $damage_results);
     }
 

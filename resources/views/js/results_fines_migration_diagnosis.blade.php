@@ -28,7 +28,7 @@
                 date_value = Date.UTC(date_value[0],date_value[1],date_value[2]);
                 damage_radius_serie.push([date_value, value.damage_radius]);
                 skin_serie.push([date_value, value.skin]);
-            });
+            });     
 
             damage_radius_serie_data = [{"name": "Damage Radius [ft]", "data":damage_radius_serie}];
             skin_serie_data = [{"name": "Skin", "data":skin_serie}];
@@ -203,7 +203,7 @@
 
         //Mostrando los resultados de la última fecha por defecto. El usuario puede modificar qué fechas quiere desde la vista.
         fines_d_diagnosis_id = {!!json_encode($fines_d_diagnosis->id)!!};
-        final_date = {!!json_encode($dates_data)!!}.slice(-3);
+        final_date = {!!json_encode($dates_data)!!}.slice(-1);
         final_date = final_date[0];
         on_change_date_select_plot(fines_d_diagnosis_id, [final_date]);
 

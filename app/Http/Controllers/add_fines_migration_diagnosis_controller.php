@@ -1300,7 +1300,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         for ($xx = 1; $xx <= 7; $xx++) {
             for ($kk=1; $kk <= $nh; $kk++)
             {
-                if($xx==7 && $kk==230 ){dd('Tengalo ahí');}
                 $ndt = $tiempo[$kk] / $dt;
                 $qo = -$bopd[$kk];
 
@@ -1662,6 +1661,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
             if ($xx == 7) {
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 2; $yy++) {
+                    if($xx==7 && $yy==6 ){dd('Tengalo ahí');}
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
                         

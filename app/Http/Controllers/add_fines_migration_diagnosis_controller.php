@@ -2051,7 +2051,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 }
             }
         }
-        //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $pcal, $kc]);
+        dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $pcal, $kc]);
         return array($complete_simulated_results, $damage_results);
     }
 

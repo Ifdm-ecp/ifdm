@@ -1003,6 +1003,12 @@ class drilling_controller extends Controller
                     $porosity = floatval($row->porosity);
                     $irreducible_saturation = floatval($row->irreducible_saturation);
 
+                    // Organize variables
+                    if ($porosity <= 0) { $porosity = 0.000001; } elseif ($porosity >= 1) { $porosity = 0.999999; }
+                    if ($permeability < 0) { $permeability = 0; }
+                    if ($fracture_intensity < 0) { $fracture_intensity = 0; }
+                    if ($irreducible_saturation <= 0) { $irreducible_saturation = 0.000001; } elseif ($irreducible_saturation >= 1) { $irreducible_saturation = 0.999999; }
+
                     // 3.1) Calculate k corrected
                     $k_corrected = $permeability * (1 + $fracture_intensity);
 
@@ -1167,7 +1173,7 @@ class drilling_controller extends Controller
                         array_push($graph_results_cem_y, $profile->top);
                     }
                 }
-
+                
                 array_push($graph_results_perf, array($graph_results_perf_x, $graph_results_perf_y));
                 array_push($graph_results_cem, array($graph_results_cem_x, $graph_results_cem_y));
 

@@ -1298,6 +1298,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $porosity_limit_constant = $porosity_limit_constanti[1];
 
         for ($xx = 1; $xx <= 7; $xx++) {
+            if($xx==6){dd('Tengalo ahí');}
             for ($kk=1; $kk <= $nh; $kk++)
             {
                 $ndt = $tiempo[$kk] / $dt;

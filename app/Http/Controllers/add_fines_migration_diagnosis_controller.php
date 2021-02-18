@@ -1300,7 +1300,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         for ($xx = 1; $xx <= 7; $xx++) {
             for ($kk=1; $kk <= $nh; $kk++)
             {
-                if($xx==7 && $kk==200 ){dd('Tengalo ahí');}
+                if($xx==7 && $kk==230 ){dd('Tengalo ahí');}
                 $ndt = $tiempo[$kk] / $dt;
                 $qo = -$bopd[$kk];
 

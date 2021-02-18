@@ -1661,7 +1661,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
             if ($xx == 7) {
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 2; $yy++) {
-                    if($xx==7 && $yy==6 ){dd('Tengalo ahí');}
+                    if($xx==7 && $yy==5 ){dd('Tengalo ahí');}
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
                         

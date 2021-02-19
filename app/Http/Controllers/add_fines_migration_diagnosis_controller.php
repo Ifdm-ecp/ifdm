@@ -1661,7 +1661,16 @@ class add_fines_migration_diagnosis_controller extends Controller
 
             if ($xx == 7) {
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 2; $yy++) {
-                    //if($xx==7 && $yy==5 ){dd('Tengalo ahí');}
+                    
+                    $pn = array_fill(1, $nr, $pini); 
+                    $phin = array_fill(1, $nr, $phio); 
+                    $kn = array_fill(1, $nr, $ko); 
+                    $co = array_fill(1, $nr, $coi); 
+                    $cod = array_fill(1, $nr, 0); 
+                    $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                    $bo = array_fill(1, $nr, 0);
+                    $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
                         
@@ -1770,6 +1779,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             { 
                                 $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                             }
+                            //if ($xx==7 && $yy==1) {dd($f, $pn, $qo, $kn, $vm, $mu);}
                                 
                             //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
                             
@@ -1803,9 +1813,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                             for ($i=2; $i <= $nr ; $i++) 
                             { 
                                 $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);
-                                if ($mu == 0) {
-                                    dd($pcal, $xx, $yy, $porosity_limit_constant, $cr);
-                                }
                                 $u[$i] = -$kn[$i] * $dpre[$i] / $mu;
                                 if ($u[$i] < 0.00001)
                                 {
@@ -1960,6 +1967,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     #Nueva sección
                     if ($yy < 6) {
+                        //if($xx==7 && $yy==1 ){dd($phic, $kc, $pcal);}
                         $kite[$yy] = $kc[2];
                         $porosity_limit_constantite[$yy] = $porosity_limit_constant;
 

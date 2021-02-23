@@ -97,7 +97,8 @@
             yAxis: {
                 title: {
                     text: y_axis_tittle
-                }
+                }, 
+                min: 0
             },
             xAxis: {
                 title: {
@@ -208,4 +209,6 @@
         on_change_date_select_plot(fines_d_diagnosis_id, [final_date]);
 
     });
+
+    
 </script>

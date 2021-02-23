@@ -309,7 +309,7 @@
                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                    </span>
                                  @endif
-                                 {!! Form::text('water_volumetric_factor', $fines_d_diagnosis->water_volumetric_factor,  ['placeholder' => 'bbl/BN', 'class' =>'form-control', 'id' => 'water_volumetric_factor']) !!}
+                                 {!! Form::text('water_volumetric_factor', null,  ['placeholder' => 'bbl/BN', 'class' =>'form-control', 'id' => 'water_volumetric_factor']) !!}
                                  <span class="input-group-addon" id="basic-addon2">bbl/BN</span>
                               </div>
                            </div>
@@ -325,7 +325,7 @@
                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                    </span>
                                  @endif
-                                 {!! Form::text('plug_radius', $fines_d_diagnosis->plug_radius,  ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'plug_radius']) !!}
+                                 {!! Form::text('plug_radius', null,  ['placeholder' => 'ft', 'class' =>'form-control', 'id' => 'plug_radius']) !!}
                                  <span class="input-group-addon" id="basic-addon2">ft</span>
                               </div>
                            </div>

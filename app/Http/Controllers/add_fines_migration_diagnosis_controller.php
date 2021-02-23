@@ -283,10 +283,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
                 $historical_data = array_merge($historical_data, $historical_projection_data);
-                foreach ($historical_data as $value) {
-                    array_push($dates_data, $value[0]);
-                    array_push($bopd_data, $fines_d_historical_data->bopd);
-                }
                 
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
@@ -635,12 +631,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
                 $historical_data = array_merge($historical_data, $historical_projection_data);
-                foreach ($historical_data as $value) {
-                    array_push($dates_data, $value[0]);
-                    array_push($bopd_data, $fines_d_historical_data->bopd);
-                }
-                
-                //dd($simulation_results[0]);
 
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
@@ -682,8 +672,6 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
 
             $source = "update";
-
-            //dd('loalalala', $fines_diagnosis_results_inserts);
 
             return View::make('results_fines_migration_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'fines_d_diagnosis', 'dates_data', 'fines_d_diagnosis', 'source']));
         }

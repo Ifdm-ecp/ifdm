@@ -2024,7 +2024,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 //dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 2, $xx);
                                 break;
                             }elseif ($kact < $kite[count($kite)]) {
-                                if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { dd($kite[count($kite)], $kite[count($kite) - 1]); }
+                                if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { dd($kite[count($kite)], $kite[count($kite) - 1], $kite, $porosity_limit_constantite ); }
                                 $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1] + (($porosity_limit_constantite[count($kite)] - $porosity_limit_constantite[count($kite) - 1]) / ($kite[count($kite)] - $kite[count($kite) - 1])) * ($kact - $kite[count($kite) - 1]);
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];

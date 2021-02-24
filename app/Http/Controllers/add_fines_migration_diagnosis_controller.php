@@ -908,11 +908,11 @@ class add_fines_migration_diagnosis_controller extends Controller
         #$rplug = $radiodeplug
 
         #Hueco abierto
-        if ($tpp === 0) {
+        if ($tpp == 0) {
             $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
 
         #Hueco cementado
-        } else if ($tpp ==! 0) {
+        } else if ($tpp =! 0) {
             if ($rw < 0.375) {
                 $fp3 = 1.036 * ($tpp * $rp) / (0.9932 * $tpp * $rp + 0.7718);
                 $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);

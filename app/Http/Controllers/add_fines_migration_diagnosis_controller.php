@@ -1107,7 +1107,7 @@ class add_fines_migration_diagnosis_controller extends Controller
     }
     function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
     {
-        set_time_limit(3600); //Cambiar
+        set_time_limit(180); //Cambiar
         $complete_simulated_results = [];
 
         $nv = count($pvt_data[0]) - 1;

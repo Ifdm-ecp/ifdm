@@ -608,7 +608,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
         $dporo = floatval($fines_d_diagnosis->average_pore_diameter);
-        dd( $dporo);
+        dd( $dporo, $fines_d_diagnosis->average_pore_diameter);
         $dpart = floatval($fines_d_diagnosis->fine_diameter);
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);

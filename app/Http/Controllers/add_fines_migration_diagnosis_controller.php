@@ -460,7 +460,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
         $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
         $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter');
-        dd($request->input('average_pore_diameter'), $fines_d_diagnosis->average_pore_diameter );
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
@@ -609,6 +608,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
         $dporo = floatval($fines_d_diagnosis->average_pore_diameter);
+        dd( $dporo);
         $dpart = floatval($fines_d_diagnosis->fine_diameter);
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);

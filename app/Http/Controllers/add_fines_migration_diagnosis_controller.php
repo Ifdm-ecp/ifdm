@@ -114,22 +114,22 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $fines_d_diagnosis->formation_height = $request->input('formation_height');
         $fines_d_diagnosis->well_radius = $request->input('well_radius');
-        $fines_d_diagnosis->perforation_radius = $request->input('perforation_radius');
-        $fines_d_diagnosis->number_of_perforations = $request->input('number_of_perforations');
+        if ($request->input('perforation_radius') === "") { $fines_d_diagnosis->perforation_radius = null; } else { $fines_d_diagnosis->perforation_radius = $request->input('perforation_radius'); }
+        if ($request->input('number_of_perforations') === "") { $fines_d_diagnosis->number_of_perforations = null; } else { $fines_d_diagnosis->number_of_perforations = $request->input('number_of_perforations'); }
         // $fines_d_diagnosis->compressibility = $request->input('compressibility');
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
         $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
-        $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter');
+        if ($request->input('average_pore_diameter') === "") { $fines_d_diagnosis->average_pore_diameter = null; } else { $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter'); }
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
-        $fines_d_diagnosis->fine_density = $request->input('fine_density');
+        if ($request->input('fine_density') === "") { $fines_d_diagnosis->fine_density = null; } else { $fines_d_diagnosis->fine_density = $request->input('fine_density'); }
         $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
-        $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor');
-        $fines_d_diagnosis->plug_radius = $request->input('plug_radius');
+        if ($request->input('water_volumetric_factor') === "") { $fines_d_diagnosis->water_volumetric_factor = null; } else { $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor'); }
+        if ($request->input('plug_radius') === "") { $fines_d_diagnosis->plug_radius = null; }else{ $fines_d_diagnosis->plug_radius = $request->input('plug_radius'); }
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
         $fines_d_diagnosis->length = $request->input('length');
@@ -262,19 +262,19 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pini = floatval($fines_d_diagnosis->initial_pressure);
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
-        $dporo = floatval($fines_d_diagnosis->average_pore_diameter);
-        $dpart = floatval($fines_d_diagnosis->fine_diameter);
+        if ($fines_d_diagnosis->average_pore_diameter == null) { $dporo = null; } else { $dporo = floatval($fines_d_diagnosis->average_pore_diameter); }
+        if ($fines_d_diagnosis->fine_diameter == null) { $dpart = null; } else { $dpart = floatval($fines_d_diagnosis->fine_diameter); }
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);
         $sigmai = floatval($fines_d_diagnosis->initial_deposited_fines_concentration);
         $tcri = floatval($fines_d_diagnosis->critical_rate);
         $fmov = $fines_d_diagnosis->type_of_suspension_flux;
-        $tpp = floatval($fines_d_diagnosis->number_of_perforations);
-        $rp = floatval($fines_d_diagnosis->perforation_radius);
+        if ($fines_d_diagnosis->number_of_perforations == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->number_of_perforations); }
+        if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
         $kact = floatval($fines_d_diagnosis->current_permeability);
-        $bw = floatval($fines_d_diagnosis->water_volumetric_factor);
-        $rplug = floatval($fines_d_diagnosis->plug_radius);
+        if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
+        if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
         try {
             if (!$button_wr) {
@@ -452,24 +452,24 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $fines_d_diagnosis->formation_height = $request->input('formation_height');
         $fines_d_diagnosis->well_radius = $request->input('well_radius');
-        $fines_d_diagnosis->perforation_radius = $request->input('perforation_radius');
-        $fines_d_diagnosis->number_of_perforations = $request->input('number_of_perforations');
+        if ($request->input('perforation_radius') === "") { $fines_d_diagnosis->perforation_radius = null; } else { $fines_d_diagnosis->perforation_radius = $request->input('perforation_radius'); }
+        if ($request->input('number_of_perforations') === "") { $fines_d_diagnosis->number_of_perforations = null; } else { $fines_d_diagnosis->number_of_perforations = $request->input('number_of_perforations'); }
         // $fines_d_diagnosis->compressibility = $request->input('compressibility');
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
         $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
-        $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter');
+        if ($request->input('average_pore_diameter') === "") { $fines_d_diagnosis->average_pore_diameter = null; } else { $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter'); }
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
-        $fines_d_diagnosis->fine_density = $request->input('fine_density');
+        if ($request->input('fine_density') === "") { $fines_d_diagnosis->fine_density = null; } else { $fines_d_diagnosis->fine_density = $request->input('fine_density'); }
         $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
-        $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor');
-        $fines_d_diagnosis->plug_radius = $request->input('plug_radius');
+        if ($request->input('water_volumetric_factor') === "") { $fines_d_diagnosis->water_volumetric_factor = null; } else { $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor'); }
+        if ($request->input('plug_radius') === "") { $fines_d_diagnosis->plug_radius = null; }else{ $fines_d_diagnosis->plug_radius = $request->input('plug_radius'); }
         $fines_d_diagnosis->length = $request->input('length');
         $fines_d_diagnosis->diameter = $request->input('diameter');
         $fines_d_diagnosis->porosity = $request->input('porosity');
@@ -607,19 +607,19 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pini = floatval($fines_d_diagnosis->initial_pressure);
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
-        $dporo = floatval($fines_d_diagnosis->average_pore_diameter);
-        $dpart = floatval($fines_d_diagnosis->fine_diameter);
+        if ($fines_d_diagnosis->average_pore_diameter == null) { $dporo = null; } else { $dporo = floatval($fines_d_diagnosis->average_pore_diameter); }
+        if ($fines_d_diagnosis->fine_diameter == null) { $dpart = null; } else { $dpart = floatval($fines_d_diagnosis->fine_diameter); }
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);
         $sigmai = floatval($fines_d_diagnosis->initial_deposited_fines_concentration);
         $tcri = floatval($fines_d_diagnosis->critical_rate);
         $fmov = $fines_d_diagnosis->type_of_suspension_flux;
-        $tpp = floatval($fines_d_diagnosis->number_of_perforations);
-        $rp = floatval($fines_d_diagnosis->perforation_radius);
+        if ($fines_d_diagnosis->number_of_perforations == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->number_of_perforations); }
+        if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
         $kact = floatval($fines_d_diagnosis->current_permeability);
-        $bw = floatval($fines_d_diagnosis->water_volumetric_factor);
-        $rplug = floatval($fines_d_diagnosis->plug_radius);
+        if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
+        if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
         try 
         {
@@ -908,7 +908,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         #$rplug = $radiodeplug
 
         #Hueco abierto
-        if ($tpp == 0) {
+        if ($tpp == 0 || $tpp == null) {
             $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
 
         #Hueco cementado
@@ -1142,16 +1142,16 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pi = 3.14159265359;
         $x = 0;
         $ki = [];
+        
         //
-
-        #Escalamiento de tasa crítica escalada
-        if ($bw == 0.0 || $bw == null) {
+        if ($bw == null) {
             $bw = 1.1;
         }
-        if ($rplug == 0.0 || $rplug == null) {
-            $rplug = 0.061;
+        if ($rplug == null) {
+            $rplug = 0.061; #Medición estandar para un núcleo de laboratorio [ft]
         }
-        $rplug = 0.061; #Medición estandar para un núcleo de laboratorio [ft]
+
+        #Escalamiento de tasa crítica escalada
         $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw);
 
         #Conversión tasas de laboratorio

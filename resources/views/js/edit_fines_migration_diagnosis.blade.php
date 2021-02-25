@@ -181,7 +181,7 @@
                 dateFormat: 'YYYY-MM-DD'
             },
                 {
-                    title: "BOPD [bbl/d]",
+                    title: "BFPD [bbl/d]",
                     data: 1,
                     type: 'numeric',
                     format: '0[.]0000000'
@@ -208,7 +208,7 @@
                 readOnly: true
             },
                 {
-                    title: "BOPD [bbl/d]",
+                    title: "BFPD [bbl/d]",
                     data: 1,
                     type: 'numeric',
                     format: '0[.]0000000',
@@ -658,7 +658,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'bopd'
+                        text: 'bfpd'
                     },
                     plotLines: [{
                         value: 0,
@@ -676,7 +676,7 @@
                     borderWidth: 0
                 },
                 series: [{
-                    name: 'BOPD [bbl/d]',
+                    name: 'BFPD [bbl/d]',
                     data: bopd,
                     tooltip: {
                         valueSuffix: ''
@@ -732,7 +732,7 @@
                     data: oil_original_data
                 }];
 
-                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BFPD [bbl/d]");
 
                 if ($("#perform_historical_projection_oil").val() == "exponential") {
                     for (i = 0; i < oil_exponential_serie.length; i++) {
@@ -820,7 +820,7 @@
                     data: oil_original_data
                 }];
 
-                plot_projection_chart("oil_projection_chart", oil_projection_series, "BOPD [bbl/d]");
+                plot_projection_chart("oil_projection_chart", oil_projection_series, "BFPD [bbl/d]");
 
                 if ($("#perform_historical_projection_oil").val() == "exponential") {
                     for (i = 0; i < oil_exponential_serie.length; i++) {

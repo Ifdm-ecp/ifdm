@@ -125,8 +125,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
-        if ($request->input('fine_density') === "") { $fines_d_diagnosis->fine_density = null; } else { $fines_d_diagnosis->fine_density = $request->input('fine_density'); }
-        $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
+        $fines_d_diagnosis->fine_density = $request->input('fine_density');
+        if ($request->input('fine_diameter') === "") { $fines_d_diagnosis->fine_diameter = null; } else { $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter'); }
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         if ($request->input('water_volumetric_factor') === "") { $fines_d_diagnosis->water_volumetric_factor = null; } else { $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor'); }
         if ($request->input('plug_radius') === "") { $fines_d_diagnosis->plug_radius = null; }else{ $fines_d_diagnosis->plug_radius = $request->input('plug_radius'); }
@@ -463,8 +463,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
-        if ($request->input('fine_density') === "") { $fines_d_diagnosis->fine_density = null; } else { $fines_d_diagnosis->fine_density = $request->input('fine_density'); }
-        $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter');
+        $fines_d_diagnosis->fine_density = $request->input('fine_density');
+        if ($request->input('fine_diameter') === "") { $fines_d_diagnosis->fine_diameter = null; } else { $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter'); }
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
@@ -1143,7 +1143,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $x = 0;
         $ki = [];
         
-        //
+        #Controlar variables
         if ($bw == null) {
             $bw = 1.1;
         }
@@ -1284,6 +1284,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
         $kite = array(1 => 0, 0, 0, 0, 0);
         $porosity_limit_constant = $porosity_limit_constanti[1];
+        $flag_ran_xx_7 = 0;
 
         for ($xx = 1; $xx <= 7; $xx++) {
             for ($kk=1; $kk <= $nh; $kk++)
@@ -1292,7 +1293,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 $qo = -$bopd[$kk];
 
                 for ($v=1; $v <= $ndt ; $v++) 
-                { 
+                {   
                     #coeficientes matriz tridiagonal
                     $i = 1;
                     while ($i == $x + 1)
@@ -1340,7 +1341,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $g2 = 3792.58489625175 * $phin[$i] * $cr * $un / $kn[$i];
                         $f[$i] = $g2 / $dt;
                     }
-
+                    
                     if ($ri > 0 and $ri < $re)
                     {
                         $b[$x] = $dr1[$x] / $dr1[$x - 1];
@@ -1386,9 +1387,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $gg[$j] = ($d[$j] - ($b[$j] * $gg[$j - 1])) / $w[$j];
                         $qq[$j] = $a[$j] / $w[$j];
                     }
+                    
 
                     $pcal[$nr] = $gg[$nr];
-
+    
                     for ($j=$nr - 1; $j >= 1 ; $j--) 
                     { 
                         $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
@@ -1396,11 +1398,17 @@ class add_fines_migration_diagnosis_controller extends Controller
                         
                     //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
                     #Nuevo
+                    
                     if ($pcal[1] < 0) {
-                        //dd($xx, $pcal[1]);
-                        $xx = 6;
-
-                        break;
+                        if ($xx == 7) {
+                            $xx = 6;
+                            $flag_ran_xx_7 = 1;
+                            break 2;
+                        }else{
+                            $xx = 6;
+                            //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
+                            break 2;
+                        }
                     }
 
                     for ($i=1; $i <= $nr ; $i++) 
@@ -1501,6 +1509,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $co[$i] = $coc[$i];
                         $sigmaini[$i] = $sigmasal[$i];
                     }
+                    
                 }
 
                 #Radio de daño
@@ -1565,6 +1574,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 //     $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                 //     array_push($complete_simulated_results, $simulation_results);
                 // }
+                
             }
 
             //dd($complete_simulated_results);
@@ -1587,6 +1597,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
 
             if ($xx == 6) {
+                //dd('llegué a 6');
                 //dd('LLEGA AL INICIO DEL xx = 6',$pite);
                 //dd(count($pite));
 
@@ -1629,9 +1640,13 @@ class add_fines_migration_diagnosis_controller extends Controller
                         // dd($pact, $pite, $crite, $cr, 2, $xx);
                         break;
                     }elseif ($pact < $pite[count($pite)]) {
-                        $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
-                        if ($cr < 0) { 
+                        if ($flag_ran_xx_7 == 0) {
+                            $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                        }else{
                             $cr = $crite[count($pite)];
+                        }
+                        if ($cr < 0) { 
+                            $cr = $crite[count($pite)]; 
                         }
                         $pn = array_fill(1, $nr, $pini); 
                         $phin = array_fill(1, $nr, $phio); 
@@ -1647,7 +1662,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                 }
             }
 
-            if ($xx == 7) {
+            if ($xx == 7) {   
+                $flag_ran_yy_7 = 0;     
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 2; $yy++) {
                     
                     $pn = array_fill(1, $nr, $pini); 
@@ -1872,9 +1888,16 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $cod[$i] = $sigmasal[$i];
                                 $kc[$i] = $kn[$i] * pow($phic[$i] / $phin[$i], 3.0); #Revisar
                             }
+
                             if ($kc[2] < 0) {
-                                $yy = 6;
-                                break;
+                                if ($yy == 7) {
+                                    $yy = 6;
+                                    $flag_ran_yy_7 = 1;
+                                    break 2;
+                                }else{
+                                    $yy = 6;
+                                    break 2;
+                                }
                             }
 
                             for ($i=1; $i <= $nr ; $i++) 
@@ -2032,11 +2055,16 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 //dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 2, $xx);
                                 break;
                             }elseif ($kact < $kite[count($kite)]) {
-                                if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { 
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1];
+                                if ($flag_ran_yy_7 == 0) {
+                                    if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { 
+                                        $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1];
+                                    }else{
+                                        $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1] + (($porosity_limit_constantite[count($kite)] - $porosity_limit_constantite[count($kite) - 1]) / ($kite[count($kite)] - $kite[count($kite) - 1])) * ($kact - $kite[count($kite) - 1]);
+                                    }
                                 }else{
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1] + (($porosity_limit_constantite[count($kite)] - $porosity_limit_constantite[count($kite) - 1]) / ($kite[count($kite)] - $kite[count($kite) - 1])) * ($kact - $kite[count($kite) - 1]);
+                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
                                 }
+                                # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
                                 }elseif ($porosity_limit_constant >= 1) {

@@ -1355,7 +1355,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                             $ea[$i] = 0;
                         }
-                        dd($pact, $pite, $crite, $cr, 1, $xx);
+                        //dd($pact, $pite, $crite, $cr, 1, $xx);
                         break;
                     }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
                         $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
@@ -1373,7 +1373,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                             $ea[$i] = 0;
                         }
-                        dd($pact, $pite, $crite, $cr, 2, $xx);
+                        //dd($pact, $pite, $crite, $cr, 2, $xx);
                         break;
                     }elseif ($pact < $pite[count($pite)]) {
                         $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
@@ -1391,7 +1391,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                             $ea[$i] = 0;
                         }
-                        dd($pact, $pite, $crite, $cr, 3, $xx);
+                        //dd($pact, $pite, $crite, $cr, 3, $xx);
                         break;
                     }
                 }

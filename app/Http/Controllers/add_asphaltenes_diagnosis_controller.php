@@ -684,7 +684,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
     function extrapolation($xa, $ya, $n, $x)
     {
-        $n_max = 10;
+        //dd($xa, $ya, $n, $x);
+        
+        $n_max = $n;
         //$n_max = $n;
         $c = array_fill(1, 10, 0);
         //$c = array_fill(1, $n, 0);
@@ -702,6 +704,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
         } else if ($x < $xa[$n]) {
             $y = $ya[1];
             for ($i = 1; $i <= $n_max; $i++) {
+                //if(!isset($ya[$i]) ){dd($n_max, $ya, $c);}
+                //if(!isset($ya[$i]) ){dd($xa, $ya, $n, $x);}
                 $c[$i] = $ya[$i];
                 $d[$i] = $ya[$i];
             }
@@ -987,7 +991,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
             $ea[$i] = 0;
         }
-
+        
         #Dimensionamiento
         $b = array_fill(1, $nr, 0);
         $a = array_fill(1, $nr, 0);
@@ -1122,8 +1126,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                         $xx = 6;
                         break;
                     }
-
+                    
                     for ($i = 1; $i <= $nr; $i++) {
+                        //if($xx == 4 && $kk == 4 && $v == 56) {dd('eh ave maría pues ome', $nh, $ndt, $nr);}
+                        //if($xx == 4 && $kk == 4 && $v == 56) {dd($pcal, $nv, $ppvt, $dopvt, $ns, $pasf,);}
                         $rho = $this->interpolation($pcal[$i], $nv, $ppvt, $dopvt);
                         $coi = $this->interpolation($pcal[$i], $ns, $pasf, $sasf);
                         if ( ($rho) < 0.00000000001 ) {
@@ -1132,7 +1138,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $co[$i] = ($wtasf[$kk] * 10000 * (1 - $coi)) / ($rho);
                         }
                     }
-
+                    
                     #Cálculo del flux
                     for ($i = 2; $i < $nr; $i++) {
                         $dpre[$i] = -($pcal[$i] - $pcal[$i - 1]) / (2 * $dr[$i]);
@@ -1150,7 +1156,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $u[$i] = 0;
                         }
                     }
-
+                    
                     #Cambio de porosidad
                     for ($i = 1; $i <= $nr; $i++) {
                         $mu = $this->interpolation($pcal[$i], $nv, $ppvt, $uopvt);

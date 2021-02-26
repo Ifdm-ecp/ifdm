@@ -1038,6 +1038,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $pite = array(1 => 0, 0, 0, 0, 0);
         $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
+        $flag_ran_xx_7 = 0;
 
         for ($xx = 1; $xx <= 7; $xx++) {    #Nuevo ciclo
             for ($kk = 1; $kk <= $nh; $kk++) {
@@ -1122,9 +1123,15 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     #Nuevo
                     if ($pcal[1] < 0) {
-                        //dd($xx, $pcal[1]);
-                        $xx = 6;
-                        break;
+                        if ($xx == 7) {
+                            $xx = 6; 
+                            $flag_ran_xx_7 = 1;
+                            break 2;
+                        }else{
+                            //dd($xx, $pcal[1]);
+                            $xx = 6;
+                            break 2;
+                        }
                     }
                     
                     for ($i = 1; $i <= $nr; $i++) {
@@ -1382,7 +1389,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
                         //dd($pact, $pite, $crite, $cr, 2, $xx);
                         break;
                     }elseif ($pact < $pite[count($pite)]) {
-                        $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                        if ($flag_ran_xx_7 == 0) { 
+                            $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                        }else{
+                            $cr = $crite[count($pite)];
+                        }
                         if ($cr < 0) { 
                             $cr = $crite[count($pite)];
                         }

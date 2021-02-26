@@ -2938,7 +2938,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 {
                     $dsa = (140 * $h_c + 614 * $o_c + 235 * $n_c + 460 * $s_c + 136 * $faro) / $vca;
                 } else {
-                    //$dsa = 221 * (1 - 0.00001 * $t);
+                    $dsa = 221 * (1 - 0.00001 * $t);
                     if ($ponset != $pburb[$i - 1]) {
                         $vma = 1.493 * (pow($mwa, 0.936));
                         $at = 0.579 - 0.00075 * ($taps * 0.5556);

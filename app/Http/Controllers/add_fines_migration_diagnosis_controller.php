@@ -1280,9 +1280,11 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pite = array(1 => 0, 0, 0, 0, 0);
         $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
-        $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5, 0);
-        $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
-        $kite = array(1 => 0, 0, 0, 0, 0);
+        $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0);
+        $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5);
+        //$porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5, 0);
+        //$porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
+        $kite = array(1 => 0, 0, 0, 0, 0, 0, 0, 0, 0);
         $porosity_limit_constant = $porosity_limit_constanti[1];
         $flag_ran_xx_7 = 0;
 
@@ -1663,7 +1665,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
 
             if ($xx == 7) {   
-                $flag_ran_yy_7 = 0;     
+                $flag_ran_yy_11 = 0;     
                 for ($yy = 1; $yy <= count($porosity_limit_constanti) + 2; $yy++) {
                     
                     $pn = array_fill(1, $nr, $pini); 
@@ -1890,12 +1892,12 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
 
                             if ($kc[2] < 0) {
-                                if ($yy == 7) {
-                                    $yy = 6;
-                                    $flag_ran_yy_7 = 1;
+                                if ($yy == 11) {
+                                    $yy = 10;
+                                    $flag_ran_yy_11 = 1;
                                     break 2;
                                 }else{
-                                    $yy = 6;
+                                    $yy = 10;
                                     break 2;
                                 }
                             }
@@ -1963,8 +1965,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
 
-                        if ($xx == 7 && $yy == 7) {
-                            for ($i=2; $i <= $nr ; $i++) 
+                        if ($xx == 7 && $yy == 11) {
+                            for ($i=2; $i <= $nr - 1; $i++) 
                             { 
                                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
                             }
@@ -1977,7 +1979,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
 
                     #Nueva sección
-                    if ($yy < 6) {
+                    if ($yy < 10) {
                         //if($xx==7 && $yy==1 ){dd($phic, $kc, $pcal);}
                         $kite[$yy] = $kc[2];
                         $porosity_limit_constantite[$yy] = $porosity_limit_constant;
@@ -1994,7 +1996,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $porosity_limit_constant = $porosity_limit_constanti[$yy + 1];
                     }
 
-                    if ($yy == 6) {
+                    if ($yy == 10) {
                         //dd('LLEGA AL INICIO DEL xx = 6',$kite);
                         //dd(count($kite));
 
@@ -2055,7 +2057,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 //dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 2, $xx);
                                 break;
                             }elseif ($kact < $kite[count($kite)]) {
-                                if ($flag_ran_yy_7 == 0) {
+                                if ($flag_ran_yy_11 == 0) {
                                     if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { 
                                         $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1];
                                     }else{

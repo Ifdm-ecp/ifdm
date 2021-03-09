@@ -899,9 +899,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
     function simulate_deposited_asphaltenes($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $pvt_data, $historical_data, $asphaltenes_data)
     {
 
-        ini_set('max_execution_time', 1800);
+        ini_set('max_execution_time', 600);
         ini_set('memory_limit', '-1');
-        set_time_limit(1800);
+        set_time_limit(600);
 
         $complete_simulated_results = [];
         $complete_damage_results = [];
@@ -1034,17 +1034,19 @@ class add_asphaltenes_diagnosis_controller extends Controller
         }
 
         #Variables nuevas
-        $cri = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+        $cri = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
         $pite = array(1 => 0, 0, 0, 0, 0);
-        $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
+        $crite = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
         $flag_ran_xx_7 = 0;
 
         for ($xx = 1; $xx <= 7; $xx++) {    #Nuevo ciclo
+            //if ($xx == 2) {dd($xx);}
             for ($kk = 1; $kk <= $nh; $kk++) {
                 $ndt = 24 * $tiempo[$kk] / $dt;
                 $qo = -$bopd[$kk];
                 for ($v = 1; $v <= $ndt; $v++) {
+                    //if ($xx == 1 && $kk == 4 && $v == 10) { dd($pcal, $kc, $cr); }  
                     //if ($xx == 7 && $kk == (15)) { dd('LLEGO AL SEGUNDO FOR DEL CICLO 7', $ndt, $x, $nr, $ri); }
                     #coeficientes matriz tridiagonal
                     $i = 1;
@@ -1127,6 +1129,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
                             break 2;
+                        //}else if ($xx == 1) {
+                            //enviar al results blade un mensaje diciendo que debe modificar los datos... enviar flag para saber que es este caso 
                         }else{
                             //dd($xx, $pcal[1]);
                             $xx = 6;
@@ -1348,72 +1352,83 @@ class add_asphaltenes_diagnosis_controller extends Controller
                         array_pop($pite);
                     }
                 }
-
-                //dd($pite);
                 
-                for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
-                    if ($pact > $pite[1]) {
-                        $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)];
+                if (count($pite) > 1) {
+                    for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
+                        if ($pact > $pite[1]) {
+                            $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)];
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $pn[$i] = $pini;
+                                $phin[$i] = $phio;
+                                $kn[$i] = $ko;
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                                $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                                $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                                $ea[$i] = 0;
+                            }
+                            //dd($pact, $pite, $crite, $cr, 1, $xx);
+                            break;
+                        }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
+                            $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)];
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $pn[$i] = $pini;
+                                $phin[$i] = $phio;
+                                $kn[$i] = $ko;
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                                $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                                $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                                $ea[$i] = 0;
+                            }
+                            //dd($pact, $pite, $crite, $cr, 2, $xx);
+                            break;
+                        }elseif ($pact < $pite[count($pite)]) {
+                            if ($flag_ran_xx_7 == 0) { 
+                                $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                            }else{
+                                $cr = $crite[count($pite)];
+                            }
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)];
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $pn[$i] = $pini;
+                                $phin[$i] = $phio;
+                                $kn[$i] = $ko;
+                            }
+                            for ($i = 1; $i <= $nr; $i++) {
+                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                                $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                                $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                                $ea[$i] = 0;
+                            }
+                            //dd($pact, $pite, $crite, $cr, 3, $xx);
+                            break;
                         }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $pn[$i] = $pini;
-                            $phin[$i] = $phio;
-                            $kn[$i] = $ko;
-                        }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
-                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
-                            $ea[$i] = 0;
-                        }
-                        //dd($pact, $pite, $crite, $cr, 1, $xx);
-                        break;
-                    }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
-                        $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)];
-                        }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $pn[$i] = $pini;
-                            $phin[$i] = $phio;
-                            $kn[$i] = $ko;
-                        }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
-                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
-                            $ea[$i] = 0;
-                        }
-                        //dd($pact, $pite, $crite, $cr, 2, $xx);
-                        break;
-                    }elseif ($pact < $pite[count($pite)]) {
-                        if ($flag_ran_xx_7 == 0) { 
-                            $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
-                        }else{
-                            $cr = $crite[count($pite)];
-                        }
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)];
-                        }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $pn[$i] = $pini;
-                            $phin[$i] = $phio;
-                            $kn[$i] = $ko;
-                        }
-                        for ($i = 1; $i <= $nr; $i++) {
-                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                            $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
-                            $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
-                            $ea[$i] = 0;
-                        }
-                        //dd($pact, $pite, $crite, $cr, 3, $xx);
-                        break;
+                    }
+                }else{
+                    $cr = $crite[1];
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $pn[$i] = $pini;
+                        $phin[$i] = $phio;
+                        $kn[$i] = $ko;
+                    }
+                    for ($i = 1; $i <= $nr; $i++) {
+                        $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                        $coi = $this->interpolation($pini, $ns, $pasf, $sasf);
+                        $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
+                        $ea[$i] = 0;
                     }
                 }
-
-                
                 
                 //dd($pact, $pite, $crite, $cr);
 

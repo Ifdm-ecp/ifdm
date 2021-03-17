@@ -494,7 +494,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
                 $colloidal_probability = 0;
             } else if ($colloidal_instability_index < 0.7 and $rta < 1.5) {
                 $cii_conclusion = "<b>Problems:</b> low";
-                $cii_diagnosis_conclusion = "<b>Diagnosis:</b> there's a <b>low</b> proabability of precipited asphaltenes";
+                $cii_diagnosis_conclusion = "<b>Diagnosis:</b> there's a <b>15%</b> probability of precipited asphaltenes";
                 $colloidal_type = 1;
                 $colloidal_probability = 15;
             } else if ($colloidal_instability_index > 0.9 and $rta > 2.5) {
@@ -668,13 +668,13 @@ class add_asphaltene_stability_analysis_controller extends Controller
             } else if ($light_hidrocarbons_content == 1 and $heavy_fraction_content == 2) {
                 if ($co2_component_sum > 5) {
                     $boer_stability_conclusion_1 = "<b>Problems:</b> low";
-                    $boer_stability_conclusion_2 = "<b>Very low</b> light components saturation. There's a <b>15%</b> probability or less for asphaltenes precipitation";
+                    $boer_stability_conclusion_2 = "<b>Very low</b> light components saturation. There's a <b>10%</b> probability or less for asphaltenes precipitation";
                     $boer_stability_conclusion_3 = "There's a CO2 concentration higher than <b>5%</b>, an additional precipitation effect is expected";
                     $light_hidrocarbon_type = 1;
                     $light_hidrocarbon_probability = 10;
                 } else {
                     $boer_stability_conclusion_1 = "<b>Problems:</b> low";
-                    $boer_stability_conclusion_2 = "<b>Very low</b> light components saturation. There's a <b>7.5%</b> probability or less for asphaltenes precipitation";
+                    $boer_stability_conclusion_2 = "<b>Very low</b> light components saturation. There's a <b>7%</b> probability or less for asphaltenes precipitation";
                     $boer_stability_conclusion_3 = "There's a CO2 concentration higher than <b>5%</b>, an additional precipitation effect is expected";
                     $light_hidrocarbon_type = 1;
                     $light_hidrocarbon_probability = 7;
@@ -711,7 +711,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
             } else if ($light_hidrocarbons_content == 2 and $heavy_fraction_content == 2) {
                 if ($co2_component_sum > 5) {
                     $boer_stability_conclusion_1 = "<b>Problems:</b> medium";
-                    $boer_stability_conclusion_2 = "<b>Low</b> light components saturation. There's a <b>45%</b> probability or less for asphaltenes precipitation";
+                    $boer_stability_conclusion_2 = "<b>Low</b> light components saturation. There's a <b>35%</b> probability or less for asphaltenes precipitation";
                     $boer_stability_conclusion_3 = "There's a CO2 concentration higher than <b>5%</b>, an additional precipitation effect is expected";
                     $light_hidrocarbon_type = 3;
                     $light_hidrocarbon_probability = 35;
@@ -730,7 +730,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
                     $light_hidrocarbon_probability = 65;
                 } else {
                     $boer_stability_conclusion_1 = "<b>Problems:</b> medium";
-                    $boer_stability_conclusion_2 = "<b>Low</b> light components saturation. There's a <b>45%</b> probability or less for asphaltenes precipitation";
+                    $boer_stability_conclusion_2 = "<b>Low</b> light components saturation. There's a <b>30%</b> probability or less for asphaltenes precipitation";
                     $light_hidrocarbon_type = 3;
                     $light_hidrocarbon_probability = 30;
                 }
@@ -807,7 +807,7 @@ class add_asphaltene_stability_analysis_controller extends Controller
             } else if ($saturated_content == 1 and $asphaltene_content == 1 and $resins_content == 2 and $aromatic_content == 2) {
                 $sara_conclusion_1 = "<b>Problems:</b> medium low";
                 $sara_conclusion_2 = "Aromatics/Resins rate increments the instability";
-                $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>25%</b> or less";
+                $sara_conclusion_3 = "The probability of precipitated asphaltenes is <b>20%</b> or less";
                 $sara_type = 1;
                 $sara_probability = 20;
             } else if ($saturated_content == 1 and $asphaltene_content == 2 and $resins_content == 1 and $aromatic_content == 1) #2'

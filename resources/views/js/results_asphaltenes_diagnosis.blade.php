@@ -75,7 +75,7 @@ function on_change_date_select_plot(asphaltenes_d_diagnosis_id,selected_dates)
                 {
                     //pressure_radius_row.push([value.radius, value.pressure]);
                     porosity_radius_row.push([value.radius, value.porosity]);
-                    permeability_radius_row.push([value.radius, value.permeability]);
+                    permeability_radius_row.push([value.radius, parseFloat(value.permeability.toFixed(3))]);
                     //deposited_asphaltenes_radius_row.push([value.radius, value.deposited_asphaltenes]);
                     //soluble_asphaltenes_radius_row.push([value.radius, value.soluble_asphaltenes]);
                 });

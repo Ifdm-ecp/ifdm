@@ -2855,8 +2855,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $p_enc[$j] = $pburb[$i] + 10;
                     $p_deb[$j] = $pburb[$i] - 10;
                 } else {
-                    $p_enc[$j] = $pburb[$i] + 400 * $j;
-                    $p_deb[$j] = $pburb[$i] - 100 * $j;
+                    $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
+                    $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
                 }
             }
 

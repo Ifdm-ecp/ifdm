@@ -1048,8 +1048,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
         }
 
-        $mu1 = interpolation($pini, $nv, $ppvt, $uopvt);
-        $mu2 = interpolation(14.7, $nv, $ppvt, $uopvt);
+        $mu1 = $this->interpolation($pini, $nv, $ppvt, $uopvt);
+        $mu2 = $this->interpolation(14.7, $nv, $ppvt, $uopvt);
 
         if ($mu1 > $mu2) {
             $mu_ref = $mu1;

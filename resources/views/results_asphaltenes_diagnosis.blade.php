@@ -23,7 +23,7 @@
    @elseif($viscosity_error)
    <div class="jumbotron">
       <center>
-        <span>Run has not been executed, la viscosidad woooh ohhh ohhh ohhh .</span>
+        <span>This module is not designed to handle extra-heavy crude oils or crudes with viscosities higher than 20.000 cp.</span>
       </center>
     </div>
    @else

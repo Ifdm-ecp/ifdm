@@ -14,87 +14,93 @@
 <h2 align="center">Asphaltene Diagnosis Results</h2>
 
 <div class="nav">
-  @if(!$asphaltenes_d_diagnosis->status_wr)
-   <div class="tabbable">
-      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
-         <li class="active"><a data-toggle="tab" href="#deposited_asphaltenes_results">Deposited Asphaltenes Results</a></li>
-         <li><a data-toggle="tab" href="#skin_results">Skin Results</a></li>
-      </ul>
+  @if($asphaltenes_d_diagnosis->status_wr)
+    <div class="jumbotron">
+      <center>
+        <span>Run has not been executed, there is no data to show.</span>
+      </center>
+    </div>
+   @elseif($viscosity_error)
+   <div class="jumbotron">
+      <center>
+        <span>Run has not been executed, la viscosidad woooh ohhh ohhh ohhh .</span>
+      </center>
+    </div>
+   @else
+    <div class="tabbable">
+        <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+          <li class="active"><a data-toggle="tab" href="#deposited_asphaltenes_results">Deposited Asphaltenes Results</a></li>
+          <li><a data-toggle="tab" href="#skin_results">Skin Results</a></li>
+        </ul>
 
-      <div class="tab-content">
-         <div class="tab-pane active" id="deposited_asphaltenes_results">
-            <div class="panel-body">
-              <div class="col-md-12">
-                <div class="row">
-                  <label>Please choose one or more dates for plotting the results</label>
-                  <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-primary" id="date_select" multiple>
-                    <option selected disabled>Dates</option>
-                      @foreach ($dates_data as $date)
-                          <option value = "{!! $date !!}">{!! $date !!}</option>
-                      @endforeach
-                  </select>
+        <div class="tab-content">
+          <div class="tab-pane active" id="deposited_asphaltenes_results">
+              <div class="panel-body">
+                <div class="col-md-12">
+                  <div class="row">
+                    <label>Please choose one or more dates for plotting the results</label>
+                    <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-primary" id="date_select" multiple>
+                      <option selected disabled>Dates</option>
+                        @foreach ($dates_data as $date)
+                            <option value = "{!! $date !!}">{!! $date !!}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><b>Porosity</b></div>
+                      <div class="panel-body">
+                        <div id="porosity_chart"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><b>Permeability</b></div>
+                      <div class="panel-body">
+                        <div id="permeability_chart"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <br>
-                <div class="row">
-                  <div class="panel panel-default">
-                     <div class="panel-heading"><b>Porosity</b></div>
-                     <div class="panel-body">
-                       <div id="porosity_chart"></div>
-                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="panel panel-default">
-                     <div class="panel-heading"><b>Permeability</b></div>
-                     <div class="panel-body">
-                       <div id="permeability_chart"></div>
-                     </div>
-                  </div>
-                </div>
               </div>
-              <br>
-            </div>
-         </div>
+          </div>
 
-         <div class="tab-pane" id="skin_results">
-          <div class="panel-body">
-            <div class="panel panel-default">
-              <div class="panel-heading"><b>Damage Radius</b></div>
-              <div class="panel-body">
-                <div id="damage_radius_chart"></div>
+          <div class="tab-pane" id="skin_results">
+            <div class="panel-body">
+              <div class="panel panel-default">
+                <div class="panel-heading"><b>Damage Radius</b></div>
+                <div class="panel-body">
+                  <div id="damage_radius_chart"></div>
+                </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading"><b>Skin</b></div>
-              <div class="panel-body">
-                <div id="skin_chart"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading"><b>Skin</b></div>
+                <div class="panel-body">
+                  <div id="skin_chart"></div>
+                </div>
               </div>
             </div>
           </div>
-         </div>
 
-         <div class="tab-pane" id="cii_analysis">
-            <div class="panel panel-default">
-              <div class="panel-heading"><b>Colloidal Instability Index Analysis</b></div>
-              <div class="panel-body">
-                <div id="cii_chart"></div>
+          <div class="tab-pane" id="cii_analysis">
+              <div class="panel panel-default">
+                <div class="panel-heading"><b>Colloidal Instability Index Analysis</b></div>
+                <div class="panel-body">
+                  <div id="cii_chart"></div>
+                </div>
               </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-heading"><b>Stankiewicz Stability Index Analysis</b></div>
-              <div class="panel-body">
-                <div id="stankiewicz_chart"></div>
+              <div class="panel panel-default">
+                <div class="panel-heading"><b>Stankiewicz Stability Index Analysis</b></div>
+                <div class="panel-body">
+                  <div id="stankiewicz_chart"></div>
+                </div>
               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   @else
-   <div class="jumbotron">
-     <center>
-       <span>Run has not been executed, there is no data to show.</span>
-     </center>
-   </div>
+          </div>
+        </div>
+    </div>
    @endif
 </div>
 

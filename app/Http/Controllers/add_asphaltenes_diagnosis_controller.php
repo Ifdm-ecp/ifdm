@@ -252,6 +252,13 @@ class add_asphaltenes_diagnosis_controller extends Controller
             if (!$button_wr) {
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
+                if ($simulation_results == 'viscosity_error') {
+                    $viscosity_error = true;
+                    return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));
+                } else { 
+                    $viscosity_error = false;
+                }
+
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
                 $skin_results = $simulation_results[1];
@@ -268,7 +275,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0], 'viscosity_error' => $viscosity_error));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);
@@ -320,7 +327,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $scenary->save();
             }
 
-            return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'dates_data', 'asphaltenes_d_diagnosis']));
+            return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));
         } catch (Exception $e) {
             $error_log = new error_log;
             $error_log->scenario_id = $scenaryId;
@@ -361,6 +368,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $formacion = DB::table('formacionxpozos')->where('id', $scenary->formacion_id)->select('nombre')->first();
         $campo = DB::table('campos')->where('id', $scenary->campo_id)->select('nombre')->first();
         $fluido = DB::table('fluidoxpozos')->where('pozo_id', $pozo->id)->first();
+        $viscosity_error = DB::table('asphaltenes_d_diagnosis_results')->where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->first();
 
         $cuenca = DB::table('cuencas')->where('id', $scenary->cuenca_id)->select('nombre')->first();
         $user = DB::table('users')->select('users.fullName')->where('id', '=', $scenary->user_id)->first();
@@ -376,7 +384,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
             array_push($dates_data, $value->date);
         }
 
-        return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data']));
+        return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'viscosity_error']));
     }
 
     /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */    
@@ -570,6 +578,13 @@ class add_asphaltenes_diagnosis_controller extends Controller
             if (!$button_wr) {
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
+                if ($simulation_results == 'viscosity_error') {
+                    $viscosity_error = true;
+                    return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));
+                } else { 
+                    $viscosity_error = false;
+                }
+
                 /* Guardando resultados */
                 $properties_results = $simulation_results[0];
                 $skin_results = $simulation_results[1];
@@ -589,7 +604,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     //array_pop($properties_value);
 
                     foreach ($properties_value as $value_aux) {
-                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0]));
+                        array_push($asphaltenes_d_diagnosis_results_inserts, array('asphaltenes_d_diagnosis_id' => $asphaltenes_d_diagnosis->id, 'radius' => round($value_aux[0], 3), 'pressure' => round($value_aux[1], 7), 'porosity' => round($value_aux[2], 7), 'permeability' => round($value_aux[3], 7), 'deposited_asphaltenes' => round($value_aux[4], 7), 'soluble_asphaltenes' => round($value_aux[5], 7), 'date' => $value[0], 'viscosity_error' => $viscosity_error));
                     }
 
                     DB::table('asphaltenes_d_diagnosis_results')->insert($asphaltenes_d_diagnosis_results_inserts);
@@ -614,7 +629,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $scenary->save();
             }
 
-            return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis']));
+            return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));
         } catch (Exception $e) {
             $error_log = new error_log;
             $error_log->scenario_id = $scenaryId;
@@ -1033,10 +1048,32 @@ class add_asphaltenes_diagnosis_controller extends Controller
             }
         }
 
+        $mu1 = interpolation($pini, $nv, $ppvt, $uopvt);
+        $mu2 = interpolation(14.7, $nv, $ppvt, $uopvt);
+
+        if ($mu1 > $mu2) {
+            $mu_ref = $mu1;
+        } else { 
+            $mu_ref = $mu2;
+        }
+    
+        if ($mu_ref > 0 && $mu_ref < 100) {
+            $cri = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+            $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
+        } elseif ($mu_ref >= 100 && $mu_ref < 1000) {
+            $cri = array(1 => 0.5, 0.1, 0.05, 0.001, 0.005, 0.000005, 0.000001, 0.0000005);
+            $crite = array(1 => 0.5, 0.1, 0.05, 0.001, 0.005);
+        } elseif ($mu_ref >= 1000 && $mu_ref < 20000) {
+            $cri = array(1 => 0.9, 0.5, 0.1, 0.05, 0.001, 0.005, 0.000005, 0.000001);
+            $crite = array(1 => 0.9, 0.5, 0.1, 0.05, 0.001);
+        } else {
+            return ('viscosity_error');
+        }
+
         #Variables nuevas
-        $cri = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+        //$cri = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
         $pite = array(1 => 0, 0, 0, 0, 0);
-        $crite = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001);
+        //$crite = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
         $flag_ran_xx_7 = 0;
 

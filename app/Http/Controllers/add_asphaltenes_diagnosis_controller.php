@@ -370,6 +370,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $fluido = DB::table('fluidoxpozos')->where('pozo_id', $pozo->id)->first();
         $viscosity_error = DB::table('asphaltenes_d_diagnosis_results')->where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->first();
 
+        dd($viscosity_error);
         $cuenca = DB::table('cuencas')->where('id', $scenary->cuenca_id)->select('nombre')->first();
         $user = DB::table('users')->select('users.fullName')->where('id', '=', $scenary->user_id)->first();
         $advisor = $scenary->enable_advisor;

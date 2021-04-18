@@ -2939,6 +2939,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('Desagregacion/store', 'DesagregacionController@store');
     Route::get('Desagregacion/show/{id}', 'DesagregacionController@show');
     Route::get('Desagregacion/edit/{id}', 'DesagregacionController@edit');
+    Route::get('Desagregacion/duplicate/{id}/{dup}', 'DesagregacionController@duplicate');
     Route::resource('Desagregacion/update', 'DesagregacionController@update');
     Route::resource('Desagregacion', 'DesagregacionController');
 

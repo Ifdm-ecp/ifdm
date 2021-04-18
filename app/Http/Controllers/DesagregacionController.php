@@ -53,6 +53,48 @@ class desagregacionController extends Controller
         }
     }
 
+    /* Recibe id del nuevo escenario, duplicateFrom seria el id del duplicado */    
+    public function duplicate($id, $duplicateFrom)
+    {
+        $_SESSION['scenary_id_dup'] = $duplicateFrom;
+        return $this->edit_duplicate($id, $duplicateFrom);
+    }
+
+    public function edit_duplicate($scenario_id, $duplicateFrom)
+    {
+        if (\Auth::check()) {
+
+            $scenario = escenario::find($scenario_id);
+
+            $disaggregation_new = new desagregacion;
+            $disaggregation_new->id_escenario = $scenario_id;
+            $disaggregation_new->save();
+            $id_disaggregation_new = $disaggregation_new->id;
+
+            $disaggregation = DB::table('desagregacion')->where('id_escenario', $duplicateFrom)->first();
+            $disaggregation_aux = $disaggregation->id;
+            $disaggregation->id_escenario = $scenario_id;
+            $disaggregation->id = $id_disaggregation_new;
+
+            /* Leyendo datos desde base de datos */
+            $hidraulic_units_data_query = DB::table('desagregacion_tabla')->where('id_desagregacion', $disaggregation_aux)->get();
+            //dd($hidraulic_units_data_query, $disaggregation->id);
+
+            /* Organizando datos para tablas */
+            $hidraulic_units_data = [];
+            foreach ($hidraulic_units_data_query as $value) {
+                array_push($hidraulic_units_data, array($value->espesor, $value->fzi, $value->porosidad_promedio, $value->permeabilidad));
+            }
+
+            $hidraulic_units_data_saved = $hidraulic_units_data;
+
+            //$duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
+            return View::make('desagregacion.edit', compact(['scenario_id', 'scenario', 'disaggregation', 'hidraulic_units_data', 'hidraulic_units_data_saved']));
+        } else {
+            return view('loginfirst');
+        }
+    }
+
     /**
      * Guarda los datos del escenario de desagregación con base en la información almacenada en el formluario e inserta en la base de datos.
      *
@@ -492,11 +534,14 @@ class desagregacionController extends Controller
             $scenario = escenario::find($scenario_id);
 
             $disaggregation = DB::table('desagregacion')->where('id_escenario', $scenario_id)->first();
-            #$disaggregation = desagregacion::find($id);
-
+            if (is_null($disaggregation)) {
+                $disaggregation = new desagregacion;
+                $disaggregation->id_escenario = $scenario_id;
+                $disaggregation->save();
+            }
+            
             /* Leyendo datos desde base de datos */
             $hidraulic_units_data_query = DB::table('desagregacion_tabla')->where('id_desagregacion', $disaggregation->id)->get();
-
             //dd($hidraulic_units_data_query, $disaggregation->id);
 
             /* Organizando datos para tablas */

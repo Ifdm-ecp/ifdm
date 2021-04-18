@@ -12,7 +12,9 @@
 </br>
 
 <h2 align="center">Asphaltene Diagnosis Results</h2>
-
+@php
+   dd($viscosity_error);
+@endphp
 <div class="nav">
   @if($asphaltenes_d_diagnosis->status_wr)
     <div class="jumbotron">

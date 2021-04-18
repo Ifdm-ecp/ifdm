@@ -369,8 +369,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $campo = DB::table('campos')->where('id', $scenary->campo_id)->select('nombre')->first();
         $fluido = DB::table('fluidoxpozos')->where('pozo_id', $pozo->id)->first();
         $viscosity_error = DB::table('asphaltenes_d_diagnosis_results')->where('asphaltenes_d_diagnosis_id', $asphaltenes_d_diagnosis->id)->first();
+        $viscosity_error = $viscosity_error->viscosity_error;
 
-        dd($viscosity_error);
         $cuenca = DB::table('cuencas')->where('id', $scenary->cuenca_id)->select('nombre')->first();
         $user = DB::table('users')->select('users.fullName')->where('id', '=', $scenary->user_id)->first();
         $advisor = $scenary->enable_advisor;

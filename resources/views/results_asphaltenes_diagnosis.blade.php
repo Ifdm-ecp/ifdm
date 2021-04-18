@@ -12,7 +12,7 @@
 </br>
 
 <h2 align="center">Asphaltene Diagnosis Results</h2>
-{{--*/ dd($viscosity_error); /*--}}
+{{--*/ dd($viscosity_error->viscosity_error); /*--}}
    
 <div class="nav">
   @if($asphaltenes_d_diagnosis->status_wr)

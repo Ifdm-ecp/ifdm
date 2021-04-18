@@ -385,6 +385,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
             array_push($dates_data, $value->date);
         }
 
+        dd($asphaltenes_d_diagnosis);
         return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'viscosity_error']));
     }
 

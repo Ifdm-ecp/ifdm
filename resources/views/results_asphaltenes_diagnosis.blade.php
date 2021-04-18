@@ -12,7 +12,6 @@
 </br>
 
 <h2 align="center">Asphaltene Diagnosis Results</h2>
-{{--*/ dd($viscosity_error->viscosity_error); /*--}}
    
 <div class="nav">
   @if($asphaltenes_d_diagnosis->status_wr)
@@ -21,7 +20,7 @@
         <span>Run has not been executed, there is no data to show.</span>
       </center>
     </div>
-   @elseif($viscosity_error)
+   @elseif($viscosity_error->viscosity_error == 1)
    <div class="jumbotron">
       <center>
         <span>This module is not designed to handle extra-heavy crude oils or crudes with viscosities higher than 20.000 cp.</span>

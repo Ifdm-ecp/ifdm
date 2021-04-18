@@ -327,6 +327,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $scenary->save();
             }
 
+            if (!isset($viscosity_error)) {
+                $viscosity_error = 0;
+            }
+
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));
         } catch (Exception $e) {
             $error_log = new error_log;
@@ -384,7 +388,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         foreach ($asphaltenes_diagnosis_historical_data as $value) {
             array_push($dates_data, $value->date);
         }
-        
+
         return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'viscosity_error']));
     }
 
@@ -628,6 +632,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $scenary = escenario::find($scenary->id);
                 $scenary->completo = 0;
                 $scenary->save();
+            }
+
+            if (!isset($viscosity_error)) {
+                $viscosity_error = 0;
             }
 
             return View::make('results_asphaltenes_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_diagnosis', 'dates_data', 'asphaltenes_d_diagnosis', 'viscosity_error']));

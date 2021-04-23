@@ -54,6 +54,7 @@ class analyticalController extends Controller
             'netpay' => $request->netpay,
             'absolute_permeability' => $request->absolute_permeability,
             'porosity' => $request->porosity,
+            'permeability' => $request->permeability,
             'fluid_type' => $request->fluid_type,
             'viscosity' => $request->has('viscosity_oil') ? $request->viscosity_oil : $request->viscosity_gas,
             'volumetric_factor' => $request->has('volumetric_factor_oil') ? $request->volumetric_factor_oil : $request->volumetric_factor_gas,
@@ -148,6 +149,7 @@ class analyticalController extends Controller
             'netpay' => $request->netpay,
             'absolute_permeability' => $request->absolute_permeability,
             'porosity' => $request->porosity,
+            'permeability' => $request->permeability,
             'fluid_type' => $request->fluid_type,
             'viscosity' => $request->has('viscosity_oil') ? $request->viscosity_oil : $request->viscosity_gas,
             'volumetric_factor' => $request->has('volumetric_factor_oil') ? $request->volumetric_factor_oil : $request->volumetric_factor_gas,
@@ -197,53 +199,34 @@ class analyticalController extends Controller
         $pressures_data = $result_profile[1];
         $radius_data = $result_profile[0];
 
-        $msp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->mineral_scale_kd, 'ms');
-        $fbp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->fines_blockage_kd, 'fb');
-        $osp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->organic_scale_kd, 'os');
-        $rpp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->relative_permeability_kd, 'rp');
-        $idp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->induced_damage_kd, 'id');
-        $gdp = $this->analytical($analytical, $pressures_data, $radius_data, $analytical->geomechanical_damage_kd, 'gd');
+        $PrPcMSP = $this->calculate_Pr($pressures_data, $analytical->mineral_scale_cp);
+        $PrPcOSP = $this->calculate_Pr($pressures_data, $analytical->organic_scale_cp);
+        $PrPcKRP = $this->calculate_Pr($pressures_data, $analytical->saturation_presure);
+        $PrPGDP = $this->calculate_Pr($pressures_data, $analytical->geomechanical_damage_cp);
 
+        $FractionMaxDD = $this->FractionMaxDD($pressures_data);
+        $SumFractionMaxDD = array_sum($FractionMaxDD);
+        $CummDD = $this->CummDD($FractionMaxDD);
+
+        //Skin Radius By FD Mechanism
+        $ms = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'ms');
+        $fb = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'fb');
+        $os = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'os');
+        $rp = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'rp');
+        $id = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'id');
+        $gd = $this->SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, 'gd');
+        $averageSkinRadius = ($ms + $fb + $os + $rp + $id + $gd) / 6;
+
+        //Equivalent Skin By FD Mechanism
+        $msp = $this->EquivalentSkinRadius($analytical, $ms, 'ms');
+        $fbp = $this->EquivalentSkinRadius($analytical, $fb, 'fb');
+        $osp = $this->EquivalentSkinRadius($analytical, $os, 'os');
+        $rpp = $this->EquivalentSkinRadius($analytical, $rp, 'rp');
+        $idp = $this->EquivalentSkinRadius($analytical, $id, 'id');
+        $gdp = $this->EquivalentSkinRadius($analytical, $gd, 'gd');
         $Total_Analytical = $msp + $fbp + $osp + $rpp + $idp + $gdp;
-        $Total_Analytical = ($Total_Analytical == 0) ? 1 : $Total_Analytical;
-        //dd($gdp);
+        
         return collect([($msp / $Total_Analytical) * 100, ($fbp / $Total_Analytical) * 100, ($osp / $Total_Analytical) * 100, ($rpp / $Total_Analytical) * 100, ($idp / $Total_Analytical) * 100, ($gdp / $Total_Analytical) * 100]);
-    }
-
-    public function analytical($analytical, $pressures_data, $radius_data, $parametro, $funcion)
-    {
-        $damageRadius = $this->SkinRadius($analytical, $pressures_data, $radius_data, $funcion);
-        if ($damageRadius == $analytical->well_radius || $damageRadius == 0 || $analytical->well_radius == 0) {
-            return 0;
-        } else {
-            return ((1 / $parametro) - 1) * log($damageRadius / $analytical->well_radius);
-        }
-    }
-
-    //Ok
-    public function SkinRadius($analytical, $pressures_data, $radius_data, $funcion)
-    {
-        $skinRadius = 0.0;
-        if ($funcion == "ms") {
-            $skinRadius = $this->interpolation($analytical, $analytical->mineral_scale_cp, $pressures_data, $radius_data, $funcion);
-            #$skinRadius = $this->PvsR_profile($analytical, $analytical->mineral_scale_cp) + $analytical->well_radius;
-        } else if ($funcion == "fb") {
-            $skinRadius = $analytical->critical_radius + $analytical->well_radius;
-            #$skinRadius = $analytical->critical_radius + $analytical->well_radius;
-        } else if ($funcion == "os") {
-            $skinRadius = $this->interpolation($analytical, $analytical->organic_scale_cp, $pressures_data, $radius_data, $funcion);
-            #$skinRadius = $this->PvsR_profile($analytical, $analytical->organic_scale_cp) + $analytical->well_radius;
-        } else if ($funcion == "rp") {
-            $skinRadius = $this->interpolation($analytical, $analytical->saturation_presure, $pressures_data, $radius_data, $funcion);
-            #$skinRadius = $this->PvsR_profile($analytical, $analytical->saturation_presure) + $analytical->well_radius;
-        } else if ($funcion == "id") {
-            $skinRadius = sqrt((($analytical->total_volumen) / (pi() * $analytical->netpay * $analytical->porosity)) + $analytical->well_radius);
-        } else if ($funcion == "gd") {
-            $skinRadius = $this->interpolation($analytical, $analytical->geomechanical_damage_cp, $pressures_data, $radius_data, $funcion);
-            #$skinRadius = $this->PvsR_profile_GDP($analytical/*$analytical->geomechanical_damage_cp*/) + $analytical->well_radius;
-        }
-
-        return $skinRadius;
     }
 
     public function PvsR_profile($analytical)
@@ -252,41 +235,156 @@ class analyticalController extends Controller
         $radius_data = [];
         $Radius = $analytical->well_radius;
         $Pr = $analytical->bhp;
-        while ($Radius < $analytical->drainage_radius) {
+        array_push($pressures_data, $Pr);
+        array_push($radius_data, $Radius);
+  
+        $counter = 1;
+
+        while ($counter <= 3171) {
+
+            if ($counter <= 200) {
+                $Radius = $Radius + 0.05;
+            } else {
+                $Radius = $Radius + 0.5;
+            }
+
             if ($analytical->fluid_type == "Oil") {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
+                $Pr = round($analytical->bhp + (((141.2 * $analytical->fluid_rate * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - ( ($Radius * $Radius) / (2 * $analytical->drainage_radius * $analytical->drainage_radius )))), 8);
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
-
             } else {
-                $Pr = $analytical->bhp + (((141.2 * $analytical->fluid_rate * 1000000 * $analytical->viscosity * $analytical->volumetric_factor) / (5.615 * $analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - (0.5 * $Radius / pow($analytical->drainage_radius, 2))));
+                $Pr = round($analytical->bhp + (((141.2 * ($analytical->fluid_rate * 1000000 / 5.615) * $analytical->viscosity * $analytical->volumetric_factor) / ($analytical->netpay * $analytical->absolute_permeability)) * (log($Radius / $analytical->well_radius) - ( ($Radius * $Radius) / (2 * $analytical->drainage_radius * $analytical->drainage_radius )))), 8);
                 array_push($pressures_data, $Pr);
                 array_push($radius_data, $Radius);
             }
 
-            $Radius = $Radius + 0.05;
+            $counter = $counter + 1;
         }
         return array($radius_data, $pressures_data);
     }
 
-    public function interpolation($analytical, $critical_pressure, $pressures_data, $radius_data, $funcion)
+    public function calculate_Pr($pressures_data, $value_aux) 
     {
-        if ($critical_pressure >= end($pressures_data)) {
-            return $analytical->drainage_radius + $analytical->well_radius;
-        } else if ($critical_pressure <= $analytical->bhp) {
-            return $analytical->well_radius;
-        } else {
-            for ($j = 0; $j < count($pressures_data) - 1; $j++) {
-                $calculated_pressure = $pressures_data[$j] - $critical_pressure;
+        $PrArray = [];
 
-                if ($funcion == 'gd') {
-                    $calculated_pressure = 1 - (($pressures_data[count($pressures_data) - 1] - $pressures_data[$j]) / ($pressures_data[count($pressures_data) - 1] - $pressures_data[0]));
+        foreach($pressures_data as $pressure) {
+            array_push($PrArray, $pressure - $value_aux);
+        }
+
+        return $PrArray;
+    }
+
+    public function FractionMaxDD($pressures_data) 
+    {
+        $FractionMaxDD = [];
+
+        foreach($pressures_data as $pressure) {
+            array_push($FractionMaxDD, (end($pressures_data)-$pressure)/(end($pressures_data)-$pressures_data[0]));
+        }
+
+        return $FractionMaxDD;
+    }
+
+    public function CummDD($FractionMaxDD)
+    {
+        $CummDD = [];
+
+        foreach($FractionMaxDD as $fraction) {
+            array_push($CummDD, 1 - $fraction);
+        }
+
+        return $CummDD;
+    }
+
+    public function SkinRadius($analytical, $pressures_data, $radius_data, $PrPcMSP, $PrPcOSP, $PrPcKRP, $PrPGDP, $FractionMaxDD, $SumFractionMaxDD, $CummDD, $funcion)
+    {
+        $skinRadius = 0.0;
+        if ($funcion == "ms") {
+            if ($PrPcMSP[0] > 0) {
+                $skin = 0;
+            } else {
+                $counter_flag = 0;
+                for ($i = 0; $i < count($PrPcMSP); ++$i) {
+                    if($PrPcMSP[$i] > 0) {
+                        $counter_flag = $i - 1;
+                        break;
+                    }
                 }
-
-                if ($calculated_pressure >= $analytical->well_radius) {
-                    return $radius_data[$j] + $analytical->well_radius;
+                $skin = $analytical->well_radius + $radius_data[$counter_flag];
+            }
+        } else if ($funcion == "fb") {
+            $skin = $analytical->critical_radius + $analytical->well_radius;
+        } else if ($funcion == "os") {
+            if ($PrPcOSP[0] > 0) {
+                $skin = 0;
+            } else {
+                $counter_flag = 0;
+                for ($i = 0; $i < count($PrPcOSP); ++$i) {
+                    if($PrPcOSP[$i] > 0) {
+                        $counter_flag = $i - 1;
+                        break;
+                    }
+                }
+                $skin = $analytical->well_radius + $radius_data[$counter_flag];
+            }
+        } else if ($funcion == "rp") {
+            if ($analytical->reservoir_pressure < $analytical->saturation_presure) {
+                $skin = $analytical->drainage_radius;
+            } else {
+                if ($PrPcKRP[0] > 0) {
+                    $skin = 0;
+                } else {
+                    $counter_flag = 0;
+                    for ($i = 0; $i < count($PrPcKRP); ++$i) {
+                        if($PrPcKRP[$i] > 0) {
+                            $counter_flag = $i - 1;
+                            break;
+                        }
+                    }
+                    $skin = $radius_data[$counter_flag];
                 }
             }
+        } else if ($funcion == "id") {
+            $skin = $analytical->well_radius + sqrt(($analytical->total_volumen * 5.615) / (3.1416 * $analytical->netpay * $analytical->porosity));
+        } else if ($funcion == "gd") {
+            $counter_flag = 0;
+            for ($i = 0; $i < count($CummDD); ++$i) {
+                if($CummDD[$i] > 0.25) {
+                    $counter_flag = $i - 1;
+                    break;
+                }
+            }
+            $skin = $analytical->well_radius + $radius_data[$counter_flag];
         }
+
+        return $skin;
+    }
+
+    public function EquivalentSkinRadius($analytical, $funcion_value, $funcion)
+    {
+        $skinRadius = 0.0;
+        if ($funcion == "ms") {
+            if ($funcion_value == 0) {
+                $skin = 0;
+            } else { 
+                $skin = (($analytical->permeability/($analytical->mineral_scale_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+            }
+        } else if ($funcion == "fb") {
+            $skin = (($analytical->permeability/($analytical->fines_blockage_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+        } else if ($funcion == "os") {
+            if ($funcion_value == 0) {
+                $skin = 0;
+            } else { 
+                $skin = (($analytical->permeability/($analytical->organic_scale_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+            }
+        } else if ($funcion == "rp") {
+            $skin = (($analytical->permeability/($analytical->relative_permeability_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+        } else if ($funcion == "id") {
+            $skin = (($analytical->permeability/($analytical->induced_damage_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+        } else if ($funcion == "gd") {
+            $skin = (($analytical->permeability/($analytical->geomechanical_damage_kd * $analytical->permeability)) - 1) * log($funcion_value/$analytical->well_radius);
+        }
+
+        return $skin;
     }
 }

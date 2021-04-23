@@ -27,6 +27,7 @@ class AnalyticalRequest extends Request
             'netpay' => 'required|numeric|between:1,10000',
             'absolute_permeability' => 'required|numeric|between:0,10000|not_in:0',
             'porosity' => 'required|numeric|between:0,10000|not_in:0',
+            'permeability' => 'required|numeric|between:0,10000|not_in:0',
             'fluid_type' => 'required|in:Oil,Gas',
             'viscosity_oil' => 'required_if:fluid_type,Oil|numeric|min:0|not_in:0',
             'volumetric_factor_oil' => 'required_if:fluid_type,Oil|numeric|between:0,20|not_in:0',
@@ -55,6 +56,7 @@ class AnalyticalRequest extends Request
             $rules["netpay"] = str_replace("required|", "", $rules["netpay"]);
             $rules["absolute_permeability"] = str_replace("required|", "", $rules["absolute_permeability"]);
             $rules["porosity"] = str_replace("required|", "", $rules["porosity"]);
+            $rules["permeability"] = str_replace("required|", "", $rules["permeability"]);
             $rules["fluid_type"] = str_replace("required|", "", $rules["fluid_type"]);
             $rules["viscosity_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["viscosity_oil"]);
             $rules["volumetric_factor_oil"] = str_replace("required_if:fluid_type,Oil|", "", $rules["volumetric_factor_oil"]);
@@ -88,6 +90,7 @@ class AnalyticalRequest extends Request
             'netpay.required' => 'NetPay is required.',
             'absolute_permeability.required' => 'Absolute Permeability is required.',
             'porosity.required' => 'Porosity is required.',
+            'permeability.required' => 'Permeability is required.',
             'fluid_type.required' => 'Fluid Type is required.',
             'viscosity_oil.required_if' => 'Oil Viscosity is required.',
             'volumetric_factor_oil.required_if' => 'Oil Volumetric Factor is required.',
@@ -114,6 +117,7 @@ class AnalyticalRequest extends Request
             'netpay.numeric' => 'NetPay must be numeric.',
             'absolute_permeability.numeric' => 'Absolute Permeability must be numeric.',
             'porosity.numeric' => 'Porosity must be numeric.',
+            'permeability.numeric' => 'Permeability must be numeric.',
             'viscosity_oil.numeric' => 'Oil Viscosity must be numeric.',
             'volumetric_factor_oil.numeric' => 'Oil Volumetric Factor must be numeric.',
             'viscosity_gas.numeric' => 'Gas Viscosity must be numeric.',
@@ -140,6 +144,7 @@ class AnalyticalRequest extends Request
             'netpay.between' => 'NetPay value is not between :min - :max',
             'absolute_permeability.between' => 'Absolute Permeability value must be higher than :min and lower or equal than :max.',
             'porosity.between' => 'Porosity value must be higher than :min and lower or equal than :max.',
+            'permeability.between' => 'Permeability value must be higher than :min and lower or equal than :max.',
             'volumetric_factor_oil.between' => 'Oil Volumetric Factor value must be higher than :min and lower or equal than :max.',
             'volumetric_factor_gas.between' => 'Gas Volumetric Factor value must be higher than :min and lower or equal than :max.',
             'well_radius.between' => 'Well Radius value must be higher than :min and lower or equal than :max.',
@@ -165,6 +170,7 @@ class AnalyticalRequest extends Request
 
             'absolute_permeability.not_in' => 'Absolute Permeability value must be higher than 0 and lower or equal than 10000.',
             'porosity.not_in' => 'Porosity value must be higher than 0 and lower or equal than 1000.',
+            'absolute.not_in' => 'Permeability value must be higher than 0 and lower or equal than 10000.',
             'viscosity_oil.not_in' => 'Oil Volumetric Factor value must be higher than 0.',
             'volumetric_factor_oil.not_in' => 'Oil Volumetric Factor value must be higher than 0 and lower or equal than 20.',
             'viscosity_gas.not_in' => 'Oil Volumetric Factor value must be higher than 0.',

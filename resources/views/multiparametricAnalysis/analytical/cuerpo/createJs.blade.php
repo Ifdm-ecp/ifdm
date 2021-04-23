@@ -78,6 +78,7 @@
         var tv_wbf = parseFloat($("input[name = total_volumen]").val());//Total Volumen Of Water Based Fluids Pumped Into The Well*
         var netpay = parseFloat($("input[name = netpay]").val());//netpay
         var condensate_perm = parseFloat($("input[name = absolute_permeability]").val());//Absolute Permeability
+        var permeability = parseFloat($("input[name = permeability]").val());//Permeability
         var oil_viscosity = parseFloat($("input[name = viscosity_oil]").val());//viscosity
         var oil_vol_factor = parseFloat($("input[name = volumetric_factor_oil]").val());//Volumetric Factor
         var oil_rate = parseFloat($("input[name = fluid_rate_oil]").val());//fluid_rate
@@ -97,7 +98,6 @@
         var pressure_radius_final = [];
         var pressures_data = [];
         var radius_data = [];
-
         var pr = bhp;
         var fbp_radius = cp_mcv + radius;
         var idp_radius = Math.sqrt(((tv_wbf) / (Math.PI * netpay * porosity)) + well_radius);
@@ -249,6 +249,15 @@
                     color: '#808080'
                 }]
             },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true,
+                        align: 'left',   
+                        inside: true
+                    }
+                }
+            },
             tooltip: {
                 valueSuffix: ' ft'
             },
@@ -304,6 +313,13 @@
         titleTab = validationFunctionResult[0];
         validationMessages = validationFunctionResult[1];
         emptyValues = (emptyValues === false && ($("#porosity").val() === null || $("#porosity").val() === "")) ? true: emptyValues;
+
+        // Permeability
+        validationFunctionResult = validateField(action, titleTab, tabTitle, validationMessages, $("#permeability").val(), rock_properties_tab_ruleset[3]);
+        titleTab = validationFunctionResult[0];
+        validationMessages = validationFunctionResult[1];
+        emptyValues = (emptyValues === false && ($("#permeability").val() === null || $("#permeability").val() === "")) ? true: emptyValues;
+
 
         // Validating Fluid Information
         titleTab = "";

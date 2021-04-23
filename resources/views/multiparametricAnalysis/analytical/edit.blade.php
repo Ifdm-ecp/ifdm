@@ -109,28 +109,39 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="netpay">NetPay</label><label class="red">*</label>
+                <label for="netpay">NetPay </label><label class="red"> *</label>
                 <div class="input-group">
-                  {!! Form::text('netpay',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
+                  {!! Form::text('netpay',$analytical->netpay, ['class' =>'form-control', 'placeholder' => 'ft']) !!} 
                   <span class="input-group-addon" id="basic-addon2">ft</span>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="absolute_permeability" id="permeability_type">Absolute Permeability</label><label class="red">*</label>
+                <label for="absolute_permeability" id="permeability_type">Absolute Permeability </label><label class="red"> *</label>
                 <div class="input-group">
-                  {!! Form::text('absolute_permeability',null, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
+                  {!! Form::text('absolute_permeability',$analytical->absolute_permeability, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
                   <span class="input-group-addon" id="basic-addon2">mD</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="porosity">Porosity </label><label class="red"> *</label>
+                <div class="input-group">
+                  {!! Form::text('porosity',$analytical->porosity, ['class' =>'form-control', 'placeholder' => '-']) !!}
+                  <span class="input-group-addon" id="basic-addon2">-</span>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="porosity">Porosity</label><label class="red">*</label>
+                <label for="permeability">Permeability </label><label class="red"> *</label>
                 <div class="input-group">
-                  {!! Form::text('porosity',null, ['class' =>'form-control', 'placeholder' => '-']) !!}
-                  <span class="input-group-addon" id="basic-addon2">-</span>
+                  {!! Form::text('permeability',$analytical->permeability, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
+                  <span class="input-group-addon" id="basic-addon2">mD</span>
                 </div>
               </div>
             </div>
@@ -150,7 +161,7 @@
               <div class="form-group">
                 <label for="well_radius">Well Radius</label><label class="red">*</label>
                 <div class="input-group">
-                  {!! Form::text('well_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
+                  {!! Form::text('well_radius',$analytical->well_radius, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
                   <span class="input-group-addon" id="basic-addon2">ft</span>
                 </div>
               </div>
@@ -159,7 +170,7 @@
               <div class="form-group">
                 <label for="drainage_radius">Drainage Radius</label><label class="red">*</label>
                 <div class="input-group">
-                  {!! Form::text('drainage_radius',null, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
+                  {!! Form::text('drainage_radius',$analytical->drainage_radius, ['class' =>'form-control', 'placeholder' => 'ft']) !!}
                   <span class="input-group-addon" id="basic-addon2">ft</span>
                 </div>
               </div>
@@ -171,7 +182,7 @@
               <div class="form-group">
                 <label for="reservoir_pressure">Reservoir Pressure</label><label class="red">*</label>
                 <div class="input-group">
-                  {!! Form::text('reservoir_pressure',null, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
+                  {!! Form::text('reservoir_pressure',$analytical->reservoir_pressure, ['class' =>'form-control', 'placeholder' => 'psia']) !!}
                   <span class="input-group-addon" id="basic-addon2">psia</span>
                 </div>
               </div>

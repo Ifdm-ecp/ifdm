@@ -30,6 +30,15 @@
         {rule: "minw", minw: 0},
         {rule: "max", max: 0.49}
       ]
+    },
+    {
+      column: "Permeability",
+      rules: [
+        {rule: "required"},
+        {rule: "numeric"},
+        {rule: "minw", minw: 0},
+        {rule: "max", max: 10000}
+      ]
     }
   ];
   

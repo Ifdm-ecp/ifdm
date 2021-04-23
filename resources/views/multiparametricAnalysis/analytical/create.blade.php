@@ -125,12 +125,23 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="porosity">Porosity</label><label class="red">*</label>
                 <div class="input-group">
                   {!! Form::text('porosity',$escenario->formacionxpozo->porosidad, ['class' =>'form-control', 'placeholder' => '-']) !!}
                   <span class="input-group-addon" id="basic-addon2">-</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="permeability">Permeability </label><label class="red"> *</label>
+                <div class="input-group">
+                  {!! Form::text('permeability',null, ['class' =>'form-control', 'placeholder' => 'mD']) !!}
+                  <span class="input-group-addon" id="basic-addon2">mD</span>
                 </div>
               </div>
             </div>

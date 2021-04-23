@@ -36,7 +36,7 @@
       rules: [
         {rule: "required"},
         {rule: "numeric"},
-        {rule: "minw", minw: 0},
+        {rule: "minw", minw: 0.01},
         {rule: "max", max: 10000}
       ]
     }

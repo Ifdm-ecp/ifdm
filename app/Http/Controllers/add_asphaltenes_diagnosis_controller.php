@@ -432,12 +432,28 @@ class add_asphaltenes_diagnosis_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(asphaltene_diagnosis_request $request, $id)
-    {
+    {    
         $button_wr = (bool) isset($_POST['button_wr']);
-        $asphaltenes_d_diagnosis = asphaltenes_d_diagnosis::find($id);
-        if (!$asphaltenes_d_diagnosis) {
+        
+        if (isset($_SESSION['scenary_id_dup'])) {
             $asphaltenes_d_diagnosis = new asphaltenes_d_diagnosis();
+        } else {
+            $asphaltenes_d_diagnosis = asphaltenes_d_diagnosis::find($id);
+            if (!$asphaltenes_d_diagnosis) {
+                $asphaltenes_d_diagnosis = new asphaltenes_d_diagnosis();
+            }
         }
+
+        // $asphaltenes_d_diagnosis = asphaltenes_d_diagnosis::find($id);
+        // if (!$asphaltenes_d_diagnosis) {
+        //     $asphaltenes_d_diagnosis = new asphaltenes_d_diagnosis();
+        // }
+
+        // if (isset($_SESSION['scenary_id_dup'])) {
+        //     $asphaltenes_d_diagnosis = new asphaltenes_d_diagnosis();
+        // } else {
+        //     $asphaltenes_d_diagnosis = asphaltenes_d_diagnosis::where("id", "=", $id)->first();
+        // }
 
         $scenaryId = $request->id_scenary;
         $scenary = escenario::find($scenaryId);

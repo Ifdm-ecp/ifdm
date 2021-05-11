@@ -224,6 +224,50 @@
             ]
         });
 
+        var analytical =  {
+            netpay: parseFloat($("input[name = netpay]").val()),
+            absolute_permeability: parseFloat($("input[name = absolute_permeability]").val()),
+            porosity: parseFloat($("input[name = porosity]").val()),
+            permeability: parseFloat($("input[name = permeability]").val()),
+            fluid_type: $("#fluid_type").val(),
+            viscosity: $("#fluid_type").val() == "Oil" ? parseFloat($("input[name = viscosity_oil]").val()) : parseFloat($("input[name = viscosity_gas]").val()),
+            volumetric_factor: $("#fluid_type").val() == "Oil" ? parseFloat($("input[name = volumetric_factor_oil]").val()) : parseFloat($("input[name = volumetric_factor_gas]").val()),
+            well_radius: parseFloat($("input[name = well_radius]").val()),
+            drainage_radius: parseFloat($("input[name = drainage_radius]").val()),
+            reservoir_pressure: parseFloat($("input[name = reservoir_pressure]").val()),
+            fluid_rate: $("#fluid_type").val() == "Oil" ? parseFloat($("input[name = fluid_rate_oil]").val()) : parseFloat($("input[name = fluid_rate_gas]").val()),
+            bhp: parseFloat($("input[name = bhp]").val()),
+            critical_radius: parseFloat($("input[name = critical_radius]").val()),
+            total_volumen: parseFloat($("input[name = total_volumen]").val()),
+            saturation_presure: parseFloat($("input[name = saturation_presure]").val()),
+            mineral_scale_cp: parseFloat($("input[name = mineral_scale_cp]").val()),
+            organic_scale_cp: parseFloat($("input[name = organic_scale_cp]").val()),
+            geomechanical_damage_cp: parseFloat($("input[name = geomechanical_damage_cp]").val())
+        };
+        
+        result_profile = PvsR_profile(analytical);
+        pressures_data = result_profile[1];
+        radius_data = result_profile[0];
+
+        PrPcMSP = calculate_Pr(pressures_data, analytical.mineral_scale_cp);
+        PrPcOSP = calculate_Pr(pressures_data, analytical.organic_scale_cp);
+        PrPcKRP = calculate_Pr(pressures_data, analytical.saturation_presure);
+        PrPGDP = calculate_Pr(pressures_data, analytical.geomechanical_damage_cp);
+
+        FractionMaxDD = FractionMaxDD(pressures_data);
+        SumFractionMaxDD = FractionMaxDD.reduce((a, b) => a + b, 0);
+        CummDD = CummDD(FractionMaxDD);
+
+        //Skin Radius By FD Mechanism
+        ms = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'ms');
+        fb = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'fb');
+        os = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'os');
+        rp = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'rp');
+        id = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'id');
+        gd = SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, 'gd');
+
+        radius_final = [ms, fb, os, rp, id, gd];
+
         $('#chart_2').highcharts({
             chart: {
                 type: 'bar',
@@ -278,6 +322,138 @@
             }]
         });
     });
+
+    function PvsR_profile(analytical)
+    {
+        pressures_data = [];
+        radius_data = [];
+        Radius = analytical.well_radius;
+        Pr = analytical.bhp;
+        pressures_data.push(Pr);
+        radius_data.push(Radius);
+  
+        counter = 1;
+
+        while (counter <= 3171) {
+
+            if (counter <= 200) {
+                Radius = Radius + 0.05;
+            } else {
+                Radius = Radius + 0.5;
+            }
+
+            if (analytical.fluid_type == "Oil") {
+                Pr = analytical.bhp + (((141.2 * analytical.fluid_rate * analytical.viscosity * analytical.volumetric_factor) / (analytical.netpay * analytical.absolute_permeability)) * (Math.log(Radius / analytical.well_radius) - ( (Radius * Radius) / (2 * analytical.drainage_radius * analytical.drainage_radius ))));
+                Pr = Pr.toFixed(8);
+                pressures_data.push(Pr);
+                radius_data.push(Radius);
+            } else {
+                Pr = analytical.bhp + (((141.2 * (analytical.fluid_rate * 1000000 / 5.615) * analytical.viscosity * analytical.volumetric_factor) / (analytical.netpay * analytical.absolute_permeability)) * (Math.log(Radius / analytical.well_radius) - ( (Radius * Radius) / (2 * analytical.drainage_radius * analytical.drainage_radius ))));
+                Pr = Pr.toFixed(8);
+                pressures_data.push(Pr);
+                radius_data.push(Radius);
+            }
+
+            counter = counter + 1;
+        }
+        return [radius_data, pressures_data];
+    }
+
+    function calculate_Pr(pressures_data, value_aux) 
+    {
+        PrArray = [];
+
+        pressures_data.forEach(function(pressure) {
+            PrArray.push(pressure - value_aux);
+        });
+
+        return PrArray;
+    }
+
+    function FractionMaxDD(pressures_data) 
+    {
+        FractionMaxDD = [];
+
+        pressures_data.forEach(function(pressure) {
+            FractionMaxDD.push((pressures_data[pressures_data.length - 1]-pressure)/(pressures_data[pressures_data.length - 1]-pressures_data[0]));
+        });
+
+        return FractionMaxDD;
+    }
+
+    function CummDD(FractionMaxDD)
+    {
+        CummDD = [];
+
+        FractionMaxDD.forEach(function(fraction) {
+            CummDD.push(1 - fraction);
+        });
+
+        return CummDD;
+    }
+
+    function SkinRadius(analytical, pressures_data, radius_data, PrPcMSP, PrPcOSP, PrPcKRP, PrPGDP, FractionMaxDD, SumFractionMaxDD, CummDD, funcion) {
+        skinRadius = 0.0;
+        if (funcion == "ms") {
+            if (PrPcMSP[0] > 0) {
+                skin = 0;
+            } else {
+                counter_flag = 0;
+                for (i = 0; i < PrPcMSP.length; i++) {
+                    if(PrPcMSP[i] > 0) {
+                        counter_flag = i - 1;
+                        break;
+                    }
+                }
+                skin = analytical.well_radius + radius_data[counter_flag];
+            }
+        } else if (funcion == "fb") {
+            skin = analytical.critical_radius + analytical.well_radius;
+        } else if (funcion == "os") {
+            if (PrPcOSP[0] > 0) {
+                skin = 0;
+            } else {
+                counter_flag = 0;
+                for (i = 0; i < PrPcOSP.length; i++) {
+                    if(PrPcOSP[i] > 0) {
+                        counter_flag = i - 1;
+                        break;
+                    }
+                }
+                skin = analytical.well_radius + radius_data[counter_flag];
+            }
+        } else if (funcion == "rp") {
+            if (analytical.reservoir_pressure < analytical.saturation_presure) {
+                skin = analytical.drainage_radius;
+            } else {
+                if (PrPcKRP[0] > 0) {
+                    skin = 0;
+                } else {
+                    counter_flag = 0;
+                    for (i = 0; i < PrPcKRP.length; i++) {
+                        if(PrPcKRP[i] > 0) {
+                            counter_flag = i - 1;
+                            break;
+                        }
+                    }
+                    skin = radius_data[counter_flag];
+                }
+            }
+        } else if (funcion == "id") {
+            skin = analytical.well_radius + Math.sqrt((analytical.total_volumen * 5.615) / (3.1416 * analytical.netpay * analytical.porosity));
+        } else if (funcion == "gd") {
+            counter_flag = 0;
+            for (i = 0; i < CummDD.length; i++) {
+                if(CummDD[i] > 0.25) {
+                    counter_flag = i - 1;
+                    break;
+                }
+            }
+            skin = analytical.well_radius + radius_data[counter_flag];
+        }
+
+        return skin;
+    }
 
     /* verifyMultiparametric
     * Validates the form entirely

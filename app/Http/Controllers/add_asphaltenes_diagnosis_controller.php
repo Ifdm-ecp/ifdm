@@ -1185,8 +1185,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                         $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                     }
 
-                    #Nuevo
-                    if ($pcal[1] < 0 || $pcal[1] < $pact) {
+                    # Nuevo
+                    if ($pcal[1] < 0 || $flag_p_ultima) {
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
@@ -1198,6 +1198,11 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $xx = 6;
                             break 2;
                         }
+                    }
+
+                    # Cuando la presión calculada es menor a la presión pedida, no se necesitan más presiones
+                    if ( $pcal[1] < $pact ) { 
+                        $flag_p_ultima = 1;
                     }
                     
                     for ($i = 1; $i <= $nr; $i++) {

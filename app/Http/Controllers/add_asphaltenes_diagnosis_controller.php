@@ -1500,7 +1500,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
                 }
                 
-                dd($pact, $pite, $crite, $cr);
+                //dd($pact, $pite, $crite, $cr);
 
                 
             }

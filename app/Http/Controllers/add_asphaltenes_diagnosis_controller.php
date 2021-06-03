@@ -1101,6 +1101,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         //$crite = array(1 => 0.5, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
         $flag_ran_xx_7 = 0;
+        $flag_p_ultima = 0;
 
         for ($xx = 1; $xx <= 7; $xx++) {    #Nuevo ciclo
             //if ($xx == 2) {dd($xx);}

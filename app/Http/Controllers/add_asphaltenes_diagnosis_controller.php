@@ -1102,6 +1102,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
         $cr = $cri[1];
         $flag_ran_xx_7 = 0;
         $flag_p_ultima = 0;
+        $flag_xx = 0;
 
         for ($xx = 1; $xx <= 7; $xx++) {    #Nuevo ciclo
             //if ($xx == 2) {dd($xx);}
@@ -1187,7 +1188,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
 
                     # Nuevo
-                    if ($pcal[1] < 0 || $flag_p_ultima) {
+                    if ($pcal[1] < 0 || ($flag_p_ultima == 1 && $xx == $flag_xx+1)) {
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
@@ -1202,8 +1203,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
 
                     # Cuando la presión calculada es menor a la presión pedida, no se necesitan más presiones
-                    if ( $pcal[1] < $pact ) { 
+                    if ( $pcal[1] < $pact) { 
                         $flag_p_ultima = 1;
+                        $flag_xx = $xx;
                     }
                     
                     for ($i = 1; $i <= $nr; $i++) {

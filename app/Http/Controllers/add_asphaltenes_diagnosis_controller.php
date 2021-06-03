@@ -1186,7 +1186,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
 
                     #Nuevo
-                    if ($pcal[1] < 0) {
+                    if ($pcal[1] < 0 || $pcal[1] < $pact) {
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;

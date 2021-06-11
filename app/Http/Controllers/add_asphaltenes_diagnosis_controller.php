@@ -1189,6 +1189,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Nuevo
                     if ($pcal[1] < 0 || ($flag_p_ultima == 1 && $xx == $flag_xx+1)) {
+                        dd('entró');
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
@@ -1204,6 +1205,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Cuando la presión calculada es menor a la presión pedida, no se necesitan más presiones
                     if ( $pcal[1] < $pact && $flag_p_ultima == 0) { 
+                        dd('entró 2');
                         $flag_p_ultima = 1;
                         $flag_xx = $xx;
                     }
@@ -1441,7 +1443,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                                 $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                                 $ea[$i] = 0;
                             }
-                            dd($pact, $pite, $crite, $cr, 1, $xx);
+                            // dd($pact, $pite, $crite, $cr, 1, $xx);
                             break;
                         }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
                             $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
@@ -1459,7 +1461,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                                 $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                                 $ea[$i] = 0;
                             }
-                            dd($pact, $pite, $crite, $cr, 2, $xx);
+                            // dd($pact, $pite, $crite, $cr, 2, $xx);
                             break;
                         }elseif ($pact < $pite[count($pite)]) {
                             if ($flag_ran_xx_7 == 0) { 
@@ -1481,7 +1483,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                                 $co[$i] = ($wtasf[1] * 10000 * (1 - $coi)) / $rho; #cambio
                                 $ea[$i] = 0;
                             }
-                            dd($pact, $pite, $crite, $cr, 3, $xx);
+                            // dd($pact, $pite, $crite, $cr, 3, $xx);
                             break;
                         }
                     }
@@ -1500,7 +1502,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
                 }
                 
-                //dd($pact, $pite, $crite, $cr);
+                dd($pact, $pite, $crite, $cr);
 
                 
             }

@@ -54,8 +54,8 @@
 
 
 @section('Scripts')
-  <script src="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.js"></script>
-  <link rel="stylesheet" media="screen" href="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
+  <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.css">
   @include('js/edit_field')
   @include('js/modal_error')
 @endsection

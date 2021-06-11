@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         {{--configuracion en el meta para usar el csrfToken en todas las peticiones ajax global--}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="stylesheet" media="screen" href="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
+        <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         {{--configuracion en el script para usar el csrfToken en todas las peticiones ajax global--}}

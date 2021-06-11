@@ -1,5 +1,5 @@
-<script src="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.js"></script>
-<link rel="stylesheet" media="screen" href="https://nextgen.pl/_/scroll/dist/jquery.handsontable.full.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
+<link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.css">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>

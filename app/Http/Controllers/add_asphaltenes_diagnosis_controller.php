@@ -1205,7 +1205,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Cuando la presión calculada es menor a la presión pedida, no se necesitan más presiones
                     if ( $pcal[299] < $pact && $flag_p_ultima == 0) { 
-                        dd('entró 2');
+                        dd('entró 2', $pact, $pite, $crite, $cr, $pcal);
                         $flag_p_ultima = 1;
                         $flag_xx = $xx;
                     }

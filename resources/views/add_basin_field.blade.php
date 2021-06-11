@@ -83,9 +83,8 @@
 @endsection
 
 @section('Scripts')
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.min.css">
-    <script src="{{ asset('js/highcharts.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.min.css">
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     @include('js/add_basin_field')
     @include('js/modal_error')

@@ -327,7 +327,7 @@ function create_lab_test_table(lab_test_table_id) {
 //Verficar si existen datos para las tablas o no. Si existen, se crean dinámicamente las pruebas de laboratorio faltantes y se precargan los datos en todas las tablas.
 function on_load_tables_data() {
     if($("#lab_test_data").val() === "") {
-        console.log("Tablas vacías");
+        //console.log("Tablas vacías");
     } else {
         complete_data = JSON.parse($("#lab_test_data").val());
         k_data = JSON.parse($("#k_data").val());

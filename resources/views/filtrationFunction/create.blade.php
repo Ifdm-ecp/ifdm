@@ -246,7 +246,7 @@
 										<div class="col-md-6">
 											<h4>Laboratory Test #1</h4>
 											<div id="lab_test_1_table" class="lab_test"></div>
-											{!! Form::button('Plot' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'plot_lab_test(1);', 'name' => 'accion', 'id'=>'plot_1')) !!}
+											{!! Form::button('Plot' , array('class' => 'btn btn-primary btn-sm', 'onclick' => 'plot_lab_test(1);', 'name' => 'accion', 'id'=>'plot_0')) !!}
 											<input type="hidden" class="lab_test_hidden" id="lab_test_1_hidden" value="false">
 										</div>
 										<div class="col-md-6">
@@ -318,7 +318,6 @@
 
 @endsection
 @section('Scripts')
-  <script src="{{ asset('js/highcharts.js') }}"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="{{ asset('js/handsontable/dist/handsontable.full.js') }}"></script>
   <link rel="stylesheet" media="screen" href="{{ asset('js/handsontable/dist/handsontable.full.css') }}">

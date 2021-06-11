@@ -1189,7 +1189,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Nuevo
                     if ($pcal[1] < 0 || ($flag_p_ultima == 1 && $xx == $flag_xx+1)) {
-                        dd('entró');
+                        dd('entró', $pact, $pite, $crite, $cr, $pcal, $xx);
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;

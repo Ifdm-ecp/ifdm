@@ -1189,7 +1189,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Nuevo
                     if ($pcal[1] < 0 || ($flag_p_ultima == 1 && $xx == $flag_xx+1)) {
-                        dd('entró', $pact, $pite, $crite, $cr, $pcal, $xx);
+                        // dd('entró', $pact, $pite, $crite, $cr, $pcal, $xx);
                         if ($xx == 7) {
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
@@ -1205,7 +1205,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
                     # Cuando la presión calculada es menor a la presión pedida, no se necesitan más presiones
                     if ( $pcal[299] < $pact && $flag_p_ultima == 0 && $xx > 6) { 
-                        dd('entró 2', $pact, $pite, $crite, $cr, $pcal, $xx);
+                        // dd('entró 2', $pact, $pite, $crite, $cr, $pcal, $xx);
                         $flag_p_ultima = 1;
                         $flag_xx = $xx;
                     }
@@ -1502,7 +1502,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                     }
                 }
                 
-                dd($pact, $pite, $crite, $cr);
+                // dd($pact, $pite, $crite, $cr);
 
                 
             }

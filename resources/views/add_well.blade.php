@@ -1,7 +1,5 @@
 @extends('layouts.basic')
 @section('title', 'IFDM Database')
-   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-@endsection
 
 @section('content')
 @include('layouts/modal_error')
@@ -236,6 +234,7 @@
 
 
 @section('Scripts')
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.min.css">
   @include('js/add_well')

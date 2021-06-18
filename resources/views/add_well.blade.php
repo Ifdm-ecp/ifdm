@@ -1,5 +1,9 @@
 @extends('layouts.basic')
-@section('title', 'IFDM Database')
+<head>
+   <title>@yield('IFDM Database')</title>
+   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">     
+</head>
+
 
 @section('content')
 @include('layouts/modal_error')

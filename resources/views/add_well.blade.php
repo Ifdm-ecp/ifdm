@@ -1,5 +1,7 @@
 @extends('layouts.basic')
 @section('title', 'IFDM Database')
+   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+@endsection
 
 @section('content')
 @include('layouts/modal_error')
@@ -8,10 +10,6 @@
 <div class="masthead">
    <h1>Add Well</h1>
 </div>
-
-<head>
-   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-</head>
 
 
 <div onload="well();">

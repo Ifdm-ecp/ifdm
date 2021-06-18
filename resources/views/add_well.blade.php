@@ -9,6 +9,8 @@
    <h1>Add Well</h1>
 </div>
 
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
 <div onload="well();">
    {!!Form::open(array('url' => 'AddFormationWCS', 'method' => 'post', 'id'=>'form'))!!}
    <div id="well">

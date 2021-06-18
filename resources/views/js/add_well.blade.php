@@ -1,5 +1,4 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
      //Funcion para crear y mostrar grafico de PLT

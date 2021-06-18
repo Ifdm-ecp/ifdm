@@ -234,7 +234,7 @@
 
 
 @section('Scripts')
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.min.css">
   @include('js/add_well')

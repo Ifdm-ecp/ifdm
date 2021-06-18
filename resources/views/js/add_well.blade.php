@@ -1,4 +1,5 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
      //Funcion para crear y mostrar grafico de PLT
@@ -134,13 +135,13 @@
 
 
 
-            //Creacion de tabla
-            var calculateSize = function() {
-                var offset = $example1.offset();
-                availableWidth = $window.width() - offset.left + $window.scrollLeft();
-                availableHeight = $window.height() - offset.top + $window.scrollTop();
-            };
-            $window.on('resize', calculateSize);
+            // //Creacion de tabla
+            // var calculateSize = function() {
+            //     var offset = $example1.offset();
+            //     availableWidth = $window.width() - offset.left + $window.scrollLeft();
+            //     availableHeight = $window.height() - offset.top + $window.scrollTop();
+            // };
+            // $window.on('resize', calculateSize);
 
             $excelPlt.handsontable({
                 data: prods,
@@ -178,13 +179,13 @@
                 contextMenu: true,
                 width: function() {
                     if (maxed && availableWidth === void 0) {
-                        calculateSize();
+                        //calculateSize();
                     }
                     return maxed ? availableWidth : 1600;
                 },
                 height: function() {
                     if (maxed && availableHeight === void 0) {
-                        calculateSize();
+                        //calculateSize();
                     }
                     return maxed ? availableHeight : 200;
                 }
@@ -201,12 +202,12 @@
             data_prood = JSON.parse(data_prood);
         }
 
-        var calculateSize = function() {
-            var offset = $example1.offset();
-            availableWidth = $window.width() - offset.left + $window.scrollLeft();
-            availableHeight = $window.height() - offset.top + $window.scrollTop();
-        };
-        $window.on('resize', calculateSize);
+        // var calculateSize = function() {
+        //     var offset = $example1.offset();
+        //     availableWidth = $window.width() - offset.left + $window.scrollLeft();
+        //     availableHeight = $window.height() - offset.top + $window.scrollTop();
+        // };
+        // $window.on('resize', calculateSize);
 
 
         $excel2.handsontable({
@@ -313,13 +314,13 @@
             contextMenu: true,
             width: function() {
                 if (maxed && availableWidth === void 0) {
-                    calculateSize();
+                    //calculateSize();
                 }
                 return maxed ? availableWidth : 1600;
             },
             height: function() {
                 if (maxed && availableHeight === void 0) {
-                    calculateSize();
+                    //calculateSize();
                 }
                 return maxed ? availableHeight : 200;
             }
@@ -493,20 +494,34 @@
     }
     window.addEventListener('load', well, false);
 
-
     $(document).ready(function() {
+        $('#field').attr('disabled', 'disabled');
         //Carga de valores de select anidado de acuerdo a opcion escogida
         $("#basin").change(function(e) {
             var cuenca = $('#basin').val();
             $.get("{{url('campos')}}", {
-                    cuenca: cuenca
-                },
-                function(data) {
-                    $("#field").empty();
+                cuenca: cuenca
+            },
+            function(data) {
+                $("#field").empty();
+                if (data.length == 0) {
+                    $flag = 1;
+                    var $validator = $("#form").validate();
+                    var errors;
+                    errors = { field: "The Basin has no Fields." };
+                    /* Show errors on the form */
+                    $validator.showErrors(errors);
+
+                    $('#field').attr('disabled', 'disabled');
+                }else{
+                    $('#field').removeAttr('disabled');
+                    $('label[class="error"]').css({"display":"none"})
+                    
                     $.each(data, function(index, value) {
                         $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                     });
-                });
+                }
+            });
         });
     });
 

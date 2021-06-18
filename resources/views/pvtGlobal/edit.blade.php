@@ -53,9 +53,11 @@
             </div>
           </div>
           <br>
+
           <div class="row" >
-            <div class="row" style="display: flex; justify-content: center;">
-              <div id="table_field_pvt" style="overflow: scroll" class="handsontable"></div>
+            <div class="col-md-6">
+              <div id="table_field_pvt" class="handsontable"></div>
+            </div>
             </div>
             <br>
             <div class="row pull-right">

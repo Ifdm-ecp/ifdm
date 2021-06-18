@@ -28,7 +28,7 @@
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
                      {!! Form::label('field', 'Field') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::select('field', array(), null, array('placeholder' => '','class'=>'form-control', 'id'=>'field')) !!}
+                     {!! Form::select('field', [], null, array('placeholder' => '','class'=>'form-control', 'id'=>'field')) !!}
                   </div>
                </div>
             </div>
@@ -237,4 +237,5 @@
   <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.15.0-beta6/handsontable.full.min.css">
   @include('js/add_well')
   @include('js/modal_error')
+  @include('css/add_well')
 @endsection

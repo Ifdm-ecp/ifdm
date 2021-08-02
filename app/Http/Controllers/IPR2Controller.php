@@ -771,12 +771,12 @@ class IPR2Controller extends Controller
                     $presion_fondo = $IPR->bhp_g;
 
                 } else if($IPR->fluido =="3") {
-
+                    
                     $tasa_flujo = $IPR->gas_rate_c_g;
                     $presion_fondo = $IPR->bhp_c_g;
 
                 } else if($IPR->fluido =="4") {
-
+                    
                     $tasa_flujo = $IPR->injection_rate;
                     $presion_fondo = $IPR->presion_fondo;
 
@@ -5324,7 +5324,11 @@ class IPR2Controller extends Controller
 
         $lista_presiones_yacimiento = $intervalos_list->pluck('current_reservoir_pressure');
         $lista_netpay = $intervalos_list->pluck('net_pay');
-        $presion_fondo = $input_data['bhfp'];
+        if (isset($input_data['presion_fondo'])) {
+            $presion_fondo = $input_data['presion_fondo'];
+        } else if (isset($input_data['bhfp'])){
+            $presion_fondo = $input_data['bhfp'];
+        }
         $well_rate = floatval($input_data['tasa_flujo']);
 
         /* Tasa de flujo */
@@ -5376,7 +5380,7 @@ class IPR2Controller extends Controller
             }
 
             if($fluido == 1) {
-
+                
                 $presiones_PVT = json_decode($input_data['presiones']);
                 
                 $presion_burbuja = floatval($input_data['saturation_pressure']);
@@ -5476,7 +5480,7 @@ class IPR2Controller extends Controller
                     $ipr_skin_cero_ = $this->ipr_gas_condensado($pressures_range, $permeabilidad_absoluta, $presion_yacimiento, $radio_drenaje_yac, $radio_pozo, 0, $net_pay, $presion_rocio, $gor, $lista_presiones, $lista_ogr, $lista_bo, $lista_bg, $lista_uo, $lista_ug,$lista_rs, $lista_sg,$lista_krg, $lista_kro, $lista_presiones_so, $lista_so);
 
                 } else if($fluido == 4) {
-
+                    
                     $presion_ruptura = floatval($reservoir_parting_pressure);
 
                     $water_volumetric_factor = floatval($input_data['water_volumetric_factor']);

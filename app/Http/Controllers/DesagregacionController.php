@@ -16,6 +16,7 @@ use App\resultado_desagregacion;
 use DB;
 use Illuminate\Http\Request;
 use View;
+use Exception;
 
 class desagregacionController extends Controller
 {
@@ -396,7 +397,26 @@ class desagregacionController extends Controller
                 $coeficiente_friccion = 0;
                 $modulo_permeabilidad = 0;
 
-                $results = $this->run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $fluid_specific_gravity, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data, $emulsion, $characterized_mixture, $flow_rate_1_1, $mixture_bottomhole_flowing_pressure_1_1, $mixture_viscosity_1_1, $mixture_oil_volumetric_factor_1_1, $mixture_water_volumetric_factor_1_1, $mixture_oil_fraction_1_1, $mixture_water_fraction_1_1, $flow_rate_1_2, $mixture_bottomhole_flowing_pressure_1_2, $mixture_oil_viscosity_1_2, $mixture_water_viscosity_1_2, $mixture_oil_fraction_1_2, $mixture_water_fraction_1_2, $mixture_oil_volumetric_factor_1_2, $mixture_water_volumetric_factor_1_2, $flow_rate_2, $mixture_bottomhole_flowing_pressure_2, $mixture_oil_viscosity_2, $mixture_water_viscosity_2, $mixture_oil_fraction_2, $mixture_water_fraction_2, $mixture_oil_volumetric_factor_2, $mixture_water_volumetric_factor_2, $fluid_of_interest);
+                try {
+                    $results = $this->run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $fluid_specific_gravity, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data, $emulsion, $characterized_mixture, $flow_rate_1_1, $mixture_bottomhole_flowing_pressure_1_1, $mixture_viscosity_1_1, $mixture_oil_volumetric_factor_1_1, $mixture_water_volumetric_factor_1_1, $mixture_oil_fraction_1_1, $mixture_water_fraction_1_1, $flow_rate_1_2, $mixture_bottomhole_flowing_pressure_1_2, $mixture_oil_viscosity_1_2, $mixture_water_viscosity_1_2, $mixture_oil_fraction_1_2, $mixture_water_fraction_1_2, $mixture_oil_volumetric_factor_1_2, $mixture_water_volumetric_factor_1_2, $flow_rate_2, $mixture_bottomhole_flowing_pressure_2, $mixture_oil_viscosity_2, $mixture_water_viscosity_2, $mixture_oil_fraction_2, $mixture_water_fraction_2, $mixture_oil_volumetric_factor_2, $mixture_water_volumetric_factor_2, $fluid_of_interest);
+                } catch( Exception $e ) {
+
+                    if ($e->getMessage() == "Zero division") {
+                        $scenary_s = DB::table('escenarios')->where('id', $desagregacion->id_escenario)->first();
+                        $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
+                        $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
+                        $error = "There was a division by zero.";
+                        return view('desagregacion.show', compact('formacion', 'cuenca', 'pozo', 'desagregacion', 'scenary_s', 'intervalo', 'campo', 'error'));
+                    } else {
+                        $scenary_s = DB::table('escenarios')->where('id', $desagregacion->id_escenario)->first();
+                        $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
+                        $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
+                        $error = "There is an uspecified error.";
+                        return view('desagregacion.show', compact('formacion', 'cuenca', 'pozo', 'desagregacion', 'scenary_s', 'intervalo', 'campo', 'error'))->with('mechanical_result', json_decode($mechanical_result, true));
+                    }
+
+                }
+                
 
                 $radios = $results[5];
                 $permeabilidades = $results[6];
@@ -861,8 +881,26 @@ class desagregacionController extends Controller
                 $coeficiente_friccion = 0;
                 $modulo_permeabilidad = 0;
 
-                $results = $this->run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $fluid_specific_gravity, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data, $emulsion, $characterized_mixture, $flow_rate_1_1, $mixture_bottomhole_flowing_pressure_1_1, $mixture_viscosity_1_1, $mixture_oil_volumetric_factor_1_1, $mixture_water_volumetric_factor_1_1, $mixture_oil_fraction_1_1, $mixture_water_fraction_1_1, $flow_rate_1_2, $mixture_bottomhole_flowing_pressure_1_2, $mixture_oil_viscosity_1_2, $mixture_water_viscosity_1_2, $mixture_oil_fraction_1_2, $mixture_water_fraction_1_2, $mixture_oil_volumetric_factor_1_2, $mixture_water_volumetric_factor_1_2, $flow_rate_2, $mixture_bottomhole_flowing_pressure_2, $mixture_oil_viscosity_2, $mixture_water_viscosity_2, $mixture_oil_fraction_2, $mixture_water_fraction_2, $mixture_oil_volumetric_factor_2, $mixture_water_volumetric_factor_2, $fluid_of_interest);
+                try {
+                    $results = $this->run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $fluid_specific_gravity, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data, $emulsion, $characterized_mixture, $flow_rate_1_1, $mixture_bottomhole_flowing_pressure_1_1, $mixture_viscosity_1_1, $mixture_oil_volumetric_factor_1_1, $mixture_water_volumetric_factor_1_1, $mixture_oil_fraction_1_1, $mixture_water_fraction_1_1, $flow_rate_1_2, $mixture_bottomhole_flowing_pressure_1_2, $mixture_oil_viscosity_1_2, $mixture_water_viscosity_1_2, $mixture_oil_fraction_1_2, $mixture_water_fraction_1_2, $mixture_oil_volumetric_factor_1_2, $mixture_water_volumetric_factor_1_2, $flow_rate_2, $mixture_bottomhole_flowing_pressure_2, $mixture_oil_viscosity_2, $mixture_water_viscosity_2, $mixture_oil_fraction_2, $mixture_water_fraction_2, $mixture_oil_volumetric_factor_2, $mixture_water_volumetric_factor_2, $fluid_of_interest);
+                } catch( Exception $e ) {
 
+                    if ($e->getMessage() == "Zero division") {
+                        $scenary_s = DB::table('escenarios')->where('id', $desagregacion->id_escenario)->first();
+                        $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
+                        $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
+                        $error = "There was a division by zero.";
+                        return view('desagregacion.show', compact('formacion', 'cuenca', 'pozo', 'desagregacion', 'scenary_s', 'intervalo', 'campo', 'error'));
+                    } else {
+                        $scenary_s = DB::table('escenarios')->where('id', $desagregacion->id_escenario)->first();
+                        $intervalo = DB::table('formacionxpozos')->where('id', $scenary_s->formacion_id)->first();
+                        $campo = DB::table('campos')->where('id', $scenary_s->campo_id)->first();
+                        $error = "There is an uspecified error.";
+                        return view('desagregacion.show', compact('formacion', 'cuenca', 'pozo', 'desagregacion', 'scenary_s', 'intervalo', 'campo', 'error'))->with('mechanical_result', json_decode($mechanical_result, true));
+                    }
+
+                }
+                
                 $radios = $results[5];
                 $permeabilidades = $results[6];
                 $coeficiente_friccion = $results[7];
@@ -963,8 +1001,6 @@ class desagregacionController extends Controller
             array_push($calculated_hidraulic_units_data, $hidraulic_unit);
         }
 
-        //dd($hidraulic_unit, $calculated_hidraulic_units_data);
-
         return $calculated_hidraulic_units_data;
     }
 
@@ -982,8 +1018,13 @@ class desagregacionController extends Controller
             $a += floatval($hidraulic_unit[0]) * $hidraulic_unit[4];
             $b += floatval($hidraulic_unit[0]);
         }
-        //dd($a/$b, $hidraulic_units_data);
-        return $a / $b; //Revisar divisiòn por cero
+
+        if($b == 0) {
+            throw new Exception('Zero division');
+        } else {
+            return $a / $b;
+        }
+        
     }
 
     /* Coeficiente  de fricción (vector) (4.9) (verificada) */
@@ -1002,7 +1043,6 @@ class desagregacionController extends Controller
             }
 
             // B = a * b^porosity * permeabibility^c
-            /* Posible error: división por cero */
             array_push($hidraulic_unit, ($a * pow($b, $hidraulic_unit[2]) * pow($hidraulic_unit[3], $c)));
 
             if ($flag == 1) {
@@ -1025,7 +1065,11 @@ class desagregacionController extends Controller
             $b += $hidraulic_unit[0];
         }
 
-        return $a / $b;
+        if ($b == 0) {
+            throw new Exception('Zero division');
+        } else {
+            return $a / $b;
+        }
     }
 
     /* Presión de poro (4.2) (Verificada) */
@@ -1051,12 +1095,13 @@ class desagregacionController extends Controller
 
         /* Se llena los valores de presión para cada punto del vector de distancias*/
         foreach ($well_point_i_distance as $key => $pressure) {
-            $pressure = $bottomhole_flowing_pressure + (((141.2 * $fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness)) * (log($well_point_i_distance[$key] / $well_radius) - 0.75 + $skin));
 
-            //dd($fluid_viscosity);
-
-            //dd($bottomhole_flowing_pressure, $fluid_rate, $fluid_viscosity, $fluid_volumetric_factor, $permeability, $formation_thickness, $well_point_i_distance[$key] ,$well_radius, $pressure);
-
+            if (($permeability * $formation_thickness) == 0 || $well_radius == 0) {
+                throw new Exception("Zero division");
+            } else {
+                $pressure = $bottomhole_flowing_pressure + (((141.2 * $fluid_rate * $fluid_viscosity * $fluid_volumetric_factor) / ($permeability * $formation_thickness)) * (log($well_point_i_distance[$key] / $well_radius) - 0.75 + $skin));
+            }
+            
             /** Si la presión calculada es igual o superior a la presión promedio, se ignora la calculada y se coloca en su lugar la promedio */
 
             if ($pressure >= $reservoir_pressure) {
@@ -1065,8 +1110,6 @@ class desagregacionController extends Controller
 
             array_push($pore_pressure_at_point_i, $pressure);
         }
-
-        //dd($well_point_i_distance, $pore_pressure_at_point_i, $reservoir_pressure);
 
         return $pore_pressure_at_point_i;
     }
@@ -1096,8 +1139,6 @@ class desagregacionController extends Controller
             }
 
         }
-
-        //array_push($well_point_i_distance, $drainage_radius);
 
         return $well_point_i_distance;
     }
@@ -1131,15 +1172,18 @@ class desagregacionController extends Controller
         //$arrayyyy = [];
 
         for ($i = 0; $i < count($well_point_i_distance) - 1; $i++) {
-            $sum += (log($well_point_i_distance[$i + 1] / $well_point_i_distance[$i])) * (pow(M_E, /*(-1) * */ $well_permeability_module * $effective_stress[$i]));
-            //array_push($arrayyyy, log($well_point_i_distance[$i+1] / $well_point_i_distance[$i]) / (pow(M_E, (-1) * $well_permeability_module * $effective_stress[$i])) );
-            //dd($arrayyyy, $well_point_i_distance[$i+1], $well_point_i_distance[$i], $well_permeability_module, $effective_stress[$i] );
+            if ($well_point_i_distance[$i] == 0) {
+                throw new Exception("Zero division");
+            } else {
+                $sum += (log($well_point_i_distance[$i + 1] / $well_point_i_distance[$i])) * (pow(M_E, /*(-1) * */ $well_permeability_module * $effective_stress[$i]));
+            }
         }
 
-        //$result = $original_permeability * $sum;
-        $result = $sum - log(10 / $well_radius);
-
-        //dd($arrayyyy );
+        if ($well_radius == 0) {
+            throw new Exception("Zero division");
+        } else {
+            $result = $sum - log(10 / $well_radius);
+        }
 
         return array($result, $well_point_i_distance);
     }
@@ -1156,7 +1200,11 @@ class desagregacionController extends Controller
         $sum = [];
         
         for ($i = 0; $i < count($well_point_i_distance) - 1; $i++) {
-            array_push($sum, (log($well_point_i_distance[$i + 1] / $well_point_i_distance[$i])) * (pow(M_E, $well_permeability_module * $effective_stress[$i])));
+            if ($well_point_i_distance[$i] == 0) {
+                throw new Exception("Zero division");
+            } else {
+                array_push($sum, (log($well_point_i_distance[$i + 1] / $well_point_i_distance[$i])) * (pow(M_E, $well_permeability_module * $effective_stress[$i])));
+            }
         }
 
         //$result = $original_permeability * $sum;
@@ -1181,7 +1229,11 @@ class desagregacionController extends Controller
         $a = (2.22 * pow(10, -15)) * $fluid_specific_gravity * $permeability * $well_friction_coefficient;
         $b = $fluid_viscosity * $well_radius * $perforated_thickness;
 
-        return ($a / $b);
+        if ($b == 0) {
+            throw new Exception("Zero division");
+        } else { 
+            return ($a / $b);
+        }
     }
 
     /* ----Daño por tasa (escalar) */
@@ -1192,11 +1244,19 @@ class desagregacionController extends Controller
 
     public function damage_by_deflection($true_vertical_depth, $measured_well_depth, $horizontal_vertical_permeability_ratio, $formation_thickness, $well_radius)
     {
-        $well_angle = asin($true_vertical_depth / $measured_well_depth);
-
+        if ($measured_well_depth == 0) {
+            throw new Exception("Zero division");
+        } else { 
+            $well_angle = asin($true_vertical_depth / $measured_well_depth);
+        }
+        
         $pseudo_angle = atan(sqrt($horizontal_vertical_permeability_ratio) * tan($well_angle));
 
-        $hd = ($formation_thickness / $well_radius) * (sqrt(pow($horizontal_vertical_permeability_ratio, -1)));
+        if ($well_radius == 0) {
+            throw new Exception("Zero division");
+        } else { 
+            $hd = ($formation_thickness / $well_radius) * (sqrt(pow($horizontal_vertical_permeability_ratio, -1)));
+        }
         $damage = ((-1) * pow($pseudo_angle / 41, 2.06)) - ((pow($pseudo_angle / 56, 1.865)) * log10($hd / 100));
 
         return ($damage);
@@ -1204,9 +1264,17 @@ class desagregacionController extends Controller
 
     public function damage_by_partial_penetration($formation_thickness, $perforated_thickness, $horizontal_vertical_permeability_ratio, $well_radius)
     {
-        $damage1 = ($formation_thickness / $perforated_thickness) - 1;
+        if ($perforated_thickness == 0) {
+            throw new Exception("Zero division");
+        } else { 
+            $damage1 = ($formation_thickness / $perforated_thickness) - 1;
+        }
 
-        $damage2 = (sqrt(pow($horizontal_vertical_permeability_ratio, -1)) * log($formation_thickness / $well_radius)) - 2;
+        if ($well_radius == 0) {
+            throw new Exception("Zero division");
+        } else { 
+            $damage2 = (sqrt(pow($horizontal_vertical_permeability_ratio, -1)) * log($formation_thickness / $well_radius)) - 2;
+        }
 
         return ($damage1 * $damage2);
     }
@@ -1248,7 +1316,11 @@ class desagregacionController extends Controller
             $reservoir_shape = 2.36;
         }
 
-        return (0.5 * log(31.62 / $reservoir_shape));
+        if ($reservoir_shape == 0) {
+            throw new Exception("Zero division");
+        } else {
+            return (0.5 * log(31.62 / $reservoir_shape));
+        }  
     }
 
     /* ---Pseudo-daño por cañoneo 3 (4.20) */
@@ -1279,7 +1351,11 @@ class desagregacionController extends Controller
             $pseudo_damage_perforation_3 = ($alpha0 * ($well_radius + $cannon_penetrating_depth));
         }
 
-        $result = log($well_radius / $pseudo_damage_perforation_3);
+        if ($pseudo_damage_perforation_3 == 0) {
+            throw new Exception("Zero division");
+        } else {
+            $result = log($well_radius / $pseudo_damage_perforation_3);
+        }
 
         return ($result);
 
@@ -1348,9 +1424,17 @@ class desagregacionController extends Controller
             $b2 = 1.8115;
         }
 
-        $hdc = ($perforated_thickness / $perforation_penetration_depth) * sqrt(pow($horizontal_vertical_permeability_ratio, -1));
-
-        $rdc = ($perforating_radius / (24 * $perforated_thickness)) * (1 + sqrt($horizontal_vertical_permeability_ratio));
+        if ($perforation_penetration_depth == 0) {
+            throw new Exception("Zero division"); 
+        } else {
+            $hdc = ($perforated_thickness / $perforation_penetration_depth) * sqrt(pow($horizontal_vertical_permeability_ratio, -1));
+        }
+        
+        if ($perforated_thickness == 0) {
+            throw new Exception("Zero division"); 
+        } else {
+            $rdc = ($perforating_radius / (24 * $perforated_thickness)) * (1 + sqrt($horizontal_vertical_permeability_ratio));
+        }
 
         $a = ($a1 * log10($rdc)) + $a2;
         $b = $b1 * $rdc + $b2;
@@ -1372,7 +1456,7 @@ class desagregacionController extends Controller
 
     public function run_disaggregation_analysis($well_radius, $reservoir_pressure, $measured_well_depth, $true_vertical_depth, $formation_thickness, $perforated_thickness, $well_completitions, $perforation_penetration_depth, $perforating_phase_angle, $perforating_radius, $production_formation_thickness, $horizontal_vertical_permeability_ratio, $drainage_area_shape, $fluid_rate, $bottomhole_flowing_pressure, $fluid_viscosity, $fluid_volumetric_factor, $fluid_specific_gravity, $skin, $permeability, $rock_type, $porosity, $hidraulic_units_data, $emulsion, $characterized_mixture, $flow_rate_1_1, $mixture_bottomhole_flowing_pressure_1_1, $mixture_viscosity_1_1, $mixture_oil_volumetric_factor_1_1, $mixture_water_volumetric_factor_1_1, $mixture_oil_fraction_1_1, $mixture_water_fraction_1_1, $flow_rate_1_2, $mixture_bottomhole_flowing_pressure_1_2, $mixture_oil_viscosity_1_2, $mixture_water_viscosity_1_2, $mixture_oil_fraction_1_2, $mixture_water_fraction_1_2, $mixture_oil_volumetric_factor_1_2, $mixture_water_volumetric_factor_1_2, $flow_rate_2, $mixture_bottomhole_flowing_pressure_2, $mixture_oil_viscosity_2, $mixture_water_viscosity_2, $mixture_oil_fraction_2, $mixture_water_fraction_2, $mixture_oil_volumetric_factor_2, $mixture_water_volumetric_factor_2, $fluid_of_interest)
     {
-
+    
         $fluid_of_interest = floatval($fluid_of_interest);
         $well_radius = floatval($well_radius);
         $reservoir_pressure = floatval($reservoir_pressure);

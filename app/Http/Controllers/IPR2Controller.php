@@ -466,7 +466,7 @@ class IPR2Controller extends Controller
                 $sensibilidad = $sensibilidad['sensibilidad'];
 
                 if($IPR->fluido == "1") {
-
+                    
                     $var_mod_perm = "modulo_permeabilidad";
                     $var_net_pay = "espesor_reservorio";
                     $var_abs_perm = "permeabilidad_abs_ini";
@@ -5324,7 +5324,7 @@ class IPR2Controller extends Controller
 
         $lista_presiones_yacimiento = $intervalos_list->pluck('current_reservoir_pressure');
         $lista_netpay = $intervalos_list->pluck('net_pay');
-        $presion_fondo = $input_data['presion_fondo'];
+        $presion_fondo = $input_data['bhfp'];
         $well_rate = floatval($input_data['tasa_flujo']);
 
         /* Tasa de flujo */

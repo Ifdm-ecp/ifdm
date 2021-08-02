@@ -142,7 +142,7 @@
         });
     }
     
-    plot_spider_chart( {!! $results !!}, "grafica_desagregacion", ["Total Skin", "Mechanical Skin", "Stress-dependent Skin", "Pseudo Skin", "Rate-dependent Skin"], 'Skin By Components');
-    draw_results_table({!! $results !!});
-    plot_line_chart("grafica_pres_perm",{!! $ri !!} ,{!! $skin_by_stress !!} , "r(i) vs. Skin by Effective Stress", true);
+    plot_spider_chart( {!! $results ?? false !!}, "grafica_desagregacion", ["Total Skin", "Mechanical Skin", "Stress-dependent Skin", "Pseudo Skin", "Rate-dependent Skin"], 'Skin By Components');
+    draw_results_table({!! $results ?? false !!});
+    plot_line_chart("grafica_pres_perm",{!! $ri ?? false !!} ,{!! $skin_by_stress ?? false !!} , "r(i) vs. Skin by Effective Stress", true);
 </script>

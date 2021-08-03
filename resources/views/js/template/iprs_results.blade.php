@@ -97,7 +97,7 @@
             },
             xAxis: {
                 title: {
-                    text: '{!! $IPR->fluido == 1 ? "Oil Rate [bbl/day]" : "Gas Rate [MMscf/day]" !!}'
+                    text: medida,
                 },
             },
             yAxis: {

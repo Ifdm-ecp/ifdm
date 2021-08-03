@@ -600,7 +600,7 @@ class IPR2Controller extends Controller
                         "radio_drenaje_yac" => $IPR->radio_drenaje_yac,
                         "injection_rate" => $IPR->injection_rate,
                         "tasa_flujo" => $IPR->injection_rate,
-                        "bhfp" => $IPR->presion_fondo,
+                        "presion_fondo" => $IPR->presion_fondo,
                         "stress_sensitive_reservoir" => $IPR->stress_sensitive_reservoir,
                         "presion_inicial" => $IPR->presion_inicial,
                         "permeabilidad_abs_ini" => $IPR->permeabilidad_abs_ini,
@@ -5324,11 +5324,12 @@ class IPR2Controller extends Controller
 
         $lista_presiones_yacimiento = $intervalos_list->pluck('current_reservoir_pressure');
         $lista_netpay = $intervalos_list->pluck('net_pay');
-        if (isset($input_data['presion_fondo'])) {
-            $presion_fondo = $input_data['presion_fondo'];
-        } else if (isset($input_data['bhfp'])){
-            $presion_fondo = $input_data['bhfp'];
-        }
+        $presion_fondo = $input_data['presion_fondo'];
+        // if (isset($input_data['presion_fondo'])) {
+        //     $presion_fondo = $input_data['presion_fondo'];
+        // } else if (isset($input_data['bhfp'])){
+        //     $presion_fondo = $input_data['bhfp'];
+        // }
         $well_rate = floatval($input_data['tasa_flujo']);
 
         /* Tasa de flujo */
@@ -5378,6 +5379,8 @@ class IPR2Controller extends Controller
                 $absolute_permeability_it_initial_reservoir_pressure = 0;
                 $permeabilidad_absoluta = floatval($absolute_permeability);
             }
+
+            error_log($intervalos);
 
             if($fluido == 1) {
                 

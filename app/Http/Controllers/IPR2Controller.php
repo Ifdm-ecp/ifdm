@@ -674,7 +674,7 @@ class IPR2Controller extends Controller
                     break;
                     case 'absolute_permeability':
 
-                    $label = "Abosulte Permeability - Value";
+                    $label = "Absolute Permeability - Value";
                     $input_data["factor_dano"] = (float)$skin_resultante_final;
                     $input_data[$var_abs_perm] = (float)$valor;
                     $input_data['modificado'] = $var_abs_perm;
@@ -1291,7 +1291,7 @@ class IPR2Controller extends Controller
                     break;
                     case 'absolute_permeability':
 
-                    $label = "Abosulte Permeability - Value";
+                    $label = "Absolute Permeability - Value";
                     $input_data[$var_abs_perm] = (float)$valor;
                     $input_data['modificado'] = $var_abs_perm;
 
@@ -5379,8 +5379,6 @@ class IPR2Controller extends Controller
                 $absolute_permeability_it_initial_reservoir_pressure = 0;
                 $permeabilidad_absoluta = floatval($absolute_permeability);
             }
-
-            error_log($intervalos);
 
             if($fluido == 1) {
                 

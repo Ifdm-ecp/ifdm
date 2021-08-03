@@ -16,7 +16,8 @@
                   <div id="Sensitivities_list"></div>
                </div>
             </div>
-            <button type="button" class="btn btn-danger pull-left" onclick="limpiar();">Clear All</button>
+            <button type="button" class="btn btn-danger pull-left" onclick="window.location.reload()">Clear All</button>
+            <!-- <button type="button" class="btn btn-danger pull-left" onclick="limpiar();">Clear All</button> -->
             <button type="button" class="btn btn-primary pull-right" onclick="enviar();">Apply</button>
          </div>
       </div>

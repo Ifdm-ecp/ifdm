@@ -29,7 +29,7 @@
     @endif
 
     $(document).ready(function() {
-        draw();
+        draw(); 
         addSensibility();
         /* $('#results_sensibilities').hide(); */
         $('#operative_point').collapse("hide");
@@ -45,6 +45,14 @@
                 ser.push({name: data.etiquetas_ejes[i], data: data.ejes_dobles[i]});
             }
         }
+
+        ser.push({
+                name: 'Production Data',
+                data:  [[{!! $tasa_flujo !!},{!! $presion_fondo !!}]],
+                marker: { 
+                    enabled: true
+                }
+            });
 
         $('#grafica').highcharts({
             title: {
@@ -76,7 +84,7 @@
                 plotLines: [{
                     value: 0,
                     width: 1,
-                    color: '#808080'
+                    color: '#108080'
                 }],
                 labels: {
                     format: '{value:,.0f}'
@@ -242,6 +250,14 @@
                 data = data.concat(ser);
             }
         });
+
+        data.push({
+                name: 'Production Data',
+                data:  [[{!! $tasa_flujo !!},{!! $presion_fondo !!}]],
+                marker: { 
+                    enabled: true
+                }
+            });
 
         graphicate(data);
     }

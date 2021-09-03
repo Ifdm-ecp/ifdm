@@ -169,7 +169,7 @@ class NativeSessionStorageTest extends TestCase
             'cookie_path' => '/my/cookie/path',
             'cookie_domain' => 'symfony.example.com',
             'cookie_secure' => true,
-            'cookie_httponly' => false,
+            'cookie_httponly' => true,
         );
 
         $this->getStorage($options);

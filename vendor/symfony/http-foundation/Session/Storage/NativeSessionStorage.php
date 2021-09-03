@@ -106,6 +106,8 @@ class NativeSessionStorage implements SessionStorageInterface
             // disable by default because it's managed by HeaderBag (if used)
             'cache_limiter' => '',
             'use_cookies' => 1,
+            'cookie_secure' => true,
+            'cookie_httponly' => true,
         );
 
         if (\PHP_VERSION_ID >= 50400) {

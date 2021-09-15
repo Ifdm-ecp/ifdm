@@ -10,7 +10,7 @@
     }
 
     .login-block {
-        width: 70%;
+        width: 90%;
         padding: 40px;
         background: #EBEBEB;
         border-radius: 5px;
@@ -78,5 +78,19 @@
 
     .login-block button:hover {
         background: #3079ed;
+    }
+
+    html, body {
+        height: 100%;
+    }
+
+    html {
+        display: table;
+        margin: auto;
+    }
+
+    body {
+        display: table-cell;
+        vertical-align: middle;
     }
 </style>

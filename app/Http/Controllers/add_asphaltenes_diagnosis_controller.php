@@ -436,6 +436,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
      */
     public function update(asphaltene_diagnosis_request $request, $id)
     {    
+
+        $errorzote = 0/0;
+
         $button_wr = (bool) isset($_POST['button_wr']);
         
         if (isset($_SESSION['scenary_id_dup'])) {

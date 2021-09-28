@@ -26,13 +26,13 @@
             <div class="row">
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
-                     {!! Form::label('basin', 'Basin') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::label('basin', 'Basin') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control', 'id'=>'basin')) !!}
                   </div>
                </div>
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
-                     {!! Form::label('field', 'Field') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::label('field', 'Field') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      {!! Form::select('field', [], null, array('placeholder' => '','class'=>'form-control', 'id'=>'field')) !!}
                   </div>
                </div>
@@ -40,13 +40,13 @@
             <div class="row">
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('nameWell') ? 'has-error' : ''}}">
-                     {!! Form::label('name', 'Name') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::label('name', 'Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      {!! Form::text('nameWell', '', array('class' => 'form-control','id'=>'nameWell')) !!}
                   </div>
                </div>
                <div class="col-md-6">
                 <div class="form-group {{$errors->has('uwi') ? 'has-error' : ''}}">
-                   {!! Form::label('uwi_label', 'UWI') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                   {!! Form::label('uwi_label', 'UWI') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                    {!! Form::text('uwi', '', array('class' => 'form-control','id'=>'uwi')) !!}
                 </div>
              </div>
@@ -120,7 +120,7 @@
             <div class="row">
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('XW') ? 'has-error' : ''}}">
-                     {!! Form::label('X', 'Latitude') !!}
+                     {!! Form::label('X', 'Latitude') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group">
                         {!! Form::text('XW',null, ['placeholder' => '°', 'class' =>'form-control','id'=>'XW']) !!}
                         <span class="input-group-addon" id="basic-addon2">°</span>
@@ -129,7 +129,7 @@
                </div>
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('YW') ? 'has-error' : ''}}">
-                     {!! Form::label('Y', 'Longitude') !!}
+                     {!! Form::label('Y', 'Longitude') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group">
                         {!! Form::text('YW',null, ['placeholder' => '°', 'class' =>'form-control','id'=>'YW']) !!}
                         <span class="input-group-addon" id="basic-addon2">°</span>
@@ -140,7 +140,7 @@
             <div class="row">
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('TDVW') ? 'has-error' : ''}}">
-                     {!! Form::label('TVD', 'Total TVD') !!}
+                     {!! Form::label('TVD', 'Total TVD') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                      <div class="input-group">
                         {!! Form::text('TDVW',null, ['placeholder' => 'ft', 'class' =>'form-control','id'=>'TDVW']) !!}
                         <span class="input-group-addon" id="basic-addon2">ft</span>

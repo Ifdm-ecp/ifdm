@@ -140,7 +140,7 @@
             <div class="row">
                <div class="col-md-6">
                   <div class="form-group {{$errors->has('TDVW') ? 'has-error' : ''}}">
-                     {!! Form::label('TVD', 'Total TVD') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                     {!! Form::label('TVD', 'Total TVD') !!}
                      <div class="input-group">
                         {!! Form::text('TDVW',null, ['placeholder' => 'ft', 'class' =>'form-control','id'=>'TDVW']) !!}
                         <span class="input-group-addon" id="basic-addon2">ft</span>

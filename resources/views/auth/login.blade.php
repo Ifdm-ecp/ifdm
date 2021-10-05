@@ -17,7 +17,7 @@
                 <img src="/images/Ifdm_new.png" class="img-fluid logo" alt="logo IFDM">
             </div>
             <div class="col-md-6">
-                {!!Form::open(['route' => ['entrar'], 'method' => 'POST'])!!}
+                {!!Form::open(['route' => ['entrar'], 'method' => 'POST', 'enctype' => 'multipart/form-data'])!!}
                 <div >
                     <input name="name" type="text" value="" placeholder="Username" id="name" />
                     <input name="password" type="password" value="" placeholder="Password" id="password" />

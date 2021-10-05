@@ -58,6 +58,8 @@ trait AuthenticatesUsers
             $this->incrementLoginAttempts($request);
         }
 
+        error_log($request);
+
         return redirect($this->loginPath())
             ->withInput($request->only($this->loginUsername(), 'remember'))
             ->withErrors([

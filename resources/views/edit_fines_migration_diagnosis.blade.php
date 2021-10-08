@@ -97,14 +97,14 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 {!! Form::label('numbers_of_perforations_label', 'Number Of Perforations') !!}
-                                 <div class="input-group {{$errors->has('number_of_perforations') ? 'has-error' : ''}}">
+                                 {!! Form::label('perforation_density_label', 'Perforation Density (SPF)') !!}
+                                 <div class="input-group {{$errors->has('perforation_density') ? 'has-error' : ''}}">
                                     @if($advisor === "true")
                                       <span class="input-group-btn">
                                          <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
                                       </span>
                                     @endif
-                                    {!! Form::text('number_of_perforations', $fines_d_diagnosis->number_of_perforations,  ['placeholder' => '-', 'class' =>'form-control', 'id' => 'number_of_perforations']) !!}
+                                    {!! Form::text('perforation_density', $fines_d_diagnosis->perforation_density,  ['placeholder' => '-', 'class' =>'form-control', 'id' => 'perforation_density']) !!}
                                     <span class="input-group-addon" id="basic-addon2">-</span>
                                  </div>
                               </div>

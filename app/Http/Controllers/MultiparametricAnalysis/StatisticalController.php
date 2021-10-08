@@ -525,6 +525,7 @@ class StatisticalController extends Controller
     public function duplicate($id, $duplicateFrom)
     {
         $_SESSION['scenary_id_dup'] = $id;
+        dd($id, $duplicateFrom);
         return $this->edit($duplicateFrom);
     }
 

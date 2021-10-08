@@ -111,19 +111,17 @@ class StatisticalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $duplicateFrom)
+    public function edit($id)
     {
         /* se trae todos los datos de la tabla statistical con el id = $id */
-        $statistical = Statistical::find($duplicateFrom);
+        $statistical = Statistical::find($id);
 
         if (!$statistical) {
-            $statistical = Statistical::where('escenario_id', $duplicateFrom)->first();
+            $statistical = Statistical::where('escenario_id', $id)->first();
             if (!$statistical) {
                 abort('404');
             }
         }
-
-        $statistical->escenario_id = $id;
 
         $pozoId = escenario::find($statistical->escenario_id)->pozo_id;
 
@@ -167,8 +165,9 @@ class StatisticalController extends Controller
         //se trae todas las cuencas existentes
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
-        // $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
+        $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
+        dd($id, $duplicateFrom);
         //dd(Session::get('GD4'));
         return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom']));
     }
@@ -527,7 +526,7 @@ class StatisticalController extends Controller
     public function duplicate($id, $duplicateFrom)
     {
         $_SESSION['scenary_id_dup'] = $id;
-        return $this->edit($id, $duplicateFrom);
+        return $this->edit($duplicateFrom);
     }
 
     /**

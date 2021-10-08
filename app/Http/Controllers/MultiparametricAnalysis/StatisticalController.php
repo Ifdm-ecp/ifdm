@@ -81,7 +81,10 @@ class StatisticalController extends Controller
      */
     public function show($id)
     {
-        $statistical = Statistical::where('escenario_id', $id)->first();
+        $statistical = Statistical::find($id);
+        if ($statistical == null) {
+            $statistical = Statistical::where('escenario_id', $id)->first();
+        }
 
         /* se trae los arrays autoriazados por bloques */
         $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));

@@ -116,6 +116,8 @@ class StatisticalController extends Controller
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $statistical = Statistical::find($id);
 
+        dd($id);
+
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
             if (!$statistical) {
@@ -166,6 +168,8 @@ class StatisticalController extends Controller
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
+
+        dd($duplicateFrom);
 
         //dd(Session::get('GD4'));
         return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom']));
@@ -525,7 +529,6 @@ class StatisticalController extends Controller
     public function duplicate($id, $duplicateFrom)
     {
         $_SESSION['scenary_id_dup'] = $id;
-        dd($id, $duplicateFrom);
         return $this->edit($duplicateFrom);
     }
 

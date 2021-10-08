@@ -116,8 +116,6 @@ class StatisticalController extends Controller
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $statistical = Statistical::find($id);
 
-        dd($id);
-
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
             if (!$statistical) {

@@ -20,10 +20,7 @@
 @if(!$statistical->status_wr)
 <div class="row">
   <div class="col-md-8">
-    <div class="container">
-      <div  id="container"></div>
-    </div>
-    
+    <div  id="container" class="ml-1"></div>
   </div>
   <div class="col-md-4">
     <p> </p>            

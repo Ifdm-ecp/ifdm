@@ -113,6 +113,7 @@ class StatisticalController extends Controller
      */
     public function edit($id)
     {
+        dd($ic);
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $statistical = Statistical::find($id);
 

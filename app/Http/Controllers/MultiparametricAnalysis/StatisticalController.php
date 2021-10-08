@@ -167,8 +167,6 @@ class StatisticalController extends Controller
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
-        dd($duplicateFrom);
-
         //dd(Session::get('GD4'));
         return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom']));
     }

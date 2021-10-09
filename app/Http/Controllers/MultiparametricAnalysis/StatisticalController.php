@@ -184,7 +184,25 @@ class StatisticalController extends Controller
             if (isset($request->duplicate)) {
                 unset($request->duplicate);
                 unset($_SESSION['scenary_id_dup']);
-                $this->store($request);
+                
+                $input = $request->all();
+
+                /* se modifica el array del campo field_statistical con implode */
+                if ($request->field_statistical) {
+                    $input['field_statistical'] = implode(",", $request->field_statistical);
+                }
+        
+                /* se pasa la variable calculate al funcion edit */
+                Session::flash('calculate', $request->calculate);
+        
+                /* se ingresa los datos de la tabla statistical */
+                $statistical = Statistical::create($input);
+        
+                /* se guarda el parametro en la tabla subparameters_weight */
+                subparameters_weight::create(['multiparametric_id' => $statistical->id]);
+        
+                //se redirecciona a la vista edit de statistical
+                return redirect()->route('statistical.edit', $statistical->id);
             } else {
                 if ($request->calculate == "true") {
                     //se modifica el array del campo field_statistical con implode

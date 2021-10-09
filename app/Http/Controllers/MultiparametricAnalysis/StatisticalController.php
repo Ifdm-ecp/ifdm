@@ -204,6 +204,9 @@ class StatisticalController extends Controller
 
                 return redirect()->route('statistical.edit', $statistical->id);
             } else {
+                if(isset($_SESSION['scenary_id_dup'])) {
+                    $quit_id = 1;
+                }
                 unset($_SESSION['scenary_id_dup']);
                 $scenario = escenario::find($request->id_scenary);
 
@@ -504,7 +507,10 @@ class StatisticalController extends Controller
                 $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
                 $statistical->escenario_id = $request->id_scenary;
 
-                dd($statistical);
+                //dd($statistical);
+                if(isset($quit_id)) {
+                    unset($statistical->id);
+                }
 
                 $statistical->save();
 

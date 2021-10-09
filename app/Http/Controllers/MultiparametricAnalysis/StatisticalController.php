@@ -504,7 +504,7 @@ class StatisticalController extends Controller
                 $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
                 $statistical->escenario_id = $request->id_scenary;
 
-                dd($statistical);
+                //dd($statistical);
 
                 $statistical->save();
 

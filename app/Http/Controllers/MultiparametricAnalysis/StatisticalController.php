@@ -195,10 +195,10 @@ class StatisticalController extends Controller
                 
                 /* se pasa la variable calculate al funcion edit */
                 Session::flash('calculate', $request->calculate);
-                dd('lolaaaaaaaa');
+                
                 /* se ingresa los datos de la tabla statistical */
                 $statistical = Statistical::create($input);
-        
+                dd('lolaaaaaaaa');
                 /* se guarda el parametro en la tabla subparameters_weight */
                 subparameters_weight::create(['multiparametric_id' => $statistical->id]);
         

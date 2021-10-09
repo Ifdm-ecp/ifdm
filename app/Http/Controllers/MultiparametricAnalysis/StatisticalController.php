@@ -247,8 +247,6 @@ class StatisticalController extends Controller
                 //se ingresa los datos de la tabla statistical
                 $statistical = Statistical::find($id);
 
-                $statistical->escenario_id = $escenario_id;
-
                 if ($request->msAvailable) {
                     $availableArray = $request->msAvailable;
 

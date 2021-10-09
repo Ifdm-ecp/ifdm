@@ -192,10 +192,10 @@ class StatisticalController extends Controller
                 if ($request->field_statistical) {
                     $input['field_statistical'] = implode(",", $request->field_statistical);
                 }
-                dd('lolaaaaaaaa');
+                
                 /* se pasa la variable calculate al funcion edit */
                 Session::flash('calculate', $request->calculate);
-        
+                dd('lolaaaaaaaa');
                 /* se ingresa los datos de la tabla statistical */
                 $statistical = Statistical::create($input);
         

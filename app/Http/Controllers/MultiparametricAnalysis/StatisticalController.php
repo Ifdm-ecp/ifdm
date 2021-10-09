@@ -183,10 +183,11 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             if (isset($request->duplicate)) {
                 unset($request->duplicate);
+                unset($request->id);
                 
-                dd($request, $_SESSION['scenary_id_dup']);
+                
                 $input = $request->all();
-
+                dd('lolaaaaaaaa');
                 /* se modifica el array del campo field_statistical con implode */
                 if ($request->field_statistical) {
                     $input['field_statistical'] = implode(",", $request->field_statistical);

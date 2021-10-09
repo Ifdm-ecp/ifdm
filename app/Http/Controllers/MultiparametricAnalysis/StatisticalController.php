@@ -204,7 +204,7 @@ class StatisticalController extends Controller
 
                 return redirect()->route('statistical.edit', $statistical->id);
             } else {
-                if(isset($_SESSION['scenary_id_dup'])) {
+                if(isset($request->duplicate)) {
                     $quit_id = 1;
                 }
                 unset($_SESSION['scenary_id_dup']);

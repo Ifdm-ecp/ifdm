@@ -36,6 +36,10 @@
 </div>
 {!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST', 'id' => 'multiparametricStatisticalForm'])!!}
   <input type="hidden" name="id_scenary" id="id_scenary" value="{{ !empty($duplicateFrom) ? $duplicateFrom : $statistical->escenario->id }}">
+  @if (exists($duplicateFrom))
+   <input type="hidden" name="duplicate" id="duplicate" value="{{ $duplicateFrom }}">
+  @endif
+
   <input type="hidden" name="calculate" value="false">
     <div class="tab-content">
       <br>

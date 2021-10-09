@@ -204,9 +204,9 @@ class StatisticalController extends Controller
 
                 return redirect()->route('statistical.edit', $statistical->id);
             } else {
-                if(isset($request->duplicate)) {
-                    $quit_id = 1;
-                }
+                // if(isset($request->duplicate)) {
+                //     $quit_id = 1;
+                // }
                 unset($_SESSION['scenary_id_dup']);
                 $scenario = escenario::find($request->id_scenary);
 
@@ -507,10 +507,9 @@ class StatisticalController extends Controller
                 $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
                 $statistical->escenario_id = $request->id_scenary;
 
-                //dd($statistical);
-                if(isset($quit_id)) {
-                    unset($statistical->id);
-                }
+                // if(isset($quit_id)) {
+                //     unset($statistical->id);
+                // }
 
                 $statistical->save();
 
@@ -518,9 +517,11 @@ class StatisticalController extends Controller
                 $scenario->estado = 1;
                 $scenario->save();
 
+                
+                dd($statistical,$scenario);
                 /* ingresa los datos en la tabla subparameters_weight */
-                // $inputs = $request->all();
-                // $statistical->subparameters->update($inputs);
+                $inputs = $request->all();
+                $statistical->subparameters->update($inputs);
 
                 return redirect()->route('statistical.show', $statistical->id);
             }

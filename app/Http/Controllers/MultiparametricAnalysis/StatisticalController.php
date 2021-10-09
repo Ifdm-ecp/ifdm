@@ -183,8 +183,8 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             if (isset($request->duplicate)) {
                 unset($request->duplicate);
-                unset($_SESSION['scenary_id_dup']);
                 
+                dd($request, $_SESSION['scenary_id_dup']);
                 $input = $request->all();
 
                 /* se modifica el array del campo field_statistical con implode */
@@ -201,6 +201,8 @@ class StatisticalController extends Controller
                 /* se guarda el parametro en la tabla subparameters_weight */
                 subparameters_weight::create(['multiparametric_id' => $statistical->id]);
         
+                unset($_SESSION['scenary_id_dup']);
+
                 //se redirecciona a la vista edit de statistical
                 return redirect()->route('statistical.edit', $statistical->id);
             } else {

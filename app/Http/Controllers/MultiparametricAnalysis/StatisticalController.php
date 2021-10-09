@@ -248,11 +248,14 @@ class StatisticalController extends Controller
                 }
 
                 //se ingresa los datos de la tabla statistical
-                $statistical = Statistical::find($id);
-
                 if(isset($request->duplicate)) {
+                    $statistical = Statistical::new();
+
+                
                     unset($request->duplicate);
                     unset($statistical->id);
+                }else{
+                    $statistical = Statistical::find($id);
                 }
                 
 

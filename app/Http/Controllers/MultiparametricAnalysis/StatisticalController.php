@@ -204,7 +204,6 @@ class StatisticalController extends Controller
 
                 return redirect()->route('statistical.edit', $statistical->id);
             } else {
-                $escenario_id = $_SESSION['scenary_id_dup'];
                 unset($_SESSION['scenary_id_dup']);
                 $scenario = escenario::find($request->id_scenary);
 

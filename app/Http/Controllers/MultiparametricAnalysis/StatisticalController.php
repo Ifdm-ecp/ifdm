@@ -250,6 +250,12 @@ class StatisticalController extends Controller
                 //se ingresa los datos de la tabla statistical
                 $statistical = Statistical::find($id);
 
+                if(isset($request->duplicate)) {
+                    unset($request->duplicate);
+                    unset($statistical->id);
+                }
+                
+
                 if ($request->msAvailable) {
                     $availableArray = $request->msAvailable;
 

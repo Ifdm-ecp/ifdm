@@ -34,12 +34,11 @@
       </ul>
    </div>
 </div>
-   @if (!empty($duplicateFrom))
-      {!!Form::open(['route' => [$complete == true ? 'completeMultiparametric.store' : 'statistical.store'], 'method' => 'POST'])!!}
-   @else
-      {!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST', 'id' => 'multiparametricStatisticalForm'])!!}
-   @endif
+{!!Form::model($statistical, ['route' => [$complete == true ? 'completeMultiparametric.update' : 'statistical.update_', $statistical->id], 'method' => 'POST', 'id' => 'multiparametricStatisticalForm'])!!}
   <input type="hidden" name="id_scenary" id="id_scenary" value="{{ !empty($duplicateFrom) ? $duplicateFrom : $statistical->escenario->id }}">
+  @if (!empty($duplicateFrom))
+   <input type="hidden" name="duplicate" id="duplicate" value="{{ $duplicateFrom }}">
+  @endif
 
   <input type="hidden" name="calculate" value="false">
     <div class="tab-content">

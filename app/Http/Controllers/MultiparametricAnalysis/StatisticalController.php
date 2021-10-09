@@ -165,16 +165,8 @@ class StatisticalController extends Controller
         //se trae todas las cuencas existentes
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
-        if (isset($_SESSION['scenary_id_dup'])) {
-            $duplicateFrom = $_SESSION['scenary_id_dup'];
-            $statistical->escenario_id = $duplicateFrom;
-        }else{
-            $duplicateFrom = null;
-        }
+        $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
-        // $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
-
-        //dd($id, $duplicateFrom);
         //dd(Session::get('GD4'));
         return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom']));
     }
@@ -254,6 +246,10 @@ class StatisticalController extends Controller
 
                 //se ingresa los datos de la tabla statistical
                 $statistical = Statistical::find($id);
+
+                if (isset($_SESSION['scenary_id_dup'])) {
+                    $statistical->escenario_id = $_SESSION['scenary_id_dup'];
+                }
 
                 if ($request->msAvailable) {
                     $availableArray = $request->msAvailable;

@@ -184,7 +184,7 @@ class StatisticalController extends Controller
             if (isset($request->duplicate)) {
                 unset($request->duplicate);
                 unset($_SESSION['scenary_id_dup']);
-                $this->create($request);
+                $this->store($request);
             } else {
                 if ($request->calculate == "true") {
                     //se modifica el array del campo field_statistical con implode

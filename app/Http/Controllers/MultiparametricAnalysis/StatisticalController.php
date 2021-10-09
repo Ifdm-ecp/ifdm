@@ -249,7 +249,7 @@ class StatisticalController extends Controller
 
                 //se ingresa los datos de la tabla statistical
                 if(isset($request->duplicate)) {
-                    $statistical = Statistical::new();
+                    $statistical = Statistical::make();
 
                 
                     unset($request->duplicate);

@@ -239,7 +239,7 @@ class list_well_controller extends Controller
                     $pqw=array();
                     $table = json_decode($table);
 
-                    dd($table);
+                    dd($table, $request->input("plt"));
 
                     foreach ($table as $value) {
                         if(count($table)>=1){

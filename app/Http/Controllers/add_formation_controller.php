@@ -65,7 +65,7 @@ class add_formation_controller extends Controller
                 //Validaciones para formulario
                 $validator = Validator::make($request->all(), [
                     'fieldFormation'=> 'required',
-                    'nameFormation'=> 'required|unique:formaciones,nombre',
+                    'nameFormation'=> 'required:formaciones,nombre',
                     'topFormation'=> 'numeric|min:0',
                     'porosityFormation'=> 'numeric|between:0,100',
                     'permeabilityFormation'=> 'numeric|min:0',

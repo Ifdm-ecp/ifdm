@@ -40,7 +40,7 @@ class AddFormationRequest extends Request
         return [
             //'prof.required_with' => 'Depth required.',
             'fieldFormation.required' => 'Field name required.',
-            // 'nameFormation.unique'  => 'Formation name has already been taken.',
+            'nameFormation.unique'  => 'Formation name has already been taken.',
             'nameFormation.required' => 'Formation name required.',
             'topFormation.numeric' => 'Top must be numeric.',
             'netPayFormation.numeric' => 'Netpay must be numeric.',

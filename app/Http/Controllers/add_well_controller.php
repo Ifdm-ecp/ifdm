@@ -185,10 +185,10 @@ class add_well_controller extends Controller
                     }
 
 
-                    dd($request->input("plt"));
+                    
 
                     //Guardar tabla PLT
-                    if ($request->input("plt") != "[{}]") { 
+                    if ($request->input("plt") != "[{}]" || $request->input("plt") != "[[null,null,null,null]]") { 
                         $plt=new plt;
                         $table = str_replace(",[null,null,null,null,null]","",$request->input("plt"));
                         $top=array();

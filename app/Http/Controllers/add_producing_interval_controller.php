@@ -150,33 +150,35 @@ class add_producing_interval_controller extends Controller
 
     public function storeWo($request, $formationxwell){
 
+        dd($request->input("RelP"));
+
         //Guardar tabla permeabilidad relativa w-o
-                    $relative_permeability_wo=new permeabilidad_relativaxf_wo;
-                    
-                    $tableWo = str_replace(",[null,null,null,null]","",$request->input("RelP"));
-                    $Sw=array();
-                    $Krw=array();
-                    $Kro=array();
-                    $Pcwo=array();
-                    $tableWo = json_decode($tableWo);
+        $relative_permeability_wo=new permeabilidad_relativaxf_wo;
+        
+        $tableWo = str_replace(",[null,null,null,null]","",$request->input("RelP"));
+        $Sw=array();
+        $Krw=array();
+        $Kro=array();
+        $Pcwo=array();
+        $tableWo = json_decode($tableWo);
 
-                    foreach ($tableWo as $valueWo) {
-                            $relative_permeability_wo = new permeabilidad_relativaxf_wo;
-                            $relative_permeability_wo->sw = str_replace(",", ".", $valueWo[0]);
-                            $Sw[] = (float)str_replace(",", ".", $valueWo[0]);
+        foreach ($tableWo as $valueWo) {
+                $relative_permeability_wo = new permeabilidad_relativaxf_wo;
+                $relative_permeability_wo->sw = str_replace(",", ".", $valueWo[0]);
+                $Sw[] = (float)str_replace(",", ".", $valueWo[0]);
 
-                            $relative_permeability_wo->krw = str_replace(",",".",$valueWo[1]);
-                            $Krw[] = (float)str_replace(",", ".", $valueWo[1]);
+                $relative_permeability_wo->krw = str_replace(",",".",$valueWo[1]);
+                $Krw[] = (float)str_replace(",", ".", $valueWo[1]);
 
-                            $relative_permeability_wo->kro = str_replace(",",".",$valueWo[2]);
-                            $Kro[] = (float)str_replace(",", ".", $valueWo[2]);
+                $relative_permeability_wo->kro = str_replace(",",".",$valueWo[2]);
+                $Kro[] = (float)str_replace(",", ".", $valueWo[2]);
 
-                            $relative_permeability_wo->pcwo = str_replace(",",".",$valueWo[3]);
-                            $Pcwo[] = (float)str_replace(",", ".", $valueWo[3]);
+                $relative_permeability_wo->pcwo = str_replace(",",".",$valueWo[3]);
+                $Pcwo[] = (float)str_replace(",", ".", $valueWo[3]);
 
-                            $relative_permeability_wo->formacionxpozo_id=$formationxwell->id;
-                            $relative_permeability_wo->save();
-                    }
+                $relative_permeability_wo->formacionxpozo_id=$formationxwell->id;
+                $relative_permeability_wo->save();
+        }
     }
 
     public function storeYacimiento($request, $formationxwell){

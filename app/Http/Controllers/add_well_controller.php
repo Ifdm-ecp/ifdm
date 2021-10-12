@@ -185,7 +185,7 @@ class add_well_controller extends Controller
                     }
 
 
-
+                    dd($request->input("plt"));
 
                     //Guardar tabla PLT
                     if ($request->input("plt") != "[{}]") { 

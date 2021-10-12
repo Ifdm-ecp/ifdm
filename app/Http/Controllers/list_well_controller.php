@@ -239,6 +239,8 @@ class list_well_controller extends Controller
                     $pqw=array();
                     $table = json_decode($table);
 
+                    dd($table);
+
                     foreach ($table as $value) {
                         if(count($table)>=1){
                             $plt = new plt;

@@ -150,7 +150,7 @@ class add_producing_interval_controller extends Controller
 
     public function storeWo($request, $formationxwell) {
 
-        if ($request->input("plt") !== "[{}]" && $request->input("plt") !== "[[null],[null]]") { 
+        if ($request->input("RelP") !== "[{}]" && $request->input("RelP") !== "[[null],[null]]") { 
             //Guardar tabla permeabilidad relativa w-o
             $relative_permeability_wo=new permeabilidad_relativaxf_wo;
                     

@@ -70,7 +70,7 @@ class add_well_controller extends Controller
                     'basin' => 'required',
                     'field' => 'required',
                     'uwi' => 'required',
-                    //'nameWell' => 'required|unique:pozos,nombre',
+                    'nameWell' => 'required|unique:pozos,nombre',
 
                     'wellRadius' => 'numeric|min:0',
                     'XW' => 'required',

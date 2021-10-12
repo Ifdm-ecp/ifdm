@@ -188,37 +188,40 @@ class add_well_controller extends Controller
 
 
                     //Guardar tabla PLT
-                    $plt=new plt;
-                    $table = str_replace(",[null,null,null,null,null]","",$request->input("plt"));
-                    $top=array();
-                    $bottom=array();
-                    $pqo=array();
-                    $pqg=array();
-                    $pqw=array();
-                    $table = json_decode($table);
-
-                    foreach ($table as $value) {
-                        if(count($table)>=1){
-                            $plt = new plt;
-                            $plt->top = str_replace(",", ".", $value[0]);
-                            $top[] = (float)str_replace(",", ".", $value[0]);
-
-                            $plt->bottom = str_replace(",",".",$value[1]);
-                            $bottom[] = (float)str_replace(",", ".", $value[1]);
-
-                            $plt->pqo = str_replace(",", ".", $value[2]);
-                            $pqo[] = (float)str_replace(",", ".", $value[2]);
-
-                            $plt->pqg = str_replace(",",".",$value[3]);
-                            $pqg[] = (float)str_replace(",", ".", $value[3]);
-
-                            $plt->pqw = str_replace(",",".",$value[4]);
-                            $pqw[] = (float)str_replace(",", ".", $value[4]);
-
-                            $plt->pozo_id=$well->id;
-                            $plt->save();
+                    if ($request->input("plt") != "[{}]") { 
+                        $plt=new plt;
+                        $table = str_replace(",[null,null,null,null,null]","",$request->input("plt"));
+                        $top=array();
+                        $bottom=array();
+                        $pqo=array();
+                        $pqg=array();
+                        $pqw=array();
+                        $table = json_decode($table);
+    
+                        foreach ($table as $value) {
+                            if(count($table)>=1){
+                                $plt = new plt;
+                                $plt->top = str_replace(",", ".", $value[0]);
+                                $top[] = (float)str_replace(",", ".", $value[0]);
+    
+                                $plt->bottom = str_replace(",",".",$value[1]);
+                                $bottom[] = (float)str_replace(",", ".", $value[1]);
+    
+                                $plt->pqo = str_replace(",", ".", $value[2]);
+                                $pqo[] = (float)str_replace(",", ".", $value[2]);
+    
+                                $plt->pqg = str_replace(",",".",$value[3]);
+                                $pqg[] = (float)str_replace(",", ".", $value[3]);
+    
+                                $plt->pqw = str_replace(",",".",$value[4]);
+                                $pqw[] = (float)str_replace(",", ".", $value[4]);
+    
+                                $plt->pozo_id=$well->id;
+                                $plt->save();
+                            }
                         }
                     }
+                   
 
                     return \Redirect::action('add_producing_interval_well_controller@index', compact('pozoId'));
                 }

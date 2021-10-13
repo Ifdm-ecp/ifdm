@@ -80,7 +80,13 @@ class add_producing_interval_controller extends Controller
                 $formationxwell->save();
                 //$formationxwell= formacionxpozo::find(90);
 
-               // dd();
+                //VALIDAR QUE si ya está asignado, no se debería dejar asignar de nuevo (el intervalo productor)
+                $formacionxwellvalidate = DB::table(formacionxpozo)->
+                where('pozo_id', $request->input('wellName'))->
+                where('formacion_id', $request->input('formacionName'))->
+                where('nombre', $request->input('nameInterval'));
+
+                dd($formacionxwellvalidate);
                 if($request->input("RelP") != '[[null]]')
                 {
                     $this->storeWo($request, $formationxwell);

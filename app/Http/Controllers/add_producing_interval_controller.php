@@ -84,7 +84,7 @@ class add_producing_interval_controller extends Controller
                 $formacionxwellvalidate = DB::table('formacionxpozo')->
                 where('pozo_id', $request->input('wellName'))->
                 where('formacion_id', $request->input('formacionName'))->
-                where('nombre', $request->input('nameInterval'));
+                where('nombre', $request->input('nameInterval'))->count();
 
                 dd($formacionxwellvalidate);
                 if($request->input("RelP") != '[[null]]')

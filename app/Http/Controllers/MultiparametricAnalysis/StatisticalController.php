@@ -184,9 +184,6 @@ class StatisticalController extends Controller
             if (isset($request->duplicate)) {
                 
                 unset($_SESSION['scenary_id_dup']);
-                // unset($request->duplicate);
-                // unset($request->id);
-                // $input = $request->all();
 
                 $scenario = escenario::find($request->duplicate);
 
@@ -486,7 +483,6 @@ class StatisticalController extends Controller
                 $statistical->gdAvailable = $input['gdAvailable'];
                 $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
                 $statistical->escenario_id = $request->id_scenary;
-
                 $statistical->save();
 
                 $scenario->completo = $request->only_s == "save" ? 0 : 1;
@@ -496,44 +492,7 @@ class StatisticalController extends Controller
                 $subparameters_weight = subparameters_weight::create(['multiparametric_id' => $statistical->id]);
                 $subparameters_weight->update($request->all());
 
-
-                // $statistical = Statistical::find($statistical->id);
-
-                // dd($request, $request->all(), $statistical->subaparameters, $statistical->id);
-
-                /* ingresa los datos en la tabla subparameters_weight */
-                // $inputs = $request->all();
-                // $statistical->subparameters->update($inputs);
-
                 return redirect()->route('statistical.show', $statistical->id);
-
-
-
-
-
-
-
-                // $input = $request->all();
-                // dd($request->duplicate, $request->id, $input);
-
-                // /* se modifica el array del campo field_statistical con implode */
-                // if ($request->field_statistical) {
-                //     $input['field_statistical'] = implode(",", $request->field_statistical);
-                // }
-                
-                // /* se pasa la variable calculate al funcion edit */
-                // Session::flash('calculate', $request->calculate);
-                
-                // /* se ingresa los datos de la tabla statistical */
-                // $statistical = Statistical::create($input);
-                // dd('lolaaaaaaaa');
-                // /* se guarda el parametro en la tabla subparameters_weight */
-                // subparameters_weight::create(['multiparametric_id' => $statistical->id]);
-        
-                // unset($_SESSION['scenary_id_dup']);
-
-                // //se redirecciona a la vista edit de statistical
-                // return redirect()->route('statistical.edit', $statistical->id);
             } else {
                 if ($request->calculate == "true") {
                     //se modifica el array del campo field_statistical con implode
@@ -558,9 +517,6 @@ class StatisticalController extends Controller
     
                     return redirect()->route('statistical.edit', $statistical->id);
                 } else {
-                    // if(isset($request->duplicate)) {
-                    //     $quit_id = 1;
-                    // }
                     unset($_SESSION['scenary_id_dup']);
                     $scenario = escenario::find($request->id_scenary);
     
@@ -603,12 +559,6 @@ class StatisticalController extends Controller
     
                     //se ingresa los datos de la tabla statistical
                     $statistical = Statistical::find($id);
-                    
-                    // if(isset($request->duplicate)) {               
-                    //     unset($request->duplicate);
-                    //     unset($statistical->id);
-                    // }
-                    
     
                     if ($request->msAvailable) {
                         $availableArray = $request->msAvailable;
@@ -866,22 +816,14 @@ class StatisticalController extends Controller
                     $statistical->gdAvailable = $input['gdAvailable'];
                     $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
                     $statistical->escenario_id = $request->id_scenary;
-    
-                    // if(isset($quit_id)) {
-                    //     unset($statistical->id);
-                    // }
-    
                     $statistical->save();
     
                     $scenario->completo = $request->only_s == "save" ? 0 : 1;
                     $scenario->estado = 1;
                     $scenario->save();
     
-                    
-                    //dd($statistical,$scenario);
                     /* ingresa los datos en la tabla subparameters_weight */
                     $inputs = $request->all();
-                    dd('ES LA GUITARRA DE LOLO',  $statistical->subparameters);
                     $statistical->subparameters->update($inputs);
     
                     return redirect()->route('statistical.show', $statistical->id);

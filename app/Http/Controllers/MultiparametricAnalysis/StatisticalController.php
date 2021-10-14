@@ -190,6 +190,43 @@ class StatisticalController extends Controller
 
                 $scenario = escenario::find($request->duplicate);
 
+                //se conviertelos arrays en cadenas
+                if ($request->msAvailable) {
+                    $input['msAvailable'] = implode(",", $request->msAvailable);
+                } else {
+                    $input['msAvailable'] = null;
+                }
+
+                if ($request->fbAvailable) {
+                    $input['fbAvailable'] = implode(",", $request->fbAvailable);
+                } else {
+                    $input['fbAvailable'] = null;
+                }
+
+                if ($request->osAvailable) {
+                    $input['osAvailable'] = implode(",", $request->osAvailable);
+                } else {
+                    $input['osAvailable'] = null;
+                }
+
+                if ($request->rpAvailable) {
+                    $input['rpAvailable'] = implode(",", $request->rpAvailable);
+                } else {
+                    $input['rpAvailable'] = null;
+                }
+
+                if ($request->idAvailable) {
+                    $input['idAvailable'] = implode(",", $request->idAvailable);
+                } else {
+                    $input['idAvailable'] = null;
+                }
+
+                if ($request->gdAvailable) {
+                    $input['gdAvailable'] = implode(",", $request->gdAvailable);
+                } else {
+                    $input['gdAvailable'] = null;
+                }
+
                 $statistical = new Statistical;
                 $statistical->escenario_id = $request->duplicate;
                 

@@ -493,11 +493,11 @@ class StatisticalController extends Controller
                 $scenario->estado = 1;
                 $scenario->save();
 
-                dd($request, $request->all(), $statistical->subaparameters);
+                // dd($request, $request->all(), $statistical->subaparameters);
 
                 /* ingresa los datos en la tabla subparameters_weight */
-                $inputs = $request->all();
-                $statistical->subparameters->update($inputs);
+                // $inputs = $request->all();
+                // $statistical->subparameters->update($inputs);
 
                 return redirect()->route('statistical.show', $statistical->id);
 

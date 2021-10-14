@@ -2026,10 +2026,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 }else{
                                     $porosity_limit_constant = $porosity_limit_constantite[1] + (($porosity_limit_constantite[2] - $porosity_limit_constantite[1]) / ($kite[2] - $kite[1])) * ($pact - $kite[1]);
                                 }
+                                # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
                                 }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
+                                    $porosity_limit_constant = 1;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 
@@ -2048,10 +2049,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 }else{
                                     $porosity_limit_constant = $porosity_limit_constantite[$j] + (($porosity_limit_constantite[$j + 1] - $porosity_limit_constantite[$j]) / ($kite[$j + 1] - $kite[$j])) * ($kact - $kite[$j]);
                                 }
+                                # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
                                 }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
+                                    $porosity_limit_constant = 1;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 

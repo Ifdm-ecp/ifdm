@@ -34,6 +34,7 @@ trait ResetsPasswords
         $this->validate($request, ['email' => 'required|email']);
         $correo = $request->email;
 
+        dd('dawd');
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject($this->getEmailSubject());
         });

@@ -76,7 +76,7 @@ class add_producing_interval_controller extends Controller
 
                 if ($formacionxwellvalidate > 0) {
                     return redirect('AddFormationWellC')
-                        ->withErrors('Producing interval has already been taken.')
+                        ->withErrors('Producing interval has already been created.')
                         ->withInput();
                 }
 

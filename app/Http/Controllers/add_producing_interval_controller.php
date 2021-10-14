@@ -68,6 +68,12 @@ class add_producing_interval_controller extends Controller
             if(\Auth::User()->profile!=5){
                 //Validaciones para formulario
                 
+                //VALIDAR QUE si ya está asignado, no se debería dejar asignar de nuevo (el intervalo productor)
+                $formacionxwellvalidate = DB::table('formacionxpozos')->
+                where('pozo_id', $request->input('wellName'))->
+                where('formacion_id', $request->input('formacionName'))->
+                where('nombre', $request->input('nameInterval'))->count();
+
                 $formationxwell=new formacionxpozo;
                 $formationxwell->nombre = $request->input('nameInterval');
                 $formationxwell->top = $request->input('top');
@@ -80,11 +86,7 @@ class add_producing_interval_controller extends Controller
                 $formationxwell->save();
                 //$formationxwell= formacionxpozo::find(90);
 
-                //VALIDAR QUE si ya está asignado, no se debería dejar asignar de nuevo (el intervalo productor)
-                $formacionxwellvalidate = DB::table('formacionxpozos')->
-                where('pozo_id', $request->input('wellName'))->
-                where('formacion_id', $request->input('formacionName'))->
-                where('nombre', $request->input('nameInterval'))->count();
+                
 
                 dd($formacionxwellvalidate);
                 if($request->input("RelP") != '[[null]]')

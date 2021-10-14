@@ -74,6 +74,12 @@ class add_producing_interval_controller extends Controller
                 where('formacion_id', $request->input('formacionName'))->
                 where('nombre', $request->input('nameInterval'))->count();
 
+                if ($formacionxwellvalidate > 0) {
+                    return redirect('AddFormationWellC')
+                        ->withErrors('holiiiiiii')
+                        ->withInput();
+                }
+
                 $formationxwell=new formacionxpozo;
                 $formationxwell->nombre = $request->input('nameInterval');
                 $formationxwell->top = $request->input('top');

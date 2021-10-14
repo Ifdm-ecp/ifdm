@@ -89,7 +89,7 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'nameWell.unique' => 'The well name has already been taken.',
+            'rule-name' => 'custom-message',
         ],
     ],
 

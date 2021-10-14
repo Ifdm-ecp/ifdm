@@ -818,6 +818,14 @@ class add_fines_migration_diagnosis_controller extends Controller
     $phisw = array_fill(1, $nx, 0); 
     $phip = array_fill(1, $nx, 0); 
     $sigma = array_fill(1, $nx, 0);
+    $u_escala = array_fill(1, $nx, 0);
+    $dp_escala = array_fill(1, $nx, 0);
+
+    for ($i=1; $i <= $nx ; $i++) 
+    {
+        $u_escala[$i] = $u[$i] * 0.32774;
+        $dp_escala[$i] = $dp[$i] * 0.002232;
+    }
 
         #Rango de constantes fenomenológicas        
         #Cálculo de la tasa de depositacion y la depositacion de finos.
@@ -829,13 +837,13 @@ class add_fines_migration_diagnosis_controller extends Controller
     { 
         //$phisw[$i] = $phin[$i] * pow($relperm, (1.0 / 3.0));
         $phisw[$i] = $phin[$i] * pow(1 - $relperm, (1.0 / 3.0));
-        if (abs($dp[$i]) > $dpdl)
+        if (abs($dp_escala[$i]) > -$dpdl)
         {
-            $dsigma[$i] = $k1 * $u[$i] * $rhop * $con[$i] * $phin[$i] - $k2 * $sigmai * (abs($dp[$i]) - $dpdl);
+            $dsigma[$i] = $k1 * $u_escala[$i] * $rhop * $con[$i] * $phin[$i] - ($k2 * $con[$i] * ( (-$dp_escala[$i]) - (-$dpdl) ));
         }
         else
         {
-            $dsigma[$i] = $k1 * $u[$i] * $rhop * $con[$i] * $phin[$i];
+            $dsigma[$i] = $k1 * $u_escala[$i] * $rhop * $con[$i] * $phin[$i];
         }
 
         if ($u[$i] == 0)
@@ -856,9 +864,9 @@ class add_fines_migration_diagnosis_controller extends Controller
     $sigma1 = $con;
     for ($i=1; $i <= $nx ; $i++) 
     { 
-        if(abs($dp[$i]) > $dpdlc)
+        if(-$dp_escala[$i] > -$dpdlc)
         {
-            $dsigma1[$i] = $k3 * $sigma1[$i] * (1.0 - exp(-0.00092903 * $k4 * pow($t, 0.5))) * exp(-0.00092903 * $k5 * $sigmai) * (abs($dp[$i]) - $dpdlc);
+            $dsigma1[$i] = $k3 * $sigmai * (1.0 - exp(-0.00092903 * $k4 * pow($t, 0.5))) * exp(-0.00092903 * $k5 * $sigma1[$i]) * ( (-$dp_escala[$i]) - (-$dpdl) );
         }
         else
         {

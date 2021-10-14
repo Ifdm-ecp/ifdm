@@ -2078,7 +2078,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
                                 }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
+                                    $porosity_limit_constant = 1;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 
@@ -2088,7 +2088,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                                 $bo = array_fill(1, $nr, 0);
                                 $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3]);
+                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $flag_ran_yy_11, 3]);
                                 // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 3, $xx);
                                 break;
                             }

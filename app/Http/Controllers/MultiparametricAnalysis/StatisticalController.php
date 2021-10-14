@@ -493,11 +493,13 @@ class StatisticalController extends Controller
                 $scenario->estado = 1;
                 $scenario->save();
 
-                subparameters_weight::create(['multiparametric_id' => $statistical->id]);
+                $subparameters_weight = subparameters_weight::create(['multiparametric_id' => $statistical->id]);
+                $subparameters_weight->update($request->all());
+
 
                 // $statistical = Statistical::find($statistical->id);
 
-                dd($request, $request->all(), $statistical->subaparameters, $statistical->id);
+                // dd($request, $request->all(), $statistical->subaparameters, $statistical->id);
 
                 /* ingresa los datos en la tabla subparameters_weight */
                 // $inputs = $request->all();

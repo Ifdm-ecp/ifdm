@@ -92,9 +92,6 @@ class add_producing_interval_controller extends Controller
                 $formationxwell->save();
                 //$formationxwell= formacionxpozo::find(90);
 
-                
-
-                dd($formacionxwellvalidate);
                 if($request->input("RelP") != '[[null]]')
                 {
                     $this->storeWo($request, $formationxwell);

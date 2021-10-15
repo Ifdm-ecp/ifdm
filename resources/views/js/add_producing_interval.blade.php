@@ -254,7 +254,6 @@
                 },
                 function(data) {
                     $("#field").empty();
-                    console.log(data);
                     $.each(data, function(index, value) {
                         $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                     });

@@ -70,7 +70,7 @@ class add_well_controller extends Controller
                     'basin' => 'required',
                     'field' => 'required',
                     'uwi' => 'required',
-                    'nameWell' => 'required|unique:pozos,nombre',
+                    'wellName' => 'required|unique:pozos,nombre',
 
                     'wellRadius' => 'numeric|min:0',
                     'XW' => 'required',
@@ -129,7 +129,7 @@ class add_well_controller extends Controller
                     $well=new pozo;
 
                     //Guardar informacion general del pozo
-                    $well->nombre = $request->input('nameWell');
+                    $well->nombre = $request->input('wellName');
                     $well->campo_id = $request->input('field');
                     $well->uwi = $request->input('uwi');
                     $well->radius = $request->input('wellRadius');

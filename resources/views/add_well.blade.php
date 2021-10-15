@@ -39,9 +39,9 @@
             </div>
             <div class="row">
                <div class="col-md-6">
-                  <div class="form-group {{$errors->has('nameWell') ? 'has-error' : ''}}">
+                  <div class="form-group {{$errors->has('wellName') ? 'has-error' : ''}}">
                      {!! Form::label('name', 'Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
-                     {!! Form::text('nameWell', '', array('class' => 'form-control','id'=>'nameWell')) !!}
+                     {!! Form::text('wellName', '', array('class' => 'form-control','id'=>'wellName')) !!}
                   </div>
                </div>
                <div class="col-md-6">

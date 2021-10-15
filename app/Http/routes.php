@@ -3718,6 +3718,7 @@ Route::group(['middleware' => 'auth'], function(){
         $basin = Input::get('basin');
         $field = App\campo::select(DB::raw('*'))
         ->where('cuenca_id','=',$basin)
+        ->orderBy('nombre', 'asc')
         ->get();
 
         return Response::json($field);

@@ -80,8 +80,6 @@ class add_well_controller extends Controller
 
                  ]);
 
-                 dd($request->all());
-
                 if ($validator->fails()) {
                     return redirect('AddFormationWC')
                         ->withErrors($validator)

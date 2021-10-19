@@ -1607,9 +1607,9 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
 
             if ($xx == 6) {
-                //dd('llegué a 6');
-                dd('LLEGA AL INICIO DEL xx = 6',$pite);
-                //dd(count($pite));
+                // dd('llegué a 6');
+                // dd('LLEGA AL INICIO DEL xx = 6',$pite);
+                // dd(count($pite));
 
                 #Eliminar posiciones en 0
                 while (count($pite) > 1 && $pite[count($pite)] == 0) { 
@@ -1628,6 +1628,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                     $bo = array_fill(1, $nr, 0);
                     $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                    dd($pact, $pite, $crite, $cr, 0, $xx);
                 } else { 
                     for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
                         if ($pact > $pite[1]) {

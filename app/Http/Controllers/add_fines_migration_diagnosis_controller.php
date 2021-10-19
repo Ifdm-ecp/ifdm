@@ -25,6 +25,7 @@ use \SplFixedArray;
 use App\fines_d_diagnosis_results;
 use App\fines_d_diagnosis_results_skin;
 use App\error_log;
+use Redirect;
 
 class add_fines_migration_diagnosis_controller extends Controller
 {

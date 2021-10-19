@@ -1415,6 +1415,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $flag_ran_xx_7 = 1;
                             break 2;
                         }else{
+                            if ($xx == 1) {
+                                return redirect::back()
+                                ->withErrors(['msg' => 'Bottomhole pressure']);
+                            }
                             $xx = 6;
                             //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
                             break 2;
@@ -1618,10 +1622,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                     }
                 }
 
-                if (count($pite) == 0) {
-                    return redirect::back()
-                        ->withErrors(['msg' => 'Bottomhole pressure']);
-                } elseif (count($pite) == 1) {
+                
+                if (count($pite) == 1) {
                     $cr = $crite[1];
                     $pn = array_fill(1, $nr, $pini); 
                     $phin = array_fill(1, $nr, $phio); 

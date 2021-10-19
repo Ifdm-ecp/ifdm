@@ -2040,7 +2040,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                                 $bo = array_fill(1, $nr, 0);
                                 $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $kc, 1]);
+                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $simulation_results, 1]);
                                 //dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 1, $xx);
                                 break;
                             }elseif (($kact < $kite[$j]) && ($kact > $kite[$j + 1])) { 
@@ -2063,7 +2063,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                                 $bo = array_fill(1, $nr, 0);
                                 $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $kc, 2]);
+                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $simulation_results, 2]);
                                 //dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 2, $xx);
                                 break;
                             }elseif ($kact < $kite[count($kite)]) {
@@ -2090,7 +2090,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                                 $bo = array_fill(1, $nr, 0);
                                 $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $flag_ran_yy_11, $kc, 3]);
+                                dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $flag_ran_yy_11, $simulation_results, 3]);
                                 // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 3, $xx);
                                 break;
                             }

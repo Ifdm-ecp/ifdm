@@ -1293,9 +1293,9 @@ class add_fines_migration_diagnosis_controller extends Controller
         }
 
         #Variables nuevas
-        $cri = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
+        $cri = array(1 => 0.1, 0.005, 0.001, 0.0005, 0.0001, 0.000005, 0.000001, 0.0000005);
         $pite = array(1 => 0, 0, 0, 0, 0);
-        $crite = array(1 => 0.01, 0.005, 0.001, 0.0005, 0.0001);
+        $crite = array(1 => 0.1, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
         $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0);
         $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5);

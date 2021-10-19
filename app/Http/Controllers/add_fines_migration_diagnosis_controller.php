@@ -1978,7 +1978,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             { 
                                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
                             }
-                            dd($cr, $porosity_limit_constant, $simulation_results);
+                            // dd($cr, $porosity_limit_constant, $simulation_results);
                             //dd($r, $pcal, $phic, $kc, $coc, 'lel');
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                             array_push($complete_simulated_results, $simulation_results);

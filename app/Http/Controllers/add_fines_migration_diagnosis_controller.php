@@ -1632,7 +1632,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                         $bo = array_fill(1, $nr, 0);
                         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        // dd($pact, $pite, $crite, $cr, 1, $xx);
+                        dd($pact, $pite, $crite, $cr, 1, $xx);
                         break;
                     }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
                         $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
@@ -1647,7 +1647,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                         $bo = array_fill(1, $nr, 0);
                         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        // dd($pact, $pite, $crite, $cr, 2, $xx);
+                        dd($pact, $pite, $crite, $cr, 2, $xx);
                         break;
                     }elseif ($pact < $pite[count($pite)]) {
                         if ($flag_ran_xx_7 == 0) {
@@ -1666,7 +1666,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                         $bo = array_fill(1, $nr, 0);
                         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        // dd($pact, $pite, $crite, $cr, 3, $xx);
+                        dd($pact, $pite, $crite, $cr, 3, $xx);
                         break;
                     }
                 }

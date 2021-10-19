@@ -629,6 +629,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'dporo', $dporo,'dpart', $dpart,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
+                dd($simulation_results, gettype($simulation_results));
+
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
                 $historical_data = array_merge($historical_data, $historical_projection_data);
@@ -1418,7 +1420,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }else{
                             if ($xx == 1) {
                                 return Redirect::back()
-                                ->withErrors(['msg' => 'Bottomhole pressure']);
+                                ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.']);
                             }
                             $xx = 6;
                             //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
@@ -2049,8 +2051,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = 1;
+                                }elseif ($porosity_limit_constant >= 1.5) {
+                                    $porosity_limit_constant = 1.5;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 
@@ -2072,8 +2074,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = 1;
+                                }elseif ($porosity_limit_constant >= 1.5) {
+                                    $porosity_limit_constant = 1.5;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 
@@ -2099,8 +2101,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 # Acotar la constante
                                 if ($porosity_limit_constant <= 0) { 
                                     $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1) {
-                                    $porosity_limit_constant = 1;
+                                }elseif ($porosity_limit_constant >= 1.5) {
+                                    $porosity_limit_constant = 1.5;
                                 }
                                 $pn = array_fill(1, $nr, $pini); 
                                 $phin = array_fill(1, $nr, $phio); 

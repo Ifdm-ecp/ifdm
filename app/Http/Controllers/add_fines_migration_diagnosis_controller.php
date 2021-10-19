@@ -1415,6 +1415,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $flag_ran_xx_7 = 1;
                             break 2;
                         }else{
+                            dd($xx, 'lolita');
                             $xx = 6;
                             //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
                             break 2;

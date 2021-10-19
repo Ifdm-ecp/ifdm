@@ -1111,7 +1111,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         }
 
         $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
-        dd('run simulation');
+        // dd('run simulation');
         return $simulation_results;
     }
     function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 

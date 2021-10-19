@@ -1618,7 +1618,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                     }
                 }
 
-                if (count($pite) == 1) {
+                if (count($pite) == 0) {
+                    return redirect::back()
+                        ->withErrors(['msg' => 'Bottomhole pressure']);
+                } elseif (count($pite) == 1) {
                     $cr = $crite[1];
                     $pn = array_fill(1, $nr, $pini); 
                     $phin = array_fill(1, $nr, $phio); 

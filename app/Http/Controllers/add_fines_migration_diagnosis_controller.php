@@ -1416,7 +1416,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             break 2;
                         }else{
                             if ($xx == 1) {
-                                return redirect::back()
+                                return Redirect::back()
                                 ->withErrors(['msg' => 'Bottomhole pressure']);
                             }
                             $xx = 6;

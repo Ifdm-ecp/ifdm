@@ -1617,57 +1617,69 @@ class add_fines_migration_diagnosis_controller extends Controller
                         array_pop($pite);
                     }
                 }
-                
-                for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
-                    if ($pact > $pite[1]) {
-                        $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)];
+
+                if (count($pite) == 1) {
+                    $cr = $crite[1];
+                    $pn = array_fill(1, $nr, $pini); 
+                    $phin = array_fill(1, $nr, $phio); 
+                    $kn = array_fill(1, $nr, $ko); 
+                    $co = array_fill(1, $nr, $coi); 
+                    $cod = array_fill(1, $nr, 0); 
+                    $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                    $bo = array_fill(1, $nr, 0);
+                    $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                } else { 
+                    for ($j = 1; $j <= (count($pite) - 1); $j++) {  #length(crite)-1
+                        if ($pact > $pite[1]) {
+                            $cr = $crite[1] + (($crite[2] - $crite[1]) / ($pite[2] - $pite[1])) * ($pact - $pite[1]);
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)];
+                            }
+                            $pn = array_fill(1, $nr, $pini); 
+                            $phin = array_fill(1, $nr, $phio); 
+                            $kn = array_fill(1, $nr, $ko); 
+                            $co = array_fill(1, $nr, $coi); 
+                            $cod = array_fill(1, $nr, 0); 
+                            $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                            $bo = array_fill(1, $nr, 0);
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            dd($pact, $pite, $crite, $cr, 1, $xx);
+                            break;
+                        }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
+                            $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)];
+                            }
+                            $pn = array_fill(1, $nr, $pini); 
+                            $phin = array_fill(1, $nr, $phio); 
+                            $kn = array_fill(1, $nr, $ko); 
+                            $co = array_fill(1, $nr, $coi); 
+                            $cod = array_fill(1, $nr, 0); 
+                            $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                            $bo = array_fill(1, $nr, 0);
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            dd($pact, $pite, $crite, $cr, 2, $xx);
+                            break;
+                        }elseif ($pact < $pite[count($pite)]) {
+                            if ($flag_ran_xx_7 == 0) {
+                                $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
+                            }else{
+                                $cr = $crite[count($pite)];
+                            }
+                            if ($cr < 0) { 
+                                $cr = $crite[count($pite)]; 
+                            }
+                            $pn = array_fill(1, $nr, $pini); 
+                            $phin = array_fill(1, $nr, $phio); 
+                            $kn = array_fill(1, $nr, $ko); 
+                            $co = array_fill(1, $nr, $coi); 
+                            $cod = array_fill(1, $nr, 0); 
+                            $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                            $bo = array_fill(1, $nr, 0);
+                            $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                            dd($pact, $pite, $crite, $cr, 3, $xx);
+                            break;
                         }
-                        $pn = array_fill(1, $nr, $pini); 
-                        $phin = array_fill(1, $nr, $phio); 
-                        $kn = array_fill(1, $nr, $ko); 
-                        $co = array_fill(1, $nr, $coi); 
-                        $cod = array_fill(1, $nr, 0); 
-                        $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                        $bo = array_fill(1, $nr, 0);
-                        $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        dd($pact, $pite, $crite, $cr, 1, $xx);
-                        break;
-                    }elseif (($pact < $pite[$j]) && ($pact > $pite[$j + 1])) { 
-                        $cr = $crite[$j] + (($crite[$j + 1] - $crite[$j]) / ($pite[$j + 1] - $pite[$j])) * ($pact - $pite[$j]);
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)];
-                        }
-                        $pn = array_fill(1, $nr, $pini); 
-                        $phin = array_fill(1, $nr, $phio); 
-                        $kn = array_fill(1, $nr, $ko); 
-                        $co = array_fill(1, $nr, $coi); 
-                        $cod = array_fill(1, $nr, 0); 
-                        $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                        $bo = array_fill(1, $nr, 0);
-                        $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        dd($pact, $pite, $crite, $cr, 2, $xx);
-                        break;
-                    }elseif ($pact < $pite[count($pite)]) {
-                        if ($flag_ran_xx_7 == 0) {
-                            $cr = $crite[count($pite) - 1] + (($crite[count($pite)] - $crite[count($pite) - 1]) / ($pite[count($pite)] - $pite[count($pite) - 1])) * ($pact - $pite[count($pite) - 1]);
-                        }else{
-                            $cr = $crite[count($pite)];
-                        }
-                        if ($cr < 0) { 
-                            $cr = $crite[count($pite)]; 
-                        }
-                        $pn = array_fill(1, $nr, $pini); 
-                        $phin = array_fill(1, $nr, $phio); 
-                        $kn = array_fill(1, $nr, $ko); 
-                        $co = array_fill(1, $nr, $coi); 
-                        $cod = array_fill(1, $nr, 0); 
-                        $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                        $bo = array_fill(1, $nr, 0);
-                        $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                        dd($pact, $pite, $crite, $cr, 3, $xx);
-                        break;
                     }
                 }
             }

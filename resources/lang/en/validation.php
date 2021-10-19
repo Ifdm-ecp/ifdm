@@ -91,6 +91,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'nameWell' => [
+            'unique1' => 'The well name has already been taken.',
+        ],
     ],
 
     /*

@@ -28,7 +28,7 @@ class fines_migration_diagnosis_request extends Request
 
         if (!isset($_POST['button_wr'])) {
             return [
-                'drainage_radius'=> 'numeric|required|min:'.$well_radius.'|min:100|not_in:100|not_in:'.$well_radius,
+                'drainage_radius'=> 'numeric|required|min:'.$well_radius.'|min:0|not_in:0|not_in:'.$well_radius,
                 'formation_height'=> 'numeric|required|min:0|not_in:0',
                 'well_radius'=> 'numeric|required|min:0|not_in:0|max:'.$drainage_radius.'|not_in:'.$drainage_radius,
                 'perforation_radius'=> 'numeric|required_with:perforation_density|min:0|not_in:0',
@@ -129,7 +129,7 @@ class fines_migration_diagnosis_request extends Request
             'amount_of_dates.numeric' => 'Amount of dates must be numeric.',
             'initial_fines_concentration_in_fluid.numeric' => 'Initial Finces Concentration in Fluid must be numeric.',
 
-            'drainage_radius.min' => 'Drainage radius must be greater than 100 ft and Well Radius.',
+            'drainage_radius.min' => 'Drainage radius must be greater than 0 ft and Well Radius.',
             'drainage_radius.not_in' => 'Drainage radius must be greater than 100 ft and Well Radius.',
             'formation_height.min' => 'Net Pay must be greater than 0.',
             'formation_height.not_in' => 'Net Pay must be greater than 0.',

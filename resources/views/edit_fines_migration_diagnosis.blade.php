@@ -18,10 +18,6 @@
 <p></p>
 </br>
 
-@if($errors->has('msg'))
-<h4>{{$errors->first()}}</h4>
-@endif
-
 {!!Form::model($fines_d_diagnosis, array('route' => array('finesMigrationDiagnosis.update', $fines_d_diagnosis->id), 'method' => 'PATCH'), array('role' => 'form'))!!}
 <input type="hidden" name="duplicateFrom" id="duplicateFrom" value="{{ $duplicateFrom }}">
 <div class="nav">

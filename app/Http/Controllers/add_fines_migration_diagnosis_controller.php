@@ -281,6 +281,10 @@ class add_fines_migration_diagnosis_controller extends Controller
             if (!$button_wr) {
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
+                if($simulation_results[0] === false) {
+                    return $simulation_results[1];
+                }
+
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
                 $historical_data = array_merge($historical_data, $historical_projection_data);

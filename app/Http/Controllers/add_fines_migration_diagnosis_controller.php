@@ -1415,7 +1415,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $flag_ran_xx_7 = 1;
                             break 2;
                         }else{
-                            dd($xx, 'lolita');
                             $xx = 6;
                             //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
                             break 2;
@@ -1609,7 +1608,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
             if ($xx == 6) {
                 //dd('llegué a 6');
-                //dd('LLEGA AL INICIO DEL xx = 6',$pite);
+                dd('LLEGA AL INICIO DEL xx = 6',$pite);
                 //dd(count($pite));
 
                 #Eliminar posiciones en 0

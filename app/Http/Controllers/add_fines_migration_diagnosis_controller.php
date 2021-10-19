@@ -837,7 +837,7 @@ class add_fines_migration_diagnosis_controller extends Controller
     { 
         //$phisw[$i] = $phin[$i] * pow($relperm, (1.0 / 3.0));
         $phisw[$i] = $phin[$i] * pow(1 - $relperm, (1.0 / 3.0));
-        if (abs($dp_escala[$i]) > -$dpdl)
+        if (-$dp_escala[$i] > -$dpdl)
         {
             $dsigma[$i] = $k1 * $u_escala[$i] * $rhop * $con[$i] * $phin[$i] - ($k2 * $con[$i] * ( (-$dp_escala[$i]) - (-$dpdl) ));
         }
@@ -864,7 +864,7 @@ class add_fines_migration_diagnosis_controller extends Controller
     $sigma1 = $con;
     for ($i=1; $i <= $nx ; $i++) 
     { 
-        if(-$dp_escala[$i] > -$dpdlc)
+        if(-$dp_escala[$i] > -$dpdl)
         {
             $dsigma1[$i] = $k3 * $sigmai * (1.0 - exp(-0.00092903 * $k4 * pow($t, 0.5))) * exp(-0.00092903 * $k5 * $sigma1[$i]) * ( (-$dp_escala[$i]) - (-$dpdl) );
         }

@@ -629,7 +629,9 @@ class add_fines_migration_diagnosis_controller extends Controller
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'dporo', $dporo,'dpart', $dpart,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
-                dd($simulation_results, gettype($simulation_results));
+                if($simulation_results[0] === false) {
+                    return $simulation_results[1];
+                }
 
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
@@ -1419,8 +1421,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                             break 2;
                         }else{
                             if ($xx == 1) {
-                                return Redirect::back()
-                                ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.']);
+                                return [false, Redirect::back()
+                                ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.'])];
                             }
                             $xx = 6;
                             //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }

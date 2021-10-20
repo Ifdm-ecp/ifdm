@@ -526,6 +526,8 @@ $(document).ready(function()
               fillOpacity: 0.1
             });
 
+            console.log(points);
+
             poligon.setMap(map);
             
             infoWindow = new google.maps.InfoWindow();

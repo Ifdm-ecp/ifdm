@@ -514,6 +514,7 @@ $(document).ready(function()
 
             var points = [];
             $.each(value, function(index, value) {
+              console.log(value.lat, value.lon);
               points.push(new google.maps.LatLng(value.lat, value.lon));
             });
 

@@ -4593,7 +4593,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             foreach ($fields as $field) {
                 $coord = App\coordenada_campo::where('campo_id', $field)
-                    ->orderBy('Orden')
+                    ->orderBy('id')
                     ->get();
 
                 $genfield = App\campo::select(DB::raw('nombre'))
@@ -4607,7 +4607,6 @@ Route::group(['middleware' => 'auth'], function(){
                 array_push($coords, $coord);
                 array_push($genfields, $genfield);
                 array_push($wellsxField, $wellsxfield);
-                error_log($coord);
             }
         } else {
             $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')

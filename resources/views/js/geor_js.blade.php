@@ -495,7 +495,6 @@ $(document).ready(function()
           var wellsxField = []; // Pozos en el campo
         
           $.each(data.Genfields, function(index, value) {
-            console.log(data.Genfields);
             $.each(value, function(index, value) {
               fieldNames.push(value.nombre);
             });
@@ -514,7 +513,6 @@ $(document).ready(function()
 
             var points = [];
             $.each(value, function(index, value) {
-              console.log(value.lat, value.lon);
               points.push(new google.maps.LatLng(value.lat, value.lon));
             });
 
@@ -526,8 +524,6 @@ $(document).ready(function()
               fillColor: '#FF0000',
               fillOpacity: 0.1
             });
-
-            console.log(points);
 
             poligon.setMap(map);
             

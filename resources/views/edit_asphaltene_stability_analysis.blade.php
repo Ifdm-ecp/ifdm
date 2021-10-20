@@ -112,7 +112,7 @@
                               'SO2' => 'SO2',
                               'H2' => 'H2',
                               'Plus +' => 'Plus +'
-                              ],old('components'), array('class'=>'selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'components', 'data-width'=>'100%', 'data-style'=>'btn-success', 'multiple'=>'multiple', 'onfocus'=>'this.size=15;')) !!}
+                              ],old('components'), array('class'=>'selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'components', 'data-width'=>'100%', 'data-style'=>'btn-success', 'multiple'=>'multiple', 'onfocus'=>'this.size=15;', 'onblur'=>'this.size=1;', 'onchange'=>'this.size=1; this.blur();')) !!}
                         </div>
                      </div>
                      <div class="col-md-6" style="overflow: auto;">

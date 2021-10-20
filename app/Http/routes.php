@@ -4607,6 +4607,7 @@ Route::group(['middleware' => 'auth'], function(){
                 array_push($coords, $coord);
                 array_push($genfields, $genfield);
                 array_push($wellsxField, $wellsxfield);
+                dd($coord);
             }
         } else {
             $wells = App\pozo::select('c.nombre as Cnombre', 'pozos.*')

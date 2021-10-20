@@ -114,7 +114,7 @@
                               'SO2' => 'SO2',
                               'H2' => 'H2',
                               'Plus +' => 'Plus +'
-                              ],old('components'), array('class'=>'selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'components', 'data-width'=>'100%', 'data-style'=>'btn-success', 'multiple'=>'multiple')
+                              ],old('components'), array('class'=>'selectpicker mh show-tick', 'data-live-search'=>'true', 'id'=>'components', 'data-width'=>'100%', 'data-style'=>'btn-success', 'multiple'=>'multiple')
                               ) !!}
                         </div>
                      </div>
@@ -742,4 +742,5 @@
    @include('js/modal_error')
    @include('js/modal_error_frontend')
    @include('css/modal_error_frontend')
+   @include('css/asphaltene_precipitated')
 @endsection

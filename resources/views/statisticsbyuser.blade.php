@@ -29,9 +29,7 @@
                         @foreach ($basin->revisions as $revision)
                         <a data-toggle="collapse" data-target="#demo{{ $revision->id }}">
                           <div class="list-group-item list-group-item-warning">
-                            <caption>
-                              {{ $revision->created_at }} record {{ $basin->identifiableNameBasin($revision->row_id)->nombre }} <strong>{{ $revision->action }}</strong>.
-                            </caption>
+                            
                           </div>
                         </a>
                         <div id="demo{{ $revision->id }}" class="collapse">  

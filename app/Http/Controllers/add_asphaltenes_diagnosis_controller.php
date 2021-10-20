@@ -24,6 +24,7 @@ use App\User;
 use App\company;
 use App\proyecto;
 use App\pozo;
+use Redirect;
 
 
 class add_asphaltenes_diagnosis_controller extends Controller
@@ -252,6 +253,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
         try {
             if (!$button_wr) {
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
+
+                if ($simulation_results[0] == false) {
+                    return $simulation_results[1];
+                }
 
                 if ($simulation_results == 'viscosity_error') {
                     $viscosity_error = true;
@@ -600,6 +605,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
         try {
             if (!$button_wr) {
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
+
+                if ($simulation_results[0] == false) {
+                    return $simulation_results[1];
+                }
 
                 if ($simulation_results == 'viscosity_error') {
                     $viscosity_error = true;
@@ -1196,8 +1205,9 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $xx = 6; 
                             $flag_ran_xx_7 = 1;
                             break 2;
-                        //}else if ($xx == 1) {
-                            //enviar al results blade un mensaje diciendo que debe modificar los datos... enviar flag para saber que es este caso 
+                        }else if ($xx == 1) {
+                            return [false, Redirect::back()
+                                ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.'])];
                         }else{
                             //dd($xx, $pcal[1]);
                             $xx = 6;
@@ -1489,7 +1499,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             break;
                         }
                     }
-                }else{
+                }elseif (count($pite) == 1) {
                     $cr = $crite[1];
                     for ($i = 1; $i <= $nr; $i++) {
                         $pn[$i] = $pini;

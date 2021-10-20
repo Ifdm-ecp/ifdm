@@ -177,6 +177,8 @@ class user_statistics_controller extends Controller
                 ->orderby('revisions.created_at', 'desc')
                 ->get();
 
+                dd([$sessionsbyuser, $basins, $fields, $formations, $wells, $producing_intervals, $projects, $scenarios, $users]);
+
                 return view('statisticsbyuser', compact(['sessionsbyuser', 'basins', 'fields', 'formations', 'wells', 'producing_intervals', 'projects', 'scenarios', 'users']));
             }else{
                 return view('permission');

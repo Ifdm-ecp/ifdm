@@ -316,4 +316,5 @@
    @include('js/modal_error')
    @include('js/modal_error_frontend')
    @include('css/modal_error_frontend')
+   @include('css/asphaltene_stability');
 @endsection

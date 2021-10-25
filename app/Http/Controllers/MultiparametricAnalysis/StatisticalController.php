@@ -1018,7 +1018,18 @@ class StatisticalController extends Controller
 
     public function normalizacion($valor, $p10, $p90, $peso)
     {
-        return (($valor - $p10) / ($p90 - $p10)) * $peso;
+        if ( abs(2 * $valor) > abs( $p90 ) ) {
+            $sum =  ( 2 * $peso );
+        } else {
+            $sum = (($valor - $p10) / ($p90 - $p10)) * $peso;
+        }
+
+        # Si sum da negativo, que lo haga igual a cero
+        if ($sum < 0) {
+            $sum = 0;
+        }
+
+        return $sum;
     }
 
     public function buscarArray($n, $available)

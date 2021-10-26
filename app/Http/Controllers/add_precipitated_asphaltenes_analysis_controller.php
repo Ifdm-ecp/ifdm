@@ -2851,16 +2851,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         for ($i = 1; $i <= $nt; $i++) {
 
-            for ($j = 1; $j <= 20; $j++) {
-                if  ( $j == 1 ) {
-                    $p_enc[$j] = $pburb[$i] + 10;
-                    $p_deb[$j] = $pburb[$i] - 10;
-                } else {
-                    $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
-                    $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                }
-            }
-
             for ($j = 1; $j <= 100; $j++) {
                 $s_salida[$j] = 0;
             }
@@ -2871,64 +2861,64 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
             $ns = 1;
 
-            if ($flag_s == 1) {
-                $ns = 1;
-                for ($j = 1; $j <= 20; $j++) {
-                    if ($taps < ($tc + 460)) {
-                        $paps = $p_enc[$j];
-                        $solid_region_1_results = $this->solid_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
-                        $wat = $solid_region_1_results[0];
-                        $s = $solid_region_1_results[1];
-                        $pw_aps_1[$ns] = $paps;
-                        $wat_aps_1[$ns] = $wat;
-                        $s_aps_1[$ns] = $s;
-                        $ns = $ns + 1;
-                        if ($s == 0) {
-                            $j = 20;
-                        }
-                    }
-                }
+            // if ($flag_s == 1) {
+            //     $ns = 1;
+            //     for ($j = 1; $j <= 20; $j++) {
+            //         if ($taps < ($tc + 460)) {
+            //             $paps = $p_enc[$j];
+            //             $solid_region_1_results = $this->solid_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
+            //             $wat = $solid_region_1_results[0];
+            //             $s = $solid_region_1_results[1];
+            //             $pw_aps_1[$ns] = $paps;
+            //             $wat_aps_1[$ns] = $wat;
+            //             $s_aps_1[$ns] = $s;
+            //             $ns = $ns + 1;
+            //             if ($s == 0) {
+            //                 $j = 20;
+            //             }
+            //         }
+            //     }
 
-                $nd = 1;
-                for ($j = 1; $j <= 20; $j++) {
-                    $paps = $p_deb[$j];
-                    if ($paps > 14.7) {
-                        if ($taps < ($tc + 460)) {
-                            $solid_region_2_results = $this->solid_region_2($paps, $taps, $n, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
-                            $wat = $solid_region_2_results[0];
-                            $s = $solid_region_2_results[1];
-                            $pw_aps_2[$nd] = $paps;
-                            $wat_aps_2[$nd] = $wat;
-                            $s_aps_2[$nd] = $s;
-                            $nd = $nd + 1;
-                        }
-                    }
-                }
+            //     $nd = 1;
+            //     for ($j = 1; $j <= 20; $j++) {
+            //         $paps = $p_deb[$j];
+            //         if ($paps > 14.7) {
+            //             if ($taps < ($tc + 460)) {
+            //                 $solid_region_2_results = $this->solid_region_2($paps, $taps, $n, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
+            //                 $wat = $solid_region_2_results[0];
+            //                 $s = $solid_region_2_results[1];
+            //                 $pw_aps_2[$nd] = $paps;
+            //                 $wat_aps_2[$nd] = $wat;
+            //                 $s_aps_2[$nd] = $s;
+            //                 $nd = $nd + 1;
+            //             }
+            //         }
+            //     }
 
-                #Impresiones - Revisar orden
-                #Resultados - Solidos WAT, S
-                for ($j = 1; $j <= $ns; $j++) #Revisar
-                {
-                    $p_salida[$j] = $pw_aps_1[$ns - $j];
-                    $wat_salida[$j] = $wat_aps_1[$ns - $j];
-                    $s_salida[$j] = $s_aps_1[$ns - $j];
-                }
+            //     #Impresiones - Revisar orden
+            //     #Resultados - Solidos WAT, S
+            //     for ($j = 1; $j <= $ns; $j++) #Revisar
+            //     {
+            //         $p_salida[$j] = $pw_aps_1[$ns - $j];
+            //         $wat_salida[$j] = $wat_aps_1[$ns - $j];
+            //         $s_salida[$j] = $s_aps_1[$ns - $j];
+            //     }
 
-                for ($j = 1; $j <= $nd - 1; $j++) #Revisar
-                {
-                    $p_salida[$ns - 1 + $j] = $pw_aps_2[$j];
-                    $wat_salida[$ns - 1 + $j] = $wat_aps_2[$j];
-                    $s_salida[$ns - 1 + $j] = $s_aps_2[$j];
-                    if ($s == 0) {
-                        $j = 20;
-                    };
-                }
-                #array_push($wat_solid_results, array($p_salida,$wat_salida)); #Es la misma columna de presión para solid_wat y solid_s
-                $wat_solid_results[$i] = array(array_filter($p_salida), array_filter($wat_salida));
-                $s_solid_results[$i] = array(array_filter($p_salida), array_filter($s_salida));
+            //     for ($j = 1; $j <= $nd - 1; $j++) #Revisar
+            //     {
+            //         $p_salida[$ns - 1 + $j] = $pw_aps_2[$j];
+            //         $wat_salida[$ns - 1 + $j] = $wat_aps_2[$j];
+            //         $s_salida[$ns - 1 + $j] = $s_aps_2[$j];
+            //         if ($s == 0) {
+            //             $j = 20;
+            //         };
+            //     }
+            //     #array_push($wat_solid_results, array($p_salida,$wat_salida)); #Es la misma columna de presión para solid_wat y solid_s
+            //     $wat_solid_results[$i] = array(array_filter($p_salida), array_filter($wat_salida));
+            //     $s_solid_results[$i] = array(array_filter($p_salida), array_filter($s_salida));
 
-                #array_push($s_solid_results, array($p_salida,$s_salida)); 
-            }
+            //     #array_push($s_solid_results, array($p_salida,$s_salida)); 
+            // }
 
             $at = 0;
             $vma = $mwa / $rhoa;
@@ -2971,24 +2961,24 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $ponsetc = $asphaltenes_maximum_results[3];
                 }
 
-                // $flag_xxx = 0;
+                $flag_xxx = 0;
 
-                // for ($j = 1; $j <= 20; $j++) {
-                //     if  ( $j == 1 ) {
-                //         $p_enc[$j] = $pburb[$i] + 10;
-                //         $p_deb[$j] = $pburb[$i] - 10;
-                //     } elseif ( ($pburb[$i] + 100 * ($j - 1)) < $ponsetc ) {
-                //         $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
-                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                //     } elseif ( (($pburb[$i] + 100 * ($j - 1)) >= $ponsetc) && $flag_xxx == 0 ) {
-                //         $p_enc[$j] = $ponsetc;
-                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                //         $flag_xxx = 1;
-                //     } else {
-                //         $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
-                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                //     }
-                // }
+                for ($j = 1; $j <= 20; $j++) {
+                    if  ( $j == 1 ) {
+                        $p_enc[$j] = $pburb[$i] + 10;
+                        $p_deb[$j] = $pburb[$i] - 10;
+                    } elseif ( ($pburb[$i] + 100 * ($j - 1)) < $ponsetc ) {
+                        $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
+                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                    } elseif ( (($pburb[$i] + 100 * ($j - 1)) >= $ponsetc) && $flag_xxx == 0 ) {
+                        $p_enc[$j] = $ponsetc;
+                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                        $flag_xxx = 1;
+                    } else {
+                        $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
+                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                    }
+                }
 
                 for ($j = 1; $j <= 20; $j++) {
                     if ($taps < ($tc + 460)) {
@@ -3060,15 +3050,15 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             }
 
 
-            $ndatos = $ns + $nd;
-            $sums = 0;
-            for ($j = 1; $j <= $ndatos - 1; $j++) {
-                $sums = $sums + $s_salida[$j];
-            }
+            // $ndatos = $ns + $nd;
+            // $sums = 0;
+            // for ($j = 1; $j <= $ndatos - 1; $j++) {
+            //     $sums = $sums + $s_salida[$j];
+            // }
 
-            if ($sums == 0) {
-                $flag_s = 0;  #flag de salida ya no hay mas solidos saturados
-            }
+            // if ($sums == 0) {
+            //     $flag_s = 0;  #flag de salida ya no hay mas solidos saturados
+            // }
 
             #asfaltenos
             #estimando volumen de liquido

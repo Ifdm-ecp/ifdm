@@ -2851,6 +2851,16 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         for ($i = 1; $i <= $nt; $i++) {
 
+            for ($j = 1; $j <= 20; $j++) {
+                if  ( $j == 1 ) {
+                    $p_enc[$j] = $pburb[$i] + 10;
+                    $p_deb[$j] = $pburb[$i] - 10;
+                } else {
+                    $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
+                    $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                }
+            }
+
             for ($j = 1; $j <= 100; $j++) {
                 $s_salida[$j] = 0;
             }
@@ -2961,24 +2971,24 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $ponsetc = $asphaltenes_maximum_results[3];
                 }
 
-                $flag_xxx = 0;
+                // $flag_xxx = 0;
 
-                for ($j = 1; $j <= 20; $j++) {
-                    if  ( $j == 1 ) {
-                        $p_enc[$j] = $pburb[$i] + 10;
-                        $p_deb[$j] = $pburb[$i] - 10;
-                    } elseif ( ($pburb[$i] + 100 * ($j - 1)) < $ponsetc ) {
-                        $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
-                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                    } elseif ( (($pburb[$i] + 100 * ($j - 1)) >= $ponsetc) && $flag_xxx == 0 ) {
-                        $p_enc[$j] = $ponsetc;
-                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                        $flag_xxx = 1;
-                    } else {
-                        $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
-                        $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
-                    }
-                }
+                // for ($j = 1; $j <= 20; $j++) {
+                //     if  ( $j == 1 ) {
+                //         $p_enc[$j] = $pburb[$i] + 10;
+                //         $p_deb[$j] = $pburb[$i] - 10;
+                //     } elseif ( ($pburb[$i] + 100 * ($j - 1)) < $ponsetc ) {
+                //         $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
+                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                //     } elseif ( (($pburb[$i] + 100 * ($j - 1)) >= $ponsetc) && $flag_xxx == 0 ) {
+                //         $p_enc[$j] = $ponsetc;
+                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                //         $flag_xxx = 1;
+                //     } else {
+                //         $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
+                //         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
+                //     }
+                // }
 
                 for ($j = 1; $j <= 20; $j++) {
                     if ($taps < ($tc + 460)) {

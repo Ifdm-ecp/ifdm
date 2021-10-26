@@ -3073,7 +3073,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $onset_data = array($onset_temp_data, $onset_was_data, $onset_a_data, $onset_ponset_data, $onset_pburbuja_data, $onset_ponset_c_data);
 
         #Resultados onset, solid_wat, solid_s y solid_a
-        return array($onset_data, $wat_solid_results, $s_solid_results, $a_solid_results);
+        // return array($onset_data, $wat_solid_results, $s_solid_results, $a_solid_results);
+        return array($onset_data, [], [], $a_solid_results);
     }
 
     function asphaltenes_maximum($n, $t, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pb)

@@ -2963,10 +2963,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
                 $flag_xxx = 0;
 
-                for ($j = 1; $j <= 20; $j++) {
+                for ($j = 1; $j <= 50; $j++) {
                     if  ( $j == 1 ) {
-                        $p_enc[$j] = $pburb[$i] + 10;
-                        $p_deb[$j] = $pburb[$i] - 10;
+                        $p_enc[$j] = $pburb[$i] + 1;
+                        $p_deb[$j] = $pburb[$i] - 1;
                     } elseif ( ($pburb[$i] + 100 * ($j - 1)) < $ponsetc ) {
                         $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
                         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
@@ -2980,7 +2980,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     }
                 }
 
-                for ($j = 1; $j <= 20; $j++) {
+                for ($j = 1; $j <= 50; $j++) {
                     if ($taps < ($tc + 460)) {
                         $paps = $p_enc[$j];
                         $asphaltenes_region_1_results = $this->asphaltenes_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponsetc, $nmaxa, $max_a);
@@ -2996,7 +2996,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                         $a_aps_1[$nsa] = $a;
                         $nsa = $nsa + 1;
                         if ($a == 0) {
-                            $a = 20;
+                            $a = 50;
                         }
                     }
                 }
@@ -3005,7 +3005,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 $wap = 0;
                 $dsl = 0;
                 $a = 0;
-                for ($j = 1; $j <= 20; $j++) {
+                for ($j = 1; $j <= 50; $j++) {
                     $paps = $p_deb[$j];
                     if ($paps > 14.7) {
                         if ($taps < ($tc + 460)) {
@@ -3037,7 +3037,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     $wap_salida[$nsa - 1 + $j] = $wap_aps_2[$j];
                     $a_salida[$nsa - 1 + $j] = $a_aps_2[$j];
                     if ($a == 0) {
-                        $j = 20;
+                        $j = 50;
                     }
                 }
                 $a_solid_results[$i] = array(array_filter($pa_salida), array_filter($wap_salida));

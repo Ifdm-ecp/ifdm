@@ -255,6 +255,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 if ($simulation_results[0] == false) {
+                    $asphaltenes_d_diagnosis->status_wr = true;
+                    $asphaltenes_d_diagnosis->save();
                     $scenary = escenario::find($scenary->id);
                     $scenary->completo = 0;
                     $scenary->save();
@@ -486,7 +488,6 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $asphaltenes_d_diagnosis->scenario_id = $scenary->id;
         $asphaltenes_d_diagnosis->status_wr = $button_wr;
-        dd($asphaltenes_d_diagnosis->status_wr);
 
         $asphaltenes_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $asphaltenes_d_diagnosis->net_pay = $request->input('net_pay');
@@ -615,6 +616,8 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 if ($simulation_results[0] == false) {
+                    $asphaltenes_d_diagnosis->status_wr = true;
+                    $asphaltenes_d_diagnosis->save();
                     $scenary = escenario::find($scenary->id);
                     $scenary->completo = 0;
                     $scenary->save();

@@ -2806,8 +2806,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asfaps_1 = array_fill(0, 100, 0);
         $pwonset = array_fill(0, 100, 0);
         $waonset = array_fill(0, 100, 0);
-        $p_enc = array_fill(0, 20, 0);
-        $p_deb = array_fill(0, 20, 0);
+        $p_enc = array_fill(0, 50, 0);
+        $p_deb = array_fill(0, 50, 0);
         $p_salida = array_fill(0, 200, null); #Resultados
         $wat_salida = array_fill(0, 200, null); #Resultados
         $s_salida = array_fill(0, 100, null); #Resultados
@@ -2975,7 +2975,7 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
                         $flag_xxx = 1;
                     } else {
-                        $p_enc[$j] = $pburb[$i] + 300 * ($j-1);
+                        $p_enc[$j] = $pburb[$i] + 100 * ($j-1);
                         $p_deb[$j] = $pburb[$i] - 100 * ($j-1);
                     }
                 }

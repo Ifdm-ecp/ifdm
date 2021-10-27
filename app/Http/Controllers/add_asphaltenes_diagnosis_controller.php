@@ -486,6 +486,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
 
         $asphaltenes_d_diagnosis->scenario_id = $scenary->id;
         $asphaltenes_d_diagnosis->status_wr = $button_wr;
+        dd($asphaltenes_d_diagnosis->status_wr);
 
         $asphaltenes_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $asphaltenes_d_diagnosis->net_pay = $request->input('net_pay');

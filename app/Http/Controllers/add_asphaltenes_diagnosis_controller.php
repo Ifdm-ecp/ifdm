@@ -255,7 +255,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 if ($simulation_results[0] == false) {
-                    return $simulation_results[1];
+                    $scenary = escenario::find($scenary->id);
+                    $scenary->completo = 0;
+                    $scenary->save();
+                    return redirect('/asphaltenesDiagnosis/'.$scenaryId.'/edit')->withErrors($simulation_results[1]);
                 }
 
                 if ($simulation_results == 'viscosity_error') {
@@ -611,7 +614,10 @@ class add_asphaltenes_diagnosis_controller extends Controller
                 $simulation_results = $this->simulate_deposited_asphaltenes($drainage_radius, $formation_height, $well_radius, $current_pressure, $reservoir_initial_pressure, $reservoir_initial_porosity, $reservoir_initial_permeability, $pore_throat_diameter, $asphaltene_particle_diameter, $agregated_asphaltenes_density, $pvt_data, $historical_data, $asphaltenes_data);
 
                 if ($simulation_results[0] == false) {
-                    return $simulation_results[1];
+                    $scenary = escenario::find($scenary->id);
+                    $scenary->completo = 0;
+                    $scenary->save();
+                    return Redirect::back()->withErrors($simulation_results[1]);
                 }
 
                 if ($simulation_results == 'viscosity_error') {
@@ -1210,8 +1216,7 @@ class add_asphaltenes_diagnosis_controller extends Controller
                             $flag_ran_xx_7 = 1;
                             break 2;
                         }else if ($xx == 1) {
-                            return [false, Redirect::back()
-                                ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.'])];
+                            return [false, ['msg' => 'Negative bottom hole pressures estimated. Please check the input data.']];
                         }else{
                             //dd($xx, $pcal[1]);
                             $xx = 6;

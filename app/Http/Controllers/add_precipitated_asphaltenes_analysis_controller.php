@@ -244,6 +244,16 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
             if (!$asphaltenes_d_precipitated_analysis->status_wr) {
                 $precipitated_asphaltene_analysis_results = $this->run_precipitated_asphaltenes_analysis($components_complete_data, $binary_interaction_coefficients_data, $temperature_data, $bubble_pressure_data, $asphaltenes_d_precipitated_analysis["attributes"]);
+                
+                if ($precipitated_asphaltene_analysis_results[0] == false) {
+                    $asphaltenes_d_precipitated_analysis->status_wr = true;
+                    $asphaltenes_d_precipitated_analysis->save();
+                    $scenary = escenario::find($scenary->id);
+                    $scenary->completo = 0;
+                    $scenary->save();
+                    return redirect('/asphaltenesPrecipitated/'.$scenaryId.'/edit')->withErrors($precipitated_asphaltene_analysis_results[1]);
+                }
+                
                 /* dd($precipitated_asphaltene_analysis_results); */
                 /* Guardando resultados */
                 $saturation_results = $precipitated_asphaltene_analysis_results[0]; /* Temperature - Bubble pressure */
@@ -586,6 +596,16 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
             if (!$asphaltenes_d_precipitated_analysis->status_wr) {
                 $precipitated_asphaltene_analysis_results = $this->run_precipitated_asphaltenes_analysis($components_complete_data, $binary_interaction_coefficients_data, $temperature_data, $bubble_pressure_data, $asphaltenes_d_precipitated_analysis["attributes"]);
+                
+                if ($precipitated_asphaltene_analysis_results[0] == false) {
+                    $asphaltenes_d_precipitated_analysis->status_wr = true;
+                    $asphaltenes_d_precipitated_analysis->save();
+                    $scenary = escenario::find($scenary->id);
+                    $scenary->completo = 0;
+                    $scenary->save();
+                    return Redirect::back()->withErrors($precipitated_asphaltene_analysis_results[1]);
+                }
+                
                 /* dd($precipitated_asphaltene_analysis_results); */
 
                 /* Borrando resultados viejos */
@@ -801,6 +821,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         #Retorna resultados - onset, wat, s, a
         $stability_results = $this->stability($n, $zi, $mwi, $sgi, $pci, $tci, $vci, $wi, $si, $cib, $pspline, $tspline, $critical_temperature, $critical_pressure, $temperature_amount, $temp, $api_gravity, $density_correction, $mwa, $rhoa, $n_max_a, $asphaltenes, $resines, $saturated, $aromatics, $act_plus, $asphaltenes_optional_data, $asphaltenes_data, $mwi, $zi); #Se agrega mw_data(mwi) y zi para corrección de solubilidad
+
+        if ($stability_results[0] == false) {
+            return $stability_results;
+        }
 
         $saturation_results = [array_filter($tspline), array_filter($pspline)];
         return array($saturation_results, $stability_results, $temp);
@@ -1292,6 +1316,9 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $sum_xi = 0.0;
             for ($i = 1; $i <= $n; $i++) {
                 if ($fsolido > 0.000001) {
+                    if (($fsolido * ($kis[$i] - 1.0) + 1.0) == 0) {
+                        return [false, ['msg' => 'Invalid Plus+ characterization, please use other correlation.']];
+                    }
                     $xi[$i] = $zi[$i] / ($fsolido * ($kis[$i] - 1.0) + 1.0); #calcula comp del liquido
                     $sum_xi = $sum_xi + $xi[$i];
                 } else {
@@ -2036,6 +2063,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             while ($maxerror > $tol) {
                 $solid_equilibrium_results = $this->solid_equilibrium($m, $p, $t, $zia, $mwi, $pcia, $tci, $vci, $wi, $si, $rhoi, $cib, $kia, $fugsolpuro);
 
+                if ($solid_equilibrium_results[0] == false) {
+                    return $solid_equilibrium_results;
+                }
+
                 $fsola = $solid_equilibrium_results[0];
                 $fliqa = $solid_equilibrium_results[1];
                 $a = $solid_equilibrium_results[2];
@@ -2326,6 +2357,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
             while ($maxerror > $tol) {
                 $solid_equilibrium_results = $this->solid_equilibrium($m, $p, $t, $zia, $mwi, $pcia, $tci, $vci, $wi, $si, $rhoi, $cib, $kia, $fugsolpuro);
+
+                if ($solid_equilibrium_results[0] == false) {
+                    return $solid_equilibrium_results;
+                }
 
                 $fsola = $solid_equilibrium_results[0];
                 $fliqa = $solid_equilibrium_results[1];
@@ -2731,6 +2766,9 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $fug3 = array_fill(1, 100, 0);
 
         $solid_raschford_results = $this->solid_raschford($n, $zi, $kis);
+        if ($solid_raschford_results[0] == false) {
+            return $solid_raschford_results;
+        }
         $xil = $solid_raschford_results[0];
         $xis = $solid_raschford_results[1];
         $s = $solid_raschford_results[2];
@@ -2867,7 +2905,12 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             //         if ($taps < ($tc + 460)) {
             //             $paps = $p_enc[$j];
             //             $solid_region_1_results = $this->solid_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
-            //             $wat = $solid_region_1_results[0];
+                        
+            //                if ($solid_region_1_results[0] == false) {
+            //                     return $solid_region_1_results;
+            //                }
+                            
+            //                $wat = $solid_region_1_results[0];
             //             $s = $solid_region_1_results[1];
             //             $pw_aps_1[$ns] = $paps;
             //             $wat_aps_1[$ns] = $wat;
@@ -2879,16 +2922,21 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             //         }
             //     }
 
-            //     $nd = 1;
-            //     for ($j = 1; $j <= 20; $j++) {
-            //         $paps = $p_deb[$j];
-            //         if ($paps > 14.7) {
-            //             if ($taps < ($tc + 460)) {
-            //                 $solid_region_2_results = $this->solid_region_2($paps, $taps, $n, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
-            //                 $wat = $solid_region_2_results[0];
-            //                 $s = $solid_region_2_results[1];
-            //                 $pw_aps_2[$nd] = $paps;
-            //                 $wat_aps_2[$nd] = $wat;
+                // $nd = 1;
+                // for ($j = 1; $j <= 20; $j++) {
+                //     $paps = $p_deb[$j];
+                //     if ($paps > 14.7) {
+                //         if ($taps < ($tc + 460)) {
+                //             $solid_region_2_results = $this->solid_region_2($paps, $taps, $n, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat);
+                            
+                //             if ($solid_region_2_results[0] == false) {
+                //                 return $solid_region_2_results;
+                //             }
+                            
+                //             $wat = $solid_region_2_results[0];
+                //             $s = $solid_region_2_results[1];
+                //             $pw_aps_2[$nd] = $paps;
+                //             $wat_aps_2[$nd] = $wat;
             //                 $s_aps_2[$nd] = $s;
             //                 $nd = $nd + 1;
             //             }
@@ -2943,6 +2991,11 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                 if ( $i > 1 ) {
                     if ( $ponset != $pburb[$i-1] ) {
                         $asphaltenes_maximum_results = $this->asphaltenes_maximum($n, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pburb[$i], $mwi, $zi); #Se agrega mw_data (mwi) y zi para corrección de solubilidad
+                        
+                        if ($asphaltenes_maximum_results[0] == false) {
+                            return $asphaltenes_maximum_results;
+                        }
+                        
                         $max_wap = $asphaltenes_maximum_results[0];
                         $max_a = $asphaltenes_maximum_results[1];
                         $ponset = $asphaltenes_maximum_results[2];
@@ -2955,6 +3008,11 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     }
                 } elseif ( $i == 1) {
                     $asphaltenes_maximum_results = $this->asphaltenes_maximum($n, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $nmaxa, $cordo, $gapi, $pburb[$i], $mwi, $zi); #Se agrega mw_data (mwi) y zi para corrección de solubilidad
+                    
+                    if ($asphaltenes_maximum_results[0] == false) {
+                        return $asphaltenes_maximum_results;
+                    }
+                    
                     $max_wap = $asphaltenes_maximum_results[0];
                     $max_a = $asphaltenes_maximum_results[1];
                     $ponset = $asphaltenes_maximum_results[2];
@@ -2985,6 +3043,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                         $paps = $p_enc[$j];
                         $asphaltenes_region_1_results = $this->asphaltenes_region_1($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponsetc, $nmaxa, $max_a);
 
+                        if ($asphaltenes_region_1_results[0] == false) { 
+                            return $asphaltenes_region_1_results;
+                        }
+
                         $dsl = $asphaltenes_region_1_results[0]; #Posible error -Revisar decimales dsl
                         $deno = $asphaltenes_region_1_results[1];
                         $wap = $asphaltenes_region_1_results[2];
@@ -3010,6 +3072,11 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
                     if ($paps > 14.7) {
                         if ($taps < ($tc + 460)) {
                             $asphaltenes_region_2_results = $this->asphaltenes_region_2($n, $paps, $taps, $zi, $mwi, $pci, $tci, $vci, $wi, $si, $rhoi, $cib, $sat, $aro, $res, $asf, $rhoa, $mwa, $dsa, $cordo, $gapi, $pburb[$i], $ponsetc, $nmaxa, $max_a);
+                            
+                            if ($asphaltenes_region_2_results[0] == false) {
+                                return $asphaltenes_region_2_results;
+                            }
+                            
                             $dsl = $asphaltenes_region_2_results[0]; #Revisar variación decimales
                             $deno = $asphaltenes_region_2_results[1];
                             $wap = $asphaltenes_region_2_results[2];
@@ -3232,6 +3299,11 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
             while ($maxerror > $tol) {
                 $solid_equilibrium_results = $this->solid_equilibrium($m, $pb, $t, $zia, $mwi, $pcia, $tci, $vci, $wi, $si, $rhoi, $cib, $kia, $fugsolpuro);
+                
+                if ($solid_equilibrium_results[0] == false) {
+                    return $solid_equilibrium_results;
+                }
+
                 $fsola = $solid_equilibrium_results[0];
                 $fliqa = $solid_equilibrium_results[1];
                 $a = $solid_equilibrium_results[2];
@@ -3686,6 +3758,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             while ($maxerror > $tol) {
                 $solid_equilibrium_results = $this->solid_equilibrium($n, $p, $t, $zis, $mwi, $pcis, $tci, $vci, $wi, $si, $rhoi, $cib, $kis, $fugsolpuro);
 
+                if ($solid_equilibrium_results[0] == false) {
+                    return $solid_equilibrium_results;
+                }
+
                 $fsols = $solid_equilibrium_results[0];
                 $fliqs = $solid_equilibrium_results[1];
                 $s = $solid_equilibrium_results[2];
@@ -3888,6 +3964,11 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
             while ($maxerror > $tol) {
                 $solid_equilibrium_results = $this->solid_equilibrium($n, $p, $t, $zis, $mwi, $pcis, $tci, $vci, $wi, $si, $rhoi, $cib, $kis, $fugsolpuro, $fsols);
+                
+                if ($solid_equilibrium_results[0] == false) {
+                    return $solid_equilibrium_results;
+                }
+
                 $fsols = $solid_equilibrium_results[0];
                 $fliqs = $solid_equilibrium_results[1];
                 $s = $solid_equilibrium_results[2];

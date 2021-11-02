@@ -122,12 +122,10 @@ class add_fines_migration_diagnosis_controller extends Controller
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
         $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
-        if ($request->input('average_pore_diameter') === "") { $fines_d_diagnosis->average_pore_diameter = null; } else { $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter'); }
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
         $fines_d_diagnosis->fine_density = $request->input('fine_density');
-        if ($request->input('fine_diameter') === "") { $fines_d_diagnosis->fine_diameter = null; } else { $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter'); }
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         if ($request->input('water_volumetric_factor') === "") { $fines_d_diagnosis->water_volumetric_factor = null; } else { $fines_d_diagnosis->water_volumetric_factor = $request->input('water_volumetric_factor'); }
         if ($request->input('plug_radius') === "") { $fines_d_diagnosis->plug_radius = null; }else{ $fines_d_diagnosis->plug_radius = $request->input('plug_radius'); }
@@ -263,8 +261,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pini = floatval($fines_d_diagnosis->initial_pressure);
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
-        if ($fines_d_diagnosis->average_pore_diameter == null) { $dporo = null; } else { $dporo = floatval($fines_d_diagnosis->average_pore_diameter); }
-        if ($fines_d_diagnosis->fine_diameter == null) { $dpart = null; } else { $dpart = floatval($fines_d_diagnosis->fine_diameter); }
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);
         $sigmai = floatval($fines_d_diagnosis->initial_deposited_fines_concentration);
@@ -279,7 +275,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -464,12 +460,10 @@ class add_fines_migration_diagnosis_controller extends Controller
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
         $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
-        if ($request->input('average_pore_diameter') === "") { $fines_d_diagnosis->average_pore_diameter = null; } else { $fines_d_diagnosis->average_pore_diameter = $request->input('average_pore_diameter'); }
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
         $fines_d_diagnosis->fine_density = $request->input('fine_density');
-        if ($request->input('fine_diameter') === "") { $fines_d_diagnosis->fine_diameter = null; } else { $fines_d_diagnosis->fine_diameter = $request->input('fine_diameter'); }
         $fines_d_diagnosis->initial_deposited_fines_concentration = $request->input('initial_deposited_fines_concentration');
         $fines_d_diagnosis->critical_rate = $request->input('critical_rate');
         $fines_d_diagnosis->initial_fines_concentration_in_fluid = $request->input('initial_fines_concentration_in_fluid');
@@ -612,8 +606,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pini = floatval($fines_d_diagnosis->initial_pressure);
         $phio = floatval($fines_d_diagnosis->initial_porosity);
         $ko = floatval($fines_d_diagnosis->initial_permeability);
-        if ($fines_d_diagnosis->average_pore_diameter == null) { $dporo = null; } else { $dporo = floatval($fines_d_diagnosis->average_pore_diameter); }
-        if ($fines_d_diagnosis->fine_diameter == null) { $dpart = null; } else { $dpart = floatval($fines_d_diagnosis->fine_diameter); }
         $rhop = floatval($fines_d_diagnosis->fine_density);
         $coi = floatval($fines_d_diagnosis->initial_fines_concentration_in_fluid);
         $sigmai = floatval($fines_d_diagnosis->initial_deposited_fines_concentration);
@@ -629,9 +621,9 @@ class add_fines_migration_diagnosis_controller extends Controller
         try 
         {
             if (!$button_wr) {
-                /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
-                //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'dporo', $dporo,'dpart', $dpart,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
+                //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -1089,7 +1081,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         return [$y, $dy];
     }
-    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug)   
+    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug)   
     {
 
         #Formateando arreglos - empezando índices en 1 
@@ -1118,11 +1110,11 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_data[$key] = $this->set_array($value, count($value));
         }
 
-        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
         // dd('run simulation');
         return $simulation_results;
     }
-    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $dporo, $dpart, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
+    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
     {
         set_time_limit(1800); //Cambiar
         $complete_simulated_results = [];

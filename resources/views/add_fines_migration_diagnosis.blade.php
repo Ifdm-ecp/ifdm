@@ -180,20 +180,6 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('pore_diameter_label', 'Average Pore Diameter') !!}
-                              <div class="input-group {{$errors->has('average_pore_diameter') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
-                                 @endif
-                                 {!! Form::text('average_pore_diameter', null,  ['placeholder' => 'μm', 'class' =>'form-control', 'id' => 'average_pore_diameter']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">μm</span>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="form-group">
                               {!! Form::label('initial_porosity_label', 'Initial Porosity') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                               <div class="input-group {{$errors->has('initial_porosity') ? 'has-error' : ''}}">
                                  @if($advisor === "true")
@@ -237,15 +223,20 @@
                         </div>
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('fine_diameter_label', 'Fine Diameter') !!}
-                              <div class="input-group {{$errors->has('fine_diameter') ? 'has-error' : ''}}">
-                                 @if($advisor === "true")
-                                   <span class="input-group-btn">
-                                      <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                   </span>
-                                 @endif
-                                 {!! Form::text('fine_diameter', null,  ['placeholder' => 'μm', 'class' =>'form-control', 'id' => 'fine_diameter']) !!}
-                                 <span class="input-group-addon" id="basic-addon2">μm</span>
+                              {!! Form::label('initial_deposited_fines_concentration_label', 'Initial Deposited Fines Concentration') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="form-inline">
+                                 <div class="input-group {{$errors->has('initial_deposited_fines_concentration') ? 'has-error' : ''}}">
+                                    @if($advisor === "true")
+                                       <span class="input-group-btn">
+                                          <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                       </span>
+                                    @endif
+                                    {!! Form::text('initial_deposited_fines_concentration', null,  ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'initial_deposited_fines_concentration']) !!}
+                                    <span class="input-group-addon" id="basic-addon2">g/cc</span>
+                                 </div>
+                                 <div class="pull-right">
+                                    <button type="button" class="btn btn-primary concentration_ev">Calculate</button>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -253,39 +244,18 @@
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
-                              {!! Form::label('initial_deposited_fines_concentration_label', 'Initial Deposited Fines Concentration') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
-                              <div class="form-inline">
-                                <div class="input-group {{$errors->has('initial_deposited_fines_concentration') ? 'has-error' : ''}}">
-                                   @if($advisor === "true")
-                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                     </span>
-                                   @endif
-                                   {!! Form::text('initial_deposited_fines_concentration', null,  ['placeholder' => 'g/cc', 'class' =>'form-control', 'id' => 'initial_deposited_fines_concentration']) !!}
-                                   <span class="input-group-addon" id="basic-addon2">g/cc</span>
-                                  </div>
-                                  <div class="pull-right">
-                                    <button type="button" class="btn btn-primary concentration_ev">Calculate</button>
-                                  </div>
-                                </div>
-                                </div>
+                              {!! Form::label('critical_rate_label', 'Critical Rate') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                              <div class="input-group {{$errors->has('critical_rate') ? 'has-error' : ''}}">
+                                 @if($advisor === "true")
+                                    <span class="input-group-btn">
+                                       <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
+                                    </span>
+                                 @endif
+                                 {!! Form::text('critical_rate', null,  ['placeholder' => 'cc/min', 'class' =>'form-control', 'id' => 'critical_rate']) !!}
+                                 <span class="input-group-addon" id="basic-addon2">cc/min</span>
+                              </div>
                            </div>
-                          <div class="col-md-6">
-                             <div class="form-group">
-                                {!! Form::label('critical_rate_label', 'Critical Rate') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
-                                <div class="input-group {{$errors->has('critical_rate') ? 'has-error' : ''}}">
-                                   @if($advisor === "true")
-                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default button-advisor"><span class="glyphicon glyphicon-info-sign"></span></button>
-                                     </span>
-                                   @endif
-                                   {!! Form::text('critical_rate', null,  ['placeholder' => 'cc/min', 'class' =>'form-control', 'id' => 'critical_rate']) !!}
-                                   <span class="input-group-addon" id="basic-addon2">cc/min</span>
-                                </div>
-                             </div>
-                          </div>
-                     </div>
-                     <div class="row">
+                        </div>
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('initial_fines_label', 'Initial Fines Concentration In Fluid') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
@@ -300,6 +270,8 @@
                               </div>
                            </div>
                         </div>
+                     </div>
+                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('water_volumetric_factor_label', 'Water Volumetric Factor') !!}
@@ -314,8 +286,6 @@
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
                               {!! Form::label('plug_radius_label', 'Plug Radius') !!}

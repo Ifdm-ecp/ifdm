@@ -99,6 +99,10 @@
             </div>
          </div>
 
+      </div>
+
+      <div class="row">
+
          <div class="col-md-6">
             <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
                {!! Form::label('well', 'Well') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}

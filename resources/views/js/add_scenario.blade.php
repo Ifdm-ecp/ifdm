@@ -71,15 +71,15 @@
     });
 
     /* Ocultar el selector del intervalo productor si se selecciona estadístico en multiparamétrico */
-    $('[name=multiparametricType]').change(function(){
-        var sub_type = $('[name=multiparametricType]').val();
+    // $('[name=multiparametricType]').change(function(){
+    //     var sub_type = $('[name=multiparametricType]').val();
 
-        if (sub_type == 'statistical') {
-            $('#div_formation_wipr').hide();
-        } else {
-            $('#div_formation_wipr').show();
-        }
-    });
+    //     if (sub_type == 'statistical') {
+    //         $('#div_formation_wipr').hide();
+    //     } else {
+    //         $('#div_formation_wipr').show();
+    //     }
+    // });
 
     function update_duplicate_modal() {
         var Tree = [];

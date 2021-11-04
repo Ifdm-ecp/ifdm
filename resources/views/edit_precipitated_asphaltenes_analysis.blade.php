@@ -515,6 +515,17 @@
                         </div>
                      </div>
                   </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                           {!! Form::label('asphaltenes_experimental_onset_pressures_table_label', 'Asphaltenes Experimental Onset Pressures') !!}
+                           
+                           <div id="asphaltenes_experimental_onset_pressures_table"></div>
+                           {!! Form::hidden('value_asphaltenes_experimental_onset_pressures_table', '', array('class' => 'form-control', 'id' => 'value_asphaltenes_experimental_onset_pressures_table')) !!}
+                           {!! Form::hidden('asphaltenes_experimental_onset_pressures_data_range_flag', '', array('class' => 'form-control', 'id' => 'asphaltenes_experimental_onset_pressures_data_range_flag')) !!}
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
 

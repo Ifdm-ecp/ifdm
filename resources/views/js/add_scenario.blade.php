@@ -75,6 +75,7 @@
         var sub_type = $('[name=multiparametricType]').val();
 
         if (sub_type == 'statistical') {
+            // $('#div_formation_wipr').hide();
             $('#div_formation_wipr').show();
         } else {
             $('#div_formation_wipr').show();

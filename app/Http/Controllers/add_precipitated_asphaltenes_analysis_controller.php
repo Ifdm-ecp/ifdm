@@ -11,6 +11,7 @@ use App\cuenca;
 use View;
 use App\asphaltenes_d_precipitated_analysis;
 use App\asphaltenes_d_precipitated_analysis_binary_coefficients;
+Use App\asphaltenes_d_precipitated_analysis_experimental_onset_pressures;
 use App\asphaltenes_d_precipitated_analysis_components_data;
 use App\asphaltenes_d_precipitated_analysis_temperatures;
 use App\asphaltenes_d_precipitated_analysis_onset_results;

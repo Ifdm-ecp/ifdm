@@ -234,7 +234,7 @@
             maxRows: 5,
             stretchH: 'all',
             contextMenu: true,
-            colWidths: [360, 360],
+            colWidths: [380, 380],
             columns: [{
                 title: 'Temperature [°F]',
                 data: 0,

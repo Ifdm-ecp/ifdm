@@ -514,6 +514,8 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         asphaltenes_d_precipitated_analysis_experimental_onset_pressures::where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->delete();
 
+        dd($experimental_table);
+
         foreach ($experimental_table as $value) {
             $asphaltenes_d_precipitated_analysis_experimental_data = new asphaltenes_d_precipitated_analysis_experimental_onset_pressures;
             $asphaltenes_d_precipitated_analysis_experimental_data->asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;

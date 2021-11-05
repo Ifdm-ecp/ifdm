@@ -349,7 +349,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         /* Agregar experimental onset pressures */
         $experimental_onset_pressure_table = DB::table('asphaltenes_d_precipitated_analysis_experimental_onset_pressures')->select('temperature', 'onset_pressure')->where('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis_id)->orderBy('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.temperature', 'asc')->get();
-        dd($experimental_onset_pressure_table, $asphaltenes_d_precipitated_analysis);
 
         $advisor = $scenary->enable_advisor;
 

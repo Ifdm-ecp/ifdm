@@ -478,18 +478,16 @@
         var getValueField = $.get("{{ url('get_experimental_onset_pressures_data') }}", { asphaltenes_d_precipitated_analysis_id: asphaltenes_d_precipitated_analysis_id }, function (data) {
             $.each(data, function(index,value){
                 table_experimental.push(Object.values(value));
-                console.log(value);
-                edit_experimental.push(value.component);
-                edit_item_binary_interaction = {}
-                edit_item_binary_interaction ["title"] = value.component;
-                edit_item_binary_interaction ["data"] = value.component;
-                edit_item_binary_interaction ["type"] = 'numeric';
-                edit_item_binary_interaction ["format"] = '0[.]0000000';
-                edit_col_values_binary_interaction.push(edit_item_binary_interaction);
             });
 
+            if (table_experimental.length < 5) {
+                for (var k=1; k<5; k++) {
+                    table_experimental.push([null, null]);
+                }
+            }
+
             if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
-                console.log('epa', table_experimental);
+                
                 hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
                     data: table_experimental,
                     stretchH: 'all'

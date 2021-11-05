@@ -1463,11 +1463,14 @@
             emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
         }
 
+        var asphaltenes_experimental_onset_pressures_table = clean_table_data("asphaltenes_experimental_onset_pressures_table");
+
         if (validationMessages.length < 1) {
             bubble_point_table = order_matrix(bubble_point_table);
             $("#value_components_table").val(JSON.stringify(components_data));
             $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
             $("#value_bubble_point_table").val(JSON.stringify(bubble_point_table));
+            $("#value_asphaltenes_experimental_onset_pressures_table").val(JSON.stringify(asphaltenes_experimental_onset_pressures_table));
             validate_components_data(components_data);
 
             if (emptyValues) {

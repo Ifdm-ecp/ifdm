@@ -70,7 +70,7 @@ $(document).ready(function()
         );
 
     // Traer datos experimentales
-    $.get("{{url('asphaltenes_d_precipitated_analysis_experimental_onset_pressures')}}",
+    $.get("{{url('get_experimental_onset_pressures_data')}}",
         {asphaltenes_d_precipitated_analysis_id : asphaltenes_d_precipitated_analysis_id},
         function(data)
         {

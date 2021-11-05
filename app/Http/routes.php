@@ -432,6 +432,15 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($bubble_point_table);
     });
 
+    Route::get('get_experimental_onset_pressures_data', function()
+    {
+        $asphaltenes_d_precipitated_analysis_id = Input::get('asphaltenes_d_precipitated_analysis_id');
+
+        $experimental_onset_pressure_table = DB::table('asphaltenes_d_precipitated_analysis_experimental_onset_pressures')->select('temperature', 'onset_pressure')->where('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis_id)->orderBy('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.id', 'asc')->get();
+
+        return Response::json($experimental_onset_pressure_table);
+    });
+
     Route::get('get_precipitated_analysis_components', function()
     {
         $asphaltenes_d_precipitated_analysis_id = Input::get('asphaltenes_d_precipitated_analysis_id');

@@ -521,8 +521,6 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
             $asphaltenes_d_precipitated_analysis_experimental_data->onset_pressure = str_replace(",", ".", $value[1]);
             $asphaltenes_d_precipitated_analysis_experimental_data->save();
 
-            dd($experimental_table, $asphaltenes_d_precipitated_analysis_experimental_data);
-
             array_push($temperature_experimental_data, $asphaltenes_d_precipitated_analysis_experimental_data->temperature);
             array_push($onset_pressure_experimental_data, $asphaltenes_d_precipitated_analysis_experimental_data->onset_pressure);
         }

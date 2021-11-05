@@ -469,38 +469,38 @@
 
         // // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-        // var aux_asphaltenes_experimental_onset_pressures_table = $("#value_asphaltenes_experimental_onset_pressures_table").val();
+        var aux_asphaltenes_experimental_onset_pressures_table = $("#value_asphaltenes_experimental_onset_pressures_table").val();
 
-        // // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQUI
+        // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQUI
 
-        // var getValueField = $.get("{{ url('get_precipitated_analysis_components') }}", { asphaltenes_d_precipitated_analysis_id: asphaltenes_d_precipitated_analysis_id }, function (data) {
-        //     $.each(data, function(index,value){
-        //         table.push(Object.values(value));
-        //         edit_components.push(value.component);
-        //         edit_item_binary_interaction = {}
-        //         edit_item_binary_interaction ["title"] = value.component;
-        //         edit_item_binary_interaction ["data"] = value.component;
-        //         edit_item_binary_interaction ["type"] = 'numeric';
-        //         edit_item_binary_interaction ["format"] = '0[.]0000000';
-        //         edit_col_values_binary_interaction.push(edit_item_binary_interaction);
-        //     });
+        var getValueField = $.get("{{ url('get_experimental_onset_pressures_data') }}", { asphaltenes_d_precipitated_analysis_id: asphaltenes_d_precipitated_analysis_id }, function (data) {
+            $.each(data, function(index,value){
+                table.push(Object.values(value));
+                edit_components.push(value.component);
+                edit_item_binary_interaction = {}
+                edit_item_binary_interaction ["title"] = value.component;
+                edit_item_binary_interaction ["data"] = value.component;
+                edit_item_binary_interaction ["type"] = 'numeric';
+                edit_item_binary_interaction ["format"] = '0[.]0000000';
+                edit_col_values_binary_interaction.push(edit_item_binary_interaction);
+            });
             
-        //     if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
+            if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
 
-        //         hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
-        //             data: table,
-        //             stretchH: 'all'
-        //         });
+                hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
+                    data: table,
+                    stretchH: 'all'
+                });
 
-        //     }else{//Si se hizo el modulo de estabilidad importar datos de tabla componentes
-        //         hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
-        //             data: JSON.parse(aux_asphaltenes_experimental_onset_pressures_table),
-        //             stretchH: 'all'
-        //         });
-        //     }
-        // });
+            }else{//Si se hizo el modulo de estabilidad importar datos de tabla componentes
+                hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
+                    data: JSON.parse(aux_asphaltenes_experimental_onset_pressures_table),
+                    stretchH: 'all'
+                });
+            }
+        });
 
-        // hot_asphaltenes_experimental_onset_pressures_table.render();
+        hot_asphaltenes_experimental_onset_pressures_table.render();
 
         var aux_components_table = $("#value_components_table").val();
 

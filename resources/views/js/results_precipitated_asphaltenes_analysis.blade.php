@@ -20,7 +20,7 @@ $(document).ready(function()
     if (reservoir_temperature !== null && initial_reservoir_pressure !== null) {
         initial_reservoir_conditions.push([reservoir_temperature, initial_reservoir_pressure]);
     }
-    
+    var experimental_pressure_serie = [];
 
     var asphaltenes_d_precipitated_analysis_id = <?php 
         if($asphaltenes_d_precipitated_analysis_id){
@@ -69,6 +69,18 @@ $(document).ready(function()
             }
         );
 
+    // Traer datos experimentales
+    $.get("{{url('asphaltenes_d_precipitated_analysis_experimental_onset_pressures')}}",
+        {asphaltenes_d_precipitated_analysis_id : asphaltenes_d_precipitated_analysis_id},
+        function(data)
+        {
+            $.each(data, function(index, value)
+            {
+                experimental_pressure_serie.push([value.temperature, value.onset_pressure]);
+            });
+        }
+    );
+
     //Datos para gráficos onset -onset pressure y asfaltenos solubles-
     $.get("{{url('asphaltenes_d_precipitated_analysis_onset_results')}}",
             {asphaltenes_d_precipitated_analysis_id : asphaltenes_d_precipitated_analysis_id},
@@ -86,6 +98,10 @@ $(document).ready(function()
                         corrected_onset_pressure_serie.push([value.temperature, value.corrected_onset_pressure]);
                     }
                     bubble_pressure_serie.push([value.temperature, value.bubble_pressure]);
+                    // if (index experimental_pressure_serie.length) {
+
+                    // }
+                    console.log(index, experimental_pressure_serie);
                 });
                 onset_series_data = [{"name":"Onset Pressure [psi]","data":onset_pressure_serie}, {"name":"Corrected Onset Pressure [psi]","data":corrected_onset_pressure_serie},{"name":"Bubble Pressure [psi]","data":bubble_pressure_serie}, {"name" : "Current Reservoir Conditions", "data" : current_reservoir_conditions}, {"name" : "Initial Reservoir Conditions", "data" : initial_reservoir_conditions}];
                 asphaltenes_soluble_fraction_series_data = [{"name":"A [psi]","data":onset_a_serie}];

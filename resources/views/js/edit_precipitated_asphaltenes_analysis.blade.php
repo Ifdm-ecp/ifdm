@@ -446,6 +446,8 @@
         var table = [];
         var edit_components = [];
         var asphaltenes_d_precipitated_analysis_id = {!! $asphaltenes_d_precipitated_analysis->id !!};
+        var edit_experimental = [];
+        var table_experimental = [];
 
         // // AUX 
 
@@ -475,8 +477,9 @@
 
         var getValueField = $.get("{{ url('get_experimental_onset_pressures_data') }}", { asphaltenes_d_precipitated_analysis_id: asphaltenes_d_precipitated_analysis_id }, function (data) {
             $.each(data, function(index,value){
-                table.push(Object.values(value));
-                edit_components.push(value.component);
+                table_experimental.push(Object.values(value));
+                console.log(value);
+                edit_experimental.push(value.component);
                 edit_item_binary_interaction = {}
                 edit_item_binary_interaction ["title"] = value.component;
                 edit_item_binary_interaction ["data"] = value.component;

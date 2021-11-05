@@ -233,6 +233,7 @@
             rowHeaders: true,
             maxRows: 5,
             stretchH: 'all',
+            stretchH: 'all',
             contextMenu: true,
             colWidths: [380, 380],
             columns: [{
@@ -487,7 +488,7 @@
             }
 
             if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
-                
+
                 hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
                     data: table_experimental,
                     stretchH: 'all'

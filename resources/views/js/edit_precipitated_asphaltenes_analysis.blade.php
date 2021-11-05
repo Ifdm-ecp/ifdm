@@ -493,6 +493,7 @@
                 });
 
             }else{//Si se hizo el modulo de estabilidad importar datos de tabla componentes
+                console.log(JSON.parse(aux_asphaltenes_experimental_onset_pressures_table));
                 hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
                     data: JSON.parse(aux_asphaltenes_experimental_onset_pressures_table),
                     stretchH: 'all'

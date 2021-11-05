@@ -484,7 +484,7 @@
                 edit_item_binary_interaction ["format"] = '0[.]0000000';
                 edit_col_values_binary_interaction.push(edit_item_binary_interaction);
             });
-            console.log(JSON.parse(aux_asphaltenes_experimental_onset_pressures_table));
+            console.log(aux_asphaltenes_experimental_onset_pressures_table);
             if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
 
                 hot_asphaltenes_experimental_onset_pressures_table.updateSettings({

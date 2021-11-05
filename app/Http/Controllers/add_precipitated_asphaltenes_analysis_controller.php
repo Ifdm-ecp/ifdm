@@ -347,6 +347,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $asphaltenes_d_precipitated_analysis = asphaltenes_d_precipitated_analysis::where('scenario_id', $scenary->id)->first();
         $asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
 
+        /* Agregar experimental onset pressures */
+        $experimental_onset_pressure_table = DB::table('asphaltenes_d_precipitated_analysis_experimental_onset_pressures')->select('temperature', 'onset_pressure')->where('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis_id)->orderBy('asphaltenes_d_precipitated_analysis_experimental_onset_pressures.temperature', 'asc')->get();
+        dd($experimental_onset_pressure_table);
+
         $advisor = $scenary->enable_advisor;
 
         return View::make('results_precipitated_asphaltenes_analysis', compact(['asphaltenes_d_precipitated_analysis', 'pozo', 'formacion', 'fluido', 'scenaryId', 'campo', 'cuenca', 'scenary', 'user', 'advisor', 'asphaltenes_d_precipitated_analysis_id']));

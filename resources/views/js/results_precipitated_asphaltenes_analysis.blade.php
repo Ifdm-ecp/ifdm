@@ -98,10 +98,6 @@ $(document).ready(function()
                         corrected_onset_pressure_serie.push([value.temperature, value.corrected_onset_pressure]);
                     }
                     bubble_pressure_serie.push([value.temperature, value.bubble_pressure]);
-                    // if (index < experimental_pressure_serie.length) {
-                    //     experimental_pressure_serie[index];
-                    // }
-                    // console.log(index, experimental_pressure_serie);
                 });
                 onset_series_data = [{"name":"Onset Pressure [psi]","data":onset_pressure_serie}, {"name":"Corrected Onset Pressure [psi]","data":corrected_onset_pressure_serie},{"name":"Bubble Pressure [psi]","data":bubble_pressure_serie}, {"name" : "Current Reservoir Conditions", "data" : current_reservoir_conditions}, {"name" : "Initial Reservoir Conditions", "data" : initial_reservoir_conditions}, {"name" : "Experimental Onset Pressures", "data" : experimental_pressure_serie}];
                 asphaltenes_soluble_fraction_series_data = [{"name":"A [psi]","data":onset_a_serie}];
@@ -205,9 +201,6 @@ function plot_results(div, series_data, tittle, x_axis_tittle, y_axis_tittle)
 
         responsive: {
             rules: [{
-                condition: {
-                    maxWidth: 500
-                },
                 chartOptions: {
                     legend: {
                         layout: 'horizontal',

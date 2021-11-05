@@ -202,7 +202,7 @@ function plot_results(div, series_data, tittle, x_axis_tittle, y_axis_tittle)
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 500
+                    maxWidth: 814
                 },
                 chartOptions: {
                     legend: {

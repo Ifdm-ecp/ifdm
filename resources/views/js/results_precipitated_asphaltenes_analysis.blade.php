@@ -153,7 +153,7 @@ function plot_saturation_results(saturation_data, saturation_results, div)
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 500
+                    maxWidth: 814
                 },
                 chartOptions: {
                     legend: {

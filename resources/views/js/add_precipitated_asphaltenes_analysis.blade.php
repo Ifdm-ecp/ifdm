@@ -10,6 +10,7 @@
     $bubble_point_table = $('#bubble_point_table');
     $components_table = $('#components_table');
     $binary_interaction_coefficients_table = $('#binary_interaction_coefficients_table');
+    $asphaltenes_experimental_onset_pressures_table = $('#asphaltenes_experimental_onset_pressures_table');
 
     //Graficar Bubble Point
     //Limpiar los datos para no graficar valores vacios
@@ -243,6 +244,35 @@
             ]
         });
 
+        //Inicializar tabla asphaltenes experimental onset pressures
+        $asphaltenes_experimental_onset_pressures_table.handsontable({
+            height: 151,
+            colHeaders: true,
+            minSpareRows: 1,
+            viewportColumnRenderingOffset: 10,
+            rowHeaders: true,
+            maxRows: 5,
+            stretchH: 'all',
+            stretchH: 'all',
+            contextMenu: true,
+            colWidths: [380, 380],
+            columns: [{
+                title: 'Temperature [°F]',
+                data: 0,
+                type: 'numeric',
+                format: '0[.]0000000',
+                // validator: function(value, callback) { callback(multiValidatorHandsonTable(value, asphaltenes_experimental_onset_pressures_table_ruleset[0])); }
+            },
+            {
+                title: 'Onset Pressure [psi]',
+                data: 1,
+                type: 'numeric',
+                format: '0[.]0000000',
+                // validator: function(value, callback) { callback(multiValidatorHandsonTable(value, asphaltenes_experimental_onset_pressures_table_ruleset[1])); }
+            },
+            ]
+        });
+
         //Ayuda visual para la sumatoria de los elementos del análisis SARA
         $(".sara_data").change(function()
         {
@@ -319,6 +349,7 @@
             bubble_point_data = order_matrix(clean_table_data("bubble_point_table"));
             components_data = clean_table_data("components_table");
             binary_interaction_coefficients_data = clean_table_data("binary_interaction_coefficients_table");
+            asphaltenes_experimental_onset_pressures_data = order_matrix(clean_table_data("asphaltenes_experimental_onset_pressures_table"));
 
             //Validar rangos de tabla components
             validate_components_data(components_data);
@@ -332,6 +363,7 @@
             $("#value_components_table").val(JSON.stringify(components_data));
             $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
             $("#value_bubble_point_table").val(JSON.stringify(bubble_point_data));
+            $("#value_asphaltenes_experimental_onset_pressures_table").val(JSON.stringify(asphaltenes_experimental_onset_pressures_data));
 
             var evt = window.event || arguments.callee.caller.arguments[0];
             if (bubble_point_data.length < 5) {
@@ -379,7 +411,8 @@
             bubble_point_data = order_matrix(clean_table_data("bubble_point_table"));
             components_data = clean_table_data("components_table");
             binary_interaction_coefficients_data = clean_table_data("binary_interaction_coefficients_table");
-
+            asphaltenes_experimental_onset_pressures_data = order_matrix(clean_table_data("asphaltenes_experimental_onset_pressures_table"));
+            
             /* Validar rangos de tabla components */
             validate_components_data(components_data);
 
@@ -392,6 +425,7 @@
             $("#value_components_table").val(JSON.stringify(components_data));
             $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
             $("#value_bubble_point_table").val(JSON.stringify(bubble_point_data));
+            $("#value_asphaltenes_experimental_onset_pressures_table").val(JSON.stringify(asphaltenes_experimental_onset_pressures_data));
 
             /* Validaciones adicionales tabla components - La suma de Zi debe ser 1+-0.1 */
             /* Validaciones adicionales a tabla temperaturas - Temperaturas y presiones mayores a cero */
@@ -425,6 +459,7 @@
 
         var hot_coefficients_table = $('#binary_interaction_coefficients_table').handsontable('getInstance');
         var hot_components_table = $('#components_table').handsontable('getInstance');
+        var hot_asphaltenes_experimental_onset_pressures_table = $('#asphaltenes_experimental_onset_pressures_table').handsontable('getInstance');
 
         component_value = [];
         zi_value = [];
@@ -1387,11 +1422,14 @@
             emptyValues = (emptyValues === false && (vc_molar_volume === null || vc_molar_volume === "")) ? true: emptyValues;
         }
 
+        var asphaltenes_experimental_onset_pressures_table = clean_table_data("asphaltenes_experimental_onset_pressures_table");
+
         if (validationMessages.length < 1) {
             bubble_point_table = order_matrix(bubble_point_table);
             $("#value_components_table").val(JSON.stringify(components_data));
             $("#value_binary_interaction_coefficients_table").val(JSON.stringify(binary_interaction_coefficients_data));
             $("#value_bubble_point_table").val(JSON.stringify(bubble_point_table));
+            $("#value_asphaltenes_experimental_onset_pressures_table").val(JSON.stringify(asphaltenes_experimental_onset_pressures_table));
             validate_components_data(components_data);
 
             if (emptyValues) {

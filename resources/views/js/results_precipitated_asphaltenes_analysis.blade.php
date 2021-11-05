@@ -153,7 +153,7 @@ function plot_saturation_results(saturation_data, saturation_results, div)
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 814
+                    maxWidth: 500
                 },
                 chartOptions: {
                     legend: {
@@ -202,7 +202,7 @@ function plot_results(div, series_data, tittle, x_axis_tittle, y_axis_tittle)
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 814
+                    maxWidth: 500
                 },
                 chartOptions: {
                     legend: {

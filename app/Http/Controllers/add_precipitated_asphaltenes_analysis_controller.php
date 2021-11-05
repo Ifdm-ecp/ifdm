@@ -86,6 +86,10 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
         $user = DB::table('users')->select('users.fullName')->where('id', '=', $scenary->user_id)->first();
 
         /* Arreglos para módulo de cálculo - Tablas */
+        /* Experimental Onset Pressures */
+        $temperature_experimental_data = [];
+        $onset_pressure_experimental_data = [];
+
         /* Componentes */
         $component_data = [];
         $zi_data = [];
@@ -194,6 +198,23 @@ class add_precipitated_asphaltenes_analysis_controller extends Controller
 
         /* Datos de la tabla de componentes para el módulo de cálculos */
         $components_complete_data = [$component_data, $zi_data, $mw_data, $pc_data, $tc_data, $w_data, $shift_data, $sg_data, $tb_data, $vc_data];
+
+        /* Guardar tabla de datos onset experimentales */
+        $experimental_table = json_decode($request->input("value_asphaltenes_experimental_onset_pressures_table"));
+        $experimental_table = is_null($experimental_table) ? [] : $experimental_table;
+
+        asphaltenes_d_precipitated_analysis_experimental_onset_pressures::where('asphaltenes_d_precipitated_analysis_id', $asphaltenes_d_precipitated_analysis->id)->delete();
+
+        foreach ($experimental_table as $value) {
+            $asphaltenes_d_precipitated_analysis_experimental_data = new asphaltenes_d_precipitated_analysis_experimental_onset_pressures;
+            $asphaltenes_d_precipitated_analysis_experimental_data->asphaltenes_d_precipitated_analysis_id = $asphaltenes_d_precipitated_analysis->id;
+            $asphaltenes_d_precipitated_analysis_experimental_data->temperature = str_replace(",", ".", $value[0]);
+            $asphaltenes_d_precipitated_analysis_experimental_data->onset_pressure = str_replace(",", ".", $value[1]);
+            $asphaltenes_d_precipitated_analysis_experimental_data->save();
+
+            array_push($temperature_experimental_data, $asphaltenes_d_precipitated_analysis_experimental_data->temperature);
+            array_push($onset_pressure_experimental_data, $asphaltenes_d_precipitated_analysis_experimental_data->onset_pressure);
+        }
 
         /* Guardar tabla bubble point */
         $value_bubble_point_table = json_decode($request->input("value_bubble_point_table"));

@@ -489,7 +489,7 @@
             });
 
             if (aux_asphaltenes_experimental_onset_pressures_table === '') {//Cargar datos desde tabla en BD
-                console.log('epa');
+                console.log('epa', table);
                 hot_asphaltenes_experimental_onset_pressures_table.updateSettings({
                     data: table,
                     stretchH: 'all'

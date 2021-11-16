@@ -2144,7 +2144,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
                     }
-                    if ($yy == 18) {
+                    if ($yy == 17) {
                         dd('dada1', $yy, count($porosity_limit_constanti));
                     }
                     

@@ -915,11 +915,16 @@ class add_fines_migration_diagnosis_controller extends Controller
 
     function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw)
     {
-
+        $tpp_aux = $tpp;
         #$bw = $volumetricfactor
         #$rplug = $radiodeplug
 
-       if ($tpp =! 0) {
+        #Hueco abierto
+        if ($tpp_aux == 0 || $tpp_aux == null) {
+            $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
+
+        #Hueco cementado
+        } else if ($tpp_aux =! 0) {
             if ($rw < 0.375) {
                 $fp3 = (1.036 * $tpp * $rp) ;
                 $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);

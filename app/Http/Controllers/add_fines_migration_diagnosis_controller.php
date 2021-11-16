@@ -1945,7 +1945,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $cod[$i] = $sigmasal[$i];
                                 $kc[$i] = $kn[$i] * pow($phic[$i] / $phin[$i], 3.0); #Revisar
                             }
-
+                            if($yy==18 && $kk==109) {dd($kc);}
                             if ($kc[2] < 0) {
                                 if ($yy == 18) {
                                     $yy = 17;

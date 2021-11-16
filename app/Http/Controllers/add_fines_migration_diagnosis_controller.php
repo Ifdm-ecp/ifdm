@@ -2030,6 +2030,9 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                             array_push($complete_simulated_results, $simulation_results);
                         }
+                        if ($yy == 18) {
+                            dd('dada1', $yy, count($porosity_limit_constanti));
+                        }
                     }
 
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
@@ -2143,9 +2146,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 break;
                             }
                         }
-                    }
-                    if ($yy == 17) {
-                        dd('dada1', $yy, count($porosity_limit_constanti));
                     }
                     
                 }

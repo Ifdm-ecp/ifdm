@@ -2021,7 +2021,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }
 
                         if ($xx == 7 && $yy == 18) {
-                            dd('aaddadadad');
                             for ($i=2; $i <= $nr - 1; $i++) 
                             { 
                                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
@@ -2149,6 +2148,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
         }
         //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
+        dd($complete_simulated_results, $damage_results);
         return array($complete_simulated_results, $damage_results);
     }
 

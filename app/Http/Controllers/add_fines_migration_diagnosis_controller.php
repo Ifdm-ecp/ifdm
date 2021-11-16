@@ -920,11 +920,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         #$rplug = $radiodeplug
 
         #Hueco abierto
-        if ($tpp == 0 || $tpp == null) {
-            $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
-
-        #Hueco cementado
-        } else if ($tpp =! 0) {
+        if (true) {
             if ($rw < 0.375) {
                 $fp3 = (1.036 * $tpp * $rp) ;
                 $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);
@@ -1167,8 +1163,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         #Escalamiento de tasa crítica escalada
         $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw);
 
-
-        dd($tpp);
         #Conversión tasas de laboratorio
         for ($i=1; $i <= $ns ; $i++) 
         { 

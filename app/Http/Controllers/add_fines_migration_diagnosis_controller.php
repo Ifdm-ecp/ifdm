@@ -1167,6 +1167,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         #Escalamiento de tasa crítica escalada
         $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw);
 
+        dd($qlab);
         #Conversión tasas de laboratorio
         for ($i=1; $i <= $ns ; $i++) 
         { 

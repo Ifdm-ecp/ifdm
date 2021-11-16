@@ -296,7 +296,7 @@ Route::group(['middleware' => 'auth'], function(){
     {
         $scenario_id = Input::get('scenario_id');
 
-        $fines_d_phenomenological_constants = DB::table('fines_d_phenomenological_constants')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_phenomenological_constants.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('flow', 'k1', 'k2', 'dp_dl', 'k3', 'k4', 'k5', 'dp_dl2', 'sigma', 'k6', 'ab_2', 'ab')->orderBy('fines_d_phenomenological_constants.id', 'asc')->distinct()->get();
+        $fines_d_phenomenological_constants = DB::table('fines_d_phenomenological_constants')->join('fines_d_diagnosis', 'fines_d_diagnosis.id', '=', 'fines_d_phenomenological_constants.fines_d_diagnosis_id')->where('fines_d_diagnosis.scenario_id', $scenario_id)->select('flow', 'permeability', 'k1', 'k2', 'dp_dl', 'k3', 'k4', 'k5', 'dp_dl2', 'sigma', 'k6', 'ab_2', 'ab')->orderBy('fines_d_phenomenological_constants.id', 'asc')->distinct()->get();
 
         return Response::json($fines_d_phenomenological_constants);
     });

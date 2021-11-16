@@ -2030,7 +2030,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                             array_push($complete_simulated_results, $simulation_results);
                             if ($kk == $nh) {
-                                break 3;
+                                break 2;
                             }
                         }
                     }

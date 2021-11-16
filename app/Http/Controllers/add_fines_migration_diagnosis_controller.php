@@ -919,8 +919,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         #$bw = $volumetricfactor
         #$rplug = $radiodeplug
 
-        #Hueco abierto
-        if (true) {
+       if ($tpp =! 0) {
             if ($rw < 0.375) {
                 $fp3 = (1.036 * $tpp * $rp) ;
                 $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);

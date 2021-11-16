@@ -1819,7 +1819,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                             }
 
-                            if($yy==18 && $kk==109) {dd($pcal, $porosity_limit_constant);}
+                            // if($yy==18 && $kk==109) {dd($pcal, $porosity_limit_constant);}
 
                             if ($pcal[1] < 0) {
                                 if ($yy == 18) {

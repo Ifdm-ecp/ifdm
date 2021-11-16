@@ -632,6 +632,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                     return $simulation_results[1];
                 }
 
+                dd('lolas');
+
                 #Agregando datos para módulo de cálculo
                 $historical_projection_data = json_decode($request->input("value_historical_projection_data"));
                 $historical_data = array_merge($historical_data, $historical_projection_data);

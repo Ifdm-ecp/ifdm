@@ -2067,6 +2067,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
 
+                        while (count($porosity_limit_constantite) > count($kite)) {
+                            array_pop($porosity_limit_constantite);
+                        }
+
                         // dd([$pite, $crite, $kite, $porosity_limit_constantite, $cr, $pact]);
 
                         //dd($kite);

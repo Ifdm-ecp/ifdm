@@ -2144,8 +2144,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
                     }
+                    dd('dada1', $yy, count($porosity_limit_constanti));
                 }
-                dd('dada1');
             }
         }
         //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);

@@ -1290,7 +1290,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $crite = array(1 => 0.1, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
         $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0);
-        $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5);
+        $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 10);
         //$porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5, 0);
         //$porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
         $kite = array(1 => 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -1812,6 +1812,23 @@ class add_fines_migration_diagnosis_controller extends Controller
                             { 
                                 $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                             }
+
+                            if ($pcal[1] < 0) {
+                                if ($yy == 11) {
+                                    $yy = 10;
+                                    $flag_ran_yy_7 = 1;
+                                    break 2;
+                                }else{
+                                    if ($yy == 1) {
+                                        return [false, Redirect::back()
+                                        ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.'])];
+                                    }
+                                    $yy = 10;
+                                    //if($xx==6 && $kk==19 && $v==1) {dd($ndt, 'eh ave maría pues ome!', $cr); }
+                                    break 2;
+                                }
+                            }
+
                             //if ($xx==7 && $yy==1) {dd($f, $pn, $qo, $kn, $vm, $mu);}
                                 
                             //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);

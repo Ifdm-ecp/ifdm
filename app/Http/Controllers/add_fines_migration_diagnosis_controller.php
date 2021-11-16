@@ -1173,6 +1173,8 @@ class add_fines_migration_diagnosis_controller extends Controller
             $qlab[$i] = $this->rate_scaling($rw, $qlab[$i], $hf, $rplug, $tpp, $rp, $bw);
         }
 
+        dd($qlab, $rw, $hf, $rplug, $tpp, $rp, $bw);
+
         #Discretizando el medio (geometría radial)
         $nr = 500;
         $ri = 0;

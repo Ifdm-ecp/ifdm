@@ -1891,10 +1891,10 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                             #Cambio de porosidad - No se usa ki para estos escenarios --> ajuste del modelo multitasa. Revisar y quitar
                             if ($yy == 18) {
-                                dd('entró');
                                 $kite_reverse = array_reverse($kite);
                                 $porosity_limit_constantite_reverse = array_reverse($porosity_limit_constantite);
                                 $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite)-1, $kite_reverse, $porosity_limit_constantite_reverse);
+                                dd('entró', $kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant);
                             }
                             $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
                             //dd($porosity_change);

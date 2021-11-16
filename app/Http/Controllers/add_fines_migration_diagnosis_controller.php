@@ -2029,7 +2029,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             //dd($r, $pcal, $phic, $kc, $coc, 'lel');
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                             array_push($complete_simulated_results, $simulation_results);
-                            if ($kk == $nh) {
+                            if ($kk == $nh/2) {
                                 dd('a');
                             }
                         }

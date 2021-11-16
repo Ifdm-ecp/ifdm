@@ -934,7 +934,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
         }    
 
-        return $tcri_esc;
+        return $fp3;
     }
 
     function fines_interpolation($x, $n, $xt, $yt)
@@ -1166,7 +1166,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         #Escalamiento de tasa crítica escalada
         $tcri_esc = $this->rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw);
-        
+
         #Conversión tasas de laboratorio
         for ($i=1; $i <= $ns ; $i++) 
         { 

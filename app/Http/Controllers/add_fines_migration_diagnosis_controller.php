@@ -1717,7 +1717,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         if (-$qo < $qlab[1]) {
                             $k_lab_qo = $permeability_lab[1];
                         }else if (-$qo > $qlab[count($qlab)-1]) {
-                            $k_lab_qo = $permeability_lab[count($permeability_lab-1)];
+                            $k_lab_qo = $permeability_lab[count($permeability_lab)-1];
                         }else{
                             $k_lab_qo = $this->interpolation(-$qo, count($qlab)-1, $qlab, $permeability_lab);
                         }

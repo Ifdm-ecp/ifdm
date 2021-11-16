@@ -2034,6 +2034,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
 
+                    dd('sale');
                     #Nueva sección
                     if ($yy < 17) {
                         //if($xx==7 && $yy==1 ){dd($phic, $kc, $pcal);}
@@ -2148,7 +2149,6 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
         }
         //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
-        dd($complete_simulated_results, $damage_results);
         return array($complete_simulated_results, $damage_results);
     }
 

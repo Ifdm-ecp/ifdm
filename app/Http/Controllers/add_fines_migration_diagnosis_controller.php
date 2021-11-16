@@ -542,6 +542,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         
         #Arreglos para guardar los datos organizados - módulo de cálculo
         $qlab_data = [];
+        $permeability_lab_data = [];
         $k1_lab_data = [];
         $k2_lab_data = [];
         $dpdl_lab_data = [];
@@ -562,21 +563,23 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_d_phenomenological_constants = new fines_d_phenomenological_constants;
             $fines_d_phenomenological_constants->fines_d_diagnosis_id = $fines_d_diagnosis->id;
             $fines_d_phenomenological_constants->flow = str_replace(",", ".", $value[0]);
-            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[1]);
-            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[2]);
-            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[3]);
-            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[4]);
-            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[5]);
-            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[6]);
-            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[7]);
-            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[8]);
-            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[9]);
-            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[10]);
-            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->permeability = str_replace(",", ".", $value[1]);
+            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[2]);
+            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[3]);
+            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[4]);
+            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[5]);
+            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[6]);
+            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[7]);
+            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[8]);
+            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[9]);
+            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[10]);
+            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[12]);
             $fines_d_phenomenological_constants->save();
 
             #Agregando datos para módulo de cálculo
             array_push($qlab_data, $fines_d_phenomenological_constants->flow);
+            array_push($permeability_lab_data, $fines_d_phenomenological_constants->permeability);
             array_push($k1_lab_data, $fines_d_phenomenological_constants->k1);
             array_push($k2_lab_data, $fines_d_phenomenological_constants->k2);
             array_push($dpdl_lab_data, $fines_d_phenomenological_constants->dp_dl);
@@ -597,7 +600,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $historical_data = [$dates_data, $bopd_data];
         
         #Datos Finos
-        $fines_data = [$qlab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
+        $fines_data = [$qlab_data, $permeability_lab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
 
         $rdre = floatval($fines_d_diagnosis->drainage_radius);
         $hf = floatval($fines_d_diagnosis->formation_height);
@@ -1136,17 +1139,18 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         $ns = count($fines_data[0]) - 1;
         $qlab = $fines_data[0];
-        $k1_lab = $fines_data[1];
-        $k2_lab = $fines_data[2];
-        $dpdl_lab = $fines_data[3];
-        $k3_lab = $fines_data[4];
-        $k4_lab = $fines_data[5];
-        $k5_lab = $fines_data[6];
-        $dpdls_lab = $fines_data[7];
-        $sigma_lab = $fines_data[8];
-        $k6_lab = $fines_data[9];
-        $ab2_lab = $fines_data[10];
-        $ab_lab = $fines_data[11];
+        $permeability_lab = $fines_data[1];
+        $k1_lab = $fines_data[2];
+        $k2_lab = $fines_data[3];
+        $dpdl_lab = $fines_data[4];
+        $k3_lab = $fines_data[5];
+        $k4_lab = $fines_data[6];
+        $k5_lab = $fines_data[7];
+        $dpdls_lab = $fines_data[8];
+        $sigma_lab = $fines_data[9];
+        $k6_lab = $fines_data[10];
+        $ab2_lab = $fines_data[11];
+        $ab_lab = $fines_data[12];
 
         $pi = 3.14159265359;
         $x = 0;
@@ -1709,6 +1713,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                         
                         $ndt = $tiempo[$kk] / $dt;
                         $qo = -$bopd[$kk];
+
+                        $k_lab_qo = $this->interpolation(-$qo, count($qlab), $qlab, $permeability_lab);
                         
                         for ($v=1; $v <= $ndt ; $v++) 
                         { 
@@ -1884,6 +1890,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $abi = $this->fines_interpolation(-$qo, $ns, $qlab, $ab_lab);
 
                             #Cambio de porosidad - No se usa ki para estos escenarios --> ajuste del modelo multitasa. Revisar y quitar
+                            if ($yy == 18) {
+                                $kite_reverse = array_reverse($kite);
+                                $porosity_limit_constantite_reverse = array_reverse($porosity_limit_constantite);
+                                $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite), $kite_reverse, $porosity_limit_constantite_reverse);
+                            }
                             $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
                             //dd($porosity_change);
                             $phic = $porosity_change[0];

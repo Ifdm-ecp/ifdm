@@ -934,7 +934,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
         }    
 
-        return $fp3;
+        return [1.036, $tpp, $rp];
     }
 
     function fines_interpolation($x, $n, $xt, $yt)

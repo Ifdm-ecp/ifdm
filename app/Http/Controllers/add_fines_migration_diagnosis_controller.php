@@ -2029,8 +2029,9 @@ class add_fines_migration_diagnosis_controller extends Controller
                             //dd($r, $pcal, $phic, $kc, $coc, 'lel');
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
                             array_push($complete_simulated_results, $simulation_results);
-                            dd($complete_simulated_results, $simulation_results);
-                            break 3;
+                            if ($kk == $nh) {
+                                break 3;
+                            }
                         }
                     }
 
@@ -2148,6 +2149,9 @@ class add_fines_migration_diagnosis_controller extends Controller
                     }
                     
                 }
+                // if ($yy == 18) {
+                //     break 1;
+                // }
             }
         }
         //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);

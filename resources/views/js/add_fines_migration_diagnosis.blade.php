@@ -86,7 +86,7 @@
             rowHeaders: true,
             contextMenu: true,
             stretchH: 'all',
-            colWidths: [100, 80, 80, 120, 80, 80, 80, 120, 100, 80, 100, 80],
+            colWidths: [100, 120, 80, 80, 120, 80, 80, 80, 120, 100, 80, 100, 80],
 
 
             columns: [{
@@ -96,68 +96,74 @@
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K1",
+                    title: "Permeability [mD]",
                     data: 1,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K2",
+                    title: "K1",
                     data: 2,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "DP/DL [atm/cm]",
+                    title: "K2",
                     data: 3,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K3",
+                    title: "DP/DL [atm/cm]",
                     data: 4,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K4",
+                    title: "K3",
                     data: 5,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K5",
+                    title: "K4",
                     data: 6,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "DP/DL [atm/cm]",
+                    title: "K5",
                     data: 7,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "SIGMA",
+                    title: "DP/DL [atm/cm]",
                     data: 8,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "K6",
+                    title: "SIGMA",
                     data: 9,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "2AB",
+                    title: "K6",
                     data: 10,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },
                 {
-                    title: "AB",
+                    title: "2AB",
                     data: 11,
+                    type: 'numeric',
+                    format: '0[.]0000000'
+                },
+                {
+                    title: "AB",
+                    data: 12,
                     type: 'numeric',
                     format: '0[.]0000000'
                 },

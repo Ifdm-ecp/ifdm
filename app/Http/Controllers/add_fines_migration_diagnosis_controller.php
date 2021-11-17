@@ -120,8 +120,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         // $fines_d_diagnosis->compressibility = $request->input('compressibility');
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
-        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
-        $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
+        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability');
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
@@ -196,6 +195,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         #Arreglos para guardar los datos organizados - módulo de cálculo
         $qlab_data = [];
+        $permeability_lab_data = [];
         $k1_lab_data = [];
         $k2_lab_data = [];
         $dpdl_lab_data = [];
@@ -215,21 +215,23 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_d_phenomenological_constants = new fines_d_phenomenological_constants;
             $fines_d_phenomenological_constants->fines_d_diagnosis_id = $fines_d_diagnosis->id;
             $fines_d_phenomenological_constants->flow = str_replace(",", ".", $value[0]);
-            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[1]);
-            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[2]);
-            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[3]);
-            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[4]);
-            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[5]);
-            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[6]);
-            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[7]);
-            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[8]);
-            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[9]);
-            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[10]);
-            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->permeability = str_replace(",", ".", $value[1]);
+            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[2]);
+            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[3]);
+            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[4]);
+            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[5]);
+            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[6]);
+            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[7]);
+            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[8]);
+            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[9]);
+            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[10]);
+            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[12]);
             $fines_d_phenomenological_constants->save();
 
             #Agregando datos para módulo de cálculo
             array_push($qlab_data, $fines_d_phenomenological_constants->flow);
+            array_push($permeability_lab_data, $fines_d_phenomenological_constants->permeability);
             array_push($k1_lab_data, $fines_d_phenomenological_constants->k1);
             array_push($k2_lab_data, $fines_d_phenomenological_constants->k2);
             array_push($dpdl_lab_data, $fines_d_phenomenological_constants->dp_dl);
@@ -252,7 +254,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $historical_data = [$dates_data, $bopd_data];
         
         #Datos Finos
-        $fines_data = [$qlab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
+        $fines_data = [$qlab_data, $permeability_lab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
 
         $rdre = floatval($fines_d_diagnosis->drainage_radius);
         $hf = floatval($fines_d_diagnosis->formation_height);
@@ -269,13 +271,12 @@ class add_fines_migration_diagnosis_controller extends Controller
         if ($fines_d_diagnosis->perforation_density == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->perforation_density); }
         if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
-        $kact = floatval($fines_d_diagnosis->current_permeability);
         if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
         if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -459,7 +460,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
-        $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
@@ -617,7 +617,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         if ($fines_d_diagnosis->perforation_density == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->perforation_density); }
         if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
-        $kact = floatval($fines_d_diagnosis->current_permeability);
         if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
         if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
@@ -626,7 +625,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             if (!$button_wr) {
                 /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -1084,7 +1083,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         return [$y, $dy];
     }
-    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug)   
+    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug)   
     {
 
         #Formateando arreglos - empezando índices en 1 
@@ -1113,11 +1112,11 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_data[$key] = $this->set_array($value, count($value));
         }
 
-        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
         // dd('run simulation');
         return $simulation_results;
     }
-    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
+    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug) 
     {
         set_time_limit(1800); //Cambiar
         $complete_simulated_results = [];

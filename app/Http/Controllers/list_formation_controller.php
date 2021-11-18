@@ -35,7 +35,7 @@ class list_formation_controller extends Controller
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
                 $formation = DB::table('formaciones')->select('id', 'nombre')->paginate(15);
-                $cuenca = cuenca::select('id', 'nombre')->get();
+                $cuenca = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('formaciones.list_formation', ['formation' => $formation, 'cuenca' => $cuenca]);
             }else{
                 return view('permission');
@@ -89,7 +89,7 @@ class list_formation_controller extends Controller
     { //dd($id);
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
-                $campo = campo::All();
+                $campo = campo::orderBy('nombre')->get();
                 $data = formacion::find($id);
                 $intervalos = $data->intervalosProductores();
                 
@@ -279,7 +279,7 @@ class list_formation_controller extends Controller
 
                 $formation = DB::table('formaciones')->paginate(15);
 
-                $cuenca = cuenca::select('id', 'nombre')->get();
+                $cuenca = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return redirect('listFormationC');
             }else{
                 return view('permission');

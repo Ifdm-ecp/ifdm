@@ -31,7 +31,7 @@ class add_well_controller extends Controller
         
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
-                $data['cuenca'] = cuenca::All();
+                $data['cuenca'] = cuenca::orderBy('nombre')->get();
                 return view('add_well', $data);
             }else{
                 return view('permission');

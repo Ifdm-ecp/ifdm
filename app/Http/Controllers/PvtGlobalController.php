@@ -21,7 +21,7 @@ class PvtGlobalController extends Controller
     public function index(Request $request)
     {
         $data = PvtGlobal::formacion_id($request->get('formacion_id'))->paginate(15);
-        $basin = cuenca::all()->pluck('nombre', 'id');
+        $basin = cuenca::all()->pluck('nombre', 'id')->sort();
         return view('pvtGlobal.index', compact('data','basin'));
     }
 
@@ -32,7 +32,7 @@ class PvtGlobalController extends Controller
      */
     public function create()
     {
-        $basin =  cuenca::all()->pluck('nombre', 'id');
+        $basin =  cuenca::all()->pluck('nombre', 'id')->sort();
         return view('pvtGlobal.create', compact('basin'));
     }
 
@@ -67,7 +67,7 @@ class PvtGlobalController extends Controller
      */
     public function edit($id)
     {
-        $basin =  cuenca::all()->pluck('nombre', 'id');
+        $basin =  cuenca::all()->pluck('nombre', 'id')->sort();
         $data = PvtGlobal::find($id);//
         $datos = PvtGlobal::edit($data);
         //dd($data);

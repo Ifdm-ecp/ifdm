@@ -35,7 +35,7 @@ class list_well_controller extends Controller
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
                 $well = DB::table('pozos')->select('id', 'nombre')->paginate(15);
-                $cuenca = cuenca::select('id', 'nombre')->get();
+                $cuenca = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('list_well', ['well' => $well, 'cuenca' => $cuenca]);
             }else{
                 return view('permission');
@@ -91,7 +91,7 @@ class list_well_controller extends Controller
 
                 $pozo = pozo::find($id);
                 $campo = campo::where('id', $pozo->campo_id)->first();
-                $cuenca = cuenca::All();
+                $cuenca = cuenca::orderBy('nombre')->get();
             
                 return View::make('edit_well', compact(['pozo', 'campo', 'cuenca']));
             }else{
@@ -290,7 +290,7 @@ class list_well_controller extends Controller
             if(\Auth::User()->office!=2){
                 pozo::destroy($id);
                 $well = DB::table('pozos')->paginate(15);
-                $cuenca = cuenca::select('id', 'nombre')->get();
+                $cuenca = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return redirect('listWellC');
             }else{
                 return view('permission');

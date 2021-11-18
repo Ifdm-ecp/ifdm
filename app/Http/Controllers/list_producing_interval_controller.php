@@ -37,8 +37,8 @@ class list_producing_interval_controller extends Controller
             if(\Auth::User()->office!=2){
                 $interval = DB::table('formacionxpozos')->select('id', 'nombre')->paginate(15);
 
-                $formacion = formacion::select('id', 'nombre')->get();
-                $basin = campo::select('id', 'nombre')->get();
+                $formacion = formacion::select('id', 'nombre')->orderBy('nombre')->get();
+                $basin = campo::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('intervalos.list_producing_interval', ['interval' => $interval, 'formacion' => $formacion, 'basin' => $basin]);
             }else{
                 return view('permission');
@@ -93,7 +93,7 @@ class list_producing_interval_controller extends Controller
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
                 
-                $basin = cuenca::select('id', 'nombre')->get();
+                $basin = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 $data = formacionxpozo::find($id);
                 //dd($data->pvtFormacionXPozo);
                 //dd($tabla);
@@ -290,8 +290,8 @@ class list_producing_interval_controller extends Controller
                 
                 $interval = DB::table('formacionxpozos')->paginate(15);
 
-                $formacion = formacion::select('id', 'nombre')->get();
-                $basin = campo::select('id', 'nombre')->get();
+                $formacion = formacion::select('id', 'nombre')->orderBy('nombre')->get();
+                $basin = campo::select('id', 'nombre')->orderBy('nombre')->get();
                 return redirect('listIntervalC');
 
             }else{

@@ -120,8 +120,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         // $fines_d_diagnosis->compressibility = $request->input('compressibility');
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
-        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
-        $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
+        $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability');
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
@@ -196,6 +195,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         #Arreglos para guardar los datos organizados - módulo de cálculo
         $qlab_data = [];
+        $permeability_lab_data = [];
         $k1_lab_data = [];
         $k2_lab_data = [];
         $dpdl_lab_data = [];
@@ -215,21 +215,23 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_d_phenomenological_constants = new fines_d_phenomenological_constants;
             $fines_d_phenomenological_constants->fines_d_diagnosis_id = $fines_d_diagnosis->id;
             $fines_d_phenomenological_constants->flow = str_replace(",", ".", $value[0]);
-            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[1]);
-            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[2]);
-            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[3]);
-            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[4]);
-            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[5]);
-            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[6]);
-            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[7]);
-            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[8]);
-            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[9]);
-            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[10]);
-            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->permeability = str_replace(",", ".", $value[1]);
+            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[2]);
+            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[3]);
+            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[4]);
+            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[5]);
+            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[6]);
+            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[7]);
+            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[8]);
+            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[9]);
+            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[10]);
+            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[12]);
             $fines_d_phenomenological_constants->save();
 
             #Agregando datos para módulo de cálculo
             array_push($qlab_data, $fines_d_phenomenological_constants->flow);
+            array_push($permeability_lab_data, $fines_d_phenomenological_constants->permeability);
             array_push($k1_lab_data, $fines_d_phenomenological_constants->k1);
             array_push($k2_lab_data, $fines_d_phenomenological_constants->k2);
             array_push($dpdl_lab_data, $fines_d_phenomenological_constants->dp_dl);
@@ -252,7 +254,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $historical_data = [$dates_data, $bopd_data];
         
         #Datos Finos
-        $fines_data = [$qlab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
+        $fines_data = [$qlab_data, $permeability_lab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
 
         $rdre = floatval($fines_d_diagnosis->drainage_radius);
         $hf = floatval($fines_d_diagnosis->formation_height);
@@ -269,13 +271,12 @@ class add_fines_migration_diagnosis_controller extends Controller
         if ($fines_d_diagnosis->perforation_density == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->perforation_density); }
         if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
-        $kact = floatval($fines_d_diagnosis->current_permeability);
         if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
         if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
         try {
             if (!$button_wr) {
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -459,7 +460,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         $fines_d_diagnosis->initial_porosity = $request->input('initial_porosity');
         // $fines_d_diagnosis->porosity_limit_constant = $request->input('porosity_limit_constant');
         $fines_d_diagnosis->initial_permeability = $request->input('initial_permeability'); 
-        $fines_d_diagnosis->current_permeability = $request->input('current_permeability');
         $fines_d_diagnosis->initial_pressure = $request->input('initial_pressure');
         $fines_d_diagnosis->current_pressure = $request->input('current_pressure');
         $fines_d_diagnosis->type_of_suspension_flux = $request->input('type_of_suspension_flux');
@@ -542,6 +542,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         
         #Arreglos para guardar los datos organizados - módulo de cálculo
         $qlab_data = [];
+        $permeability_lab_data = [];
         $k1_lab_data = [];
         $k2_lab_data = [];
         $dpdl_lab_data = [];
@@ -562,21 +563,23 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_d_phenomenological_constants = new fines_d_phenomenological_constants;
             $fines_d_phenomenological_constants->fines_d_diagnosis_id = $fines_d_diagnosis->id;
             $fines_d_phenomenological_constants->flow = str_replace(",", ".", $value[0]);
-            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[1]);
-            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[2]);
-            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[3]);
-            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[4]);
-            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[5]);
-            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[6]);
-            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[7]);
-            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[8]);
-            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[9]);
-            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[10]);
-            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->permeability = str_replace(",", ".", $value[1]);
+            $fines_d_phenomenological_constants->k1 = str_replace(",", ".", $value[2]);
+            $fines_d_phenomenological_constants->k2 = str_replace(",", ".", $value[3]);
+            $fines_d_phenomenological_constants->dp_dl = str_replace(",", ".", $value[4]);
+            $fines_d_phenomenological_constants->k3 = str_replace(",", ".", $value[5]);
+            $fines_d_phenomenological_constants->k4 = str_replace(",", ".", $value[6]);
+            $fines_d_phenomenological_constants->k5 = str_replace(",", ".", $value[7]);
+            $fines_d_phenomenological_constants->dp_dl2 = str_replace(",", ".", $value[8]);
+            $fines_d_phenomenological_constants->sigma = str_replace(",", ".", $value[9]);
+            $fines_d_phenomenological_constants->k6 = str_replace(",", ".", $value[10]);
+            $fines_d_phenomenological_constants->ab_2 = str_replace(",", ".", $value[11]);
+            $fines_d_phenomenological_constants->ab = str_replace(",", ".", $value[12]);
             $fines_d_phenomenological_constants->save();
 
             #Agregando datos para módulo de cálculo
             array_push($qlab_data, $fines_d_phenomenological_constants->flow);
+            array_push($permeability_lab_data, $fines_d_phenomenological_constants->permeability);
             array_push($k1_lab_data, $fines_d_phenomenological_constants->k1);
             array_push($k2_lab_data, $fines_d_phenomenological_constants->k2);
             array_push($dpdl_lab_data, $fines_d_phenomenological_constants->dp_dl);
@@ -597,7 +600,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $historical_data = [$dates_data, $bopd_data];
         
         #Datos Finos
-        $fines_data = [$qlab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
+        $fines_data = [$qlab_data, $permeability_lab_data, $k1_lab_data, $k2_lab_data, $dpdl_lab_data, $k3_lab_data, $k4_lab_data, $k5_lab_data, $dpdls_lab_data, $sigma_lab_data, $k6_lab_data, $ab2_lab_data, $ab_lab_data];
 
         $rdre = floatval($fines_d_diagnosis->drainage_radius);
         $hf = floatval($fines_d_diagnosis->formation_height);
@@ -614,7 +617,6 @@ class add_fines_migration_diagnosis_controller extends Controller
         if ($fines_d_diagnosis->perforation_density == null) { $tpp = null; } else { $tpp = floatval($fines_d_diagnosis->perforation_density); }
         if ($fines_d_diagnosis->perforation_radius == null) { $rp = null; } else { $rp = floatval($fines_d_diagnosis->perforation_radius); }
         $porosity_limit_constant = floatval($fines_d_diagnosis->porosity_limit_constant);
-        $kact = floatval($fines_d_diagnosis->current_permeability);
         if ($fines_d_diagnosis->water_volumetric_factor == null) { $bw = null; } else { $bw = floatval($fines_d_diagnosis->water_volumetric_factor); }
         if ($fines_d_diagnosis->plug_radius == null) { $rplug = null; } else { $rplug = floatval($fines_d_diagnosis->plug_radius); }
 
@@ -623,7 +625,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             if (!$button_wr) {
                 /* dd(json_encode(array($rdre, $hf, $rw, $cr, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant))); */
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
-                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+                $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
@@ -912,18 +914,18 @@ class add_fines_migration_diagnosis_controller extends Controller
 
     function rate_scaling($rw, $tcri, $hf, $rplug, $tpp, $rp, $bw)
     {
-
+        $tpp_aux = $tpp;
         #$bw = $volumetricfactor
         #$rplug = $radiodeplug
 
         #Hueco abierto
-        if ($tpp == 0 || $tpp == null) {
+        if ($tpp_aux == 0 || $tpp_aux == null) {
             $tcri_esc = 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2); #stb/dia
 
         #Hueco cementado
-        } else if ($tpp =! 0) {
+        } else if ($tpp_aux =! 0) {
             if ($rw < 0.375) {
-                $fp3 = 1.036 * ($tpp * $rp) / (0.9932 * $tpp * $rp + 0.7718);
+                $fp3 = (1.036 * $tpp * $rp) / ((0.9932 * $tpp * $rp) + 0.7718);
                 $tcri_esc = $fp3 * 0.009057 * $tcri * (1.0 / $bw) * 2 * $rw * $hf / pow($rplug, 2);
             } else {
                 $fp6 = 1.0258 * ($tpp * $rp) / (0.9742 * $tpp * $rp + 0.8845);
@@ -1081,7 +1083,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         return [$y, $dy];
     }
-    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug)   
+    function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug)   
     {
 
         #Formateando arreglos - empezando índices en 1 
@@ -1110,11 +1112,11 @@ class add_fines_migration_diagnosis_controller extends Controller
             $fines_data[$key] = $this->set_array($value, count($value));
         }
 
-        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug);
+        $simulation_results = $this->simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
         // dd('run simulation');
         return $simulation_results;
     }
-    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $kact, $porosity_limit_constant, $bw, $rplug) 
+    function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug) 
     {
         set_time_limit(1800); //Cambiar
         $complete_simulated_results = [];
@@ -1136,17 +1138,18 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         $ns = count($fines_data[0]) - 1;
         $qlab = $fines_data[0];
-        $k1_lab = $fines_data[1];
-        $k2_lab = $fines_data[2];
-        $dpdl_lab = $fines_data[3];
-        $k3_lab = $fines_data[4];
-        $k4_lab = $fines_data[5];
-        $k5_lab = $fines_data[6];
-        $dpdls_lab = $fines_data[7];
-        $sigma_lab = $fines_data[8];
-        $k6_lab = $fines_data[9];
-        $ab2_lab = $fines_data[10];
-        $ab_lab = $fines_data[11];
+        $permeability_lab = $fines_data[1];
+        $k1_lab = $fines_data[2];
+        $k2_lab = $fines_data[3];
+        $dpdl_lab = $fines_data[4];
+        $k3_lab = $fines_data[5];
+        $k4_lab = $fines_data[6];
+        $k5_lab = $fines_data[7];
+        $dpdls_lab = $fines_data[8];
+        $sigma_lab = $fines_data[9];
+        $k6_lab = $fines_data[10];
+        $ab2_lab = $fines_data[11];
+        $ab_lab = $fines_data[12];
 
         $pi = 3.14159265359;
         $x = 0;
@@ -1289,11 +1292,11 @@ class add_fines_migration_diagnosis_controller extends Controller
         $pite = array(1 => 0, 0, 0, 0, 0);
         $crite = array(1 => 0.1, 0.005, 0.001, 0.0005, 0.0001);
         $cr = $cri[1];
-        $porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 0);
-        $porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5);
+        $porosity_limit_constanti = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 0);
+        $porosity_limit_constantite = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0);
         //$porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5, 0);
         //$porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
-        $kite = array(1 => 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        $kite = array(1 => 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         $porosity_limit_constant = $porosity_limit_constanti[1];
         $flag_ran_xx_7 = 0;
 
@@ -1703,6 +1706,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                     $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
                     $bo = array_fill(1, $nr, 0);
                     $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                    $constantes = [];
 
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
@@ -1710,6 +1714,14 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $ndt = $tiempo[$kk] / $dt;
                         $qo = -$bopd[$kk];
                         
+                        if (-$qo < $qlab[1]) {
+                            $k_lab_qo = $permeability_lab[1];
+                        }else if (-$qo > $qlab[count($qlab)-1]) {
+                            $k_lab_qo = $permeability_lab[count($permeability_lab)-1];
+                        }else{
+                            $k_lab_qo = $this->interpolation(-$qo, count($qlab)-1, $qlab, $permeability_lab);
+                        }
+
                         for ($v=1; $v <= $ndt ; $v++) 
                         { 
                             
@@ -1812,6 +1824,19 @@ class add_fines_migration_diagnosis_controller extends Controller
                             { 
                                 $pcal[$j] = ($gg[$j] - ($qq[$j] * $pcal[$j + 1]));
                             }
+
+                            // if($yy==18 && $kk==109) {dd($pcal, $porosity_limit_constant);}
+
+                            if ($pcal[1] < 0) {
+                                if ($yy == 1) {
+                                    return [false, Redirect::back()
+                                    ->withErrors(['msg' => 'Negative bottom hole pressures estimated. Please check the input data.'])];
+                                }else if ($yy < 17) {
+                                    $yy = 17;
+                                    break 2;
+                                }
+                            }
+
                             //if ($xx==7 && $yy==1) {dd($f, $pn, $qo, $kn, $vm, $mu);}
                                 
                             //dd('pcal', $pcal, 'gg', $gg, 'qq', $qq, 'd', $d, 'b', $b, 'w', $w, 'nr', $nr, 'c', $c, 'a', $a);
@@ -1867,6 +1892,15 @@ class add_fines_migration_diagnosis_controller extends Controller
                             $abi = $this->fines_interpolation(-$qo, $ns, $qlab, $ab_lab);
 
                             #Cambio de porosidad - No se usa ki para estos escenarios --> ajuste del modelo multitasa. Revisar y quitar
+                            if ($yy == 18) {
+                                $kite_reverse = array_reverse($kite);
+                                $porosity_limit_constantite_reverse = array_reverse($porosity_limit_constantite);
+                                $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite)-1, $kite_reverse, $porosity_limit_constantite_reverse);
+                                // dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo);
+                                // if ($kk == 36) {
+                                //     dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo);
+                                // }
+                            }
                             $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
                             //dd($porosity_change);
                             $phic = $porosity_change[0];
@@ -1917,14 +1951,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $cod[$i] = $sigmasal[$i];
                                 $kc[$i] = $kn[$i] * pow($phic[$i] / $phin[$i], 3.0); #Revisar
                             }
-
+                            
                             if ($kc[2] < 0) {
-                                if ($yy == 11) {
-                                    $yy = 10;
-                                    $flag_ran_yy_11 = 1;
-                                    break 2;
-                                }else{
-                                    $yy = 10;
+                                if ($yy < 17) {
+                                    $yy = 17;
                                     break 2;
                                 }
                             }
@@ -1992,7 +2022,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
 
-                        if ($xx == 7 && $yy == 11) {
+                        if ($xx == 7 && $yy == 18) {
                             for ($i=2; $i <= $nr - 1; $i++) 
                             { 
                                 $simulation_results[$i] = array($r[$i], $pcal[$i], $phic[$i], $kc[$i], $cod[$i]);
@@ -2000,14 +2030,18 @@ class add_fines_migration_diagnosis_controller extends Controller
                             // dd($cr, $porosity_limit_constant, $simulation_results);
                             //dd($r, $pcal, $phic, $kc, $coc, 'lel');
                             $damage_results[$kk] = array($hist[$kk], $r_damage, $skin[2]);
+                            array_push($constantes, $porosity_limit_constant);
                             array_push($complete_simulated_results, $simulation_results);
+                            // if ($kk == $nh) {
+                            //     dd($constantes);
+                            // }
                         }
                     }
 
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
 
                     #Nueva sección
-                    if ($yy < 10) {
+                    if ($yy < 17) {
                         //if($xx==7 && $yy==1 ){dd($phic, $kc, $pcal);}
                         $kite[$yy] = $kc[2];
                         $porosity_limit_constantite[$yy] = $porosity_limit_constant;
@@ -2024,7 +2058,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         $porosity_limit_constant = $porosity_limit_constanti[$yy + 1];
                     }
 
-                    if ($yy == 10) {
+                    if ($yy == 17) {
                         //dd('LLEGA AL INICIO DEL xx = 6',$kite);
                         //dd(count($kite));
 
@@ -2035,88 +2069,96 @@ class add_fines_migration_diagnosis_controller extends Controller
                             }
                         }
 
+                        while (count($porosity_limit_constantite) > count($kite)) {
+                            array_pop($porosity_limit_constantite);
+                        }
+
                         // dd([$pite, $crite, $kite, $porosity_limit_constantite, $cr, $pact]);
 
                         //dd($kite);
                         
-                        for ($j = 1; $j <= (count($kite) - 1); $j++) {  #length(crite)-1
-                            if ($kact > $kite[1]) {
-                                if (($kite[2] - $kite[1]) == 0) {
-                                    $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }else{
-                                    $porosity_limit_constant = $porosity_limit_constantite[1] + (($porosity_limit_constantite[2] - $porosity_limit_constantite[1]) / ($kite[2] - $kite[1])) * ($pact - $kite[1]);
-                                }
-                                # Acotar la constante
-                                if ($porosity_limit_constant <= 0) { 
-                                    $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1.5) {
-                                    $porosity_limit_constant = 1.5;
-                                }
-                                $pn = array_fill(1, $nr, $pini); 
-                                $phin = array_fill(1, $nr, $phio); 
-                                $kn = array_fill(1, $nr, $ko); 
-                                $co = array_fill(1, $nr, $coi); 
-                                $cod = array_fill(1, $nr, 0); 
-                                $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                                $bo = array_fill(1, $nr, 0);
-                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 1]);
-                                // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 1, $xx);
-                                break;
-                            }elseif (($kact < $kite[$j]) && ($kact > $kite[$j + 1])) { 
-                                if (($kite[$j + 1] - $kite[$j]) == 0) {
-                                    $porosity_limit_constant = $porosity_limit_constantite[$j];
-                                }else{
-                                    $porosity_limit_constant = $porosity_limit_constantite[$j] + (($porosity_limit_constantite[$j + 1] - $porosity_limit_constantite[$j]) / ($kite[$j + 1] - $kite[$j])) * ($kact - $kite[$j]);
-                                }
-                                # Acotar la constante
-                                if ($porosity_limit_constant <= 0) { 
-                                    $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1.5) {
-                                    $porosity_limit_constant = 1.5;
-                                }
-                                $pn = array_fill(1, $nr, $pini); 
-                                $phin = array_fill(1, $nr, $phio); 
-                                $kn = array_fill(1, $nr, $ko); 
-                                $co = array_fill(1, $nr, $coi); 
-                                $cod = array_fill(1, $nr, 0); 
-                                $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                                $bo = array_fill(1, $nr, 0);
-                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 2]);
-                                // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 2, $xx);
-                                break;
-                            }elseif ($kact < $kite[count($kite)]) {
-                                if ($flag_ran_yy_11 == 0) {
-                                    if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { 
-                                        $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1];
-                                    }else{
-                                        $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1] + (($porosity_limit_constantite[count($kite)] - $porosity_limit_constantite[count($kite) - 1]) / ($kite[count($kite)] - $kite[count($kite) - 1])) * ($kact - $kite[count($kite) - 1]);
-                                    }
-                                }else{
-                                    $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
-                                }
-                                # Acotar la constante
-                                if ($porosity_limit_constant <= 0) { 
-                                    $porosity_limit_constant = $porosity_limit_constantite[1];
-                                }elseif ($porosity_limit_constant >= 1.5) {
-                                    $porosity_limit_constant = 1.5;
-                                }
-                                $pn = array_fill(1, $nr, $pini); 
-                                $phin = array_fill(1, $nr, $phio); 
-                                $kn = array_fill(1, $nr, $ko); 
-                                $co = array_fill(1, $nr, $coi); 
-                                $cod = array_fill(1, $nr, 0); 
-                                $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
-                                $bo = array_fill(1, $nr, 0);
-                                $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
-                                // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $flag_ran_yy_11, 3]);
-                                // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, 3, $xx);
-                                break;
-                            }
-                        }
+                        // for ($j = 1; $j <= (count($kite) - 1); $j++) {  #length(crite)-1
+                        //     if ($kact > $kite[1]) {
+                        //         if (($kite[2] - $kite[1]) == 0) {
+                        //             $porosity_limit_constant = $porosity_limit_constantite[1];
+                        //         }else{
+                        //             $porosity_limit_constant = $porosity_limit_constantite[1] + (($porosity_limit_constantite[2] - $porosity_limit_constantite[1]) / ($kite[2] - $kite[1])) * ($pact - $kite[1]);
+                        //         }
+                        //         # Acotar la constante
+                        //         if ($porosity_limit_constant <= 0) { 
+                        //             $porosity_limit_constant = $porosity_limit_constantite[1];
+                        //         }elseif ($porosity_limit_constant >= 1.5) {
+                        //             $porosity_limit_constant = 1.5;
+                        //         }
+                        //         $pn = array_fill(1, $nr, $pini); 
+                        //         $phin = array_fill(1, $nr, $phio); 
+                        //         $kn = array_fill(1, $nr, $ko); 
+                        //         $co = array_fill(1, $nr, $coi); 
+                        //         $cod = array_fill(1, $nr, 0); 
+                        //         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                        //         $bo = array_fill(1, $nr, 0);
+                        //         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                        //         // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 1]);
+                        //         // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, $cr, $pcal, 1, $xx);
+                        //         break;
+                        //     }elseif (($kact < $kite[$j]) && ($kact > $kite[$j + 1])) { 
+                        //         if (($kite[$j + 1] - $kite[$j]) == 0) {
+                        //             $porosity_limit_constant = $porosity_limit_constantite[$j];
+                        //         }else{
+                        //             $porosity_limit_constant = $porosity_limit_constantite[$j] + (($porosity_limit_constantite[$j + 1] - $porosity_limit_constantite[$j]) / ($kite[$j + 1] - $kite[$j])) * ($kact - $kite[$j]);
+                        //         }
+                        //         # Acotar la constante
+                        //         if ($porosity_limit_constant <= 0) { 
+                        //             $porosity_limit_constant = $porosity_limit_constantite[1];
+                        //         }elseif ($porosity_limit_constant >= 1.5) {
+                        //             $porosity_limit_constant = 1.5;
+                        //         }
+                        //         $pn = array_fill(1, $nr, $pini); 
+                        //         $phin = array_fill(1, $nr, $phio); 
+                        //         $kn = array_fill(1, $nr, $ko); 
+                        //         $co = array_fill(1, $nr, $coi); 
+                        //         $cod = array_fill(1, $nr, 0); 
+                        //         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                        //         $bo = array_fill(1, $nr, 0);
+                        //         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                        //         // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 2]);
+                        //         // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, $cr, $pcal, 2, $xx);
+                        //         break;
+                        //     }elseif ($kact < $kite[count($kite)]) {
+                        //         if ($flag_ran_yy_11 == 0) {
+                        //             if(($kite[count($kite)] - $kite[count($kite) - 1]) == 0) { 
+                        //                 $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1];
+                        //             }else{
+                        //                 $porosity_limit_constant = $porosity_limit_constantite[count($kite) - 1] + (($porosity_limit_constantite[count($kite)] - $porosity_limit_constantite[count($kite) - 1]) / ($kite[count($kite)] - $kite[count($kite) - 1])) * ($kact - $kite[count($kite) - 1]);
+                        //             }
+                        //         }else{
+                        //             $porosity_limit_constant = $porosity_limit_constantite[count($kite)];
+                        //         }
+                        //         # Acotar la constante
+                        //         if ($porosity_limit_constant <= 0) { 
+                        //             $porosity_limit_constant = $porosity_limit_constantite[1];
+                        //         }elseif ($porosity_limit_constant >= 1.5) {
+                        //             $porosity_limit_constant = 1.5;
+                        //         }
+                        //         $pn = array_fill(1, $nr, $pini); 
+                        //         $phin = array_fill(1, $nr, $phio); 
+                        //         $kn = array_fill(1, $nr, $ko); 
+                        //         $co = array_fill(1, $nr, $coi); 
+                        //         $cod = array_fill(1, $nr, 0); 
+                        //         $sigmaini = array_fill(1, $nr, $simgaineverchanges); 
+                        //         $bo = array_fill(1, $nr, 0);
+                        //         $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
+                        //         // dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, $flag_ran_yy_11, 3]);
+                        //         // dd($kact, $kite, $porosity_limit_constantite, $porosity_limit_constant, $cr, $pcal, 3, $xx);
+                        //         break;
+                        //     }
+                        // }
                     }
+                    
                 }
+                // if ($yy == 18) {
+                //     break 1;
+                // }
             }
         }
         //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);

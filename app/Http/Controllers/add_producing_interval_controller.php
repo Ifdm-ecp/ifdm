@@ -32,8 +32,8 @@ class add_producing_interval_controller extends Controller
     {        
         if (\Auth::check()) {
             if(\Auth::User()->profile!=5){
-                $data['formacion'] = formacion::select('id', 'nombre');
-                $data2['basin'] = cuenca::select('id', 'nombre');
+                $data['formacion'] = formacion::select('id', 'nombre')->orderBy('nombre')->get();
+                $data2['basin'] = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('intervalos.add_producing_interval', $data, $data2);
             }else{
                 return view('permission');

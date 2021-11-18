@@ -767,7 +767,7 @@ Route::group(['middleware' => 'auth'], function(){
         {
             $group = [];
             foreach ($project_tree as $project) {
-                $project['name'] = $project->name;
+                $project['name'] = $project->nombre;
                 $project['icon'] = url('images/icon-folder.png');
                 $project['href'] = '';
 
@@ -877,7 +877,9 @@ Route::group(['middleware' => 'auth'], function(){
                 $company['child'] = $projects;
             }
             $tree = $company_tree;
+            
         } else {
+        
             $projects = App\proyecto::select('proyectos.id', 'proyectos.nombre', 'proyectos.compania')
                                     ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
                                     ->raw('COUNT(escenarios.id) > 0')

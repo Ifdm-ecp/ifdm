@@ -105,6 +105,7 @@
 
         getImportTree.done(function () {
             $('#treeDuplicateScenary').html('');
+            console.log(Tree);
             if (Tree.length > 0) {
                 $('#treeDuplicateScenary').tree(Tree);
                 setTimeout(function() {
@@ -129,7 +130,7 @@
                                 sel = sel['child'];
                             }
                         }
-
+                        console.log('#escenario_dup', 'keekekekekekeke');
                         $('#escenario_dup').val(sel.nombre);
                         $('#id_escenario_dup').val(sel.id);
                         $('.s_scenary_clear').removeAttr('disabled');

@@ -28,7 +28,7 @@ class filtration_function_controller extends Controller
   {
     if (\Auth::check()) {
       if (\Auth::User()->office != 2) {
-        $basins['basins'] = cuenca::all();
+        $basins['basins'] = cuenca::orderBy('nombre')->get();
         return view('filtrationFunction.create', $basins);
       } else {
         return view('permission');
@@ -148,7 +148,7 @@ class filtration_function_controller extends Controller
           });
           array_push($lab_tests_data, $lab_data);
         }
-        $basins = cuenca::all();
+        $basins = cuenca::orderBy('nombre')->get();
         $formation_id = $filtration_function->formation_id;
         $field_id = formacion::find($formation_id)->campo_id;
         $basin_id = campo::find($field_id)->cuenca_id;
@@ -232,7 +232,7 @@ class filtration_function_controller extends Controller
   public function destroy($id)
   {
     filtration_function::destroy($id);
-    $basin = cuenca::select('id', 'nombre')->get();
+    $basin = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
     $filtration_functions = DB::table('d_filtration_function')->select('id', 'name')->paginate(15);
     return view('list_filtration_function', ['basin' => $basin, 'filtration_functions' => $filtration_functions]);
   }
@@ -248,7 +248,7 @@ class filtration_function_controller extends Controller
   {
     if (\Auth::check()) {
       if (\Auth::User()->office != 2) {
-        $basin = cuenca::select('id', 'nombre')->get();
+        $basin = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
         $filtration_functions = DB::table('d_filtration_function')->select('id', 'name')->paginate(15);
         return view('list_filtration_function', ['basin' => $basin, 'filtration_functions' => $filtration_functions]);
       } else {

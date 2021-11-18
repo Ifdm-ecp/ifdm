@@ -30,7 +30,7 @@ class add_formation_controller extends Controller
 
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
-                $data['campo'] = campo::all();
+                $data['campo'] = campo::orderBy('nombre')->get();
                 return view('formaciones.add_formation', $data);
             }else{
                 return view('permission');

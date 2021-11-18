@@ -13,6 +13,44 @@
     setDefaultValues();
     @endif
 
+    $(".input_check_use_tab").click(function(){
+      $('.input_check_use_tab')
+      .val('check_tabular_rel_perm')
+      .attr('id','check_tabular_rel_perm')
+      .attr('name','check_tabular_rel_perm')
+      .change(function(event) {
+        event.preventDefault();
+        var checkbox = $(this);
+        if(checkbox.is(":checked"))
+        {
+          $(".input_check_use_corey").prop('checked', false);
+          $(".use_permeability_tables").show();
+          $(".use_corey_model").hide();
+        }
+        validateTabs(false);
+      }).change();
+    });
+    
+
+    $(".input_check_use_corey").click(function(){
+      $('.input_check_use_corey')
+      .val('check_corey_rel_perm')
+      .attr('id','check_corey_rel_perm')
+      .attr('name','check_corey_rel_perm')
+      .change(function(event) {
+        event.preventDefault();
+        var checkbox = $(this);
+        if(checkbox.is(":checked"))
+        {
+          $(".input_check_use_tab").prop('checked', false);
+          $(".use_permeability_tables").hide();
+          $(".use_corey_model").show();
+        }
+        validateTabs(false);
+      }).change();
+    });
+    
+
     setTimeout(function() {
       $('.stress_sensitive_reservoir_class').change();
     }, 1000);

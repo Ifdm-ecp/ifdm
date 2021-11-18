@@ -31,7 +31,7 @@ class list_field_controller extends Controller
             if(\Auth::User()->office!=2){
                 $field = DB::table('campos')->paginate(15);
 
-                $basin = cuenca::select('id', 'nombre')->get();
+                $basin = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('list_field', ['field' => $field, 'basin' => $basin]);
             }else{
                 return view('permission');
@@ -85,7 +85,7 @@ class list_field_controller extends Controller
     {
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
-                $basin = cuenca::All();
+                $basin = cuenca::orderBy('nombre')->get();
                 $field = campo::find($id);
 
                 return view('edit_field', ['field' => $field, 'basin' => $basin]);
@@ -223,7 +223,7 @@ class list_field_controller extends Controller
             if(\Auth::User()->office!=2){
                 campo::destroy($id);
 
-                $basin = cuenca::select('id', 'nombre')->get();
+                $basin = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 $field = DB::table('campos')->paginate(15);
                 return redirect('listFieldC');
             }else{

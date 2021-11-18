@@ -28,7 +28,7 @@ class add_basin_field_controller extends Controller
 
         if (\Auth::check()) {
             if(\Auth::User()->office!=2){
-                $data['basin'] = cuenca::all();
+                $data['basin'] = cuenca::orderBy('nombre')->get();
                 return view('add_basin_field', $data);
             }else{
                 return view('permission');

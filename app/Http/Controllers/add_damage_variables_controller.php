@@ -21,9 +21,8 @@ class add_damage_variables_controller extends Controller
     {
         if (\Auth::check()) {
             if (\Auth::User()->office != 2) {
-                $formacion = formacion::select('id', 'nombre');
-                $cuenca = cuenca::select('id', 'nombre')
-                    ->orderBy('nombre')->get();
+                $formacion = formacion::select('id', 'nombre')->orderBy('nombre')->get();
+                $cuenca = cuenca::select('id', 'nombre')->orderBy('nombre')->get();
                 return view('add_damage_variables', ['formacion' => $formacion, 'cuenca' => $cuenca]);
             } else {
                 return view('permission');

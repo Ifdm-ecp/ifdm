@@ -1566,7 +1566,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 */
 
                 for ($i=1; $i <= $nr ; $i++) { 
-                    if ( abs($ko - $kc[$i]) > (0.05 * $ko) ) {
+                    if ( abs($kc[$nr] - $kc[$i]) > (0.05 * $kc[$nr]) ) {
                         $radio_dam[$i] = $r[$i];
                     }else{
                         $radio_dam[$i] = 0;

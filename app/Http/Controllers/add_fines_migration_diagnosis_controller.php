@@ -1577,7 +1577,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                 for ($i=1; $i <= $nr ; $i++) { 
                     if ( $radio_dam[$i] != 0 ) {
-                        $skin[$i] = (($ko / $kc[$i]) - 1 ) * log($r_damage / $rw);
+                        $skin[$i] = (($kc[$nr] / $kc[$i]) - 1 ) * log($r_damage / $rw);
                     }else{
                         $skin[$i] = 0;
                     }
@@ -2005,7 +2005,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         */
 
                         for ($i=1; $i <= $nr ; $i++) { 
-                            if ( abs($ko - $kc[$i]) > (0.05 * $ko) ) {
+                            if ( abs($kc[$nr] - $kc[$i]) > (0.05 * $kc[$nr]) ) {
                                 $radio_dam[$i] = $r[$i];
                             }else{
                                 $radio_dam[$i] = 0;
@@ -2016,7 +2016,7 @@ class add_fines_migration_diagnosis_controller extends Controller
 
                         for ($i=1; $i <= $nr ; $i++) { 
                             if ( $radio_dam[$i] != 0 ) {
-                                $skin[$i] = (($ko / $kc[$i]) - 1 ) * log($r_damage / $rw);
+                                $skin[$i] = (($kc[$nr] / $kc[$i]) - 1 ) * log($r_damage / $rw);
                             }else{
                                 $skin[$i] = 0;
                             }

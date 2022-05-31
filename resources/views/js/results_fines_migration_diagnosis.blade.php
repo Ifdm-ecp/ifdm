@@ -78,9 +78,9 @@
                 console.log(permeability_radius);
                 console.log('co');
                 console.log(co_radius);
-                plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [Fraction]", data[1]);
-                plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", data[1]);
-                plot_results("co_chart", co_radius, "Fines Concentration", "Radius [ft]", "Fines Concentration [% Weight]", data[1]);
+                plot_results("porosity_chart", porosity_radius, "Porosity", "Radius [ft]", "Porosity [Fraction]", 15);
+                plot_results("permeability_chart", permeability_radius, "Permeability", "Radius [ft]", "Permeability [mD]", 15);
+                //plot_results("co_chart", co_radius, "Fines Concentration", "Radius [ft]", "Fines Concentration [% Weight]", data[1]);
             });
     }
 
@@ -98,12 +98,12 @@
                 title: {
                     text: y_axis_tittle
                 }, 
-                min: 0
             },
             xAxis: {
                 title: {
                     text: x_axis_tittle
                 },
+                max: max_x_value
             },
 
             plotOptions: {

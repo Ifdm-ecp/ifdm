@@ -57,14 +57,14 @@
                      </div>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="panel panel-default">
                      <div class="panel-heading"><b>Fines Concentration</b></div>
                      <div class="panel-body">
                        <div id="co_chart"></div>
                      </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <br>
             </div>

@@ -6,102 +6,29 @@
 <h1>Add Damage Variables</h1>
 <br/>
 
-@if (\Session::has('success'))
-    <div class="alert alert-success">
-        <ul>
-            <li>{!! \Session::get('success') !!}</li>
-        </ul>
-    </div>
-@endif
-
-{!!Form::open(['url' => 'AddMeasurementCS', 'method' => 'post', 'files' =>true])!!}
+{!!Form::open(array('url' => 'AddMeasurementCS', 'method' => 'post'))!!}
 <div class="row">
-   <div class="col-md-6">
+   <div class="col-md-4">
       <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
          {!! Form::label('basin', 'Basin') !!}
          {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'basin', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
-   <div class="col-md-6">
+   <div class="col-md-4">
       <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
          {!! Form::label('Field', 'Field') !!}
          {!! Form::select('field', array(),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'field', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
-   <div class="col-md-6">
+   <div class="col-md-4">
       <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
          {!! Form::label('well', 'Well') !!}
          {!! Form::select('well', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'well', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
-   <div class="col-md-6">
-      <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-         {!! Form::label('formation', 'Formation') !!}
-         {!! Form::select('formation', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'formation', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
-      </div>
-   </div>
 </div>
 
 <br> 
-
-<div class="panel panel-default">
-   <div class="panel-heading">
-      <h4>Import Damage Variables (Optional)</h4>
-   </div>
-
-   <div class="panel-body">
-      <p class="card-text">Here you can import several Damage Variables by once with the help of an Excel form.</p>
-      <p class="card-text">Mandatory input fields for this import are Basin <label for="*" class="red">*</label> and Field <label for="*" class="red">*</label>.
-      <div>
-         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
-            Upload Damage Variables
-         </button>
-         <a href={{ asset('/files/damage_variable_format.xlsx') }} class="btn btn-secondary">Download Format</a>
-      </div>
-      
-   </div>
-</div>
-
-<br>
-
-<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Upload Damage Variables</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            <b><p>Please, follow the recommendations for a proper execution:</p></b>
-            <p>1. Each added index must contain on its row the corresponding "Well" and "Formation" names.</p>
-            <p>2. Each added index must have "Value" and "Monitoring Date". "Comment" field is optional.</p>
-            <p>3. Avoid typing "space" characters at the end and begging of each data input.</p>
-            <p>4. Please do NOT modify column titles, tab titles or add any information to the standard tables format.</p>
-            <p>5. Please insert dates with the following format: "dd/mm/yyyy".</p>
-            <p>6. Avoid typing letter accents, symbols or any special characters along input data.</p>
-            <p>7. All decimal numbers must be placed with dots "." instead of comas ",".</p>
-            <p>8. Please follow a row sequence adding data to the tables avoiding to let empty rows.</p>
-            <p>9. Any style change (font color, font type, font size, bold, italic, cell color ) is allowed for user ease.</p>
-            <p>10. Wells and Formations used must be already created in IFDM Database.</p>
-            <br>
-            <b>{!!  'Select the file to upload.'; !!}</b>
-            <br>
-            <br>
-            {!! Form::file('uploadedFile', array('class' => 'btn btn-primary col-md-12', 'id'=>'uploadedFile')); !!}
-            <br>
-            
-      <br>
-      </div>
-      <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         {!! Form::submit('Upload File', array('class' => 'btn btn-primary', 'onclick' => '', 'name' => 'upload', 'onclik' => '')); !!}
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <div class="nav">
    <div class="tabbable">

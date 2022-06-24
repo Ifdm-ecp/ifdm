@@ -9,7 +9,6 @@
             function(data) {
                 $("#well").empty();
                 $("#field").empty();
-                $("#formation").empty();
 
                 $.each(data, function(index, value) {
                     $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
@@ -19,8 +18,6 @@
                 $("#field").selectpicker('val', '');
                 $("#well").selectpicker('refresh');
                 $("#well").selectpicker('val', '');
-                $("#formation").selectpicker('refresh');
-                $("#formation").selectpicker('val', '');
             });
         });
 
@@ -38,18 +35,6 @@
 
                 $("#well").selectpicker('refresh');
                 $("#well").selectpicker('val', '');
-            });
-            $.get("{{url('formacionbyfield')}}", {
-                    field: field
-            },
-            function(data) {
-                console.log(data);
-                $("#formation").empty();
-                $.each(data, function(index, value) {
-                    $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                });
-                $("#formation").selectpicker('refresh');
-                $('#formation').selectpicker('val', '');
             });
         });
 

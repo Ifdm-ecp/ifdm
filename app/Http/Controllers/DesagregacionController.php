@@ -1165,7 +1165,6 @@ class desagregacionController extends Controller
     /* Parámetro 4: @permeabilidad_zona_afectada */
     public function stress_damage($well_permeability_module, $well_radius, $effective_stress)
     {
-        //dd($well_permeability_module, $well_radius, $effective_stress);
         #Promedio de permeablidad_zona_afectada de a dos, en lugar de valor puntual
         $well_point_i_distance = $this->well_point_i_distance($well_radius, 10);
         $sum = 0;
@@ -1452,7 +1451,6 @@ class desagregacionController extends Controller
 
     public function total_pseudo_skin($damage_by_deflection, $damage_by_partial_penetration, $damage_by_shape, $damage_by_perforation)
     {
-        //dd($damage_by_deflection, $damage_by_partial_penetration , $damage_by_shape , $damage_by_perforation);
         return $damage_by_deflection + $damage_by_partial_penetration + $damage_by_shape + $damage_by_perforation;
     }
 
@@ -1677,14 +1675,12 @@ class desagregacionController extends Controller
         $mechanical_damage = $stress_damage + $damage_ratio + $total_pseudo_skin;
         if ($skin > $mechanical_damage) {
             $mechanical_damage = ($skin - $stress_damage - $damage_ratio - $total_pseudo_skin);
-            //dd($skin , $stress_damage , $damage_ratio , $total_pseudo_skin);
         } else {
             //mostrar 'ERROR 105'
             $mechanical_damage = ($skin - $stress_damage - $damage_ratio - $total_pseudo_skin);
-            //dd($skin , $stress_damage , $damage_ratio , $total_pseudo_skin);
         }
 
-        //dd("Mechanical damage", $mechanical_damage, "Damage by deflection", $damage_by_deflection, "Damage by partial penetration", $damage_by_partial_penetration, "Damage by shape", $damage_by_shape, "Damage sm", $damage_sm, "Damage wb",  $damage_wb, "Damage sv", $damage_sv, "Damage by perforation", $damage_by_perforation, "Damage total pseudo skin", $total_pseudo_skin);
+        //dd($mechanical_damage);
 
         $results = array($skin, $mechanical_damage, $stress_damage, $total_pseudo_skin, $damage_ratio, $pressure_axis, $pressure_axis/* $permeability_axis */, $well_friction_coefficient, $well_permeability_module, $pore_pressure_view, $stress_damage_results_view);
         

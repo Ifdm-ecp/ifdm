@@ -38,8 +38,6 @@ class CreateTablaAsphalteneRemediation extends Migration
 
                 // Se cambia por un id 
                 $table->integer('option_treatment')->unsigned();
-                $table->foreign('option_treatment')->references('id')->on('
-
                 $table->double('asphaltene_apparent_density');
 
                 //En caso de estar activo el campo stimate_ior_input 

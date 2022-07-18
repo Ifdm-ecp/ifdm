@@ -7,22 +7,28 @@
 <br/>
 
 <div class="row">
-   <div class="col-md-4">
+   <div class="col-md-6">
       <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
          {!! Form::label('basin', 'Basin') !!}
          {!! Form::select('basin', $basins->lists('nombre', 'id'), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick', 'id' => 'basin', 'data-live-search' => 'true', 'data-style' => 'btn-default')) !!}
       </div>
    </div>
-   <div class="col-md-4">
+   <div class="col-md-6">
       <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
          {!! Form::label('Field', 'Field') !!}
          {!! Form::select('field', array(), null, array('placeholder' => '', 'class' => 'form-control selectpicker show-tick', 'id' => 'field', 'data-live-search' => 'true', 'data-style' => 'btn-default')) !!}
       </div>
    </div>
-   <div class="col-md-4">
+   <div class="col-md-6">
       <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
          {!! Form::label('well', 'Well') !!}
          {!! Form::select('well', array(), null, array('class'=>'form-control selectpicker show-tick', 'id' => 'well', 'data-live-search' => 'true', 'data-style' => 'btn-default')) !!}
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
+         {!! Form::label('formation', 'Formation') !!}
+         {!! Form::select('formation', array(), null, array('class'=>'form-control selectpicker show-tick', 'id' => 'formation', 'data-live-search' => 'true', 'data-style' => 'btn-default')) !!}
       </div>
    </div>
 </div>

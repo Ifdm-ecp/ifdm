@@ -2,10 +2,13 @@
 
     //Guardar valores de select para cargar cuando salga error en el formulario.
     window.onbeforeunload = function() {
+
         var a = $('#well').val();
         localStorage.setItem('well', $('#well').val());
         var b = $('#field').val();
         localStorage.setItem('field', $('#field').val());
+        var c = $('#formation').val();
+        localStorage.setItem('formation', $('#formation').val());
     }
 
     //Volver a cargar valores de select anidados cuando salga ventana modal de error.
@@ -43,6 +46,22 @@
                 $("#well").selectpicker('refresh');
             }
         );
+
+        // var pozo = localStorage.getItem('formation');
+        // $.get("{{url('fields')}}", {
+        //         field: field
+        //     },
+        //     function(data) {
+        //         $("#well").empty();
+        //         $.each(data, function(index, value) {
+        //             $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+        //         });
+        //         var k = '#well > option[value="{{ 'xxx'}}"]';
+        //         k = k.replace('xxx', pozo);
+        //         $(k).attr('selected', 'selected');
+        //         $("#well").selectpicker('refresh');
+        //     }
+        // );
     }
 
     $(function() {
@@ -63,6 +82,7 @@
                 function(data) {
                     $("#well").empty();
                     $("#field").empty();
+                    $("#formation").empty();
 
                     $.each(data, function(index, value) {
                         $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
@@ -76,15 +96,27 @@
             var field = $('#field').val();
             $.get("{{url('wellbyfield')}}", {
                     field: field
-                },
-                function(data) {
-                    $("#well").empty();
-                    $.each(data, function(index, value) {
-                        $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                    });
-                    $("#well").selectpicker('refresh');
-                    $('#well').selectpicker('val', '');
+            },
+            function(data) {
+                $("#well").empty();
+                $.each(data, function(index, value) {
+                    $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 });
+                $("#well").selectpicker('refresh');
+                $('#well').selectpicker('val', '');
+            });
+            $.get("{{url('formacionbyfield')}}", {
+                    field: field
+            },
+            function(data) {
+                console.log(data);
+                $("#formation").empty();
+                $.each(data, function(index, value) {
+                    $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                });
+                $("#formation").selectpicker('refresh');
+                $('#formation').selectpicker('val', '');
+            });
         });
 
     });

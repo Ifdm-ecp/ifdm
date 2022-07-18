@@ -23,7 +23,7 @@
 </br>
 <div class="nav">
    <div class="tab">
-      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+      <ul class="nav nav-tabs index-group" data-tabs="tabs" id="myTab">
          <li class="active"><a data-toggle="tab" id="ocultarSave" href="#SB" onclick="switchTab()">Statistical DataBase</a></li>
          <li><a data-toggle="tab" class="ocultarCalculate" href="#MS" id="MS_C" onclick="switchTab()">Mineral Scales</a></li>
          <li><a data-toggle="tab" class="ocultarCalculate" href="#FB" id="FB_C" onclick="switchTab()">Fine Blockage</a></li>
@@ -61,7 +61,7 @@
          <div align="right">
             <button type="button" class="btn btn-primary" id="prev_button" style="display: none" onclick="tabStep('prev');">Previous</button>
             <button type="button" class="btn btn-primary" id="next_button" onclick="tabStep('next');">Next</button>
-            <button type="button" class="btn btn-primary" style="display: none" onclick="verifyMultiparametric('run');" id="run_calc">Run</button>
+            <button type="button" class="btn btn-primary" style="display: none" onclick="runMultiparametric();" id="run_calc">Run</button>
          </div>
       </div>
    </div>
@@ -110,4 +110,12 @@
          loadSubparametersHistoricalByWell();
       });
    </script>
+   <style>
+      .tabcontent {
+         
+         padding: 6px 12px;
+         border: 1px solid #ccc;
+         border-top: none;
+      }
+   </style>
 @endsection

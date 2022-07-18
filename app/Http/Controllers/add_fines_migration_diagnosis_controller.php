@@ -1708,6 +1708,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                     $rho = $this->interpolation($pini, $nv, $ppvt, $dopvt);
                     $constantes = [];
 
+                    $array_aux = [];
+
                     for ($kk=1; $kk <= $nh ; $kk++)
                     {
                         
@@ -1897,9 +1899,10 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $porosity_limit_constantite_reverse = array_reverse($porosity_limit_constantite);
                                 $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite)-1, $kite_reverse, $porosity_limit_constantite_reverse);
                                 // dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo);
-                                // if ($kk == 36) {
-                                //     dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo);
-                                // }
+                                array_push($array_aux, $porosity_limit_constant);
+                                if ($kk == $nh) {
+                                    dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo, $array_aux);
+                                }
                             }
                             $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
                             //dd($porosity_change);
@@ -2161,7 +2164,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                 // }
             }
         }
-        //dd([$kact, $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
+        dd([ $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
         return array($complete_simulated_results, $damage_results);
     }
 

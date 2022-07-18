@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-require(__DIR__.'\..\..\..\vendor\autoload.php');
+
+require(__DIR__.'/../../../vendor/autoload.php');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;

@@ -3793,7 +3793,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('formacionbyfield', function()
     {
         $field = Input::get('field');
-        $formaciones = App\pozo::select(DB::raw('*'))
+        $formaciones = App\formacion::select(DB::raw('*'))
         ->where('campo_id','=',$field)
         ->select('id', 'nombre')
         ->get();

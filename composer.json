@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "laravelcollective/html": "5.1.*",
         "genealabs/phpgmaps": "~0.3.0",
-        "dataworkstr/revisionable": "~1.0"
+        "dataworkstr/revisionable": "~1.0",
+        "phpoffice/phpspreadsheet": "^1.23"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -24,7 +24,7 @@
 
 <div class="nav">
    <div class="tab">
-      <ul class="nav nav-tabs" data-tabs="tabs" id="myTab">
+      <ul class="nav nav-tabs index-group" data-tabs="tabs" id="myTab">
          <li class="active"><a data-toggle="tab" href="#SB" id="SB_C">Statistical Database</a></li>
          <li><a data-toggle="tab" class="text-danger sectionDeactivated">Mineral Scale</a></li>
          <li><a data-toggle="tab" class="text-danger sectionDeactivated">Fine Blockage</a></li>

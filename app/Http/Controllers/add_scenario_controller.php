@@ -95,42 +95,45 @@ class add_scenario_controller extends Controller
             $user = \Auth::user();
             $company = $user->company;
             $val_escenario = escenario::where('user_id',$user->id)->where('nombre',$nombre_escenario)->first();
-
+            
             if ($request->input('type') == "Asphaltene precipitation" && $request->id_escenario_dup != "") {
-                
+
+                //Escenario ya está creado? 
                 $proyecto_destino = proyecto::where('id', $request->project)->first();
                 $escenario_destino = escenario::where('nombre', $request->scenary)->where('proyecto_id', $proyecto_destino->id)->first();
-                
-                /* Si el escenario de asfaltenos ya tiene los 3 módulos (está completo) */     
-                if ($escenario_destino->completo == 1) {
-                    return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary is already full']);
+                if($escenario_destino != null) {
+                    
+                    /* Si el escenario de asfaltenos ya tiene los 3 módulos (está completo) */     
+                    if ($escenario_destino->completo == 1) {
+                        return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary is already full']);
+                    }
+                    
+                    /* Si el escenario de asfaltenos ya tiene el submódulo creado (el submódulo ya existe) */     
+                    if ($request->input('asphaltene_type') == 'Asphaltene stability analysis') {
+                        $stability_destino = asphaltenes_d_stability_analysis::where('scenario_id', $escenario_destino->id)->first();
+                        if ($stability_destino) {
+                            return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
+                        }
+                        
+                    }else if ($request->input('asphaltene_type') == 'Asphaltene diagnosis') {
+                        $diagnosis_destino = asphaltenes_d_diagnosis::where('scenario_id', $escenario_destino->id)->first();
+                        if ($diagnosis_destino) {
+                            return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
+                        }
+                        
+                    }else if ($request->input('asphaltene_type') == 'Precipitated asphaltene analysis') {
+                        $precipitated_destino = asphaltenes_d_precipitated_analysis::where('scenario_id', $escenario_destino->id)->first();
+                        if ($precipitated_destino) {
+                            return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
+                        }
+                        
+                    }
+    
+                    $escenario_destino->asphaltene_type = $request->input('asphaltene_type');
+                    $escenario_destino->save();
+                    $id_escenario_dup = $request->id_escenario_dup;
+                    return $this->defineEvent($request, $escenario_destino, $id_escenario_dup);
                 }
-                
-                /* Si el escenario de asfaltenos ya tiene el submódulo creado (el submódulo ya existe) */     
-                if ($request->input('asphaltene_type') == 'Asphaltene stability analysis') {
-                    $stability_destino = asphaltenes_d_stability_analysis::where('scenario_id', $escenario_destino->id)->first();
-                    if ($stability_destino) {
-                        return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
-                    }
-                    
-                }else if ($request->input('asphaltene_type') == 'Asphaltene diagnosis') {
-                    $diagnosis_destino = asphaltenes_d_diagnosis::where('scenario_id', $escenario_destino->id)->first();
-                    if ($diagnosis_destino) {
-                        return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
-                    }
-                    
-                }else if ($request->input('asphaltene_type') == 'Precipitated asphaltene analysis') {
-                    $precipitated_destino = asphaltenes_d_precipitated_analysis::where('scenario_id', $escenario_destino->id)->first();
-                    if ($precipitated_destino) {
-                        return Redirect::back()->withErrors(['msg' => 'Asphaltene escenary submodule already exists']);
-                    }
-                    
-                }
-
-                $escenario_destino->asphaltene_type = $request->input('asphaltene_type');
-                $escenario_destino->save();
-                $id_escenario_dup = $request->id_escenario_dup;
-                return $this->defineEvent($request, $escenario_destino, $id_escenario_dup);
 
             } else if ($val_escenario) {
                 $validator = Validator::make([], []);
@@ -165,6 +168,18 @@ class add_scenario_controller extends Controller
                 $scenary->formacion_id = $formation_ids;
             } else if ($request->input('type') == 'Drilling') {
                 $scenary->formacion_id = 0;
+
+            } else if ($request->input('type') == "Multiparametric") {
+                $scenary->multiparametricType = $request->input('multiparametricType');
+
+                if ($request->input('multiparametricType') == 'statistical') {
+                    $formation_ids = json_encode($request->formation_multiparametric_statistical);
+                    $formation_ids = str_replace('"', '', $formation_ids);
+                    $formation_ids = str_replace('[', '', $formation_ids);
+                    $formation_ids = str_replace(']', '', $formation_ids);
+
+                    $scenary->formacion_id = $formation_ids;
+                }
             } else {
                 $scenary->formacion_id = $request->input('formation');
             }
@@ -174,12 +189,6 @@ class add_scenario_controller extends Controller
                 $scenary->asphaltene_type = $request->input('asphaltene_type');
             } elseif ($request->input('type') == "Asphaltene remediation"){
                 $scenary->asphaltene_remediation = $request->input('asphaltene_remediation');
-            } elseif ($request->input('type') == "Multiparametric"){
-                $scenary->multiparametricType = $request->input('multiparametricType');
-
-                if ($request->input('multiparametricType') == 'statistical') {
-                    $scenary->formacion_id = 0;
-                }
             }
 
             $scenary->cuenca_id = $request->input('basin');

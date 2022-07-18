@@ -56,25 +56,25 @@
       <div class="row">
          <div class="col-md-6">
             <div class="form-group {{$errors->has('project') ? 'has-error' : ''}}">
-               {!! Form::label('project', 'Project Name') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-               {!! Form::select('project', $proyectos->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'project')) !!}
+               {!! Form::label('project', 'Project Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::select('project', $proyectos->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'project', 'required'=>'')) !!}
             </div>
          </div>
          <div class="col-md-6">
             <div class="form-group {{$errors->has('scenary') ? 'has-error' : ''}}">
-               {!! Form::label('scenary', 'Scenario Name') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('scenary', 'Scenario Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::text('scenary',null, ['placeholder' => '', 'class' =>'form-control']) !!}
             </div>
          </div>
          <div class="col-md-6">
             <div class="form-group {{$errors->has('date') ? 'has-error' : ''}}">
-               {!! Form::label('date', 'Study Date (DD/MM/YY)') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('date', 'Study Date (DD/MM/YY)') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::date('date', \Carbon\Carbon::now(), ['class' =>'form-control', 'id'=>'date']); !!}
             </div>
          </div>
          <div class="col-md-6">
             <div class="form-group {{$errors->has('SDescription') ? 'has-error' : ''}}">
-               {!! Form::label('Scenary description', 'Description') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('Scenary description', 'Description') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::textarea('SDescription',null, ['placeholder' => '', 'class' =>'form-control', 'rows' => '2']) !!}
             </div>
          </div>         
@@ -85,14 +85,14 @@
 
          <div class="col-md-6">
             <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
-               {!! Form::label('basin', 'Basin') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('basin', 'Basin') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder' => '', 'class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'data-style'=>'btn-default', 'id'=>'basin')) !!}
             </div>
          </div>
 
          <div class="col-md-6">
             <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
-               {!! Form::label('field', 'Field') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('field', 'Field') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                <select class="selectpicker show-tick" data-live-search="true" data-width="100%" data-style="btn-default" id="field" name="field" >
                   <option selected disabled>-</option>
                </select>
@@ -105,7 +105,7 @@
 
          <div class="col-md-6">
             <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
-               {!! Form::label('well', 'Well') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('well', 'Well') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="well" name="well" >
                   <option selected disabled>-</option>
                </select>
@@ -117,7 +117,7 @@
          <div id="div_formation_wipr">
             <div class="col-md-6">
                <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-                  {!! Form::label('formation', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                  {!! Form::label('formation', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                   <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="formation" name="formation" class="form-control">
                      <option selected disabled>-</option>
                   </select>
@@ -128,13 +128,24 @@
          <div id="div_formation_ipr" style="display: none;">
             <div class="col-md-6">
                <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-                  {!! Form::label('formation_ipr', 'Producing Interval') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+                  {!! Form::label('formation_ipr', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                   <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="formation_ipr" name="formation_ipr[]" class="form-control" multiple>
                      <option selected disabled>-</option>
                   </select>
                </div>
             </div>
          </div>         
+
+         <div id="div_formation_multiparametric_statistical" style="display: none;">
+            <div class="col-md-6">
+               <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
+                  {!! Form::label('formation_multiparametric_statistical', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                  <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="formation_multiparametric_statistical" name="formation_multiparametric_statistical[]" class="form-control" multiple>
+                     <option selected disabled>-</option>
+                  </select>
+               </div>
+            </div>
+         </div>    
 
          <div class="col-md-6" style="display:none;">
             <div class="form-group {{$errors->has('copy_scenario') ? 'has-error' : ''}}">
@@ -146,7 +157,7 @@
          </div>
          <div class="col-md-6" id="div_Dformation" style="display:none;">
             <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-               {!! Form::label('Dformation_label', 'Drilling Dformation') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('Dformation_label', 'Drilling Dformation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="Dformation" name="Dformation">
                   <option selected disabled>-</option>
                </select>
@@ -197,7 +208,7 @@
          </div>
          <div class="modal-body">
             <div class="form-group">
-               {!! Form::label('asphaltene_remediation', 'Methodology') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('asphaltene_remediation', 'Methodology') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::select('asphaltene_remediation', ['Based upon asphaltene diagnosis model' => '1. Based Upon Asphaltene Diagnosis Model','Volumetric changes' => '2. Volumetric Changes'],null, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'asphaltene_remediation') ) !!}
             </div>
          </div>
@@ -217,7 +228,7 @@
          </div>
          <div class="modal-body">
             <div class="form-group">
-               {!! Form::label('asphaltene', 'Asphaltene Type') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
+               {!! Form::label('asphaltene', 'Asphaltene Type') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                {!! Form::select('asphaltene_type', ['Asphaltene stability analysis' => '1. Asphaltene Stability Analysis','Precipitated asphaltene analysis' => '2. Precipitated Asphaltene Analysis','Asphaltene diagnosis' => '3. Asphaltene Diagnosis'],null, array('class'=>'form-control selectpicker show-tick', 'data-live-search'=>'true', 'id'=>'asphaltene_type', 'onchange' => "update_duplicate_modal();") ) !!}
             </div>
          </div>
@@ -238,8 +249,8 @@
          <div class="modal-body">
             <div class="form-group">
                <div class="dropdown">
-                  {!! Form::label('multiparametricType', 'Multiparametric Analysis Type') !!}{!! Form::label('*', '*', array('class' => 'red')) !!}
-                  <select name="multiparametricType" class="form-control">
+                  {!! Form::label('multiparametricType', 'Multiparametric Analysis Type') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                  <select name="multiparametricType" id="multiparametricType" class="form-control">
                      <option value="statistical">Statistical Analysis</option>
                      <option value="analytical">Analytical Analysis</option>
                   </select>

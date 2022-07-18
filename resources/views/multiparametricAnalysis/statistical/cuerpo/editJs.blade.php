@@ -1,4 +1,162 @@
 <script type="text/javascript">
+    $( document ).ready(function() {
+
+        //ms blade
+        addInputGroup('MS1', 'ScaleIndexOfCaCO3');
+        addInputGroup('MS2', 'ScaleIndexOfBaSO4');
+        addInputGroup('MS3', 'ScaleIndexOfIronScales');
+        addInputGroup('MS4', 'BackflowCa');
+        addInputGroup('MS5', 'BackflowBa');
+
+        //fb blade
+        addInputGroup('FB1', 'AlonProducedWater');
+        addInputGroup('FB2', 'Sionproducedwater');
+        addInputGroup('FB3', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc');
+        addInputGroup('FB4', 'MineralogyFactor');
+        addInputGroup('FB5', 'MassofcrushedproppantinsideHydraulicFractures');
+        
+        //os blade
+        addInputGroup('OS1', 'CIIFactorColloidalInstabilityIndex');
+        addInputGroup('OS2', 'VolumeofHClpumpedintotheformation');
+        addInputGroup('OS3', 'CumulativeGasProduced');
+        addInputGroup('OS4', 'NumberOfDaysBelowSaturationPressure');
+        addInputGroup('OS5', 'DeBoerCriteria');
+
+        //rp blade
+        addInputGroup('RP1', 'NumberOfDaysBelowSaturationPressure2');
+        addInputGroup('RP2', 'Differencebetweencurrentreservoirpressureandsaturationpressure');
+        addInputGroup('RP3', 'CumulativeWaterProduced');
+        addInputGroup('RP4', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation');
+        addInputGroup('RP5', 'Velocityparameterestimatedastheinverseofthecriticalradius');
+        
+        //id blade
+        addInputGroup('ID1', 'GrossPay');
+        addInputGroup('ID2', 'TotalpolymerpumpedduringHydraulicFracturing');
+        addInputGroup('ID3', 'Totalvolumeofwaterbasedfluidspumpedintothewell');
+        addInputGroup('ID4', 'MudLosses');
+        
+        //gd blade
+        addInputGroup('GD1', 'FractionofNetPayExihibitingNaturalFractures');
+        addInputGroup('GD2', 'reservoirpressureminusBHFP');
+        addInputGroup('GD3', 'RatioofKH');
+        addInputGroup('GD4', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP');
+
+        //Calculate p10 and p90
+        multiparametricoStatistical();
+
+        //Fill Weights
+        multiparametricWeights();
+    });
+
+    function addInputGroup(title, destination_div) {
+        
+        html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
+        flag = 0;
+        <?php echo json_encode($formations); ?>.forEach(element => {
+            name = title + element;
+            if (flag == 0) {
+                html = html + '<li role="presentation" class="active"><a href="#tab' + name +'" aria-controls="tab' + name + '" role="tab" data-toggle="tab">' + element + '</a></li>';
+                flag++;
+            } else {
+                html = html + '<li role="presentation"><a href="#tab' + name +'" aria-controls="tab' + name + '" role="tab" data-toggle="tab">' + element + '</a></li>';
+                
+            }
+        });
+        html = html + '</ul><div class="tab-content">';
+        flag = 0;
+        <?php echo json_encode($formations); ?>.forEach(element => {
+            name = title + element;
+            if (flag == 0) {
+                html = html + '<div role="tabpanel" class="tab-pane active" id="tab' + name + '">';
+                flag++;
+            } else {
+                html = html + '<div role="tabpanel" class="tab-pane" id="tab' + name + '">';
+            }
+
+            //CONTENT
+            html = html + '<div class="tabcontent"><div class="row"><div class="col-xs-12 col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class="form-control selectpicker show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
+            html = html + '<option value="none" selected hidden>Nothing Selected</option>';
+            <?php echo json_encode($mediciones); ?>.forEach(element => {
+                html = html + '<option value="' + element[0] + '">' + element[5] + '</option>';
+            });
+            html = html + '</select></div></div></div>';
+            html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
+           
+            html = html + '</div></div>';
+        });
+        html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + title + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + title + '" name="p10_' + title + '" class="form-control validate"></div></div>';
+        html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + title + '">p90</label> <label class="red">*</label><input type="text" id="p90_' + title + '" name="p90_' + title + '" class="form-control validate"></div></div>';
+        html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + title + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + title + '" name="weight_' + title + '" class="form-control weight_ms_count"></div></div></div>';  
+
+        html = html + '</div></div>';
+        $("#"+destination_div).append(html);
+    }
+
+    $("#MS1_checkbox").change(function() { index = "MS1"; availableEnableDisableFields(index); }); 
+    $("#MS2_checkbox").change(function() { index = "MS2"; availableEnableDisableFields(index); }); 
+    $("#MS3_checkbox").change(function() { index = "MS3"; availableEnableDisableFields(index); }); 
+    $("#MS4_checkbox").change(function() { index = "MS4"; availableEnableDisableFields(index); }); 
+    $("#MS5_checkbox").change(function() { index = "MS5"; availableEnableDisableFields(index); }); 
+    $("#FB1_checkbox").change(function() { index = "FB1"; availableEnableDisableFields(index); }); 
+    $("#FB2_checkbox").change(function() { index = "FB2"; availableEnableDisableFields(index); }); 
+    $("#FB3_checkbox").change(function() { index = "FB3"; availableEnableDisableFields(index); }); 
+    $("#FB4_checkbox").change(function() { index = "FB4"; availableEnableDisableFields(index); }); 
+    $("#FB5_checkbox").change(function() { index = "FB5"; availableEnableDisableFields(index); }); 
+    $("#OS1_checkbox").change(function() { index = "OS1"; availableEnableDisableFields(index); });
+    $("#OS2_checkbox").change(function() { index = "OS2"; availableEnableDisableFields(index); });
+    $("#OS3_checkbox").change(function() { index = "OS3"; availableEnableDisableFields(index); });
+    $("#OS4_checkbox").change(function() { index = "OS4"; availableEnableDisableFields(index); });
+    $("#OS5_checkbox").change(function() { index = "OS5"; availableEnableDisableFields(index); });
+    $("#RP1_checkbox").change(function() { index = "RP1"; availableEnableDisableFields(index); });
+    $("#RP2_checkbox").change(function() { index = "RP2"; availableEnableDisableFields(index); });
+    $("#RP3_checkbox").change(function() { index = "RP3"; availableEnableDisableFields(index); });
+    $("#RP4_checkbox").change(function() { index = "RP4"; availableEnableDisableFields(index); });
+    $("#RP5_checkbox").change(function() { index = "RP5"; availableEnableDisableFields(index); });
+    $("#ID1_checkbox").change(function() { index = "ID1"; availableEnableDisableFields(index); });
+    $("#ID2_checkbox").change(function() { index = "ID2"; availableEnableDisableFields(index); });
+    $("#ID3_checkbox").change(function() { index = "ID3"; availableEnableDisableFields(index); });
+    $("#ID4_checkbox").change(function() { index = "ID4"; availableEnableDisableFields(index); });
+    $("#GD1_checkbox").change(function() { index = "GD1"; availableEnableDisableFields(index); });
+    $("#GD2_checkbox").change(function() { index = "GD2"; availableEnableDisableFields(index); });
+    $("#GD3_checkbox").change(function() { index = "GD3"; availableEnableDisableFields(index); });
+    $("#GD4_checkbox").change(function() { index = "GD4"; availableEnableDisableFields(index); });
+
+    function availableEnableDisableFields(index) {
+        if ($("#"+index+"_checkbox").prop('checked') == true) {
+            <?php echo json_encode($formations); ?>.forEach(element => {
+                $('#selectStored_'+index+element).attr('disabled', false);
+                $('#value_'+index+element).attr('disabled', false);
+                $('#date_'+index+element).attr('disabled', false);
+                $('#comment_'+index+element).attr('disabled', false);
+            });  
+            $('#p10_'+index).attr('disabled', false);
+            $('#p90_'+index).attr('disabled', false);
+            $('#weight_'+index).attr('disabled', false);
+        } else {
+            <?php echo json_encode($formations); ?>.forEach(element => {
+                $('#selectStored_'+index+element).attr('disabled', true);
+                $('#value_'+index+element).attr('disabled', true);
+                $('#date_'+index+element).attr('disabled', true);
+                $('#comment_'+index+element).attr('disabled', true);
+            });
+            $('#p10_'+index).attr('disabled', true);
+            $('#p90_'+index).attr('disabled', true);
+            $('#weight_'+index).attr('disabled', true);
+        }
+    }
+    
+    function updateData(select_id, name) {
+        <?php echo json_encode($mediciones); ?>.forEach(element => {
+            if ($('#'+select_id).val() == element[0]) {
+                $('#value_'+name).val(element[4]);
+                $('#date_'+name).val(element[5]);
+                $('#comment_'+name).val(element[6]);
+            }
+        }); 
+    }
+
     $(function() {
         $(".jquery-datepicker").datepicker({
             changeMonth: true,
@@ -19,33 +177,121 @@
             var dataarray = "Todos";
         }
         
-        $.get("{!! url('P') !!}", {
+        $.get("{!! url('P_mediciones') !!}", {
             campo: dataarray,
         }, 
         function(data) { 
             $.each(data, function(index, value) {
-                nps = [];
-                $.each(value, function(index, value) {
-                    d = parseFloat(value.valorchart);
-                    d = Math.round(d * 100) / 100;
-                    nps.push(d);
-                });
-                tam = 0;
-                tam = nps.length;
-                //console.log(tam);
-                if (tam == 0) {
-                    p10 = 0;
-                    p50 = 0;
-                    p90 = 0;
-                } else {
-                    p10 = nps[Math.floor(tam * 0.1)];
-                    p50 = nps[Math.floor(tam * 0.5)];
-                    p90 = nps[Math.floor(tam * 0.9)];
-                }
+                if (data[index] != null) {
+                    nps = [];
+                    $.each(value, function(index, value ) {
+                        d = parseFloat(value.valor);
+                        d = Math.round(d * 100) / 100;
+                        nps.push(d);
+                    });
+                    
+                    tam = 0;
+                    tam = nps.length;
+                    //console.log(tam);
+                    if (tam == 0) {
+                        p10 = 0;
+                        p50 = 0;
+                        p90 = 0;
+                    } else {
+                        p10 = nps[Math.floor(tam * 0.1)];
+                        p50 = nps[Math.floor(tam * 0.5)];
+                        p90 = nps[Math.floor(tam * 0.9)];
+                    }
 
-                if (count < 1) {
-                    $("#p10_" + index).val(p10);
-                    $("#p90_" + index).val(p90);
+
+                    if (count < 1) {
+                        switch (index) {
+                            case '1':
+                                multiparametricoStatisticalEach(p10, p90, 'MS1');
+                                break;
+                            case '2':
+                                multiparametricoStatisticalEach(p10, p90, 'MS2');
+                                break;
+                            case '3':
+                                multiparametricoStatisticalEach(p10, p90, 'MS3');
+                                break;
+                            case '4':
+                                multiparametricoStatisticalEach(p10, p90, 'MS4');
+                                break;
+                            case '5':
+                                multiparametricoStatisticalEach(p10, p90, 'MS5');
+                                break;
+                            case '6':
+                                multiparametricoStatisticalEach(p10, p90, 'FB1');
+                                break;
+                            case '7':
+                                multiparametricoStatisticalEach(p10, p90, 'FB2');
+                                break;
+                            case '8':
+                                multiparametricoStatisticalEach(p10, p90, 'FB3');
+                                break;
+                            case '9':
+                                multiparametricoStatisticalEach(p10, p90, 'FB4');
+                                break;
+                            case '10':
+                                multiparametricoStatisticalEach(p10, p90, 'FB5');
+                                break;
+                            case '11':
+                                multiparametricoStatisticalEach(p10, p90, 'OS1');
+                                break;
+                            case '12':
+                                multiparametricoStatisticalEach(p10, p90, 'OS2');
+                                break;
+                            case '13':
+                                multiparametricoStatisticalEach(p10, p90, 'OS3');
+                                break;
+                            case '14':
+                                multiparametricoStatisticalEach(p10, p90, 'OS4');
+                                break;
+                            case '15':
+                                multiparametricoStatisticalEach(p10, p90, 'OS5');
+                                break;
+                            case '16':
+                                multiparametricoStatisticalEach(p10, p90, 'RP1');
+                                break;
+                            case '17':
+                                multiparametricoStatisticalEach(p10, p90, 'RP2');
+                                break;
+                            case '18':
+                                multiparametricoStatisticalEach(p10, p90, 'RP3');
+                                break;
+                            case '19':
+                                multiparametricoStatisticalEach(p10, p90, 'RP4');
+                                break;
+                            case '20':
+                                multiparametricoStatisticalEach(p10, p90, 'RP5');
+                                break;
+                            case '21':
+                                multiparametricoStatisticalEach(p10, p90, 'ID1');
+                                break;
+                            case '22':
+                                multiparametricoStatisticalEach(p10, p90, 'ID2');
+                                break;
+                            case '23':
+                                multiparametricoStatisticalEach(p10, p90, 'ID3');
+                                break;
+                            case '24':
+                                multiparametricoStatisticalEach(p10, p90, 'ID4');
+                                break;
+                            case '25':
+                                multiparametricoStatisticalEach(p10, p90, 'GD1');
+                                break;
+                            case '26':
+                                multiparametricoStatisticalEach(p10, p90, 'GD2');
+                                break;
+                            case '27':
+                                multiparametricoStatisticalEach(p10, p90, 'GD3');
+                                break;
+                            case '28':
+                                multiparametricoStatisticalEach(p10, p90, 'GD4');
+                                break;
+                        }
+                    }
                 }
 
                 $("#popover" + index).popover({
@@ -56,6 +302,44 @@
                 });
             });
         });
+    }
+
+    function multiparametricoStatisticalEach(p10, p90, title) {
+        $("#p10_" + title).val(p10);
+        $("#p90_" + title).val(p90);
+    }
+
+    function multiparametricWeights() {
+        if (<?php echo json_encode($pesos); ?> != null) {
+            $("#weight_MS1").val(<?php echo json_encode($pesos); ?>[1]);
+            $("#weight_MS2").val(<?php echo json_encode($pesos); ?>[2]);
+            $("#weight_MS3").val(<?php echo json_encode($pesos); ?>[3]);
+            $("#weight_MS4").val(<?php echo json_encode($pesos); ?>[4]);
+            $("#weight_MS5").val(<?php echo json_encode($pesos); ?>[5]);
+            $("#weight_FB1").val(<?php echo json_encode($pesos); ?>[6]);
+            $("#weight_FB2").val(<?php echo json_encode($pesos); ?>[7]);
+            $("#weight_FB3").val(<?php echo json_encode($pesos); ?>[8]);
+            $("#weight_FB4").val(<?php echo json_encode($pesos); ?>[9]);
+            $("#weight_FB5").val(<?php echo json_encode($pesos); ?>[10]);
+            $("#weight_OS1").val(<?php echo json_encode($pesos); ?>[11]);
+            $("#weight_OS2").val(<?php echo json_encode($pesos); ?>[12]);
+            $("#weight_OS3").val(<?php echo json_encode($pesos); ?>[13]);
+            $("#weight_OS4").val(<?php echo json_encode($pesos); ?>[14]);
+            $("#weight_OS5").val(<?php echo json_encode($pesos); ?>[15]);
+            $("#weight_RP1").val(<?php echo json_encode($pesos); ?>[16]);
+            $("#weight_RP2").val(<?php echo json_encode($pesos); ?>[17]);
+            $("#weight_RP3").val(<?php echo json_encode($pesos); ?>[18]);
+            $("#weight_RP4").val(<?php echo json_encode($pesos); ?>[19]);
+            $("#weight_RP5").val(<?php echo json_encode($pesos); ?>[20]);
+            $("#weight_ID1").val(<?php echo json_encode($pesos); ?>[21]);
+            $("#weight_ID2").val(<?php echo json_encode($pesos); ?>[22]);
+            $("#weight_ID3").val(<?php echo json_encode($pesos); ?>[23]);
+            $("#weight_ID4").val(<?php echo json_encode($pesos); ?>[24]);
+            $("#weight_GD1").val(<?php echo json_encode($pesos); ?>[25]);
+            $("#weight_GD2").val(<?php echo json_encode($pesos); ?>[26]);
+            $("#weight_GD3").val(<?php echo json_encode($pesos); ?>[27]);
+            $("#weight_GD4").val(<?php echo json_encode($pesos); ?>[28]);
+        }
     }
 
     function cargarCamposBBDD() {
@@ -77,6 +361,11 @@
         });
     }
 
+    function runMultiparametric() {
+        $("#only_s").val("run");
+        $("#multiparametricStatisticalForm").submit();
+    }
+    
     //Asignar color a input en caso de que un valor este malo
     $('.check_weight').bind('init', function() {
         var this_name = '#' + $(this).attr('id');
@@ -1150,17 +1439,17 @@
     * params {direction: string}
     */
     function tabStep(direction) {
-        var tabToValidate = $(".nav.nav-tabs li.active a").attr("id");
+        var tabToValidate = $(".nav.nav-tabs.index-group li.active a").attr("id");
 
         if (direction == "prev") {
-            $(".nav.nav-tabs li.active").prev().children().click();
+            $(".nav.nav-tabs.index-group li.active").prev().children().click();
         } else {
-            $(".nav.nav-tabs li.active").next().children().click();
+            $(".nav.nav-tabs.index-group li.active").next().children().click();
         }
 
-        $("#next_button").toggle($(".nav.nav-tabs li.active").next().is("li"));
-        $("#prev_button").toggle($(".nav.nav-tabs li.active").prev().is("li"));
-        $("#run_calc").toggle(!$(".nav.nav-tabs li.active").next().is("li"));
+        $("#next_button").toggle($(".nav.nav-tabs.index-group li.active").next().is("li"));
+        $("#prev_button").toggle($(".nav.nav-tabs.index-group li.active").prev().is("li"));
+        $("#run_calc").toggle(!$(".nav.nav-tabs.index-group li.active").next().is("li"));
     }
 
     /* switchTab
@@ -1169,7 +1458,7 @@
     */
     function switchTab() {
         var event = window.event || arguments.callee.caller.arguments[0];
-        var tabActiveElement = $(".nav.nav-tabs li.active");
+        var tabActiveElement = $(".nav.nav-tabs.index-group li.active");
         var nextPrevElement = $("#" + $(event.srcElement || event.originalTarget).attr('id')).parent();
 
         $("#next_button").toggle(nextPrevElement.next().is("li"));

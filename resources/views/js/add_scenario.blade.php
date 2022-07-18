@@ -27,8 +27,10 @@
         localStorage.setItem('field', $('#field').val());
         var c = $('#formation').val();
         var c2 = $('#formation_ipr').val();
+        var c3 = $('#formation_multiparametric_statistical').val();
         localStorage.setItem('formation', $('#formation').val());
         localStorage.setItem('formation_ipr', $('#formation_ipr').val());
+        localStorage.setItem('formation_multiparametric_statistical', $('#formation_multiparametric_statistical').val());
     }
 
     $('#btn_sub_escenario').on('click', function (e) {
@@ -76,9 +78,11 @@
 
         if (sub_type == 'statistical') {
             // $('#div_formation_wipr').hide();
-            $('#div_formation_wipr').show();
+            $('#div_formation_multiparametric_statistical').show();
+            $('#div_formation_wipr').hide();
         } else {
-            $('#div_formation_wipr').show();
+            $('#div_formation_multiparametric_statistical').show();
+            $('#div_formation_wipr').hide();
         }
     });
 
@@ -235,26 +239,32 @@ window.onload = function() {
     var well = {{ count($errors) > 0 && old('well') ? old('well') : json_encode(null) }};
     var formation = {{ count($errors) > 0 && old('formation') ? old('formation') : json_encode(null) }};
     var formation_ipr = {{ count($errors) > 0 && old('formation_ipr') ? old('formation_ipr') : json_encode(null) }};
+    var formation_multiparametric_statistical = {{ count($errors) > 0 && old('formation_multiparametric_statistical') ? old('formation_multiparametric_statistical') : json_encode(null) }};
     $.get("{{url('formacionW')}}", {
         pozo: well
     }, function(data) {
         $("#formation").empty();
         $("#formation_ipr").empty();
+        $("#formation_multiparametric_statistical").empty();
         $.each(data, function(index, value) {
             $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+            $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
         });
 
         var k = '#formation > option[value="{{ 'xxx'}}"]';
         var k2 = '#formation_ipr > option[value="{{ 'xxx'}}"]';
+        var k3 = '#formation_multiparametric_statistical > option[value="{{ 'xxx'}}"]';
 
         k = k.replace('xxx', formation);
         k2 = k2.replace('xxx', formation_ipr);
+        k3 = k3.replace('xxx', formation_multiparametric_statistical);
 
         $(k).attr('selected', 'selected');
         $(k2).attr('selected', 'selected');
         $("#formation").selectpicker('refresh');
         $("#formation_ipr").selectpicker('refresh');
+        $("#formation_multiparametric_statistical").selectpicker('refresh');
 
     });
 }
@@ -294,6 +304,7 @@ $(document).ready(function() {
             $("#well").empty();
             $("#formation").empty();
             $("#formation_ipr").empty();
+            $("#formation_multiparametric_statistical").empty();
             $.each(data, function(index, value) {
                 $("#field").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             });
@@ -360,10 +371,12 @@ $(document).ready(function() {
         if (type == "IPR") {                
             $('#div_formation_ipr').show();
             $('#div_formation_wipr').hide();
+            $('#div_formation_multiparametric_statistical').hide();
 
         } else {
             $('#div_formation_wipr').show();
             $('#div_formation_ipr').hide();
+            $('#div_formation_multiparametric_statistical').hide();
 
             $('#basin').removeAttr('disabled');
             $('#field').removeAttr('disabled');
@@ -374,9 +387,11 @@ $(document).ready(function() {
 
         if (type == "Drilling") {
             $('#div_formation_wipr').hide();
+            $('#div_formation_multiparametric_statistical').hide();
             /*$("#div_Dformation").show();*/
         } else {
             $("#div_Dformation").hide();
+            $('#div_formation_multiparametric_statistical').hide();
         }
 
         if (type == "Multiparametric") {
@@ -384,9 +399,13 @@ $(document).ready(function() {
 
             if (sub_type == 'statistical') {
                 // $('#div_formation_wipr').hide();
-                $('#div_formation_wipr').show();
+                $('#div_formation_multiparametric_statistical').show();
+                $('#div_formation_wipr').hide();
+                $('#div_formation_ipr').hide();
             } else {
-                $('#div_formation_wipr').show();
+                $('#div_formation_multiparametric_statistical').show();
+                $('#div_formation_wipr').hide();
+                $('#div_formation_ipr').hide();
             }
         }
 
@@ -410,9 +429,11 @@ $(document).ready(function() {
 
         if (sub_type == 'statistical') {
             // $('#div_formation_wipr').hide();
-            $('#div_formation_wipr').show();
+            $('#div_formation_multiparametric_statistical').show();
+            $('#div_formation_wipr').hide();
         } else {
-            $('#div_formation_wipr').show();
+            $('#div_formation_multiparametric_statistical').show();
+            $('#div_formation_wipr').hide();
         }
     });
 
@@ -425,6 +446,7 @@ $(document).ready(function() {
             $("#well").empty();
             $("#formation").empty();
             $("#formation_ipr").empty();
+            $("#formation_multiparametric_statistical").empty();
 
             $.each(data, function(index, value) {
                 $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
@@ -444,15 +466,20 @@ $(document).ready(function() {
         function(data) {
             $("#formation").empty();
             $("#formation_ipr").empty();
+            $("#formation_multiparametric_statistical").empty();
             $.each(data, function(index, value) {
                 $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             });
             $("#formation").selectpicker('refresh');
             $('#formation').selectpicker('val', '');
 
             $("#formation_ipr").selectpicker('refresh');
             $('#formation_ipr').selectpicker('val', '');
+
+            $("#formation_multiparametric_statistical").selectpicker('refresh');
+            $('#formation_multiparametric_statistical').selectpicker('val', '');
 
         });
     });

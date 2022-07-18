@@ -767,7 +767,7 @@ Route::group(['middleware' => 'auth'], function(){
         {
             $group = [];
             foreach ($project_tree as $project) {
-                $project['name'] = $project->nombre;
+                $project['name'] = $project->name;
                 $project['icon'] = url('images/icon-folder.png');
                 $project['href'] = '';
 
@@ -859,6 +859,7 @@ Route::group(['middleware' => 'auth'], function(){
                                         ->get();
 
             $tree = [];
+            
             foreach ($company_tree as $company) {
                 $company['icon'] = url('images/icon-company.png');
                 $company['href'] = '';
@@ -879,8 +880,7 @@ Route::group(['middleware' => 'auth'], function(){
             $tree = $company_tree;
             
         } else {
-        
-            $projects = App\proyecto::select('proyectos.id', 'proyectos.nombre', 'proyectos.compania')
+            $projects = App\proyecto::select('proyectos.id', 'proyectos.nombre as name', 'proyectos.compania')
                                     ->join('escenarios', 'escenarios.proyecto_id', '=', 'proyectos.id')
                                     ->raw('COUNT(escenarios.id) > 0')
                                     ->where('escenarios.estado','=',1)
@@ -4439,6 +4439,22 @@ Route::group(['middleware' => 'auth'], function(){
                     ->orderBy('valorchart')
                     ->get();
                 $arreglo[$arr['id']] = $chart;
+            }
+        }
+
+        return Response::json($arreglo);
+    });
+
+    Route::get('P_mediciones', function() {
+        $arreglo = [];
+        $aux_count = 1;
+        $max_aux_count = App\subparametro::count();
+        for ($i=$aux_count; $i <= $max_aux_count; $i++) { 
+            $chart = DB::table('mediciones')->select('valor')->where('subparametro_id', strval($i))->orderBy('valor')->get();
+            if ( count($chart) == 0 ) {
+                $arreglo[$i] = null;
+            } else {
+                $arreglo[$i] = $chart;
             }
         }
 

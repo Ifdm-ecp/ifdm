@@ -1873,6 +1873,20 @@
   function enviar(validate,tipo) {
     var fluido = $('#fluido').val();
     var form = $('#form_scenario');
+    
+    // Validation BHP < Current Reservoir Pressure
+    if ($("#fluido").val() == 1 || $("#fluido").val() == 2) {  
+      if (parseFloat($("#presion_fondo").val()) >= parseFloat($("#presion_yacimiento").val())) { 
+        console.log($("#fluido").val());
+        $('#validationBhpModal').modal('show');
+        return false;
+      }
+    } else if ( $("#fluido").val() == 3 ) {
+      if (parseFloat($("#bhp_c_g").val()) >= parseFloat($("#presion_yacimiento").val())) {
+        $('#validationBhpModal').modal('show');
+        return false;
+      }
+    }
 
     /**** Validación de los inputs  ****/
     if (tipo == 1) {

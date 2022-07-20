@@ -369,11 +369,13 @@ if(!isset($_SESSION)) {
                                              <legend >Water-Oil @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_excelwateroil" style="color:black;font-size:15pt;"></i></span>@endif</legend>
                                              <div id="excelwateroil" class="handsontable"></div>
                                           </fieldset>
+                                          <br>
                                           <div class="row">
                                              <div class="col-md-6">
                                                 <button type="button" class="btn btn-primary pull-right btn_plot_pt_left">Plot</button>  
                                              </div>
                                           </div>
+                                          <br>
                                           <div class="row">
                                              <div id="graph_left"></div>
                                           </div>
@@ -383,11 +385,13 @@ if(!isset($_SESSION)) {
                                              <legend>Gas-Oil @if($advisor === "true")<span><i class="glyphicon glyphicon-info-sign show-table-advisor" id="code_table_excelgasliquid" style="color:black;font-size:15pt;"></i></span>@endif</legend>
                                              <div id="excelgasliquid" class="handsontable"></div>
                                           </fieldset>
+                                          <br>
                                           <div class="row">
                                              <div class="col-md-6">
                                                 <button type="button" class="btn btn-primary pull-right btn_plot_pt_right">Plot</button>  
                                              </div>
                                           </div>
+                                          <br>
                                           <div class="row">
                                              <div id="graph_right"></div>
                                           </div>
@@ -543,6 +547,7 @@ if(!isset($_SESSION)) {
                                                 <button class="btn btn-primary pull-right" onclick="plot_corey_waterOil()">Plot</button>  
                                              </div>
                                           </div>
+                                          <br>
                                           <div class="row">
                                              <div id="corey_waterOil"></div>
                                           </div>
@@ -672,6 +677,7 @@ if(!isset($_SESSION)) {
                                  <button class="btn btn-primary pull-right btn_plot_fp_second">Plot</button>  
                               </div>
                            </div>
+                           <br>
                            <div class="row">
                               <div id="graph_down"></div>
                            </div>

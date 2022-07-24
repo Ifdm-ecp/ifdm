@@ -69,7 +69,6 @@ class add_damage_variables_controller extends Controller
                 $cuenca = $request->input('basin');
                 global $campo;
                 $campo = $request->input('field');
-
                 $tabs = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
                 foreach ($tabs as $tab) {
                     $response_aux = $this->readTab($tab, $file);
@@ -105,7 +104,7 @@ class add_damage_variables_controller extends Controller
                     $measurement->subparametro_id = 1;
                     $measurement->save();
                 }
-
+                
                 if ($request->input('MS2')) {
                     $measurement = new medicion;
                     $measurement->valor = $request->input('MS2');
@@ -471,7 +470,6 @@ class add_damage_variables_controller extends Controller
 
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
             $response = $this->readTriplex($tab, $row, $worksheet);
-            
         }
 
         if ($response === "error1") {
@@ -482,21 +480,22 @@ class add_damage_variables_controller extends Controller
     }
 
     public function readTriplex($tab, $row, $worksheet) {
-
+        
         // $triplexColumns = ['C', 'F', 'I', 'L', 'O'];
-
         $response_pozo = $response_formacion = "";
         $response1 = $response2 = $response3 = $response4 = $response5 = $response6 = $response7 = $response8 = $response9 = $response10 = $response11 = $response12 = $response13 = $response14 = $response15 = $response16 = $response17 = $response18 = $response19 = $response20 = $response21 = $response22 = $response23 = $response24 = $response25 = $response26 = $response27 = $response28 = "";
 
         // Averiguar formacion y pozo
-        $pozo = $worksheet->getCell('A'.$row)->getValue();
-        $pozo = DB::table('pozos')->where('nombre', $pozo)->first();
+        $pozo_nombre = $worksheet->getCell('A'.$row)->getValue();
+        $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
         if ($pozo == null) {
+            dd('pozo', $pozo, $pozo_nombre, $row);
             $response_pozo = "error1";
         }
         $formacion = $worksheet->getCell('B'.$row)->getValue();
         global $campo;
         $formacion = DB::table('formaciones')->where('nombre', $formacion)->where('campo_id', $campo)->first();
+        // dd($formacion);
         if ($formacion == null) {
             $response_formacion = "error1";
         }
@@ -509,6 +508,7 @@ class add_damage_variables_controller extends Controller
                 $fecha = $worksheet->getCell('D'.$row)->getValue();
                 $comentario = $worksheet->getCell('E'.$row)->getValue();
                 if (null !== $value) { 
+                    // dd('MS1', $value, $fecha, $comentario, $formacion, $pozo);
                     $response1 = $this->guardarTripleta('MS1', $value, $fecha, $comentario, $formacion, $pozo);
                 }
 
@@ -543,7 +543,7 @@ class add_damage_variables_controller extends Controller
             break;
 
             case 'Fine Blockage':
-
+                
                 $value = $worksheet->getCell('C'.$row)->getValue();
                 $fecha = $worksheet->getCell('D'.$row)->getValue();
                 $comentario = $worksheet->getCell('E'.$row)->getValue();
@@ -724,6 +724,9 @@ class add_damage_variables_controller extends Controller
             break;
         }
 
+        // dd($response1, $response2, $response3, $response4, $response5, $response6, $response7, $response8, $response9, $response10, $response11, $response12, $response13, $response14, 
+        // $response15, $response16, $response17, $response18, $response19, $response20, $response21, $response22, $response23, $response24, $response25, $response26, $response27, $response28, $tab, $row);
+        
         if ( $response_pozo === "error1" || $response_formacion === "error1" ) {
             return "error1";
         } elseif ($response1 === "error" ||
@@ -778,7 +781,15 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 1
+                ]);
+                // return "error";
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -795,7 +806,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 2
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -812,7 +830,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 3
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -829,7 +854,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 4
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -846,7 +878,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 5
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -863,7 +902,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 6
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -880,7 +926,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 7
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -897,7 +950,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 8
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -914,7 +974,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 9
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -931,7 +998,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 10
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -948,7 +1022,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 11
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -965,7 +1046,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 30
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -982,7 +1070,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 12
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -999,7 +1094,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 13
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1016,7 +1118,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 14
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1033,7 +1142,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 15
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1050,7 +1166,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 16
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1067,7 +1190,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 17
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1084,7 +1214,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 18
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1101,7 +1238,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 31
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1118,7 +1262,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 19
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1135,7 +1286,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 20
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1152,7 +1310,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 21
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1169,7 +1334,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 22
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1186,7 +1358,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 23
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1203,7 +1382,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 24
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1220,7 +1406,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 25
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;
@@ -1237,7 +1430,14 @@ class add_damage_variables_controller extends Controller
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->first();
             if (null !== $medicion) {
                 // validacion o reemplazo ?
-                return "error";
+                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->limit(1)->update([
+                    'valor'             => $valor,
+                    'fecha'             => $fecha,
+                    'comentario'        => $comentario,
+                    'formacion_id'      => $formacion->id,
+                    'pozo_id'           => $pozo->id,
+                    'subparametro_id'   => 26
+                ]);
             }else{
                 $measurement = new medicion;
                 $measurement->valor = $valor;

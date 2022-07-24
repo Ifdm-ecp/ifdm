@@ -208,6 +208,8 @@
         final_date = final_date[0];
         on_change_date_select_plot(fines_d_diagnosis_id, [final_date]);
 
+        constantite = {!!json_encode($constantite)!!};
+        console.log('Constantite', constantite);
     });
 
     

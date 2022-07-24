@@ -676,7 +676,6 @@ if (office != 0) {
     });
 }
 arbol(datosArbol);
-console.log(datosArbol);
 });
 
 function arbol(data){

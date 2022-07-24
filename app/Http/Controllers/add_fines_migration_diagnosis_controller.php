@@ -386,7 +386,9 @@ class add_fines_migration_diagnosis_controller extends Controller
 
         $source = "show_results";
 
-        return View::make('results_fines_migration_diagnosis',compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'dates_data', 'fines_d_diagnosis', 'source']));
+        $constantite = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0);
+
+        return View::make('results_fines_migration_diagnosis',compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'dates_data', 'fines_d_diagnosis', 'source', 'constantite']));
     }
 
     /**
@@ -1294,6 +1296,7 @@ class add_fines_migration_diagnosis_controller extends Controller
         $cr = $cri[1];
         $porosity_limit_constanti = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 0);
         $porosity_limit_constantite = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0);
+
         //$porosity_limit_constanti = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5, 0);
         //$porosity_limit_constantite = array(1 => 0.0005, 0.001, 0.005, 0.01, 0.5);
         $kite = array(1 => 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

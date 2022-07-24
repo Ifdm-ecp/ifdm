@@ -815,11 +815,16 @@
     }
     data = data_aux;
 
+    var data_graph_left_kro = [];
+    var data_graph_left_krw = [];
     var sw = [];
     var krw = [];
     var kro = [];
+    
     for (var i = 0; i < data.length; i++)
     {
+      data_graph_left_kro.push([data[i][0], data[i][2]]);
+      data_graph_left_krw.push([data[i][0], data[i][1]]);
       sw.push(data[i][0]);
       krw.push(data[i][1]);
       kro.push(data[i][2]);
@@ -831,14 +836,14 @@
 
     $('#graph_left').highcharts({
       title: {
+        type: 'line',
         text: 'Water-Oil Kr\'s',
         x: -20
       },
       xAxis: {
         title: {
           text: 'Sw'
-        },
-        categories: sw
+        }
       },
       yAxis: {
         title: {
@@ -861,10 +866,10 @@
       },
       series: [{
         name: 'Krw',
-        data: krw
+        data: data_graph_left_krw
       }, {
         name: 'Kro',
-        data: kro
+        data: data_graph_left_kro
       }]
     });
   }
@@ -892,16 +897,19 @@
     }
     data = data_aux;
 
+    var graph_right_krg = [];
+    var graph_right_krog = [];
     var sg = [];
     var krg = [];
     var krog = [];
     for (var i = 0; i < data.length; i++)
     {
+      graph_right_krg.push([data[i][0], data[i][1]]);
+      graph_right_krog.push([data[i][0], data[i][2]]);
       sg.push(data[i][0]);
       krg.push(data[i][1]);
       krog.push(data[i][2]);
     }
-
 
     sg = sg.map(Number);
     krg = krg.map(Number);
@@ -909,6 +917,7 @@
     
     $('#graph_right').highcharts({
       title: {
+        type: 'line',
         text: 'Gas-Oil Kr\'s',
         x: -20
       },
@@ -917,8 +926,9 @@
         x: -20
       },
       xAxis: {
-        title: {text:'Sg'},
-        categories: sg
+        title: {
+          text: 'Sg'
+        }
       },
       yAxis: {
         title: {
@@ -941,10 +951,10 @@
       },
       series: [{
         name: 'Krg',
-        data: krg
+        data: graph_right_krg
       }, {
         name: 'Krog',
-        data: krog
+        data: graph_right_krog
       }]
     });
   }
@@ -991,6 +1001,7 @@
     krog = krog.map(Number);
     $('#graph_left').highcharts({
       title: {
+        type: 'line',
         text: 'Gas-Oil Kr\'s',
         x: -20
       },
@@ -999,8 +1010,9 @@
         x: -20
       },
       xAxis: {
-        title: {text:'Sg'},
-        categories: sg
+        title: {
+          text: 'Sg'
+        }
       },
       yAxis: {
         title: {
@@ -1050,6 +1062,7 @@
 
     $('#graph_down').highcharts({
       title: {
+        type: 'line',
         text: 'Condensate Gas Drop Out',
         x: -20
       },
@@ -1058,8 +1071,9 @@
         x: -20
       },
       xAxis: {
-        title: {text:'Pressure'},
-        categories: pressure
+        title: {
+          text: 'Pressure'
+        }
       },
       yAxis: {
         title: {

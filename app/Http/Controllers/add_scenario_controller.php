@@ -88,7 +88,7 @@ class add_scenario_controller extends Controller
     {
         if (\Auth::check()) {
             /* Validaciones para formulario */
-
+            
             $nombre_escenario = $request->scenary;
 
             /* Validación del nombre de escenario unico por compañia */            

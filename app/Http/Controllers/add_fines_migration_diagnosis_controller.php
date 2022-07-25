@@ -2179,7 +2179,7 @@ class add_fines_migration_diagnosis_controller extends Controller
             // Constatntite en cada caudal
         }
         // dd([ $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
-        return array($complete_simulated_results, $damage_resultsl, $constantite);
+        return array($complete_simulated_results, $damage_results, $constantite);
     }
 
     function set_array($original_array, $n)

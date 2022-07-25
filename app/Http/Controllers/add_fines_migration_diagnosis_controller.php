@@ -111,6 +111,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         $scenary->completo=1;
         $scenary->save();
 
+        $constantite = 0;
+
         $fines_d_diagnosis = fines_d_diagnosis::where("scenario_id", "=", $scenaryId)->first();
         $fines_d_diagnosis->drainage_radius = $request->input('drainage_radius');
         $fines_d_diagnosis->formation_height = $request->input('formation_height');
@@ -278,6 +280,8 @@ class add_fines_migration_diagnosis_controller extends Controller
             if (!$button_wr) {
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
+                $constantite = $simulation_results[2];
+
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
                 }
@@ -318,8 +322,6 @@ class add_fines_migration_diagnosis_controller extends Controller
                 $fines_d_historical_data->bopd = str_replace(",", ".", $value[1]);
                 $fines_d_historical_data->save();
             }
-
-            $constantite = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0);
 
             $source = "store";
             return View::make('results_fines_migration_diagnosis',compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'dates_data', 'fines_d_diagnosis', 'source', 'constantite']));
@@ -448,6 +450,8 @@ class add_fines_migration_diagnosis_controller extends Controller
         
         $user = DB::table('users')->select('users.fullName')->where('id','=',$scenary->user_id)->first();
         $advisor = $scenary->enable_advisor;
+
+        $constantite = 0;
 
         #Saber si se entro por lo menos una vez al escenario
         $scenary = escenario::find($scenary->id);
@@ -631,6 +635,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                 //dd('rdre', $rdre,'hf', $hf,'rw', $rw,'cr', $cr,'pini', $pini,'phio', $phio,'ko', $ko,'rhop', $rhop,'coi', $coi,'sigmai', $sigmai,'tcri', $tcri,'fmov', $fmov,'tpp', $tpp,'rp', $rp,'pvt_data', $pvt_data,'historical_data', $historical_data,'fines_data', $fines_data,'porosity_limit_constant' $porosity_limit_constant);
                 $simulation_results = $this->run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug);
 
+                $constantite = $simulation_results[2];
+
                 if($simulation_results[0] === false) {
                     return $simulation_results[1];
                 }
@@ -679,8 +685,6 @@ class add_fines_migration_diagnosis_controller extends Controller
             }
 
             $source = "update";
-
-            $constantite = array(1 => 0.0005, 0.005, 0.01, 0.1, 0.2, 0.3, 0.4, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0);
 
             return View::make('results_fines_migration_diagnosis', compact(['pozo', 'formacion', 'fluido', 'scenaryId','campo', 'cuenca','scenary','user', 'advisor', 'fines_d_diagnosis', 'dates_data', 'fines_d_diagnosis', 'source', 'constantite']));
         }
@@ -1091,7 +1095,6 @@ class add_fines_migration_diagnosis_controller extends Controller
     }
     function run_simulation($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug)   
     {
-
         #Formateando arreglos - empezando índices en 1 
         #Datos PVT
         foreach ($pvt_data as $key => $value) 
@@ -1124,6 +1127,7 @@ class add_fines_migration_diagnosis_controller extends Controller
     }
     function simulate_deposited_fines($rdre, $hf, $rw, $pact, $pini, $phio, $ko, $rhop, $coi, $sigmai, $tcri, $fmov, $tpp, $rp, $pvt_data, $historical_data, $fines_data, $porosity_limit_constant, $bw, $rplug) 
     {
+        $constantite = 0;
         set_time_limit(1800); //Cambiar
         $complete_simulated_results = [];
 
@@ -1907,9 +1911,9 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite)-1, $kite_reverse, $porosity_limit_constantite_reverse);
                                 // dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo);
                                 array_push($array_aux, $porosity_limit_constant);
-                                if ($kk == $nh) {
-                                    dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo, $array_aux, 'lele');
-                                }
+                                // if ($kk == $nh) {
+                                //     dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo, $array_aux, 'lele');
+                                // }
                             }
                             $porosity_change = $this->porosity_change($nr, $ndt * $tiempo[$kk], $tiempo[$kk], $ki, $phin, $u, $ucri_esc, $sigmaini, $dpre, $rhop, $co, $k1i, $k2i, $k3i, $k4i, $k5i, $k6i, $dpdli, $dpdlsi, $sigmai, $abi, $ab2i, $porosity_limit_constant);
                             //dd($porosity_change);
@@ -2170,9 +2174,11 @@ class add_fines_migration_diagnosis_controller extends Controller
                 //     break 1;
                 // }
             }
+            // Constatntite en cada caudal
+            $constantite = $array_aux;
         }
-        dd([ $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
-        return array($complete_simulated_results, $damage_results);
+        // dd([ $pite, $crite, $kite, $porosity_limit_constantite, $cr, $porosity_limit_constant, 3, $simulation_results]);
+        return array($complete_simulated_results, $damage_resultsl, $constantite);
     }
 
     function set_array($original_array, $n)

@@ -2052,6 +2052,8 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }
                     }
 
+                    $constantite = $array_aux;
+
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
 
                     #Nueva sección

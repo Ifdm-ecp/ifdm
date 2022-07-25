@@ -23,7 +23,7 @@ function datosPvt() {
                 if (Number.isInteger(id)) {
                     $.get('/treePvt/' + id, function(data) {
                         datos = JSON.parse(data);
-                        console.log(data);
+                        // console.log(data);
                         $('input[name=saturation_pressure]').val(datos.saturacion_pressure);
                         tablaPvt(datos.tabla);
                         $('#modalImportarPvt').modal('hide');

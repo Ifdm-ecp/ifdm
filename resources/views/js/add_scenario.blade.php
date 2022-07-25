@@ -109,7 +109,6 @@
 
         getImportTree.done(function () {
             $('#treeDuplicateScenary').html('');
-            console.log(Tree);
             if (Tree.length > 0) {
                 $('#treeDuplicateScenary').tree(Tree);
                 setTimeout(function() {
@@ -134,7 +133,6 @@
                                 sel = sel['child'];
                             }
                         }
-                        console.log('#escenario_dup', 'keekekekekekeke');
                         $('#escenario_dup').val(sel.nombre);
                         $('#id_escenario_dup').val(sel.id);
                         $('.s_scenary_clear').removeAttr('disabled');
@@ -300,6 +298,7 @@ $(document).ready(function() {
         $.get("{{url('campos')}}", {
             cuenca: cuenca
         }, function(data) {
+            console.log('asdas');
             $("#field").empty();
             $("#well").empty();
             $("#formation").empty();
@@ -310,6 +309,8 @@ $(document).ready(function() {
             });
             $("#field").selectpicker('refresh');
             $('#field').selectpicker('val', '');
+            $("#well").selectpicker('refresh');
+            $("#formation_multiparametric_statistical").selectpicker('refresh');
         });
     });
 
@@ -438,6 +439,7 @@ $(document).ready(function() {
     });
 
     $("#field").change(function(e) {
+
         var campo = $('#field').val();
         $.get("{{url('pozosF')}}", {
             campo: campo
@@ -450,12 +452,26 @@ $(document).ready(function() {
 
             $.each(data, function(index, value) {
                 $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-
             });
             $("#well").selectpicker('refresh');
             $('#well').selectpicker('val', '');
-
-        });
+        }); 
+        
+        if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
+            var field = $('#field').val();
+            $.get("{{url('formationbyfield')}}", {
+                field: field
+            },
+            function(data) {
+                $("#formation_multiparametric_statistical").empty();
+                $.each(data, function(index, value) {
+                    $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                });
+                $("#formation_multiparametric_statistical").selectpicker('refresh');
+                $('#formation_multiparametric_statistical').selectpicker('val', '');
+            }); 
+        }
+       
     });
 
     $("#well").change(function(e) {
@@ -466,21 +482,15 @@ $(document).ready(function() {
         function(data) {
             $("#formation").empty();
             $("#formation_ipr").empty();
-            $("#formation_multiparametric_statistical").empty();
             $.each(data, function(index, value) {
                 $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             });
             $("#formation").selectpicker('refresh');
             $('#formation').selectpicker('val', '');
 
             $("#formation_ipr").selectpicker('refresh');
             $('#formation_ipr').selectpicker('val', '');
-
-            $("#formation_multiparametric_statistical").selectpicker('refresh');
-            $('#formation_multiparametric_statistical').selectpicker('val', '');
-
         });
     });
 

@@ -158,7 +158,7 @@
         });
 
         $("#well").change(function(e) {
-            console.log(pozo);
+            // console.log(pozo);
             var pozo = $('#well').val();
             $.get("{{url('formacionW')}}", {
                 pozo: pozo

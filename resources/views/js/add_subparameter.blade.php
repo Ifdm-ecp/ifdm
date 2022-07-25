@@ -359,7 +359,7 @@
                 campo: dataarray,
 
             }, function(data) {
-                console.log(data);
+                // console.log(data);
                 $.each(data, function(index, value) {
                     nps = [];
                     $.each(value, function(index, value) {

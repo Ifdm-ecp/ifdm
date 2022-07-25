@@ -139,7 +139,7 @@
          <div id="div_formation_multiparametric_statistical" style="display: none;">
             <div class="col-md-6">
                <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-                  {!! Form::label('formation_multiparametric_statistical', 'Producing Interval') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+                  {!! Form::label('formation_multiparametric_statistical', 'Formation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
                   <select class="selectpicker show-tick"  data-live-search="true" data-width="100%" data-style="btn-default" id="formation_multiparametric_statistical" name="formation_multiparametric_statistical[]" class="form-control" multiple>
                      <option selected disabled>-</option>
                   </select>

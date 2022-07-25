@@ -55,7 +55,7 @@
 <script type="text/javascript">
 	$('.delete').on('click', function(){
         var data = $(this).attr('id');
-        console.log(data);
+        // console.log(data);
         $('#formDelete').attr('action', '/manual/'+data);
         $('#confirmDelete').modal();
       });

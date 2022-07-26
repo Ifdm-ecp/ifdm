@@ -1911,6 +1911,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                                 $porosity_limit_constant = $this->interpolation($k_lab_qo, count($kite)-1, $kite_reverse, $porosity_limit_constantite_reverse);
                                 // dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo);
                                 array_push($array_aux, $porosity_limit_constant);
+                                $constantite = $array_aux;
                                 // if ($kk == $nh) {
                                 //     dd($kite_reverse, $porosity_limit_constantite_reverse, $porosity_limit_constant, $k_lab_qo, $qlab, $qo, $array_aux, 'lele');
                                 // }
@@ -2052,7 +2053,7 @@ class add_fines_migration_diagnosis_controller extends Controller
                         }
                     }
 
-                    $constantite = $array_aux;
+                    // $constantite = $array_aux;
 
                     //if ($xx == 7  && $yy == 5) { dd($xx,$yy,count($porosity_limit_constanti) + 1, 'despues del ciclo'); }
 

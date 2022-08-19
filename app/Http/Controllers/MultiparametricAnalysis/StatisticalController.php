@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MultiparametricAnalysis;
 use App\cuenca;
 use App\escenario;
 use App\formacionxpozo;
+use App\formacion;
 use App\medicion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MultiparametricStatisticalCreateRequest;
@@ -72,7 +73,8 @@ class StatisticalController extends Controller
         subparameters_weight::create(['multiparametric_id' => $statistical->id]);
 
         //se redirecciona a la vista edit de statistical
-        return redirect()->route('statistical.edit', $statistical->id);
+        // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
+        return redirect()->route('statistical.edit', $statistical->escenario_id);
     }
 
     /**
@@ -125,10 +127,10 @@ class StatisticalController extends Controller
         $formations = explode(",", $formations);
         $formations_names = [];
         foreach ($formations as $v) {
-            array_push($formations_names, formacionxpozo::where('id', $v)->first()->nombre);
+            array_push($formations_names, formacion::where('id', $v)->first()->nombre);
         }
         $formations = $formations_names;
-
+        
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
             if (!$statistical) {

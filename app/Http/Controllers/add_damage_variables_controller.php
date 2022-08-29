@@ -491,6 +491,7 @@ class add_damage_variables_controller extends Controller
         $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
         if ($pozo == null) {
             //dd('pozo', $pozo, $pozo_nombre, $row);
+            dd('adadadd');
             $response_pozo = "error1";
         }
         $formacion = $worksheet->getCell('B'.$row)->getValue();

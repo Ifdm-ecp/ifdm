@@ -73,8 +73,10 @@ class add_damage_variables_controller extends Controller
                 foreach ($tabs as $tab) {
                     $response_aux = $this->readTab($tab, $file);
                     if ($response_aux === "error1") {
+                        dd('pita');
                         $response = "error1";
                     }elseif ($response_aux === "error") {
+                        dd('pita');
                         $response = "error";
                     }
                 }

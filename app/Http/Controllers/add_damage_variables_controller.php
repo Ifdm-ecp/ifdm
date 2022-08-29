@@ -77,7 +77,6 @@ class add_damage_variables_controller extends Controller
                     }elseif ($response_aux === "error") {
                         $response = "error";
                     }
-                    dd($response_aux);
                 }
 
                 if ($response === "error1") {
@@ -479,7 +478,6 @@ class add_damage_variables_controller extends Controller
         }
 
         if ($response === "error1") {
-            dd($tab);
             return "error1";
         }elseif ($response === "error") {
             return "error";

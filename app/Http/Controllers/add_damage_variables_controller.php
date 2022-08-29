@@ -469,7 +469,10 @@ class add_damage_variables_controller extends Controller
         // Starts always from 3.
         $rowsNumber = $this->countRows($worksheet);
 
-        dd($rowsNumber);
+        // if tab is empty
+        if ($rowsNumber == 3) {
+            return "fine";
+        }
 
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
             $response = $this->readTriplex($tab, $row, $worksheet);

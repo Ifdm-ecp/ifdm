@@ -485,6 +485,7 @@ class add_damage_variables_controller extends Controller
     }
 
     public function readTriplex($tab, $row, $worksheet) {
+        dd('It works');
         
         // $triplexColumns = ['C', 'F', 'I', 'L', 'O'];
         $response_pozo = $response_formacion = "";

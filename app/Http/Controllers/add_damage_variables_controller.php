@@ -480,7 +480,7 @@ class add_damage_variables_controller extends Controller
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
             // dd($tab, $row, $worksheet);
             $response = $this->readTriplex($tab, $row, $worksheet);
-            dd($response);
+            dd($response, "base");
         }
 
         if ($response === "error1") {
@@ -499,6 +499,7 @@ class add_damage_variables_controller extends Controller
         // Averiguar formacion y pozo
         $pozo_nombre = $worksheet->getCell('A'.$row)->getValue();
         $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
+        dd($pozo_nombre, $pozo);
         if ($pozo == null) {
             //dd('pozo', $pozo, $pozo_nombre, $row);
             //dd($pozo, $pozo_nombre, $row, $worksheet);

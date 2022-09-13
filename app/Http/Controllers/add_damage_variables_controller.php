@@ -508,7 +508,7 @@ class add_damage_variables_controller extends Controller
         $formacion = $worksheet->getCell('B'.$row)->getValue();
         global $campo;
         $formacion = DB::table('formaciones')->where('nombre', $formacion)->where('campo_id', $campo)->first();
-        dd($pozo_nombre, $pozo, $formacion);
+        // dd($pozo_nombre, $pozo, $formacion);
         // dd($formacion);
         if ($formacion == null) {
             $response_formacion = "error1";
@@ -674,7 +674,7 @@ class add_damage_variables_controller extends Controller
             break;
 
             case 'Induced Damage':
-
+                dd('eaa');
                 $value = $worksheet->getCell('C'.$row)->getValue();
                 $fecha = $worksheet->getCell('D'.$row)->getValue();
                 $comentario = $worksheet->getCell('E'.$row)->getValue();

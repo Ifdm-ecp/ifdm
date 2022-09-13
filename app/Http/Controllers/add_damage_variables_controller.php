@@ -468,6 +468,7 @@ class add_damage_variables_controller extends Controller
         // Starts always from 3.
         $rowsNumber = $this->countRows($worksheet);
 
+        dd($tab, $rowsNumber);
         // if tab is empty
         if ($rowsNumber == 3) {
             return "fine";

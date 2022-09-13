@@ -499,7 +499,7 @@ class add_damage_variables_controller extends Controller
         // Averiguar formacion y pozo
         $pozo_nombre = $worksheet->getCell('A'.$row)->getValue();
         $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
-        dd($pozo_nombre, $pozo);
+        
         if ($pozo == null) {
             //dd('pozo', $pozo, $pozo_nombre, $row);
             //dd($pozo, $pozo_nombre, $row, $worksheet);
@@ -508,6 +508,7 @@ class add_damage_variables_controller extends Controller
         $formacion = $worksheet->getCell('B'.$row)->getValue();
         global $campo;
         $formacion = DB::table('formaciones')->where('nombre', $formacion)->where('campo_id', $campo)->first();
+        dd($pozo_nombre, $pozo, $formacion);
         // dd($formacion);
         if ($formacion == null) {
             $response_formacion = "error1";

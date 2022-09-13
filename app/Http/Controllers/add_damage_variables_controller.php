@@ -468,7 +468,7 @@ class add_damage_variables_controller extends Controller
         // Starts always from 3.
         $rowsNumber = $this->countRows($worksheet);
 
-        if ($tab != "Mineral Scales") {
+        if ($tab != "Mineral Scales" && $tab != "Fine Blockage") {
             dd($tab, $rowsNumber);
         }
         

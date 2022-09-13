@@ -473,12 +473,14 @@ class add_damage_variables_controller extends Controller
         }
         
         // if tab is empty
-        if ($rowsNumber <= 3) {
+        if ($rowsNumber < 3) {
             return "fine";
         }
 
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
+            dd($this->readTriplex($tab, $row, $worksheet));
             $response = $this->readTriplex($tab, $row, $worksheet);
+            
         }
 
         if ($response === "error1") {

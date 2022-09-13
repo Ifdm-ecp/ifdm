@@ -702,7 +702,7 @@ class add_damage_variables_controller extends Controller
                 if (null !== $value) { 
                     $response24 = $this->guardarTripleta('ID4', $value, $fecha, $comentario, $formacion, $pozo);
                 }
-                dd($response21, $response22, $response23, $response24, $row, $worksheet->getCell('C'.$row)->getValue(), $worksheet->getCell('F'.$row)->getValue(), $worksheet->getCell('I'.$row)->getValue());
+                dd($response21, $response22, $response23, $response24, $row, $worksheet->getCell('C'.$row)->getValue(), $worksheet->getCell('F'.$row)->getValue(), $worksheet->getCell('I'.$row)->getValue(), $worksheet->getCell('L'.$row)->getValue());
 
             break;
 

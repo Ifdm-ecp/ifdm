@@ -480,7 +480,7 @@ class add_damage_variables_controller extends Controller
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
             dd($tab, $row, $worksheet);
             $response = $this->readTriplex($tab, $row, $worksheet);
-            
+            dd($response);
         }
 
         if ($response === "error1") {

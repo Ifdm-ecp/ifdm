@@ -674,7 +674,7 @@ class add_damage_variables_controller extends Controller
             break;
 
             case 'Induced Damage':
-                dd('eaa');
+                
                 $value = $worksheet->getCell('C'.$row)->getValue();
                 $fecha = $worksheet->getCell('D'.$row)->getValue();
                 $comentario = $worksheet->getCell('E'.$row)->getValue();
@@ -702,6 +702,7 @@ class add_damage_variables_controller extends Controller
                 if (null !== $value) { 
                     $response24 = $this->guardarTripleta('ID4', $value, $fecha, $comentario, $formacion, $pozo);
                 }
+                dd($response21, $response22, $response23, $response24);
 
             break;
 

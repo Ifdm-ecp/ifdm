@@ -473,7 +473,7 @@ class add_damage_variables_controller extends Controller
         }
         
         // if tab is empty
-        if ($rowsNumber < 3) {
+        if ($rowsNumber == 3) {
             return "fine";
         }
 

@@ -468,9 +468,9 @@ class add_damage_variables_controller extends Controller
         // Starts always from 3.
         $rowsNumber = $this->countRows($worksheet);
 
-        // if ($tab != "Mineral Scales" && $tab != "Fine Blockage" && $tab != "Organic Scales" && $tab != "Relative Permeability" && $tab != "Induced Damage") {
-        //     dd($tab, $rowsNumber);
-        // }
+        if ($tab != "Mineral Scales" && $tab != "Fine Blockage" && $tab != "Organic Scales" && $tab != "Relative Permeability" && $tab != "Induced Damage") {
+            dd($tab, $rowsNumber);
+        }
         
         // if tab is empty
         if ($rowsNumber == 3) {
@@ -479,8 +479,8 @@ class add_damage_variables_controller extends Controller
 
         for ($row=3; $row <= $rowsNumber + 2; $row++) { 
             // dd($tab, $row, $worksheet);
-            $response = $this->readTriplex($tab, $row, $worksheet);$
-            // dd($response, "base");
+            $response = $this->readTriplex($tab, $row, $worksheet);
+            dd($response, "base");
         }
 
         if ($response === "error1") {
@@ -1275,6 +1275,7 @@ class add_damage_variables_controller extends Controller
 
         if ($codigoTripleta == 'ID1') {
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->first();
+            dd($medicion);
             if (null !== $medicion) {
                 // validacion o reemplazo ?
                 DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->limit(1)->update([

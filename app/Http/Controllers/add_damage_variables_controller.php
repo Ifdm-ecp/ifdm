@@ -1275,7 +1275,7 @@ class add_damage_variables_controller extends Controller
 
         if ($codigoTripleta == 'ID1') {
             $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->first();
-            dd($medicion);
+            // dd($medicion);
             if (null !== $medicion) {
                 // validacion o reemplazo ?
                 DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->limit(1)->update([

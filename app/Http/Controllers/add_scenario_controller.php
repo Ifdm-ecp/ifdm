@@ -88,7 +88,6 @@ class add_scenario_controller extends Controller
     {
         if (\Auth::check()) {
             /* Validaciones para formulario */
-            
             $nombre_escenario = $request->scenary;
 
             /* Validación del nombre de escenario unico por compañia */            
@@ -135,17 +134,19 @@ class add_scenario_controller extends Controller
                     return $this->defineEvent($request, $escenario_destino, $id_escenario_dup);
                 }
 
-            } else if ($val_escenario) {
-                $validator = Validator::make([], []);
-                $validator->errors()->add('scenary', 'Scenary name has already been taken');
-                
-                $url = $request->fullUrl();
-                $action = str_replace('ScenaryCS', 'ScenaryC', $url);
-
-                return redirect($action)
-                ->withErrors($validator)
-                ->withInput();
             }
+            // } else if ($val_escenario) {
+                
+            //     $validator = Validator::make([], []);
+            //     $validator->errors()->add('scenary', 'Scenary name has already been taken');
+                
+            //     $url = $request->fullUrl();
+            //     $action = str_replace('ScenaryCS', 'ScenaryC', $url);
+            //     dd($val_escenario);
+            //     return redirect($action)
+            //     ->withErrors($validator)
+            //     ->withInput();
+            // }
             /* Fin de validación del nombre de escenario unico por compañia */            
             
             /* Guardar datos generales de escenario */
@@ -217,6 +218,7 @@ class add_scenario_controller extends Controller
     /* Se define esta función para iniciar el post escenario creado*/
     private function defineEvent($request, $scenary, $id_escenario_dup)
     {
+        
         $scenaryId = $scenary->id;
         if($scenary->tipo == 'IPR') { /* Terminado duplicar */
 

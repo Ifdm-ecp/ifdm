@@ -16,6 +16,7 @@ use App\Traits\StatisticalTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 
 class StatisticalController extends Controller
 {
@@ -121,6 +122,7 @@ class StatisticalController extends Controller
     {
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $escenario_id = $id;
+        $campo_id = escenario::where('id',$escenario_id)->first()->campo_id;
         $statistical = Statistical::where('escenario_id', $escenario_id)->first();
         $formations = escenario::where('id',$escenario_id)->first();
         $formations = $formations->formacion_id;
@@ -130,6 +132,10 @@ class StatisticalController extends Controller
             array_push($formations_names, formacion::where('id', $v)->first()->nombre);
         }
         $formations = $formations_names;
+        $formationsWithoutSpaces = [];
+        foreach ($formations_names as $key => $formation) {
+            array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
+        }
         
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
@@ -140,10 +146,18 @@ class StatisticalController extends Controller
 
         $escenario = escenario::where('id',$escenario_id)->first();
         $pozo_id = $escenario->pozo_id;
-        $array_mediciones = medicion::where('pozo_id', $pozo_id)->get();
+
+        // ORGANIZAR MEDICIONES POR 1 POZO, 1 CAMPO Y MULTIPLES FORMACIONES
         $mediciones = [];
-        foreach ($array_mediciones as $medicion) {
-            array_push($mediciones, [$medicion->id, $medicion->pozo_id, $medicion->formacion_id, $medicion->subparametro_id, $medicion->valor, Carbon::parse($medicion->fecha)->format('d/m/Y'), $medicion->comentario]);
+        foreach ($formations as $key1 => $formation) {
+            $formacion_id = formacion::where('nombre', $formation)->where('campo_id', $campo_id)->first()->id;
+            $mediciones_aux = medicion::where('pozo_id', $pozo_id)->where('formacion_id', $formacion_id)->get();
+            if (!$mediciones_aux->isEmpty()) {
+                foreach ($mediciones_aux as $key => $medicion_aux) {
+                    $subparametro = DB::table('subparametros')->where('id', $medicion_aux->subparametro_id)->first()->sigla;
+                    array_push($mediciones, [$medicion_aux->id, $medicion_aux->pozo_id, $medicion_aux->formacion_id, $medicion_aux->subparametro_id, $medicion_aux->valor, Carbon::parse($medicion_aux->fecha)->format('d/m/Y'), $medicion_aux->comentario, $subparametro, $formationsWithoutSpaces[$key1]]);
+                }  
+            }
         }
 
         $pozoId = escenario::find($statistical->escenario_id)->pozo_id;
@@ -227,8 +241,8 @@ class StatisticalController extends Controller
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
-        //dd(Session::get('GD4'));
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos']));
+        // dd($statistical);
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces']));
     }
 
     /**

@@ -52,33 +52,39 @@
         
         html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
         flag = 0;
-        <?php echo json_encode($formations); ?>.forEach(element => {
+        <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
             name = title + element;
+
+            
+
+
+
+
             if (flag == 0) {
-                html = html + '<li role="presentation" class="active"><a href="#tab' + name +'" aria-controls="tab' + name + '" role="tab" data-toggle="tab">' + element + '</a></li>';
+                html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + element + '</a></li>';
                 flag++;
             } else {
-                html = html + '<li role="presentation"><a href="#tab' + name +'" aria-controls="tab' + name + '" role="tab" data-toggle="tab">' + element + '</a></li>';
+                html = html + '<li role="presentation" class="nav"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + element + '</a></li>';
                 
             }
         });
         html = html + '</ul><div class="tab-content">';
         flag = 0;
-        <?php echo json_encode($formations); ?>.forEach(element => {
+        <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
             name = title + element;
             if (flag == 0) {
-                html = html + '<div role="tabpanel" class="tab-pane active" id="tab' + name + '">';
+                html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                 flag++;
             } else {
-                html = html + '<div role="tabpanel" class="tab-pane" id="tab' + name + '">';
+                html = html + '<div role="tabpanel" class="tab-pane fade in" id="tab' + name + '">';
             }
 
             //CONTENT
-            html = html + '<div class="tabcontent"><div class="row"><div class="col-xs-12 col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class="form-control selectpicker show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
+            html = html + '<div class="tabcontent"><div class="row"><div class="col-xs-12 col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class="form-select selectpicker show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
             html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-            <?php echo json_encode($mediciones); ?>.forEach(element => {
-                html = html + '<option value="' + element[0] + '">' + element[5] + '</option>';
-            });
+            html = html + organizeSelectOptions(title, element, <?php echo json_encode($mediciones); ?>);   
+
+
             html = html + '</select></div></div></div>';
             html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
             html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div>';
@@ -145,6 +151,18 @@
             $('#p90_'+index).attr('disabled', true);
             $('#weight_'+index).attr('disabled', true);
         }
+    }
+
+    function organizeSelectOptions(title, formation, mediciones) {
+        html_aux = '';
+        mediciones.forEach(medicion => {
+            if (medicion[7] === title && medicion[8] === formation) {
+                
+                html_aux = html_aux + '<option value="' + medicion[0] + '">' + medicion[5] + '</option>';
+            }
+        });
+        // console.log(formation,title,html_aux);
+        return html_aux;
     }
     
     function updateData(select_id, name) {

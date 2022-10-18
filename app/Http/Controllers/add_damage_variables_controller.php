@@ -62,30 +62,36 @@ class add_damage_variables_controller extends Controller
             // Si hay un archivo por importar, haga esto
             if ($request->file('uploadedFile')) {
 
-                $response = ""; 
                 $file = $request->file('uploadedFile');
+                $reader = IOFactory::createReader('Xlsx');
+                $reader->setReadDataOnly(TRUE);
+                $spreadsheet = $reader->load($file);
 
-                global $cuenca;
                 $cuenca = $request->input('basin');
                 global $campo;
                 $campo = $request->input('field');
-                $tabs = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
-                foreach ($tabs as $tab) {
-                    $response_aux = $this->readTab($tab, $file);
-                    if ($response_aux === "error1") {
-                        $response = "error1";
-                    }elseif ($response_aux === "error") {
-                        $response = "error";
-                    }
+
+                // $sheet = $spreadsheet->getSheet(1)->getCell('C1')->getValue();
+                // $sheet = $spreadsheet->getSheet(5)->getCellByColumnAndRow(3, 1)->getValue();
+                // $sheet = $spreadsheet->getSheet(5)->rangeToArray('A1:E14');
+                // $all = $spreadsheet->getSheetCount();
+                // dd($all, $spreadsheet->getSheetNames(), $spreadsheet->getSheet(2));
+
+                // ORGANIZAR DATOS PARA IMPORTAR
+                $organized_data_sheet = $this->organize_data_sheet($spreadsheet);
+
+                // IMPORTAR DATOS
+                foreach ($organized_data_sheet as $key => $data) {
+                    $this->saveMedicion($data[3], $data[4], $data[5], $data[1], $data[0], $data[2]);
                 }
 
-                if ($response === "error1") {
-                    return Redirect::back()->withErrors(['msg' => 'Please check import data.']);
-                }
+                // if ($response === "error1") {
+                //     return Redirect::back()->withErrors(['msg' => 'Please check import data.']);
+                // }
                 
-                if ($response === "error") {
-                    return Redirect::back()->withErrors(['msg' => 'Some records were not imported. Duplicated dates.']);
-                }
+                // if ($response === "error") {
+                //     return Redirect::back()->withErrors(['msg' => 'Some records were not imported. Duplicated dates.']);
+                // }
 
                 return Redirect::back()->with('success', 'Damage Variables Successfully Imported.');
 
@@ -456,1014 +462,1113 @@ class add_damage_variables_controller extends Controller
         //
     }
 
-    public function readTab($tab, $file) {
+    // public function readTab($tab, $file) {
 
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        $reader->setLoadSheetsOnly([$tab, $tab]);
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($file);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $response = "";
+    //     $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+    //     $reader->setLoadSheetsOnly([$tab, $tab]);
+    //     $reader->setReadDataOnly(true);
+    //     $spreadsheet = $reader->load($file);
+    //     $worksheet = $spreadsheet->getActiveSheet();
+    //     $response = "";
 
-        // Starts always from 3.
-        $rowsNumber = $this->countRows($worksheet);
+    //     // Starts always from 3.
+    //     $rowsNumber = $this->countRows($worksheet);
 
-        if ($tab != "Mineral Scales" && $tab != "Fine Blockage" && $tab != "Organic Scales" && $tab != "Relative Permeability" && $tab != "Induced Damage") {
-            // dd($tab, $rowsNumber);
-        }
+    //     if ($tab != "Mineral Scales" && $tab != "Fine Blockage" && $tab != "Organic Scales" && $tab != "Relative Permeability" && $tab != "Induced Damage") {
+    //         // dd($tab, $rowsNumber);
+    //     }
         
-        // if tab is empty
-        if ($rowsNumber == 3) {
-            return "fine";
-        }
+    //     // if tab is empty
+    //     if ($rowsNumber == 3) {
+    //         return "fine";
+    //     }
 
-        for ($row=3; $row <= $rowsNumber + 2; $row++) { 
-            // dd($tab, $row, $worksheet);
-            $response = $this->readTriplex($tab, $row, $worksheet);
-            // dd($response, "base");
-        }
+    //     for ($row=3; $row <= $rowsNumber + 2; $row++) { 
+    //         // dd($tab, $row, $worksheet);
+    //         $response = $this->readTriplex($tab, $row, $worksheet);
+    //         // dd($response, "base");
+    //     }
 
-        if ($response === "error1") {
-            return "error1";
-        }elseif ($response === "error") {
-            return "error";
-        }
-    }
+    //     if ($response === "error1") {
+    //         return "error1";
+    //     }elseif ($response === "error") {
+    //         return "error";
+    //     }
+    // }
 
-    public function readTriplex($tab, $row, $worksheet) {
+    // public function readTriplex($tab, $row, $worksheet) {
         
-        // $triplexColumns = ['C', 'F', 'I', 'L', 'O'];
-        $response_pozo = $response_formacion = "";
-        $response1 = $response2 = $response3 = $response4 = $response5 = $response6 = $response7 = $response8 = $response9 = $response10 = $response11 = $response12 = $response13 = $response14 = $response15 = $response16 = $response17 = $response18 = $response19 = $response20 = $response21 = $response22 = $response23 = $response24 = $response25 = $response26 = $response27 = $response28 = "";
+    //     // $triplexColumns = ['C', 'F', 'I', 'L', 'O'];
+    //     $response_pozo = $response_formacion = "";
+    //     $response1 = $response2 = $response3 = $response4 = $response5 = $response6 = $response7 = $response8 = $response9 = $response10 = $response11 = $response12 = $response13 = $response14 = $response15 = $response16 = $response17 = $response18 = $response19 = $response20 = $response21 = $response22 = $response23 = $response24 = $response25 = $response26 = $response27 = $response28 = "";
 
-        // Averiguar formacion y pozo
-        $pozo_nombre = $worksheet->getCell('A'.$row)->getValue();
-        $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
+    //     // Averiguar formacion y pozo
+    //     $pozo_nombre = $worksheet->getCell('A'.$row)->getValue();
+    //     $pozo = DB::table('pozos')->where('nombre', $pozo_nombre)->first();
         
-        if ($pozo == null) {
-            //dd('pozo', $pozo, $pozo_nombre, $row);
-            //dd($pozo, $pozo_nombre, $row, $worksheet);
-            $response_pozo = "error1";
-        }
-        $formacion = $worksheet->getCell('B'.$row)->getValue();
-        global $campo;
-        $formacion = DB::table('formaciones')->where('nombre', $formacion)->where('campo_id', $campo)->first();
-        // dd($pozo_nombre, $pozo, $formacion);
-        // dd($formacion);
-        if ($formacion == null) {
-            $response_formacion = "error1";
-        }
+    //     if ($pozo == null) {
+    //         //dd('pozo', $pozo, $pozo_nombre, $row);
+    //         //dd($pozo, $pozo_nombre, $row, $worksheet);
+    //         $response_pozo = "error1";
+    //     }
+    //     $formacion = $worksheet->getCell('B'.$row)->getValue();
+    //     global $campo;
+    //     $formacion = DB::table('formaciones')->where('nombre', $formacion)->where('campo_id', $campo)->first();
+    //     // dd($pozo_nombre, $pozo, $formacion);
+    //     // dd($formacion);
+    //     if ($formacion == null) {
+    //         $response_formacion = "error1";
+    //     }
 
-        switch ($tab) {
+    //     switch ($tab) {
             
-            case 'Mineral Scales':
+    //         case 'Mineral Scales':
 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    // dd('MS1', $value, $fecha, $comentario, $formacion, $pozo);
-                    $response1 = $this->guardarTripleta('MS1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 // dd('MS1', $value, $fecha, $comentario, $formacion, $pozo);
+    //                 $response1 = $this->guardarTripleta('MS1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) { 
-                    $response2 = $this->guardarTripleta('MS2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response2 = $this->guardarTripleta('MS2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('I'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response3 = $this->guardarTripleta('MS3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('I'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response3 = $this->guardarTripleta('MS3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response4 = $this->guardarTripleta('MS4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response4 = $this->guardarTripleta('MS4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('O'.$row)->getValue();
-                $fecha = $worksheet->getCell('P'.$row)->getValue();
-                $comentario = $worksheet->getCell('Q'.$row)->getValue();
-                if (null !== $value) { 
-                    $response5 = $this->guardarTripleta('MS5', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('O'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('P'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('Q'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response5 = $this->guardarTripleta('MS5', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
             
-            break;
+    //         break;
 
-            case 'Fine Blockage':
+    //         case 'Fine Blockage':
                 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    $response6 = $this->guardarTripleta('FB1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response6 = $this->guardarTripleta('FB1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) { 
-                    $response7 = $this->guardarTripleta('FB2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response7 = $this->guardarTripleta('FB2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('I'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response8 = $this->guardarTripleta('FB3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('I'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response8 = $this->guardarTripleta('FB3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response9 = $this->guardarTripleta('FB4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response9 = $this->guardarTripleta('FB4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('O'.$row)->getValue();
-                $fecha = $worksheet->getCell('P'.$row)->getValue();
-                $comentario = $worksheet->getCell('Q'.$row)->getValue();
-                if (null !== $value) { 
-                    $response10 = $this->guardarTripleta('FB5', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('O'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('P'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('Q'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response10 = $this->guardarTripleta('FB5', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-            break;
+    //         break;
 
-            case 'Organic Scales':
+    //         case 'Organic Scales':
 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    $response11 = $this->guardarTripleta('OS1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response11 = $this->guardarTripleta('OS1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
                 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) { 
-                    $response12 = $this->guardarTripleta('OS2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response12 = $this->guardarTripleta('OS2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('I'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response13 = $this->guardarTripleta('OS3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('I'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response13 = $this->guardarTripleta('OS3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response14 = $this->guardarTripleta('OS4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response14 = $this->guardarTripleta('OS4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('O'.$row)->getValue();
-                $fecha = $worksheet->getCell('P'.$row)->getValue();
-                $comentario = $worksheet->getCell('Q'.$row)->getValue();
-                if (null !== $value) { 
-                    $response15 = $this->guardarTripleta('OS5', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('O'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('P'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('Q'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response15 = $this->guardarTripleta('OS5', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-            break;
+    //         break;
 
-            case 'Relative Permeability':
+    //         case 'Relative Permeability':
 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    $response16 = $this->guardarTripleta('RP1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response16 = $this->guardarTripleta('RP1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) {  
-                    $response17 = $this->guardarTripleta('RP2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) {  
+    //                 $response17 = $this->guardarTripleta('RP2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('O'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response18 = $this->guardarTripleta('RP3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('O'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response18 = $this->guardarTripleta('RP3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response19 = $this->guardarTripleta('RP4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response19 = $this->guardarTripleta('RP4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('O'.$row)->getValue();
-                $fecha = $worksheet->getCell('P'.$row)->getValue();
-                $comentario = $worksheet->getCell('Q'.$row)->getValue();
-                if (null !== $value) { 
-                    $response20 = $this->guardarTripleta('RP5', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('O'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('P'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('Q'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response20 = $this->guardarTripleta('RP5', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-            break;
+    //         break;
 
-            case 'Induced Damage':
+    //         case 'Induced Damage':
                 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    $response21 = $this->guardarTripleta('ID1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response21 = $this->guardarTripleta('ID1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) { 
-                    $response22 = $this->guardarTripleta('ID2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response22 = $this->guardarTripleta('ID2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('I'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response23 = $this->guardarTripleta('ID3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('I'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response23 = $this->guardarTripleta('ID3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response24 = $this->guardarTripleta('ID4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
-                // dd($response21, $response22, $response23, $response24, $row, $worksheet->getCell('C'.$row)->getValue(), $worksheet->getCell('F'.$row)->getValue(), $worksheet->getCell('I'.$row)->getValue(), $worksheet->getCell('L'.$row)->getValue());
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response24 = $this->guardarTripleta('ID4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
+    //             // dd($response21, $response22, $response23, $response24, $row, $worksheet->getCell('C'.$row)->getValue(), $worksheet->getCell('F'.$row)->getValue(), $worksheet->getCell('I'.$row)->getValue(), $worksheet->getCell('L'.$row)->getValue());
 
-            break;
+    //         break;
 
-            case 'Geomechanical Damage':
+    //         case 'Geomechanical Damage':
 
-                $value = $worksheet->getCell('C'.$row)->getValue();
-                $fecha = $worksheet->getCell('D'.$row)->getValue();
-                $comentario = $worksheet->getCell('E'.$row)->getValue();
-                if (null !== $value) { 
-                    $response25 = $this->guardarTripleta('GD1', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('C'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('D'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('E'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response25 = $this->guardarTripleta('GD1', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('F'.$row)->getValue();
-                $fecha = $worksheet->getCell('G'.$row)->getValue();
-                $comentario = $worksheet->getCell('H'.$row)->getValue();
-                if (null !== $value) { 
-                    $response26 = $this->guardarTripleta('GD2', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('F'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('G'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('H'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response26 = $this->guardarTripleta('GD2', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('I'.$row)->getValue();
-                $fecha = $worksheet->getCell('J'.$row)->getValue();
-                $comentario = $worksheet->getCell('K'.$row)->getValue();
-                if (null !== $value) { 
-                    $response27 = $this->guardarTripleta('GD3', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('I'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('J'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('K'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response27 = $this->guardarTripleta('GD3', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-                $value = $worksheet->getCell('L'.$row)->getValue();
-                $fecha = $worksheet->getCell('M'.$row)->getValue();
-                $comentario = $worksheet->getCell('N'.$row)->getValue();
-                if (null !== $value) { 
-                    $response28 = $this->guardarTripleta('GD4', $value, $fecha, $comentario, $formacion, $pozo);
-                }
+    //             $value = $worksheet->getCell('L'.$row)->getValue();
+    //             $fecha = $worksheet->getCell('M'.$row)->getValue();
+    //             $comentario = $worksheet->getCell('N'.$row)->getValue();
+    //             if (null !== $value) { 
+    //                 $response28 = $this->guardarTripleta('GD4', $value, $fecha, $comentario, $formacion, $pozo);
+    //             }
 
-            break;
-        }
+    //         break;
+    //     }
 
-        // dd($response1, $response2, $response3, $response4, $response5, $response6, $response7, $response8, $response9, $response10, $response11, $response12, $response13, $response14, 
-        // $response15, $response16, $response17, $response18, $response19, $response20, $response21, $response22, $response23, $response24, $response25, $response26, $response27, $response28, $tab, $row);
+    //     // dd($response1, $response2, $response3, $response4, $response5, $response6, $response7, $response8, $response9, $response10, $response11, $response12, $response13, $response14, 
+    //     // $response15, $response16, $response17, $response18, $response19, $response20, $response21, $response22, $response23, $response24, $response25, $response26, $response27, $response28, $tab, $row);
         
-        if ( $response_pozo === "error1" || $response_formacion === "error1" ) {
-            return "error1";
-        } elseif ($response1 === "error" ||
-        $response2 === "error" ||
-        $response3 === "error" ||
-        $response4 === "error" ||
-        $response5 === "error" ||
-        $response6 === "error" ||
-        $response7 === "error" ||
-        $response8 === "error" ||
-        $response9 === "error" ||
-        $response10 === "error" ||
-        $response11 === "error" ||
-        $response12 === "error" ||
-        $response13 === "error" ||
-        $response14 === "error" ||
-        $response15 === "error" ||
-        $response16 === "error" ||
-        $response17 === "error" ||
-        $response18 === "error" ||
-        $response19 === "error" ||
-        $response20 === "error" ||
-        $response21 === "error" ||
-        $response22 === "error" ||
-        $response23 === "error" ||
-        $response24 === "error" ||
-        $response25 === "error" ||
-        $response26 === "error" ||
-        $response27 === "error" ||
-        $response28 === "error"
-        ) {
-            return "error";
+    //     if ( $response_pozo === "error1" || $response_formacion === "error1" ) {
+    //         return "error1";
+    //     } elseif ($response1 === "error" ||
+    //     $response2 === "error" ||
+    //     $response3 === "error" ||
+    //     $response4 === "error" ||
+    //     $response5 === "error" ||
+    //     $response6 === "error" ||
+    //     $response7 === "error" ||
+    //     $response8 === "error" ||
+    //     $response9 === "error" ||
+    //     $response10 === "error" ||
+    //     $response11 === "error" ||
+    //     $response12 === "error" ||
+    //     $response13 === "error" ||
+    //     $response14 === "error" ||
+    //     $response15 === "error" ||
+    //     $response16 === "error" ||
+    //     $response17 === "error" ||
+    //     $response18 === "error" ||
+    //     $response19 === "error" ||
+    //     $response20 === "error" ||
+    //     $response21 === "error" ||
+    //     $response22 === "error" ||
+    //     $response23 === "error" ||
+    //     $response24 === "error" ||
+    //     $response25 === "error" ||
+    //     $response26 === "error" ||
+    //     $response27 === "error" ||
+    //     $response28 === "error"
+    //     ) {
+    //         return "error";
+    //     }
+    // }
+
+    // // Cuenta las filas del documento a leer
+    // public function countRows($worksheet) {
+
+    //     $count = 0;
+    //     $count = $worksheet->getHighestRow();
+
+    //     return ($count - 2);
+    // }
+
+    // public function guardarTripleta($codigoTripleta, $valor, $fecha, $comentario, $formacion, $pozo) {
+
+    //     if ($fecha != null) { 
+    //         $fecha = Carbon::createFromFormat('d/m/Y', $fecha)->format('Y-m-d');
+    //     }
+        
+    //     if ($codigoTripleta == 'MS1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 1
+    //             ]);
+    //             // return "error";
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 1;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'MS2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 2
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 2;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'MS3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 3
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 3;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'MS4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 4
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 4;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'MS5') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 5
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 5;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'FB1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 6
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 6;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'FB2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 7
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 7;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'FB3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 8
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 8;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'FB4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 9
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 9;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'FB5') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 10
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 10;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'OS1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 11
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 11;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'OS2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 30
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 30;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'OS3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 12
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 12;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'OS4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 13
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 13;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'OS5') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 14
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 14;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'RP1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 15
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 15;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'RP2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 16
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 16;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'RP3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 17
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 17;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'RP4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 18
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 18;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'RP5') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 31
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 31;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'ID1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->first();
+    //         // dd($medicion);
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 19
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 19;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'ID2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 20
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 20;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'ID3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 21
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 21;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'ID4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 22
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 22;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'GD1') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 23
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 23;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'GD2') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 24
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 24;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'GD3') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 25
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 25;
+    //             $measurement->save();
+    //         }
+    //     }
+
+    //     if ($codigoTripleta == 'GD4') {
+    //         $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->first();
+    //         if (null !== $medicion) {
+    //             // validacion o reemplazo ?
+    //             DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->limit(1)->update([
+    //                 'valor'             => $valor,
+    //                 'fecha'             => $fecha,
+    //                 'comentario'        => $comentario,
+    //                 'formacion_id'      => $formacion->id,
+    //                 'pozo_id'           => $pozo->id,
+    //                 'subparametro_id'   => 26
+    //             ]);
+    //         }else{
+    //             $measurement = new medicion;
+    //             $measurement->valor = $valor;
+    //             $measurement->fecha = $fecha;
+    //             $measurement->comentario = $comentario;
+    //             $measurement->formacion_id = $formacion->id;
+    //             $measurement->pozo_id = $pozo->id;
+    //             $measurement->subparametro_id = 26;
+    //             $measurement->save();
+    //         }
+    //     }
+    // }
+
+
+    public function organize_fecha($fecha) {
+        if ($fecha !== null) {
+            $array = explode('/', $fecha);
+            if (strlen($array[0]) == 1) {
+                $array[0] = '0'.$array[0];
+            }
+            if (strlen($array[1]) == 1) {
+                $array[1] = '0'.$array[1];
+            }
+            return $array[2]."-".$array[1]."-".$array[0];    
+        }else{
+            return null;
         }
     }
 
-    // Cuenta las filas del documento a leer
-    public function countRows($worksheet) {
+    public function organize_data_sheet($spreadsheet) {
 
-        $count = 0;
-        $count = $worksheet->getHighestRow();
+        $data_sheet_aux = [];
 
-        return ($count - 2);
-    }
+        // ITERAR TABS DESDE MINERAL SCALES
+        $sheet_count = $spreadsheet->getSheetCount();
+        for ($k=1; $k < $sheet_count; $k++) { 
+            
+            $data_sheet = $spreadsheet->getSheet($k);
 
-    public function guardarTripleta($codigoTripleta, $valor, $fecha, $comentario, $formacion, $pozo) {
+            // SUBPARAMETROS
+            $subparameterList = $data_sheet->rangeToArray('C2:Q2')[0];
+            $auxList = [];
+            foreach ($subparameterList as $key => $subparameter) {
+                if ($subparameter != null) {
+                    array_push($auxList, $subparameter);
+                }
+            }
+            $subparameterList = $auxList;
 
-        if ($fecha != null) { 
-            $fecha = Carbon::createFromFormat('d/m/Y', $fecha)->format('Y-m-d');
+            // CONTAR FILAS
+            $rows = $data_sheet->rangeToArray('A1:A10000');
+            $rows_aux = [];
+            for ($i=1; $i <= count($rows); $i++) {
+                if ($rows[$i-1][0] != null) {
+                    array_push($rows_aux, $rows[$i-1][0]);
+                }
+            }
+            $rows_count = count($rows_aux) - 1;
+
+            // CONTAR COLUMNAS
+            $colsValue = ['C', 'F', 'I', 'L', 'O'];
+            $colsDate = ['D', 'G', 'J', 'M', 'P'];
+            $colsComment = ['E', 'H', 'K', 'N', 'Q'];
+
+            // ORGANIZAR DATOS [[well, formation, subparameter, value, date, comment],[well, formation, subparameter, value, date, comment], [], ...]
+            for ($i=1; $i <= $rows_count ; $i++) { 
+
+                $well_id = DB::table('pozos')->where('nombre', $data_sheet->getCell('A'.($i+3))->getValue())->first()->id;
+                global $campo;
+                $formation_id = DB::table('formaciones')->where('nombre', $data_sheet->getCell('B'.($i+3))->getValue())->where('campo_id', $campo)->first()->id;
+                
+                for ($j=0; $j < count($subparameterList); $j++) { 
+                    $subparametro_id = DB::table('subparametros')->where('sigla', $subparameterList[$j])->first()->id;
+                    $value = $data_sheet->getCell($colsValue[$j].($i+3))->getValue();
+                    $date = $this->organize_fecha($data_sheet->getCell($colsDate[$j].($i+3))->getValue());
+                    $comment = $data_sheet->getCell($colsComment[$j].($i+3))->getValue();
+                    if ($value !== null) {
+                        array_push($data_sheet_aux, [$well_id, $formation_id, $subparametro_id, $value, $date, $comment]);
+                    }
+                }
+            }
         }
         
-        if ($codigoTripleta == 'MS1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 1)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 1
-                ]);
-                // return "error";
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 1;
-                $measurement->save();
-            }
-        }
+        $data_sheet = $data_sheet_aux;
 
-        if ($codigoTripleta == 'MS2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 2)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 2
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 2;
-                $measurement->save();
-            }
-        }
+        return $data_sheet;
+    }
 
-        if ($codigoTripleta == 'MS3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 3)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 3
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 3;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'MS4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 4)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 4
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 4;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'MS5') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 5)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 5
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 5;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'FB1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 6)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 6
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 6;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'FB2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 7)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 7
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 7;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'FB3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 8)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 8
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 8;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'FB4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 9)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 9
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 9;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'FB5') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 10)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 10
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 10;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'OS1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 11)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 11
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 11;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'OS2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 30)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 30
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 30;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'OS3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 12)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 12
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 12;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'OS4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 13)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 13
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 13;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'OS5') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 14)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 14
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 14;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'RP1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 15)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 15
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 15;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'RP2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 16)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 16
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 16;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'RP3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 17)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 17
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 17;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'RP4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 18)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 18
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 18;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'RP5') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 31)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 31
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 31;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'ID1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->first();
-            // dd($medicion);
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 19)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 19
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 19;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'ID2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 20)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 20
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 20;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'ID3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 21)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 21
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 21;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'ID4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 22)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 22
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 22;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'GD1') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 23)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 23
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 23;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'GD2') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 24)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 24
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 24;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'GD3') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 25)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 25
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 25;
-                $measurement->save();
-            }
-        }
-
-        if ($codigoTripleta == 'GD4') {
-            $medicion = DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->first();
-            if (null !== $medicion) {
-                // validacion o reemplazo ?
-                DB::table('mediciones')->where('fecha', $fecha)->where('subparametro_id', 26)->limit(1)->update([
-                    'valor'             => $valor,
-                    'fecha'             => $fecha,
-                    'comentario'        => $comentario,
-                    'formacion_id'      => $formacion->id,
-                    'pozo_id'           => $pozo->id,
-                    'subparametro_id'   => 26
-                ]);
-            }else{
-                $measurement = new medicion;
-                $measurement->valor = $valor;
-                $measurement->fecha = $fecha;
-                $measurement->comentario = $comentario;
-                $measurement->formacion_id = $formacion->id;
-                $measurement->pozo_id = $pozo->id;
-                $measurement->subparametro_id = 26;
-                $measurement->save();
-            }
+    public function saveMedicion($valor, $fecha, $comentario, $formacion_id, $pozo_id, $subparametro_id) : void {
+        $medicion = DB::table('mediciones')->where('pozo_id', $pozo_id)->where('formacion_id', $formacion_id)->where('subparametro_id', $subparametro_id)->where('fecha', $fecha)->first();
+        if ($medicion === null) {
+            $measurement = new medicion;
+            $measurement->valor = $valor;
+            $measurement->fecha = $fecha;
+            $measurement->comentario = $comentario;
+            $measurement->formacion_id = $formacion_id;
+            $measurement->pozo_id = $pozo_id;
+            $measurement->subparametro_id = $subparametro_id;
+            $measurement->save();
+        }else{
+            DB::table('mediciones')->delete($medicion->id);
+            $measurement = new medicion;
+            $measurement->valor = $valor;
+            $measurement->fecha = $fecha;
+            $measurement->comentario = $comentario;
+            $measurement->formacion_id = $formacion_id;
+            $measurement->pozo_id = $pozo_id;
+            $measurement->subparametro_id = $subparametro_id;
+            $measurement->save();
         }
     }
 }

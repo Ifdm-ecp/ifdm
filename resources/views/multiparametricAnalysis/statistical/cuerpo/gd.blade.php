@@ -1,7 +1,14 @@
 <div class="tab-pane" id="GD">
    <div class="panel panel-default">
       <div class="panel-heading">
-         <h4>Geomechanical Damage</h4>
+         <div class="form-inline" role="form">
+            <div class="col-md-8">
+               <h4 id="ms-title">Geomechanical Damage</h4>
+            </div>
+            <div class="text-right">
+               <input type="checkbox" id="checkbox_general_GD" name="checkbox_general_GD" checked data-toggle="toggle" \>
+            </div>
+         </div>
       </div>
 
       <div class="panel-body">

@@ -255,6 +255,7 @@ class StatisticalController extends Controller
     public function update(MultiparametricStatisticalRequest $request, $id)
     {
         if (\Auth::check()) {
+            dd('dada');
 
             if ($request->only_s == "run") {
                 //VALIDATE

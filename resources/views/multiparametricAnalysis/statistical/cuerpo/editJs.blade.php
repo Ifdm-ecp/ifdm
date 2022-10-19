@@ -80,7 +80,7 @@
             }
 
             //CONTENT
-            html = html + '<div class="tabcontent"><div class="row"><div class="col-xs-12 col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class="form-select selectpicker show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
+            html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select selectpicker show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
             html = html + '<option value="none" selected hidden>Nothing Selected</option>';
             html = html + organizeSelectOptions(title, element, <?php echo json_encode($mediciones); ?>);   
 
@@ -98,6 +98,32 @@
 
         html = html + '</div></div>';
         $("#"+destination_div).append(html);
+    }
+
+    $("#checkbox_general_MS").change(function() { index = "MS"; numberOfParameters = 5; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+    $("#checkbox_general_FB").change(function() { index = "FB"; numberOfParameters = 5; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+    $("#checkbox_general_OS").change(function() { index = "OS"; numberOfParameters = 5; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+    $("#checkbox_general_RP").change(function() { index = "RP"; numberOfParameters = 5; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+    $("#checkbox_general_ID").change(function() { index = "ID"; numberOfParameters = 4; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+    $("#checkbox_general_GD").change(function() { index = "GD"; numberOfParameters = 4; availableEnableDisableGeneralFields(index, numberOfParameters); }); 
+
+    function availableEnableDisableGeneralFields(index, numberOfParameters) {
+        if ($("#checkbox_general_" + index).prop('checked') == true) {
+            for (let i = 0; i < numberOfParameters; i++) {
+                $("#"+index+(i+1)+"_checkbox").prop('checked', true);
+                availableEnableDisableFields(index+[i+1]);
+            }
+        } else {
+            for (let i = 0; i < numberOfParameters; i++) {
+                $("#"+index+(i+1)+"_checkbox").prop('checked', false);
+                availableEnableDisableFields(index+[i+1]);
+            }
+        }
+    }
+
+    function epa() {
+        console.log('epa');
+        alert('Button was clicked!');
     }
 
     $("#MS1_checkbox").change(function() { index = "MS1"; availableEnableDisableFields(index); }); 
@@ -131,21 +157,25 @@
 
     function availableEnableDisableFields(index) {
         if ($("#"+index+"_checkbox").prop('checked') == true) {
-            <?php echo json_encode($formations); ?>.forEach(element => {
-                $('#selectStored_'+index+element).attr('disabled', false);
-                $('#value_'+index+element).attr('disabled', false);
-                $('#date_'+index+element).attr('disabled', false);
-                $('#comment_'+index+element).attr('disabled', false);
-            });  
+            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(formation => {
+                name = index + formation;
+                $('#selectStored_' + name).attr('disabled', false);
+                $('#value_' + name).attr('disabled', false);
+                $('#date_' + name).attr('disabled', false);
+                $('#comment_' + name).attr('disabled', false);
+            });
             $('#p10_'+index).attr('disabled', false);
             $('#p90_'+index).attr('disabled', false);
             $('#weight_'+index).attr('disabled', false);
+            // $("#checkbox_general_MS").bootstrapToggle('on');
+
         } else {
-            <?php echo json_encode($formations); ?>.forEach(element => {
-                $('#selectStored_'+index+element).attr('disabled', true);
-                $('#value_'+index+element).attr('disabled', true);
-                $('#date_'+index+element).attr('disabled', true);
-                $('#comment_'+index+element).attr('disabled', true);
+            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(formation => {
+                name = index + formation;
+                $('#selectStored_' + name).attr('disabled', true);
+                $('#value_' + name).attr('disabled', true);
+                $('#date_' + name).attr('disabled', true);
+                $('#comment_' + name).attr('disabled', true);
             });
             $('#p10_'+index).attr('disabled', true);
             $('#p90_'+index).attr('disabled', true);

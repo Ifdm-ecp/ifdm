@@ -1,7 +1,16 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <div class="tab-pane" id="MS">
 	<div class="panel panel-default">
       <div class="panel-heading">
-         <h4 id="ms-title">Mineral Scales </h4>
+         <div class="form-inline" role="form">
+            <div class="col-md-8">
+               <h4 id="ms-title">Mineral Scales</h4>
+            </div>
+            <div class="text-right">
+               <input type="checkbox" id="checkbox_general_MS" name="checkbox_general_MS" checked data-toggle="toggle" onclick="myFunction()">
+            </div>
+         </div>
       </div>
 
        <div class="panel-body">

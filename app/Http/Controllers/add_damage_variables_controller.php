@@ -1509,6 +1509,10 @@ class add_damage_variables_controller extends Controller
             }
             $subparameterList = $auxList;
 
+            // if ($k == 5) {
+            //     dd($subparameterList);
+            // }
+
             // CONTAR FILAS
             $rows = $data_sheet->rangeToArray('A1:A10000');
             $rows_aux = [];

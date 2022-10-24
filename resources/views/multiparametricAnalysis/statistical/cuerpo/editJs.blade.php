@@ -52,19 +52,14 @@
         
         html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
         flag = 0;
-        <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
-            name = title + element;
-
-            
-
-
-
+        Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+            name = title + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
 
             if (flag == 0) {
-                html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + element + '</a></li>';
+                html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
                 flag++;
             } else {
-                html = html + '<li role="presentation" class="nav"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + element + '</a></li>';
+                html = html + '<li role="presentation" class="nav"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
                 
             }
         });
@@ -111,19 +106,46 @@
         if ($("#checkbox_general_" + index).prop('checked') == true) {
             for (let i = 0; i < numberOfParameters; i++) {
                 $("#"+index+(i+1)+"_checkbox").prop('checked', true);
+                $('#'+index+(i+1)+'_checkbox').attr('disabled', false);
                 availableEnableDisableFields(index+[i+1]);
             }
         } else {
             for (let i = 0; i < numberOfParameters; i++) {
                 $("#"+index+(i+1)+"_checkbox").prop('checked', false);
+                $('#'+index+(i+1)+'_checkbox').attr('disabled', true);
                 availableEnableDisableFields(index+[i+1]);
             }
         }
     }
 
-    function epa() {
-        console.log('epa');
-        alert('Button was clicked!');
+    function availableEnableDisableCheckboxes(index) {
+        if ($("#"+index+"_checkbox").prop('checked') == true) {
+            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(formation => {
+                name = index + formation;
+                $('#selectStored_' + name).attr('disabled', false);
+                $('#value_' + name).attr('disabled', false);
+                $('#date_' + name).attr('disabled', false);
+                $('#comment_' + name).attr('disabled', false);
+            });
+            $('#p10_'+index).attr('disabled', false);
+            $('#p90_'+index).attr('disabled', false);
+            $('#weight_'+index).attr('disabled', false);
+            $('#'+index+'_checkbox').attr('disabled', false);
+
+        } else {
+            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(formation => {
+                name = index + formation;
+                $('#selectStored_' + name).attr('disabled', true);
+                $('#value_' + name).attr('disabled', true);
+                $('#date_' + name).attr('disabled', true);
+                $('#comment_' + name).attr('disabled', true);
+            });
+            $('#p10_'+index).attr('disabled', true);
+            $('#p90_'+index).attr('disabled', true);
+            $('#weight_'+index).attr('disabled', true);
+            $('#'+index+'_checkbox').attr('disabled', true);
+            
+        }
     }
 
     $("#MS1_checkbox").change(function() { index = "MS1"; availableEnableDisableFields(index); }); 
@@ -167,8 +189,6 @@
             $('#p10_'+index).attr('disabled', false);
             $('#p90_'+index).attr('disabled', false);
             $('#weight_'+index).attr('disabled', false);
-            // $("#checkbox_general_MS").bootstrapToggle('on');
-
         } else {
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(formation => {
                 name = index + formation;

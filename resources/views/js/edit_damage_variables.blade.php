@@ -54,65 +54,149 @@
         });
 
         $("#well").change(function(e) {
-            var well = $('#well').val();
-            $.get("{{url('subparametersbywell')}}", {
-                well: well
-            },
-            function(data) {
-                $("#modal_notification .modal-body").html('');
 
-                if (data.success === true) {
-                    var mecdanName = '';
-                    var tableIdArray = [];
-                    $(".dataTable tbody").html('');
-                    $("#subparameter_tabs").show('fast');
+            if ( $("#well").val() !== null && $("#formation").val() !== null ) {
 
-                    $.each(data.data, function(index, value) {
-                        mecdanName = value.sigla + '_table';
-                        if (!tableIdArray.includes(mecdanName)) {
-                            tableIdArray.push(mecdanName);
-                        }
-                        
-                        var constructedRow = '<tr>' +
-                            '<td><span style="display:none">' + value.valor + '</span><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
-                            '<td><span style="display:none">' + moment(value.fecha).format('DD/MM/YYYY') + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
-                            '<td><span style="display:none">' + value.comentario + '</span><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
-                            '<td align="center"><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Edit</button> ' +
-                            '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Remove</button></td>' +
-                            '</tr>';
-                        $("#" + mecdanName + " tbody").append(constructedRow);
-                    });
+                var well = $('#well').val();
+                var formation = $("#formation").val();
 
-                    $.each(tableIdArray, function(index, value) {
-                        if ($.fn.dataTable.isDataTable("#" + value)) {
-                            $("#" + value).DataTable();
-                        } else {
-                            $("#" + value).DataTable({
-                                "order": [[1, "desc"]]
-                            });
-                        }
-                    });
+                $.get("{{url('subparametersbywellandformation')}}", {
+                    well: well,
+                    formation: formation
+                },
+                function(data) {
+                    $("#modal_notification .modal-body").html('');
+                    // if (data.success === true) {
 
-                    $(".jquery-datepicker").datepicker({
-                        changeMonth: true,
-                        changeYear: true,
-                        dateFormat: "dd/mm/yy"
-                    });
-                } else {
-                    $("#modal_notification_title").html('Error');
-                    var errorList = '<ul>';
-                    $.each(data.errors, function(index, value) {
-                        $.each(value, function(index2, value2) {
-                            errorList += '<li>' + value2 + '</li>';
+                        var mecdanName = '';
+                        var tableIdArray = [];
+                        $(".dataTable tbody").html('');
+                        $("#subparameter_tabs").show('fast');
+
+                        $.each(data.data, function(index, value) {
+                            mecdanName = value.sigla + '_table';
+                            if (value.comentario === null) {
+                                value.comentario = '';
+                            }
+                            if (!tableIdArray.includes(mecdanName)) {
+                                tableIdArray.push(mecdanName);
+                            }
+                            
+                            var constructedRow = '<tr>' +
+                                '<td><span style="display:none">' + value.valor + '</span><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
+                                '<td><span style="display:none">' + moment(value.fecha).format('DD/MM/YYYY') + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
+                                '<td><span style="display:none">' + value.comentario + '</span><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
+                                '<td align="center"><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Edit</button> ' +
+                                '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Remove</button></td>' +
+                                '</tr>';
+                            $("#" + mecdanName + " tbody").append(constructedRow);
                         });
-                    });
 
-                    errorList += '</ul>';
+                        $.each(tableIdArray, function(index, value) {
+                            if ($.fn.dataTable.isDataTable("#" + value)) {
+                                $("#" + value).DataTable();
+                            } else {
+                                $("#" + value).DataTable({
+                                    "order": [[1, "desc"]]
+                                });
+                            }
+                        });
 
-                    $("#modal_notification .modal-body").html(errorList);
-                    $("#modal_notification").modal('show');
-                }
-            });
+                        $(".jquery-datepicker").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy"
+                        });
+                    
+                    // } else {
+                    //     $("#modal_notification_title").html('Error');
+                    //     var errorList = '<ul>';
+                    //     $.each(data.errors, function(index, value) {
+                    //         $.each(value, function(index2, value2) {
+                    //             errorList += '<li>' + value2 + '</li>';
+                    //         });
+                    //     });
+
+                    //     errorList += '</ul>';
+
+                    //     $("#modal_notification .modal-body").html(errorList);
+                    //     $("#modal_notification").modal('show');
+                    // }
+                });
+            }
+        });
+
+        $("#formation").change(function(e) {
+
+            if ( $("#well").val() !== null && $("#formation").val() !== null ) {
+
+                var well = $('#well').val();
+                var formation = $("#formation").val();
+
+                $.get("{{url('subparametersbywellandformation')}}", {
+                    well: well,
+                    formation: formation
+                },
+                function(data) {
+                    $("#modal_notification .modal-body").html('');
+                    // if (data.success === true) {
+
+                        var mecdanName = '';
+                        var tableIdArray = [];
+                        $(".dataTable tbody").html('');
+                        $("#subparameter_tabs").show('fast');
+
+                        $.each(data.data, function(index, value) {
+                            mecdanName = value.sigla + '_table';
+                            if (value.comentario === null) {
+                                value.comentario = '';
+                            }
+                            if (!tableIdArray.includes(mecdanName)) {
+                                tableIdArray.push(mecdanName);
+                            }
+                            
+                            var constructedRow = '<tr>' +
+                                '<td><span style="display:none">' + value.valor + '</span><input placeholder="' + value.unidad + '" style="width:100%" class="form-control input-sm" id="subvalue_' + value.id + '"" type="text" value="' + value.valor + '"></td>' +
+                                '<td><span style="display:none">' + moment(value.fecha).format('DD/MM/YYYY') + '</span><input placeholder="dd/mm/yy" style="width:100%" class="form-control input-sm jquery-datepicker" id="subdate_' + value.id + '"" type="text" value="' + moment(value.fecha).format('DD/MM/YYYY') + '"></td>' +
+                                '<td><span style="display:none">' + value.comentario + '</span><input style="width:100%" class="form-control input-sm" id="subcomment_' + value.id + '"" type="text" value="' + value.comentario + '"></td>' +
+                                '<td align="center"><button type="button" class="btn btn-sm btn-primary" onclick="editSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Edit</button> ' +
+                                '<button type="button" class="btn btn-sm btn-danger" onclick="removeSubparameter(' + value.id + ',&quot;' + value.sigla + '&quot;);">Remove</button></td>' +
+                                '</tr>';
+                            $("#" + mecdanName + " tbody").append(constructedRow);
+                        });
+
+                        $.each(tableIdArray, function(index, value) {
+                            if ($.fn.dataTable.isDataTable("#" + value)) {
+                                $("#" + value).DataTable();
+                            } else {
+                                $("#" + value).DataTable({
+                                    "order": [[1, "desc"]]
+                                });
+                            }
+                        });
+
+                        $(".jquery-datepicker").datepicker({
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy"
+                        });
+                    
+                    // } else {
+                    //     $("#modal_notification_title").html('Error');
+                    //     var errorList = '<ul>';
+                    //     $.each(data.errors, function(index, value) {
+                    //         $.each(value, function(index2, value2) {
+                    //             errorList += '<li>' + value2 + '</li>';
+                    //         });
+                    //     });
+
+                    //     errorList += '</ul>';
+
+                    //     $("#modal_notification .modal-body").html(errorList);
+                    //     $("#modal_notification").modal('show');
+                    // }
+                });
+            }
         });
 
         $(".dataTable").on('page.dt', function () {
@@ -233,4 +317,30 @@
         $("#next_button").toggle(nextPrevElement.next().is("li"));
         $("#prev_button").toggle(nextPrevElement.prev().is("li"));
     }
+
+    function reload() {
+        location.reload(true);
+    }
+
+    // window.onbeforeunload = function() {
+
+    //     localStorage.setItem('basin', $('#basin').val());
+    //     localStorage.setItem('well', $('#well').val());
+    //     localStorage.setItem('field', $('#field').val());
+    //     localStorage.setItem('formation', $('#formation').val());
+
+    // }
+
+    // window.onload = function() {
+    //     $("#field").empty();
+    //     $("#well").empty();
+    //     $("#formation").empty();
+
+    //     var basin = localStorage.getItem('basin');
+    //     var well = localStorage.getItem('well');
+    //     var field = localStorage.getItem('field');
+    //     var formation = localStorage.getItem('formation');
+
+    //     $("#basin").val(basin).change();
+    // }
 </script>

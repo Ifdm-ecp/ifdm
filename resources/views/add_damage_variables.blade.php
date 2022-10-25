@@ -3,41 +3,29 @@
 @section('content')
 @include('layouts/modal_error')
 
-<h1>Add Damage Variables</h1>
+<h1>Import Damage Variables</h1>
 <br/>
 
-@if (\Session::has('success'))
+@if (\Session::has('success1'))
     <div class="alert alert-success">
         <ul>
-            <li>{!! \Session::get('success') !!}</li>
+            <li>{!! \Session::get('success1') !!}</li>
         </ul>
     </div>
 @endif
 
-{!!Form::open(['url' => 'AddMeasurementCS', 'method' => 'post', 'files' =>true])!!}
+{!!Form::open(['url' => 'AddMeasurementCSxlsx', 'method' => 'post', 'files' =>true])!!}
 <div class="row">
    <div class="col-md-6">
-      <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
-         {!! Form::label('basin', 'Basin') !!}
-         {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'basin', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      <div class="form-group {{$errors->has('basinSpreadsheet') ? 'has-error' : ''}}">
+         {!! Form::label('basinSpreadsheet', 'Basin') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('basinSpreadsheet', $cuenca->lists('nombre','id'),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'basinSpreadsheet', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
    <div class="col-md-6">
-      <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
-         {!! Form::label('Field', 'Field') !!}
-         {!! Form::select('field', array(),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'field', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
-         {!! Form::label('well', 'Well') !!}
-         {!! Form::select('well', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'well', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
-         {!! Form::label('formation', 'Formation') !!}
-         {!! Form::select('formation', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'formation', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      <div class="form-group {{$errors->has('fieldSpreadsheet') ? 'has-error' : ''}}">
+         {!! Form::label('fieldSpreadsheet', 'Field') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('fieldSpreadsheet', array(),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'fieldSpreadsheet', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
       </div>
    </div>
 </div>
@@ -46,12 +34,12 @@
 
 <div class="panel panel-default">
    <div class="panel-heading">
-      <h4>Import Damage Variables (Optional)</h4>
+      <h4>Damage Variables Data</h4>
    </div>
 
    <div class="panel-body">
       <p class="card-text">Here you can import several Damage Variables by once with the help of an Excel form.</p>
-      <p class="card-text">Mandatory input fields for this import are Basin <label for="*" class="red">*</label> and Field <label for="*" class="red">*</label>.
+      <br/>
       <div>
          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
             Upload Damage Variables
@@ -86,7 +74,7 @@
             <p>9. Any style change (font color, font type, font size, bold, italic, cell color ) is allowed for user ease.</p>
             <p>10. Wells and Formations used must be already created in IFDM Database.</p>
             <br>
-            <b>{!!  'Select the file to upload.'; !!}</b>
+            <b>{!!  'Select the file to upload'; !!}</b> {!! Form::label('*', '*', array('class' => 'red')) !!}
             <br>
             <br>
             {!! Form::file('uploadedFile', array('class' => 'btn btn-primary col-md-12', 'id'=>'uploadedFile')); !!}
@@ -102,6 +90,50 @@
   </div>
 </div>
 
+{!! Form::Close() !!}
+
+<hr>
+
+<h1>Add Damage Variables</h1>
+<br/>
+
+@if (\Session::has('success2'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success2') !!}</li>
+        </ul>
+    </div>
+@endif
+
+{!!Form::open(['url' => 'AddMeasurementCS', 'method' => 'post'])!!}
+<div class="row">
+   <div class="col-md-6">
+      <div class="form-group {{$errors->has('basin') ? 'has-error' : ''}}">
+         {!! Form::label('basin', 'Basin') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('basin', $cuenca->lists('nombre','id'),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'basin', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="form-group {{$errors->has('field') ? 'has-error' : ''}}">
+         {!! Form::label('Field', 'Field') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('field', array(),null, array('placeholder'=>'', 'class'=>'form-control selectpicker show-tick', 'id'=>'field', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="form-group {{$errors->has('well') ? 'has-error' : ''}}">
+         {!! Form::label('well', 'Well') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('well', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'well', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="form-group {{$errors->has('formation') ? 'has-error' : ''}}">
+         {!! Form::label('formation', 'Formation') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
+         {!! Form::select('formation', array(),null, array('class'=>'form-control selectpicker show-tick', 'id'=>'formation', 'data-live-search'=>'true', 'data-style'=>'btn-default')) !!}
+      </div>
+   </div>
+</div>
+
+<br> 
 
 <div class="nav">
    <div class="tabbable">

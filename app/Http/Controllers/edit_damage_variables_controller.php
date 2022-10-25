@@ -79,10 +79,11 @@ class edit_damage_variables_controller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getSubparametersByWell(Request $request)
+    public function getSubparametersByWellAndFormation(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'well' => 'required|numeric|exists:mediciones,pozo_id',
+            'formation' => 'required|numeric|exists:mediciones,formacion_id',
         ]);
 
         if ($validator->fails()) {
@@ -95,6 +96,7 @@ class edit_damage_variables_controller extends Controller
         $subparameters = medicion::select('mediciones.id', 'mediciones.valor', 'mediciones.fecha', 'mediciones.comentario', 's.sigla', 's.unidad')
             ->join('subparametros AS s', 'mediciones.subparametro_id', '=', 's.id')
             ->where('mediciones.pozo_id', $request->well)
+            ->where('mediciones.formacion_id', $request->formation)
             ->orderBy('mediciones.fecha', 'desc')
             ->get();
 
@@ -114,7 +116,7 @@ class edit_damage_variables_controller extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric|exists:mediciones,id',
-            'value' => $this->subparameterRuleList[$request->initials],
+            'value' => 'required|numeric',
             'date' => 'required|date_format:d/m/Y',
             'comment' => 'string|max:100',
         ]);

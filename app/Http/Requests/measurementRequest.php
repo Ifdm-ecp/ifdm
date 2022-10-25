@@ -28,6 +28,7 @@ class measurementRequest extends Request
             'basin' => 'required|exists:cuencas,id',
             'field' => 'required|exists:campos,id',
             'well' => 'required|exists:pozos,id',
+            'formation' => 'required|exists:formaciones,id',
 
             'MS1' => 'numeric|required_with:dateMS1|min:0',
             'MS2' => 'numeric|required_with:dateMS2|min:0',
@@ -124,6 +125,7 @@ class measurementRequest extends Request
             'basin.required' => 'Basin is required.',
             'field.required' => 'Field is required.',
             'well.required' => 'Well is required.',
+            'formation.required' => 'Formation is required.',
 
             'basin.exists' => "This Basin doesn't exist.",
             'field.exists' => "This Field doesn't exist.",

@@ -65,7 +65,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="MSP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="MS1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -93,7 +93,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="MSP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="MS2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -121,7 +121,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="MSP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="MS3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -149,7 +149,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="MSP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="MS4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -177,7 +177,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="MSP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="MS5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -213,7 +213,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="FBP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="FB1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -241,7 +241,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="FBP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="FB2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -269,7 +269,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="FBP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="FB3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -297,7 +297,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="FBP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="FB4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -325,7 +325,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="FBP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="FB5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -361,7 +361,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="OSP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="OS1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -389,7 +389,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="OSP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="OS2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -417,7 +417,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="OSP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="OS3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -445,7 +445,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="OSP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="OS4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -473,7 +473,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="OSP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="OS5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -509,7 +509,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="KrP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="RP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -537,7 +537,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="KrP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="RP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -565,7 +565,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="KrP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="RP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -593,7 +593,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="KrP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="RP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -621,7 +621,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="KrP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="RP5_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -657,7 +657,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="IDP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="ID1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -685,7 +685,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="IDP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="ID2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -713,7 +713,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="IDP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="ID3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -741,7 +741,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="IDP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="ID4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -777,7 +777,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="GDP1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="GD1_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -805,7 +805,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="GDP2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="GD2_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -833,7 +833,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="GDP3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="GD3_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -861,7 +861,7 @@
       
                <div class="row">
                   <div class="col-xs-12">
-                     <table id="GDP4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
+                     <table id="GD4_table" class="table table-striped table-bordered table-fixed-wordwrap dataTable" style="width:100%">
                         <thead>
                            <tr>
                               <th>Value</th>
@@ -893,7 +893,7 @@
 
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reload()">Close</button>
          </div>
       </div>
    </div>

@@ -14,6 +14,7 @@ use App\cuenca;
 use App\formacion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\measurementRequest;
+use App\Http\Requests\DamageVariablesXlsxRequest;
 use App\medicion;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -50,6 +51,49 @@ class add_damage_variables_controller extends Controller
         //
     }
 
+    public function storeSpreadsheet(DamageVariablesXlsxRequest $request) { 
+        if (\Auth::check()) {
+
+            // Si hay un archivo por importar, haga esto
+
+            $file = $request->file('uploadedFile');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(TRUE);
+            $spreadsheet = $reader->load($file);
+
+            $cuenca = $request->input('basinSpreadsheet');
+            global $campo;
+            $campo = $request->input('fieldSpreadsheet');
+
+            // $sheet = $spreadsheet->getSheet(1)->getCell('C1')->getValue();
+            // $sheet = $spreadsheet->getSheet(5)->getCellByColumnAndRow(3, 1)->getValue();
+            // $sheet = $spreadsheet->getSheet(5)->rangeToArray('A1:E14');
+            // $all = $spreadsheet->getSheetCount();
+            // dd($all, $spreadsheet->getSheetNames(), $spreadsheet->getSheet(2));
+
+            // ORGANIZAR DATOS PARA IMPORTAR
+            $organized_data_sheet = $this->organize_data_sheet($spreadsheet);
+
+            // IMPORTAR DATOS
+            foreach ($organized_data_sheet as $key => $data) {
+                $this->saveMedicion($data[3], $data[4], $data[5], $data[1], $data[0], $data[2]);
+            }
+
+            // if ($response === "error1") {
+            //     return Redirect::back()->withErrors(['msg' => 'Please check import data.']);
+            // }
+            
+            // if ($response === "error") {
+            //     return Redirect::back()->withErrors(['msg' => 'Some records were not imported. Duplicated dates.']);
+            // }
+
+            return Redirect::back()->with('success1', 'Damage Variables Successfully Imported.');
+
+        } else {
+            return view('loginfirst');
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,359 +103,322 @@ class add_damage_variables_controller extends Controller
     public function store(measurementRequest $request)
     {
         if (\Auth::check()) {
-            // Si hay un archivo por importar, haga esto
-            if ($request->file('uploadedFile')) {
-
-                $file = $request->file('uploadedFile');
-                $reader = IOFactory::createReader('Xlsx');
-                $reader->setReadDataOnly(TRUE);
-                $spreadsheet = $reader->load($file);
-
-                $cuenca = $request->input('basin');
-                global $campo;
-                $campo = $request->input('field');
-
-                // $sheet = $spreadsheet->getSheet(1)->getCell('C1')->getValue();
-                // $sheet = $spreadsheet->getSheet(5)->getCellByColumnAndRow(3, 1)->getValue();
-                // $sheet = $spreadsheet->getSheet(5)->rangeToArray('A1:E14');
-                // $all = $spreadsheet->getSheetCount();
-                // dd($all, $spreadsheet->getSheetNames(), $spreadsheet->getSheet(2));
-
-                // ORGANIZAR DATOS PARA IMPORTAR
-                $organized_data_sheet = $this->organize_data_sheet($spreadsheet);
-
-                // IMPORTAR DATOS
-                foreach ($organized_data_sheet as $key => $data) {
-                    $this->saveMedicion($data[3], $data[4], $data[5], $data[1], $data[0], $data[2]);
-                }
-
-                // if ($response === "error1") {
-                //     return Redirect::back()->withErrors(['msg' => 'Please check import data.']);
-                // }
-                
-                // if ($response === "error") {
-                //     return Redirect::back()->withErrors(['msg' => 'Some records were not imported. Duplicated dates.']);
-                // }
-
-                return Redirect::back()->with('success', 'Damage Variables Successfully Imported.');
-
             // Si NO hay un archivo por importar, haga esto
-            } else {
 
-                //Verificar si los valores de cada SP son ingresados para guardar todo el formulario
+            //Verificar si los valores de cada SP son ingresados para guardar todo el formulario
 
-                if ($request->input('MS1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('MS1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('MS1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 1;
-                    $measurement->save();
-                }
-                
-                if ($request->input('MS2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('MS2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('MS2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 2;
-                    $measurement->save();
-                }
-
-                if ($request->input('MS3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('MS3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('MS3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 3;
-                    $measurement->save();
-                }
-
-                if ($request->input('MS4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('MS4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('MS4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 4;
-                    $measurement->save();
-                }
-
-                if ($request->input('MS5')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('MS5');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS5)->format('Y-m-d');
-                    $measurement->comentario = $request->input('MS5comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 5;
-                    $measurement->save();
-                }
-
-                if ($request->input('FB1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('FB1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('FB1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 6;
-                    $measurement->save();
-                }
-
-                if ($request->input('FB2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('FB2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('FB2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 7;
-                    $measurement->save();
-                }
-
-                if ($request->input('FB3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('FB3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('FB3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 8;
-                    $measurement->save();
-                }
-
-                if ($request->input('FB4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('FB4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('FB4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 9;
-                    $measurement->save();
-                }
-
-                if ($request->input('FB5')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('FB5');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB5)->format('Y-m-d');
-                    $measurement->comentario = $request->input('FB5comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 10;
-                    $measurement->save();
-                }
-
-                if ($request->input('OS1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('OS1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('OS1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 11;
-                    $measurement->save();
-                }
-
-                if ($request->input('OS2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('OS2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('OS2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 30;
-                    $measurement->save();
-                }
-
-                if ($request->input('OS3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('OS3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('OS3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 12;
-                    $measurement->save();
-                }
-
-                if ($request->input('OS4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('OS4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('OS4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 13;
-                    $measurement->save();
-                }
-
-                if ($request->input('OS5')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('OS5');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS5)->format('Y-m-d');
-                    $measurement->comentario = $request->input('OS5comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 14;
-                    $measurement->save();
-                }
-
-                if ($request->input('RP1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('RP1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('RP1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 15;
-                    $measurement->save();
-                }
-
-                if ($request->input('RP2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('RP2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('RP2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 16;
-                    $measurement->save();
-                }
-
-                if ($request->input('RP3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('RP3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('RP3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 17;
-                    $measurement->save();
-                }
-
-                if ($request->input('RP4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('RP4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('RP4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 18;
-                    $measurement->save();
-                }
-
-                if ($request->input('RP5')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('RP5');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
-                    $measurement->comentario = $request->input('RP5comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 31;
-                    $measurement->save();
-                }
-
-                if ($request->input('ID1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('ID1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('ID1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 19;
-                    $measurement->save();
-                }
-
-                if ($request->input('ID2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('ID2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('ID2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 20;
-                    $measurement->save();
-                }
-
-                if ($request->input('ID3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('ID3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('ID3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 21;
-                    $measurement->save();
-                }
-
-                if ($request->input('ID4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('ID4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('ID4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 22;
-                    $measurement->save();
-                }
-
-                if ($request->input('GD1')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('GD1');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD1)->format('Y-m-d');
-                    $measurement->comentario = $request->input('GD1comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 23;
-                    $measurement->save();
-                }
-
-                if ($request->input('GD2')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('GD2');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD2)->format('Y-m-d');
-                    $measurement->comentario = $request->input('GD2comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 24;
-                    $measurement->save();
-                }
-
-                if ($request->input('GD3')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('GD3');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
-                    $measurement->comentario = $request->input('GD3comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 25;
-                    $measurement->save();
-                }
-
-                if ($request->input('GD4')) {
-                    $measurement = new medicion;
-                    $measurement->valor = $request->input('GD4');
-                    $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD4)->format('Y-m-d');
-                    $measurement->comentario = $request->input('GD4comment');
-                    $measurement->formacion_id = $request->input('formation');
-                    $measurement->pozo_id = $request->input('well');
-                    $measurement->subparametro_id = 26;
-                    $measurement->save();
-                }
-
-                $request->session()->flash('mensaje', 'Record successfully entered.');
-
-                return view('database');
+            if ($request->input('MS1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('MS1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS1)->format('Y-m-d');
+                $measurement->comentario = $request->input('MS1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 1;
+                $measurement->save();
             }
+            
+            if ($request->input('MS2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('MS2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS2)->format('Y-m-d');
+                $measurement->comentario = $request->input('MS2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 2;
+                $measurement->save();
+            }
+
+            if ($request->input('MS3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('MS3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS3)->format('Y-m-d');
+                $measurement->comentario = $request->input('MS3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 3;
+                $measurement->save();
+            }
+
+            if ($request->input('MS4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('MS4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS4)->format('Y-m-d');
+                $measurement->comentario = $request->input('MS4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 4;
+                $measurement->save();
+            }
+
+            if ($request->input('MS5')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('MS5');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateMS5)->format('Y-m-d');
+                $measurement->comentario = $request->input('MS5comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 5;
+                $measurement->save();
+            }
+
+            if ($request->input('FB1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('FB1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB1)->format('Y-m-d');
+                $measurement->comentario = $request->input('FB1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 6;
+                $measurement->save();
+            }
+
+            if ($request->input('FB2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('FB2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB2)->format('Y-m-d');
+                $measurement->comentario = $request->input('FB2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 7;
+                $measurement->save();
+            }
+
+            if ($request->input('FB3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('FB3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB3)->format('Y-m-d');
+                $measurement->comentario = $request->input('FB3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 8;
+                $measurement->save();
+            }
+
+            if ($request->input('FB4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('FB4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB4)->format('Y-m-d');
+                $measurement->comentario = $request->input('FB4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 9;
+                $measurement->save();
+            }
+
+            if ($request->input('FB5')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('FB5');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateFB5)->format('Y-m-d');
+                $measurement->comentario = $request->input('FB5comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 10;
+                $measurement->save();
+            }
+
+            if ($request->input('OS1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('OS1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS1)->format('Y-m-d');
+                $measurement->comentario = $request->input('OS1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 11;
+                $measurement->save();
+            }
+
+            if ($request->input('OS2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('OS2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS2)->format('Y-m-d');
+                $measurement->comentario = $request->input('OS2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 30;
+                $measurement->save();
+            }
+
+            if ($request->input('OS3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('OS3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS3)->format('Y-m-d');
+                $measurement->comentario = $request->input('OS3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 12;
+                $measurement->save();
+            }
+
+            if ($request->input('OS4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('OS4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS4)->format('Y-m-d');
+                $measurement->comentario = $request->input('OS4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 13;
+                $measurement->save();
+            }
+
+            if ($request->input('OS5')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('OS5');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateOS5)->format('Y-m-d');
+                $measurement->comentario = $request->input('OS5comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 14;
+                $measurement->save();
+            }
+
+            if ($request->input('RP1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP1)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 15;
+                $measurement->save();
+            }
+
+            if ($request->input('RP2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP2)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 16;
+                $measurement->save();
+            }
+
+            if ($request->input('RP3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP3)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 17;
+                $measurement->save();
+            }
+
+            if ($request->input('RP4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP4)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 18;
+                $measurement->save();
+            }
+
+            if ($request->input('RP5')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('RP5');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
+                $measurement->comentario = $request->input('RP5comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 31;
+                $measurement->save();
+            }
+
+            if ($request->input('ID1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('ID1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID1)->format('Y-m-d');
+                $measurement->comentario = $request->input('ID1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 19;
+                $measurement->save();
+            }
+
+            if ($request->input('ID2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('ID2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID2)->format('Y-m-d');
+                $measurement->comentario = $request->input('ID2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 20;
+                $measurement->save();
+            }
+
+            if ($request->input('ID3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('ID3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID3)->format('Y-m-d');
+                $measurement->comentario = $request->input('ID3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 21;
+                $measurement->save();
+            }
+
+            if ($request->input('ID4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('ID4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateID4)->format('Y-m-d');
+                $measurement->comentario = $request->input('ID4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 22;
+                $measurement->save();
+            }
+
+            if ($request->input('GD1')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('GD1');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD1)->format('Y-m-d');
+                $measurement->comentario = $request->input('GD1comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 23;
+                $measurement->save();
+            }
+
+            if ($request->input('GD2')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('GD2');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD2)->format('Y-m-d');
+                $measurement->comentario = $request->input('GD2comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 24;
+                $measurement->save();
+            }
+
+            if ($request->input('GD3')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('GD3');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
+                $measurement->comentario = $request->input('GD3comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 25;
+                $measurement->save();
+            }
+
+            if ($request->input('GD4')) {
+                $measurement = new medicion;
+                $measurement->valor = $request->input('GD4');
+                $measurement->fecha = Carbon::createFromFormat('d/m/Y', $request->dateGD4)->format('Y-m-d');
+                $measurement->comentario = $request->input('GD4comment');
+                $measurement->formacion_id = $request->input('formation');
+                $measurement->pozo_id = $request->input('well');
+                $measurement->subparametro_id = 26;
+                $measurement->save();
+            }
+
+            $request->session()->flash('mensaje', 'Record successfully entered.');
+
+            return Redirect::back()->with('success2', 'Damage Variables Successfully saved.');
+
         } else {
             return view('loginfirst');
         }
@@ -1508,10 +1515,6 @@ class add_damage_variables_controller extends Controller
                 }
             }
             $subparameterList = $auxList;
-
-            // if ($k == 5) {
-            //     dd($subparameterList);
-            // }
 
             // CONTAR FILAS
             $rows = $data_sheet->rangeToArray('A1:A10000');

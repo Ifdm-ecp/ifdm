@@ -325,7 +325,7 @@ class StatisticalController extends Controller
             $statistical->{$index} = array_map('strval', explode(',', $statistical->{$index}));
             foreach ($statistical->{$index} as $key => $value) {
                 $valor = [];
-                if ($value !== '' && $value !== '[]') {
+                if ($value !== '' && $value !== '[]' && $value !== null) {
                     array_push($valor, $value);
                     array_push($valor, $statistical->{'date_'.$index}[$key]);
                     array_push($valor, $statistical->{'comment_'.$index}[$key]);

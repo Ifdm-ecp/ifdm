@@ -6,7 +6,7 @@
                <h4 id="ms-title">Geomechanical Damage</h4>
             </div>
             <div class="text-right">
-               <input type="checkbox" id="checkbox_general_GD" name="checkbox_general_GD" checked data-toggle="toggle" \>
+               <input type="checkbox" id="checkbox_general_GD" name="checkbox_general_GD" checked data-toggle="toggle" >
             </div>
          </div>
       </div>

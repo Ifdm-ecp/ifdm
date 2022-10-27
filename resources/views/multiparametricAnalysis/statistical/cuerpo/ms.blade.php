@@ -8,7 +8,7 @@
                <h4 id="ms-title">Mineral Scales</h4>
             </div>
             <div class="text-right">
-               <input type="checkbox" id="checkbox_general_MS" name="checkbox_general_MS" checked data-toggle="toggle" onclick="myFunction()">
+               <input type="checkbox" id="checkbox_general_MS" name="checkbox_general_MS" checked data-toggle="toggle">
             </div>
          </div>
       </div>

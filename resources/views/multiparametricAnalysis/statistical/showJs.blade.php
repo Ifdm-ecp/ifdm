@@ -34,8 +34,7 @@
             },
 
             title: {
-                text: 'Damage ',
-                x: -80
+                text: 'Damage Distribution'
             },
 
             pane: {
@@ -56,13 +55,13 @@
 
             tooltip: {
                 shared: true,
-                pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.2f} %</b><br/>'
             },
 
             legend: {
-                align: 'right',
-                verticalAlign: 'middle',
-                layout: 'vertical'
+                align: 'center',
+                verticalAlign: 'bottom',
+                layout: 'horizontal'
             },
 
             series: data,
@@ -87,7 +86,35 @@
         });
     }
 
+    function tablaGraficar()
+  {
     
+
+    var tableHeader = '<tr class="active">';
+    <?php echo json_encode($tableHeader); ?>.forEach(header => {
+        tableHeader = tableHeader + '<th style="text-align:center; vertical-align:middle;">' + header + '</th>';
+    });
+    tableHeader = tableHeader + '</tr>';
+    $("#statistical_header").append(tableHeader);
+
+
+    var tableBody = '';
+    <?php echo json_encode($tableData); ?>.forEach(element => {
+        tableBody = tableBody + '<tr>';
+        var titleFlag = 0;
+        element.forEach(formationData => {
+            if (titleFlag === 0) {
+                tableBody = tableBody + '<th style="text-align:center; vertical-align:middle;">' + formationData + '</th>';
+            } else {
+                tableBody = tableBody + '<th class="danger" style="text-align:center; vertical-align:middle; font-weight:normal;">' + parseFloat(formationData).toFixed(2) + ' %</th>';
+            }
+            titleFlag = 1;
+        });
+        tableBody = tableBody + '</tr>';
+    });
+    $("#statistical_body").append (tableBody);
+    
+  }
 
 
 //  

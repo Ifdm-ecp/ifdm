@@ -91,45 +91,67 @@ class StatisticalController extends Controller
         if ($statistical == null) {
             $statistical = Statistical::where('escenario_id', $id)->first();
         }
-
-        $escenario_id = $statistical->escenario_id;
-        $formations = escenario::where('id',$escenario_id)->first();
-        $formations = $formations->formacion_id;
-        $formations = explode(",", $formations);
-        $formations_names = [];
-        foreach ($formations as $v) {
-            array_push($formations_names, formacion::where('id', $v)->first()->nombre);
-        }
-        $formations = $formations_names;
-        $formationsWithoutSpaces = [];
-        foreach ($formations_names as $key => $formation) {
-            array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
-        }
-        $elements = $formations_names;
-
-        $button_wr = (bool) $statistical->status_wr;
-
-        if (!$button_wr) {
+        
+        if ($statistical->status_wr == 1) {
+            $escenario_id = $statistical->escenario_id;
+            $formations = escenario::where('id',$escenario_id)->first();
+            $formations = $formations->formacion_id;
+            $formations = explode(",", $formations);
+            $formations_names = [];
+            foreach ($formations as $v) {
+                array_push($formations_names, formacion::where('id', $v)->first()->nombre);
+            }
+            $formations = $formations_names;
+            $formationsWithoutSpaces = [];
+            foreach ($formations_names as $key => $formation) {
+                array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
+            }
+            $elements = $formations_names;
+    
+            $button_wr = (bool) $statistical->status_wr;
+            
             $datos_aux = $this->graficoStatistical($statistical, $formationsWithoutSpaces);
+            
+            $datos = [];
+            foreach ($datos_aux as $key => $dato) {
+                array_push($datos, [$elements[$key], $dato]);
+            }
+    
+            // ELIMINAR PESTAÑAS DESACTIVADAS
+            $generalCheckboxes = [];
+            for ($i=0; $i < 6 ; $i++) { 
+                array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$i]));
+            }
+            foreach ($datos as $key => $dato) {
+                $datos[$key][1] = array_filter( $dato[1], 'strlen' );
+            }
+            
+            $tableHeader_aux = ['Mineral Scales [%]', 'Fine Blockage [%]', 'Organic Scales [%]', 'Relative Permeability [%]', 'Induced Damage [%]', 'Geomechanical Damage [%]'];
+            $tableHeader = ['Formation'];
+            foreach ($tableHeader_aux as $key => $header) {
+                if ($datos_aux[0][$key] !== null) {
+                    array_push($tableHeader, $tableHeader_aux[$key]);
+                }
+            }
+            $tableData = [];
+            foreach ($formations as $keyFormation => $formation) {
+                $tableRow = [];
+                array_push($tableRow, $formation);
+                foreach ($datos_aux[$keyFormation] as $keyDatos => $dato) {
+                    if ($dato !== null) {
+                        array_push($tableRow, $dato);
+                    }
+                }
+                array_push($tableData, $tableRow);
+            }
+    
+            return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));
         } else {
-            $datos_aux = json_encode([]);
+
+            return view('multiparametricAnalysis.statistical.show', compact(['statistical']));
         }
 
-        $datos = [];
-        foreach ($datos_aux as $key => $dato) {
-            array_push($datos, [$elements[$key], $dato]);
-        }
-
-        // ELIMINAR PESTAÑAS DESACTIVADAS
-        $generalCheckboxes = [];
-        for ($i=0; $i < 6 ; $i++) { 
-            array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$i]));
-        }
-        foreach ($datos as $key => $dato) {
-            $datos[$key][1] = array_filter( $dato[1], 'strlen' );
-        }
-
-        return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes']));
+        
     }
 
     /**
@@ -183,40 +205,40 @@ class StatisticalController extends Controller
         $pozoId = escenario::find($statistical->escenario_id)->pozo_id;
 
         //Encontrar Weights
-        $pesos_query = subparameters_weight::where('multiparametric_id', $id)->get();
+        $pesos_query = subparameters_weight::where('multiparametric_id', $statistical->id)->get();
         $pesos = [];
         if ( count($pesos_query) == 0 ) {
             $pesos = null;
         } else {
             $pesos_query = $pesos_query[0];
-            $pesos[1] = $pesos_query->ms_scale_index_caco3;
-            $pesos[2] = $pesos_query->ms_scale_index_baso4;
-            $pesos[3] = $pesos_query->ms_scale_index_iron_scales;
-            $pesos[4] = $pesos_query->ms_calcium_concentration;
-            $pesos[5] = $pesos_query->ms_barium_concentration;
-            $pesos[6] = $pesos_query->fb_aluminum_concentration;
-            $pesos[7] = $pesos_query->fb_silicon_concentration;
-            $pesos[8] = $pesos_query->fb_critical_radius_factor;
-            $pesos[9] = $pesos_query->fb_mineralogic_factor;
-            $pesos[10] = $pesos_query->fb_crushed_proppant_factor;
-            $pesos[11] = $pesos_query->os_cll_factor;
-            $pesos[12] = $pesos_query->os_volume_of_hcl;
-            $pesos[13] = $pesos_query->os_compositional_factor;
-            $pesos[14] = $pesos_query->os_pressure_factor;
-            $pesos[15] = $pesos_query->os_high_impact_factor;
-            $pesos[16] = $pesos_query->rp_days_below_saturation_pressure;
-            $pesos[17] = $pesos_query->rp_delta_pressure_saturation;
-            $pesos[18] = $pesos_query->rp_water_intrusion;
-            $pesos[19] = $pesos_query->rp_high_impact_factor;
-            $pesos[20] = $pesos_query->rp_velocity_estimated;
-            $pesos[21] = $pesos_query->id_gross_pay;
-            $pesos[22] = $pesos_query->id_polymer_damage_factor;
-            $pesos[23] = $pesos_query->id_total_volume_water;
-            $pesos[24] = $pesos_query->id_mud_damage_factor;
-            $pesos[25] = $pesos_query->gd_fraction_netpay;
-            $pesos[26] = $pesos_query->gd_drawdown;
-            $pesos[27] = $pesos_query->gd_ratio_kh_fracture;
-            $pesos[28] = $pesos_query->gd_geomechanical_damage_fraction;
+            array_push($pesos, $pesos_query->ms_scale_index_caco3);
+            array_push($pesos, $pesos_query->ms_scale_index_baso4);
+            array_push($pesos, $pesos_query->ms_scale_index_iron_scales);
+            array_push($pesos, $pesos_query->ms_calcium_concentration);
+            array_push($pesos, $pesos_query->ms_barium_concentration);
+            array_push($pesos, $pesos_query->fb_aluminum_concentration);
+            array_push($pesos, $pesos_query->fb_silicon_concentration);
+            array_push($pesos, $pesos_query->fb_critical_radius_factor);
+            array_push($pesos, $pesos_query->fb_mineralogic_factor);
+            array_push($pesos, $pesos_query->fb_crushed_proppant_factor);
+            array_push($pesos, $pesos_query->os_cll_factor);
+            array_push($pesos, $pesos_query->os_volume_of_hcl);
+            array_push($pesos, $pesos_query->os_compositional_factor);
+            array_push($pesos, $pesos_query->os_pressure_factor);
+            array_push($pesos, $pesos_query->os_high_impact_factor);
+            array_push($pesos, $pesos_query->rp_days_below_saturation_pressure);
+            array_push($pesos, $pesos_query->rp_delta_pressure_saturation);
+            array_push($pesos, $pesos_query->rp_water_intrusion);
+            array_push($pesos, $pesos_query->rp_high_impact_factor);
+            array_push($pesos, $pesos_query->rp_velocity_estimated);
+            array_push($pesos, $pesos_query->id_gross_pay);
+            array_push($pesos, $pesos_query->id_polymer_damage_factor);
+            array_push($pesos, $pesos_query->id_total_volume_water);
+            array_push($pesos, $pesos_query->id_mud_damage_factor);
+            array_push($pesos, $pesos_query->gd_fraction_netpay);
+            array_push($pesos, $pesos_query->gd_drawdown);
+            array_push($pesos, $pesos_query->gd_ratio_kh_fracture);
+            array_push($pesos, $pesos_query->gd_geomechanical_damage_fraction);
         }
 
         /* se convierten  los datos autoriazados por bloques de string a arrays */
@@ -255,14 +277,79 @@ class StatisticalController extends Controller
         $statistical->date_gd2 = array_map('strval', explode(',', $statistical->date_gd2));
         $statistical->date_gd3 = array_map('strval', explode(',', $statistical->date_gd3));
         $statistical->date_gd4 = array_map('strval', explode(',', $statistical->date_gd4));
+        
+        $statistical->comment_ms1 = array_map('strval', explode(',', $statistical->comment_ms1));
+        $statistical->comment_ms2 = array_map('strval', explode(',', $statistical->comment_ms2));
+        $statistical->comment_ms3 = array_map('strval', explode(',', $statistical->comment_ms3));
+        $statistical->comment_ms4 = array_map('strval', explode(',', $statistical->comment_ms4));
+        $statistical->comment_ms5 = array_map('strval', explode(',', $statistical->comment_ms5));
+        $statistical->comment_fb1 = array_map('strval', explode(',', $statistical->comment_fb1));
+        $statistical->comment_fb2 = array_map('strval', explode(',', $statistical->comment_fb2));
+        $statistical->comment_fb3 = array_map('strval', explode(',', $statistical->comment_fb3));
+        $statistical->comment_fb4 = array_map('strval', explode(',', $statistical->comment_fb4));
+        $statistical->comment_fb5 = array_map('strval', explode(',', $statistical->comment_fb5));
+        $statistical->comment_os1 = array_map('strval', explode(',', $statistical->comment_os1));
+        $statistical->comment_os2 = array_map('strval', explode(',', $statistical->comment_os2));
+        $statistical->comment_os3 = array_map('strval', explode(',', $statistical->comment_os3));
+        $statistical->comment_os4 = array_map('strval', explode(',', $statistical->comment_os4));
+        $statistical->comment_os5 = array_map('strval', explode(',', $statistical->comment_os5));
+        $statistical->comment_rp1 = array_map('strval', explode(',', $statistical->comment_rp1));
+        $statistical->comment_rp2 = array_map('strval', explode(',', $statistical->comment_rp2));
+        $statistical->comment_rp3 = array_map('strval', explode(',', $statistical->comment_rp3));
+        $statistical->comment_rp4 = array_map('strval', explode(',', $statistical->comment_rp4));
+        $statistical->comment_rp5 = array_map('strval', explode(',', $statistical->comment_rp5));
+        $statistical->comment_id1 = array_map('strval', explode(',', $statistical->comment_id1));
+        $statistical->comment_id2 = array_map('strval', explode(',', $statistical->comment_id2));
+        $statistical->comment_id3 = array_map('strval', explode(',', $statistical->comment_id3));
+        $statistical->comment_id4 = array_map('strval', explode(',', $statistical->comment_id4));
+        $statistical->comment_gd1 = array_map('strval', explode(',', $statistical->comment_gd1));
+        $statistical->comment_gd2 = array_map('strval', explode(',', $statistical->comment_gd2));
+        $statistical->comment_gd3 = array_map('strval', explode(',', $statistical->comment_gd3));
+        $statistical->comment_gd4 = array_map('strval', explode(',', $statistical->comment_gd4));
+
+        $checkboxes = [];
+        foreach ($statistical->msAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+        foreach ($statistical->fbAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+        foreach ($statistical->osAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+        foreach ($statistical->rpAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+        foreach ($statistical->idAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+        foreach ($statistical->gdAvailable as $key => $value) { array_push($checkboxes, explode(',', $value)[0]); }
+
+        $generalCheckboxes = [];
+        foreach (explode(',', $statistical->generalAvailable) as $key => $value) { array_push($generalCheckboxes, explode(',', $value)[0]); }
+        
+        $indexes = ['ms1', 'ms2', 'ms3', 'ms4', 'ms5', 'fb1', 'fb2', 'fb3', 'fb4', 'fb5', 'os1', 'os2', 'os3', 'os4', 'os5', 'rp1', 'rp2', 'rp3', 'rp4', 'rp5', 'id1', 'id2', 'id3', 'id4', 'gd1', 'gd2', 'gd3', 'gd4'];
+        $valores = [];
+        foreach ($indexes as $keyI => $index) {
+            
+            $statistical->{$index} = array_map('strval', explode(',', $statistical->{$index}));
+            foreach ($statistical->{$index} as $key => $value) {
+                $valor = [];
+                if ($value !== '' && $value !== '[]') {
+                    array_push($valor, $value);
+                    array_push($valor, $statistical->{'date_'.$index}[$key]);
+                    array_push($valor, $statistical->{'comment_'.$index}[$key]);
+                    array_push($valor, strtoupper($index));
+                    array_push($valor, $formationsWithoutSpaces[$key]);
+                    array_push($valores, $valor);
+                }
+            }
+        }
+        // dd($valores);
 
         //se trae todas las cuencas existentes
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
+
+        
+        
+       
+        // dd($formations);
+
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores']));
     }
 
     /**
@@ -276,92 +363,77 @@ class StatisticalController extends Controller
     {
         if (\Auth::check()) {
 
-            if ($request->only_s == "run") {
-                //VALIDATE
+            
+            //VALIDATE
 
-                // Encontrar formaciones y nombres de campos de entrada
-                $scenario = escenario::find($request->id_scenary);
-                $statistical = Statistical::find($id);
-                $escenario_id = $statistical->escenario_id;
-                $formations = escenario::where('id',$escenario_id)->first();
-                $formations = $formations->formacion_id;
-                $formations = explode(",", $formations);
-                $formations_names = [];
-                foreach ($formations as $v) {
-                    array_push($formations_names, formacion::where('id', $v)->first()->nombre);
-                }
-                $formations = $formations_names;
-                $formationsWithoutSpaces = [];
-                foreach ($formations_names as $key => $formation) {
-                    array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
-                }
-                $elements = $formations_names;
+            // Encontrar formaciones y nombres de campos de entrada
+            $scenario = escenario::find($request->id_scenary);
+            $statistical = Statistical::find($id);
+            $escenario_id = $statistical->escenario_id;
+            $formations = escenario::where('id',$escenario_id)->first();
+            $formations = $formations->formacion_id;
+            $formations = explode(",", $formations);
+            $formations_names = [];
+            foreach ($formations as $v) {
+                array_push($formations_names, formacion::where('id', $v)->first()->nombre);
+            }
+            $formations = $formations_names;
+            $formationsWithoutSpaces = [];
+            foreach ($formations_names as $key => $formation) {
+                array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
+            }
+            $elements = $formations_names;
 
-                $titles = [['MS', 5], ['FB', 5], ['OS', 5], ['RP', 5], ['ID', 4], ['GD', 4]];
-                
-                $weights = subparameters_weight::where('multiparametric_id', $id)->first();
+            $titles = [['MS', 5], ['FB', 5], ['OS', 5], ['RP', 5], ['ID', 4], ['GD', 4]];
+            
+            $weights = subparameters_weight::where('multiparametric_id', $id)->first();
 
-                //se modifica el array del campo field_statistical con implode
-                if ($request->field_statistical) {
-                    $input['field_statistical'] = implode(",", $request->field_statistical);
-                    $request->statistical = null;
-                } else {
-                    $input['field_statistical'] = null;
-                    $request->basin_statistical = null;
-                }
+            //se modifica el array del campo field_statistical con implode
+            if ($request->field_statistical) {
+                $input['field_statistical'] = implode(",", $request->field_statistical);
+                $request->statistical = null;
+            } else {
+                $input['field_statistical'] = null;
+                $request->basin_statistical = null;
+            }
 
-                // se guardan solo los campos field_statistical y statistical en la bbdd;
-                $statistical->escenario_id = $request->id_scenary;
-                $statistical->field_statistical = $input['field_statistical'];
-                $statistical->basin_statistical = $request->basin_statistical;
-                $statistical->statistical = $request->statistical;
-                
-                // dd($formationsWithoutSpaces);
+            // se guardan solo los campos field_statistical y statistical en la bbdd;
+            $statistical->escenario_id = $request->id_scenary;
+            $statistical->field_statistical = $input['field_statistical'];
+            $statistical->basin_statistical = $request->basin_statistical;
+            $statistical->statistical = $request->statistical;
+            
+            // dd($formationsWithoutSpaces);
 
-                // ORGANIZAR DATOS EN $statistical
-                $generalCheckboxArray = [];
-                foreach ($titles as $keyTitle => $title) {
-                    $numberOfParameters = $title[1];
-                    $title = $title[0];                    
+            // ORGANIZAR DATOS EN $statistical
+            $generalCheckboxArray = [];
+            foreach ($titles as $keyTitle => $title) {
+                $numberOfParameters = $title[1];
+                $title = $title[0];                    
 
-                    if ( $request->{'checkbox_general_'.$title}  === 'on') {
-                        array_push($generalCheckboxArray, 1);
-                        for ($i=0; $i < $numberOfParameters; $i++) { 
-                        
-                            if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
-    
-                                $valuesArray = [];
-                                $datesArray = [];
-                                $commentsArray = [];
-                                foreach ($formationsWithoutSpaces as $keyFormation => $formation) {
-                                    $name = $title.($i+1).$formation;
-                                    array_push($valuesArray, $request->{'value_'.$name});
-                                    array_push($datesArray, $request->{'date_'.$name});
-                                    array_push($commentsArray, $request->{'comment_'.$name});   
-                                }
-                                $statistical->{strtolower($title).($i+1)} = implode(',', $valuesArray);
-                                $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $datesArray);
-                                $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $commentsArray);
-                                $statistical->{'p10_'.strtolower($title).($i+1)} = ($request->{'p10_'.$title.($i+1)} === "" ) ? null : $request->{'p10_'.$title.($i+1)};
-                                $statistical->{'p90_'.strtolower($title).($i+1)} = ($request->{'p90_'.$title.($i+1)} === "" ) ? null : $request->{'p90_'.$title.($i+1)};
-    
-                            } else {
-    
-                                $defaultArray = [];
-                                foreach ($formationsWithoutSpaces as $key => $formation) {
-                                    array_push($defaultArray, null);
-                                }
-                                $statistical->{strtolower($title).($i+1)} = implode(',', $defaultArray);
-                                $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
-                                $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
-                                $statistical->{'p10_'.strtolower($title).($i+1)} = null;
-                                $statistical->{'p90_'.strtolower($title).($i+1)} = null;
-    
-                            } 
-                        }
-                    } else {
-                        array_push($generalCheckboxArray, 0);
-                        for ($i=0; $i < $numberOfParameters; $i++) { 
+                if ( $request->{'checkbox_general_'.$title}  === 'on') {
+                    array_push($generalCheckboxArray, 1);
+                    for ($i=0; $i < $numberOfParameters; $i++) { 
+                    
+                        if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
+
+                            $valuesArray = [];
+                            $datesArray = [];
+                            $commentsArray = [];
+                            foreach ($formationsWithoutSpaces as $keyFormation => $formation) {
+                                $name = $title.($i+1).$formation;
+                                array_push($valuesArray, $request->{'value_'.$name});
+                                array_push($datesArray, $request->{'date_'.$name});
+                                array_push($commentsArray, $request->{'comment_'.$name});   
+                            }
+                            $statistical->{strtolower($title).($i+1)} = implode(',', $valuesArray);
+                            $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $datesArray);
+                            $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $commentsArray);
+                            $statistical->{'p10_'.strtolower($title).($i+1)} = ($request->{'p10_'.$title.($i+1)} === "" ) ? null : $request->{'p10_'.$title.($i+1)};
+                            $statistical->{'p90_'.strtolower($title).($i+1)} = ($request->{'p90_'.$title.($i+1)} === "" ) ? null : $request->{'p90_'.$title.($i+1)};
+
+                        } else {
+
                             $defaultArray = [];
                             foreach ($formationsWithoutSpaces as $key => $formation) {
                                 array_push($defaultArray, null);
@@ -371,56 +443,74 @@ class StatisticalController extends Controller
                             $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
                             $statistical->{'p10_'.strtolower($title).($i+1)} = null;
                             $statistical->{'p90_'.strtolower($title).($i+1)} = null;
-                        }
-                    }
-                    $statistical->generalAvailable = implode(',', $generalCheckboxArray);
-                }
 
-                foreach ($titles as $key => $title) {
-                    $checkboxArray = [];
-                    $numberOfParameters = $title[1];
-                    $title = $title[0]; 
+                        } 
+                    }
+                } else {
+                    array_push($generalCheckboxArray, 0);
                     for ($i=0; $i < $numberOfParameters; $i++) { 
-                        if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
-                            array_push($checkboxArray, 1);
-                        } else {
-                            array_push($checkboxArray, 0);
+                        $defaultArray = [];
+                        foreach ($formationsWithoutSpaces as $key => $formation) {
+                            array_push($defaultArray, null);
                         }
+                        $statistical->{strtolower($title).($i+1)} = implode(',', $defaultArray);
+                        $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
+                        $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
+                        $statistical->{'p10_'.strtolower($title).($i+1)} = null;
+                        $statistical->{'p90_'.strtolower($title).($i+1)} = null;
                     }
-                    $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
                 }
-                
-                $weights->ms_scale_index_caco3 = $request->weight_MS1;
-                $weights->ms_scale_index_baso4 = $request->weight_MS2;
-                $weights->ms_scale_index_iron_scales = $request->weight_MS3;
-                $weights->ms_calcium_concentration = $request->weight_MS4;
-                $weights->ms_barium_concentration = $request->weight_MS5;
-                $weights->fb_aluminum_concentration = $request->weight_FB1;
-                $weights->fb_silicon_concentration = $request->weight_FB2;
-                $weights->fb_critical_radius_factor = $request->weight_FB3;
-                $weights->fb_mineralogic_factor = $request->weight_FB4;
-                $weights->fb_crushed_proppant_factor = $request->weight_FB5;
-                $weights->os_cll_factor = $request->weight_OS1;
-                $weights->os_volume_of_hcl = $request->weight_OS2;
-                $weights->os_compositional_factor = $request->weight_OS3;
-                $weights->os_pressure_factor = $request->weight_OS4;
-                $weights->os_high_impact_factor = $request->weight_OS5;
-                $weights->rp_days_below_saturation_pressure = $request->weight_RP1;
-                $weights->rp_delta_pressure_saturation = $request->weight_RP2;
-                $weights->rp_water_intrusion = $request->weight_RP3;
-                $weights->rp_velocity_estimated = $request->weight_RP4;
-                $weights->rp_high_impact_factor = $request->weight_RP5;
-                $weights->id_gross_pay = $request->weight_ID1;
-                $weights->id_polymer_damage_factor = $request->weight_ID2;
-                $weights->id_total_volume_water = $request->weight_ID3;
-                $weights->id_mud_damage_factor = $request->weight_ID4;
-                $weights->gd_fraction_netpay = $request->weight_GD1;
-                $weights->gd_drawdown = $request->weight_GD2;
-                $weights->gd_ratio_kh_fracture = $request->weight_GD3;
-                $weights->gd_geomechanical_damage_fraction = $request->weight_GD4;
+                $statistical->generalAvailable = implode(',', $generalCheckboxArray);
+            }
 
-                $statistical->kd = $request->kd;
-                $statistical->status_wr = 0;
+            foreach ($titles as $key => $title) {
+                $checkboxArray = [];
+                $numberOfParameters = $title[1];
+                $title = $title[0]; 
+                for ($i=0; $i < $numberOfParameters; $i++) { 
+                    if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
+                        array_push($checkboxArray, 1);
+                    } else {
+                        array_push($checkboxArray, 0);
+                    }
+                }
+                $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
+            }
+            
+            $weights->ms_scale_index_caco3 = $request->weight_MS1;
+            $weights->ms_scale_index_baso4 = $request->weight_MS2;
+            $weights->ms_scale_index_iron_scales = $request->weight_MS3;
+            $weights->ms_calcium_concentration = $request->weight_MS4;
+            $weights->ms_barium_concentration = $request->weight_MS5;
+            $weights->fb_aluminum_concentration = $request->weight_FB1;
+            $weights->fb_silicon_concentration = $request->weight_FB2;
+            $weights->fb_critical_radius_factor = $request->weight_FB3;
+            $weights->fb_mineralogic_factor = $request->weight_FB4;
+            $weights->fb_crushed_proppant_factor = $request->weight_FB5;
+            $weights->os_cll_factor = $request->weight_OS1;
+            $weights->os_volume_of_hcl = $request->weight_OS2;
+            $weights->os_compositional_factor = $request->weight_OS3;
+            $weights->os_pressure_factor = $request->weight_OS4;
+            $weights->os_high_impact_factor = $request->weight_OS5;
+            $weights->rp_days_below_saturation_pressure = $request->weight_RP1;
+            $weights->rp_delta_pressure_saturation = $request->weight_RP2;
+            $weights->rp_water_intrusion = $request->weight_RP3;
+            $weights->rp_velocity_estimated = $request->weight_RP4;
+            $weights->rp_high_impact_factor = $request->weight_RP5;
+            $weights->id_gross_pay = $request->weight_ID1;
+            $weights->id_polymer_damage_factor = $request->weight_ID2;
+            $weights->id_total_volume_water = $request->weight_ID3;
+            $weights->id_mud_damage_factor = $request->weight_ID4;
+            $weights->gd_fraction_netpay = $request->weight_GD1;
+            $weights->gd_drawdown = $request->weight_GD2;
+            $weights->gd_ratio_kh_fracture = $request->weight_GD3;
+            $weights->gd_geomechanical_damage_fraction = $request->weight_GD4;
+
+            $statistical->kd = $request->kd;
+            
+
+            if ($request->only_s == "run") {
+                $statistical->status_wr = 1;
                 $statistical->save();
                 
                 $weights->save();
@@ -430,672 +520,19 @@ class StatisticalController extends Controller
                 $scenario->save();
 
                 return redirect()->route('statistical.show', $statistical->id);
+            } elseif ($request->only_s == "save") {
+                $statistical->status_wr = 0;
+                $statistical->save();
+                
+                $weights->save();
+
+                $scenario->completo = 0;
+                $scenario->estado = 1;
+                $scenario->save();
+                return redirect()->route('statistical.show', $statistical->id);
 
             }
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-            // if (isset($request->duplicate)) {
-                
-            //     unset($_SESSION['scenary_id_dup']);
-
-            //     $scenario = escenario::find($request->duplicate);
-
-            //     //se conviertelos arrays en cadenas
-            //     if ($request->msAvailable) {
-            //         $input['msAvailable'] = implode(",", $request->msAvailable);
-            //     } else {
-            //         $input['msAvailable'] = null;
-            //     }
-
-            //     if ($request->fbAvailable) {
-            //         $input['fbAvailable'] = implode(",", $request->fbAvailable);
-            //     } else {
-            //         $input['fbAvailable'] = null;
-            //     }
-
-            //     if ($request->osAvailable) {
-            //         $input['osAvailable'] = implode(",", $request->osAvailable);
-            //     } else {
-            //         $input['osAvailable'] = null;
-            //     }
-
-            //     if ($request->rpAvailable) {
-            //         $input['rpAvailable'] = implode(",", $request->rpAvailable);
-            //     } else {
-            //         $input['rpAvailable'] = null;
-            //     }
-
-            //     if ($request->idAvailable) {
-            //         $input['idAvailable'] = implode(",", $request->idAvailable);
-            //     } else {
-            //         $input['idAvailable'] = null;
-            //     }
-
-            //     if ($request->gdAvailable) {
-            //         $input['gdAvailable'] = implode(",", $request->gdAvailable);
-            //     } else {
-            //         $input['gdAvailable'] = null;
-            //     }
-
-            //     $statistical = new Statistical;
-            //     $statistical->escenario_id = $request->duplicate;
-                
-            //     if ($request->msAvailable) {
-            //         $availableArray = $request->msAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->ms1 = $request->MS1;
-            //             $statistical->date_ms1 = Carbon::createFromFormat('d/m/Y', $request->dateMS1)->format('Y-m-d');
-            //             $statistical->comment_ms1 = $request->MS1comment;
-            //             $statistical->p10_ms1 = $request->p10_MS1;
-            //             $statistical->p90_ms1 = $request->p90_MS1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->ms2 = $request->MS2;
-            //             $statistical->date_ms2 = Carbon::createFromFormat('d/m/Y', $request->dateMS2)->format('Y-m-d');
-            //             $statistical->comment_ms2 = $request->MS2comment;
-            //             $statistical->p10_ms2 = $request->p10_MS2;
-            //             $statistical->p90_ms2 = $request->p90_MS2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->ms3 = $request->MS3;
-            //             $statistical->date_ms3 = Carbon::createFromFormat('d/m/Y', $request->dateMS3)->format('Y-m-d');
-            //             $statistical->comment_ms3 = $request->MS3comment;
-            //             $statistical->p10_ms3 = $request->p10_MS3;
-            //             $statistical->p90_ms3 = $request->p90_MS3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->ms4 = $request->MS4;
-            //             $statistical->date_ms4 = Carbon::createFromFormat('d/m/Y', $request->dateMS4)->format('Y-m-d');
-            //             $statistical->comment_ms4 = $request->MS4comment;
-            //             $statistical->p10_ms4 = $request->p10_MS4;
-            //             $statistical->p90_ms4 = $request->p90_MS4;
-            //         }
-
-            //         if (in_array('5', $availableArray)) {
-            //             $statistical->ms5 = $request->MS5;
-            //             $statistical->date_ms5 = Carbon::createFromFormat('d/m/Y', $request->dateMS5)->format('Y-m-d');
-            //             $statistical->comment_ms5 = $request->MS5comment;
-            //             $statistical->p10_ms5 = $request->p10_MS5;
-            //             $statistical->p90_ms5 = $request->p90_MS5;
-            //         }
-            //     }
-
-            //     if ($request->fbAvailable) {
-            //         $availableArray = $request->fbAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->fb1 = $request->FB1;
-            //             $statistical->date_fb1 = Carbon::createFromFormat('d/m/Y', $request->dateFB1)->format('Y-m-d');
-            //             $statistical->comment_fb1 = $request->FB1comment;
-            //             $statistical->p10_fb1 = $request->p10_FB1;
-            //             $statistical->p90_fb1 = $request->p90_FB1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->fb2 = $request->FB2;
-            //             $statistical->date_fb2 = Carbon::createFromFormat('d/m/Y', $request->dateFB2)->format('Y-m-d');
-            //             $statistical->comment_fb2 = $request->FB2comment;
-            //             $statistical->p10_fb2 = $request->p10_FB2;
-            //             $statistical->p90_fb2 = $request->p90_FB2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->fb3 = $request->FB3;
-            //             $statistical->date_fb3 = Carbon::createFromFormat('d/m/Y', $request->dateFB3)->format('Y-m-d');
-            //             $statistical->comment_fb3 = $request->FB3comment;
-            //             $statistical->p10_fb3 = $request->p10_FB3;
-            //             $statistical->p90_fb3 = $request->p90_FB3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->fb4 = $request->FB4;
-            //             $statistical->date_fb4 = Carbon::createFromFormat('d/m/Y', $request->dateFB4)->format('Y-m-d');
-            //             $statistical->comment_fb4 = $request->FB4comment;
-            //             $statistical->p10_fb4 = $request->p10_FB4;
-            //             $statistical->p90_fb4 = $request->p90_FB4;
-            //         }
-
-            //         if (in_array('5', $availableArray)) {
-            //             $statistical->fb5 = $request->FB5;
-            //             $statistical->date_fb5 = Carbon::createFromFormat('d/m/Y', $request->dateFB5)->format('Y-m-d');
-            //             $statistical->comment_fb5 = $request->FB5comment;
-            //             $statistical->p10_fb5 = $request->p10_FB5;
-            //             $statistical->p90_fb5 = $request->p90_FB5;
-            //         }
-            //     }
-
-            //     if ($request->osAvailable) {
-            //         $availableArray = $request->osAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->os1 = $request->OS1;
-            //             $statistical->date_os1 = Carbon::createFromFormat('d/m/Y', $request->dateOS1)->format('Y-m-d');
-            //             $statistical->comment_os1 = $request->OS1comment;
-            //             $statistical->p10_os1 = $request->p10_OS1;
-            //             $statistical->p90_os1 = $request->p90_OS1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->os2 = $request->OS2;
-            //             $statistical->date_os2 = Carbon::createFromFormat('d/m/Y', $request->dateOS2)->format('Y-m-d');
-            //             $statistical->comment_os2 = $request->OS2comment;
-            //             $statistical->p10_os2 = $request->p10_OS2;
-            //             $statistical->p90_os2 = $request->p90_OS2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->os3 = $request->OS3;
-            //             $statistical->date_os3 = Carbon::createFromFormat('d/m/Y', $request->dateOS3)->format('Y-m-d');
-            //             $statistical->comment_os3 = $request->OS3comment;
-            //             $statistical->p10_os3 = $request->p10_OS3;
-            //             $statistical->p90_os3 = $request->p90_OS3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->os4 = $request->OS4;
-            //             $statistical->date_os4 = Carbon::createFromFormat('d/m/Y', $request->dateOS4)->format('Y-m-d');
-            //             $statistical->comment_os4 = $request->OS4comment;
-            //             $statistical->p10_os4 = $request->p10_OS4;
-            //             $statistical->p90_os4 = $request->p90_OS4;
-            //         }
-
-            //         if (in_array('5', $availableArray)) {
-            //             $statistical->os5 = $request->OS5;
-            //             $statistical->date_os5 = Carbon::createFromFormat('d/m/Y', $request->dateOS5)->format('Y-m-d');
-            //             $statistical->comment_os5 = $request->OS5comment;
-            //             $statistical->p10_os5 = $request->p10_OS5;
-            //             $statistical->p90_os5 = $request->p90_OS5;
-            //         }
-            //     }
-
-            //     if ($request->rpAvailable) {
-            //         $availableArray = $request->rpAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->rp1 = $request->RP1;
-            //             $statistical->date_rp1 = Carbon::createFromFormat('d/m/Y', $request->dateRP1)->format('Y-m-d');
-            //             $statistical->comment_rp1 = $request->RP1comment;
-            //             $statistical->p10_rp1 = $request->p10_RP1;
-            //             $statistical->p90_rp1 = $request->p90_RP1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->rp2 = $request->RP2;
-            //             $statistical->date_rp2 = Carbon::createFromFormat('d/m/Y', $request->dateRP2)->format('Y-m-d');
-            //             $statistical->comment_rp2 = $request->RP2comment;
-            //             $statistical->p10_rp2 = $request->p10_RP2;
-            //             $statistical->p90_rp2 = $request->p90_RP2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->rp3 = $request->RP3;
-            //             $statistical->date_rp3 = Carbon::createFromFormat('d/m/Y', $request->dateRP3)->format('Y-m-d');
-            //             $statistical->comment_rp3 = $request->RP3comment;
-            //             $statistical->p10_rp3 = $request->p10_RP3;
-            //             $statistical->p90_rp3 = $request->p90_RP3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->rp4 = $request->RP4;
-            //             $statistical->date_rp4 = Carbon::createFromFormat('d/m/Y', $request->dateRP4)->format('Y-m-d');
-            //             $statistical->comment_rp4 = $request->RP4comment;
-            //             $statistical->p10_rp4 = $request->p10_RP4;
-            //             $statistical->p90_rp4 = $request->p90_RP4;
-            //         }
-
-            //         if (in_array('5', $availableArray)) {
-            //             $statistical->rp5 = $request->RP5;
-            //             $statistical->date_rp5 = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
-            //             $statistical->comment_rp5 = $request->RP5comment;
-            //             $statistical->p10_rp5 = $request->p10_RP5;
-            //             $statistical->p90_rp5 = $request->p90_RP5;
-            //         }
-            //     }
-
-            //     if ($request->idAvailable) {
-            //         $availableArray = $request->idAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->id1 = $request->ID1;
-            //             $statistical->date_id1 = Carbon::createFromFormat('d/m/Y', $request->dateID1)->format('Y-m-d');
-            //             $statistical->comment_id1 = $request->ID1comment;
-            //             $statistical->p10_id1 = $request->p10_ID1;
-            //             $statistical->p90_id1 = $request->p90_ID1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->id2 = $request->ID2;
-            //             $statistical->date_id2 = Carbon::createFromFormat('d/m/Y', $request->dateID2)->format('Y-m-d');
-            //             $statistical->comment_id2 = $request->ID2comment;
-            //             $statistical->p10_id2 = $request->p10_ID2;
-            //             $statistical->p90_id2 = $request->p90_ID2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->id3 = $request->ID3;
-            //             $statistical->date_id3 = Carbon::createFromFormat('d/m/Y', $request->dateID3)->format('Y-m-d');
-            //             $statistical->comment_id3 = $request->ID3comment;
-            //             $statistical->p10_id3 = $request->p10_ID3;
-            //             $statistical->p90_id3 = $request->p90_ID3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->id4 = $request->ID4;
-            //             $statistical->date_id4 = Carbon::createFromFormat('d/m/Y', $request->dateID4)->format('Y-m-d');
-            //             $statistical->comment_id4 = $request->ID4comment;
-            //             $statistical->p10_id4 = $request->p10_ID4;
-            //             $statistical->p90_id4 = $request->p90_ID4;
-            //         }
-            //     }
-
-            //     if ($request->gdAvailable) {
-            //         $availableArray = $request->gdAvailable;
-
-            //         if (in_array('1', $availableArray)) {
-            //             $statistical->gd1 = $request->GD1;
-            //             $statistical->date_gd1 = Carbon::createFromFormat('d/m/Y', $request->dateGD1)->format('Y-m-d');
-            //             $statistical->comment_gd1 = $request->GD1comment;
-            //             $statistical->p10_gd1 = $request->p10_GD1;
-            //             $statistical->p90_gd1 = $request->p90_GD1;
-            //         }
-
-            //         if (in_array('2', $availableArray)) {
-            //             $statistical->gd2 = $request->GD2;
-            //             $statistical->date_gd2 = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
-            //             $statistical->comment_gd2 = $request->GD2comment;
-            //             $statistical->p10_gd2 = $request->p10_GD2;
-            //             $statistical->p90_gd2 = $request->p90_GD2;
-            //         }
-
-            //         if (in_array('3', $availableArray)) {
-            //             $statistical->gd3 = $request->GD3;
-            //             $statistical->date_gd3 = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
-            //             $statistical->comment_gd3 = $request->GD3comment;
-            //             $statistical->p10_gd3 = $request->p10_GD3;
-            //             $statistical->p90_gd3 = $request->p90_GD3;
-            //         }
-
-            //         if (in_array('4', $availableArray)) {
-            //             $statistical->gd4 = $request->GD4;
-            //             $statistical->date_gd4 = Carbon::createFromFormat('d/m/Y', $request->dateGD4)->format('Y-m-d');
-            //             $statistical->comment_gd4 = $request->GD4comment;
-            //             $statistical->p10_gd4 = $request->p10_GD4;
-            //             $statistical->p90_gd4 = $request->p90_GD4;
-            //         }
-            //     }
-            //     $statistical->kd = $request->kd;
-            //     $statistical->msAvailable = $input['msAvailable'];
-            //     $statistical->fbAvailable = $input['fbAvailable'];
-            //     $statistical->osAvailable = $input['osAvailable'];
-            //     $statistical->rpAvailable = $input['rpAvailable'];
-            //     $statistical->idAvailable = $input['idAvailable'];
-            //     $statistical->gdAvailable = $input['gdAvailable'];
-            //     $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
-            //     $statistical->escenario_id = $request->id_scenary;
-            //     $statistical->save();
-
-            //     $scenario->completo = $request->only_s == "save" ? 0 : 1;
-            //     $scenario->estado = 1;
-            //     $scenario->save();
-
-            //     $subparameters_weight = subparameters_weight::create(['multiparametric_id' => $statistical->id]);
-            //     $subparameters_weight->update($request->all());
-
-            //     return redirect()->route('statistical.show', $statistical->id);
-            // } else {
-            //     if ($request->calculate == "true") {
-            //         //se modifica el array del campo field_statistical con implode
-            //         if ($request->field_statistical) {
-            //             $input['field_statistical'] = implode(",", $request->field_statistical);
-            //             $request->statistical = null;
-            //         } else {
-            //             $input['field_statistical'] = null;
-            //             $request->basin_statistical = null;
-            //         }
-    
-            //         //se guardan solo los campos field_statistical y statistical en la bbdd;
-            //         $statistical = Statistical::find($id);
-            //         $statistical->escenario_id = $request->id_scenary;
-            //         $statistical->field_statistical = $input['field_statistical'];
-            //         $statistical->basin_statistical = $request->basin_statistical;
-            //         $statistical->statistical = $request->statistical;
-            //         $statistical->save();
-    
-            //         /* se pasa la variable calculate al funcion edit */
-            //         Session::flash('calculate', $request->calculate);
-    
-            //         return redirect()->route('statistical.edit', $statistical->id);
-            //     } else {
-            //         unset($_SESSION['scenary_id_dup']);
-            //         $scenario = escenario::find($request->id_scenary);
-    
-            //         //se conviertelos arrays en cadenas
-            //         if ($request->msAvailable) {
-            //             $input['msAvailable'] = implode(",", $request->msAvailable);
-            //         } else {
-            //             $input['msAvailable'] = null;
-            //         }
-    
-            //         if ($request->fbAvailable) {
-            //             $input['fbAvailable'] = implode(",", $request->fbAvailable);
-            //         } else {
-            //             $input['fbAvailable'] = null;
-            //         }
-    
-            //         if ($request->osAvailable) {
-            //             $input['osAvailable'] = implode(",", $request->osAvailable);
-            //         } else {
-            //             $input['osAvailable'] = null;
-            //         }
-    
-            //         if ($request->rpAvailable) {
-            //             $input['rpAvailable'] = implode(",", $request->rpAvailable);
-            //         } else {
-            //             $input['rpAvailable'] = null;
-            //         }
-    
-            //         if ($request->idAvailable) {
-            //             $input['idAvailable'] = implode(",", $request->idAvailable);
-            //         } else {
-            //             $input['idAvailable'] = null;
-            //         }
-    
-            //         if ($request->gdAvailable) {
-            //             $input['gdAvailable'] = implode(",", $request->gdAvailable);
-            //         } else {
-            //             $input['gdAvailable'] = null;
-            //         }
-    
-            //         //se ingresa los datos de la tabla statistical
-            //         $statistical = Statistical::find($id);
-    
-            //         if ($request->msAvailable) {
-            //             $availableArray = $request->msAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->ms1 = $request->MS1;
-            //                 $statistical->date_ms1 = Carbon::createFromFormat('d/m/Y', $request->dateMS1)->format('Y-m-d');
-            //                 $statistical->comment_ms1 = $request->MS1comment;
-            //                 $statistical->p10_ms1 = $request->p10_MS1;
-            //                 $statistical->p90_ms1 = $request->p90_MS1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->ms2 = $request->MS2;
-            //                 $statistical->date_ms2 = Carbon::createFromFormat('d/m/Y', $request->dateMS2)->format('Y-m-d');
-            //                 $statistical->comment_ms2 = $request->MS2comment;
-            //                 $statistical->p10_ms2 = $request->p10_MS2;
-            //                 $statistical->p90_ms2 = $request->p90_MS2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->ms3 = $request->MS3;
-            //                 $statistical->date_ms3 = Carbon::createFromFormat('d/m/Y', $request->dateMS3)->format('Y-m-d');
-            //                 $statistical->comment_ms3 = $request->MS3comment;
-            //                 $statistical->p10_ms3 = $request->p10_MS3;
-            //                 $statistical->p90_ms3 = $request->p90_MS3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->ms4 = $request->MS4;
-            //                 $statistical->date_ms4 = Carbon::createFromFormat('d/m/Y', $request->dateMS4)->format('Y-m-d');
-            //                 $statistical->comment_ms4 = $request->MS4comment;
-            //                 $statistical->p10_ms4 = $request->p10_MS4;
-            //                 $statistical->p90_ms4 = $request->p90_MS4;
-            //             }
-    
-            //             if (in_array('5', $availableArray)) {
-            //                 $statistical->ms5 = $request->MS5;
-            //                 $statistical->date_ms5 = Carbon::createFromFormat('d/m/Y', $request->dateMS5)->format('Y-m-d');
-            //                 $statistical->comment_ms5 = $request->MS5comment;
-            //                 $statistical->p10_ms5 = $request->p10_MS5;
-            //                 $statistical->p90_ms5 = $request->p90_MS5;
-            //             }
-            //         }
-    
-            //         if ($request->fbAvailable) {
-            //             $availableArray = $request->fbAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->fb1 = $request->FB1;
-            //                 $statistical->date_fb1 = Carbon::createFromFormat('d/m/Y', $request->dateFB1)->format('Y-m-d');
-            //                 $statistical->comment_fb1 = $request->FB1comment;
-            //                 $statistical->p10_fb1 = $request->p10_FB1;
-            //                 $statistical->p90_fb1 = $request->p90_FB1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->fb2 = $request->FB2;
-            //                 $statistical->date_fb2 = Carbon::createFromFormat('d/m/Y', $request->dateFB2)->format('Y-m-d');
-            //                 $statistical->comment_fb2 = $request->FB2comment;
-            //                 $statistical->p10_fb2 = $request->p10_FB2;
-            //                 $statistical->p90_fb2 = $request->p90_FB2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->fb3 = $request->FB3;
-            //                 $statistical->date_fb3 = Carbon::createFromFormat('d/m/Y', $request->dateFB3)->format('Y-m-d');
-            //                 $statistical->comment_fb3 = $request->FB3comment;
-            //                 $statistical->p10_fb3 = $request->p10_FB3;
-            //                 $statistical->p90_fb3 = $request->p90_FB3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->fb4 = $request->FB4;
-            //                 $statistical->date_fb4 = Carbon::createFromFormat('d/m/Y', $request->dateFB4)->format('Y-m-d');
-            //                 $statistical->comment_fb4 = $request->FB4comment;
-            //                 $statistical->p10_fb4 = $request->p10_FB4;
-            //                 $statistical->p90_fb4 = $request->p90_FB4;
-            //             }
-    
-            //             if (in_array('5', $availableArray)) {
-            //                 $statistical->fb5 = $request->FB5;
-            //                 $statistical->date_fb5 = Carbon::createFromFormat('d/m/Y', $request->dateFB5)->format('Y-m-d');
-            //                 $statistical->comment_fb5 = $request->FB5comment;
-            //                 $statistical->p10_fb5 = $request->p10_FB5;
-            //                 $statistical->p90_fb5 = $request->p90_FB5;
-            //             }
-            //         }
-    
-            //         if ($request->osAvailable) {
-            //             $availableArray = $request->osAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->os1 = $request->OS1;
-            //                 $statistical->date_os1 = Carbon::createFromFormat('d/m/Y', $request->dateOS1)->format('Y-m-d');
-            //                 $statistical->comment_os1 = $request->OS1comment;
-            //                 $statistical->p10_os1 = $request->p10_OS1;
-            //                 $statistical->p90_os1 = $request->p90_OS1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->os2 = $request->OS2;
-            //                 $statistical->date_os2 = Carbon::createFromFormat('d/m/Y', $request->dateOS2)->format('Y-m-d');
-            //                 $statistical->comment_os2 = $request->OS2comment;
-            //                 $statistical->p10_os2 = $request->p10_OS2;
-            //                 $statistical->p90_os2 = $request->p90_OS2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->os3 = $request->OS3;
-            //                 $statistical->date_os3 = Carbon::createFromFormat('d/m/Y', $request->dateOS3)->format('Y-m-d');
-            //                 $statistical->comment_os3 = $request->OS3comment;
-            //                 $statistical->p10_os3 = $request->p10_OS3;
-            //                 $statistical->p90_os3 = $request->p90_OS3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->os4 = $request->OS4;
-            //                 $statistical->date_os4 = Carbon::createFromFormat('d/m/Y', $request->dateOS4)->format('Y-m-d');
-            //                 $statistical->comment_os4 = $request->OS4comment;
-            //                 $statistical->p10_os4 = $request->p10_OS4;
-            //                 $statistical->p90_os4 = $request->p90_OS4;
-            //             }
-    
-            //             if (in_array('5', $availableArray)) {
-            //                 $statistical->os5 = $request->OS5;
-            //                 $statistical->date_os5 = Carbon::createFromFormat('d/m/Y', $request->dateOS5)->format('Y-m-d');
-            //                 $statistical->comment_os5 = $request->OS5comment;
-            //                 $statistical->p10_os5 = $request->p10_OS5;
-            //                 $statistical->p90_os5 = $request->p90_OS5;
-            //             }
-            //         }
-    
-            //         if ($request->rpAvailable) {
-            //             $availableArray = $request->rpAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->rp1 = $request->RP1;
-            //                 $statistical->date_rp1 = Carbon::createFromFormat('d/m/Y', $request->dateRP1)->format('Y-m-d');
-            //                 $statistical->comment_rp1 = $request->RP1comment;
-            //                 $statistical->p10_rp1 = $request->p10_RP1;
-            //                 $statistical->p90_rp1 = $request->p90_RP1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->rp2 = $request->RP2;
-            //                 $statistical->date_rp2 = Carbon::createFromFormat('d/m/Y', $request->dateRP2)->format('Y-m-d');
-            //                 $statistical->comment_rp2 = $request->RP2comment;
-            //                 $statistical->p10_rp2 = $request->p10_RP2;
-            //                 $statistical->p90_rp2 = $request->p90_RP2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->rp3 = $request->RP3;
-            //                 $statistical->date_rp3 = Carbon::createFromFormat('d/m/Y', $request->dateRP3)->format('Y-m-d');
-            //                 $statistical->comment_rp3 = $request->RP3comment;
-            //                 $statistical->p10_rp3 = $request->p10_RP3;
-            //                 $statistical->p90_rp3 = $request->p90_RP3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->rp4 = $request->RP4;
-            //                 $statistical->date_rp4 = Carbon::createFromFormat('d/m/Y', $request->dateRP4)->format('Y-m-d');
-            //                 $statistical->comment_rp4 = $request->RP4comment;
-            //                 $statistical->p10_rp4 = $request->p10_RP4;
-            //                 $statistical->p90_rp4 = $request->p90_RP4;
-            //             }
-    
-            //             if (in_array('5', $availableArray)) {
-            //                 $statistical->rp5 = $request->RP5;
-            //                 $statistical->date_rp5 = Carbon::createFromFormat('d/m/Y', $request->dateRP5)->format('Y-m-d');
-            //                 $statistical->comment_rp5 = $request->RP5comment;
-            //                 $statistical->p10_rp5 = $request->p10_RP5;
-            //                 $statistical->p90_rp5 = $request->p90_RP5;
-            //             }
-            //         }
-    
-            //         if ($request->idAvailable) {
-            //             $availableArray = $request->idAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->id1 = $request->ID1;
-            //                 $statistical->date_id1 = Carbon::createFromFormat('d/m/Y', $request->dateID1)->format('Y-m-d');
-            //                 $statistical->comment_id1 = $request->ID1comment;
-            //                 $statistical->p10_id1 = $request->p10_ID1;
-            //                 $statistical->p90_id1 = $request->p90_ID1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->id2 = $request->ID2;
-            //                 $statistical->date_id2 = Carbon::createFromFormat('d/m/Y', $request->dateID2)->format('Y-m-d');
-            //                 $statistical->comment_id2 = $request->ID2comment;
-            //                 $statistical->p10_id2 = $request->p10_ID2;
-            //                 $statistical->p90_id2 = $request->p90_ID2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->id3 = $request->ID3;
-            //                 $statistical->date_id3 = Carbon::createFromFormat('d/m/Y', $request->dateID3)->format('Y-m-d');
-            //                 $statistical->comment_id3 = $request->ID3comment;
-            //                 $statistical->p10_id3 = $request->p10_ID3;
-            //                 $statistical->p90_id3 = $request->p90_ID3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->id4 = $request->ID4;
-            //                 $statistical->date_id4 = Carbon::createFromFormat('d/m/Y', $request->dateID4)->format('Y-m-d');
-            //                 $statistical->comment_id4 = $request->ID4comment;
-            //                 $statistical->p10_id4 = $request->p10_ID4;
-            //                 $statistical->p90_id4 = $request->p90_ID4;
-            //             }
-            //         }
-    
-            //         if ($request->gdAvailable) {
-            //             $availableArray = $request->gdAvailable;
-    
-            //             if (in_array('1', $availableArray)) {
-            //                 $statistical->gd1 = $request->GD1;
-            //                 $statistical->date_gd1 = Carbon::createFromFormat('d/m/Y', $request->dateGD1)->format('Y-m-d');
-            //                 $statistical->comment_gd1 = $request->GD1comment;
-            //                 $statistical->p10_gd1 = $request->p10_GD1;
-            //                 $statistical->p90_gd1 = $request->p90_GD1;
-            //             }
-    
-            //             if (in_array('2', $availableArray)) {
-            //                 $statistical->gd2 = $request->GD2;
-            //                 $statistical->date_gd2 = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
-            //                 $statistical->comment_gd2 = $request->GD2comment;
-            //                 $statistical->p10_gd2 = $request->p10_GD2;
-            //                 $statistical->p90_gd2 = $request->p90_GD2;
-            //             }
-    
-            //             if (in_array('3', $availableArray)) {
-            //                 $statistical->gd3 = $request->GD3;
-            //                 $statistical->date_gd3 = Carbon::createFromFormat('d/m/Y', $request->dateGD3)->format('Y-m-d');
-            //                 $statistical->comment_gd3 = $request->GD3comment;
-            //                 $statistical->p10_gd3 = $request->p10_GD3;
-            //                 $statistical->p90_gd3 = $request->p90_GD3;
-            //             }
-    
-            //             if (in_array('4', $availableArray)) {
-            //                 $statistical->gd4 = $request->GD4;
-            //                 $statistical->date_gd4 = Carbon::createFromFormat('d/m/Y', $request->dateGD4)->format('Y-m-d');
-            //                 $statistical->comment_gd4 = $request->GD4comment;
-            //                 $statistical->p10_gd4 = $request->p10_GD4;
-            //                 $statistical->p90_gd4 = $request->p90_GD4;
-            //             }
-            //         }
-            //         $statistical->kd = $request->kd;
-            //         $statistical->msAvailable = $input['msAvailable'];
-            //         $statistical->fbAvailable = $input['fbAvailable'];
-            //         $statistical->osAvailable = $input['osAvailable'];
-            //         $statistical->rpAvailable = $input['rpAvailable'];
-            //         $statistical->idAvailable = $input['idAvailable'];
-            //         $statistical->gdAvailable = $input['gdAvailable'];
-            //         $statistical->status_wr = $request->only_s == "save" ? 1 : 0;
-            //         $statistical->escenario_id = $request->id_scenary;
-            //         $statistical->save();
-    
-            //         $scenario->completo = $request->only_s == "save" ? 0 : 1;
-            //         $scenario->estado = 1;
-            //         $scenario->save();
-    
-            //         /* ingresa los datos en la tabla subparameters_weight */
-            //         $inputs = $request->all();
-            //         $statistical->subparameters->update($inputs);
-    
-            //         return redirect()->route('statistical.show', $statistical->id);
-            //     }
-            // }
         } else {
             return view('loginfirst');
         }
@@ -1394,8 +831,10 @@ class StatisticalController extends Controller
                 $sum = $peso * ( 2 * $p90 - $p10 ) / ( $p90 - $p10);
             } else {
                 if ($valor < $p10) {
+                    // $sum = $peso * ( 0.0001 ) / ( 0.0001 );
                     $sum = $peso * ( $p10 - $p10 ) / ( $p90 - $p10 );
                 } else {
+                    // $sum = $peso * ( $valor - $p10 ) / ( 0.0001 );
                     $sum = $peso * ( $valor - $p10 ) / ( $p90 - $p10 );
                 }
             }

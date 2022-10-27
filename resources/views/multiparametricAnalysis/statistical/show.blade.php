@@ -17,21 +17,18 @@
 
 </br>
 <hr>
-@if(!$statistical->status_wr)
+@if($statistical->status_wr == 1)
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div id="container"></div>
   </div>
-  <div class="col-md-4">
-    <p> </p>            
-    <p> </p>            
-    <p> </p>            
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Damage Mechanism</th>
-          <th>Skin [%]</th>
-        </tr>
+</div>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-12 container">           
+    <table class="table table-bordered">
+      <thead id="statistical_header">
       </thead>
       <tbody id="statistical_body">
       </tbody>
@@ -48,7 +45,7 @@
 @endif
 
 <p class="pull-right">            
-  <a href="{{route('statistical.edit', $statistical->id)}}" class="btn btn-warning" role="button">Edit</a>
+  <a href="{{route('statistical.edit', $statistical->escenario_id)}}" class="btn btn-warning" role="button">Edit</a>
   <a type="button"  name="back" class="btn btn-danger" onClick="javascript:history.back(1)" role="button">Cancel</a>
 </p>
 
@@ -56,7 +53,7 @@
 @section('Scripts')
 @include('css/add_multiparametric')
 @include('js/modal_error')
-@if(!$statistical->status_wr)
+@if($statistical->status_wr == 1)
   @include('multiparametricAnalysis.statistical.showJs')
 @endif
 @endsection

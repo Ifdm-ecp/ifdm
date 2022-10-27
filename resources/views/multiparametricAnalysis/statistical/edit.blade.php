@@ -55,7 +55,7 @@
       {!! Form::hidden('only_s', '', array('id' => 'only_s')) !!}
       <div class="col-md-12 scenario-buttons">
          <div align="left">
-            <button type="button" class="btn btn-success" onclick="verifyMultiparametric('save');" id="save_calc">Save</button>
+            <button type="button" class="btn btn-success" onclick="saveMultiparametric();" id="save_calc">Save</button>
             <a href="{!! url('share_scenario') !!}" class="btn btn-danger">Cancel</a>
          </div>
          <div align="right">
@@ -103,7 +103,7 @@
       $(document).ready(function() {
          validationFields();
          @if($statistical->p10_ms1 == null || $statistical->p10_fb1 == null || $statistical->p10_os1 == null || $statistical->p10_id1 == null || $statistical->p10_gd1 == null)
-         multiparametricoStatistical();
+         // multiparametricoStatistical();
          @endif
          cargarCamposBBDD();
          cargarAvailables();

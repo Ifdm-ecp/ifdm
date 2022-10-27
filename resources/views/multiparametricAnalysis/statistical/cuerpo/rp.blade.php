@@ -6,7 +6,7 @@
                <h4 id="ms-title">Relative Permeability</h4>
             </div>
             <div class="text-right">
-               <input type="checkbox" id="checkbox_general_RP" name="checkbox_general_RP" checked data-toggle="toggle" \>
+               <input type="checkbox" id="checkbox_general_RP" name="checkbox_general_RP" checked data-toggle="toggle" >
             </div>
          </div>
       </div>

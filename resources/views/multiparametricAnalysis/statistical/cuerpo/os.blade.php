@@ -6,7 +6,7 @@
                <h4 id="ms-title">Organic Scales</h4>
             </div>
             <div class="text-right">
-               <input type="checkbox" id="checkbox_general_OS" name="checkbox_general_OS" checked data-toggle="toggle" \>
+               <input type="checkbox" id="checkbox_general_OS" name="checkbox_general_OS" checked data-toggle="toggle" >
             </div>
          </div>
       </div>

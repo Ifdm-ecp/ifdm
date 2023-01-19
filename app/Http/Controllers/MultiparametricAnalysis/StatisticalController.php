@@ -355,7 +355,7 @@ class StatisticalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\MultiparametricStatisticalRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -363,8 +363,8 @@ class StatisticalController extends Controller
     {
         if (\Auth::check()) {
 
-            
             //VALIDATE
+
 
             // Encontrar formaciones y nombres de campos de entrada
             $scenario = escenario::find($request->id_scenary);

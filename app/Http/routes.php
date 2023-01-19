@@ -4462,6 +4462,66 @@ Route::group(['middleware' => 'auth'], function(){
         return Response::json($arreglo);
     });
 
+    Route::get('p10p90Colombia', function() {
+        $subparameterId = Input::get('subparameterId');
+        $subparameterId = DB::table('subparametros')->select('id')->where('sigla', $subparameterId)->get()[0]->id;
+        $chart = DB::table('mediciones')->select('valor')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get();
+        
+        if ( count($chart) == 0 ) { $arreglo = [0,0]; }
+        else if ( count($chart) == 1 ) { $arreglo = [$chart[0]->valor,$chart[0]->valor];  }
+        else if ( count($chart) > 1 ) { 
+            if ( round(count($chart)*0.10)-1 < 0 ) {
+                $arreglo[0] = 0;
+            } else {
+                $arreglo[0] = round(count($chart)*0.10)-1;
+            }
+            if ( round(count($chart)*0.90)-1 > count($chart)-1 ) {
+                $arreglo[1] = count($count)-1;
+            } else {
+                $arreglo[1] = round(count($chart)*0.90)-1;
+            }
+            $arreglo[0] = $chart[$arreglo[0]]->valor;
+            $arreglo[1] = $chart[$arreglo[1]]->valor;
+        }
+
+        return Response::json($arreglo);
+    });
+
+    Route::get('p10p90Calculate', function() {
+        $subparameterId = Input::get('subparameterId');
+        $subparameterId = DB::table('subparametros')->select('id')->where('sigla', $subparameterId)->get()[0]->id;
+        $fieldId = Input::get('fieldId');
+        $basinId = Input::get('basinId');
+        $chart = DB::table('mediciones')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get();
+        
+        $pozos = DB::table('pozos')->where('cuenca_id', $basinId)->get();
+
+
+
+
+        dd($basinId, 1);
+        return Response::json($pozos);
+        return Response::json(DB::table('mediciones')->select('valor')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get());
+        if ( count($chart) == 0 ) { $arreglo = [0,0]; }
+        else if ( count($chart) == 1 ) { $arreglo = [$chart[0]->valor,$chart[0]->valor];  }
+        else if ( count($chart) > 1 ) { 
+            if ( round(count($chart)*0.10)-1 < 0 ) {
+                $arreglo[0] = 0;
+            } else {
+                $arreglo[0] = round(count($chart)*0.10)-1;
+            }
+            if ( round(count($chart)*0.90)-1 > count($chart)-1 ) {
+                $arreglo[1] = count($count)-1;
+            } else {
+                $arreglo[1] = round(count($chart)*0.90)-1;
+            }
+            $arreglo[0] = $chart[$arreglo[0]]->valor;
+            $arreglo[1] = $chart[$arreglo[1]]->valor;
+        }
+
+        return Response::json($arreglo);
+    });
+
     Route::get('subparameterbywell', function() {
         $subparameters = DB::table('mediciones')
             ->where('pozo_id', Input::get('pozoId'))

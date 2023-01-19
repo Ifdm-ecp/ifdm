@@ -48,6 +48,45 @@
         multiparametricWeights();
 
         fillInputFields();
+
+
+        // if( $("#statistical").prop('checked') == true ) {
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS3'}, function(data) {$('#p10_MS3').val(data[0]); $('#p90_MS3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS4'}, function(data) {$('#p10_MS4').val(data[0]); $('#p90_MS4').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS5'}, function(data) {$('#p10_MS5').val(data[0]); $('#p90_MS5').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB1'}, function(data) {$('#p10_FB1').val(data[0]); $('#p90_FB1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB2'}, function(data) {$('#p10_FB2').val(data[0]); $('#p90_FB2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB3'}, function(data) {$('#p10_FB3').val(data[0]); $('#p90_FB3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB4'}, function(data) {$('#p10_FB4').val(data[0]); $('#p90_FB4').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB5'}, function(data) {$('#p10_FB5').val(data[0]); $('#p90_FB5').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS1'}, function(data) {$('#p10_OS1').val(data[0]); $('#p90_OS1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS2'}, function(data) {$('#p10_OS2').val(data[0]); $('#p90_OS2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS3'}, function(data) {$('#p10_OS3').val(data[0]); $('#p90_OS3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS4'}, function(data) {$('#p10_OS4').val(data[0]); $('#p90_OS4').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS5'}, function(data) {$('#p10_OS5').val(data[0]); $('#p90_OS5').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP1'}, function(data) {$('#p10_RP1').val(data[0]); $('#p90_RP1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP2'}, function(data) {$('#p10_RP2').val(data[0]); $('#p90_RP2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP3'}, function(data) {$('#p10_RP3').val(data[0]); $('#p90_RP3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP4'}, function(data) {$('#p10_RP4').val(data[0]); $('#p90_RP4').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP5'}, function(data) {$('#p10_RP5').val(data[0]); $('#p90_RP5').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID1'}, function(data) {$('#p10_ID1').val(data[0]); $('#p90_ID1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID2'}, function(data) {$('#p10_ID2').val(data[0]); $('#p90_ID2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID3'}, function(data) {$('#p10_ID3').val(data[0]); $('#p90_ID3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID4'}, function(data) {$('#p10_ID4').val(data[0]); $('#p90_ID4').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD1'}, function(data) {$('#p10_GD1').val(data[0]); $('#p90_GD1').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD2'}, function(data) {$('#p10_GD2').val(data[0]); $('#p90_GD2').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD3'}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
+            $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
+        // }
+        // if( $("#statistical").prop('checked') == false ) {
+        //     < ? ph p echo json_encode(explode(",", $statistical->field_statistical)); ?>.forEach(element => { 
+        //         $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', fieldId: element, basinId: $("#selectBasin").val() }, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
+        //     }); 
+            // $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
+            // console.log($("#selectBasin").val(),'23');
+        // }
     });
 
     function addInputGroup(title, destination_div) {

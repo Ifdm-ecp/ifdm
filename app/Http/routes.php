@@ -4598,7 +4598,7 @@ Route::group(['middleware' => 'auth'], function(){
         //////////////////////////////////////////////////////////
 
         // Calcular p10 y p90 a partir de 10 valores 
-        dd($arreglo);
+        dd($subparameterId, $basin, $fields, $pozos);
         if ( count($arreglo) < 10 ) {
             return Response::json([0,0]);
         } else {

@@ -4569,6 +4569,7 @@ Route::group(['middleware' => 'auth'], function(){
         $basin = Input::get('basin');
         $basin = intval($basin);
         $fields = Input::get('fields');
+        dd($fields);
         $fields = json_decode($fields, true); //converts to array
         $fields = array_map('intval', $fields);
 

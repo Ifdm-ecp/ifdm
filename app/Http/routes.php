@@ -4595,9 +4595,18 @@ Route::group(['middleware' => 'auth'], function(){
             $mediciones = array_merge($mediciones, $aux_mediciones);
         }
 
+        // PARA MS1
+        $ms1 = [];
+        for ($i=0; $i < count($mediciones); $i++) { 
+            if ($mediciones[$i]->subparametro_id == 1) { 
+                array_push($ms1, $mediciones[$i]->valor);
+            }
+        }
 
 
-        dd($mediciones);
+
+
+        dd($ms1);
 
         
 

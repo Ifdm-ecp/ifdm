@@ -4464,30 +4464,146 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('p10p90Colombia', function() {
         $subparameterId = Input::get('subparameterId');
+        dd('dada');
         $subparameterId = DB::table('subparametros')->select('id')->where('sigla', $subparameterId)->get()[0]->id;
-        $chart = DB::table('mediciones')->select('valor')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get();
-        
-        if ( count($chart) == 0 ) { $arreglo = [0,0]; }
-        else if ( count($chart) == 1 ) { $arreglo = [$chart[0]->valor,$chart[0]->valor];  }
-        else if ( count($chart) > 1 ) { 
-            if ( round(count($chart)*0.10)-1 < 0 ) {
-                $arreglo[0] = 0;
-            } else {
-                $arreglo[0] = round(count($chart)*0.10)-1;
-            }
-            if ( round(count($chart)*0.90)-1 > count($chart)-1 ) {
-                $arreglo[1] = count($count)-1;
-            } else {
-                $arreglo[1] = round(count($chart)*0.90)-1;
-            }
-            $arreglo[0] = $chart[$arreglo[0]]->valor;
-            $arreglo[1] = $chart[$arreglo[1]]->valor;
+        $chart = DB::table('mediciones')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get();
+
+        // Calcular p10 y p90 a partir de 10 valores 
+
+
+        // $arreglo = [0.297896658,0.354257558,0.43355952,0.442299617,0.375702706,0.456600133,0.447127094,0.41067616,0.406965806,0.354161922,0.425308864,0.40079783,0.375234556,0.401198404,0.380552345,0.462244928,0.354702895,0.375542513,0.374199177,0.335397535,0.45625853,0.382470309,0.381922201,0.421178752,0.355043769,0.412005688,0.35260965,0.401246569,0.441996619,0.41948255,0.433160085,0.416589267,0.40025943,0.453368651,0.460083791,0.383147822,0.415865992,0.420839643,0.392147078,0.394490425,0.359935031,0.38009886,0.384763234,0.446469279,0.426045828,0.377337132,0.423085908,0.3464339,0.448219737,0.328457345,0.401154499,0.365199677,0.41845962,0.365378878,0.385054612,0.430075915,0.362967779,0.371563661,0.407672044,0.388743947,0.405286257,0.335381974,0.416006426,0.377520317,0.369251181,0.431954977,0.406073612,0.390196492,0.399165096,0.378326383,0.343617315,0.386289569,0.420358899,0.409256908,0.337022808,0.37043789,0.371965883,0.411103083,0.391055317,0.457055383,0.434949799,0.494094813,0.408956089,0.338910591,0.471030456,0.347089662,0.336304054,0.389447719,0.373505032,0.345695719,0.371096321,0.391479544,0.371052378,0.401859206,0.415098454,0.449038596,0.354626138,0.431635281,0.3832322,0.395222702,0.428169715,0.392788073,0.39947353,0.415820426,0.387079217,0.402947321,0.368838268,0.402538669,0.45087479,0.42039406,0.398001776,0.407368536,0.404945016,0.46253544,0.364684595,0.415857386,0.379831126,0.417301347,0.420359096,0.350088521,0.405928397,0.37571104,0.409641636,0.330875147,0.432472564,0.38709562,0.386380277,0.378072694,0.423204313,0.417176601,0.383587632,0.384217302,0.41276013,0.402347621,0.427672415,0.400133226,0.405787423,0.46102486,0.391342908,0.391628347,0.395401977,0.404830473,0.381893467,0.433423769,0.395332168,0.391919622,0.442535675,0.442687392,0.410070809,0.403610979,0.36491,0.409951745];
+        $arreglo = $chart;
+
+        $min = min($arreglo);
+        $max = max($arreglo);
+        $range = abs($max - $min);
+
+        $a = $range/100;
+        $k = 100;
+
+        $li = [];
+        array_push($li, $min);
+        for ($i=0; $i < $k-1; $i++) { 
+            array_push($li, $li[count($li)-1]+$a );
         }
+
+        $ls = [];
+        array_push($ls, $min+$a);
+        for ($i=0; $i < $k-1; $i++) { 
+            array_push($ls, $ls[count($ls)-1]+$a );
+        }
+
+        $pm = [];
+        for ($i=0; $i < $k; $i++) { 
+            array_push($pm, ($li[$i]+$ls[$i])/2);
+        }
+
+        $fi =[];
+        for ($i=0; $i < $k; $i++) { 
+            $aux1 = [];
+            $aux2 = [];
+            for ($j=0; $j < count($arreglo); $j++) { 
+                if ($arreglo[$j] >= $li[$i]) {
+                    array_push($aux1, $arreglo[$j]);
+                }
+            }
+            if($i < $k-1) {
+                for ($j=0; $j < count($arreglo); $j++) { 
+                    if ($arreglo[$j] > $ls[$i]) {
+                        array_push($aux2, $arreglo[$j]);
+                    }
+                }
+                array_push($fi, count($aux1)-count($aux2));
+            } else { 
+                array_push($fi, count($aux1));
+            }
+        }
+        
+        $Fi = [];
+        array_push($Fi, $fi[0]);
+        for ($i=1; $i < $k; $i++) { 
+            array_push($Fi, $Fi[$i-1]+$fi[$i]);
+        }
+
+        $p10aux = 10*count($arreglo)/100;
+        for ($i=0; $i < $k; $i++) { 
+            if ($Fi[$i] > $p10aux) {
+                $p10pos = $i;
+                break;
+            }
+        }
+        $p10li = $li[$p10pos];
+        $p10Fi = $Fi[$p10pos-1];
+        $p10fi = $fi[$p10pos];
+        $p10 = $p10li + ($a * ((( (count($arreglo) * 10) / 100 ) - $p10Fi) / $p10fi) );
+
+        $p90aux = 90*count($arreglo)/100;
+        for ($i=0; $i < $k; $i++) { 
+            if ($Fi[$i] > $p90aux) {
+                $p90pos = $i;
+                break;
+            }
+        }
+        $p90li = $li[$p90pos];
+        $p90Fi = $Fi[$p90pos-1];
+        $p90fi = $fi[$p90pos];
+        $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
+
+
+        // dd('min', $min, 'max', $max, 'range', $range, 'k', $k, 'a', $a, 'li', $li, 'ls', $ls, 'pm', $pm, 'fi', $fi, 'Fi', $Fi, 'p10', $p10, 'p90', $p90);
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return Response::json($arreglo);
     });
 
     Route::get('p10p90Calculate', function() {
+        $basin = Input::get('basin');
+        $fields = Input::get('fields');
+
+        
+
+        $basin = 16;
+        $fields = [54,63];
+
+        // pozos que se relacionen con los fields
+        $pozos = [];
+
+        for ($i=0; $i < count($fields); $i++) { 
+            $aux_pozos = DB::table('pozos')->where('campo_id', $fields[$i])->get();
+            $pozos += $aux_pozos;
+        }
+        
+        
+        
+        $mediciones = [];
+        for ($i=0; $i < count($pozos); $i++) { 
+            $aux_mediciones = DB::table('mediciones')->where('pozo_id', $pozos[$i]->id)->get();
+            $mediciones += $aux_mediciones;
+        }
+
+
+
+        dd($mediciones);
+
+        
+
+
+
+
         $subparameterId = Input::get('subparameterId');
         $subparameterId = DB::table('subparametros')->select('id')->where('sigla', $subparameterId)->get()[0]->id;
         $fieldId = Input::get('fieldId');
@@ -4499,7 +4615,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-        dd($basinId, 1);
+        dd($basinId, 21);
         return Response::json($pozos);
         return Response::json(DB::table('mediciones')->select('valor')->where('subparametro_id', strval($subparameterId))->orderBy('valor')->get());
         if ( count($chart) == 0 ) { $arreglo = [0,0]; }

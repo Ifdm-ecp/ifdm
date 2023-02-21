@@ -4587,7 +4587,7 @@ Route::group(['middleware' => 'auth'], function(){
             $pozos += $aux_pozos;
         }
         
-        
+        dd($pozos);
         
         $mediciones = [];
         for ($i=0; $i < count($pozos); $i++) { 

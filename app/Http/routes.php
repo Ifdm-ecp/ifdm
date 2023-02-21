@@ -4592,6 +4592,7 @@ Route::group(['middleware' => 'auth'], function(){
         $mediciones = [];
         for ($i=0; $i < count($pozos); $i++) { 
             $aux_mediciones = DB::table('mediciones')->where('pozo_id', $pozos[$i]->id)->get();
+            dd($aux_mediciones);
             $mediciones += $aux_mediciones;
         }
 

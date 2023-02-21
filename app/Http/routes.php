@@ -4584,10 +4584,10 @@ Route::group(['middleware' => 'auth'], function(){
 
         for ($i=0; $i < count($fields); $i++) { 
             $aux_pozos = DB::table('pozos')->where('campo_id', $fields[$i])->get();
-            $pozos += $aux_pozos;
+            array_merge($pozos, $aux_pozos);
         }
         
-        // dd($pozos);
+        dd($pozos);
         
         $mediciones = [];
         for ($i=0; $i < count($pozos); $i++) { 
@@ -4595,7 +4595,7 @@ Route::group(['middleware' => 'auth'], function(){
             if ($i == 1) { 
                 dd($aux_mediciones);
             }
-            $mediciones += $aux_mediciones;
+            array_merge($mediciones, $aux_mediciones);
         }
 
 

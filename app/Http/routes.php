@@ -4587,14 +4587,11 @@ Route::group(['middleware' => 'auth'], function(){
             $pozos = array_merge($pozos, $aux_pozos);
         }
         
-        dd($pozos);
+        // dd($pozos);
         
         $mediciones = [];
         for ($i=0; $i < count($pozos); $i++) { 
             $aux_mediciones = DB::table('mediciones')->where('pozo_id', $pozos[$i]->id)->get();
-            if ($i == 1) { 
-                dd($aux_mediciones);
-            }
             $mediciones = array_merge($mediciones, $aux_mediciones);
         }
 

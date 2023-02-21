@@ -80,13 +80,7 @@
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD3'}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
         } else {
-            var arreglo = $('#field').val();
-            var arregloc = [];
-            for (let index = 0; index < arreglo.length; index++) {
-                arregloc.push(parseInt(arreglo[index]));
-            }
-            arreglo = arregloc.toString();
-            myArray = JSON.stringify($('#field').val());
+            
             var arrStr = encodeURIComponent(JSON.stringify(myArray));
 
             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: arrStr}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});

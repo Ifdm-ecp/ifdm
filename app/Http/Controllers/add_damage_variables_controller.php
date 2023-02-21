@@ -1536,7 +1536,7 @@ class add_damage_variables_controller extends Controller
 
                 $well_id = DB::table('pozos')->where('nombre', $data_sheet->getCell('A'.($i+3))->getValue())->first()->id;
                 global $campo;
-                dd($data_sheet->getCell('B'.($i+3))->getValue(), $campo);
+                dd($data_sheet->getCell('B'.($i+3))->getValue(), $campo, $i);
                 $formation_id = DB::table('formaciones')->where('nombre', $data_sheet->getCell('B'.($i+3))->getValue())->where('campo_id', $campo)->first()->id;
                 
                 for ($j=0; $j < count($subparameterList); $j++) { 

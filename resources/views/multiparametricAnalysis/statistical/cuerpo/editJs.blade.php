@@ -121,7 +121,7 @@
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD2').val(data[0]); $('#p90_GD2').val(data[1]);});
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});      
-            }, 5000);
+            }, 1500);
             
         }
             

@@ -4570,8 +4570,9 @@ Route::group(['middleware' => 'auth'], function(){
         $basin = intval($basin);
         $fields = Input::get('fields');
         $fields = urldecode($fields); //converts to array
-        dd($fields);
+        
         $fields = json_decode($fields);
+        dd($fields);
         $fields = array_map('intval', $fields);
         // pozos que se relacionen con los fields
         $pozos = [];

@@ -4686,7 +4686,6 @@ Route::group(['middleware' => 'auth'], function(){
             $p90fi = $fi[$p90pos];
             $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
 
-
             return Response::json([$p10, $p90]);
         }
     });

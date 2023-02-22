@@ -4572,7 +4572,6 @@ Route::group(['middleware' => 'auth'], function(){
         $fields = urldecode($fields); //converts to array
         $fields = json_decode($fields);
         $fields = array_map('intval', $fields);
-        dd($fields); 
         // pozos que se relacionen con los fields
         $pozos = [];
 
@@ -4595,7 +4594,8 @@ Route::group(['middleware' => 'auth'], function(){
         }
 
         // dd($arreglo);
-
+        dd($arreglo, $mediciones, $pozos, $fields);
+        
         //////////////////////////////////////////////////////////
 
         // Calcular p10 y p90 a partir de 10 valores 

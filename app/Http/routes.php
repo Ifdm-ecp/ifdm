@@ -4572,6 +4572,7 @@ Route::group(['middleware' => 'auth'], function(){
         $fields = urldecode($fields); //converts to array
         $fields = json_decode($fields);
         $fields = array_map('intval', $fields);
+        dd($fields);
         // pozos que se relacionen con los fields
         $pozos = [];
 

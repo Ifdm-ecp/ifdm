@@ -4594,7 +4594,7 @@ Route::group(['middleware' => 'auth'], function(){
         }
 
         // dd($arreglo);
-        dd($arreglo, $mediciones, $pozos, $fields, $subparameterId);
+        // dd($arreglo, $mediciones, $pozos, $fields, $subparameterId);
         
         //////////////////////////////////////////////////////////
 

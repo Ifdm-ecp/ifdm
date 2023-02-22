@@ -81,7 +81,7 @@
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
         } else {
             var myArray = jQuery.param($('#field').val());
-            console.log(myArray, 'hehe');
+            console.log(myArray, 'hehe', $('#field').val());
 
             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});

@@ -80,37 +80,40 @@
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD3'}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
         } else {
-            var myArray = jQuery.param($('#field').val());
-            console.log(myArray, 'hehe', $('#field').val());
+            setTimeout(function (){
+                var myArray = jQuery.param($('#field').val());
+                console.log(myArray, 'hehe', $('#field').val());
 
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS3').val(data[0]); $('#p90_MS3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS4').val(data[0]); $('#p90_MS4').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS5').val(data[0]); $('#p90_MS5').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB1').val(data[0]); $('#p90_FB1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB2').val(data[0]); $('#p90_FB2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB3').val(data[0]); $('#p90_FB3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB4').val(data[0]); $('#p90_FB4').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB5').val(data[0]); $('#p90_FB5').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS1').val(data[0]); $('#p90_OS1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS2').val(data[0]); $('#p90_OS2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS3').val(data[0]); $('#p90_OS3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS4').val(data[0]); $('#p90_OS4').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS5').val(data[0]); $('#p90_OS5').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP1').val(data[0]); $('#p90_RP1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP2').val(data[0]); $('#p90_RP2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP3').val(data[0]); $('#p90_RP3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP4').val(data[0]); $('#p90_RP4').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP5').val(data[0]); $('#p90_RP5').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID1').val(data[0]); $('#p90_ID1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID2').val(data[0]); $('#p90_ID2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID3').val(data[0]); $('#p90_ID3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID4').val(data[0]); $('#p90_ID4').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD1').val(data[0]); $('#p90_GD1').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD2').val(data[0]); $('#p90_GD2').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
-            $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS3').val(data[0]); $('#p90_MS3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS4').val(data[0]); $('#p90_MS4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS5').val(data[0]); $('#p90_MS5').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB1').val(data[0]); $('#p90_FB1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB2').val(data[0]); $('#p90_FB2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB3').val(data[0]); $('#p90_FB3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB4').val(data[0]); $('#p90_FB4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB5').val(data[0]); $('#p90_FB5').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS1').val(data[0]); $('#p90_OS1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS2').val(data[0]); $('#p90_OS2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS3').val(data[0]); $('#p90_OS3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS4').val(data[0]); $('#p90_OS4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_OS5').val(data[0]); $('#p90_OS5').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP1').val(data[0]); $('#p90_RP1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP2').val(data[0]); $('#p90_RP2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP3').val(data[0]); $('#p90_RP3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP4').val(data[0]); $('#p90_RP4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_RP5').val(data[0]); $('#p90_RP5').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID1').val(data[0]); $('#p90_ID1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID2').val(data[0]); $('#p90_ID2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID3').val(data[0]); $('#p90_ID3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_ID4').val(data[0]); $('#p90_ID4').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD1').val(data[0]); $('#p90_GD1').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD2').val(data[0]); $('#p90_GD2').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
+                $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});      
+            }, 5000);
+            
         }
             
         // }

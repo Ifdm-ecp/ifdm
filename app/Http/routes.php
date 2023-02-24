@@ -4678,11 +4678,11 @@ Route::group(['middleware' => 'auth'], function(){
                 }
             }
             $p90li = $li[$p90pos];
-            // if ($p90pos == 0 ) {
-            //     $p90Fi = $Fi[$p90pos];
-            // } else {
+            if ($p90pos == 0 ) {
+                $p90Fi = $Fi[$p90pos];
+            } else {
                 $p90Fi = $Fi[$p90pos-1];
-            // }
+            }
             $p90fi = $fi[$p90pos];
             $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
 

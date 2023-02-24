@@ -4662,11 +4662,11 @@ Route::group(['middleware' => 'auth'], function(){
                 }
             }
             $p10li = $li[$p10pos];
-            // if ($p10pos == 0 ) {
-            //     $p10Fi = $Fi[$p10pos];
-            // } else {
+            if ($p10pos == 0 ) {
+                $p10Fi = $Fi[$p10pos];
+            } else {
                 $p10Fi = $Fi[$p10pos-1];
-            // }
+            }
             $p10fi = $fi[$p10pos];
             $p10 = $p10li + ($a * ((( (count($arreglo) * 10) / 100 ) - $p10Fi) / $p10fi) );
 

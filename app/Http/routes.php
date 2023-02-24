@@ -4662,11 +4662,11 @@ Route::group(['middleware' => 'auth'], function(){
                 }
             }
             $p10li = $li[$p10pos];
-            if ($p10pos == 0 ) {
-                $p10Fi = $Fi[$p10pos];
-            } else {
+            // if ($p10pos == 0 ) {
+            //     $p10Fi = $Fi[$p10pos];
+            // } else {
                 $p10Fi = $Fi[$p10pos-1];
-            }
+            // }
             $p10fi = $fi[$p10pos];
             $p10 = $p10li + ($a * ((( (count($arreglo) * 10) / 100 ) - $p10Fi) / $p10fi) );
 
@@ -4678,11 +4678,11 @@ Route::group(['middleware' => 'auth'], function(){
                 }
             }
             $p90li = $li[$p90pos];
-            if ($p90pos == 0 ) {
-                $p90Fi = $Fi[$p90pos];
-            } else {
+            // if ($p90pos == 0 ) {
+            //     $p90Fi = $Fi[$p90pos];
+            // } else {
                 $p90Fi = $Fi[$p90pos-1];
-            }
+            // }
             $p90fi = $fi[$p90pos];
             $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
 

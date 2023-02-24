@@ -4593,7 +4593,7 @@ Route::group(['middleware' => 'auth'], function(){
             }
         }
 
-        dd($arreglo);
+        // dd($arreglo);
         // dd($arreglo, $mediciones, $pozos, $fields, $subparameterId);
         
         //////////////////////////////////////////////////////////
@@ -4621,7 +4621,7 @@ Route::group(['middleware' => 'auth'], function(){
             for ($i=0; $i < $k-1; $i++) { 
                 array_push($ls, $ls[count($ls)-1]+$a );
             }
-            dd($li, $ls);
+            
             $pm = [];
             for ($i=0; $i < $k; $i++) { 
                 array_push($pm, ($li[$i]+$ls[$i])/2);
@@ -4653,7 +4653,7 @@ Route::group(['middleware' => 'auth'], function(){
             for ($i=1; $i < $k; $i++) { 
                 array_push($Fi, $Fi[$i-1]+$fi[$i]);
             }
-
+            dd($fi, $Fi);
             $p10aux = 10*count($arreglo)/100;
             for ($i=0; $i < $k; $i++) { 
                 if ($Fi[$i] > $p10aux) {

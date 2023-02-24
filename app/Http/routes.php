@@ -4686,6 +4686,13 @@ Route::group(['middleware' => 'auth'], function(){
             $p90fi = $fi[$p90pos];
             $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
 
+            if ($p10 < $min) {
+                $p10 = $min; 
+            }
+            if ($p90 > $max) {
+                $p90 = $max;
+            }
+
             return Response::json([$p10, $p90]);
         }
     });

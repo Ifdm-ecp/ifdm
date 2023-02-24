@@ -4593,7 +4593,7 @@ Route::group(['middleware' => 'auth'], function(){
             }
         }
 
-        dd($arreglo);
+        // dd($arreglo);
         // dd($arreglo, $mediciones, $pozos, $fields, $subparameterId);
         
         //////////////////////////////////////////////////////////
@@ -4609,7 +4609,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             $a = $range/100;
             $k = 100;
-
+            dd($min, $max, $range, $a, $k);
             $li = [];
             array_push($li, $min);
             for ($i=0; $i < $k-1; $i++) { 

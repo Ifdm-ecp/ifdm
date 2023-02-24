@@ -4653,7 +4653,7 @@ Route::group(['middleware' => 'auth'], function(){
             for ($i=1; $i < $k; $i++) { 
                 array_push($Fi, $Fi[$i-1]+$fi[$i]);
             }
-            
+            dd($fi, $Fi);
             $p10aux = 10*count($arreglo)/100;
             for ($i=0; $i < $k; $i++) { 
                 if ($Fi[$i] > $p10aux) {

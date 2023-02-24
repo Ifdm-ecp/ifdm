@@ -4638,7 +4638,7 @@ Route::group(['middleware' => 'auth'], function(){
                 }
                 if($i < $k-1) {
                     for ($j=0; $j < count($arreglo); $j++) { 
-                        if ($arreglo[$j] > $ls[$i]) {
+                        if ($arreglo[$j] >= $ls[$i]) {
                             array_push($aux2, $arreglo[$j]);
                         }
                     }

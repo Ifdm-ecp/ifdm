@@ -4609,7 +4609,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             $a = $range/100;
             $k = 100;
-            dd($min, $max, $range, $a, $k);
+
             $li = [];
             array_push($li, $min);
             for ($i=0; $i < $k-1; $i++) { 
@@ -4621,7 +4621,7 @@ Route::group(['middleware' => 'auth'], function(){
             for ($i=0; $i < $k-1; $i++) { 
                 array_push($ls, $ls[count($ls)-1]+$a );
             }
-
+            dd($li, $ls);
             $pm = [];
             for ($i=0; $i < $k; $i++) { 
                 array_push($pm, ($li[$i]+$ls[$i])/2);

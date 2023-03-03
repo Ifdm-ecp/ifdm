@@ -612,6 +612,7 @@ class StatisticalController extends Controller
                     for ($i=0; $i < $numberOfParameters; $i++) { 
                         $name = $title.($i+1);
                         if ($checkboxes[$j] == 1) {
+                            dd($values[$j], $p10[$j], $p90[$j], $statistical->subparameters->{$weights[$j]});
                                 $sum = $sum + $this->normalizacion($values[$j], $p10[$j], $p90[$j], $statistical->subparameters->{$weights[$j]});
                         }
                         $j++;

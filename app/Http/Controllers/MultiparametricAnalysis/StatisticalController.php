@@ -627,7 +627,7 @@ class StatisticalController extends Controller
             foreach ($titles as $keyTitles => $title) {
                 if ($sums[$keyTitles] !== null) {
                     if ($totalStatistical == 0) {
-                        // dd($sums);
+                        // dd($sums);   
                     }
                     $sums[$keyTitles] = $sums[$keyTitles] * 100 / $totalStatistical;
                 }

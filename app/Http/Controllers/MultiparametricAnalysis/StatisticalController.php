@@ -635,10 +635,10 @@ class StatisticalController extends Controller
                     
                 }
             }
-            dd($sums, $results);
+            
             array_push($results, $sums);
         }
-
+        dd($results);
         return $results;
 
         // // for ($i=1; $i <= count($elements) ; $i++) { 

@@ -477,7 +477,6 @@ class StatisticalController extends Controller
                 $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
             }
             
-            dd($request);
             $weights->ms_scale_index_caco3 = $request->weight_MS1;
             $weights->ms_scale_index_baso4 = $request->weight_MS2;
             $weights->ms_scale_index_iron_scales = $request->weight_MS3;
@@ -615,7 +614,7 @@ class StatisticalController extends Controller
                         if ($checkboxes[$j] == 1) {
                             // dd($values[$j], $p10[$j], $p90[$j], $statistical->subparameters->{$weights[$j]});
                                 $sum = $sum + $this->normalizacion($values[$j], $p10[$j], $p90[$j], $statistical->subparameters->{$weights[$j]});
-                                dd($statistical->subparameters);
+                                // dd($statistical->subparameters);
                         }
                         $j++;
                     }  
@@ -629,19 +628,15 @@ class StatisticalController extends Controller
             
             foreach ($titles as $keyTitles => $title) {
                 if ($sums[$keyTitles] !== null) {
-                    if ($totalStatistical == 0) {
-                        $sums[$keyTitles] = $sums[$keyTitles] * 100 / 0.0001;
-                        // dd($sums, $sums[$keyTitles], $keyTitles, $formations, $statistical);   
-                    }else{
-                        $sums[$keyTitles] = $sums[$keyTitles] * 100 / $totalStatistical;
-                    }
-                    
+                    // dd($sums, $sums[$keyTitles], $keyTitles, $formations, $statistical);   
+                
+                    $sums[$keyTitles] = $sums[$keyTitles] * 100 / $totalStatistical;
                 }
             }
             
             array_push($results, $sums);
         }
-        dd($results);
+        // dd($results);
         return $results;
 
         // // for ($i=1; $i <= count($elements) ; $i++) { 

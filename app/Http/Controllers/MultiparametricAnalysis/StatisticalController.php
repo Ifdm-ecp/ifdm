@@ -604,6 +604,7 @@ class StatisticalController extends Controller
             
             $j = 0;
             foreach ($titles as $keyTitles => $title) {
+                dd($titles);
                 if ($generalCheckboxes[$keyTitles] === 1) {
                     $numberOfParameters = $title[1];
                     $title = $title[0];

@@ -604,7 +604,7 @@ class StatisticalController extends Controller
             
             $j = 0;
             foreach ($titles as $keyTitles => $title) {
-                dd($titles);
+                // dd($titles);
                 if ($generalCheckboxes[$keyTitles] === 1) {
                     $numberOfParameters = $title[1];
                     $title = $title[0];
@@ -627,7 +627,7 @@ class StatisticalController extends Controller
             foreach ($titles as $keyTitles => $title) {
                 if ($sums[$keyTitles] !== null) {
                     if ($totalStatistical == 0) {
-                        dd($sums);
+                        // dd($sums);
                     }
                     $sums[$keyTitles] = $sums[$keyTitles] * 100 / $totalStatistical;
                 }

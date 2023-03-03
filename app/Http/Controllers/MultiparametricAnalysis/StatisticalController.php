@@ -477,7 +477,7 @@ class StatisticalController extends Controller
                 $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
             }
             
-            dd($weights, "chapulin");
+            dd($request->weight_MS1, $request->weight_MS2);
             $weights->ms_scale_index_caco3 = $request->weight_MS1;
             $weights->ms_scale_index_baso4 = $request->weight_MS2;
             $weights->ms_scale_index_iron_scales = $request->weight_MS3;

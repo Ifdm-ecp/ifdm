@@ -49,7 +49,6 @@
 
         fillInputFields();
 
-
         if( $("#statistical").prop('checked') == true ) {
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});
@@ -81,9 +80,10 @@
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});
 
 
-
-            if ($("#checkbox_general_MS").prop('checked') === true) {
-                if ($("#MS1_checkbox").prop('checked') === true && $('#weight_MS1').val() === '') {
+            console.log('mamamamama');
+            if ($("#checkbox_general_MS").prop('checked') == true) {
+                if ($("#MS1_checkbox").prop('checked') == true && $('#weight_MS1').val() == '') {
+                    console.log('323232');
                     $('#weight_MS1').val(0.20);
                 }
                 if ($("#MS2_checkbox").prop('checked') === true && $('#weight_MS2').val() === '') {
@@ -180,7 +180,7 @@
                 // var myarray = encodeURIComponent(myArray);
             
                 var myArray = encodeURIComponent(JSON.stringify($('#field').val()));
-                console.log(myArray, 'hehe', $('#field').val());
+                // console.log(myArray, 'hehe', $('#field').val());
 
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);});
@@ -280,7 +280,7 @@
         });
         for (let index = 0; index < <?php echo json_encode($pesos); ?>.length; index++) {
             $("#weight_"+indexes[index]).val(<?php echo json_encode($pesos); ?>[index]);
-            console.log("#p10_"+indexes[index], <?php echo json_encode($statistical); ?>['p10_'+indexes[index].toLowerCase()]);
+            // console.log("#p10_"+indexes[index], <?php echo json_encode($statistical); ?>['p10_'+indexes[index].toLowerCase()]);
             $("#p10_"+indexes[index]).val(<?php echo json_encode($statistical); ?>['p10_'+indexes[index].toLowerCase()]);
             $("#p90_"+indexes[index]).val(<?php echo json_encode($statistical); ?>['p90_'+indexes[index].toLowerCase()]);
         }

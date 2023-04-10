@@ -4593,7 +4593,7 @@ Route::group(['middleware' => 'auth'], function(){
             }
         }
 
-        //dd($arreglo);
+        // dd($arreglo);
         // dd($arreglo, $mediciones, $pozos, $fields, $subparameterId);
         
         //////////////////////////////////////////////////////////

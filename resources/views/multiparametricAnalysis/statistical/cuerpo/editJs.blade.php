@@ -49,94 +49,92 @@
 
         fillInputFields();
 
-        console.log('mamamamama');
-            if ($("#checkbox_general_MS").prop('checked') == true) {
-                if ($("#MS1_checkbox").prop('checked') == true && $('#weight_MS1').val() == '') {
-                    console.log('323232');
-                    $('#weight_MS1').val(0.20);
-                }
-                if ($("#MS2_checkbox").prop('checked') === true && $('#weight_MS2').val() === '') {
-                    $('#weight_MS2').val(0.20);
-                }
-                if ($("#MS3_checkbox").prop('checked') === true && $('#weight_MS3').val() === '') {
-                    $('#weight_MS3').val(0.20);
-                }
-                if ($("#MS4_checkbox").prop('checked') === true && $('#weight_MS4').val() === '') {
-                    $('#weight_MS4').val(0.20);
-                }
-                if ($("#MS5_checkbox").prop('checked') === true && $('#weight_MS5').val() === '') {
-                    $('#weight_MS5').val(0.20);
-                }
-                if ($("#FB1_checkbox").prop('checked') === true && $('#weight_FB1').val() === '') {
-                    $('#weight_FB1').val(0.20);
-                }
-                if ($("#FB2_checkbox").prop('checked') === true && $('#weight_FB2').val() === '') {
-                    $('#weight_FB2').val(0.20);
-                }
-                if ($("#FB3_checkbox").prop('checked') === true && $('#weight_FB3').val() === '') {
-                    $('#weight_FB3').val(0.20);
-                }
-                if ($("#FB4_checkbox").prop('checked') === true && $('#weight_FB4').val() === '') {
-                    $('#weight_FB4').val(0.20);
-                }
-                if ($("#FB5_checkbox").prop('checked') === true && $('#weight_FB5').val() === '') {
-                    $('#weight_FB5').val(0.20);
-                }
-                if ($("#OS1_checkbox").prop('checked') === true && $('#weight_OS1').val() === '') {
-                    $('#weight_OS1').val(0.20);
-                }
-                if ($("#OS2_checkbox").prop('checked') === true && $('#weight_OS2').val() === '') {
-                    $('#weight_OS2').val(0.20);
-                }
-                if ($("#OS3_checkbox").prop('checked') === true && $('#weight_OS3').val() === '') {
-                    $('#weight_OS3').val(0.20);
-                }
-                if ($("#OS4_checkbox").prop('checked') === true && $('#weight_OS4').val() === '') {
-                    $('#weight_OS4').val(0.20);
-                }
-                if ($("#OS5_checkbox").prop('checked') === true && $('#weight_OS5').val() === '') {
-                    $('#weight_OS5').val(0.20);
-                }
-                if ($("#RP1_checkbox").prop('checked') === true && $('#weight_RP1').val() === '') {
-                    $('#weight_RP1').val(0.20);
-                }
-                if ($("#RP2_checkbox").prop('checked') === true && $('#weight_RP2').val() === '') {
-                    $('#weight_RP2').val(0.20);
-                }
-                if ($("#RP3_checkbox").prop('checked') === true && $('#weight_RP3').val() === '') {
-                    $('#weight_RP3').val(0.20);
-                }
-                if ($("#RP4_checkbox").prop('checked') === true && $('#weight_RP4').val() === '') {
-                    $('#weight_RP4').val(0.20);
-                }
-                if ($("#RP5_checkbox").prop('checked') === true && $('#weight_RP5').val() === '') {
-                    $('#weight_RP5').val(0.20);
-                }
-                if ($("#ID1_checkbox").prop('checked') === true && $('#weight_ID1').val() === '') {
-                    $('#weight_ID1').val(0.25);
-                }
-                if ($("#ID2_checkbox").prop('checked') === true && $('#weight_ID2').val() === '') {
-                    $('#weight_ID2').val(0.25);
-                }
-                if ($("#ID3_checkbox").prop('checked') === true && $('#weight_ID3').val() === '') {
-                    $('#weight_ID3').val(0.25);
-                }
-                if ($("#ID4_checkbox").prop('checked') === true && $('#weight_ID4').val() === '') {
-                    $('#weight_ID4').val(0.25);
-                }
-                if ($("#GD1_checkbox").prop('checked') === true && $('#weight_GD1').val() === '') {
-                    $('#weight_GD1').val(0.25);
-                }
-                if ($("#GD2_checkbox").prop('checked') === true && $('#weight_GD2').val() === '') {
-                    $('#weight_GD2').val(0.25);
-                }
-                if ($("#GD3_checkbox").prop('checked') === true && $('#weight_GD3').val() === '') {
-                    $('#weight_GD3').val(0.25);
-                }
-                if ($("#GD4_checkbox").prop('checked') === true && $('#weight_GD4').val() === '') {
-                    $('#weight_GD4').val(0.25);
-                }
+        if ($("#checkbox_general_MS").prop('checked') == true) {
+            if ($("#MS1_checkbox").prop('checked') == true && $('#weight_MS1').val() == '') {
+                $('#weight_MS1').val(0.20);
             }
+            if ($("#MS2_checkbox").prop('checked') === true && $('#weight_MS2').val() === '') {
+                $('#weight_MS2').val(0.20);
+            }
+            if ($("#MS3_checkbox").prop('checked') === true && $('#weight_MS3').val() === '') {
+                $('#weight_MS3').val(0.20);
+            }
+            if ($("#MS4_checkbox").prop('checked') === true && $('#weight_MS4').val() === '') {
+                $('#weight_MS4').val(0.20);
+            }
+            if ($("#MS5_checkbox").prop('checked') === true && $('#weight_MS5').val() === '') {
+                $('#weight_MS5').val(0.20);
+            }
+            if ($("#FB1_checkbox").prop('checked') === true && $('#weight_FB1').val() === '') {
+                $('#weight_FB1').val(0.20);
+            }
+            if ($("#FB2_checkbox").prop('checked') === true && $('#weight_FB2').val() === '') {
+                $('#weight_FB2').val(0.20);
+            }
+            if ($("#FB3_checkbox").prop('checked') === true && $('#weight_FB3').val() === '') {
+                $('#weight_FB3').val(0.20);
+            }
+            if ($("#FB4_checkbox").prop('checked') === true && $('#weight_FB4').val() === '') {
+                $('#weight_FB4').val(0.20);
+            }
+            if ($("#FB5_checkbox").prop('checked') === true && $('#weight_FB5').val() === '') {
+                $('#weight_FB5').val(0.20);
+            }
+            if ($("#OS1_checkbox").prop('checked') === true && $('#weight_OS1').val() === '') {
+                $('#weight_OS1').val(0.20);
+            }
+            if ($("#OS2_checkbox").prop('checked') === true && $('#weight_OS2').val() === '') {
+                $('#weight_OS2').val(0.20);
+            }
+            if ($("#OS3_checkbox").prop('checked') === true && $('#weight_OS3').val() === '') {
+                $('#weight_OS3').val(0.20);
+            }
+            if ($("#OS4_checkbox").prop('checked') === true && $('#weight_OS4').val() === '') {
+                $('#weight_OS4').val(0.20);
+            }
+            if ($("#OS5_checkbox").prop('checked') === true && $('#weight_OS5').val() === '') {
+                $('#weight_OS5').val(0.20);
+            }
+            if ($("#RP1_checkbox").prop('checked') === true && $('#weight_RP1').val() === '') {
+                $('#weight_RP1').val(0.20);
+            }
+            if ($("#RP2_checkbox").prop('checked') === true && $('#weight_RP2').val() === '') {
+                $('#weight_RP2').val(0.20);
+            }
+            if ($("#RP3_checkbox").prop('checked') === true && $('#weight_RP3').val() === '') {
+                $('#weight_RP3').val(0.20);
+            }
+            if ($("#RP4_checkbox").prop('checked') === true && $('#weight_RP4').val() === '') {
+                $('#weight_RP4').val(0.20);
+            }
+            if ($("#RP5_checkbox").prop('checked') === true && $('#weight_RP5').val() === '') {
+                $('#weight_RP5').val(0.20);
+            }
+            if ($("#ID1_checkbox").prop('checked') === true && $('#weight_ID1').val() === '') {
+                $('#weight_ID1').val(0.25);
+            }
+            if ($("#ID2_checkbox").prop('checked') === true && $('#weight_ID2').val() === '') {
+                $('#weight_ID2').val(0.25);
+            }
+            if ($("#ID3_checkbox").prop('checked') === true && $('#weight_ID3').val() === '') {
+                $('#weight_ID3').val(0.25);
+            }
+            if ($("#ID4_checkbox").prop('checked') === true && $('#weight_ID4').val() === '') {
+                $('#weight_ID4').val(0.25);
+            }
+            if ($("#GD1_checkbox").prop('checked') === true && $('#weight_GD1').val() === '') {
+                $('#weight_GD1').val(0.25);
+            }
+            if ($("#GD2_checkbox").prop('checked') === true && $('#weight_GD2').val() === '') {
+                $('#weight_GD2').val(0.25);
+            }
+            if ($("#GD3_checkbox").prop('checked') === true && $('#weight_GD3').val() === '') {
+                $('#weight_GD3').val(0.25);
+            }
+            if ($("#GD4_checkbox").prop('checked') === true && $('#weight_GD4').val() === '') {
+                $('#weight_GD4').val(0.25);
+            }
+        }
 
         if( $("#statistical").prop('checked') == true ) {
             $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);});

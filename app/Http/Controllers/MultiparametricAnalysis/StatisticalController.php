@@ -144,7 +144,7 @@ class StatisticalController extends Controller
                 array_push($tableData, $tableRow);
             }
             // dd($statistical, $datos, $tableHeader, $tableData);
-            
+
             return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));
         } else {
 
@@ -597,7 +597,7 @@ class StatisticalController extends Controller
                     array_push($values, floatval(explode(',', $statistical->{$name})[$keyFormations]));
                 }  
             }
-
+            dd($formations, $values);
             // EMPEZAMOS CON LOS CÁLCULOS
             $sums = []; 
             $msp = $fbp = $osp = $rpp = $idp = $gdp = [];

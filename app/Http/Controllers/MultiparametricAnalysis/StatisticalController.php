@@ -86,7 +86,6 @@ class StatisticalController extends Controller
      */
     public function show($id)
     {
-        dd('adadS');
         $statistical = Statistical::find($id);
         if ($statistical == null) {
             $statistical = Statistical::where('escenario_id', $id)->first();
@@ -144,7 +143,7 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
-    
+            dd($statistical, $datos, $tableHeader, $tableData);
             return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));
         } else {
 

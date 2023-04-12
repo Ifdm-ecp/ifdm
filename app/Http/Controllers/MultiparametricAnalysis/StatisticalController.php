@@ -143,7 +143,8 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
-            dd($statistical, $datos, $tableHeader, $tableData);
+            // dd($statistical, $datos, $tableHeader, $tableData);
+            
             return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));
         } else {
 

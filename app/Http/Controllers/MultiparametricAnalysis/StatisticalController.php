@@ -831,12 +831,12 @@ class StatisticalController extends Controller
     public function normalizacion($valor, $p10, $p90, $peso)
     {
         if ( abs($p10 - $p90) !== 0) {
-            if ($valor > abs( 2 * $p90 )) {
+            if ($valor > (abs( $p90 ) + $p90)) {
                 $sum = $peso * ( 2 * $p90 - $p10 ) / ( $p90 - $p10);
             } else {
                 if ($valor < $p10) {
                     // $sum = $peso * ( 0.0001 ) / ( 0.0001 );
-                    $sum = $peso * ( $p10 - $p10 ) / ( $p90 - $p10 );
+                    $sum = 0;
                 } else {
                     // $sum = $peso * ( $valor - $p10 ) / ( 0.0001 );
                     $sum = $peso * ( $valor - $p10 ) / ( $p90 - $p10 );

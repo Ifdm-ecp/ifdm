@@ -47,7 +47,7 @@
         //Fill Weights
         multiparametricWeights();
 
-        fillInputFields();
+        fillInputFields(); 
 
         if ($("#checkbox_general_MS").prop('checked') == true) {
             if ($("#MS1_checkbox").prop('checked') == true && $('#weight_MS1').val() == '') {

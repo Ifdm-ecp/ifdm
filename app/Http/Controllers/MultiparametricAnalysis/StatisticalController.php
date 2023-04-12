@@ -86,7 +86,7 @@ class StatisticalController extends Controller
      */
     public function show($id)
     {
-        
+        dd('adadS');
         $statistical = Statistical::find($id);
         if ($statistical == null) {
             $statistical = Statistical::where('escenario_id', $id)->first();

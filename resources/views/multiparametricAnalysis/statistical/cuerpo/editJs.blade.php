@@ -137,6 +137,7 @@
         }
 
         console.log('yryr');
+        console.log($('#p10_MS1').val());
 
         if( $("#statistical").prop('checked') == true ) {
             console.log($('#p10_MS1').val(), 'adasdfasdfasdfasddafsdfasd');

@@ -54,8 +54,9 @@
         if( $('#checkbox_general_MS').val() == 'on' ) {
             if ( $("#MS1_checkbox").prop('checked') == true ) {
                 Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-                    console.log($('#date_MS1'+key).val());
-                    if( $('#date_MS1'+key).val() === '') { $('#date_MS1'+key).val(d.getDate + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    console.log($('#date_MS1'+formation).val());
+                    if( $('#date_MS1'+formation).val() === '') { $('#date_MS1'+formation).val(d.getDate + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
                 });
             }
             

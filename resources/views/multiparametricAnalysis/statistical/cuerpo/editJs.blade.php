@@ -49,6 +49,17 @@
 
         fillInputFields(); 
 
+        var d = new Date();
+        var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+        if( $('#checkbox_general_MS').val() == 'on' ) {
+            if ( $("#MS1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    if( $('#date_MS1'+key).val() === '') { $('#date_MS1'+key).val(d.getDate + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            
+        }
+
         if ($("#checkbox_general_MS").prop('checked') == true) {
             if ($("#MS1_checkbox").prop('checked') == true && $('#weight_MS1').val() == '') {
                 $('#weight_MS1').val(0.20);

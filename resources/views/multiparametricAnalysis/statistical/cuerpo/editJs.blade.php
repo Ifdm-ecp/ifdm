@@ -55,11 +55,181 @@
             if ( $("#MS1_checkbox").prop('checked') == true ) {
                 Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
                     formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
-                    console.log($('#date_MS1'+formation).val());
                     if( $('#date_MS1'+formation).val() === '') { $('#date_MS1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
                 });
             }
-            
+            if ( $("#MS2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_MS2'+formation).val() === '') { $('#date_MS2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#MS3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_MS3'+formation).val() === '') { $('#date_MS3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#MS4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_MS4'+formation).val() === '') { $('#date_MS4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#MS5_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_MS5'+formation).val() === '') { $('#date_MS5'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+        }
+        if( $('#checkbox_general_FB').val() == 'on' ) {
+            if ( $("#FB1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_FB1'+formation).val() === '') { $('#date_FB1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#FB2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_FB2'+formation).val() === '') { $('#date_FB2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#FB3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_FB3'+formation).val() === '') { $('#date_FB3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#FB4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_FB4'+formation).val() === '') { $('#date_FB4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#FB5_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_FB5'+formation).val() === '') { $('#date_FB5'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+        }
+        if( $('#checkbox_general_OS').val() == 'on' ) {
+            if ( $("#OS1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_OS1'+formation).val() === '') { $('#date_OS1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#OS2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_OS2'+formation).val() === '') { $('#date_OS2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#OS3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_OS3'+formation).val() === '') { $('#date_OS3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#OS4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_OS4'+formation).val() === '') { $('#date_OS4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#OS5_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_OS5'+formation).val() === '') { $('#date_OS5'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+        }
+        if( $('#checkbox_general_RP').val() == 'on' ) {
+            if ( $("#RP1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_RP1'+formation).val() === '') { $('#date_RP1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#RP2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_RP2'+formation).val() === '') { $('#date_RP2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#RP3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_RP3'+formation).val() === '') { $('#date_RP3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#RP4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_RP4'+formation).val() === '') { $('#date_RP4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#RP5_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_RP5'+formation).val() === '') { $('#date_RP5'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+        }
+        if( $('#checkbox_general_ID').val() == 'on' ) {
+            if ( $("#ID1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_ID1'+formation).val() === '') { $('#date_ID1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#ID2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_ID2'+formation).val() === '') { $('#date_ID2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#ID3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_ID3'+formation).val() === '') { $('#date_ID3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#ID4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_ID4'+formation).val() === '') { $('#date_ID4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+        }
+        if( $('#checkbox_general_GD').val() == 'on' ) {
+            if ( $("#GD1_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_GD1'+formation).val() === '') { $('#date_GD1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#GD2_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_GD2'+formation).val() === '') { $('#date_GD2'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#GD3_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_GD3'+formation).val() === '') { $('#date_GD3'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
+            if ( $("#GD4_checkbox").prop('checked') == true ) {
+                Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                    formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                    if( $('#date_GD4'+formation).val() === '') { $('#date_GD4'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                });
+            }
         }
 
         if ($("#checkbox_general_MS").prop('checked') == true) {

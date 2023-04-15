@@ -138,6 +138,7 @@
 
         console.log('yryr');
         console.log($('#p10_MS1').val() == 0.6);
+        console.log($("#statistical").prop('checked') == true,'lel');
 
         if( $("#statistical").prop('checked') == true ) {
             console.log($('#p10_MS1').val(), 'adasdfasdfasdfasddafsdfasd');

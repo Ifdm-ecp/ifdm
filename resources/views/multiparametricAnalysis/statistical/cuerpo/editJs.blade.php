@@ -135,7 +135,7 @@
                 $('#weight_GD4').val(0.25);
             }
         }
-
+        setTimeout(function (){
         console.log('yryr');
         console.log($('#p10_MS1').val() == 0.6);
         console.log($("#statistical").prop('checked') == true,'lel');
@@ -171,7 +171,7 @@
             if ($('#p10_GD3').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD3'}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);}); }
             if ($('#p10_GD4').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);}); }
         } else {
-            setTimeout(function (){
+            
                 // var arreglo = $('#field').val();
                 // var arregloc = [];
                 // for (let index = 0; index < arreglo.length; index++) {
@@ -212,9 +212,9 @@
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD2').val(data[0]); $('#p90_GD2').val(data[1]);});
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD3').val(data[0]); $('#p90_GD3').val(data[1]);});
                 $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_GD4').val(data[0]); $('#p90_GD4').val(data[1]);});      
-            }, 1500);
+            }
             
-        }
+        }, 1500);
             
         // }
         // if( $("#statistical").prop('checked') == false ) {

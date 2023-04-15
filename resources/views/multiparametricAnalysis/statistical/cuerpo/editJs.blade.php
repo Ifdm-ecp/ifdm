@@ -136,8 +136,10 @@
             }
         }
 
+        console.log('yryr');
+
         if( $("#statistical").prop('checked') == true ) {
-            console.log($('#p10_MS1').val());
+            console.log($('#p10_MS1').val(), 'adasdfasdfasdfasddafsdfasd');
             if ($('#p10_MS1').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]); $('#p90_MS1').val(data[1]);}); }
             if ($('#p10_MS2').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {$('#p10_MS2').val(data[0]); $('#p90_MS2').val(data[1]);}); }
             if ($('#p10_MS3').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS3'}, function(data) {$('#p10_MS3').val(data[0]); $('#p90_MS3').val(data[1]);}); }

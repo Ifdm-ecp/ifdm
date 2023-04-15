@@ -56,7 +56,7 @@
                 Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
                     formation = <?php echo json_encode($formationsWithoutSpaces); ?>[key];
                     console.log($('#date_MS1'+formation).val());
-                    if( $('#date_MS1'+formation).val() === '') { $('#date_MS1'+formation).val(d.getDate + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
+                    if( $('#date_MS1'+formation).val() === '') { $('#date_MS1'+formation).val(d.getDate() + '/' + (d.getMonth()+1) + "/" + d.getFullYear()); }
                 });
             }
             

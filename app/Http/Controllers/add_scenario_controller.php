@@ -56,7 +56,7 @@ class add_scenario_controller extends Controller
                 $proyectos = proyecto::where('proyectos.usuario_id','=',\Auth::User()->id)->orderBy('nombre')->get();
 
             }
-            
+
             return View::make('add_scenario', compact(['cuenca', 'proyectos']));
 
         } else {
@@ -85,7 +85,6 @@ class add_scenario_controller extends Controller
     // public function store(Request $request)
     public function store(ScenaryCreateRequest $request)
     {
-        dd('store');
         if (\Auth::check()) {
             /* Validaciones para formulario */
             $nombre_escenario = $request->scenary;
@@ -367,7 +366,6 @@ class add_scenario_controller extends Controller
     */
     public function update(ScenaryCreateRequest $request, $id)
     {
-        dd('update');
         if (\Auth::check()) {
             /* Guardar datos generales de escenario */
             $scenary = escenario::find($id);

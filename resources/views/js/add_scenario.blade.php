@@ -298,7 +298,6 @@ $(document).ready(function() {
         $.get("{{url('campos')}}", {
             cuenca: cuenca
         }, function(data) {
-            console.log('asdas');
             $("#field").empty();
             $("#well").empty();
             $("#formation").empty();
@@ -482,7 +481,7 @@ $(document).ready(function() {
         function(data) {
             $("#formation").empty();
             $("#formation_ipr").empty();
-            console.log(data);
+            console.log(data, 'mio');
             $.each(data, function(index, value) {
                 $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');

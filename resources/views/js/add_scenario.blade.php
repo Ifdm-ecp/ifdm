@@ -481,11 +481,15 @@ $(document).ready(function() {
         function(data) {
             $("#formation").empty();
             $("#formation_ipr").empty();
-            console.log(data, 'mio');
-            $.each(data, function(index, value) {
-                $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-            });
+            if (data.length === 0) {
+                $("#formation").append('<option value="4657">B2</option>');
+                $("#formation_ipr").append('<option value="4657">B2</option>');
+            } else {
+                $.each(data, function(index, value) {
+                    $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                    $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                });
+            }
             $("#formation").selectpicker('refresh');
             $('#formation').selectpicker('val', '');
 

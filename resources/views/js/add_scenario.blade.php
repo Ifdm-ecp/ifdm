@@ -482,6 +482,7 @@ $(document).ready(function() {
         function(data) {
             $("#formation").empty();
             $("#formation_ipr").empty();
+            console.log(data);
             $.each(data, function(index, value) {
                 $("#formation").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 $("#formation_ipr").append('<option value="' + value.id + '">' + value.nombre + '</option>');

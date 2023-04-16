@@ -56,7 +56,7 @@ class add_scenario_controller extends Controller
                 $proyectos = proyecto::where('proyectos.usuario_id','=',\Auth::User()->id)->orderBy('nombre')->get();
 
             }
-            dd($cuenca, $proyectos);
+            
             return View::make('add_scenario', compact(['cuenca', 'proyectos']));
 
         } else {

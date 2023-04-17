@@ -569,17 +569,21 @@
            
             html = html + '</div></div>';
         });
-        html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + title + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + title + '" name="p10_' + title + '" class="form-control validate"></div></div>';
+        html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + title + '">p10</label> <label class="red">*</label><div class="input-group ';
+        @if ($errors->has('value_MS1LA_PAZ_CG')) 
+            html = html + 'has-error';
+        @endif
+        html = html + '"><input type="text" id="p10_' + title + '" name="p10_' + title + '" class="form-control validate"></div></div></div>';
         html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + title + '">p90</label> <label class="red">*</label><div class="input-group ';
         @if ($errors->has('value_MS1LA_PAZ_CG')) 
             html = html + 'has-error';
         @endif
-        html = html + '"><input type="text" id="p90_' + title + '" name="p90_' + title + '" class="form-control validate"></div></div>';
+        html = html + '"><input type="text" id="p90_' + title + '" name="p90_' + title + '" class="form-control validate"></div></div></div>';
         html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + title + '">Weight</label> <label class="red">*</label><div class="input-group ';
         @if ($errors->has('value_MS1LA_PAZ_CG')) 
             html = html + 'has-error';
         @endif
-        html = html + '"><input type="text" id="weight_' + title + '" name="weight_' + title + '" class="form-control weight_ms_count"></div></div></div>';  
+        html = html + '"><input type="text" id="weight_' + title + '" name="weight_' + title + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
         html = html + '</div></div>';
         $("#"+destination_div).append(html);

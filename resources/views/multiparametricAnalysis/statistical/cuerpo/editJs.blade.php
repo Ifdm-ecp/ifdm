@@ -574,7 +574,6 @@
             
                 html = html + '</div></div>';
                 <?php $i = $i + 1 ?>
-                @php ( $i = $i + 1; )
                 <?php $j = $j + 1; ?>
                 console.log('<?php echo $i ?>');
             });

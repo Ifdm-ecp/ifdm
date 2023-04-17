@@ -574,21 +574,21 @@
                 html = html + '</div></div>';
                 <?php $j = $j + 1; ?>
             });
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo $title1 ?> + '">p10</label> <label class="red">*</label><div class="input-group ';
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p10_' + <?php echo $title1 ?> + '" name="p10_' + <?php echo $title1 ?> + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo $title1 ?> + '">p90</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p10_' + '<?php echo $title1 ?>' + '" name="p10_' + '<?php echo $title1 ?>' + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + '<?php echo $title1 ?>' + '">p90</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p90_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p90_' + <?php echo $title1 ?> + '" name="p90_' + <?php echo $title1 ?> + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo $title1 ?> + '">Weight</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p90_' + '<?php echo $title1 ?>' + '" name="p90_' + '<?php echo $title1 ?>' + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + '<?php echo $title1 ?>' + '">Weight</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('weight_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="weight_' + <?php echo $title1 ?> + '" name="weight_' + <?php echo $title1 ?> + '" class="form-control weight_ms_count"></div></div></div></div>';  
+            html = html + '"><input type="text" id="weight_' + '<?php echo $title1 ?>' + '" name="weight_' + '<?php echo $title1 ?>' + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
             $("#"+<?php echo $titles2[$k]; ?>).append(html);

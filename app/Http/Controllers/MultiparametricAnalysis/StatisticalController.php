@@ -364,7 +364,9 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
 
             //VALIDATE
-
+            $request->validate([
+                'value_MS1LA_PAZ_CG' => ['required']
+            ]);
 
             // Encontrar formaciones y nombres de campos de entrada
             $scenario = escenario::find($request->id_scenary);

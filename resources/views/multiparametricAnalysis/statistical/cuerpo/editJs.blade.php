@@ -3,43 +3,43 @@
 
         //ms blade
         addInputGroup('MS1', 'ScaleIndexOfCaCO3');
-        addInputGroup('MS2', 'ScaleIndexOfBaSO4');
-        addInputGroup('MS3', 'ScaleIndexOfIronScales');
-        addInputGroup('MS4', 'BackflowCa');
-        addInputGroup('MS5', 'BackflowBa');
+        // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
+        // addInputGroup('MS3', 'ScaleIndexOfIronScales');
+        // addInputGroup('MS4', 'BackflowCa');
+        // addInputGroup('MS5', 'BackflowBa');
 
-        //fb blade
-        addInputGroup('FB1', 'AlonProducedWater');
-        addInputGroup('FB2', 'Sionproducedwater');
-        addInputGroup('FB3', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc');
-        addInputGroup('FB4', 'MineralogyFactor');
-        addInputGroup('FB5', 'MassofcrushedproppantinsideHydraulicFractures');
+        // //fb blade
+        // addInputGroup('FB1', 'AlonProducedWater');
+        // addInputGroup('FB2', 'Sionproducedwater');
+        // addInputGroup('FB3', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc');
+        // addInputGroup('FB4', 'MineralogyFactor');
+        // addInputGroup('FB5', 'MassofcrushedproppantinsideHydraulicFractures');
         
-        //os blade
-        addInputGroup('OS1', 'CIIFactorColloidalInstabilityIndex');
-        addInputGroup('OS2', 'VolumeofHClpumpedintotheformation');
-        addInputGroup('OS3', 'CumulativeGasProduced');
-        addInputGroup('OS4', 'NumberOfDaysBelowSaturationPressure');
-        addInputGroup('OS5', 'DeBoerCriteria');
+        // //os blade
+        // addInputGroup('OS1', 'CIIFactorColloidalInstabilityIndex');
+        // addInputGroup('OS2', 'VolumeofHClpumpedintotheformation');
+        // addInputGroup('OS3', 'CumulativeGasProduced');
+        // addInputGroup('OS4', 'NumberOfDaysBelowSaturationPressure');
+        // addInputGroup('OS5', 'DeBoerCriteria');
 
-        //rp blade
-        addInputGroup('RP1', 'NumberOfDaysBelowSaturationPressure2');
-        addInputGroup('RP2', 'Differencebetweencurrentreservoirpressureandsaturationpressure');
-        addInputGroup('RP3', 'CumulativeWaterProduced');
-        addInputGroup('RP4', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation');
-        addInputGroup('RP5', 'Velocityparameterestimatedastheinverseofthecriticalradius');
+        // //rp blade
+        // addInputGroup('RP1', 'NumberOfDaysBelowSaturationPressure2');
+        // addInputGroup('RP2', 'Differencebetweencurrentreservoirpressureandsaturationpressure');
+        // addInputGroup('RP3', 'CumulativeWaterProduced');
+        // addInputGroup('RP4', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation');
+        // addInputGroup('RP5', 'Velocityparameterestimatedastheinverseofthecriticalradius');
         
-        //id blade
-        addInputGroup('ID1', 'GrossPay');
-        addInputGroup('ID2', 'TotalpolymerpumpedduringHydraulicFracturing');
-        addInputGroup('ID3', 'Totalvolumeofwaterbasedfluidspumpedintothewell');
-        addInputGroup('ID4', 'MudLosses');
+        // //id blade
+        // addInputGroup('ID1', 'GrossPay');
+        // addInputGroup('ID2', 'TotalpolymerpumpedduringHydraulicFracturing');
+        // addInputGroup('ID3', 'Totalvolumeofwaterbasedfluidspumpedintothewell');
+        // addInputGroup('ID4', 'MudLosses');
         
-        //gd blade
-        addInputGroup('GD1', 'FractionofNetPayExihibitingNaturalFractures');
-        addInputGroup('GD2', 'reservoirpressureminusBHFP');
-        addInputGroup('GD3', 'RatioofKH');
-        addInputGroup('GD4', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP');
+        // //gd blade
+        // addInputGroup('GD1', 'FractionofNetPayExihibitingNaturalFractures');
+        // addInputGroup('GD2', 'reservoirpressureminusBHFP');
+        // addInputGroup('GD3', 'RatioofKH');
+        // addInputGroup('GD4', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP');
 
         //Calculate p10 and p90
         // multiparametricoStatistical();
@@ -524,15 +524,12 @@
 
     function addInputGroup(title, destination_div) {
         
-        <?php $i = 0; ?>
-        Object.keys(<?php echo json_encode($titles1); ?>).forEach(key => {
-            console.log(key);
-            <?php $i = $i + 1; ?>
-        });
+        Object.keys(<?php echo json_encode($titles1); ?>).forEach(keyGeneral => {
+
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-                name = title + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                name = <?php echo json_encode($titles1); ?>[keyGeneral] + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
 
                 if (flag == 0) {
                     html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
@@ -545,7 +542,7 @@
             html = html + '</ul><div class="tab-content">';
             flag = 0;
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
-                name = title + element;
+                name = <?php echo json_encode($titles1); ?>[keyGeneral] + element;
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                     flag++;
@@ -556,7 +553,7 @@
                 //CONTENT
                 html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-                html = html + organizeSelectOptions(title, element, <?php echo json_encode($mediciones); ?>);   
+                html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[keyGeneral], element, <?php echo json_encode($mediciones); ?>);   
 
 
                 html = html + '</select></div></div></div>';
@@ -574,25 +571,25 @@
             
                 html = html + '</div></div>';
             });
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + title + '">p10</label> <label class="red">*</label><div class="input-group ';
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('value_MS1LA_PAZ_CG')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p10_' + title + '" name="p10_' + title + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + title + '">p90</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p90</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('value_MS1LA_PAZ_CG')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p90_' + title + '" name="p90_' + title + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + title + '">Weight</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">Weight</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('value_MS1LA_PAZ_CG')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="weight_' + title + '" name="weight_' + title + '" class="form-control weight_ms_count"></div></div></div></div>';  
+            html = html + '"><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
             $("#"+destination_div).append(html);
-            
+        });
     }
 
     function fillInputFields() {

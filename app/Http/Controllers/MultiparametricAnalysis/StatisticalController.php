@@ -390,19 +390,16 @@ class StatisticalController extends Controller
             $inputFields = [];
             foreach ($indexes as $key1 => $index) {
                 foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
-                    array_push($inputFields, 'value_'.$index.$formationWithoutSpaces => ['required']);
-                    array_push($inputFields, 'date_'.$index.$formationWithoutSpaces);
+                    $inputFields['value_'.$index.$formationWithoutSpaces] = 'required';
+                    $inputFields['date_'.$index.$formationWithoutSpaces] = 'required';
                 }
-                array_push($inputFields, 'p10_'.$index);
-                array_push($inputFields, 'p90_'.$index);
-                array_push($inputFields, 'weight_'.$index);
+                $inputFields['p10_'.$index] = 'required';
+                $inputFields['p90_'.$index] = 'required';
+                $inputFields['weight_'.$index] = 'required';
             }
 
             //VALIDATE
-            $validator = Validator::make($request->all(), [
-                'value_MS1LA_PAZ_CG' => ['required'],
-                'value_MS2MUGROSA' => ['required'],
-            ]);
+            $validator = Validator::make($request->all(), $inputFields);
             
             if ($validator->fails()) {
                 $scenario = escenario::find($request->id_scenary);

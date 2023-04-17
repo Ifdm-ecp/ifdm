@@ -369,7 +369,8 @@ class StatisticalController extends Controller
 
             //VALIDATE
             $validator = Validator::make($request->all(), [
-                'value_MS1LA_PAZ_CG' => ['required']
+                'value_MS1LA_PAZ_CG' => ['required'],
+                'value_MS2MUGROSA' => ['required'],
             ]);
             
             if ($validator->fails()) {

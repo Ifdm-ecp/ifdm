@@ -589,6 +589,7 @@
 
             html = html + '</div></div>';
             $("#"+destination_div).append(html);
+            console.log(keyGeneral, 'dadad');
         });
     }
 

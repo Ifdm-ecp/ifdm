@@ -573,9 +573,9 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
-                @php( $i++; )
                 <?php $i = $i + 1 ?>
                 <?php $j = $j + 1; ?>
+                console.log('<?php echo $i ?>');
             });
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 

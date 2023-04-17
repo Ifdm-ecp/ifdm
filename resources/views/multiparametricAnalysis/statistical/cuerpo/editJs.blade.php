@@ -561,7 +561,7 @@
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
                 console.log('<?php echo $i ?>');
-                @if ($errors->has('value_'.$titles1[1].$formationsWithoutSpaces[1])) 
+                @if ($errors->has('value_'.$titles1[$i].$formationsWithoutSpaces[$j])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
@@ -573,7 +573,7 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
-                <?php $i = $i + 1 ?>
+                {{ $i++ }}
                 <?php $j = $j + 1; ?>
             });
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';

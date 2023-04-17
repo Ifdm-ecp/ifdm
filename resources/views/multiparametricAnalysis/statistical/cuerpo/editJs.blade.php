@@ -3,43 +3,43 @@
 
         //ms blade
         addInputGroup('MS1', 'ScaleIndexOfCaCO3');
-        addInputGroup('MS2', 'ScaleIndexOfBaSO4');
-        addInputGroup('MS3', 'ScaleIndexOfIronScales');
-        addInputGroup('MS4', 'BackflowCa');
-        addInputGroup('MS5', 'BackflowBa');
+        // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
+        // addInputGroup('MS3', 'ScaleIndexOfIronScales');
+        // addInputGroup('MS4', 'BackflowCa');
+        // addInputGroup('MS5', 'BackflowBa');
 
-        //fb blade
-        addInputGroup('FB1', 'AlonProducedWater');
-        addInputGroup('FB2', 'Sionproducedwater');
-        addInputGroup('FB3', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc');
-        addInputGroup('FB4', 'MineralogyFactor');
-        addInputGroup('FB5', 'MassofcrushedproppantinsideHydraulicFractures');
+        // //fb blade
+        // addInputGroup('FB1', 'AlonProducedWater');
+        // addInputGroup('FB2', 'Sionproducedwater');
+        // addInputGroup('FB3', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc');
+        // addInputGroup('FB4', 'MineralogyFactor');
+        // addInputGroup('FB5', 'MassofcrushedproppantinsideHydraulicFractures');
         
-        //os blade
-        addInputGroup('OS1', 'CIIFactorColloidalInstabilityIndex');
-        addInputGroup('OS2', 'VolumeofHClpumpedintotheformation');
-        addInputGroup('OS3', 'CumulativeGasProduced');
-        addInputGroup('OS4', 'NumberOfDaysBelowSaturationPressure');
-        addInputGroup('OS5', 'DeBoerCriteria');
+        // //os blade
+        // addInputGroup('OS1', 'CIIFactorColloidalInstabilityIndex');
+        // addInputGroup('OS2', 'VolumeofHClpumpedintotheformation');
+        // addInputGroup('OS3', 'CumulativeGasProduced');
+        // addInputGroup('OS4', 'NumberOfDaysBelowSaturationPressure');
+        // addInputGroup('OS5', 'DeBoerCriteria');
 
-        //rp blade
-        addInputGroup('RP1', 'NumberOfDaysBelowSaturationPressure2');
-        addInputGroup('RP2', 'Differencebetweencurrentreservoirpressureandsaturationpressure');
-        addInputGroup('RP3', 'CumulativeWaterProduced');
-        addInputGroup('RP4', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation');
-        addInputGroup('RP5', 'Velocityparameterestimatedastheinverseofthecriticalradius');
+        // //rp blade
+        // addInputGroup('RP1', 'NumberOfDaysBelowSaturationPressure2');
+        // addInputGroup('RP2', 'Differencebetweencurrentreservoirpressureandsaturationpressure');
+        // addInputGroup('RP3', 'CumulativeWaterProduced');
+        // addInputGroup('RP4', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation');
+        // addInputGroup('RP5', 'Velocityparameterestimatedastheinverseofthecriticalradius');
         
-        //id blade
-        addInputGroup('ID1', 'GrossPay');
-        addInputGroup('ID2', 'TotalpolymerpumpedduringHydraulicFracturing');
-        addInputGroup('ID3', 'Totalvolumeofwaterbasedfluidspumpedintothewell');
-        addInputGroup('ID4', 'MudLosses');
+        // //id blade
+        // addInputGroup('ID1', 'GrossPay');
+        // addInputGroup('ID2', 'TotalpolymerpumpedduringHydraulicFracturing');
+        // addInputGroup('ID3', 'Totalvolumeofwaterbasedfluidspumpedintothewell');
+        // addInputGroup('ID4', 'MudLosses');
         
-        //gd blade
-        addInputGroup('GD1', 'FractionofNetPayExihibitingNaturalFractures');
-        addInputGroup('GD2', 'reservoirpressureminusBHFP');
-        addInputGroup('GD3', 'RatioofKH');
-        addInputGroup('GD4', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP');
+        // //gd blade
+        // addInputGroup('GD1', 'FractionofNetPayExihibitingNaturalFractures');
+        // addInputGroup('GD2', 'reservoirpressureminusBHFP');
+        // addInputGroup('GD3', 'RatioofKH');
+        // addInputGroup('GD4', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP');
 
         //Calculate p10 and p90
         // multiparametricoStatistical();

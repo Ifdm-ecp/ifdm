@@ -591,7 +591,7 @@
             html = html + '"><input type="text" id="weight_' + <?php echo $title1 ?> + '" name="weight_' + <?php echo $title1 ?> + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
-            $("#"+<?php echo json_encode($titles2)[$k]; ?>).append(html);
+            $("#"+<?php echo $titles2[$k]; ?>).append(html);
         @endforeach
     }
 

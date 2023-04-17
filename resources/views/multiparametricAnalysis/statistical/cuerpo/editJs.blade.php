@@ -558,7 +558,7 @@
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
                 html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[keyGeneral], element, <?php echo json_encode($mediciones); ?>);   
 
-
+                console.log(<?php echo $errors?>);
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ' + <?php echo property_exists($errors, 'value_'.$name) ?> + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"></div></div></div>';
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div>';

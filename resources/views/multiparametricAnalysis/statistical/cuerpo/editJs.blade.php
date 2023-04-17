@@ -594,6 +594,9 @@
             html = html + '"><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
+            <?php $i = $i + 1 ?>
+                <?php $j = $j + 1; ?>
+                console.log('<?php echo $i ?>');
             $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
         });
     }

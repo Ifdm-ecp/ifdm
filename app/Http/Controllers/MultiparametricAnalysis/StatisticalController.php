@@ -365,78 +365,99 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
 
             //VALIDATE
-            $request->validate([
+            $validator = Validator::make($request->all(), [
                 'value_MS1LA_PAZ_CG' => ['required']
             ]);
 
-            // Encontrar formaciones y nombres de campos de entrada
-            $scenario = escenario::find($request->id_scenary);
-            $statistical = Statistical::find($id);
-            $escenario_id = $statistical->escenario_id;
-            $formations = escenario::where('id',$escenario_id)->first();
-            $formations = $formations->formacion_id;
-            $formations = explode(",", $formations);
-            $formations_names = [];
-            foreach ($formations as $v) {
-                array_push($formations_names, formacion::where('id', $v)->first()->nombre);
-            }
-            $formations = $formations_names;
-            $formationsWithoutSpaces = [];
-            foreach ($formations_names as $key => $formation) {
-                array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
-            }
-            $elements = $formations_names;
+            if ($validator->fails()) {
+                return redirect('multiparametricAnalysis.statistical.edit')
+                    ->withErrors($validator)
+                    ->withInput();
+            }else{
 
-            $titles = [['MS', 5], ['FB', 5], ['OS', 5], ['RP', 5], ['ID', 4], ['GD', 4]];
-            
-            $weights = subparameters_weight::where('multiparametric_id', $id)->first();
+                // Encontrar formaciones y nombres de campos de entrada
+                $scenario = escenario::find($request->id_scenary);
+                $statistical = Statistical::find($id);
+                $escenario_id = $statistical->escenario_id;
+                $formations = escenario::where('id',$escenario_id)->first();
+                $formations = $formations->formacion_id;
+                $formations = explode(",", $formations);
+                $formations_names = [];
+                foreach ($formations as $v) {
+                    array_push($formations_names, formacion::where('id', $v)->first()->nombre);
+                }
+                $formations = $formations_names;
+                $formationsWithoutSpaces = [];
+                foreach ($formations_names as $key => $formation) {
+                    array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
+                }
+                $elements = $formations_names;
 
-            //se modifica el array del campo field_statistical con implode
-            if ($request->field_statistical) {
-                $input['field_statistical'] = implode(",", $request->field_statistical);
-                $request->statistical = null;
-            } else {
-                $input['field_statistical'] = null;
-                $request->basin_statistical = null;
-            }
+                $titles = [['MS', 5], ['FB', 5], ['OS', 5], ['RP', 5], ['ID', 4], ['GD', 4]];
+                
+                $weights = subparameters_weight::where('multiparametric_id', $id)->first();
 
-            // se guardan solo los campos field_statistical y statistical en la bbdd;
-            $statistical->escenario_id = $request->id_scenary;
-            $statistical->field_statistical = $input['field_statistical'];
-            $statistical->basin_statistical = $request->basin_statistical;
-            $statistical->statistical = $request->statistical;
-            
-            // dd($formationsWithoutSpaces);
+                //se modifica el array del campo field_statistical con implode
+                if ($request->field_statistical) {
+                    $input['field_statistical'] = implode(",", $request->field_statistical);
+                    $request->statistical = null;
+                } else {
+                    $input['field_statistical'] = null;
+                    $request->basin_statistical = null;
+                }
 
-            // ORGANIZAR DATOS EN $statistical
-            $generalCheckboxArray = [];
-            foreach ($titles as $keyTitle => $title) {
-                $numberOfParameters = $title[1];
-                $title = $title[0];                    
+                // se guardan solo los campos field_statistical y statistical en la bbdd;
+                $statistical->escenario_id = $request->id_scenary;
+                $statistical->field_statistical = $input['field_statistical'];
+                $statistical->basin_statistical = $request->basin_statistical;
+                $statistical->statistical = $request->statistical;
+                
+                // dd($formationsWithoutSpaces);
 
-                if ( $request->{'checkbox_general_'.$title}  === 'on') {
-                    array_push($generalCheckboxArray, 1);
-                    for ($i=0; $i < $numberOfParameters; $i++) { 
-                    
-                        if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
+                // ORGANIZAR DATOS EN $statistical
+                $generalCheckboxArray = [];
+                foreach ($titles as $keyTitle => $title) {
+                    $numberOfParameters = $title[1];
+                    $title = $title[0];                    
 
-                            $valuesArray = [];
-                            $datesArray = [];
-                            $commentsArray = [];
-                            foreach ($formationsWithoutSpaces as $keyFormation => $formation) {
-                                $name = $title.($i+1).$formation;
-                                array_push($valuesArray, $request->{'value_'.$name});
-                                array_push($datesArray, $request->{'date_'.$name});
-                                array_push($commentsArray, $request->{'comment_'.$name});   
-                            }
-                            $statistical->{strtolower($title).($i+1)} = implode(',', $valuesArray);
-                            $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $datesArray);
-                            $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $commentsArray);
-                            $statistical->{'p10_'.strtolower($title).($i+1)} = ($request->{'p10_'.$title.($i+1)} === "" ) ? null : $request->{'p10_'.$title.($i+1)};
-                            $statistical->{'p90_'.strtolower($title).($i+1)} = ($request->{'p90_'.$title.($i+1)} === "" ) ? null : $request->{'p90_'.$title.($i+1)};
+                    if ( $request->{'checkbox_general_'.$title}  === 'on') {
+                        array_push($generalCheckboxArray, 1);
+                        for ($i=0; $i < $numberOfParameters; $i++) { 
+                        
+                            if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
 
-                        } else {
+                                $valuesArray = [];
+                                $datesArray = [];
+                                $commentsArray = [];
+                                foreach ($formationsWithoutSpaces as $keyFormation => $formation) {
+                                    $name = $title.($i+1).$formation;
+                                    array_push($valuesArray, $request->{'value_'.$name});
+                                    array_push($datesArray, $request->{'date_'.$name});
+                                    array_push($commentsArray, $request->{'comment_'.$name});   
+                                }
+                                $statistical->{strtolower($title).($i+1)} = implode(',', $valuesArray);
+                                $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $datesArray);
+                                $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $commentsArray);
+                                $statistical->{'p10_'.strtolower($title).($i+1)} = ($request->{'p10_'.$title.($i+1)} === "" ) ? null : $request->{'p10_'.$title.($i+1)};
+                                $statistical->{'p90_'.strtolower($title).($i+1)} = ($request->{'p90_'.$title.($i+1)} === "" ) ? null : $request->{'p90_'.$title.($i+1)};
 
+                            } else {
+
+                                $defaultArray = [];
+                                foreach ($formationsWithoutSpaces as $key => $formation) {
+                                    array_push($defaultArray, null);
+                                }
+                                $statistical->{strtolower($title).($i+1)} = implode(',', $defaultArray);
+                                $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
+                                $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
+                                $statistical->{'p10_'.strtolower($title).($i+1)} = null;
+                                $statistical->{'p90_'.strtolower($title).($i+1)} = null;
+
+                            } 
+                        }
+                    } else {
+                        array_push($generalCheckboxArray, 0);
+                        for ($i=0; $i < $numberOfParameters; $i++) { 
                             $defaultArray = [];
                             foreach ($formationsWithoutSpaces as $key => $formation) {
                                 array_push($defaultArray, null);
@@ -446,94 +467,80 @@ class StatisticalController extends Controller
                             $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
                             $statistical->{'p10_'.strtolower($title).($i+1)} = null;
                             $statistical->{'p90_'.strtolower($title).($i+1)} = null;
-
-                        } 
-                    }
-                } else {
-                    array_push($generalCheckboxArray, 0);
-                    for ($i=0; $i < $numberOfParameters; $i++) { 
-                        $defaultArray = [];
-                        foreach ($formationsWithoutSpaces as $key => $formation) {
-                            array_push($defaultArray, null);
                         }
-                        $statistical->{strtolower($title).($i+1)} = implode(',', $defaultArray);
-                        $statistical->{'date_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
-                        $statistical->{'comment_'.strtolower($title).($i+1)} = implode(',', $defaultArray);
-                        $statistical->{'p10_'.strtolower($title).($i+1)} = null;
-                        $statistical->{'p90_'.strtolower($title).($i+1)} = null;
                     }
+                    $statistical->generalAvailable = implode(',', $generalCheckboxArray);
                 }
-                $statistical->generalAvailable = implode(',', $generalCheckboxArray);
-            }
 
-            foreach ($titles as $key => $title) {
-                $checkboxArray = [];
-                $numberOfParameters = $title[1];
-                $title = $title[0]; 
-                for ($i=0; $i < $numberOfParameters; $i++) { 
-                    if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
-                        array_push($checkboxArray, 1);
-                    } else {
-                        array_push($checkboxArray, 0);
+                foreach ($titles as $key => $title) {
+                    $checkboxArray = [];
+                    $numberOfParameters = $title[1];
+                    $title = $title[0]; 
+                    for ($i=0; $i < $numberOfParameters; $i++) { 
+                        if ( $request->{$title.($i+1).'_checkbox'} === 'on' ) {
+                            array_push($checkboxArray, 1);
+                        } else {
+                            array_push($checkboxArray, 0);
+                        }
                     }
+                    $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
                 }
-                $statistical->{strtolower($title).'Available'} = implode(',', $checkboxArray);
-            }
-            
-            $weights->ms_scale_index_caco3 = $request->weight_MS1;
-            $weights->ms_scale_index_baso4 = $request->weight_MS2;
-            $weights->ms_scale_index_iron_scales = $request->weight_MS3;
-            $weights->ms_calcium_concentration = $request->weight_MS4;
-            $weights->ms_barium_concentration = $request->weight_MS5;
-            $weights->fb_aluminum_concentration = $request->weight_FB1;
-            $weights->fb_silicon_concentration = $request->weight_FB2;
-            $weights->fb_critical_radius_factor = $request->weight_FB3;
-            $weights->fb_mineralogic_factor = $request->weight_FB4;
-            $weights->fb_crushed_proppant_factor = $request->weight_FB5;
-            $weights->os_cll_factor = $request->weight_OS1;
-            $weights->os_volume_of_hcl = $request->weight_OS2;
-            $weights->os_compositional_factor = $request->weight_OS3;
-            $weights->os_pressure_factor = $request->weight_OS4;
-            $weights->os_high_impact_factor = $request->weight_OS5;
-            $weights->rp_days_below_saturation_pressure = $request->weight_RP1;
-            $weights->rp_delta_pressure_saturation = $request->weight_RP2;
-            $weights->rp_water_intrusion = $request->weight_RP3;
-            $weights->rp_velocity_estimated = $request->weight_RP4;
-            $weights->rp_high_impact_factor = $request->weight_RP5;
-            $weights->id_gross_pay = $request->weight_ID1;
-            $weights->id_polymer_damage_factor = $request->weight_ID2;
-            $weights->id_total_volume_water = $request->weight_ID3;
-            $weights->id_mud_damage_factor = $request->weight_ID4;
-            $weights->gd_fraction_netpay = $request->weight_GD1;
-            $weights->gd_drawdown = $request->weight_GD2;
-            $weights->gd_ratio_kh_fracture = $request->weight_GD3;
-            $weights->gd_geomechanical_damage_fraction = $request->weight_GD4;
-
-            $statistical->kd = $request->kd;
-            
-
-            if ($request->only_s == "run") {
-                $statistical->status_wr = 1;
-                $statistical->save();
                 
-                $weights->save();
+                $weights->ms_scale_index_caco3 = $request->weight_MS1;
+                $weights->ms_scale_index_baso4 = $request->weight_MS2;
+                $weights->ms_scale_index_iron_scales = $request->weight_MS3;
+                $weights->ms_calcium_concentration = $request->weight_MS4;
+                $weights->ms_barium_concentration = $request->weight_MS5;
+                $weights->fb_aluminum_concentration = $request->weight_FB1;
+                $weights->fb_silicon_concentration = $request->weight_FB2;
+                $weights->fb_critical_radius_factor = $request->weight_FB3;
+                $weights->fb_mineralogic_factor = $request->weight_FB4;
+                $weights->fb_crushed_proppant_factor = $request->weight_FB5;
+                $weights->os_cll_factor = $request->weight_OS1;
+                $weights->os_volume_of_hcl = $request->weight_OS2;
+                $weights->os_compositional_factor = $request->weight_OS3;
+                $weights->os_pressure_factor = $request->weight_OS4;
+                $weights->os_high_impact_factor = $request->weight_OS5;
+                $weights->rp_days_below_saturation_pressure = $request->weight_RP1;
+                $weights->rp_delta_pressure_saturation = $request->weight_RP2;
+                $weights->rp_water_intrusion = $request->weight_RP3;
+                $weights->rp_velocity_estimated = $request->weight_RP4;
+                $weights->rp_high_impact_factor = $request->weight_RP5;
+                $weights->id_gross_pay = $request->weight_ID1;
+                $weights->id_polymer_damage_factor = $request->weight_ID2;
+                $weights->id_total_volume_water = $request->weight_ID3;
+                $weights->id_mud_damage_factor = $request->weight_ID4;
+                $weights->gd_fraction_netpay = $request->weight_GD1;
+                $weights->gd_drawdown = $request->weight_GD2;
+                $weights->gd_ratio_kh_fracture = $request->weight_GD3;
+                $weights->gd_geomechanical_damage_fraction = $request->weight_GD4;
 
-                $scenario->completo = 1;
-                $scenario->estado = 1;
-                $scenario->save();
-
-                return redirect()->route('statistical.show', $statistical->id);
-            } elseif ($request->only_s == "save") {
-                $statistical->status_wr = 0;
-                $statistical->save();
+                $statistical->kd = $request->kd;
                 
-                $weights->save();
 
-                $scenario->completo = 0;
-                $scenario->estado = 1;
-                $scenario->save();
-                return redirect()->route('statistical.show', $statistical->id);
+                if ($request->only_s == "run") {
+                    $statistical->status_wr = 1;
+                    $statistical->save();
+                    
+                    $weights->save();
 
+                    $scenario->completo = 1;
+                    $scenario->estado = 1;
+                    $scenario->save();
+
+                    return redirect()->route('statistical.show', $statistical->id);
+                } elseif ($request->only_s == "save") {
+                    $statistical->status_wr = 0;
+                    $statistical->save();
+                    
+                    $weights->save();
+
+                    $scenario->completo = 0;
+                    $scenario->estado = 1;
+                    $scenario->save();
+                    return redirect()->route('statistical.show', $statistical->id);
+
+                }
             }
 
         } else {

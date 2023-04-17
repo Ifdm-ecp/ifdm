@@ -560,7 +560,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ('value_'.$titles1[$i].$formationsWithoutSpaces[$j] == 'value_MS1LA_PAZ_CG') 
+                @if ($errors->has('value_MS1LA_PAZ_CG')) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';

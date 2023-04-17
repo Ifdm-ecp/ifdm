@@ -377,8 +377,6 @@ class StatisticalController extends Controller
                 $statistical = Statistical::find($id);
                 $escenario_id = $statistical->escenario_id;
 
-                dd($validator->failedRules);
-
                 return redirect()
                     ->route('statistical.edit', $statistical->escenario_id)
                     ->withErrors($validator)

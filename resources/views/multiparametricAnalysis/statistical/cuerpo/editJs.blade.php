@@ -543,7 +543,7 @@
             flag = 0;
             <?php $j = 0; ?>
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
-                name = <?php echo $title1 ?> + element;
+                name = '<?php echo $title1 ?>' + element;
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                     flag++;

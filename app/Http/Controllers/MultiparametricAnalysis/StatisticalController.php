@@ -180,8 +180,9 @@ class StatisticalController extends Controller
             array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
         }
 
-        $titles = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
-        
+        $titles1 = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
+        $titles2 = ['ScaleIndexOfCaCO3', 'ScaleIndexOfBaSO4', 'ScaleIndexOfIronScales', 'BackflowCa', 'BackflowBa', 'AlonProducedWater', 'Sionproducedwater', 'CriticalRadiusderivedfrommaximumcriticalvelocityVc', 'MineralogyFactor', 'MassofcrushedproppantinsideHydraulicFractures', 'CIIFactorColloidalInstabilityIndex', 'VolumeofHClpumpedintotheformation', 'CumulativeGasProduced', 'NumberOfDaysBelowSaturationPressure', 'DeBoerCriteria', 'NumberOfDaysBelowSaturationPressure2', 'Differencebetweencurrentreservoirpressureandsaturationpressure', 'CumulativeWaterProduced', 'PoreSizeDiameterApproximationByKatzAndThompsonCorrelation', 'Velocityparameterestimatedastheinverseofthecriticalradius', 'GrossPay', 'TotalpolymerpumpedduringHydraulicFracturing', 'Totalvolumeofwaterbasedfluidspumpedintothewell', 'MudLosses', 'FractionofNetPayExihibitingNaturalFractures', 'reservoirpressureminusBHFP', 'RatioofKH', 'GeomechanicalDamageExpressedAsFractionOfBasePermeabilityAtBHFP'];
+
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
             if (!$statistical) {
@@ -352,7 +353,7 @@ class StatisticalController extends Controller
         // dd($formations);
 
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2']));
     }
 
     /**

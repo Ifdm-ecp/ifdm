@@ -524,49 +524,57 @@
 
     function addInputGroup(title, destination_div) {
         
-        html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
-        flag = 0;
-        Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-            name = title + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+        <?php $i = 0; ?>
+        Object.keys(<?php echo json_encode($titles1); ?>).forEach(keyGeneral => {
 
-            if (flag == 0) {
-                html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
-                flag++;
-            } else {
-                html = html + '<li role="presentation" class="nav"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
-                
-            }
-        });
-        html = html + '</ul><div class="tab-content">';
-        flag = 0;
-        <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
-            name = title + element;
-            if (flag == 0) {
-                html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
-                flag++;
-            } else {
-                html = html + '<div role="tabpanel" class="tab-pane fade in" id="tab' + name + '">';
-            }
+            html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
+            flag = 0;
+            Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
+                name = <?php echo json_encode($titles1); ?>[key] + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
 
-            //CONTENT
-            html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
-            html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-            html = html + organizeSelectOptions(title, element, <?php echo json_encode($mediciones); ?>);   
+                if (flag == 0) {
+                    html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
+                    flag++;
+                } else {
+                    html = html + '<li role="presentation" class="nav"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
+                    
+                }
+            });
+            html = html + '</ul><div class="tab-content">';
+            flag = 0;
+            <?php $j = 0; ?>
+            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
+                <?php $name = $titles1[$i].$formationsWithoutSpaces[$j]; ?>
+                name = <?php echo json_encode($titles1); ?>[key] + element;
+                if (flag == 0) {
+                    html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
+                    flag++;
+                } else {
+                    html = html + '<div role="tabpanel" class="tab-pane fade in" id="tab' + name + '">';
+                }
+
+                //CONTENT
+                html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
+                html = html + '<option value="none" selected hidden>Nothing Selected</option>';
+                html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[key], element, <?php echo json_encode($mediciones); ?>);   
 
 
-            html = html + '</select></div></div></div>';
-            html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label> errors1 <div class="input-group"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
-           
+                html = html + '</select></div></div></div>';
+                html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ' + <?php $errors->has("value_".$name) ? "has-error" : ""?> + '"><div class="input-group"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div></div>';
+                html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div>';
+                html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
+            
+                html = html + '</div></div>';
+                <?php $j++; ?>
+            });
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[key] + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[key] + '" name="p10_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control validate"></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[key] + '">p90</label> <label class="red">*</label><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[key] + '" name="p90_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control validate"></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[key] + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[key] + '" name="weight_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control weight_ms_count"></div></div></div>';  
+
             html = html + '</div></div>';
+            $("#"+<?php echo json_encode($titles2); ?>[key]).append(html);
+            <?php $i++; ?>
         });
-        html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + title + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + title + '" name="p10_' + title + '" class="form-control validate"></div></div>';
-        html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + title + '">p90</label> <label class="red">*</label><input type="text" id="p90_' + title + '" name="p90_' + title + '" class="form-control validate"></div></div>';
-        html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + title + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + title + '" name="weight_' + title + '" class="form-control weight_ms_count"></div></div></div>';  
-
-        html = html + '</div></div>';
-        $("#"+destination_div).append(html);
     }
 
     function fillInputFields() {

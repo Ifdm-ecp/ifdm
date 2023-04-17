@@ -387,6 +387,17 @@ class StatisticalController extends Controller
 
             $indexes = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
 
+            $inputFields = [];
+            foreach ($indexes as $key1 => $index) {
+                foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
+                    array_push($inputFields, 'value_'.$index.$formationWithoutSpaces => ['required']);
+                    array_push($inputFields, 'date_'.$index.$formationWithoutSpaces);
+                }
+                array_push($inputFields, 'p10_'.$index);
+                array_push($inputFields, 'p90_'.$index);
+                array_push($inputFields, 'weight_'.$index);
+            }
+
             //VALIDATE
             $validator = Validator::make($request->all(), [
                 'value_MS1LA_PAZ_CG' => ['required'],

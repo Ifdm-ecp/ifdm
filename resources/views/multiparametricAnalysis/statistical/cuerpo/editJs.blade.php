@@ -564,7 +564,7 @@
             @if ($errors->has('value_MS1LA_PAZ_CG')) 
                 html = html + 'has-error';
             @endif
-            html = html + '<input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div></div>';
+            html = html + '"><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div></div>';
             html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
            
             html = html + '</div></div>';

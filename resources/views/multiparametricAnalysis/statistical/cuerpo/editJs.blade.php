@@ -525,6 +525,8 @@
     function addInputGroup(title, destination_div) {
         
         <?php $i = 0; ?>
+        localStorage.setItem("i", 0);
+        localStorage.setItem("j", 0);
         Object.keys(<?php echo json_encode($titles1); ?>).forEach(keyGeneral => {
 
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
@@ -560,7 +562,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                console.log('<?php echo $i ?>');
+                console.log('<?php echo "<script>5</script>"; ?>');
                 @if ($errors->has('value_'.$titles1[$i].$formationsWithoutSpaces[$j])) 
                     html = html + 'has-error';
                 @endif
@@ -575,7 +577,6 @@
                 html = html + '</div></div>';
                 <?php $i = $i + 1 ?>
                 <?php $j = $j + 1; ?>
-                console.log('<?php echo $i ?>');
             });
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 
@@ -594,9 +595,6 @@
             html = html + '"><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
-            <?php $i = $i + 1 ?>
-                <?php $j = $j + 1; ?>
-                console.log('<?php echo $i ?>');
             $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
         });
     }

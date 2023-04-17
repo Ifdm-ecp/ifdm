@@ -590,7 +590,7 @@
 
             html = html + '</div></div>';
             $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
-            console.log(<?php echo $i; ?>);
+            console.log( @php(echo $i;) );
             @php( $i++; )
         });
     }

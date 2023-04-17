@@ -559,7 +559,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                console.log('<?php echo $i ?>');
+                console.log('<?php echo $k ?>');
                 @if ($errors->has('value_'.$title1.$formationsWithoutSpaces[$j])) 
                     html = html + 'has-error';
                 @endif

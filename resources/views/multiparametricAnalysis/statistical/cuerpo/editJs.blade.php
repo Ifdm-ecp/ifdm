@@ -541,8 +541,7 @@
             });
             html = html + '</ul><div class="tab-content">';
             flag = 0;
-            <?php $j = 0; ?>
-            <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
+            @foreach($formationsWithoutSpaces as $j => $formationWithoutSpaces)
                 name = '<?php echo $title1 ?>' + element;
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
@@ -560,7 +559,7 @@
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
                 console.log('<?php echo $k ?>');
-                @if ($errors->has('value_'.$title1.$formationsWithoutSpaces[$j])) 
+                @if ($errors->has('value_'.$title1.$formationWithoutSpaces)) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
@@ -572,8 +571,7 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
-                <?php $j = $j + 1; ?>
-            });
+            @endforeach
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 
                 html = html + 'has-error';

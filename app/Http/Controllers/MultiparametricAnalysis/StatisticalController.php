@@ -364,6 +364,7 @@ class StatisticalController extends Controller
     {
         if (\Auth::check()) {
 
+            dd('adada');
             //VALIDATE
             $request->validate([
                 'value_MS1LA_PAZ_CG' => ['required']

@@ -368,9 +368,9 @@ class StatisticalController extends Controller
             $validator = Validator::make($request->all(), [
                 'value_MS1LA_PAZ_CG' => ['required']
             ]);
-
+            
             if ($validator->fails()) {
-                
+                dd('asdfasdfasss111');
                 $input = $request->all();
 
                 /* se modifica el array del campo field_statistical con implode */

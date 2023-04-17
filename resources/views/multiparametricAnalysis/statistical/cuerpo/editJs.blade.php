@@ -526,7 +526,7 @@
         
         <?php $i = 0; ?>
         Object.keys(<?php echo json_encode($titles1); ?>).forEach(key => {
-            console.log(<?php echo $i; ?>);
+            console.log(key);
             <?php $i = $i + 1; ?>
         });
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';

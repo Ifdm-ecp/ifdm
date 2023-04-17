@@ -554,7 +554,7 @@
                 //CONTENT
                 html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-                html = html + organizeSelectOptions(<?php echo $title1 ?>, element, <?php echo json_encode($mediciones); ?>);   
+                html = html + organizeSelectOptions('<?php echo $title1 ?>', element, <?php echo json_encode($mediciones); ?>);   
 
 
                 html = html + '</select></div></div></div>';

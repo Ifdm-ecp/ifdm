@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\MultiparametricAnalysis;
 
+use Validator;
 use App\cuenca;
 use App\escenario;
 use App\formacionxpozo;

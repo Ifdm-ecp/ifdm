@@ -524,7 +524,7 @@
 
     function addInputGroup(title, destination_div) {
         
-        @php( $i = 0; )
+        @php( $i = 0 )
         Object.keys(<?php echo json_encode($titles1); ?>).forEach(keyGeneral => {
 
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
@@ -590,8 +590,8 @@
 
             html = html + '</div></div>';
             $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
-            console.log( @php(echo $i;) );
-            @php( $i++; )
+            console.log( @php(echo $i) );
+            @php( $i++ )
         });
     }
 

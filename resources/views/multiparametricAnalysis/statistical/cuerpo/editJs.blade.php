@@ -573,7 +573,7 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
-                @php( $i++ )
+                @php( $i++; )
                 <?php $i = $i + 1 ?>
                 <?php $j = $j + 1; ?>
             });

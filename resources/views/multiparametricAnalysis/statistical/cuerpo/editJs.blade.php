@@ -525,8 +525,7 @@
     function addInputGroup(title, destination_div) {
         
         <?php $i = 0; ?>
-        Object.keys(<?php echo json_encode($titles1); ?>).forEach(keyGeneral => {
-
+        @foreach($titles1 as $k => $title1)
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
@@ -544,7 +543,7 @@
             flag = 0;
             <?php $j = 0; ?>
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
-                name = <?php echo json_encode($titles1); ?>[keyGeneral] + element;
+                name = <?php echo $title1 ?> + element;
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                     flag++;
@@ -555,13 +554,13 @@
                 //CONTENT
                 html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-                html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[keyGeneral], element, <?php echo json_encode($mediciones); ?>);   
+                html = html + organizeSelectOptions(<?php echo $title1 ?>, element, <?php echo json_encode($mediciones); ?>);   
 
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
                 console.log('<?php echo $i ?>');
-                @if ($errors->has('value_'.$titles1[$i].$formationsWithoutSpaces[$j])) 
+                @if ($errors->has('value_'.$title1.$formationsWithoutSpaces[$j])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
@@ -573,28 +572,27 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
-                {{ $i++ }}
                 <?php $j = $j + 1; ?>
             });
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo $title1 ?> + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p90</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p10_' + <?php echo $title1 ?> + '" name="p10_' + <?php echo $title1 ?> + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo $title1 ?> + '">p90</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p90_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">Weight</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p90_' + <?php echo $title1 ?> + '" name="p90_' + <?php echo $title1 ?> + '" class="form-control validate"></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo $title1 ?> + '">Weight</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('weight_')) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div></div>';  
+            html = html + '"><input type="text" id="weight_' + <?php echo $title1 ?> + '" name="weight_' + <?php echo $title1 ?> + '" class="form-control weight_ms_count"></div></div></div></div>';  
 
             html = html + '</div></div>';
-            $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
-        });
+            $("#"+<?php echo json_encode($titles2)[$k]; ?>).append(html);
+        @endforeach
     }
 
     function fillInputFields() {

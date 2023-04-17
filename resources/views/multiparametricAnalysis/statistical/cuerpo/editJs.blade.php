@@ -560,7 +560,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_'.$titles1[$i].$formationsWithoutSpaces[$j])) 
+                @if ('value_'.$titles1[$i].$formationsWithoutSpaces[$j] == 'value_MS1LA_PAZ_CG') 
                     html = html + 'has-error';
                 @endif
                 html = html + <?php echo 'value_'.$titles1[$i].$formationsWithoutSpaces[$j] ?>;

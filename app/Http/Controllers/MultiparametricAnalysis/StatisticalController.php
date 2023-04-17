@@ -179,6 +179,8 @@ class StatisticalController extends Controller
         foreach ($formations_names as $key => $formation) {
             array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
         }
+
+        $titles = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
         
         if (!$statistical) {
             $statistical = Statistical::where('escenario_id', $id)->first();
@@ -350,7 +352,7 @@ class StatisticalController extends Controller
         // dd($formations);
 
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles']));
     }
 
     /**

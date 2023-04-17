@@ -542,7 +542,7 @@
             html = html + '</ul><div class="tab-content">';
             flag = 0;
             @foreach($formationsWithoutSpaces as $j => $formationWithoutSpaces)
-                name = '<?php echo $title1 ?>' + $j;
+                name = '<?php echo $title1 ?>' + '<?php echo $formationWithoutSpaces ?>';
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                     flag++;

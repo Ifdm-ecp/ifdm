@@ -561,7 +561,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_'.$name)) 
+                @if ($errors->has('value1_'.$name)) 
                     html = html + 'has_error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"></div></div></div>';

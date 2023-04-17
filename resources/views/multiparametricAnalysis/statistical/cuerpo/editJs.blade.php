@@ -529,7 +529,7 @@
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-                name = <?php echo json_encode($titles1); ?>[keyGeneral] + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                name = <?php echo $title1 ?> + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
 
                 if (flag == 0) {
                     html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';

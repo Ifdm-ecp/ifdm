@@ -542,6 +542,7 @@
             });
             html = html + '</ul><div class="tab-content">';
             flag = 0;
+            <?php $j = 0; ?>
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
                 name = <?php echo json_encode($titles1); ?>[keyGeneral] + element;
                 if (flag == 0) {
@@ -559,7 +560,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_'.$titles1[$i])) 
+                @if ($errors->has('value_'.$titles1[$i].formationsWithoutSpaces[$j])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
@@ -571,6 +572,8 @@
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
+                <?php $i++; ?>
+                <?php $j++; ?>
             });
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_')) 
@@ -590,7 +593,6 @@
 
             html = html + '</div></div>';
             $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
-            <?php $i++; ?>
         });
     }
 

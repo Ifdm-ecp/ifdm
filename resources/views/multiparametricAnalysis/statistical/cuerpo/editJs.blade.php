@@ -530,7 +530,7 @@
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-                name = <?php echo json_encode($titles1); ?>[key] + <?php echo json_encode($formationsWithoutSpaces); ?>[key];
+                name = <?php echo json_encode($titles1); ?>[keyGeneral] + <?php echo json_encode($formationsWithoutSpaces); ?>[keyGeneral];
 
                 if (flag == 0) {
                     html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
@@ -545,7 +545,7 @@
             <?php $j = 0; ?>
             <?php echo json_encode($formationsWithoutSpaces); ?>.forEach(element => {
                 <?php $name = $titles1[$i].$formationsWithoutSpaces[$j]; ?>
-                name = <?php echo json_encode($titles1); ?>[key] + element;
+                name = <?php echo json_encode($titles1); ?>[keyGeneral] + element;
                 if (flag == 0) {
                     html = html + '<div role="tabpanel" class="tab-pane fade in active" id="tab' + name + '">';
                     flag++;
@@ -556,7 +556,7 @@
                 //CONTENT
                 html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
-                html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[key], element, <?php echo json_encode($mediciones); ?>);   
+                html = html + organizeSelectOptions(<?php echo json_encode($titles1); ?>[keyGeneral], element, <?php echo json_encode($mediciones); ?>);   
 
 
                 html = html + '</select></div></div></div>';
@@ -567,9 +567,9 @@
                 html = html + '</div></div>';
                 <?php $j++; ?>
             });
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[key] + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[key] + '" name="p10_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control validate"></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[key] + '">p90</label> <label class="red">*</label><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[key] + '" name="p90_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control validate"></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[key] + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[key] + '" name="weight_' + <?php echo json_encode($titles1); ?>[key] + '" class="form-control weight_ms_count"></div></div></div>';  
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p90</label> <label class="red">*</label><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div>';  
 
             html = html + '</div></div>';
             $("#"+<?php echo json_encode($titles2); ?>[key]).append(html);

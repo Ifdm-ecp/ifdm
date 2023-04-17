@@ -530,7 +530,7 @@
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
-                name = Object.keys(<?php echo json_encode($titles1); ?>)[keyGeneral] + Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>)[keyGeneral];
+                name = <?php echo json_encode($titles1); ?>[keyGeneral] + <?php echo json_encode($formationsWithoutSpaces); ?>[keyGeneral];
 
                 if (flag == 0) {
                     html = html + '<li role="presentation" class="nav active"><a data-toggle="tab" href="#tab' + name +'" id="tab' + name + '_D" role="tab">' + <?php echo json_encode($formations); ?>[key] + '</a></li>';
@@ -572,7 +572,7 @@
             html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">Weight</label> <label class="red">*</label><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div>';  
 
             html = html + '</div></div>';
-            $("#"+<?php echo json_encode($titles2); ?>[key]).append(html);
+            $("#"+<?php echo json_encode($titles2); ?>[keyGeneral]).append(html);
             <?php $i++; ?>
         });
     }

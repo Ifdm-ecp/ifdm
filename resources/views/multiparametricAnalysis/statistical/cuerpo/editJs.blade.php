@@ -558,12 +558,12 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_MS1LA_PAZ_CG')) 
+                @if ($errors->has('value_'.$<?php echo json_encode($titles1); ?>[keyGeneral].$<?php echo json_encode($formationsWithoutSpaces); ?>[element])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_MS1LA_PAZ_CG')) 
+                @if ($errors->has('date_'.$<?php echo json_encode($titles1); ?>[keyGeneral].$<?php echo json_encode($formationsWithoutSpaces); ?>[element])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div></div>';
@@ -572,17 +572,17 @@
                 html = html + '</div></div>';
             });
             html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p10</label> <label class="red">*</label><div class="input-group ';
-            @if ($errors->has('value_MS1LA_PAZ_CG')) 
+            @if ($errors->has('p10_'.$<?php echo json_encode($titles1); ?>[keyGeneral])) 
                 html = html + 'has-error';
             @endif
             html = html + '"><input type="text" id="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p10_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
             html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">p90</label> <label class="red">*</label><div class="input-group ';
-            @if ($errors->has('value_MS1LA_PAZ_CG')) 
+            @if ($errors->has('p90_'.$<?php echo json_encode($titles1); ?>[keyGeneral])) 
                 html = html + 'has-error';
             @endif
             html = html + '"><input type="text" id="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="p90_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control validate"></div></div></div>';
             html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '">Weight</label> <label class="red">*</label><div class="input-group ';
-            @if ($errors->has('value_MS1LA_PAZ_CG')) 
+            @if ($errors->has('weight_'.$<?php echo json_encode($titles1); ?>[keyGeneral])) 
                 html = html + 'has-error';
             @endif
             html = html + '"><input type="text" id="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" name="weight_' + <?php echo json_encode($titles1); ?>[keyGeneral] + '" class="form-control weight_ms_count"></div></div></div></div>';  

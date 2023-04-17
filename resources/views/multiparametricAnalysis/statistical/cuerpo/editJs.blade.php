@@ -558,7 +558,7 @@
 
                 html = html + '</select></div></div></div>';
                 html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
-                @if ($errors->has('value_'.$<?php echo json_encode($titles1); ?>[keyGeneral].$<?php echo json_encode($formationsWithoutSpaces); ?>[element])) 
+                @if ($errors->has('value_'.$<?php echo json_encode($titles1); ?>[keyGeneral])) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';

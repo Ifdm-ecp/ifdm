@@ -2,7 +2,7 @@
     $( document ).ready(function() {
 
         //ms blade
-        addInputGroup('MS1', 'ScaleIndexOfCaCO3');
+        addInputGroup();
         // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
         // addInputGroup('MS3', 'ScaleIndexOfIronScales');
         // addInputGroup('MS4', 'BackflowCa');
@@ -522,7 +522,7 @@
         // }
     });
 
-    function addInputGroup(title, destination_div) {
+    function addInputGroup() {
         
         <?php $i = 0; ?>
         @foreach($titles1 as $k => $title1)

@@ -430,24 +430,30 @@ class StatisticalController extends Controller
                 }
 
                 $rules = [];
+                $messages = [];
+
                 foreach ($indexes as $key1 => $index) {
                     foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
-                        $rules['value_'.$index.$formationWithoutSpaces] = 'required';
+                        $rules['value_'.$index.$formationWithoutSpaces] = 'required|numeric';
                         $rules['date_'.$index.$formationWithoutSpaces] = 'required';
                     }
-                    $rules['p10_'.$index] = 'required';
-                    $rules['p90_'.$index] = 'required';
-                    $rules['weight_'.$index] = 'required';
+                    $rules['p10_'.$index] = 'required|numeric';
+                    $rules['p90_'.$index] = 'required|numeric';
+                    $rules['weight_'.$index] = 'required|numeric';
                 }
 
                 foreach ($indexes as $key1 => $index) {
                     foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
                         $messages['value_'.$index.$formationWithoutSpaces.'.required'] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
+                        $messages['value_'.$index.$formationWithoutSpaces.'.numeric'] = 'The value of '.$index.' in '.$formations_names[$key2].' must be numeric.';
                         $messages['date_'.$index.$formationWithoutSpaces.'.required'] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
                     }
                     $messages['p10_'.$index.'.required'] = 'The p10 of '.$index.' is required.';
+                    $messages['p10_'.$index.'.numeric'] = 'The p10 of '.$index.' must be numeric.';
                     $messages['p90_'.$index.'.required'] = 'The p90 of '.$index.' is required.';
+                    $messages['p90_'.$index.'.numeric'] = 'The p90 of '.$index.' must be numeric.';
                     $messages['weight_'.$index.'.required'] = 'The weight of '.$index.' is required.';
+                    $messages['weight_'.$index.'.numeric'] = 'The weight of '.$index.' must be numeric.';
                 }
 
                 //VALIDATE

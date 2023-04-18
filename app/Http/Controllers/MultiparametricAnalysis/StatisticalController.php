@@ -447,6 +447,7 @@ class StatisticalController extends Controller
                         $messages['value_'.$index.$formationWithoutSpaces.'.required'] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
                         $messages['value_'.$index.$formationWithoutSpaces.'.numeric'] = 'The value of '.$index.' in '.$formations_names[$key2].' must be a number.';
                         $messages['date_'.$index.$formationWithoutSpaces.'.required'] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
+                        $messages['date_'.$index.$formationWithoutSpaces.'.date_format:d/m/Y'] = 'The date of '.$index.' in '.$formations_names[$key2].' does not match the format DD/MM/YYYY.';
                     }
                     $messages['p10_'.$index.'.required'] = 'The p10 of '.$index.' is required.';
                     $messages['p10_'.$index.'.numeric'] = 'The p10 of '.$index.' must be a number.';

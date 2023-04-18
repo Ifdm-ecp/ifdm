@@ -448,7 +448,7 @@ class StatisticalController extends Controller
                 $messages['weight_'.substr($index, 0, -1).$formationWithoutSpaces.'.required'] = 'The weight of '.$index.' is required.';
             }
             
-            dd($rules, $messages);
+            // dd($rules, $messages);
 
             //VALIDATE
             $validator = Validator::make($request->all(), $rules, $messages);

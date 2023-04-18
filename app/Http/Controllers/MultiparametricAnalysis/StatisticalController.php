@@ -385,6 +385,8 @@ class StatisticalController extends Controller
             }
             $elements = $formations_names;
 
+            dd($request->checkbox_general_MS2, $request->MS2_checkbox);
+
             $indexes = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
 
             $rules = [];

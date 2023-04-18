@@ -465,12 +465,10 @@ class StatisticalController extends Controller
                     $statistical = Statistical::find($id);
                     $escenario_id = $statistical->escenario_id;
     
-                    // return redirect()
-                    //     ->route('statistical.edit', $statistical->escenario_id)
-                    //     ->withErrors($validator)
-                    //     ->withInput();
-
-                    return Redirect::back()->withErrors($validator)->withInput(Input::all());
+                    return redirect()
+                        ->route('statistical.edit', $statistical->escenario_id)
+                        ->withErrors($validator)
+                        ->withInput($request->input());
     
                 }
 

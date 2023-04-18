@@ -387,19 +387,21 @@ class StatisticalController extends Controller
 
             $indexes = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
 
-            $inputFields = [];
+            $rules = [];
             foreach ($indexes as $key1 => $index) {
                 foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
-                    $inputFields['value_'.$index.$formationWithoutSpaces] = 'required';
-                    $inputFields['date_'.$index.$formationWithoutSpaces] = 'required';
+                    $rules['value_'.$index.$formationWithoutSpaces] = 'required';
+                    $rules['date_'.$index.$formationWithoutSpaces] = 'required';
                 }
-                $inputFields['p10_'.$index] = 'required';
-                $inputFields['p90_'.$index] = 'required';
-                $inputFields['weight_'.$index] = 'required';
+                $rules['p10_'.$index] = 'required';
+                $rules['p90_'.$index] = 'required';
+                $rules['weight_'.$index] = 'required';
             }
 
+            $messages = ['value_MS2MUGROSA.required' => 'The value of MS2 in MUGROSA is required.'];
+
             //VALIDATE
-            $validator = Validator::make($request->all(), $inputFields);
+            $validator = Validator::make($request->all(), $rules, $messages);
             
             if ($validator->fails()) {
                 $scenario = escenario::find($request->id_scenary);

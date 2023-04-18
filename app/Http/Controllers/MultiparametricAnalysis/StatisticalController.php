@@ -468,7 +468,7 @@ class StatisticalController extends Controller
                     return redirect()
                         ->route('statistical.edit', $statistical->escenario_id)
                         ->withErrors($validator)
-                        ->withInput($request->input());
+                        ->withInput($request->all());
     
                 }
 

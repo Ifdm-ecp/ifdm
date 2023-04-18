@@ -385,9 +385,47 @@ class StatisticalController extends Controller
             }
             $elements = $formations_names;
 
-            dd($request->checkbox_general_MS2, $request->MS2_checkbox, $request);
-
-            $indexes = ['MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'FB1', 'FB2', 'FB3', 'FB4', 'FB5', 'OS1', 'OS2', 'OS3', 'OS4', 'OS5', 'RP1', 'RP2', 'RP3', 'RP4', 'RP5', 'ID1', 'ID2', 'ID3', 'ID4', 'GD1', 'GD2', 'GD3', 'GD4'];
+            $indexes = [];
+            if ($request->checkbox_general_MS === 'on') {
+                if ($request->MS1_checkbox === 'on') { array_push($indexes, 'MS1'); }
+                if ($request->MS2_checkbox === 'on') { array_push($indexes, 'MS2'); }
+                if ($request->MS3_checkbox === 'on') { array_push($indexes, 'MS3'); }
+                if ($request->MS4_checkbox === 'on') { array_push($indexes, 'MS4'); }
+                if ($request->MS5_checkbox === 'on') { array_push($indexes, 'MS5'); }
+            }
+            if ($request->checkbox_general_FB === 'on') {
+                if ($request->FB1_checkbox === 'on') { array_push($indexes, 'FB1'); }
+                if ($request->FB2_checkbox === 'on') { array_push($indexes, 'FB2'); }
+                if ($request->FB3_checkbox === 'on') { array_push($indexes, 'FB3'); }
+                if ($request->FB4_checkbox === 'on') { array_push($indexes, 'FB4'); }
+                if ($request->FB5_checkbox === 'on') { array_push($indexes, 'FB5'); }
+            }
+            if ($request->checkbox_general_OS === 'on') {
+                if ($request->OS1_checkbox === 'on') { array_push($indexes, 'OS1'); }
+                if ($request->OS2_checkbox === 'on') { array_push($indexes, 'OS2'); }
+                if ($request->OS3_checkbox === 'on') { array_push($indexes, 'OS3'); }
+                if ($request->OS4_checkbox === 'on') { array_push($indexes, 'OS4'); }
+                if ($request->OS5_checkbox === 'on') { array_push($indexes, 'OS5'); }
+            }
+            if ($request->checkbox_general_RP === 'on') {
+                if ($request->RP1_checkbox === 'on') { array_push($indexes, 'RP1'); }
+                if ($request->RP2_checkbox === 'on') { array_push($indexes, 'RP2'); }
+                if ($request->RP3_checkbox === 'on') { array_push($indexes, 'RP3'); }
+                if ($request->RP4_checkbox === 'on') { array_push($indexes, 'RP4'); }
+                if ($request->RP5_checkbox === 'on') { array_push($indexes, 'RP5'); }
+            }
+            if ($request->checkbox_general_ID === 'on') {
+                if ($request->ID1_checkbox === 'on') { array_push($indexes, 'ID1'); }
+                if ($request->ID2_checkbox === 'on') { array_push($indexes, 'ID2'); }
+                if ($request->ID3_checkbox === 'on') { array_push($indexes, 'ID3'); }
+                if ($request->ID4_checkbox === 'on') { array_push($indexes, 'ID4'); }
+            }
+            if ($request->checkbox_general_GD === 'on') {
+                if ($request->GD1_checkbox === 'on') { array_push($indexes, 'GD1'); }
+                if ($request->GD2_checkbox === 'on') { array_push($indexes, 'GD2'); }
+                if ($request->GD3_checkbox === 'on') { array_push($indexes, 'GD3'); }
+                if ($request->GD4_checkbox === 'on') { array_push($indexes, 'GD4'); }
+            }
 
             $rules = [];
             foreach ($indexes as $key1 => $index) {
@@ -400,8 +438,17 @@ class StatisticalController extends Controller
                 $rules['weight_'.$index] = 'required';
             }
 
-            $messages = ['value_MS2MUGROSA.required' => 'The value of MS2 in MUGROSA is required.'];
-
+            foreach ($indexes as $key1 => $index) {
+                foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
+                    $messages['value_'.$index.$formationWithoutSpaces] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
+                    $messages['date_'.$index.$formationWithoutSpaces] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
+                }
+                $messages['p10_'.$index.$formationWithoutSpaces] = 'The p10 of '.$index.' in '.$formations_names[$key2].' is required.';
+                $messages['p90_'.$index.$formationWithoutSpaces] = 'The p90 of '.$index.' in '.$formations_names[$key2].' is required.';
+                $messages['weight_'.$index.$formationWithoutSpaces] = 'The weight of '.$index.' in '.$formations_names[$key2].' is required.';
+            }
+            
+            dd($rules, $messages);
             //VALIDATE
             $validator = Validator::make($request->all(), $rules, $messages);
             

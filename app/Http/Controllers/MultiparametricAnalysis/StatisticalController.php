@@ -443,9 +443,9 @@ class StatisticalController extends Controller
                     $messages['value_'.$index.$formationWithoutSpaces] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
                     $messages['date_'.$index.$formationWithoutSpaces] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
                 }
-                $messages['p10_'.$index.$formationWithoutSpaces] = 'The p10 of '.$index.' in '.$formations_names[$key2].' is required.';
-                $messages['p90_'.$index.$formationWithoutSpaces] = 'The p90 of '.$index.' in '.$formations_names[$key2].' is required.';
-                $messages['weight_'.$index.$formationWithoutSpaces] = 'The weight of '.$index.' in '.$formations_names[$key2].' is required.';
+                $messages['p10_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The p10 of '.$index.' in '.$formations_names[$key2].' is required.';
+                $messages['p90_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The p90 of '.$index.' in '.$formations_names[$key2].' is required.';
+                $messages['weight_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The weight of '.$index.' in '.$formations_names[$key2].' is required.';
             }
             
             //VALIDATE

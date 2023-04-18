@@ -440,12 +440,12 @@ class StatisticalController extends Controller
 
             foreach ($indexes as $key1 => $index) {
                 foreach ($formationsWithoutSpaces as $key2 => $formationWithoutSpaces) {
-                    $messages['value_'.$index.$formationWithoutSpaces] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
-                    $messages['date_'.$index.$formationWithoutSpaces] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
+                    $messages['value_'.$index.$formationWithoutSpaces.'.required'] = 'The value of '.$index.' in '.$formations_names[$key2].' is required.';
+                    $messages['date_'.$index.$formationWithoutSpaces.'.required'] = 'The date of '.$index.' in '.$formations_names[$key2].' is required.';
                 }
-                $messages['p10_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The p10 of '.$index.' is required.';
-                $messages['p90_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The p90 of '.$index.' is required.';
-                $messages['weight_'.substr($index, 0, -1).$formationWithoutSpaces] = 'The weight of '.$index.' is required.';
+                $messages['p10_'.substr($index, 0, -1).$formationWithoutSpaces.'.required'] = 'The p10 of '.$index.' is required.';
+                $messages['p90_'.substr($index, 0, -1).$formationWithoutSpaces.'.required'] = 'The p90 of '.$index.' is required.';
+                $messages['weight_'.substr($index, 0, -1).$formationWithoutSpaces.'.required'] = 'The weight of '.$index.' is required.';
             }
             
             dd($rules, $messages);

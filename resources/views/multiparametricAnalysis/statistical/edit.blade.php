@@ -20,10 +20,6 @@
    </center>
 </div>
 
-<div id="loading_icon" style="display: none;z-index: 9999999 !important;">
-    <img src="{!! asset('images/loading.gif') !!}" style="z-index: 9999999 !important;" class="loading">
-</div>
-
 </br>
 <div class="nav">
    <div class="tab">

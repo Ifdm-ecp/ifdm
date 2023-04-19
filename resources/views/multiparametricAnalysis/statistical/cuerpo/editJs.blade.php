@@ -508,11 +508,12 @@
                     }
                 }
             }
-            
         }, 1500);
 
-        
-  
+        setTimeout(function (){
+            $("#loading_icon").hide();
+        }, 3000);
+
         // }
         // if( $("#statistical").prop('checked') == false ) {
         //     < ? ph p echo json_encode(explode(",", $statistical->field_statistical)); ?>.forEach(element => { 

@@ -507,7 +507,7 @@
                         if ( $("#p90_GD4").val() === '' ) { $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p90_GD4').val(data[1]);}); }
                     }
                 }
-
+                $("#loading_icon").hide();
             }
             
         }, 1500);

@@ -456,21 +456,18 @@ $(document).ready(function() {
             $('#well').selectpicker('val', '');
         }); 
         
-        setTimeout(function (){
-            if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
-            $.get("{{url('formationbyfield')}}", {
-                field: campo
-            },
-            function(data) {
-                $.each(data, function(index, value) {
-                    $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                });
-                $("#formation_multiparametric_statistical").selectpicker('refresh');
-                $('#formation_multiparametric_statistical').selectpicker('val', '');
-                $('#formation_multiparametric_statistical').selectpicker('render');
+        if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
+        $.get("{{url('formationbyfield')}}", {
+            field: campo
+        },
+        function(data) {
+            $.each(data, function(index, value) {
+                $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
             });
-        }
-        }, 500);
+            $("#formation_multiparametric_statistical").selectpicker('refresh');
+            $('#formation_multiparametric_statistical').selectpicker('val', '');
+            $('#formation_multiparametric_statistical').selectpicker('render');
+        });
        
     });
 

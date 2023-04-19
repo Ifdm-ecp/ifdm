@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $( document ).ready(function() {
 
+        $("#loading_icon").show();
         //ms blade
         addInputGroup();
         // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
@@ -322,7 +323,6 @@
 
 
         setTimeout(function (){
-            $("#loading_icon").show();
             if( $("#statistical").prop('checked') == true ) {
                 if ($('#p10_MS1').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]);}); }
                 if ($('#p10_MS2').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {$('#p10_MS2').val(data[0]);}); }

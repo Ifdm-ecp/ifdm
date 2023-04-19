@@ -457,9 +457,8 @@ $(document).ready(function() {
         }); 
         
         if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
-            var field = $('#field').val();
             $.get("{{url('formationbyfield')}}", {
-                field: field
+                campo: campo
             },
             function(data) {
                 $.each(data, function(index, value) {

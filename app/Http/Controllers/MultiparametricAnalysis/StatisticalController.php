@@ -437,8 +437,8 @@ class StatisticalController extends Controller
                         $rules['value_'.$index.$formationWithoutSpaces] = 'required|numeric';
                         $rules['date_'.$index.$formationWithoutSpaces] = 'required|date_format:d/m/Y';
                     }
-                    $rules['p10_'.$index] = 'required|numeric';
-                    $rules['p90_'.$index] = 'required|numeric';
+                    $rules['p10_'.$index] = 'required|numeric|different:p90_'.$index;
+                    $rules['p90_'.$index] = 'required|numeric|different:p10_'.$index;
                     $rules['weight_'.$index] = 'required|numeric';
                 }
 
@@ -451,8 +451,10 @@ class StatisticalController extends Controller
                     }
                     $messages['p10_'.$index.'.required'] = 'The p10 of '.$index.' is required.';
                     $messages['p10_'.$index.'.numeric'] = 'The p10 of '.$index.' must be a number.';
+                    $messages['p10_'.$index.'.different:p90_'.$index] = 'The p10 of '.$index.' must be different than p90.';
                     $messages['p90_'.$index.'.required'] = 'The p90 of '.$index.' is required.';
                     $messages['p90_'.$index.'.numeric'] = 'The p90 of '.$index.' must be a number.';
+                    $messages['p90_'.$index.'.different:p10_'.$index] = 'The p90 of '.$index.' must be different than p10.';
                     $messages['weight_'.$index.'.required'] = 'The weight of '.$index.' is required.';
                     $messages['weight_'.$index.'.numeric'] = 'The weight of '.$index.' must be a number.';
                 }

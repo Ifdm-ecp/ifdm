@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $( document ).ready(function() {
 
+        $("#loading_icon").show();
         //ms blade
         addInputGroup();
         // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
@@ -511,6 +512,8 @@
             }
 
         }, 1500);
+
+        $("#loading_icon").hide();
   
         // }
         // if( $("#statistical").prop('checked') == false ) {

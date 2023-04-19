@@ -49,8 +49,6 @@
 
         fillInputFields(); 
 
-        $("#loading_icon").show();
-
         var d = new Date();
         var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
         if( $('#checkbox_general_MS').val() == 'on' ) {
@@ -324,7 +322,7 @@
 
 
         setTimeout(function (){
-            
+            $("#loading_icon").show();
             if( $("#statistical").prop('checked') == true ) {
                 if ($('#p10_MS1').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {$('#p10_MS1').val(data[0]);}); }
                 if ($('#p10_MS2').val() === '') { $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {$('#p10_MS2').val(data[0]);}); }
@@ -511,10 +509,10 @@
                 }
 
             }
-
+            $("#loading_icon").hide();
         }, 1500);
 
-        $("#loading_icon").hide();
+        
   
         // }
         // if( $("#statistical").prop('checked') == false ) {

@@ -456,8 +456,7 @@ $(document).ready(function() {
             $('#well').selectpicker('val', '');
         }); 
         
-        setTimeout(function (){
-            if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
+        if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
             $.get("{{url('formationbyfield')}}", {
                 field: campo
             },
@@ -467,10 +466,10 @@ $(document).ready(function() {
                 });
                 $("#formation_multiparametric_statistical").selectpicker('refresh');
                 $('#formation_multiparametric_statistical').selectpicker('val', '');
+                $('#formation_multiparametric_statistical').selectpicker('destroy');
                 $('#formation_multiparametric_statistical').selectpicker('render');
             });
         }
-        }, 500);
        
     });
 

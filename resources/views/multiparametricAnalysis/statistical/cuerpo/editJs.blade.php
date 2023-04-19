@@ -47,9 +47,9 @@
         //Fill Weights
         multiparametricWeights();
 
-        $("#loading_icon").show();
-
         fillInputFields(); 
+
+        $("#loading_icon").show();
 
         var d = new Date();
         var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();

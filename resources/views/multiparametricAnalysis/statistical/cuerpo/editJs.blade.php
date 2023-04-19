@@ -1,7 +1,6 @@
 <script type="text/javascript">
     $( document ).ready(function() {
 
-        $("#loading_icon").show();
         //ms blade
         addInputGroup();
         // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
@@ -47,6 +46,8 @@
 
         //Fill Weights
         multiparametricWeights();
+
+        $("#loading_icon").show();
 
         fillInputFields(); 
 

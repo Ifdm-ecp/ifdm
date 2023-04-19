@@ -469,7 +469,8 @@ $(document).ready(function() {
                 });
                 $("#formation_multiparametric_statistical").selectpicker('refresh');
                 $('#formation_multiparametric_statistical').selectpicker('val', '');
-            }); 
+                $('#formation_multiparametric_statistical').selectpicker('render');
+            });
         }
         }, 500);
        

@@ -448,6 +448,7 @@ $(document).ready(function() {
             $("#formation").empty();
             $("#formation_ipr").empty();
             $("#formation_multiparametric_statistical").empty();
+            console.log('hola', data);
 
             $.each(data, function(index, value) {
                 $("#well").append('<option value="' + value.id + '">' + value.nombre + '</option>');

@@ -512,7 +512,7 @@
 
         setTimeout(function (){
             $("#loading_icon").hide();
-        }, 3000);
+        }, 10000);
 
         // }
         // if( $("#statistical").prop('checked') == false ) {

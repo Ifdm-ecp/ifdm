@@ -462,7 +462,6 @@ $(document).ready(function() {
                 field: field
             },
             function(data) {
-                $("#formation_multiparametric_statistical").empty();
                 $.each(data, function(index, value) {
                     $("#formation_multiparametric_statistical").append('<option value="' + value.id + '">' + value.nombre + '</option>');
                 });

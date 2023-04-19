@@ -457,7 +457,8 @@ $(document).ready(function() {
             $('#well').selectpicker('val', '');
         }); 
         
-        if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
+        setTimeout(function (){
+            if ($("#type").val() == "Multiparametric" && $("#multiparametricType").val() == "statistical") {
             $.get("{{url('formationbyfield')}}", {
                 field: campo
             },
@@ -470,6 +471,7 @@ $(document).ready(function() {
                 $('#formation_multiparametric_statistical').selectpicker('val', '');
             }); 
         }
+        }, 500);
        
     });
 

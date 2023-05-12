@@ -4723,6 +4723,10 @@ Route::group(['middleware' => 'auth'], function(){
                 $result90 = $array[floor($index)];  
             }
 
+            if ($result10 == $result90) {
+                $result90 = $result90 + 0.01;
+            }
+
             return Response::json([$result10, $result90]);
         }
     });

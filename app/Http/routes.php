@@ -4607,101 +4607,123 @@ Route::group(['middleware' => 'auth'], function(){
             return Response::json([0,0]);
         } else {
 
-            $min = min($arreglo);
-            $max = max($arreglo);
-            $range = abs($max - $min);
+            // $min = min($arreglo);
+            // $max = max($arreglo);
+            // $range = abs($max - $min);
 
-            $a = $range/100;
-            $k = 100;
+            // $a = $range/100;
+            // $k = 100;
 
-            $li = [];
-            array_push($li, $min);
-            for ($i=0; $i < $k-1; $i++) { 
-                array_push($li, $li[count($li)-1]+$a );
-            }
+            // $li = [];
+            // array_push($li, $min);
+            // for ($i=0; $i < $k-1; $i++) { 
+            //     array_push($li, $li[count($li)-1]+$a );
+            // }
 
-            $ls = [];
-            array_push($ls, $min+$a);
-            for ($i=0; $i < $k-1; $i++) { 
-                array_push($ls, $ls[count($ls)-1]+$a );
-            }
+            // $ls = [];
+            // array_push($ls, $min+$a);
+            // for ($i=0; $i < $k-1; $i++) { 
+            //     array_push($ls, $ls[count($ls)-1]+$a );
+            // }
             
-            $pm = [];
-            for ($i=0; $i < $k; $i++) { 
-                array_push($pm, ($li[$i]+$ls[$i])/2);
-            }
+            // $pm = [];
+            // for ($i=0; $i < $k; $i++) { 
+            //     array_push($pm, ($li[$i]+$ls[$i])/2);
+            // }
 
-            $fi =[];
-            for ($i=0; $i < $k; $i++) { 
-                $aux1 = [];
-                $aux2 = [];
-                for ($j=0; $j < count($arreglo); $j++) { 
-                    if ($arreglo[$j] >= $li[$i]) {
-                        array_push($aux1, $arreglo[$j]);
-                    }
-                }
-                if($i < $k-1) {
-                    for ($j=0; $j < count($arreglo); $j++) { 
-                        if ($arreglo[$j] >= $ls[$i]) {
-                            array_push($aux2, $arreglo[$j]);
-                        }
-                    }
-                    array_push($fi, count($aux1)-count($aux2));
-                } else { 
-                    array_push($fi, count($aux1));
-                }
-            }
+            // $fi =[];
+            // for ($i=0; $i < $k; $i++) { 
+            //     $aux1 = [];
+            //     $aux2 = [];
+            //     for ($j=0; $j < count($arreglo); $j++) { 
+            //         if ($arreglo[$j] >= $li[$i]) {
+            //             array_push($aux1, $arreglo[$j]);
+            //         }
+            //     }
+            //     if($i < $k-1) {
+            //         for ($j=0; $j < count($arreglo); $j++) { 
+            //             if ($arreglo[$j] >= $ls[$i]) {
+            //                 array_push($aux2, $arreglo[$j]);
+            //             }
+            //         }
+            //         array_push($fi, count($aux1)-count($aux2));
+            //     } else { 
+            //         array_push($fi, count($aux1));
+            //     }
+            // }
             
-            $Fi = [];
-            array_push($Fi, $fi[0]);
-            for ($i=1; $i < $k; $i++) { 
-                array_push($Fi, $Fi[$i-1]+$fi[$i]);
-            }
+            // $Fi = [];
+            // array_push($Fi, $fi[0]);
+            // for ($i=1; $i < $k; $i++) { 
+            //     array_push($Fi, $Fi[$i-1]+$fi[$i]);
+            // }
             
-            $p10aux = 10*count($arreglo)/100;
-            for ($i=0; $i < $k; $i++) { 
-                if ($Fi[$i] > $p10aux) {
-                    $p10pos = $i;
-                    break;
-                }
-            }
-            $p10li = $li[$p10pos];
-            if ($p10pos == 0 ) {
-                $p10Fi = $Fi[$p10pos];
-            } else {
-                $p10Fi = $Fi[$p10pos-1];
-            }
-            $p10fi = $fi[$p10pos];
-            $p10 = $p10li + ($a * ((( (count($arreglo) * 10) / 100 ) - $p10Fi) / $p10fi) );
+            // $p10aux = 10*count($arreglo)/100;
+            // for ($i=0; $i < $k; $i++) { 
+            //     if ($Fi[$i] > $p10aux) {
+            //         $p10pos = $i;
+            //         break;
+            //     }
+            // }
+            // $p10li = $li[$p10pos];
+            // if ($p10pos == 0 ) {
+            //     $p10Fi = $Fi[$p10pos];
+            // } else {
+            //     $p10Fi = $Fi[$p10pos-1];
+            // }
+            // $p10fi = $fi[$p10pos];
+            // $p10 = $p10li + ($a * ((( (count($arreglo) * 10) / 100 ) - $p10Fi) / $p10fi) );
 
-            $p90aux = 90*count($arreglo)/100;
-            for ($i=0; $i < $k; $i++) { 
-                if ($Fi[$i] > $p90aux) {
-                    $p90pos = $i;
-                    break;
-                }
-            }
-            $p90li = $li[$p90pos];
-            if ($p90pos == 0 ) {
-                $p90Fi = $Fi[$p90pos];
-            } else {
-                $p90Fi = $Fi[$p90pos-1];
-            }
-            $p90fi = $fi[$p90pos];
-            $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
+            // $p90aux = 90*count($arreglo)/100;
+            // for ($i=0; $i < $k; $i++) { 
+            //     if ($Fi[$i] > $p90aux) {
+            //         $p90pos = $i;
+            //         break;
+            //     }
+            // }
+            // $p90li = $li[$p90pos];
+            // if ($p90pos == 0 ) {
+            //     $p90Fi = $Fi[$p90pos];
+            // } else {
+            //     $p90Fi = $Fi[$p90pos-1];
+            // }
+            // $p90fi = $fi[$p90pos];
+            // $p90 = $p90li + ($a * ((( (count($arreglo) * 90) / 100 ) - $p90Fi) / $p90fi) );
 
-            if ($p10 < $min) {
-                $p10 = $min; 
+            // if ($p10 < $min) {
+            //     $p10 = $min; 
+            // }
+            // if ($p90 > $max) {
+            //     $p90 = $max;
+            // }
+
+            // if ($p10 == $p90) {
+            //     $p90 = $p90 + 0.01;
+            // }
+
+            $percentile = 10;
+            $array = $arreglo;
+            sort($array);
+            $index = ($percentile/100) * count($array);
+            if (floor($index) == $index) {
+                $result10 = ($array[$index-1] + $array[$index])/2;
             }
-            if ($p90 > $max) {
-                $p90 = $max;
+            else {
+                $result10 = $array[floor($index)];
             }
 
-            if ($p10 == $p90) {
-                $p90 = $p90 + 0.01;
+            $percentile = 90;
+            $array = $arreglo;
+            sort($array);
+            $index = ($percentile/100) * count($array);
+            if (floor($index) == $index) {
+                $result90 = ($array[$index-1] + $array[$index])/2;
+            }
+            else {
+                $result90 = $array[floor($index)];
             }
 
-            return Response::json([stats_stat_percentile($arreglo, 10), stats_stat_percentile($arreglo, 90)]);
+            return Response::json([$result10, $result90]);
         }
     });
 

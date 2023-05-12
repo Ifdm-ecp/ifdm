@@ -4701,7 +4701,7 @@ Route::group(['middleware' => 'auth'], function(){
                 $p90 = $p90 + 0.01;
             }
 
-            return Response::json([$p10, $p90]);
+            return Response::json([stats_stat_percentile($arreglo, 10), stats_stat_percentile($arreglo, 90)]);
         }
     });
 

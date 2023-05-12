@@ -4720,7 +4720,7 @@ Route::group(['middleware' => 'auth'], function(){
                 $result90 = ($array[$index-1] + $array[$index])/2;
             }
             else {
-                $result90 = $array[floor($index)];
+                $result90 = $array[floor($index)];  
             }
 
             return Response::json([$result10, $result90]);

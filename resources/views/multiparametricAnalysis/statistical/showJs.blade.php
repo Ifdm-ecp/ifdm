@@ -106,7 +106,7 @@
             if (titleFlag === 0) {
                 tableBody = tableBody + '<th style="text-align:center; vertical-align:middle;">' + formationData + '</th>';
             } else {
-                tableBody = tableBody + '<th class="primary" style="text-align:center; vertical-align:middle; font-weight:normal;">' + parseFloat(formationData).toFixed(2) + ' %</th>';
+                tableBody = tableBody + '<th class="info" style="text-align:center; vertical-align:middle; font-weight:normal;">' + parseFloat(formationData).toFixed(2) + ' %</th>';
             }
             titleFlag = 1;
         });

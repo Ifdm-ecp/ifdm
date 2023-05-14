@@ -493,7 +493,7 @@ class StatisticalController extends Controller
             //     array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
             // }
             // $elements = $formations_names;
-
+            
             $titles = [['MS', 5], ['FB', 5], ['OS', 5], ['RP', 5], ['ID', 4], ['GD', 4]];
             
             $weights = subparameters_weight::where('multiparametric_id', $id)->first();

@@ -953,12 +953,11 @@ class StatisticalController extends Controller
                     } else {
                         // $sum = $peso * ( $valor - $p10 ) / ( 0.0001 );
                         $sum = $peso * ( $valor - $p10 ) / ( $p90 - $p10 );
-                        dd($sum, 'siii');
                     }
                 }
 
             } else if ($p90 > $p10) {
-                dd('p90 > p10');
+                
                 if ($valor > (abs( $p90 ) + $p90)) {
                     $sum = $peso * ( 2 * $p90 - $p10 ) / ( $p90 - $p10);
                 } else {
@@ -982,7 +981,7 @@ class StatisticalController extends Controller
         // } else {
         //     $sum = (($valor - $p10) / ($p90 - $p10)) * $peso;
         // }
-        dd('se pasó');
+        
         # Si sum da negativo, que lo haga igual a cero
         if ($sum <= 0) {
             $sum = 0;

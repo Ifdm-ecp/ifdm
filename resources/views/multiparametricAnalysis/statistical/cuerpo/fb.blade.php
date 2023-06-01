@@ -28,7 +28,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 6, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('ACW', '[Al] on Produced Water') !!}
+                     {!! Form::label('ACW', '[Al] on Produced Water [ppm]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="FB1_checkbox" name="FB1_checkbox" checked>
@@ -61,7 +61,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 7, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('SCW', '[Si] on produced water') !!}
+                     {!! Form::label('SCW', '[Si] on produced water [ppm]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="FB2_checkbox" name="FB2_checkbox" checked>
@@ -94,7 +94,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 8, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc') !!}
+                     {!! Form::label('CRF', 'Critical Radius derived from maximum critical velocity, Vc [ft]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="FB3_checkbox" name="FB3_checkbox" checked>
@@ -127,7 +127,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 9, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('MF', 'Mineralogy Factor') !!}
+                     {!! Form::label('MF', 'Mineralogy Factor [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="FB4_checkbox" name="FB4_checkbox" checked>
@@ -160,7 +160,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 10, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures') !!}
+                     {!! Form::label('CPF', 'Mass of crushed proppant inside Hydraulic Fractures [lbs]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="FB5_checkbox" name="FB5_checkbox" checked>

@@ -28,7 +28,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 11, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'CII Factor: Colloidal Instability Index') !!}
+                     {!! Form::label('', 'CII Factor: Colloidal Instability Index [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS1_checkbox" name="OS1_checkbox" checked>
@@ -61,7 +61,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 30, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Volume of HCl pumped into the formation') !!}
+                     {!! Form::label('', 'Volume of HCl pumped into the formation [bbl]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS2_checkbox" name="OS2_checkbox" checked>
@@ -94,7 +94,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 12, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Cumulative Gas Produced') !!}
+                     {!! Form::label('', 'Cumulative Gas Produced [mMMSCF]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS3_checkbox" name="OS3_checkbox" checked>
@@ -127,7 +127,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 13, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Number Of Days Below Saturation Pressure') !!}
+                     {!! Form::label('', 'Number Of Days Below Saturation Pressure [days]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS4_checkbox" name="OS4_checkbox" checked>
@@ -160,7 +160,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 14, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'De Boer Criteria') !!}
+                     {!! Form::label('', 'De Boer Criteria [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS5_checkbox" name="OS5_checkbox" checked>

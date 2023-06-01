@@ -28,7 +28,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 19, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('MDF', 'Gross Pay') !!}
+                     {!! Form::label('MDF', 'Gross Pay [ft]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="ID1_checkbox" name="ID1_checkbox" checked>
@@ -61,7 +61,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 20, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing') !!}
+                     {!! Form::label('PDF', 'Total polymer pumped during Hydraulic Fracturing [lbs]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="ID2_checkbox" name="ID2_checkbox" checked>
@@ -94,7 +94,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 21, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well') !!}
+                     {!! Form::label('IFF', 'Total volume of water based fluids pumped into the well [bbl]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="ID3_checkbox" name="ID3_checkbox" checked>
@@ -127,7 +127,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 22, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('ML', 'Mud Losses') !!}
+                     {!! Form::label('ML', 'Mud Losses [bbl]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="ID4_checkbox" name="ID4_checkbox" checked>

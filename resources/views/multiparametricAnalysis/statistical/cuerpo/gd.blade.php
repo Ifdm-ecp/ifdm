@@ -28,7 +28,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 23, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('PNP', 'Fraction of Net Pay Exihibiting Natural Fractures') !!}
+                     {!! Form::label('PNP', 'Fraction of Net Pay Exihibiting Natural Fractures [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="GD1_checkbox" name="GD1_checkbox" checked>
@@ -61,7 +61,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 24, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP') !!}
+                     {!! Form::label('BHFP', 'Drawdown, i.e, reservoir pressure minus BHFP [psi]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="GD2_checkbox" name="GD2_checkbox" checked>
@@ -94,7 +94,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 25, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('KH', 'Ratio of KH (matrix + fracture / KH) matrix') !!}
+                     {!! Form::label('KH', 'Ratio of KH (matrix + fracture / KH) matrix [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="GD3_checkbox" name="GD3_checkbox" checked>
@@ -127,7 +127,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 26, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('KH', 'Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP') !!}
+                     {!! Form::label('KH', 'Geomechanical Damage Expressed As Fraction Of Base Permeability At BHFP [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="GD4_checkbox" name="GD4_checkbox" checked>

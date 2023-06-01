@@ -4,6 +4,13 @@
         $("#loading_icon").show();
         //ms blade
         addInputGroup();
+
+        $(".date").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+    
+        // $('#epa').datetimepicker();
+
         // addInputGroup('MS2', 'ScaleIndexOfBaSO4');
         // addInputGroup('MS3', 'ScaleIndexOfIronScales');
         // addInputGroup('MS4', 'BackflowCa');
@@ -526,8 +533,10 @@
 
     function addInputGroup() {
         
+        units = [" - ", " - ", " - ", "ppm", "ppm", "ppm", "ppm", "ft", " - ", "lbs", " - ", "bbl", "mMMSCF", "days", " - ", "days", "psi", "MMbbl", " - ", "1/ft", "ft", "lbs", "bbl", "bbl", " - ", "psi", " - ", " - "];
         <?php $i = 0; ?>
         @foreach($titles1 as $k => $title1)
+            
             html = '<div role="tabpanel_formation"><ul class="nav nav-tabs" role="tablist">';
             flag = 0;
             Object.keys(<?php echo json_encode($formationsWithoutSpaces); ?>).forEach(key => {
@@ -551,7 +560,7 @@
                 } else {
                     html = html + '<div role="tabpanel" class="tab-pane fade in" id="tab' + name + '">';
                 }
-
+                
                 //CONTENT
                 html = html + '<div class="tabcontent"><div class="row"><div class="col-md-4"><div class="form-group"><label for="selectStored_' + name + '">Stored Previously</label><select name="selectStored_' + name + '" id="selectStored_' + name + '" class=" form-control form-select show-tick" onchange="updateData(`selectStored_' + name + '`,`' + name + '`)">';
                 html = html + '<option value="none" selected hidden>Nothing Selected</option>';
@@ -559,35 +568,35 @@
 
 
                 html = html + '</select></div></div></div>';
-                html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
+                html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group';
                 @if ($errors->has('value_'.$title1.$formationWithoutSpaces)) 
                     html = html + 'has-error';
                 @endif
-                html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">-</span></div></div></div>';
-                html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><div class="input-group ';
+                html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
+                html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><div class="input-group';
                 @if ($errors->has('date_'.$title1.$formationWithoutSpaces)) 
                     html = html + 'has-error';
                 @endif
-                html = html + '"><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit jquery-datepicker"></div></div></div>';
+                html = html + '"><input type="text" id="date_' + name + '" name="date_' + name + '" placeholder="dd/mm/yyyy" class="form-control value_edit date" /><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div></div></div>';
                 html = html + '<div class="col-md-4"><div class="form-group"><label for="comment_' + name + '">Comment</label><input type="text" id="comment_' + name + '" name="comment_' + name + '" class="form-control validate"></div></div></div>';
             
                 html = html + '</div></div>';
             @endforeach
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group ';
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group';
             @if ($errors->has('p10_'.$title1)) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p10_' + '<?php echo $title1 ?>' + '" name="p10_' + '<?php echo $title1 ?>' + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + '<?php echo $title1 ?>' + '">p90</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p10_' + '<?php echo $title1 ?>' + '" name="p10_' + '<?php echo $title1 ?>' + '" class="form-control validate"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + '<?php echo $title1 ?>' + '">p90</label> <label class="red">*</label><div class="input-group';
             @if ($errors->has('p90_'.$title1)) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="p90_' + '<?php echo $title1 ?>' + '" name="p90_' + '<?php echo $title1 ?>' + '" class="form-control validate"></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + '<?php echo $title1 ?>' + '">Weight</label> <label class="red">*</label><div class="input-group ';
+            html = html + '"><input type="text" id="p90_' + '<?php echo $title1 ?>' + '" name="p90_' + '<?php echo $title1 ?>' + '" class="form-control validate"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + '<?php echo $title1 ?>' + '">Weight</label> <label class="red">*</label><div class="input-group';
             @if ($errors->has('weight_'.$title1)) 
                 html = html + 'has-error';
             @endif
-            html = html + '"><input type="text" id="weight_' + '<?php echo $title1 ?>' + '" name="weight_' + '<?php echo $title1 ?>' + '" class="form-control weight_ms_count"></div></div></div></div>';  
+            html = html + '"><input type="text" id="weight_' + '<?php echo $title1 ?>' + '" name="weight_' + '<?php echo $title1 ?>' + '" class="form-control weight_ms_count"><span class="input-group-addon" id="basic-addon2"> - </span></div></div></div></div>';  
 
             html = html + '</div></div>';
             $("#"+'<?php echo $titles2[$k]; ?>').append(html);

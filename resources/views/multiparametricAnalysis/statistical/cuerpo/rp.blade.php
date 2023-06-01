@@ -28,7 +28,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 15, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Number Of Days Below Saturation Pressure') !!}
+                     {!! Form::label('', 'Number Of Days Below Saturation Pressure [days]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="RP1_checkbox" name="RP1_checkbox" checked>
@@ -61,7 +61,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 16, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Difference between current reservoir pressure and saturation pressure') !!}
+                     {!! Form::label('', 'Difference between current reservoir pressure and saturation pressure [psi]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="RP2_checkbox" name="RP2_checkbox" checked>
@@ -94,7 +94,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 17, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Cumulative Water Produced') !!}
+                     {!! Form::label('', 'Cumulative Water Produced [MMbbl]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="RP3_checkbox" name="RP3_checkbox" checked>
@@ -127,7 +127,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 18, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k))') !!}
+                     {!! Form::label('', 'Pore Size Diameter Approximation By Katz And Thompson Correlation (d = 1/√(ϕ * k)) [ - ]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="RP4_checkbox" name="RP4_checkbox" checked>
@@ -160,7 +160,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 31, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'Velocity parameter estimated as the inverse of the critical radius: 1 / Critical Radius') !!}
+                     {!! Form::label('', 'Velocity parameter estimated as the inverse of the critical radius: 1 / Critical Radius [1/ft]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="RP5_checkbox" name="RP5_checkbox" checked>

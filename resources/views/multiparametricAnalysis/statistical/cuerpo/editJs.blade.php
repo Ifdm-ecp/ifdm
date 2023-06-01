@@ -533,7 +533,7 @@
 
     function addInputGroup() {
         
-        units = [" - ", " - ", " - ", "ppm", "ppm", "ppm", "ppm", "ft", " - ", "lbs", " - ", "bbl", "mMMSCF", "days", " - ", "days", "psi", "MMbbl", " - ", "1/ft", "ft", "lbs", "bbl", "bbl", " - ", "psi", " - ", " - "];
+        units = [" - ", " - ", " - ", "ppm", "ppm", "ppm", "ppm", "ft", " - ", "lbs", " - ", "bbl", "mMMSCF", "days", "psi", "days", "psi", "MMbbl", " - ", "1/ft", "ft", "lbs", "bbl", "bbl", " - ", "psi", " - ", " - "];
         <?php $i = 0; ?>
         @foreach($titles1 as $k => $title1)
             

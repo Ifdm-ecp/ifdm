@@ -160,7 +160,7 @@
                      <a target="_blank" href="{{ URL::route('Geor', ['subp' => 14, 'multi' => $statistical->id])}}"><button type="button" class="btn btn-default" aria-label="Left Align">
                      <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                      </button></a>&nbsp&nbsp&nbsp
-                     {!! Form::label('', 'De Boer Criteria [ - ]') !!}
+                     {!! Form::label('', 'De Boer Criteria [psi]') !!}
                   </div>
                   <div class="pull-right">
                      <input type="checkbox" id="OS5_checkbox" name="OS5_checkbox" checked>

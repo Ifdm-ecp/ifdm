@@ -9,7 +9,7 @@
             <div class="row">
                <div class="col-md-4">
                   <label>
-                     <input type="checkbox" id="statistical" name="statistical">
+                  {!! Form::checkbox('statistical', 'Colombia', null, array('id'=>'statistical', 'name'=>'statistical')) !!}
                      <input type="hidden" name="statisticalCheckbox" value="false">
                      {!! Form::label('sta', 'Colombia') !!}
                   </label>

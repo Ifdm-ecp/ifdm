@@ -342,6 +342,19 @@
                         }
                     }); 
                 }
+                console.log('pepe1');
+                if ($('#p10_FB4').val() === '' || $('#p90_FB4').val() === '') { 
+                    $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB4'}, function(data) {
+                        console.log('pepe2');
+                        if ($('p10_FB4').val() === '') {
+                            $('#p10_FB4').val(data[0]);
+                        }
+                        console.log(data[0], data[1], 'yepeto');
+                        if ($('p90_FB4').val() === '') {
+                            $('#p90_FB4').val(data[1]);
+                        }
+                    }); 
+                }
                 if ($('#p10_MS2').val() === '' || $('#p90_MS4').val() === '') { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {
                         if ($('p10_MS2').val() === '') {
@@ -362,19 +375,7 @@
                         }
                     }); 
                 }
-                console.log('pepe1');
-                if ($('#p10_FB4').val() === '' || $('#p90_FB4').val() === '') { 
-                    $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB4'}, function(data) {
-                        console.log('pepe2');
-                        if ($('p10_FB4').val() === '') {
-                            $('#p10_FB4').val(data[0]);
-                        }
-                        console.log(data[0], data[1], 'yepeto');
-                        if ($('p90_FB4').val() === '') {
-                            $('#p90_FB4').val(data[1]);
-                        }
-                    }); 
-                }
+                
                 if ($('#p10_MS4').val() === '' || $('#p90_MS3').val() === '') { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS4'}, function(data) {
                         if ($('p10_MS4').val() === '') {

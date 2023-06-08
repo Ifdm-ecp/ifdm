@@ -168,7 +168,6 @@ class StatisticalController extends Controller
      */
     public function edit($id, $calculate = false, $request = null)
     {
-        dd('elo');
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $escenario_id = $id;
         $campo_id = escenario::where('id',$escenario_id)->first()->campo_id;
@@ -250,7 +249,7 @@ class StatisticalController extends Controller
             array_push($pesos, $pesos_query->gd_ratio_kh_fracture);
             array_push($pesos, $pesos_query->gd_geomechanical_damage_fraction);
         }
-
+        dd('elo');
         /* se convierten  los datos autoriazados por bloques de string a arrays */
         $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));
         $statistical->fbAvailable = array_map('intval', explode(',', $statistical->fbAvailable));

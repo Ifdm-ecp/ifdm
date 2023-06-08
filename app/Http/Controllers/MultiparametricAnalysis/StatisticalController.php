@@ -47,7 +47,7 @@ class StatisticalController extends Controller
             $complete = false;
 
             /* se ingresa los datos de la tabla statistical */
-            $statistical = Statistical::create(['escenario_id' => \Request::get('scenaryId')]);
+            $statistical = Statistical::create(['escenario_id' => \Request::get('scenaryId')])->save();
 
             /* se guarda el parametro en la tabla subparameters_weight */
             subparameters_weight::create(['multiparametric_id' => $statistical->id]);
@@ -76,7 +76,7 @@ class StatisticalController extends Controller
         Session::flash('calculate', $request->calculate);
 
         /* se ingresa los datos de la tabla statistical */
-        dd($input, $input['escenario_id']);
+        // dd($input, $input['escenario_id']);
         $statistical = Statistical::where('escenario_id', $input['escenario_id'])->first()->update($input);
 
         //se redirecciona a la vista edit de statistical

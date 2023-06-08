@@ -40,7 +40,7 @@
    <input type="hidden" name="duplicate" id="duplicate" value="{{ $duplicateFrom }}">
   @endif
 
-  <input type="hidden" name="calculate" value="false">
+  
     <div class="tab-content">
       <br>
       @include('multiparametricAnalysis.statistical.cuerpo.sb')

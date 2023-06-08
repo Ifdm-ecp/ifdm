@@ -351,7 +351,7 @@ class StatisticalController extends Controller
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
         
-        dd('elo1a');
+        
        
         // dd($formations);
 

@@ -45,6 +45,11 @@
 
     $('#calculate').click(function(){
         $('input[name = calculate]').val(true);        
+        if ( $("#statistical").prop('checked') == true) {
+            $('input[name = statistical]').val(true);
+        } else { 
+            $('input[name = statistical]').val(false);
+        }
     });
 
 

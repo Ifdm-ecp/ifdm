@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('fts/duplicate/{id}/{dup}', 'FinesTreatmentSelectionController@duplicate');
     
     //escenario multiparametrico analitical, statistical, completo o mixto
-    Route::post('statistical/update/{id}', 'MultiparametricAnalysis\StatisticalController@update')->name('statistical.update_');
+    Route::post('statistical/update/{id}', 'MultiparametricAnalysis\StatisticalController@update')->name('statistical.update');
     Route::resource('statistical', 'MultiparametricAnalysis\StatisticalController');
 
     /* Para duplicar */

@@ -373,7 +373,7 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             
             if ($request->calculate == 'true') {
-                return redirect()->route('statistical.edit', $request->id_scenary);
+                store($request);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

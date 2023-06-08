@@ -386,6 +386,8 @@ class StatisticalController extends Controller
                 
                 $input = $request->all();
 
+                dd($input->statistical);
+
                 /* se modifica el array del campo field_statistical con implode */
                 if ($request->field_statistical) {
                     $input['field_statistical'] = implode(",", $request->field_statistical);
@@ -540,12 +542,11 @@ class StatisticalController extends Controller
             //se modifica el array del campo field_statistical con implode
             if ($request->field_statistical) {
                 $input['field_statistical'] = implode(",", $request->field_statistical);
+                $request->statistical = null;
             } else {
                 $input['field_statistical'] = null;
                 $request->basin_statistical = null;
             }
-
-            dd($request->statistical);
 
             // se guardan solo los campos field_statistical y statistical en la bbdd;
             $statistical->escenario_id = $request->id_scenary;

@@ -356,7 +356,7 @@ class StatisticalController extends Controller
         // dd($formations);
 
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2', 'calculate']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2']));
     }
 
     /**

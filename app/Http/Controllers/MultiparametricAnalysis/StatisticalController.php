@@ -373,7 +373,7 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             
             if ($request->calculate == 'true') {
-                dd($request->all());
+                
                 $input = $request->all();
 
                 /* se modifica el array del campo field_statistical con implode */

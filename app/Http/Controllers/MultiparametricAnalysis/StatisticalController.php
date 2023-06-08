@@ -249,7 +249,7 @@ class StatisticalController extends Controller
             array_push($pesos, $pesos_query->gd_ratio_kh_fracture);
             array_push($pesos, $pesos_query->gd_geomechanical_damage_fraction);
         }
-        dd('elo');
+        dd('elo1');
         /* se convierten  los datos autoriazados por bloques de string a arrays */
         $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));
         $statistical->fbAvailable = array_map('intval', explode(',', $statistical->fbAvailable));

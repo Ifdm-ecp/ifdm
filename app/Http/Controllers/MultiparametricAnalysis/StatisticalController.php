@@ -353,9 +353,9 @@ class StatisticalController extends Controller
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
         if ($calculate == true) {
-            $OverwriteP10P90 = true;
+            $OverwriteP10P90 = 2;
         } else {
-            $OverwriteP10P90 = false;
+            $OverwriteP10P90 = 1;
         }
         
         

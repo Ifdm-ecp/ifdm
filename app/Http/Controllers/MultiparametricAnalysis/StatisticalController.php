@@ -77,7 +77,7 @@ class StatisticalController extends Controller
 
         /* se ingresa los datos de la tabla statistical */
         // dd($input, $input['escenario_id']);
-        $statistical = Statistical::where('escenario_id', $input['escenario_id'])->first()->update($input);
+        $statistical = Statistical::where('escenario_id', $input['escenario_id'])->first();
         dd($statistical);
 
         //se redirecciona a la vista edit de statistical

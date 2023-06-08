@@ -386,7 +386,7 @@ class StatisticalController extends Controller
                 
                 $input = $request->all();
 
-                dd($input->statistical);
+                dd($input);
 
                 /* se modifica el array del campo field_statistical con implode */
                 if ($request->field_statistical) {

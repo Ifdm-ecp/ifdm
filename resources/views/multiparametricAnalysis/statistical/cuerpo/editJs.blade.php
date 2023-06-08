@@ -330,6 +330,7 @@
 
 
         setTimeout(function (){
+            console.log('fb4 p10', $('#p10_FB4').val(), 'fb4 90', $('#p90_FB4').val());
             if( $("#statistical").prop('checked') == true ) {
                 if ($('#p10_MS1').val() === '' || $('#p90_MS1').val() === '') { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {
@@ -421,6 +422,7 @@
                         }
                     }); 
                 }
+                console.log($('#p10_FB4').val(), $('#p90_FB4').val());
                 if ($('#p10_FB5').val() === '' || $('#p90_FB5').val() === '') { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB5'}, function(data) {
                         if ($('p10_FB5').val() === '') {

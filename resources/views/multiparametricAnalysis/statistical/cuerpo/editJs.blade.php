@@ -11,8 +11,8 @@
             dateFormat: "dd/mm/yy"
         });
 
-        @if(isset($OverwriteP10P90))
-            console.log('yep');
+        @if(isset($OverwriteP10P90) )
+            console.log({{$OverwriteP10P90}});
         @endif
     
         // $('#epa').datetimepicker();

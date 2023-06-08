@@ -411,8 +411,10 @@
                         }
                     }); 
                 }
+                console.log('pepe1');
                 if ($('#p10_FB4').val() === '' || $('#p90_FB4').val() === '') { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB4'}, function(data) {
+                        console.log('pepe2');
                         if ($('p10_FB4').val() === '') {
                             $('#p10_FB4').val(data[0]);
                         }

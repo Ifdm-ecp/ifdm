@@ -16,6 +16,7 @@ use App\subparameters_weight;
 use App\Traits\StatisticalTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Redirect;
 use Session;
 use DB;
 

@@ -1632,8 +1632,7 @@
         }
     }
 
-
     $('#calculate').click(function(){
-        console.log('adadas3232');        
+        $('input[name = calculate]').val(true);        
     });
 </script>

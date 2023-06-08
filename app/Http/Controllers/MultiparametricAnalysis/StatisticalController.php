@@ -370,8 +370,10 @@ class StatisticalController extends Controller
      */
     public function update(MultiparametricStatisticalRequest $request, $id)
     {
-        dd('234234');
         if (\Auth::check()) {
+
+
+            dd($request);
 
             // Encontrar formaciones y nombres de campos de entrada
             $scenario = escenario::find($request->id_scenary);

@@ -77,12 +77,11 @@ class StatisticalController extends Controller
 
         /* se ingresa los datos de la tabla statistical */
         // dd($input, $input['escenario_id']);
-        $statistical = Statistical::where('escenario_id', $input['escenario_id'])->first();
-        dd($statistical);
+        Statistical::where('escenario_id', $input['escenario_id'])->first()->update($input);
 
         //se redirecciona a la vista edit de statistical
         // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-        return redirect()->route('statistical.edit', $statistical->escenario_id);
+        return redirect()->route('statistical.edit', $input['escenario_id']);
     }
 
     /**

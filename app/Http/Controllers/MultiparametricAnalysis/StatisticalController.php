@@ -396,9 +396,9 @@ class StatisticalController extends Controller
 
 
                 //se redirecciona a la vista edit de statistical
-                dd($input['id_scenary'], true);
+                // dd($input['id_scenary'], true);
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->route('statistical.edit', [$input['id_scenary'], true]);
+                return redirect()->route('statistical.edit', ['id' => $input['id_scenary'], 'calculate' => true]);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

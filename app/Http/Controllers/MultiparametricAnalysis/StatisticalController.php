@@ -398,7 +398,7 @@ class StatisticalController extends Controller
                 //se redirecciona a la vista edit de statistical
                 // dd($input['id_scenary'], true);
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->back()->with(['id' => $input['id_scenary'], 'OverwriteP10P90' => true]);
+                return redirect()->back()->with(['id' => $input['id_scenary'], 'OverwriteP10P90' => "true"]);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

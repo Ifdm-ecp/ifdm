@@ -93,7 +93,7 @@
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
    
-   <!-- @include('multiparametricAnalysis.statistical.cuerpo.createJs') -->
+   @include('multiparametricAnalysis.statistical.cuerpo.createJs')
    @include('multiparametricAnalysis.statistical.cuerpo.editJs')
    @include('js/frontend_validator')
    @include('js/frontend_rules/multiparametric_statistical')

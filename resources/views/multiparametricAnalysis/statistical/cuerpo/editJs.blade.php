@@ -1635,6 +1635,7 @@
     }
 
     $('#calculate').click(function(){
+        console.log('aksadea');
         $('input[name = calculate]').val(true);        
     });
 </script>

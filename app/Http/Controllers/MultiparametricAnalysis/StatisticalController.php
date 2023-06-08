@@ -384,7 +384,7 @@ class StatisticalController extends Controller
                 // Session::flash('calculate', $request->calculate);
 
                 /* se ingresa los datos de la tabla statistical */
-                // dd($input, $input['escenario_id']);
+                dd($input, $input['escenario_id']);
                 Statistical::where('escenario_id', $input['id_scenary'])->first()->update($input);
                 // $statistical = Statistical::where('escenario_id', $input['id_scenary'])->first();
                 // $OverwriteP10P90 = true;

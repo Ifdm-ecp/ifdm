@@ -29,7 +29,7 @@
 
                <div class="col-xs-12">
                   <hr>
-                  <button class="btn btn-warning" id="calculate" onclick="runCalculate();">Calculate</button>
+                  <button class="btn btn-warning" id="calculate">Calculate</button>
                </div>
             </div>
          </div>

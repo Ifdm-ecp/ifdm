@@ -391,12 +391,16 @@ class StatisticalController extends Controller
                 $statistical = Statistical::where('escenario_id', $input['id_scenary'])->first();
                 $OverwriteP10P90 = true;
 
+                $scenary = escenario::find($input['id_scenary']);
+                $user = $scenary->user;
+                $advisor = $scenary->enable_advisor;
+                $cuencas = cuenca::orderBy('nombre')->get();
                 $complete = false;
 
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return view('multiparametricAnalysis.statistical.edit', compact(['id_scenary', 'OverwriteP10P90', 'statistical', 'complete']));
+                return view('multiparametricAnalysis.statistical.edit', compact(['id_scenary', 'OverwriteP10P90', 'statistical', 'scenary', 'user', 'advisor', 'cuencas', 'complete']));
                 // return redirect()->route('statistical.edit', $input['id_scenary'])->with(['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
             }
 

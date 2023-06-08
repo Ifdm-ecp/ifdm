@@ -249,7 +249,7 @@ class StatisticalController extends Controller
             array_push($pesos, $pesos_query->gd_ratio_kh_fracture);
             array_push($pesos, $pesos_query->gd_geomechanical_damage_fraction);
         }
-        dd('elo1');
+        
         /* se convierten  los datos autoriazados por bloques de string a arrays */
         $statistical->msAvailable = array_map('intval', explode(',', $statistical->msAvailable));
         $statistical->fbAvailable = array_map('intval', explode(',', $statistical->fbAvailable));
@@ -345,7 +345,7 @@ class StatisticalController extends Controller
             }
         }
         // dd($valores);
-
+        dd('elo1a');
         //se trae todas las cuencas existentes
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;

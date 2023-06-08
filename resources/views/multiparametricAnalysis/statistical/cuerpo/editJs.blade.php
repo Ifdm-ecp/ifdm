@@ -654,7 +654,7 @@
                     if ( $("#FB4_checkbox").prop('checked') == true ) {
                         console.log('kkokoko');
                         if ( $("#p10_FB4").val() === '' ) { $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB4').val(data[0]);}); }
-                        if ( $("#p90_FB4").val() === '' ) { $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {console.log('kukukuku'); $('#p90_OS1').val(data[1]);}); }
+                        if ( $("#p90_FB4").val() === '' ) { $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {console.log('kukukuku', data[1]); $('#p90_FB4').val(data[1]);}); }
                     }
                     if ( $("#FB5_checkbox").prop('checked') == true ) {
                         if ( $("#p10_FB5").val() === '' ) { $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {$('#p10_FB5').val(data[0]);}); }

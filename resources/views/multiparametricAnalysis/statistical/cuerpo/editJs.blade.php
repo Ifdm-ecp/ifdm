@@ -12,9 +12,9 @@
         });
 
         @if(isset($OverwriteP10P90) )
-            $flagOverwrite = 1;
+            flagOverwrite = 1;
         @else
-            $flagOverwrite = 0;
+            flagOverwrite = 0;
         @endif
     
         // $('#epa').datetimepicker();

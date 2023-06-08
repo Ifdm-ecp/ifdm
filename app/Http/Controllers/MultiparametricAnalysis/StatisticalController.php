@@ -345,13 +345,13 @@ class StatisticalController extends Controller
             }
         }
         // dd($valores);
-        dd('elo1a');
+        
         //se trae todas las cuencas existentes
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
         
-        
+        dd('elo1a');
        
         // dd($formations);
 

@@ -968,7 +968,7 @@
 
         setTimeout(function (){
             $("#loading_icon").hide();
-        }, 7000);
+        }, 6000);
 
         // }
         // if( $("#statistical").prop('checked') == false ) {

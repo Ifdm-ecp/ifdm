@@ -331,12 +331,16 @@
 
         setTimeout(function (){
             if( $("#statistical").prop('checked') == true ) {
-                if ($('#p10_MS1').val() === '' || $('#p90_MS1').val() === '') { 
+                if ($('#p10_MS1').val() === '' || $('#p90_MS1').val() === '') {
+                    console.log('yep'); 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {
+                        console.log('yey');
                         if ($('p10_MS1').val() === '') {
+                            console.log('1', data);
                             $('#p10_MS1').val(data[0]);
                         }
                         if ($('p90_MS1').val() === '') {
+                            console.log('2', data);
                             $('#p90_MS1').val(data[1]);
                         }
                     }); 

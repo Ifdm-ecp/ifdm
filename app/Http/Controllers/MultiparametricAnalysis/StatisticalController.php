@@ -76,6 +76,7 @@ class StatisticalController extends Controller
         Session::flash('calculate', $request->calculate);
 
         /* se ingresa los datos de la tabla statistical */
+        dd($input);
         $statistical = Statistical::where('escenario_id', $input->scenario_id)->first()->update($input);
 
         //se redirecciona a la vista edit de statistical

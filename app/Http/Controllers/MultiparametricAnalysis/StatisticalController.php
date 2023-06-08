@@ -16,6 +16,7 @@ use App\subparameters_weight;
 use App\Traits\StatisticalTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Redirect;
 use Session;
 use DB;
 
@@ -392,7 +393,7 @@ class StatisticalController extends Controller
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->route('statistical.edit', ['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
+                Redirect::route('statistical.edit', ['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

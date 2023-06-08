@@ -37,18 +37,28 @@
     //redireccionar Calculate o Save
     $('#run_calc').click(function(){
         $('input[name = calculate]').val(false);
+        if ( $("#statistical").prop('checked') == true) {
+            $('input[name = statisticalCheckbox]').val(true);
+        } else { 
+            $('input[name = statisticalCheckbox]').val(false);
+        }
     });
 
     $('#save_calc').click(function(){
         $('input[name = calculate]').val(false);
+        if ( $("#statistical").prop('checked') == true) {
+            $('input[name = statisticalCheckbox]').val(true);
+        } else { 
+            $('input[name = statisticalCheckbox]').val(false);
+        }
     });
 
     $('#calculate').click(function(){
         $('input[name = calculate]').val(true);        
         if ( $("#statistical").prop('checked') == true) {
-            $('input[name = statistical]').val(true);
+            $('input[name = statisticalCheckbox]').val(true);
         } else { 
-            $('input[name = statistical]').val(false);
+            $('input[name = statisticalCheckbox]').val(false);
         }
     });
 

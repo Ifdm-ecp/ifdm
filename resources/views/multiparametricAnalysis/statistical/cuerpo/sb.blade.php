@@ -10,6 +10,7 @@
                <div class="col-md-4">
                   <label>
                      <input type="checkbox" id="statistical" name="statistical">
+                     <input type="hidden" name="statisticalCheckbox">
                      {!! Form::label('sta', 'Colombia') !!}
                   </label>
                </div>

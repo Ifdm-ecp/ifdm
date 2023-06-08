@@ -11,6 +11,9 @@
             dateFormat: "dd/mm/yy"
         });
 
+
+        console.log(<?php echo $statistical->statistical; ?>);
+
         @if(isset($OverwriteP10P90) )
             flagOverwrite = 1;
         @else

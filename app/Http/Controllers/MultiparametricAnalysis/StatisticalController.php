@@ -166,7 +166,7 @@ class StatisticalController extends Controller
      * @param  int  $i
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $calculate = false, $request = null)
     {
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $escenario_id = $id;
@@ -350,15 +350,13 @@ class StatisticalController extends Controller
         $cuencas = cuenca::orderBy('nombre')->get();
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
-
-
         
         
        
         // dd($formations);
 
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2', 'calculate']));
     }
 
     /**
@@ -383,25 +381,26 @@ class StatisticalController extends Controller
                 }
 
                 /* se pasa la variable calculate al funcion edit */
-                Session::flash('calculate', $request->calculate);
+                // Session::flash('calculate', $request->calculate);
 
                 /* se ingresa los datos de la tabla statistical */
                 // dd($input, $input['escenario_id']);
                 Statistical::where('escenario_id', $input['id_scenary'])->first()->update($input);
-                $statistical = Statistical::where('escenario_id', $input['id_scenary'])->first();
-                $OverwriteP10P90 = true;
+                // $statistical = Statistical::where('escenario_id', $input['id_scenary'])->first();
+                // $OverwriteP10P90 = true;
 
-                $scenary = escenario::find($input['id_scenary']);
-                $user = $scenary->user;
-                $advisor = $scenary->enable_advisor;
-                $cuencas = cuenca::orderBy('nombre')->get();
-                $complete = false;
+                // $scenary = escenario::find($input['id_scenary']);
+                // $user = $scenary->user;
+                // $advisor = $scenary->enable_advisor;
+                // $cuencas = cuenca::orderBy('nombre')->get();
+                // $complete = false;
 
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return view('multiparametricAnalysis.statistical.edit', compact(['id_scenary', 'OverwriteP10P90', 'statistical', 'scenary', 'user', 'advisor', 'cuencas', 'complete']));
+                // return view('multiparametricAnalysis.statistical.edit', compact(['id_scenary', 'OverwriteP10P90', 'statistical', 'scenary', 'user', 'advisor', 'cuencas', 'complete']));
                 // return redirect()->route('statistical.edit', $input['id_scenary'])->with(['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
+                $this->edit($id_scenary, true, $input);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

@@ -373,7 +373,24 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             
             if ($request->calculate == 'true') {
-                $this->store($request);
+                dd($request->all());
+                $input = $request->all();
+
+                /* se modifica el array del campo field_statistical con implode */
+                if ($request->field_statistical) {
+                    $input['field_statistical'] = implode(",", $request->field_statistical);
+                }
+
+                /* se pasa la variable calculate al funcion edit */
+                Session::flash('calculate', $request->calculate);
+
+                /* se ingresa los datos de la tabla statistical */
+                // dd($input, $input['escenario_id']);
+                Statistical::where('escenario_id', $input['escenario_id'])->first()->update($input);
+
+                //se redirecciona a la vista edit de statistical
+                // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
+                return redirect()->route('statistical.edit', $input['escenario_id']);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

@@ -373,7 +373,7 @@ class StatisticalController extends Controller
         if (\Auth::check()) {
             
             if ($request->calculate == 'true') {
-                store($request);
+                $this->store($request);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

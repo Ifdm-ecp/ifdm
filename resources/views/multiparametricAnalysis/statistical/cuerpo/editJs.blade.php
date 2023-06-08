@@ -5,6 +5,8 @@
         //ms blade
         addInputGroup();
 
+        validationFields();
+
         $(".date").datepicker({
             dateFormat: "dd/mm/yy"
         });

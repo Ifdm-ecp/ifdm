@@ -46,6 +46,13 @@ class StatisticalController extends Controller
             $cuencas = cuenca::orderBy('nombre')->get();
             $complete = false;
 
+            /* se ingresa los datos de la tabla statistical */
+            $statistical = Statistical::create(['escenario_id' => \Request::get('scenaryId')]);
+
+            /* se guarda el parametro en la tabla subparameters_weight */
+            subparameters_weight::create(['multiparametric_id' => $statistical->id]);
+
+
             return view('multiparametricAnalysis.statistical.create', compact(['scenary', 'user', 'advisor', 'cuencas', 'complete']));
         }
     }
@@ -70,6 +77,7 @@ class StatisticalController extends Controller
 
         /* se ingresa los datos de la tabla statistical */
         $statistical = Statistical::create($input);
+        $statistical = Statistical::where('escenario_id', $id)->first();
 
         /* se guarda el parametro en la tabla subparameters_weight */
         subparameters_weight::create(['multiparametric_id' => $statistical->id]);

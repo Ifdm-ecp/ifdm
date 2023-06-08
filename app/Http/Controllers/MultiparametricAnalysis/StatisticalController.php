@@ -399,6 +399,12 @@ class StatisticalController extends Controller
                     $input['field_statistical'] = implode(",", $request->field_statistical);
                 }
 
+                if ($request->statisticalCheckbox == "true") {
+                    $input['statistical'] = 'Colombia';
+                } else { 
+                    $input['statistical'] = null;
+                }
+
                 /* se pasa la variable calculate al funcion edit */
                 Session::flash('calculate', $request->calculate);
 

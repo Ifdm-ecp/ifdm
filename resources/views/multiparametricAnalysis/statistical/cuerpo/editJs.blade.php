@@ -1590,4 +1590,8 @@
         $("#only_s").val("save");
         $("#multiparametricStatisticalForm").submit();
     }
+
+    function runCalculate() {
+        console.log('laldlaldal');
+    }
 </script>

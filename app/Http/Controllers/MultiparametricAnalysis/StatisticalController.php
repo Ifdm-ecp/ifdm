@@ -76,13 +76,7 @@ class StatisticalController extends Controller
         Session::flash('calculate', $request->calculate);
 
         /* se ingresa los datos de la tabla statistical */
-        // $statistical = Statistical::create($input);
-        dd($input);
-        $statistical = Statistical::where('escenario_id', $input->scenario_id)->first();
-        // dd();
-
-        /* se guarda el parametro en la tabla subparameters_weight */
-        subparameters_weight::create(['multiparametric_id' => $statistical->id]);
+        $statistical = Statistical::where('escenario_id', $input->scenario_id)->first()->update($input);
 
         //se redirecciona a la vista edit de statistical
         // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));

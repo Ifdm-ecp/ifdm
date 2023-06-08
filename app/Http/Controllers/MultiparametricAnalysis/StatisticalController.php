@@ -168,6 +168,7 @@ class StatisticalController extends Controller
      */
     public function edit($id, $calculate = false, $request = null)
     {
+        dd('elo');
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $escenario_id = $id;
         $campo_id = escenario::where('id',$escenario_id)->first()->campo_id;
@@ -384,7 +385,7 @@ class StatisticalController extends Controller
                 // Session::flash('calculate', $request->calculate);
 
                 /* se ingresa los datos de la tabla statistical */
-                dd($input, $input['id_scenary']);
+                // dd($input, $input['id_scenary']);
                 Statistical::where('escenario_id', $input['id_scenary'])->first()->update($input);
                 // $statistical = Statistical::where('escenario_id', $input['id_scenary'])->first();
                 // $OverwriteP10P90 = true;

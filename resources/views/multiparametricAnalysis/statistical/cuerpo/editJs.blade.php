@@ -416,7 +416,7 @@
                         if ($('p10_FB4').val() === '') {
                             $('#p10_FB4').val(data[0]);
                         }
-                        console.log(data[0], data[1]);
+                        console.log(data[0], data[1], 'yepeto');
                         if ($('p90_FB4').val() === '') {
                             $('#p90_FB4').val(data[1]);
                         }

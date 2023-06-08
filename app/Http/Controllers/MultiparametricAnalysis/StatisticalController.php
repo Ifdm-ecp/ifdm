@@ -166,7 +166,7 @@ class StatisticalController extends Controller
      * @param  int  $i
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $calculate = false)
     {
         /* se trae todos los datos de la tabla statistical con el id = $id */
         $escenario_id = $id;
@@ -351,14 +351,18 @@ class StatisticalController extends Controller
         $complete = false;
         $duplicateFrom = isset($_SESSION['scenary_id_dup']) ? $_SESSION['scenary_id_dup'] : null;
 
-
+        if ($calculate == true) {
+            $OverwriteP10P90 = true;
+        } else {
+            $OverwriteP10P90 = false;
+        }
         
         
        
         // dd($formations);
 
         // dd($statistical);
-        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2']));
+        return view('multiparametricAnalysis.statistical.edit', compact(['statistical', 'cuencas', 'complete', 'pozoId', 'duplicateFrom', 'formations', 'mediciones', 'pesos', 'formationsWithoutSpaces', 'checkboxes', 'generalCheckboxes', 'valores', 'titles1', 'titles2', 'OverwriteP10P90']));
     }
 
     /**
@@ -392,7 +396,7 @@ class StatisticalController extends Controller
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->route('statistical.edit' )->withInput(['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
+                return redirect()->route('statistical.edit', [$input['id_scenary'], true] );
             }
 
             // Encontrar formaciones y nombres de campos de entrada

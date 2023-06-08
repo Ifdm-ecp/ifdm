@@ -375,6 +375,7 @@ class StatisticalController extends Controller
             if ($request->calculate == 'true') {
                 
                 $input = $request->all();
+                $id_scenary = $input['id_scenary'];
 
                 /* se modifica el array del campo field_statistical con implode */
                 if ($request->field_statistical) {
@@ -392,7 +393,8 @@ class StatisticalController extends Controller
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->route('statistical.edit', $input['id_scenary'])->with(['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
+                return view('statistical.edit', compact(['id_scenary', 'OverwriteP10P90']));
+                // return redirect()->route('statistical.edit', $input['id_scenary'])->with(['id_scenary' => $input['id_scenary'], 'OverwriteP10P90' => $OverwriteP10P90]);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

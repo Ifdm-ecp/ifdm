@@ -12,7 +12,7 @@
         });
 
         @if(isset($OverwriteP10P90) )
-            console.log({{$OverwriteP10P90}});
+            console.log('yep');
         @endif
     
         // $('#epa').datetimepicker();

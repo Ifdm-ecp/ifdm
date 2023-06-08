@@ -371,9 +371,10 @@ class StatisticalController extends Controller
     public function update(MultiparametricStatisticalRequest $request, $id)
     {
         if (\Auth::check()) {
-
-
-            dd($request);
+            
+            if ($request->calculate == 'true') {
+                return redirect()->route('statistical.edit', $request->id_scenary);
+            }
 
             // Encontrar formaciones y nombres de campos de entrada
             $scenario = escenario::find($request->id_scenary);

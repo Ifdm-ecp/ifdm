@@ -11,7 +11,7 @@
             dateFormat: "dd/mm/yy"
         });
 
-        @if (true)
+        @if (isset($OverwriteP10P90))
             console.log('hehe');
         @endif
     

@@ -1027,12 +1027,12 @@
 
 
                 html = html + '</select></div></div></div>';
-                html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group';
+                html = html + '<div class="row"><div class="col-md-4"><div class="form-group"><label for="value_' + name + '">Value</label> <label class="red">*</label><div class="input-group ';
                 @if ($errors->has('value_'.$title1.$formationWithoutSpaces)) 
                     html = html + 'has-error';
                 @endif
                 html = html + '"><input type="text" id="value_' + name + '" name="value_' + name +'" class="form-control value_edit"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
-                html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><div class="input-group';
+                html = html + '<div class="col-md-4"><div class="form-group"><label for="date_' + name + '">Monitoring Date</label> <label class="red">*</label><div class="input-group ';
                 @if ($errors->has('date_'.$title1.$formationWithoutSpaces)) 
                     html = html + 'has-error';
                 @endif
@@ -1041,17 +1041,17 @@
             
                 html = html + '</div></div>';
             @endforeach
-            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group';
+            html = html + '<br><div class="row"><div class="col-md-4"><div class="form-group"><label for="p10_' + '<?php echo $title1 ?>' + '">p10</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p10_'.$title1)) 
                 html = html + 'has-error';
             @endif
             html = html + '"><input type="text" id="p10_' + '<?php echo $title1 ?>' + '" name="p10_' + '<?php echo $title1 ?>' + '" class="form-control validate"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + '<?php echo $title1 ?>' + '">p90</label> <label class="red">*</label><div class="input-group';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="p90_' + '<?php echo $title1 ?>' + '">p90</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('p90_'.$title1)) 
                 html = html + 'has-error';
             @endif
             html = html + '"><input type="text" id="p90_' + '<?php echo $title1 ?>' + '" name="p90_' + '<?php echo $title1 ?>' + '" class="form-control validate"><span class="input-group-addon" id="basic-addon2">' + units[<?php echo $k; ?>] + '</span></div></div></div>';
-            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + '<?php echo $title1 ?>' + '">Weight</label> <label class="red">*</label><div class="input-group';
+            html = html + '<div class="col-md-4"><div class="form-group"><label for="weight_' + '<?php echo $title1 ?>' + '">Weight</label> <label class="red">*</label><div class="input-group ';
             @if ($errors->has('weight_'.$title1)) 
                 html = html + 'has-error';
             @endif

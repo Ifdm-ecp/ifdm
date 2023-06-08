@@ -380,10 +380,10 @@ class StatisticalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\MultiparametricStatisticalCreateRequest  $request
+     * @param  \Illuminate\Http\MultiparametricStatisticalRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(MultiparametricStatisticalCreateRequest $request, $id)
+    public function update(MultiparametricStatisticalRequest $request, $id)
     {
         if (\Auth::check()) {
             

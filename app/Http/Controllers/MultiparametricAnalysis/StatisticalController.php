@@ -386,11 +386,11 @@ class StatisticalController extends Controller
 
                 /* se ingresa los datos de la tabla statistical */
                 // dd($input, $input['escenario_id']);
-                Statistical::where('escenario_id', $input['escenario_id'])->first()->update($input);
+                Statistical::where('escenario_id', $input['id_scenary'])->first()->update($input);
 
                 //se redirecciona a la vista edit de statistical
                 // return view('multiparametricAnalysis.statistical.edit', compact(['statistical']));
-                return redirect()->route('statistical.edit', $input['escenario_id']);
+                return redirect()->route('statistical.edit', $input['id_scenary']);
             }
 
             // Encontrar formaciones y nombres de campos de entrada

@@ -12,7 +12,7 @@
         });
 
 
-        console.log(<?php echo $statistical->statistical; ?>);
+        console.log(<?php echo json_encode($statistical->statistical); ?>);
 
         @if(isset($OverwriteP10P90) )
             flagOverwrite = 1;

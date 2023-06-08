@@ -11,8 +11,7 @@
             dateFormat: "dd/mm/yy"
         });
 
-
-        console.log(<?php echo json_encode($statistical->statistical); ?>);
+        
 
         @if(isset($OverwriteP10P90) )
             flagOverwrite = 1;
@@ -1644,6 +1643,11 @@
     }
 
     $('#calculate').click(function(){
-        $('input[name = calculate]').val(true);        
+        $('input[name = calculate]').val(true); 
+        if ( $("#statistical").prop('checked') == true) {
+            $('input[name = statisticalCheckbox]').val(true);
+        } else { 
+            $('input[name = statisticalCheckbox]').val(false);
+        }       
     });
 </script>

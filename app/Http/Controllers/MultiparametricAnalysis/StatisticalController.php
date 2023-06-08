@@ -67,10 +67,15 @@ class StatisticalController extends Controller
     {
         $input = $request->all();
 
-        dd($input);
         /* se modifica el array del campo field_statistical con implode */
         if ($request->field_statistical) {
             $input['field_statistical'] = implode(",", $request->field_statistical);
+        }
+
+        if ($request->statisticalCheckbox == "true") {
+            $input['statistical'] = 'Colombia';
+        } else { 
+            $input['statistical'] = null;
         }
 
         /* se pasa la variable calculate al funcion edit */

@@ -10,6 +10,10 @@
         $(".date").datepicker({
             dateFormat: "dd/mm/yy"
         });
+
+        @if (isset($OverwriteP10P90))
+            console.log('hehe');
+        @endif
     
         // $('#epa').datetimepicker();
 

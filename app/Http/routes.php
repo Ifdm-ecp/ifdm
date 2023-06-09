@@ -5057,12 +5057,12 @@ Route::group(['middleware' => 'auth'], function(){
         foreach($campo as $c)
         {
             $coordenadasc = App\coordenada_campo::where('campo_id','=',$c)
-            ->orderBy('Orden')
+            ->orderBy('Id')
             ->get();
 
             $coordenadas = App\coordenada_formacion::where('campo_id','=',$c)
             ->where('formacion_id','=',$formacion)
-            ->orderBy('Orden')
+            ->orderBy('Id')
             ->get();
 
             $gencampo = App\medicion::join('pozos as p', 'mediciones.pozo_id','=','p.Id')

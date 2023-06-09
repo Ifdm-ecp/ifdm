@@ -1990,6 +1990,7 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
       formacion:formacion},
     function(data)
     {
+      console.log(data);
       switch(op)
       {
         case 1:

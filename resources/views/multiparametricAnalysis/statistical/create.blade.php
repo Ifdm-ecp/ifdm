@@ -77,7 +77,7 @@
          </div>
          <div class="modal-body">
             <center>
-               <p>complete the data of the section <strong>"Statistical Database"</strong>.</p>
+               <p>Complete the data of the section <strong>"Statistical Database"</strong>.</p>
             </center>
          </div>
          <div class="modal-footer">

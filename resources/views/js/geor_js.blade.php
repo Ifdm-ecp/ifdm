@@ -701,12 +701,10 @@ $(document).ready(function()
       if(isVD(parametro))
       {
         mapIsVd_Well(1,parametro,camposf,formacion,sp,puntos);
-        console.log(parametro,camposf,formacion,sp,puntos);
       }
       else
       {
         map_Well(1,parametro,camposf,formacion,sp,puntos);
-        console.log('1',parametro,camposf,formacion,sp,puntos);
       }
     } 
     else if($('#fvr').is(':checked'))
@@ -718,12 +716,10 @@ $(document).ready(function()
       if(isVD(parametro))
       {
         mapIsVd_Field(parametro,camposf,formacion,sp,puntos);
-        console.log('yryr1',parametro,camposf,formacion,sp,puntos);
       }
       else
       {
         map_Field(parametro,camposf,formacion,sp,puntos);
-        console.log('yryr',parametro,camposf,formacion,sp,puntos);
       }
     }
     else
@@ -1990,7 +1986,6 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
       formacion:formacion},
     function(data)
     {
-      console.log(data);
       switch(op)
       {
         case 1:

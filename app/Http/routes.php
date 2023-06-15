@@ -4585,10 +4585,10 @@ Route::group(['middleware' => 'auth'], function(){
             }
 
             if ($result10 == $result90) {
-                $result90 = $result90 + 0.01;
+                $result90 = $result90 + 0.001;
             }
             
-            return Response::json([$result10, $result90]);
+            return Response::json([round($result10, 3), round($result90, 3)]);
         }
 
     });
@@ -4750,10 +4750,10 @@ Route::group(['middleware' => 'auth'], function(){
             }
 
             if ($result10 == $result90) {
-                $result90 = $result90 + 0.01;
+                $result90 = $result90 + 0.001;
             }
 
-            return Response::json([$result10, $result90]);
+            return Response::json([round($result10, 3), round($result90, 3)]);
         }
     });
 

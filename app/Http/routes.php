@@ -4588,7 +4588,7 @@ Route::group(['middleware' => 'auth'], function(){
                 $result90 = $result90 + 0.001;
             }
             
-            return Response::json([round($result10, 3), round($result90, 3)]);
+            return Response::json([number_format(round($result10, 3), 3), number_format(round($result90, 3), 3)]);
         }
 
     });
@@ -4753,7 +4753,7 @@ Route::group(['middleware' => 'auth'], function(){
                 $result90 = $result90 + 0.001;
             }
 
-            return Response::json([round($result10, 3), round($result90, 3)]);
+            return Response::json([number_format(round($result10, 3), 3), number_format(round($result90, 3), 3)]);
         }
     });
 

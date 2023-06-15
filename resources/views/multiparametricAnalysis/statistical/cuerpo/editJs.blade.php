@@ -534,10 +534,10 @@
                 if ($('#p10_RP5').val() === '' || $('#p90_RP5').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP5'}, function(data) {
                         if ($('#p10_RP5').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP5').val(data[0]);
+                            $('#p10_RP5').val(data[1]);
                         }
                         if ($('#p90_RP5').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP5').val(data[1]);
+                            $('#p90_RP5').val(data[0]);
                         }
                     }); 
                 }
@@ -614,10 +614,10 @@
                 if ($('#p10_GD4').val() === '' || $('#p90_GD4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {
                         if ($('#p10_GD4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_GD4').val(data[0]);
+                            $('#p10_GD4').val(data[1]);
                         }
                         if ($('#p90_GD4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_GD4').val(data[1]);
+                            $('#p90_GD4').val(data[0]);
                         }
                     }); 
                 }
@@ -864,10 +864,10 @@
                         if ($("#p10_RP5").val() === '' || $("#p90_RP5").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP5').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP5').val(data[0]);
+                                    $('#p10_RP5').val(data[1]);
                                 }
                                 if ($('#p90_RP5').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP5').val(data[1]);
+                                    $('#p90_RP5').val(data[0]);
                                 }       
                             }); 
                         }
@@ -964,10 +964,10 @@
                         if ($("#p10_GD4").val() === '' || $("#p90_GD4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_GD4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_GD4').val(data[0]);
+                                    $('#p10_GD4').val(data[1]);
                                 }
                                 if ($('#p90_GD4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_GD4').val(data[1]);
+                                    $('#p90_GD4').val(data[0]);
                                 }       
                             }); 
                         }

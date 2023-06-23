@@ -344,280 +344,280 @@
                 if ($('#p10_MS1').val() === '' || $('#p90_MS1').val() === '' || flagOverwrite === 1) {
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS1'}, function(data) {
                         if ($('#p10_MS1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_MS1').val(data[0]);
+                            $('#p10_MS1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_MS1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_MS1').val(data[1]);
+                            $('#p90_MS1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_MS2').val() === '' || $('#p90_MS4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS2'}, function(data) {
                         if ($('#p10_MS2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_MS2').val(data[0]);
+                            $('#p10_MS2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_MS2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_MS2').val(data[1]);
+                            $('#p90_MS2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_MS3').val() === '' || $('#p90_MS2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS3'}, function(data) {
                         if ($('#p10_MS3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_MS3').val(data[0]);
+                            $('#p10_MS3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_MS3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_MS3').val(data[1]);
+                            $('#p90_MS3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_MS4').val() === '' || $('#p90_MS3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS4'}, function(data) {
                         if ($('#p10_MS4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_MS4').val(data[0]);
+                            $('#p10_MS4').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_MS4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_MS4').val(data[1]);
+                            $('#p90_MS4').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_MS5').val() === '' || $('#p90_MS5').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'MS5'}, function(data) {
                         if ($('#p10_MS5').val() === '' || flagOverwrite === 1) {
-                            $('#p10_MS5').val(data[0]);
+                            $('#p10_MS5').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_MS5').val() === '' || flagOverwrite === 1) {
-                            $('#p90_MS5').val(data[1]);
+                            $('#p90_MS5').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_FB1').val() === '' || $('#p90_FB1').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB1'}, function(data) {
                         if ($('#p10_FB1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_FB1').val(data[0]);
+                            $('#p10_FB1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_FB1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_FB1').val(data[1]);
+                            $('#p90_FB1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_FB2').val() === '' || $('#p90_FB2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB2'}, function(data) {
                         if ($('#p10_FB2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_FB2').val(data[0]);
+                            $('#p10_FB2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_FB2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_FB2').val(data[1]);
+                            $('#p90_FB2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_FB3').val() === '' || $('#p90_FB3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB3'}, function(data) {
                         if ($('#p10_FB3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_FB3').val(data[0]);
+                            $('#p10_FB3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_FB3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_FB3').val(data[1]);
+                            $('#p90_FB3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_FB4').val() === '' || $('#p90_FB4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB4'}, function(data) {
                         if ($('#p10_FB4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_FB4').val(data[0]);
+                            $('#p10_FB4').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_FB4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_FB4').val(data[1]);
+                            $('#p90_FB4').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_FB5').val() === '' || $('#p90_FB5').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'FB5'}, function(data) {
                         if ($('#p10_FB5').val() === '' || flagOverwrite === 1) {
-                            $('#p10_FB5').val(data[0]);
+                            $('#p10_FB5').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_FB5').val() === '' || flagOverwrite === 1) {
-                            $('#p90_FB5').val(data[1]);
+                            $('#p90_FB5').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_OS1').val() === '' || $('#p90_OS1').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS1'}, function(data) {
                         if ($('#p10_OS1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_OS1').val(data[0]);
+                            $('#p10_OS1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_OS1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_OS1').val(data[1]);
+                            $('#p90_OS1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_OS2').val() === '' || $('#p90_OS2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS2'}, function(data) {
                         if ($('#p10_OS2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_OS2').val(data[0]);
+                            $('#p10_OS2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_OS2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_OS2').val(data[1]);
+                            $('#p90_OS2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_OS3').val() === '' || $('#p90_OS3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS3'}, function(data) {
                         if ($('#p10_OS3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_OS3').val(data[0]);
+                            $('#p10_OS3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_OS3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_OS3').val(data[1]);
+                            $('#p90_OS3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_OS4').val() === '' || $('#p90_OS4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS4'}, function(data) {
                         if ($('#p10_OS4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_OS4').val(data[0]);
+                            $('#p10_OS4').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_OS4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_OS4').val(data[1]);
+                            $('#p90_OS4').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_OS5').val() === '' || $('#p90_OS5').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'OS5'}, function(data) {
                         if ($('#p10_OS5').val() === '' || flagOverwrite === 1) {
-                            $('#p10_OS5').val(data[0]);
+                            $('#p10_OS5').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_OS5').val() === '' || flagOverwrite === 1) {
-                            $('#p90_OS5').val(data[1]);
+                            $('#p90_OS5').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_RP1').val() === '' || $('#p90_RP1').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP1'}, function(data) {
                         if ($('#p10_RP1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP1').val(data[0]);
+                            $('#p10_RP1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_RP1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP1').val(data[1]);
+                            $('#p90_RP1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_RP2').val() === '' || $('#p90_RP2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP2'}, function(data) {
                         if ($('#p10_RP2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP2').val(data[0]);
+                            $('#p10_RP2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_RP2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP2').val(data[1]);
+                            $('#p90_RP2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_RP3').val() === '' || $('#p90_RP3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP3'}, function(data) {
                         if ($('#p10_RP3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP3').val(data[0]);
+                            $('#p10_RP3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_RP3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP3').val(data[1]);
+                            $('#p90_RP3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_RP4').val() === '' || $('#p90_RP4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP4'}, function(data) {
                         if ($('#p10_RP4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP4').val(data[0]);
+                            $('#p10_RP4').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_RP4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP4').val(data[1]);
+                            $('#p90_RP4').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_RP5').val() === '' || $('#p90_RP5').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'RP5'}, function(data) {
                         if ($('#p10_RP5').val() === '' || flagOverwrite === 1) {
-                            $('#p10_RP5').val(data[1]);
+                            $('#p10_RP5').val(data[1].replaceAll(',',''));
                         }
                         if ($('#p90_RP5').val() === '' || flagOverwrite === 1) {
-                            $('#p90_RP5').val(data[0]);
+                            $('#p90_RP5').val(data[0].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_ID1').val() === '' || $('#p90_ID1').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID1'}, function(data) {
                         if ($('#p10_ID1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_ID1').val(data[0]);
+                            $('#p10_ID1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_ID1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_ID1').val(data[1]);
+                            $('#p90_ID1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_ID2').val() === '' || $('#p90_ID2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID2'}, function(data) {
                         if ($('#p10_ID2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_ID2').val(data[0]);
+                            $('#p10_ID2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_ID2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_ID2').val(data[1]);
+                            $('#p90_ID2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_ID3').val() === '' || $('#p90_ID3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID3'}, function(data) {
                         if ($('#p10_ID3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_ID3').val(data[0]);
+                            $('#p10_ID3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_ID3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_ID3').val(data[1]);
+                            $('#p90_ID3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_ID4').val() === '' || $('#p90_ID4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'ID4'}, function(data) {
                         if ($('#p10_ID4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_ID4').val(data[0]);
+                            $('#p10_ID4').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_ID4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_ID4').val(data[1]);
+                            $('#p90_ID4').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_GD1').val() === '' || $('#p90_GD1').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD1'}, function(data) {
                         if ($('#p10_GD1').val() === '' || flagOverwrite === 1) {
-                            $('#p10_GD1').val(data[0]);
+                            $('#p10_GD1').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_GD1').val() === '' || flagOverwrite === 1) {
-                            $('#p90_GD1').val(data[1]);
+                            $('#p90_GD1').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_GD2').val() === '' || $('#p90_GD2').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD2'}, function(data) {
                         if ($('#p10_GD2').val() === '' || flagOverwrite === 1) {
-                            $('#p10_GD2').val(data[0]);
+                            $('#p10_GD2').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_GD2').val() === '' || flagOverwrite === 1) {
-                            $('#p90_GD2').val(data[1]);
+                            $('#p90_GD2').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_GD3').val() === '' || $('#p90_GD3').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD3'}, function(data) {
                         if ($('#p10_GD3').val() === '' || flagOverwrite === 1) {
-                            $('#p10_GD3').val(data[0]);
+                            $('#p10_GD3').val(data[0].replaceAll(',',''));
                         }
                         if ($('#p90_GD3').val() === '' || flagOverwrite === 1) {
-                            $('#p90_GD3').val(data[1]);
+                            $('#p90_GD3').val(data[1].replaceAll(',',''));
                         }
                     }); 
                 }
                 if ($('#p10_GD4').val() === '' || $('#p90_GD4').val() === '' || flagOverwrite === 1) { 
                     $.get("{!! url('p10p90Colombia') !!}", {subparameterId: 'GD4'}, function(data) {
                         if ($('#p10_GD4').val() === '' || flagOverwrite === 1) {
-                            $('#p10_GD4').val(data[1]);
+                            $('#p10_GD4').val(data[1].replaceAll(',',''));
                         }
                         if ($('#p90_GD4').val() === '' || flagOverwrite === 1) {
-                            $('#p90_GD4').val(data[0]);
+                            $('#p90_GD4').val(data[0].replaceAll(',',''));
                         }
                     }); 
                 }
@@ -630,10 +630,10 @@
                         if ($("#p10_MS1").val() === '' || $("#p90_MS1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_MS1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_MS1').val(data[0]);
+                                    $('#p10_MS1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_MS1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_MS1').val(data[1]);
+                                    $('#p90_MS1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -642,10 +642,10 @@
                         if ($("#p10_MS2").val() === '' || $("#p90_MS2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_MS2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_MS2').val(data[0]);
+                                    $('#p10_MS2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_MS2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_MS2').val(data[1]);
+                                    $('#p90_MS2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -654,10 +654,10 @@
                         if ($("#p10_MS3").val() === '' || $("#p90_MS3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_MS3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_MS3').val(data[0]);
+                                    $('#p10_MS3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_MS3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_MS3').val(data[1]);
+                                    $('#p90_MS3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -666,10 +666,10 @@
                         if ($("#p10_MS4").val() === '' || $("#p90_MS4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_MS4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_MS4').val(data[0]);
+                                    $('#p10_MS4').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_MS4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_MS4').val(data[1]);
+                                    $('#p90_MS4').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -678,10 +678,10 @@
                         if ($("#p10_MS5").val() === '' || $("#p90_MS5").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'MS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_MS5').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_MS5').val(data[0]);
+                                    $('#p10_MS5').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_MS5').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_MS5').val(data[1]);
+                                    $('#p90_MS5').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -692,10 +692,10 @@
                         if ($("#p10_FB1").val() === '' || $("#p90_FB1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_FB1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_FB1').val(data[0]);
+                                    $('#p10_FB1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_FB1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_FB1').val(data[1]);
+                                    $('#p90_FB1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -704,10 +704,10 @@
                         if ($("#p10_FB2").val() === '' || $("#p90_FB2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_FB2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_FB2').val(data[0]);
+                                    $('#p10_FB2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_FB2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_FB2').val(data[1]);
+                                    $('#p90_FB2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -716,10 +716,10 @@
                         if ($("#p10_FB3").val() === '' || $("#p90_FB3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_FB3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_FB3').val(data[0]);
+                                    $('#p10_FB3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_FB3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_FB3').val(data[1]);
+                                    $('#p90_FB3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -728,10 +728,10 @@
                         if ($("#p10_FB4").val() === '' || $("#p90_FB4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_FB4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_FB4').val(data[0]);
+                                    $('#p10_FB4').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_FB4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_FB4').val(data[1]);
+                                    $('#p90_FB4').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -740,10 +740,10 @@
                         if ($("#p10_FB5").val() === '' || $("#p90_FB5").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'FB5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_FB5').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_FB5').val(data[0]);
+                                    $('#p10_FB5').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_FB5').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_FB5').val(data[1]);
+                                    $('#p90_FB5').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -754,10 +754,10 @@
                         if ($("#p10_OS1").val() === '' || $("#p90_OS1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_OS1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_OS1').val(data[0]);
+                                    $('#p10_OS1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_OS1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_OS1').val(data[1]);
+                                    $('#p90_OS1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -766,10 +766,10 @@
                         if ($("#p10_OS2").val() === '' || $("#p90_OS2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_OS2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_OS2').val(data[0]);
+                                    $('#p10_OS2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_OS2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_OS2').val(data[1]);
+                                    $('#p90_OS2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -778,10 +778,10 @@
                         if ($("#p10_OS3").val() === '' || $("#p90_OS3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_OS3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_OS3').val(data[0]);
+                                    $('#p10_OS3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_OS3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_OS3').val(data[1]);
+                                    $('#p90_OS3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -790,10 +790,10 @@
                         if ($("#p10_OS4").val() === '' || $("#p90_OS4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_OS4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_OS4').val(data[0]);
+                                    $('#p10_OS4').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_OS4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_OS4').val(data[1]);
+                                    $('#p90_OS4').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -802,10 +802,10 @@
                         if ($("#p10_OS5").val() === '' || $("#p90_OS5").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'OS5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_OS5').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_OS5').val(data[0]);
+                                    $('#p10_OS5').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_OS5').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_OS5').val(data[1]);
+                                    $('#p90_OS5').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -816,10 +816,10 @@
                         if ($("#p10_RP1").val() === '' || $("#p90_RP1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP1').val(data[0]);
+                                    $('#p10_RP1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_RP1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP1').val(data[1]);
+                                    $('#p90_RP1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -828,10 +828,10 @@
                         if ($("#p10_RP2").val() === '' || $("#p90_RP2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP2').val(data[0]);
+                                    $('#p10_RP2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_RP2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP2').val(data[1]);
+                                    $('#p90_RP2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -840,10 +840,10 @@
                         if ($("#p10_RP3").val() === '' || $("#p90_RP3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP3').val(data[0]);
+                                    $('#p10_RP3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_RP3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP3').val(data[1]);
+                                    $('#p90_RP3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -852,10 +852,10 @@
                         if ($("#p10_RP4").val() === '' || $("#p90_RP4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP4').val(data[0]);
+                                    $('#p10_RP4').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_RP4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP4').val(data[1]);
+                                    $('#p90_RP4').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -864,10 +864,10 @@
                         if ($("#p10_RP5").val() === '' || $("#p90_RP5").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'RP5', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_RP5').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_RP5').val(data[1]);
+                                    $('#p10_RP5').val(data[1].replaceAll(',',''));
                                 }
                                 if ($('#p90_RP5').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_RP5').val(data[0]);
+                                    $('#p90_RP5').val(data[0].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -878,10 +878,10 @@
                         if ($("#p10_ID1").val() === '' || $("#p90_ID1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_ID1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_ID1').val(data[0]);
+                                    $('#p10_ID1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_ID1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_ID1').val(data[1]);
+                                    $('#p90_ID1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -890,10 +890,10 @@
                         if ($("#p10_ID2").val() === '' || $("#p90_ID2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_ID2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_ID2').val(data[0]);
+                                    $('#p10_ID2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_ID2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_ID2').val(data[1]);
+                                    $('#p90_ID2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -902,10 +902,10 @@
                         if ($("#p10_ID3").val() === '' || $("#p90_ID3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_ID3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_ID3').val(data[0]);
+                                    $('#p10_ID3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_ID3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_ID3').val(data[1]);
+                                    $('#p90_ID3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -914,10 +914,10 @@
                         if ($("#p10_ID4").val() === '' || $("#p90_ID4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'ID4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_ID4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_ID4').val(data[0]);
+                                    $('#p10_ID4').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_ID4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_ID4').val(data[1]);
+                                    $('#p90_ID4').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -928,10 +928,10 @@
                         if ($("#p10_GD1").val() === '' || $("#p90_GD1").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD1', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_GD1').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_GD1').val(data[0]);
+                                    $('#p10_GD1').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_GD1').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_GD1').val(data[1]);
+                                    $('#p90_GD1').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -940,10 +940,10 @@
                         if ($("#p10_GD2").val() === '' || $("#p90_GD2").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD2', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_GD2').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_GD2').val(data[0]);
+                                    $('#p10_GD2').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_GD2').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_GD2').val(data[1]);
+                                    $('#p90_GD2').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -952,10 +952,10 @@
                         if ($("#p10_GD3").val() === '' || $("#p90_GD3").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD3', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_GD3').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_GD3').val(data[0]);
+                                    $('#p10_GD3').val(data[0].replaceAll(',',''));
                                 }
                                 if ($('#p90_GD3').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_GD3').val(data[1]);
+                                    $('#p90_GD3').val(data[1].replaceAll(',',''));
                                 }       
                             }); 
                         }
@@ -964,10 +964,10 @@
                         if ($("#p10_GD4").val() === '' || $("#p90_GD4").val() === '' || flagOverwrite === 1) { 
                             $.get("{!! url('p10p90Calculate') !!}", {subparameterId: 'GD4', basin: $("#selectBasin").val(), fields: myArray}, function(data) {
                                 if ($('#p10_GD4').val() === '' || flagOverwrite === 1) {
-                                    $('#p10_GD4').val(data[1]);
+                                    $('#p10_GD4').val(data[1].replaceAll(',',''));
                                 }
                                 if ($('#p90_GD4').val() === '' || flagOverwrite === 1) {
-                                    $('#p90_GD4').val(data[0]);
+                                    $('#p90_GD4').val(data[0].replaceAll(',',''));
                                 }       
                             }); 
                         }

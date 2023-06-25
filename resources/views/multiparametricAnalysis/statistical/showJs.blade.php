@@ -8,6 +8,7 @@
     function graficar() {
         data = [];
         <?php echo json_encode($datos); ?>.forEach(element => {
+            console.log(element[1]);
             data.push({
                 name: element[0],
                 data: element[1],

@@ -20,13 +20,14 @@
         console.log(titles);
         console.log(<?php echo json_encode($datos); ?>);
         console.log(<?php echo json_encode($tableData); ?>);
-        // titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
+        titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
         for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
             if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
                 categories.push(titles[i]);
             }  
         }
-        // console.log(categories );
+
+        console.log(categories );
         $('#container').highcharts({
 
             chart: {

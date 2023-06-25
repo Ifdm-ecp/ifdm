@@ -104,7 +104,6 @@ class StatisticalController extends Controller
         }
 
         if ($statistical->status_wr == 1) {
-            dd('ade');
             $escenario_id = $statistical->escenario_id;
             $formations = escenario::where('id',$escenario_id)->first();
             $formations = $formations->formacion_id;
@@ -156,7 +155,7 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
-            // dd($statistical, $datos, $tableHeader, $tableData);
+            dd($statistical, $datos, $tableHeader, $tableData);
 
             return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));
         } else {

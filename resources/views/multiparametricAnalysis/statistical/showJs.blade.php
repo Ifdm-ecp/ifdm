@@ -11,7 +11,7 @@
             points = [];
             for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
                 if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
-                    points.push(element[i]);
+                    points.push(element[1]);
                 }  
             }
 

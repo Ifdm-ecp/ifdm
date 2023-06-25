@@ -26,7 +26,7 @@
                 categories.push(titles[i]);
             }  
         }
-
+        console.log(<?php echo json_encode($generalCheckboxes); ?> );
         console.log(categories );
         $('#container').highcharts({
 

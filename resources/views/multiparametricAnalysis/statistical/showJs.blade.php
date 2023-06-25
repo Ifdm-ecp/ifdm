@@ -14,9 +14,6 @@
                     points.push(element[1][i]);
                 }  
             }
-
-            console.log(points);
-            console.log(element[1]);
             data.push({
                 name: element[0],
                 data: points,
@@ -26,25 +23,13 @@
         categories = [];
         titles = <?php echo json_encode($tableHeader); ?>;
         titles.shift();
-        console.log('data', data);
-        console.log('titles', titles);
-        console.log('datos', <?php echo json_encode($datos); ?>);
-        console.log('tableData', <?php echo json_encode($tableData); ?>);
         titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
         for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
             if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
                 categories.push(titles[i]);
             }  
         }
-        // data = [{
-        //     name: 'pea',
-        //     data: [
-        //         1.21, 2.22, 3.33, 4.44
-        //     ]
-        // }];
-        console.log('generalCheckboxes', <?php echo json_encode($generalCheckboxes); ?> );
-        console.log('categories', categories );
-        categories.shift();
+
         $('#container').highcharts({
 
             chart: {

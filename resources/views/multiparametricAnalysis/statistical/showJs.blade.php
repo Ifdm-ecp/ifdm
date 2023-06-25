@@ -17,6 +17,7 @@
         categories = [];
         titles = <?php echo json_encode($tableHeader); ?>;
         titles.shift();
+        console.log(data);
         console.log(titles);
         console.log(<?php echo json_encode($datos); ?>);
         console.log(<?php echo json_encode($tableData); ?>);

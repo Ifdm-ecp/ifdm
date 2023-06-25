@@ -16,7 +16,7 @@
         });
         categories = [];
         titles = <?php echo json_encode($tableHeader); ?>;
-        titles = titles.shift();
+        titles.shift();
         console.log(titles);
         // titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
         for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {

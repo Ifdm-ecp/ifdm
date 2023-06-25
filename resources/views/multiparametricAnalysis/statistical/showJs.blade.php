@@ -17,18 +17,18 @@
         categories = [];
         titles = <?php echo json_encode($tableHeader); ?>;
         titles.shift();
-        console.log(data);
-        console.log(titles);
-        console.log(<?php echo json_encode($datos); ?>);
-        console.log(<?php echo json_encode($tableData); ?>);
+        console.log('data', data);
+        console.log('titles', titles);
+        console.log('datos', <?php echo json_encode($datos); ?>);
+        console.log('tableData', <?php echo json_encode($tableData); ?>);
         titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
         for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
             if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
                 categories[i] = titles[i];
             }  
         }
-        console.log(<?php echo json_encode($generalCheckboxes); ?> );
-        console.log(categories );
+        console.log('generalCheckboxes', <?php echo json_encode($generalCheckboxes); ?> );
+        console.log('categories', categories );
         $('#container').highcharts({
 
             chart: {

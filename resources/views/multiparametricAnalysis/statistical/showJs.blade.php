@@ -27,6 +27,12 @@
                 categories[i] = titles[i];
             }  
         }
+        data = [
+            name: 'pea'
+            data: [
+                1.21, 2.22, 3.33, 4.44
+            ]
+        ];
         console.log('generalCheckboxes', <?php echo json_encode($generalCheckboxes); ?> );
         console.log('categories', categories );
         $('#container').highcharts({

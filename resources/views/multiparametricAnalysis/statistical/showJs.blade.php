@@ -24,7 +24,7 @@
         titles = ['Mineral Scales', 'Fine Blockage', 'Organic Scales', 'Relative Permeability', 'Induced Damage', 'Geomechanical Damage'];
         for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
             if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
-                categories[i] = titles[i];
+                categories.push(titles[i]);
             }  
         }
         // data = [{

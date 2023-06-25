@@ -102,8 +102,9 @@ class StatisticalController extends Controller
         if ($statistical == null) {
             $statistical = Statistical::where('escenario_id', $id)->first();
         }
-        dd('adad');
+
         if ($statistical->status_wr == 1) {
+            dd('ade');
             $escenario_id = $statistical->escenario_id;
             $formations = escenario::where('id',$escenario_id)->first();
             $formations = $formations->formacion_id;

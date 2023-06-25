@@ -15,6 +15,7 @@
                 }  
             }
 
+            console.log(points);
             console.log(element[1]);
             data.push({
                 name: element[0],

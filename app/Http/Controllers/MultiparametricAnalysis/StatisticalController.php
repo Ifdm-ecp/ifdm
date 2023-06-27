@@ -135,8 +135,9 @@ class StatisticalController extends Controller
             }
             $datos_final = [];
             foreach ($datos as $key => $dato) {
-                dd($datos, $dato, $datos[$key][1]);
+                
                 $datos[$key][1] = array_filter( $dato[1], 'strlen' );
+                dd($datos, $dato, $datos[$key][1]);
             }
             
             $tableHeader_aux = ['Mineral Scales [%]', 'Fine Blockage [%]', 'Organic Scales [%]', 'Relative Permeability [%]', 'Induced Damage [%]', 'Geomechanical Damage [%]'];

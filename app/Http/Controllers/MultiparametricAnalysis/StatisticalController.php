@@ -127,6 +127,7 @@ class StatisticalController extends Controller
             foreach ($datos_aux as $key => $dato) {
                 array_push($datos, [$elements[$key], $dato]);
             }
+            dd($datos);
     
             // ELIMINAR PESTAÑAS DESACTIVADAS
             $generalCheckboxes = [];
@@ -805,7 +806,7 @@ class StatisticalController extends Controller
             
             array_push($results, $sums);
         }
-        dd($results);
+        // dd($results);
         return $results;
 
         // // for ($i=1; $i <= count($elements) ; $i++) { 

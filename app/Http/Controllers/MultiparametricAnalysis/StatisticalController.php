@@ -161,7 +161,7 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
-            dd($tableData);
+            dd($tableData, $datos);
 
             // dd($statistical, $datos, $tableHeader, $tableData);
 

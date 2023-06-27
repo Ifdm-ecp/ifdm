@@ -766,7 +766,7 @@ class StatisticalController extends Controller
                     array_push($values, floatval(explode(',', $statistical->{$name})[$keyFormations]));
                 }  
             }
-            dd($formations, $values);
+            // dd($formations, $values);
             // EMPEZAMOS CON LOS CÁLCULOS
             $sums = []; 
             $msp = $fbp = $osp = $rpp = $idp = $gdp = [];

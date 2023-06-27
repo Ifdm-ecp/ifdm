@@ -122,12 +122,12 @@ class StatisticalController extends Controller
             $button_wr = (bool) $statistical->status_wr;
             
             $datos_aux = $this->graficoStatistical($statistical, $formationsWithoutSpaces);
-            dd($datos_aux);
+            
             $datos = [];
             foreach ($datos_aux as $key => $dato) {
                 array_push($datos, [$elements[$key], $dato]);
             }
-    
+            dd($datos);
             // ELIMINAR PESTAÑAS DESACTIVADAS
             $generalCheckboxes = [];
             for ($i=0; $i < 6 ; $i++) { 

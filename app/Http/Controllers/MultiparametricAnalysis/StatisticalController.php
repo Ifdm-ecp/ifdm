@@ -804,7 +804,7 @@ class StatisticalController extends Controller
             
             array_push($results, $sums);
         }
-        // dd($results);
+        dd($results);
         return $results;
 
         // // for ($i=1; $i <= count($elements) ; $i++) { 

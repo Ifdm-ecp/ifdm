@@ -9,6 +9,7 @@
         data = [];
         <?php echo json_encode($datos); ?>.forEach(element => {
             points = [];
+            console.log(element[1]);
             points.push(element[1]);
             data.push({
                 name: element[0],

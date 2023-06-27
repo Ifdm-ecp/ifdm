@@ -141,7 +141,6 @@ class StatisticalController extends Controller
                     array_push($datos[$key][1], $dato_interno);    
                 }
             }
-            dd($datos);
             
             $tableHeader_aux = ['Mineral Scales [%]', 'Fine Blockage [%]', 'Organic Scales [%]', 'Relative Permeability [%]', 'Induced Damage [%]', 'Geomechanical Damage [%]'];
             $tableHeader = ['Formation'];
@@ -161,7 +160,7 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
-            // dd($tableData, $datos);
+            dd($tableHeader, $tableData, $datos);
 
             // dd($statistical, $datos, $tableHeader, $tableData);
 

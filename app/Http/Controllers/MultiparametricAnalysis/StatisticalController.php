@@ -743,7 +743,7 @@ class StatisticalController extends Controller
         $p10 = [];
         $p90 = [];
         foreach ($titles as $keyTitles => $title) {
-            dd($title);
+            // dd($title);
             $numberOfParameters = $title[1];
             $title = $title[0];
             for ($i=0; $i < $numberOfParameters; $i++) { 
@@ -754,6 +754,7 @@ class StatisticalController extends Controller
             }
             array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$keyTitles]));
         }
+        dd($generalCheckboxes);
 
         foreach ($formations as $keyFormations => $formation) {
 

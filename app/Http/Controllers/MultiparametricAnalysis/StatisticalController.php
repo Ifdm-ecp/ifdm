@@ -138,7 +138,7 @@ class StatisticalController extends Controller
                 $datos[$key][1] = array_filter( $dato[1], 'strlen' );
                 $datos_aux2 = $datos[$key][1];
                 $datos[$key][1] = [];
-                foreach ($datos[$key][1] as $key1=> $dato_interno) {
+                foreach ($datos_aux as $key1=> $dato_interno) {
                     array_push($datos[$key][1], $dato_interno);    
                 }
             }

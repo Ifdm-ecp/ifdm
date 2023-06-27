@@ -740,6 +740,7 @@ class StatisticalController extends Controller
         $checkboxes = [];
         $p10 = [];
         $p90 = [];
+        dd($statistical);
         foreach ($titles as $keyTitles => $title) {
             $numberOfParameters = $title[1];
             $title = $title[0];

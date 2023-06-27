@@ -13,7 +13,7 @@
             points.push(element[1]);
             data.push({
                 name: element[0],
-                data: points,
+                data: element[1],
                 pointPlacement: 'on'
             });
         });

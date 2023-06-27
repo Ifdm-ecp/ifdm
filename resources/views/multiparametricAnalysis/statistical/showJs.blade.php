@@ -9,11 +9,7 @@
         data = [];
         <?php echo json_encode($datos); ?>.forEach(element => {
             points = [];
-            for (let i = 0; i < <?php echo json_encode($generalCheckboxes); ?>.length; i++) {
-                if (<?php echo json_encode($generalCheckboxes); ?>[i] === 1) {
-                    points.push(element[1][i]);
-                }  
-            }
+            points.push(element[1]);
             data.push({
                 name: element[0],
                 data: points,

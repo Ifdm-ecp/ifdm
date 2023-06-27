@@ -150,6 +150,7 @@ class StatisticalController extends Controller
                     array_push($tableHeader, $tableHeader_aux[$key]);
                 }
             }
+            dd($tableHeader);
             $tableData = [];
             foreach ($formations as $keyFormation => $formation) {
                 $tableRow = [];

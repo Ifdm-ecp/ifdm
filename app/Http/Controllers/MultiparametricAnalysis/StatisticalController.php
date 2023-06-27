@@ -133,10 +133,11 @@ class StatisticalController extends Controller
             for ($i=0; $i < 6 ; $i++) { 
                 array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$i]));
             }
+            dd($datos);
             foreach ($datos as $key => $dato) {
                 $datos[$key][1] = array_filter( $dato[1], 'strlen' );
             }
-            dd($datos);
+            
             $tableHeader_aux = ['Mineral Scales [%]', 'Fine Blockage [%]', 'Organic Scales [%]', 'Relative Permeability [%]', 'Induced Damage [%]', 'Geomechanical Damage [%]'];
             $tableHeader = ['Formation'];
             foreach ($tableHeader_aux as $key => $header) {

@@ -118,23 +118,21 @@ class StatisticalController extends Controller
                 array_push($formationsWithoutSpaces, str_replace(" ", "_", $formation));
             }
             $elements = $formations_names;
-
-            // ELIMINAR PESTAÑAS DESACTIVADAS
-            $generalCheckboxes = [];
-            for ($i=0; $i < 6 ; $i++) { 
-                array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$i]));
-            }
     
             $button_wr = (bool) $statistical->status_wr;
             
-            $datos_aux = $this->graficoStatistical($statistical, $formationsWithoutSpaces, $generalCheckboxes);
+            $datos_aux = $this->graficoStatistical($statistical, $formationsWithoutSpaces);
             // dd($datos_aux);
             $datos = [];
             foreach ($datos_aux as $key => $dato) {
                 array_push($datos, [$elements[$key], $dato]);
             }
     
-            
+            // ELIMINAR PESTAÑAS DESACTIVADAS
+            $generalCheckboxes = [];
+            for ($i=0; $i < 6 ; $i++) { 
+                array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$i]));
+            }
             $datos_final = [];
             foreach ($datos as $key => $dato) {
                 $datos[$key][1] = array_filter( $dato[1], 'strlen' );
@@ -726,7 +724,7 @@ class StatisticalController extends Controller
         //
     }
 
-    public function graficoStatistical($statistical, $formations, $generalCheckboxes)
+    public function graficoStatistical($statistical, $formations)
     {
 
         $results = [];
@@ -742,8 +740,8 @@ class StatisticalController extends Controller
         $checkboxes = [];
         $p10 = [];
         $p90 = [];
+        // dd($statistical);
         foreach ($titles as $keyTitles => $title) {
-            // dd($title);
             $numberOfParameters = $title[1];
             $title = $title[0];
             for ($i=0; $i < $numberOfParameters; $i++) { 
@@ -754,7 +752,6 @@ class StatisticalController extends Controller
             }
             array_push($generalCheckboxes, intval(explode(',', $statistical->generalAvailable)[$keyTitles]));
         }
-        dd($generalCheckboxes);
 
         foreach ($formations as $keyFormations => $formation) {
 
@@ -769,7 +766,7 @@ class StatisticalController extends Controller
                     array_push($values, floatval(explode(',', $statistical->{$name})[$keyFormations]));
                 }  
             }
-            // dd($formations, $values);
+            dd($formations, $values);
             // EMPEZAMOS CON LOS CÁLCULOS
             $sums = []; 
             $msp = $fbp = $osp = $rpp = $idp = $gdp = [];

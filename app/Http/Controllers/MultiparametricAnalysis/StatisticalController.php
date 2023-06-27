@@ -150,7 +150,6 @@ class StatisticalController extends Controller
                     array_push($tableHeader, $tableHeader_aux[$key]);
                 }
             }
-            dd($tableHeader, $tableHeader_aux);
             $tableData = [];
             foreach ($formations as $keyFormation => $formation) {
                 $tableRow = [];
@@ -162,6 +161,8 @@ class StatisticalController extends Controller
                 }
                 array_push($tableData, $tableRow);
             }
+            dd($tableData);
+
             // dd($statistical, $datos, $tableHeader, $tableData);
 
             return view('multiparametricAnalysis.statistical.show', compact(['statistical', 'datos', 'generalCheckboxes', 'tableHeader', 'tableData']));

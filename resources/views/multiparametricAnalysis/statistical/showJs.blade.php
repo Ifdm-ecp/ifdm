@@ -30,6 +30,8 @@
             }  
         }
 
+        console.log('datos', < <?php echo json_encode($datos); ?>, 'generalcheckboxes', < <?php echo json_encode($generalCheckboxes); ?>, 'table header', < <?php echo json_encode($tableHeader); ?>, 'tabledata', < <?php echo json_encode($tableData); ?>);
+
         $('#container').highcharts({
 
             chart: {

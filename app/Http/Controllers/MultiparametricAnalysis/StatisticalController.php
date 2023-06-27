@@ -773,7 +773,6 @@ class StatisticalController extends Controller
             
             $j = 0;
             foreach ($titles as $keyTitles => $title) {
-                dd($titles);
                 if ($generalCheckboxes[$keyTitles] === 1) {
                     $numberOfParameters = $title[1];
                     $title = $title[0];
@@ -789,7 +788,7 @@ class StatisticalController extends Controller
                     }  
                     array_push($sums, $sum);
                 } else { 
-                    // $j = $j + 
+                    $j = $j + $title[1];
                     array_push($sums, null);
                 }                
             }

@@ -16,6 +16,17 @@
             $('#type').change();
         });
 
+        if ($('[name=type]').val() == 'Multiparametric') {
+            if ($('[name=multiparametricType]').val() == 'statistical') {
+                // $('#div_formation_wipr').hide();
+                $('#div_formation_multiparametric_statistical').show();
+                $('#div_formation_wipr').hide();
+            } else if ($('[name=multiparametricType]').val()  == 'analytical') {
+                $('#div_formation_multiparametric_statistical').show();
+                $('#div_formation_wipr').hide();
+            }
+        }
+
         $('.link_external_tree').off();
     });
 
@@ -38,6 +49,16 @@
 
         $('#loading').show();
 
+        if ($('[name=scenary]').val() == '') {
+            $('[name=scenary]').val('|');
+        }
+        if ($('[name=SDescription]').val() == '') {
+            $('[name=SDescription]').val('|');
+        }
+        if ($('[name=project]').val() == '') {
+            $('[name=project]').val('|');
+        }
+        
         $('#basin').removeAttr('disabled');
         $('#field').removeAttr('disabled');
         $('#well').removeAttr('disabled');

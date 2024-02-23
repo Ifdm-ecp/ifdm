@@ -86,6 +86,24 @@ class add_scenario_controller extends Controller
     public function store(ScenaryCreateRequest $request)
     {
         if (\Auth::check()) {
+
+            if ($request->scenary == '|' and $request->SDescription == '|') {
+                if ($request->project == '|') {
+                    return Redirect::back()->withErrors(['msg1' => 'Scenario name required.', 'msg2' => 'Description required.', 'msg3' => 'Project required.']);
+                }
+                return Redirect::back()->withErrors(['msg1' => 'Scenario name required.', 'msg2' => 'Description required.']);
+            } else if ($request->scenary == '|') {
+                if ($request->project == '|') {
+                    return Redirect::back()->withErrors(['msg1' => 'Scenario name required.', 'msg3' => 'Project required.']);
+                }
+                return Redirect::back()->withErrors(['msg1' => 'Scenario name required.']);
+            } else if ($request->SDescription == '|') {
+                if ($request->project == '|') {
+                    return Redirect::back()->withErrors(['msg2' => 'Description required.', 'msg3' => 'Project required.']);
+                }
+                return Redirect::back()->withErrors(['msg2' => 'Description required.']);
+            }
+
             /* Validaciones para formulario */
             $nombre_escenario = $request->scenary;
 

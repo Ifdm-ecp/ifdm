@@ -63,7 +63,7 @@
          <div class="col-md-6">
             <div class="form-group {{$errors->has('scenary') ? 'has-error' : ''}}">
                {!! Form::label('scenary', 'Scenario Name') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
-               {!! Form::text('scenary',null, ['placeholder' => '', 'class' =>'form-control']) !!}
+               {!! Form::text('scenary',null, ['placeholder' => '', 'class' =>'form-control', 'id'=>'scenary']) !!}
             </div>
          </div>
          <div class="col-md-6">
@@ -75,7 +75,7 @@
          <div class="col-md-6">
             <div class="form-group {{$errors->has('SDescription') ? 'has-error' : ''}}">
                {!! Form::label('Scenary description', 'Description') !!} {!! Form::label('*', '*', array('class' => 'red')) !!}
-               {!! Form::textarea('SDescription',null, ['placeholder' => '', 'class' =>'form-control', 'rows' => '2']) !!}
+               {!! Form::textarea('SDescription',null, ['placeholder' => '', 'class' =>'form-control', 'rows' => '2', 'id'=>'SDescription']) !!}
             </div>
          </div>         
       </div>

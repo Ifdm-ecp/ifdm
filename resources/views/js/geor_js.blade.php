@@ -508,6 +508,9 @@ $(document).ready(function()
 
           var jc = 0;
           $.each(data.Coords, function(index, value) {
+            console.log(value);
+            value = ordenarCoordenadas(value);
+            console.log(value);
             var cname = fieldNames[jc];
             var wellcount = wellsxField[jc];
 
@@ -2462,6 +2465,26 @@ function mapConfDano_Field(filtrox,camposf,formacion,sp,puntos)
      });
 
     }); 
+}
+
+function ordenarCoordenadas(coordenadas) {
+    // Calcula el centroide del conjunto de coordenadas
+    const centroide = coordenadas.reduce((acc, coord) => {
+        return { lat: acc.lat + coord.lat, lon: acc.lon + coord.lon };
+    }, { lat: 0, lon: 0 });
+
+    centroide.lat /= coordenadas.length;
+    centroide.lon /= coordenadas.length;
+
+    // Ordena las coordenadas según el ángulo polar con respecto al centroide
+    coordenadas.sort((a, b) => {
+        const anguloA = Math.atan2(a.lat - centroide.lat, a.lon - centroide.lon);
+        const anguloB = Math.atan2(b.lat - centroide.lat, b.lon - centroide.lon);
+
+        return anguloA - anguloB;
+    });
+
+    return coordenadas;
 }
 
 /* Descripción: esta función se encarga de consultar los datos, construir las estructuras de datos y desplegar en el mapa la información capturada a nivel de pozos y para variables de configuración de daño. 

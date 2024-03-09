@@ -508,9 +508,7 @@ $(document).ready(function()
 
           var jc = 0;
           $.each(data.Coords, function(index, value) {
-            console.log(value);
             value = ordenarCoordenadas(value);
-            console.log(value);
             var cname = fieldNames[jc];
             var wellcount = wellsxField[jc];
 
@@ -1265,8 +1263,6 @@ function heatmap_well_scale(fields, option)
       if (zoom > 12) 
       {
         // hide the heatmap, show the markers
-        console.log("Heatmap no");
-
         for (var i = 0; i < markers.length; i++) 
         {
           markers[i].setMap(map);
@@ -1280,7 +1276,6 @@ function heatmap_well_scale(fields, option)
       else 
       {
         // hide the markers, show the heatmap
-        console.log("Heatmap yes");
         for (var i = 0; i < markers.length; i++) 
         {
           markers[i].setMap(null);
@@ -2098,8 +2093,9 @@ function map_Well(op,parametro,camposf,formacion,sp,puntos)
         });
         val = parseFloat(value.valor);
         val = val.toFixed(2);
+        var comentario = value.comentario ? " <BR><b>Comment</b> - "+value.comentario : "";
         var infoW = new google.maps.InfoWindow({
-          content:"<b>"+tipo_info +" </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +" <BR><b>Comment</b> - "+value.comentario+" <BR><b>Measure date</b> - "+value.fecha
+          content:"<b>"+tipo_info +" </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +comentario+" <BR><b>Measure date</b> - "+value.fecha
         });
 
         marker.addListener('click', function()
@@ -2619,9 +2615,9 @@ function mapConfDan_Well(op,filtrox,camposf,formacion,sp,puntos)
   });
       val = parseFloat(value.valor);
       val = val.toFixed(2);
-
+      var comentario = value.Comentario ? " <BR><b>Comment</b> - "+value.Comentario : "";
       var infoW = new google.maps.InfoWindow({
-        content:"<b>"+tipo_info+"  </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +" <BR><b>Comment</b> - "+value.Comentario+" <BR><b>Measure date</b> - "+value.fecha
+        content:"<b>"+tipo_info+"  </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +comentario+" <BR><b>Measure date</b> - "+value.fecha
       });
 
 
@@ -3184,8 +3180,9 @@ function mapIsVd_Well(op, parametro,camposf,formacion,sp, puntos)
       val = parseFloat(value.valor);
       val = val.toFixed(2);
       var sp=$('#Parameter').find("option:selected").text();
+      var comentario = value.comentario ? " <BR><b>Comment</b> - "+value.comentario : "";
       var infoW = new google.maps.InfoWindow({
-        content:"<b>"+tipo_info+"  </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +" <BR><b>Comment</b> - "+value.comentario+" <BR><b>Measure date</b> - "+value.fecha
+        content:"<b>"+tipo_info+"  </b><BR><b>Well Name: </b>"+value.nombre + " <b>Field: </b>"+cs+" <BR><b>"+ sp +"</b> : "+val +comentario+" <BR><b>Measure date</b> - "+value.fecha
       });
 
 

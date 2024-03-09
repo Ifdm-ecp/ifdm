@@ -8,9 +8,9 @@
   <!-- Librerías Mapa-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="{!! asset('css/map.css') !!}">
-<script type="text/javascript"
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV-sQFuLosUpjbqIlxTHAQ05vcsxF8s0U&libraries=visualization">
-</script>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV-sQFuLosUpjbqIlxTHAQ05vcsxF8s0U&libraries=visualization">
+  </script>
 
   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>-->
   <!-- Gráficos -->

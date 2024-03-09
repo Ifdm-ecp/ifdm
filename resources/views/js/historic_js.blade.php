@@ -300,6 +300,8 @@
         },
         function(data)
         {
+          // data.Chart.splice(0,2992-500+2);
+          console.log(data);
           $.each(data.Chart, function(index, value)
           {
             x=value.valorchart;
@@ -317,13 +319,18 @@
             },
             function(data)
             {
+              console.log('data', data);
               $.each(data.nombre, function(index,value)
               {
                 parametrod = value.nombre; 
               });
               $.each(data.NCampo, function(index,value)
               {
-                campod = value.nombre + ' - '+campod;
+                if (campod == " ") {
+                  campod = value.nombre;
+                } else {
+                  campod = value.nombre + ' - '+campod;
+                }
               });
               chart(datosn, freqn, wellnames, parametrod, campod, '0');
             });
@@ -363,6 +370,7 @@
       },
       function(data)
       {
+        console.log('WELL', data);
         $.each(data, function(index, value){
             x=value.valor;
             x = parseFloat(x);
@@ -377,6 +385,7 @@
         },
         function(data)
         {
+          console.log('WELL2', data);
           $.each(data.NPozo, function(index,value)
           {
             pozod = value.nombre; 
@@ -402,20 +411,24 @@
       var tx;
       if(pozo == '0')
       {
-        //$('#titulo').html('Historic Data </br> '+'<b>Field:</b> '+campo +'  <b>Formation:</b> '+formacion);
-        $('#titulo').html('<b>Historic Data</b> </br> '+'</br><b>Field:</b> '+campo+'</br>  <b>Subparameter:</b> '+parametro);
-        //tx = '<b>Field:</b> '+campo +' - <b>Formation:</b> '+formacion;
-        tx = '<b>Field:</b> '+campo+'  <b>Subparameter:</b> '+parametro;
+        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Subparameter1: </b>' + parametro);
+        tx = '<b>Field: </b>' + campo + '  -  <b>Subparameter: </b>' + parametro;
       }
       else
       {
-        //$('#titulo').html('Historic Data </br> '+'<b>Field:</b> '+campo +'  <b>Formation:</b> '+formacion+'- <b>Well:</b> '+pozo);
-        $('#titulo').html('Historic Data </br> '+'<b>Field:</b> '+campo +'- <b>Well:</b> '+pozo+'- <b>Subparameter:</b> '+parametro);
-        //tx = '<b>Field:</b> '+campo +' - <b>Formation:</b> '+formacion+'- <b>Well:</b> '+pozo;
-        tx = '<b>Field:</b> '+campo +'- <b>Well:</b> '+pozo+'- <b>Subparameter:</b> '+parametro;
+        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Well: </b>' + pozo + '</br><b>Subparamete3r: </b>' + parametro);
+        tx = '<b>Field: </b>' + campo + '  -  <b>Well: </b>' + pozo + '  -  <b>Subparameter: </b>' + parametro;
       }
       $('#container').highcharts(
       {
+        chart: {
+            zoomType: 'x'
+        },
+        plotOptions: {
+          series: {
+            turboThreshold: 1000000	   
+          }
+        },
         title: 
         {
           text: tx,

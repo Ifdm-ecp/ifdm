@@ -411,12 +411,12 @@
       var tx;
       if(pozo == '0')
       {
-        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Subparameter1: </b>' + parametro);
+        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Subparameter: </b>' + parametro);
         tx = '<b>Field: </b>' + campo + '  -  <b>Subparameter: </b>' + parametro;
       }
       else
       {
-        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Well: </b>' + pozo + '</br><b>Subparamete3r: </b>' + parametro);
+        $('#subtitulo').html('</br><b>Field: </b>' + campo + '</br><b>Well: </b>' + pozo + '</br><b>Subparameter: </b>' + parametro);
         tx = '<b>Field: </b>' + campo + '  -  <b>Well: </b>' + pozo + '  -  <b>Subparameter: </b>' + parametro;
       }
       $('#container').highcharts(
